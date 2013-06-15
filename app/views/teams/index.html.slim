@@ -1,1 +1,22 @@
-= link_to 'Sign in with Github', user_omniauth_authorize_path(:github)
+= link_to 'Sign in with Github', team_omniauth_authorize_path(:github)
+
+
+h1 Listing teams
+
+table
+  tr
+    th Name
+    th
+    th
+    th
+
+  - @teams.each do |team|
+    tr
+      td = team.name
+      td = link_to 'Show', team
+      td = link_to 'Edit', edit_team_path(team)
+      td = link_to 'Destroy', team, confirm: 'Are you sure?', method: :delete
+
+br
+
+= link_to 'New Team', new_team_path

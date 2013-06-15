@@ -1,5 +1,5 @@
 FactoryGirl.define do
   factory :team do
-    name { Faker::Lorem.word }
+    sequence(:name) { |i| "#{i}-#{Faker::Lorem.word}" }
   end
 end
