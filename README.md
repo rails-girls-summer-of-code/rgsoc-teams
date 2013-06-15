@@ -1,3 +1,5 @@
+**Looking for your help!**
+
 For Rails Girls Summer of Code we are planning to build a simple app that
 aggregates daily status updates, commit activity, GitHub issues and other
 things into an activity stream.
