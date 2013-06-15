@@ -4,6 +4,8 @@ class User < ActiveRecord::Base
 
   devise :registerable, :rememberable, :omniauthable
 
+  belongs_to :team
+
   validates :name, :email, presence: true, uniqueness: true
   validates :location, presence: true
 end
