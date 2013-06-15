@@ -11,13 +11,33 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130615161918) do
+ActiveRecord::Schema.define(:version => 20130615143142) do
+
+  create_table "activities", :force => true do |t|
+    t.string   "kind"
+    t.string   "guid"
+    t.string   "title"
+    t.text     "summary"
+    t.string   "source_url"
+    t.datetime "published_at"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
 
   create_table "repositories", :force => true do |t|
     t.string   "url"
     t.integer  "team_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+  create_table "activities", :force => true do |t|
+    t.string   "kind"
+    t.string   "guid"
+    t.string   "title"
+    t.text     "summary"
+    t.string   "source_url"
+    t.datetime "published_at"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
   end
 
   create_table "teams", :force => true do |t|
@@ -40,5 +60,7 @@ ActiveRecord::Schema.define(:version => 20130615161918) do
     t.integer  "team_id"
     t.string   "role"
   end
+
+  add_index "users", ["github_id"], :name => "index_users_on_github_id"
 
 end
