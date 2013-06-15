@@ -1,6 +1,9 @@
 RgsocTeams::Application.routes.draw do
   resources :users
-  resources :teams
+
+  resources :teams do
+    resources :repositories
+  end
 
 
   devise_for :users, controllers: { omniauth_callbacks: 'omniauth_callbacks' }
