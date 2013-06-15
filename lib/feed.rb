@@ -2,6 +2,14 @@ require 'open-uri'
 require 'simple-rss'
 
 class Feed
+  class << self
+    def update_all
+      Team.all.each do |team|
+        Feed.new(team.id, team.log_url).update
+      end
+    end
+  end
+
   attr_reader :team_id, :source
 
   def initialize(team_id, source)
