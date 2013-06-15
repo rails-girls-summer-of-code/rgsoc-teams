@@ -5,4 +5,6 @@ class Team < ActiveRecord::Base
   has_many :students, class_name: 'User', conditions: { role: 'student' }
   has_many :coaches,  class_name: 'User', conditions: { role: 'coach' }
   has_many :mentors,  class_name: 'User', conditions: { role: 'mentor' }
+
+  has_many :repositories
 end
