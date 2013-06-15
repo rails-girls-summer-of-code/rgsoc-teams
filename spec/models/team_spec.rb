@@ -1,6 +1,7 @@
 require 'spec_helper'
 
 describe Team do
+  it { should have_many(:activities) }
   it { should have_many(:repositories) }
   it { should have_many(:members) }
   it { should have_many(:students) }

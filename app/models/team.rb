@@ -7,4 +7,5 @@ class Team < ActiveRecord::Base
   has_many :mentors,  class_name: 'User', conditions: { role: 'mentor' }
 
   has_many :repositories
+  has_many :activities
 end

@@ -1,5 +1,5 @@
 require 'spec_helper'
 
 describe FeedEntry do
-  pending "add some examples to (or delete) #{__FILE__}"
+  it { should belong_to(:team) }
 end

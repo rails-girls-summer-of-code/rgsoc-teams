@@ -1,3 +1,5 @@
 class Activity < ActiveRecord::Base
-  attr_accessible :kind, :guid, :title, :title, :summary, :source_url, :published_at
+  belongs_to :team
+
+  attr_accessible :team_id, :kind, :guid, :title, :content, :author, :source_url, :published_at
 end
