@@ -1,3 +1,5 @@
+# Rails Girl Summer of Code Teams
+
 **Looking for your help!**
 
 For Rails Girls Summer of Code we are planning to build a simple app that
@@ -32,3 +34,25 @@ Requirements:
 
 * Keep it simple, so Rails Girls students can get involved, too
 
+# System Requirements
+
+* PostgreSQL 9.2 or newer
+* Ruby 2.0.0
+
+# Bootstrap
+
+Copy `config/database.yml.example` to `config/database.yml`. Then make sure you
+modify the settings so it could connect to your postgres server.
+
+Then install all dependencies:
+
+```bash
+bundle install
+bundle exec rake db:drop db:create db:migrate
+```
+
+# Testing
+
+```bash
+bundle exec rake spec
+```
