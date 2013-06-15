@@ -3,5 +3,6 @@ class User < ActiveRecord::Base
 
   devise :registerable, :rememberable, :omniauthable
 
-  attr_accessible :avatar_url, :name, :email, :homepage, :location, :bio
+  validates :name, :email, presence: true, uniqueness: true
+  validates :location, presence: true
 end
