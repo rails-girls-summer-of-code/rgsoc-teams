@@ -10,5 +10,5 @@ class User < ActiveRecord::Base
 
   validates :name, :email, presence: true, uniqueness: true
   validates :location, presence: true
-  validates :role, inclusion: { in: ROLES }, presence: true
+  # validates :role, inclusion: { in: ROLES }, presence: true
 end
