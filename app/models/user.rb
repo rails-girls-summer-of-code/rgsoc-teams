@@ -4,7 +4,7 @@ class User < ActiveRecord::Base
 
   ROLES = %w{ student coach mentor }.freeze
 
-  devise :registerable, :rememberable, :omniauthable
+  devise :registerable, :omniauthable
 
   belongs_to :team
 

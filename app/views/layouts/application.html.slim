@@ -1,9 +1,15 @@
 doctype html
 html
 head
-  title RgsocTeams
+  title Rails Girls Summer of Code - Teams
   = stylesheet_link_tag    'application', media: 'all'
   = javascript_include_tag 'application'
   = csrf_meta_tags
+
+- if signed_in?
+  = "Signed in as #{h current_user.name}. "
+  = link_to("Sign out", sign_out_path, method: :delete)
+- else
+  = link_to 'Sign in with Github', user_omniauth_authorize_path(:github)
 
 = yield
