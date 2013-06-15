@@ -1,9 +1,9 @@
-p#notice = notice
+.actions
+  | #{link_to 'Edit', edit_repository_path(@repository), class: 'edit'}
+    #{link_to 'Back', repositories_path(@team), class: 'back'}
 
 p
-  strong URL:
+  strong
+    ' URL:
   = @repository.url
 
-= link_to 'Edit', edit_repository_path(@repository)
-'|
-= link_to 'Back', repositories_path(@team)

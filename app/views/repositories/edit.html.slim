@@ -1,8 +1,8 @@
+.actions
+  | #{link_to 'Show', @repository, class: 'show'}
+    #{link_to 'Back', repositories_path(@team), class: 'back'}
+
 h1 Editing repository
 
 == render 'form'
-
-= link_to 'Show', @repository
-'|
-= link_to 'Back', repositories_path(@team)
 

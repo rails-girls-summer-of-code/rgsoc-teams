@@ -1,3 +1,6 @@
+.actions
+  = link_to 'New User', new_user_path, class: 'new'
+
 h1 Listing users
 
 table
@@ -13,15 +16,10 @@ table
 
   - @users.each do |user|
     tr
-      td = user.name
+      td = link_to user.name, user
       td = user.email
       td = user.location
       td = user.bio
       td = user.homepage
-      td = link_to 'Show', user
-      td = link_to 'Edit', edit_user_path(user)
-      td = link_to 'Destroy', user, confirm: 'Are you sure?', method: :delete
-
-br
-
-= link_to 'New User', new_user_path
+      td = link_to 'Edit', edit_user_path(user), class: 'edit'
+      td = link_to 'Destroy', user, confirm: 'Are you sure?', method: :delete, class: 'destroy'

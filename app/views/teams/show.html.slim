@@ -1,10 +1,9 @@
-p#notice = notice
-
+.actions
+  | #{link_to 'Edit', edit_team_path(@team), class: 'edit'}
+    #{link_to 'Add Repository', new_repository_path(@team), class: 'add_repository'}
+    #{link_to 'Back', teams_path, class: 'back'}
 p
-  strong Name:
+  strong
+    ' Name:
   = @team.name
 
-= link_to 'Edit', edit_team_path(@team)
-= link_to 'Add Repository', new_repository_path(@team)
-'|
-= link_to 'Back', teams_path

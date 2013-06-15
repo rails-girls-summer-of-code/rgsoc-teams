@@ -1,3 +1,6 @@
+.actions
+  = link_to 'New Team', new_team_path, class: 'new'
+
 h1 Listing teams
 
 table
@@ -14,6 +17,3 @@ table
       td = link_to 'Edit', edit_team_path(team)
       td = link_to 'Destroy', team, confirm: 'Are you sure?', method: :delete
 
-br
-
-= link_to 'New Team', new_team_path

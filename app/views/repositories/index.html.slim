@@ -1,3 +1,6 @@
+.actions
+  = link_to 'New Repository', new_repository_path, class: 'new'
+
 h1 Listing repositories
 
 table
@@ -14,6 +17,3 @@ table
       td = link_to 'Edit', edit_repository_path(repository)
       td = link_to 'Destroy', repository, confirm: 'Are you sure?', method: :delete
 
-br
-
-= link_to 'New Repository', new_repository_path(@team)

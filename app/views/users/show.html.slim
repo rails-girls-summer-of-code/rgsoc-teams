@@ -1,21 +1,34 @@
-p#notice = notice
+.profile
+  .actions
+    | #{link_to 'Edit', edit_user_path(@user), class: 'edit'}
+      #{link_to 'Back', users_path, class: 'back'}
 
-p
-  strong Name:
-  = @user.name
-p
-  strong Email:
-  = @user.email
-p
-  strong Location:
-  = @user.location
-p
-  strong Bio:
-  = @user.bio
-p
-  strong Homepage:
-  = @user.homepage
+  - if @user.name.present?
+    p
+      strong
+        ' Name:
+      = @user.name
 
-= link_to 'Edit', edit_user_path(@user)
-'|
-= link_to 'Back', users_path
+  - if false and @user.email.present?
+    p
+      strong
+        ' Email:
+      = @user.email
+
+  - if @user.location.present?
+    p
+      strong
+        ' Location:
+      = @user.location
+
+  - if @user.bio.present?
+    p
+      strong
+        ' Bio:
+      = @user.bio
+
+  - if @user.homepage.present?
+    p
+      strong
+        ' Homepage:
+      = link_to @user.homepage, @user.homepage
