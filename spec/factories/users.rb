@@ -5,5 +5,6 @@ FactoryGirl.define do
     location { Faker::Address.country }
     bio      { Faker::Lorem.paragraph }
     homepage { Faker::Internet.http_url }
+    role     { User::ROLES.sample }
   end
 end

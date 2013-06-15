@@ -9,6 +9,7 @@ describe 'users/index' do
         location: 'Location',
         bio: 'Bio',
         homepage: 'Homepage',
+        role: 'coach'
       ),
       stub_model(User,
         name: 'Name',
@@ -16,6 +17,7 @@ describe 'users/index' do
         location: 'Location',
         bio: 'Bio',
         homepage: 'Homepage',
+        role: 'coach'
       )
     ])
   end

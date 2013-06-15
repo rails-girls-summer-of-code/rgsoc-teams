@@ -8,6 +8,7 @@ describe 'users/edit' do
       location: 'MyString',
       bio: 'MyString',
       homepage: 'MyString',
+      role: 'coach'
     ))
   end
 

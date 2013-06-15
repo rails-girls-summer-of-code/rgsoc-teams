@@ -8,6 +8,7 @@ describe 'users/new' do
       location: 'MyString',
       bio: 'MyString',
       homepage: 'MyString',
+      role: 'coach'
     ).as_new_record)
   end
 

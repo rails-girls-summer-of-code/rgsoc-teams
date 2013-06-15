@@ -21,6 +21,9 @@
   .field
     = f.label :homepage
     = f.text_field :homepage
+  .field
+    = f.label :role
+    = f.select :homepage, User::ROLES.map { |r| [r.capitalize, r] }
 
   .actions
     = f.submit 'Save'

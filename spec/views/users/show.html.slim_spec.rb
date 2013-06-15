@@ -8,6 +8,7 @@ describe 'users/show' do
       location: 'Location',
       bio: 'Bio',
       homepage: 'Homepage',
+      role: 'coach'
     ))
   end
 
