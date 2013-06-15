@@ -33,6 +33,7 @@ gem 'jquery-rails'
 # gem 'debugger'
 
 gem 'slim-rails'
+gem 'strong_parameters'
 
 group :development, :test do
   gem 'rspec-rails'
