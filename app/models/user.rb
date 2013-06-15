@@ -1,4 +1,5 @@
 class User < ActiveRecord::Base
+  include ActiveModel::ForbiddenAttributesProtection
   include Authentication::ActiveRecordHelpers
 
   devise :registerable, :rememberable, :omniauthable

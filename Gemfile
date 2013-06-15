@@ -43,4 +43,5 @@ end
 
 group :test do
   gem 'shoulda'
+  gem 'ffaker'
 end

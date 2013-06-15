@@ -1,0 +1,30 @@
+p#notice = notice
+
+p
+  strong Github:
+  = @user.github_id
+p
+  strong Github handle:
+  = @user.github_handle
+p
+  strong Name:
+  = @user.name
+p
+  strong Email:
+  = @user.email
+p
+  strong Location:
+  = @user.location
+p
+  strong Bio:
+  = @user.bio
+p
+  strong Homepage:
+  = @user.homepage
+p
+  strong Avatar url:
+  = @user.avatar_url
+
+= link_to 'Edit', edit_user_path(@user)
+'|
+= link_to 'Back', users_path
