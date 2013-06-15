@@ -1,12 +1,6 @@
 p#notice = notice
 
 p
-  strong Github:
-  = @user.github_id
-p
-  strong Github handle:
-  = @user.github_handle
-p
   strong Name:
   = @user.name
 p
@@ -21,9 +15,6 @@ p
 p
   strong Homepage:
   = @user.homepage
-p
-  strong Avatar url:
-  = @user.avatar_url
 
 = link_to 'Edit', edit_user_path(@user)
 '|
