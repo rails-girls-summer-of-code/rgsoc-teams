@@ -8,9 +8,17 @@ class RolesController < ApplicationController
   end
 
   def create
-    user = find_or_create_user
-    @team.roles.create!(name: params[:role][:name], user_id: user.id)
-    redirect_to @team
+    @role = @team.roles.new(role_params)
+
+    respond_to do |format|
+      if @role.save
+        format.html { redirect_to @team, notice: 'Team was successfully created.' }
+        format.json { render action: :show, status: :created, location: @team }
+      else
+        format.html { render action: :new }
+        format.json { render json: @role.errors, status: :unprocessable_entity }
+      end
+    end
   end
 
   def destroy
@@ -29,8 +37,8 @@ class RolesController < ApplicationController
       @role = @team.roles.find(params[:id])
     end
 
-    def find_or_create_user
-      attrs = { github_handle: params[:role][:github_handle] }
-      User.where(attrs).first || User.create!(attrs)
+    def role_params
+      params.require(:role).permit(:user_id, :team_id, :name)
     end
+
 end

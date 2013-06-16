@@ -10,19 +10,16 @@ p
   strong = 'Students: '
   - if @team.students.any?
     = link_to_team_members(@team, :student)
-  - else
-    = link_to 'Add a student', new_team_role_path(@team, name: :student)
+  p= link_to 'Add a student', new_team_role_path(@team, name: :student)
 
 p
   strong = 'Coaches: '
   - if @team.coaches.any?
     = link_to_team_members(@team, :coach)
-  - else
-    = link_to 'Add a coach', new_team_role_path(@team, name: :coach)
+  p= link_to 'Add a coach', new_team_role_path(@team, name: :coach)
 
 p
   strong = 'Mentors: '
   - if @team.mentors.any?
     = link_to_team_members(@team, :mentor)
-  - else
-    = link_to 'Add a mentor', new_team_role_path(@team, name: :mentor)
+  p= link_to 'Add a mentor', new_team_role_path(@team, name: :mentor)
