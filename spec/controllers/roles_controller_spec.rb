@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe RolesController do
-  let(:valid_attributes) { build(:role).attributes.merge(github_handle: 'someone') }
+  let(:valid_attributes) { build(:role).attributes }
   let(:valid_session) { {} }
 
   describe "GET new" do
@@ -16,13 +16,13 @@ describe RolesController do
     it "creates a new Role" do
       team = create(:team)
       expect {
-        post :create, { team_id: team.to_param, role: valid_attributes }, valid_session
+        post :create, { team_id: team.to_param, github_handle: 'steve', role: valid_attributes }, valid_session
       }.to change(Role, :count).by(1)
     end
 
     it "redirects to the team view" do
       team = create(:team)
-      post :create, { team_id: team.to_param, role: valid_attributes }, valid_session
+      post :create, { team_id: team.to_param, github_handle: 'dhh', role: valid_attributes }, valid_session
       response.should redirect_to(assigns(:team))
     end
   end

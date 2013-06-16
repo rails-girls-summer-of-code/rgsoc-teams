@@ -7,8 +7,8 @@
           li = message
 
   .field
-    = f.label :user_id
-    = f.select :user_id, User.all.map { |u| [u.github_handle, u.id] }
+    = label_tag :github_handle
+    = text_field_tag :github_handle
 
   .field
     = f.label :role
