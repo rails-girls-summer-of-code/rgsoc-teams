@@ -44,7 +44,7 @@ class Feed
         content:      item.content,
         author:       item.author,
         source_url:   item.link,
-        published_at: item.published
+        published_at: item.published || item.updated
       )
     end
 end
