@@ -3,7 +3,7 @@ class RolesController < ApplicationController
   before_filter :set_role, only: :destroy
 
   def new
-    @role = @team.roles.new
+    @role = @team.roles.new(name: params[:name])
     @users = User.order(:github_handle)
   end
 

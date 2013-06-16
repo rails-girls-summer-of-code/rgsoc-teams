@@ -1,6 +1,7 @@
 FactoryGirl.define do
   factory :role do
     team
-    name 'member'
+    member
+    name { Role::ROLES.sample }
   end
 end
