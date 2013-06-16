@@ -4,7 +4,7 @@ require 'simple-rss'
 class Feed
   class << self
     def update_all
-      Team.all.each do |team|
+      Team.where("log_url <> ''").each do |team|
         Feed.new(team.id, team.log_url).update
       end
     end

@@ -1,0 +1,6 @@
+.activities
+  h1 Activities
+
+ul
+- @activities.each do |activity|
+  = render partial: activity.kind, object: activity, as: :activity

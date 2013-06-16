@@ -9,5 +9,6 @@ head
 = render 'layouts/header'
 
 section#content
-  p#notice = notice
+  - if notice
+    p.alert.alert-success = notice
   = yield

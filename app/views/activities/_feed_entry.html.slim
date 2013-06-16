@@ -1,0 +1,5 @@
+li class="activity #{activity.kind}"
+  span.team = "Team #{activity.team.name}: "
+  = link_to(activity.title, activity.source_url, class: 'title')
+  span.published_at = activity.published_at
+
