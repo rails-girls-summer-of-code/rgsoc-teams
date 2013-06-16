@@ -11,7 +11,7 @@ p
   - if @team.students.any?
     = link_to_team_members(@team, :student)
   - else
-    = new_team_role_path(@team, name: :student)
+    = link_to 'Add a student', new_team_role_path(@team, name: :student)
 
 p
   strong = 'Coaches: '
