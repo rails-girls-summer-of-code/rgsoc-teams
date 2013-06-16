@@ -1,6 +1,9 @@
-.actions
-  | #{link_to 'Edit', edit_repository_path(@repository), class: 'edit'}
-    #{link_to 'Back', repositories_path(@team), class: 'back'}
+nav.page
+  ul
+    li = link_to 'Back', repositories_path(@team), class: 'back'
+nav.actions
+  ul
+    li = link_to 'Edit', edit_repository_path(@repository), class: 'edit'
 
 p
   strong 'URL: '

@@ -1,33 +1,26 @@
-.profile
-  .actions
-    | #{link_to 'Edit', edit_user_path(@user), class: 'edit'}
-      #{link_to 'Back', users_path, class: 'back'}
+nav.page
+  ul
+    li = link_to 'All participants', users_path, class: 'back'
+nav.actions
+  ul
+    li = link_to 'Edit', edit_user_path(@user), class: 'edit'
+    li = link_to 'Destroy', @user, confirm: 'Are you sure?', method: :delete, class: 'destroy'
 
+.profile
   - if @user.avatar_url.present?
     img src=@user.avatar_url
 
-  - if @user.name.present?
-    p
-      strong = 'Name: '
-      = @user.name
+  h1 = @user.name
 
-  - if @user.github_handle.present?
-    p
-      strong = 'Github handle: '
-      = @user.github_handle
+  p.github
+    = "On GitHub: #{link_to @user.github_handle, @user.github_url} &rarr;".html_safe
 
   - if @user.location.present?
-    p
-      strong = 'Location: '
-      = @user.location
-
-  - if @user.bio.present?
-    p
-      strong = 'Bio: '
-      = @user.bio
+    p = @user.location
 
   - if @user.homepage.present?
-    p
-      strong = 'Homepage: '
-      = link_to @user.homepage, @user.homepage
+    p = link_to @user.homepage, @user.homepage
+
+  - if @user.bio.present?
+    p = "#{@user.bio}"
 

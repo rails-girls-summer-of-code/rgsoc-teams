@@ -8,7 +8,7 @@ gem 'omniauth-github'
 gem 'simple-rss'
 
 gem 'pg'
-
+gem 'bootstrap-sass'
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
@@ -40,6 +40,10 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'factory_girl_rails'
   gem 'database_cleaner'
+end
+
+group :development do
+  gem 'quiet_assets'
 end
 
 group :test do

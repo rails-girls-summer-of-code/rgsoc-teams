@@ -1,0 +1,17 @@
+header
+  h1
+    = link_to 'Rails Girls Summer of Code', root_path
+
+  nav.top
+    ul
+      li = link_to 'Activity',     root_path,  class: params[:controller] == 'activities' ? 'active' : ''
+      li = link_to 'Teams',        teams_path, class: params[:controller] == 'teams' ? 'active' : ''
+      li = link_to 'Participants', users_path, class: params[:controller] == 'users' ? 'active' : ''
+
+  nav.user
+    - if signed_in?
+      = "Signed in as #{link_to h(current_user.name), current_user} &middot; ".html_safe
+      = link_to "Sign out", sign_out_path, method: :delete
+    - else
+      = link_to 'Sign in with Github', user_omniauth_authorize_path(:github)
+

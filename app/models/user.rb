@@ -12,4 +12,8 @@ class User < ActiveRecord::Base
   def name_or_handle
     name || github_handle
   end
+
+  def github_url
+    "https://github.com/#{github_handle}"
+  end
 end

@@ -1,17 +1,17 @@
-.actions
-  = link_to 'New Repository', new_repository_path, class: 'new'
+nav.actions
+  ul
+    li = link_to 'New Repository', new_repository_path, class: 'new'
 
 h1 Listing repositories
 
-table
-  tr
-    th URL
-    th colspan=3
-
-  - @repositorys.each do |repository|
+table.table.table-striped.table-bordered.table-condensed
+  thead
     tr
-      td = repository.url
-      td = link_to 'Show', repository
-      td = link_to 'Edit', edit_repository_path(repository)
-      td = link_to 'Destroy', repository, confirm: 'Are you sure?', method: :delete
+      th URL
+
+  tbody
+    - @repositorys.each do |repository|
+      tr
+        td = repository.url
+        td = link_to 'Show', repository
 

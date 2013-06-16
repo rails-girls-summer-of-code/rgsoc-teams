@@ -1,6 +1,11 @@
-.actions
-  | #{link_to 'Show', @team, class: 'back'}
-    #{link_to 'Back', teams_path, class: 'back'}
+nav.page
+  ul
+    li = link_to 'Back', @team, class: 'back'
+
+nav.actions
+  ul
+    li
+      = link_to 'Destroy', @team, confirm: 'Are you sure?', method: :delete, class: 'destroy'
 
 h1 Editing team
 

@@ -1,25 +1,21 @@
-.actions
-  | #{link_to 'Edit', edit_team_path(@team), class: 'edit'}
-    #{link_to 'Add Member', new_team_role_path(@team), class: 'add_member'}
-    #{link_to 'Back', teams_path, class: 'back'}
-p
-  strong = 'Name: '
-  = @team.name
+nav.page
+  ul
+    li = link_to 'All teams', teams_path, class: 'back'
 
-p
-  strong = 'Students: '
-  - if @team.students.any?
-    = link_to_team_members(@team, :student)
-  p= link_to 'Add a student', new_team_role_path(@team, name: :student)
+nav.actions
+  ul
+    li = link_to 'Edit', edit_team_path(@team), class: 'edit'
+    li = link_to 'Add a student', new_team_role_path(@team, name: :student)
+    li = link_to 'Add a coach', new_team_role_path(@team, name: :coach)
+    li = link_to 'Add a mentor', new_team_role_path(@team, name: :mentor)
+h1
+  = "Team #{@team.name}"
 
-p
-  strong = 'Coaches: '
-  - if @team.coaches.any?
-    = link_to_team_members(@team, :coach)
-  p= link_to 'Add a coach', new_team_role_path(@team, name: :coach)
+h3 Students
+p= @team.students.any? ? link_to_team_members(@team, :student) : '-'
 
-p
-  strong = 'Mentors: '
-  - if @team.mentors.any?
-    = link_to_team_members(@team, :mentor)
-  p= link_to 'Add a mentor', new_team_role_path(@team, name: :mentor)
+h3 Coaches
+p= @team.coaches.any? ? link_to_team_members(@team, :coach) : '-'
+
+h3 Mentors
+p= @team.mentors.any? ? link_to_team_members(@team, :mentor) : '-'

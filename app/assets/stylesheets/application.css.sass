@@ -1,0 +1,134 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the top of the
+ * compiled file, but it's generally better to create a new file per style scope.
+ *
+ *= require_self
+ *= require_tree .
+ */
+
+@import "variables"
+@import "bootstrap"
+
+*
+  box-sizing: border-box
+
+body
+  z-index: 0
+  position: relative
+  width: 1026px
+  margin: 0 auto
+  &:before
+    z-index: -1
+    position: absolute
+    left: -500%
+    top: 0
+    width: 1000%
+    height: 66px
+    background-color: rgb(222, 57, 12)
+    content: ' '
+
+li
+  list-style-type: none
+
+
+header
+  h1
+    display: inline-block
+    margin: 0
+    width: 210px
+    height: 58px
+
+    a
+      display: block
+      overflow: hidden
+      width: 210px
+      height: 58px
+      line-height: 4em
+      background-image: url(/assets/header_logo.png)
+      background-repeat: no-repeat
+      background-position: 0px 7px
+
+  nav
+    clear: right
+    float: right
+    @include clearfix
+
+    &.top
+      ul
+        text-align: center
+        position: relative
+        top: 5px
+
+      li
+        display: inline-block
+        margin: 1em 0 0 0
+
+        &:last-child:after
+          content: none
+
+        &:after
+          content: ''
+          display: inline-block
+          height: 20px
+          width: 40px
+          background: url(/assets/star.png) 16px 8px no-repeat
+
+        a
+          display: inline-block
+          height: 48px
+          color: white
+          text-decoration: none
+
+          &.active
+            text-decoration: underline
+            background-image: url(/assets/header_nav_active.png)
+            background-repeat: no-repeat
+            background-position: center 32px
+            text-decoration: none
+
+    &.user
+      font-size: 0.9em
+      color: $gray
+
+nav
+  .back:before
+    content: '\2190'
+    display: inline-block
+    position: absolute
+    margin-left: -1.5em
+    margin-top: -1px
+
+  &.page
+    font-size: 0.9em
+
+  &.actions
+    clear: right
+    float: right
+    margin-top: 1em
+    font-size: 0.9em
+
+#content
+  margin-top: 3em
+
+  h1
+    font-size: 2em
+
+  h3
+    font-size: 1.25em
+    margin-bottom: 0
+
+.profile
+  img
+    float: right
+
+// hrmmm
+input, select, textarea
+  font-size: 0.9em !important
+input
+  height: auto !important

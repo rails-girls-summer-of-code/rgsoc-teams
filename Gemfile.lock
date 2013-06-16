@@ -31,6 +31,8 @@ GEM
     addressable (2.3.4)
     arel (3.0.2)
     bcrypt-ruby (3.0.1)
+    bootstrap-sass (2.3.2.0)
+      sass (~> 3.2)
     builder (3.0.4)
     coffee-rails (3.2.2)
       coffee-script (>= 2.2.0)
@@ -101,6 +103,8 @@ GEM
     orm_adapter (0.4.0)
     pg (0.15.1)
     polyglot (0.3.3)
+    quiet_assets (1.0.2)
+      railties (>= 3.1, < 5.0)
     rack (1.4.5)
     rack-cache (1.2)
       rack (>= 0.4)
@@ -187,6 +191,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  bootstrap-sass
   coffee-rails (~> 3.2.1)
   database_cleaner
   debugger
@@ -196,6 +201,7 @@ DEPENDENCIES
   jquery-rails
   omniauth-github
   pg
+  quiet_assets
   rails (= 3.2.13)
   rspec-rails
   sass-rails (~> 3.2.3)

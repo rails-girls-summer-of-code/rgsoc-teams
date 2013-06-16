@@ -15,4 +15,4 @@
     = f.select :name, Role::ROLES.map { |r| [r.capitalize, r] }
 
   .actions
-    = f.submit 'Save'
+    = f.button 'Save', class: 'btn'

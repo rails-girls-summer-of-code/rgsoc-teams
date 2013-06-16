@@ -1,20 +1,16 @@
-= link_to 'Sign in with Github', user_omniauth_authorize_path(:github)
+nav.actions
+  ul
+    li = link_to 'New Team', new_team_path, class: 'new'
 
-.actions
-  = link_to 'New Team', new_team_path, class: 'new'
+h1 Teams
 
-h1 Listing teams
-
-table
+table.table.table-striped.table-bordered.table-condensed
   tr
     th Name
     th Students
-    th colspan=3
 
   - @teams.each do |team|
     tr
       td = link_to team.name, team
       td = link_to_team_members(team, :student)
-      td = link_to 'Edit', edit_team_path(team)
-      td = link_to 'Destroy', team, confirm: 'Are you sure?', method: :delete
 

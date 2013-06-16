@@ -6,18 +6,8 @@ head
   = javascript_include_tag 'application'
   = csrf_meta_tags
 
-- if signed_in?
-  = "Signed in as #{h current_user.name}. "
-  = link_to("Sign out", sign_out_path, method: :delete)
-- else
-  = link_to 'Sign in with Github', user_omniauth_authorize_path(:github)
+= render 'layouts/header'
 
-nav
-  ul
-    li = link_to 'Activity', root_path
-    li = link_to 'Teams', teams_path
-    li = link_to 'Participants', users_path
-
-p#notice = notice
-
-= yield
+section#content
+  p#notice = notice
+  = yield
