@@ -6,9 +6,13 @@ class User < ActiveRecord::Base
 
   devise :omniauthable
 
-  belongs_to :team
+  has_many :roles
+  has_many :teams, through: :roles
 
-  validates :name, :email, presence: true, uniqueness: true
-  validates :location, presence: true
+  validates :github_handle, presence: true, uniqueness: true
   # validates :role, inclusion: { in: ROLES }, presence: true
+
+  def name_or_handle
+    name || github_handle
+  end
 end

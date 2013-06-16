@@ -6,20 +6,12 @@ h1 Listing users
 table
   tr
     th Name
-    th Email
-    th Location
-    th Bio
-    th Homepage
-    th
-    th
-    th
+    th Team
+    th colspan=3
 
   - @users.each do |user|
     tr
-      td = link_to user.name, user
-      td = user.email
-      td = user.location
-      td = user.bio
-      td = user.homepage
+      td = link_to user.name_or_handle, user
+      td = link_to_user_teams(user)
       td = link_to 'Edit', edit_user_path(user), class: 'edit'
       td = link_to 'Destroy', user, confirm: 'Are you sure?', method: :delete, class: 'destroy'

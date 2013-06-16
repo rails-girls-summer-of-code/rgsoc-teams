@@ -12,6 +12,12 @@ head
 - else
   = link_to 'Sign in with Github', user_omniauth_authorize_path(:github)
 
+nav
+  ul
+    li = link_to 'Activity', root_path
+    li = link_to 'Teams', teams_path
+    li = link_to 'Participants', users_path
+
 p#notice = notice
 
 = yield

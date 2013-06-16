@@ -1,9 +1,28 @@
 .actions
   | #{link_to 'Edit', edit_team_path(@team), class: 'edit'}
-    #{link_to 'Add Repository', new_repository_path(@team), class: 'add_repository'}
+    #{link_to 'Add Member', new_team_role_path(@team), class: 'add_member'}
     #{link_to 'Back', teams_path, class: 'back'}
 p
-  strong
-    ' Name:
+  strong = 'Name: '
   = @team.name
 
+p
+  strong = 'Students: '
+  - if @team.students.any?
+    = link_to_team_members(@team, :student)
+  - else
+    = new_team_role_path(@team, name: :student)
+
+p
+  strong = 'Coaches: '
+  - if @team.coaches.any?
+    = link_to_team_members(@team, :coach)
+  - else
+    = link_to 'Add a coach', new_team_role_path(@team, name: :coach)
+
+p
+  strong = 'Mentors: '
+  - if @team.mentors.any?
+    = link_to_team_members(@team, :mentor)
+  - else
+    = link_to 'Add a mentor', new_team_role_path(@team, name: :mentor)

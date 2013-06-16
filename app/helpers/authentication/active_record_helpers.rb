@@ -10,7 +10,7 @@ module Authentication
       end
 
       def find_for_github_oauth(auth)
-        where(github_id: auth.uid.to_s).first
+        where(github_id: auth.uid.to_s).first || where(github_handle: auth.extra.raw_info.login).first
       end
 
       def create_for_github_oauth(auth)

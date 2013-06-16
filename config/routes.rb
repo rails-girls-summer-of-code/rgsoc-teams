@@ -7,7 +7,8 @@ RgsocTeams::Application.routes.draw do
 
   resources :teams do
     resources :repositories
+    resources :roles, only: [:new, :create, :destroy]
   end
 
-  root to: 'teams#index'
+  root to: 'activities#index'
 end

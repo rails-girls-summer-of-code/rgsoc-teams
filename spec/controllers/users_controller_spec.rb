@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe UsersController do
 
-  let(:valid_attributes) { build(:user).attributes.except('github_id', 'github_handle', 'avatar_url') }
+  let(:valid_attributes) { build(:user).attributes.except('github_id', 'avatar_url') }
   let(:valid_session) { {} }
 
   describe "GET index" do

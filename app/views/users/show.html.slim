@@ -3,32 +3,31 @@
     | #{link_to 'Edit', edit_user_path(@user), class: 'edit'}
       #{link_to 'Back', users_path, class: 'back'}
 
+  - if @user.avatar_url.present?
+    img src=@user.avatar_url
+
   - if @user.name.present?
     p
-      strong
-        ' Name:
+      strong = 'Name: '
       = @user.name
 
-  - if false and @user.email.present?
+  - if @user.github_handle.present?
     p
-      strong
-        ' Email:
-      = @user.email
+      strong = 'Github handle: '
+      = @user.github_handle
 
   - if @user.location.present?
     p
-      strong
-        ' Location:
+      strong = 'Location: '
       = @user.location
 
   - if @user.bio.present?
     p
-      strong
-        ' Bio:
+      strong = 'Bio: '
       = @user.bio
 
   - if @user.homepage.present?
     p
-      strong
-        ' Homepage:
+      strong = 'Homepage: '
       = link_to @user.homepage, @user.homepage
+

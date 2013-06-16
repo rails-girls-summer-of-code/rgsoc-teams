@@ -57,6 +57,6 @@ class UsersController < ApplicationController
     end
 
     def user_params
-      params.require(:user).permit(:bio, :email, :homepage, :location, :name, :role)
+      params.require(:user).permit(:github_handle, :bio, :email, :homepage, :location, :name, :role)
     end
 end

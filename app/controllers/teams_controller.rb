@@ -1,5 +1,6 @@
 class TeamsController < ApplicationController
-  before_filter :set_team, only: [:show, :edit, :update, :destroy]
+  before_filter :set_team,  only: [:show, :edit, :update, :destroy]
+  before_filter :set_users, only: [:new, :edit]
 
   def index
     @teams = Team.all
@@ -54,6 +55,10 @@ class TeamsController < ApplicationController
 
     def set_team
       @team = Team.find(params[:id])
+    end
+
+    def set_users
+      @users = User.order(:github_handle)
     end
 
     def team_params

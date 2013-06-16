@@ -1,0 +1,16 @@
+= form_for [@team, @role] do |f|
+  datalist#users
+    - @users.each do |user|
+      option value=user.github_handle
+
+  .field
+    = m.label :github_handle
+    = m.text_field :github_handle, list: :users
+
+  .field
+    = f.label :role
+    = f.select :name, User::ROLES.map { |r| [r.capitalize, r] }, selected: params[:name]
+
+  .actions
+    = f.submit 'Save'
+
