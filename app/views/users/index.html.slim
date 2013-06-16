@@ -12,6 +12,6 @@ table
   - @users.each do |user|
     tr
       td = link_to user.name_or_handle, user
-      td = link_to_user_teams(user)
+      td = link_to_user_roles(user)
       td = link_to 'Edit', edit_user_path(user), class: 'edit'
       td = link_to 'Destroy', user, confirm: 'Are you sure?', method: :delete, class: 'destroy'
