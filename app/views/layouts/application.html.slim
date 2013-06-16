@@ -3,12 +3,15 @@ html
 head
   title Rails Girls Summer of Code - Teams
   = stylesheet_link_tag    'application', media: 'all'
-  = javascript_include_tag 'application'
   = csrf_meta_tags
+  = javascript_include_tag 'application'
 
-= render 'layouts/header'
+body
+  = render 'layouts/header'
 
-section#content
-  - if notice
-    p.alert.alert-success = notice
-  = yield
+  section#content
+    - if notice
+      p.alert.alert-success = notice
+    = yield
+
+
