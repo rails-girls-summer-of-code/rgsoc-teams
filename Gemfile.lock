@@ -68,6 +68,9 @@ GEM
     faraday (0.8.7)
       multipart-post (~> 1.1)
     ffaker (1.16.1)
+    font-awesome-sass-rails (3.0.2.2)
+      railties (>= 3.1.1)
+      sass-rails (>= 3.1.1)
     hashie (2.0.5)
     hike (1.2.3)
     httpauth (0.2.0)
@@ -204,6 +207,7 @@ DEPENDENCIES
   devise
   factory_girl_rails
   ffaker
+  font-awesome-sass-rails
   jquery-rails
   omniauth-github
   pg

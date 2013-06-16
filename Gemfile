@@ -12,6 +12,7 @@ gem 'strong_parameters'
 gem 'slim-rails'
 gem 'jquery-rails'
 gem 'bootstrap-sass'
+gem 'font-awesome-sass-rails'
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'

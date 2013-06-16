@@ -33,4 +33,14 @@ describe ApplicationHelper do
       link_to_user_roles(@member1).should == "<a href=\"/teams/#{@team.id}\">29-enim (coach)</a>, <a href=\"/teams/#{@team.id}\">29-enim (mentor)</a>"
     end
   end
+
+  describe '.icon' do
+    it 'should generate empty icons' do
+      icon('edit').should == '<i class="icon-edit"></i>'
+    end
+
+    it 'should generate icons with text' do
+      icon('edit', 'Edit').should == '<i class="icon-edit"></i> Edit'
+    end
+  end
 end
