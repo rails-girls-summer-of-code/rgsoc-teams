@@ -59,3 +59,24 @@ bundle exec rake db:drop db:create db:migrate
 ```bash
 bundle exec rake spec
 ```
+
+## Deployment
+
+The staging app lives at http://rgsoc-teams-staging.herokuapp.com/users. The production app is
+at http://teams.railsgirlssummerofcode.org.
+
+```
+[remote "staging"]
+        url = git@heroku.com:rgsoc-teams-staging.git
+        fetch = +refs/heads/*:refs/remotes/staging/*
+[remote "production"]
+        url = git@heroku.com:rgsoc-teams-production.git
+        fetch = +refs/heads/*:refs/remotes/production/*
+```
+
+Append `-r staging` or `-r production` to any `heroku` command in order to specify the app.
+
+
+
+
+
