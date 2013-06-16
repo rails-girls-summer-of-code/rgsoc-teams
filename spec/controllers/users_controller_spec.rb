@@ -40,18 +40,18 @@ describe UsersController do
     describe "with valid params" do
       it "creates a new User" do
         expect {
-          post :create, {:user => valid_attributes}, valid_session
+          post :create, { user: valid_attributes }, valid_session
         }.to change(User, :count).by(1)
       end
 
       it "assigns a newly created user as @user" do
-        post :create, {:user => valid_attributes}, valid_session
+        post :create, { user: valid_attributes }, valid_session
         assigns(:user).should be_a(User)
         assigns(:user).should be_persisted
       end
 
       it "redirects to the created user" do
-        post :create, {:user => valid_attributes}, valid_session
+        post :create, { user: valid_attributes }, valid_session
         response.should redirect_to(User.last)
       end
     end
@@ -59,13 +59,13 @@ describe UsersController do
     describe "with invalid params" do
       it "assigns a newly created but unsaved user as @user" do
         User.any_instance.stub(:save).and_return(false)
-        post :create, {:user => { "github_id" => "invalid value" }}, valid_session
+        post :create, { user: { 'github_id' => 'invalid value' } }, valid_session
         assigns(:user).should be_a_new(User)
       end
 
       it "re-renders the 'new' template" do
         User.any_instance.stub(:save).and_return(false)
-        post :create, {:user => { "github_id" => "invalid value" }}, valid_session
+        post :create, { user: { 'github_id' => 'invalid value' } }, valid_session
         response.should render_template("new")
       end
     end
@@ -76,18 +76,18 @@ describe UsersController do
       it "updates the requested user" do
         user = create(:user)
         User.any_instance.should_receive(:update_attributes).with({ 'name' => 'Trung Le' })
-        put :update, { id:user.to_param, :user => { 'name' => 'Trung Le' } }, valid_session
+        put :update, { id: user.to_param, user: { 'name' => 'Trung Le' } }, valid_session
       end
 
       it "assigns the requested user as @user" do
         user = create(:user)
-        put :update, { id:user.to_param, :user => valid_attributes}, valid_session
+        put :update, { id: user.to_param, user: valid_attributes }, valid_session
         assigns(:user).should eq(user)
       end
 
       it "redirects to the user" do
         user = create(:user)
-        put :update, { id:user.to_param, :user => valid_attributes}, valid_session
+        put :update, { id: user.to_param, user: valid_attributes }, valid_session
         response.should redirect_to(user)
       end
     end
@@ -96,14 +96,14 @@ describe UsersController do
       it "assigns the user as @user" do
         user = create(:user)
         User.any_instance.stub(:save).and_return(false)
-        put :update, { id:user.to_param, :user => { 'name' => 'invalid value' } }, valid_session
+        put :update, { id: user.to_param, user: { 'name' => 'invalid value' } }, valid_session
         assigns(:user).should eq(user)
       end
 
       it "re-renders the 'edit' template" do
         user = create(:user)
         User.any_instance.stub(:save).and_return(false)
-        put :update, { id:user.to_param, :user => { 'name' => 'invalid value' } }, valid_session
+        put :update, { id: user.to_param, user: { 'name' => 'invalid value' } }, valid_session
         response.should render_template("edit")
       end
     end
