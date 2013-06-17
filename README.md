@@ -76,7 +76,7 @@ at http://teams.railsgirlssummerofcode.org.
 
 Append `-r staging` or `-r production` to any `heroku` command in order to specify the app.
 
+### Cron job set up for feeds:update
 
-
-
+A scheduler should be set up to rake `feeds:update` rake task every 10 min
 
