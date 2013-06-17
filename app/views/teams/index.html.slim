@@ -13,6 +13,6 @@ table.table.table-striped.table-bordered.table-condensed
 
   - @teams.each do |team|
     tr
-      td = link_to team.name, team
+      td = link_to team.display_name, team
       td = link_to_team_members(team, :student)
 

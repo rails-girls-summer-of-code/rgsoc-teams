@@ -3,7 +3,7 @@ class TeamsController < ApplicationController
   before_filter :set_users, only: [:new, :edit]
 
   def index
-    @teams = Team.all
+    @teams = Team.order(:id)
   end
 
   def show

@@ -11,7 +11,7 @@ module ApplicationHelper
 
   def link_to_user_roles(user)
     user.roles.map do |role|
-      link_to("#{role.team.name} (#{role.name})", role.team)
-    end.join(', ').html_safe
+      link_to("##{role.team.number} #{role.team.name} (#{role.name})", role.team) if role.team
+    end.compact.join(', ').html_safe
   end
 end
