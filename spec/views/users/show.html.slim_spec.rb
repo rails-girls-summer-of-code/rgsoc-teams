@@ -10,7 +10,10 @@ describe 'users/show' do
       homepage: 'Homepage',
       role: 'coach'
     ))
-  end
+    @ability = Object.new
+    @ability.extend(CanCan::Ability)
+    controller.stub(:current_ability) { @ability }
+   end
 
   it 'renders attributes in <p>' do
     render
@@ -20,5 +23,30 @@ describe 'users/show' do
     rendered.should match(/Location/)
     rendered.should match(/Bio/)
     rendered.should match(/Homepage/)
+  end
+
+  describe 'on its own page' do
+    before :each do
+      @ability.stub!(:can?).with(:edit, @user).and_return(true)
+      @ability.stub!(:can?).with(:destroy, @user).and_return(true)
+    end
+    it "shows Edit and Destroy link if user can manage" do
+      render
+      rendered.should match(/Edit/)
+      rendered.should match(/Destroy/)
+    end
+  end
+
+  describe "on someone else's page" do
+    before :each do
+      @ability.stub!(:can?).with(:edit, @user).and_return(false)
+      @ability.stub!(:can?).with(:destroy, @user).and_return(false)
+    end
+
+    it "hides Edit and Destroy link if user can't manage" do
+      render
+      render.should_not match(/Edit/)
+      render.should_not match(/Destroy/)
+    end
   end
 end

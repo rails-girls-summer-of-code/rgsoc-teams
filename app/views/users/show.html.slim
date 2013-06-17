@@ -1,10 +1,11 @@
 nav.page
   ul
     li = link_to 'All participants', users_path, class: 'back'
+
 nav.actions
   ul
-    li = link_to 'Edit', edit_user_path(@user), class: 'edit'
-    li = link_to 'Destroy', @user, confirm: 'Are you sure?', method: :delete, class: 'destroy'
+    li = link_to 'Edit', edit_user_path(@user), class: 'edit' if can? :edit, @user
+    li = link_to 'Destroy', @user, confirm: 'Are you sure?', method: :delete, class: 'destroy' if can? :destroy, @user
 
 .profile
   - if @user.avatar_url.present?
