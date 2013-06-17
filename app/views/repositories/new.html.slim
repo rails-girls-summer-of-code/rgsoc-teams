@@ -1,7 +1,7 @@
 nav.page
   ul
-    li = link_to 'Back', repositories_path(@team), class: 'back'
+    li = link_to 'Back', @team, class: 'back'
 
-h1 New repository
+h1 New Repository
 
 == render 'form'

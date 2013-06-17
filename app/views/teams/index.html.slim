@@ -1,8 +1,10 @@
 nav.actions
   ul
-    li = link_to icon('plus', 'New Team'), new_team_path, class: 'new'
+    li = link_to icon('plus', 'New Team'), new_team_path, class: 'btn btn-small'
 
-h1 Teams
+h1.header
+  = icon('group')
+  span Teams
 
 table.table.table-striped.table-bordered.table-condensed
   tr

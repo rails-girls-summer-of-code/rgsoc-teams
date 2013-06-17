@@ -1,8 +1,10 @@
 nav.actions
   ul
-    li = link_to icon('plus', 'New User'), new_user_path, class: 'new'
+    li = link_to icon('plus', 'New Participant'), new_user_path, class: 'btn btn-small'
 
-h1 Participants
+h1.header
+  = icon('user')
+  span Participants
 
 table.table.table-striped.table-bordered.table-condensed.table-hover
   thead

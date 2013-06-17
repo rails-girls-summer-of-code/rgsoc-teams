@@ -8,7 +8,10 @@
 
   .field
     = f.label :url
-    = f.text_field :url
+    = f.url_field :url, placeholder: 'https://github.com/your_repo.git'
 
   .actions
     = f.button 'Save', class: 'btn'
+
+
+

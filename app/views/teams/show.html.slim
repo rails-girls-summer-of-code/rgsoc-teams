@@ -5,11 +5,12 @@ nav.page
 nav.actions
   ul
     li = link_to 'Edit', edit_team_path(@team), class: 'edit'
+    li = link_to 'Add a repostiory', new_team_repository_path(@team)
     li = link_to 'Add a student', new_team_role_path(@team, name: :student)
     li = link_to 'Add a coach', new_team_role_path(@team, name: :coach)
     li = link_to 'Add a mentor', new_team_role_path(@team, name: :mentor)
-h1
-  = "Team #{@team.name}"
+
+h1= "Team #{@team.name}"
 
 h3 Students
 p= @team.students.any? ? link_to_team_members(@team, :student) : '-'
