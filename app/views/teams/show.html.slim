@@ -10,13 +10,19 @@ nav.actions
     li = link_to 'Add a coach', new_team_role_path(@team, name: :coach)
     li = link_to 'Add a mentor', new_team_role_path(@team, name: :mentor)
 
-h1= "Team #{@team.name}"
+h1 = "Team #{@team.name}"
+
+p
+  = render_markdown(@team.description).html_safe
+
+h3 Repositories
+p = @team.repositories.any? ? link_to_repositories(@team) : '-'
 
 h3 Students
-p= @team.students.any? ? link_to_team_members(@team, :student) : '-'
+p = @team.students.any? ? link_to_team_members(@team, :student) : '-'
 
 h3 Coaches
-p= @team.coaches.any? ? link_to_team_members(@team, :coach) : '-'
+p = @team.coaches.any? ? link_to_team_members(@team, :coach) : '-'
 
 h3 Mentors
-p= @team.mentors.any? ? link_to_team_members(@team, :mentor) : '-'
+p = @team.mentors.any? ? link_to_team_members(@team, :mentor) : '-'

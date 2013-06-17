@@ -8,12 +8,13 @@ gem 'devise'
 gem 'omniauth-github'
 gem 'simple-rss'
 gem 'strong_parameters'
+gem 'redcarpet'
+gem 'simple_form'
 
 gem 'slim-rails'
 gem 'jquery-rails'
 gem 'bootstrap-sass'
 gem 'font-awesome-sass-rails'
-gem 'simple_form'
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
