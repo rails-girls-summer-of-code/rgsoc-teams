@@ -1,4 +1,4 @@
-= form_for [@team, @role] do |f|
+= simple_form_for [@team, @role] do |f|
   - if @role.errors.any?
     #error_explanation
       h2 = "#{pluralize(@role.errors.count, "error")} prohibited this role from being saved:"
@@ -6,13 +6,8 @@
         - @role.errors.full_messages.each do |message|
           li = message
 
-  .field
-    = label_tag :github_handle
-    = text_field_tag :github_handle
-
-  .field
-    = f.label :role
-    = f.select :name, Role::ROLES.map { |r| [r.capitalize, r] }
+  = f.input :github_handle, required: true
+  = f.input :name, collection: Role::ROLES.map { |r| [r.capitalize, r] }, label: 'Role'
 
   .actions
-    = f.button 'Save', class: 'btn'
+    = f.submit 'Save', class: 'btn'

@@ -1,4 +1,4 @@
-= form_for [@team, @repository] do |f|
+= simple_form_for [@team, @repository] do |f|
   - if @repository.errors.any?
     #error_explanation
       h2 = "#{pluralize(@repository.errors.count, "error")} prohibited this repository from being saved:"
@@ -6,12 +6,10 @@
         - @repository.errors.full_messages.each do |message|
           li = message
 
-  .field
-    = f.label :url
-    = f.url_field :url, placeholder: 'https://github.com/your_repo.git'
+  = f.input :url, placeholder: 'https://github.com/your_repo.git'
 
   .actions
-    = f.button 'Save', class: 'btn'
+    = f.submit 'Save', class: 'btn'
 
 
 

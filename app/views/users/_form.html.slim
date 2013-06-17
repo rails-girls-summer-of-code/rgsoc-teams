@@ -1,4 +1,4 @@
-= form_for @user do |f|
+= simple_form_for @user do |f|
   - if @user.errors.any?
     #error_explanation
       h2 = "#{pluralize(@user.errors.count, "error")} prohibited this user from being saved:"
@@ -6,24 +6,12 @@
         - @user.errors.full_messages.each do |message|
           li = message
 
-  .field
-    = f.label :github_handle
-    = f.text_field :github_handle
-  .field
-    = f.label :name
-    = f.text_field :name
-  .field
-    = f.label :email
-    = f.text_field :email
-  .field
-    = f.label :location
-    = f.text_field :location
-  .field
-    = f.label :bio
-    = f.text_area :bio
-  .field
-    = f.label :homepage
-    = f.text_field :homepage
+  = f.input :github_handle
+  = f.input :name
+  = f.input :email
+  = f.input :location
+  = f.input :bio
+  = f.input :homepage, as: :url
 
   .actions
-    = f.button 'Save', class: 'btn'
+    = f.submit 'Save', class: 'btn'

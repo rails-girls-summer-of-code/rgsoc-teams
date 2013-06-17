@@ -8,10 +8,10 @@ class RolesController < ApplicationController
   end
 
   def create
-    @user = User.where(github_handle: params[:github_handle]).first_or_create
-    params[:role].merge!(user_id: @user.to_param)
+    @user = User.where(github_handle: params[:role][:github_handle]).first_or_create
 
     @role = @team.roles.new(role_params)
+    @role.member = @user
 
     respond_to do |format|
       if @role.save
