@@ -9,6 +9,13 @@ describe Team do
   it { should have_many(:mentors) }
   it { should have_many(:roles) }
 
-  it { should validate_presence_of(:name) }
   it { should validate_uniqueness_of(:name) }
+
+  describe 'creating a new team' do
+    before { subject.save! }
+
+    it 'sets the team number' do
+      subject.reload.number.should == 1
+    end
+  end
 end

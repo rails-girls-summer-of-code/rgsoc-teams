@@ -1,5 +1,5 @@
 class Team < ActiveRecord::Base
-  validates :name, presence: true, uniqueness: true
+  validates :name, uniqueness: true
 
   has_many :roles
   has_many :members,  class_name: 'User', through: :roles, source: :member
@@ -9,4 +9,10 @@ class Team < ActiveRecord::Base
 
   has_many :repositories
   has_many :activities
+
+  before_create :set_number
+
+  def set_number
+    self.number = Team.count + 1
+  end
 end
