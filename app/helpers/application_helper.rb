@@ -28,6 +28,6 @@ module ApplicationHelper
       hard_wrap: true
     )
     markdown = Redcarpet::Markdown.new(renderer, autolink: true)
-    markdown.render(source)
+    markdown.render(source || '')
   end
 end

@@ -12,8 +12,8 @@ nav.actions
 
 h1 = "Team #{@team.name}"
 
-p
-  = render_markdown(@team.description).html_safe
+- if @team.description
+  p = render_markdown(@team.description).html_safe
 
 h3 Repositories
 p = @team.repositories.any? ? link_to_repositories(@team) : '-'
