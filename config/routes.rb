@@ -5,7 +5,7 @@ RgsocTeams::Application.routes.draw do
     delete 'sign_out' => 'devise/sessions#destroy'
   end
 
-  resources :users
+  resources :users, except: [:new]
 
   resources :teams do
     resources :repositories
