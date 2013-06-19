@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  load_and_authorize_resource except: [:index, :show]
   before_filter :set_user, only: [:show, :edit, :update, :destroy]
 
   def index
@@ -6,10 +7,6 @@ class UsersController < ApplicationController
   end
 
   def show
-  end
-
-  def new
-    @user = User.new
   end
 
   def edit
