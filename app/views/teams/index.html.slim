@@ -1,6 +1,6 @@
 nav.actions
   ul
-    li = link_to icon('plus', 'New Team'), new_team_path, class: 'btn btn-small'
+    li = link_to icon('plus', 'New Team'), new_team_path, class: 'btn btn-small' if can? :create, Team
 
 h1.header
   = icon('group')

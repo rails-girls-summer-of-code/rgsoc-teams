@@ -10,6 +10,9 @@ class Ability
     can :manage, User, id: user.id
 
     can :manage, Team do |team|
+      p user
+      p user.teams
+      p team
       signed_in?(user) && team.new_record? or on_team?(user, team)
     end
 
@@ -23,7 +26,7 @@ class Ability
   end
 
   def signed_in?(user)
-    !user.new_record?
+    user.persisted?
   end
 
   def on_team?(user, team)
