@@ -2,19 +2,17 @@ language: ruby
 rvm:
   - 2.0.0
 bundler_args: --without development production --quiet
-branches:
-  only:
-    - master
 notifications:
   email:
     - me@svenfuchs.com
     - joneslee85@gmail.com
   notifications:
     irc:
-      - "chat.freenode.net#rgsoc"
+      - "irc.freenode.net#rgsoc"
+before_install:
+  - gem install bundler
 before_script:
   - cp config/database.yml.travis config/database.yml
-  - gem install bundler
   - bundle exec rake db:create db:schema:load RAILS_ENV=test
 script:
   - bundle exec rake spec
