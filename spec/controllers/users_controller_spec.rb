@@ -1,13 +1,9 @@
 require 'spec_helper'
-require 'cancan/matchers'
 
 describe UsersController do
 
   let(:valid_attributes) { build(:user).attributes.except('github_id', 'avatar_url') }
-  #let(:valid_session) { { "warden.user.user.key" => session["warden.user.user.key"] } }
-  def valid_session
-    { "warden.user.user.key" => session["warden.user.user.key"] }
-  end
+  let(:valid_session)    { { "warden.user.user.key" => session["warden.user.user.key"] } }
 
   describe "GET index" do
     it "assigns all users as @users" do

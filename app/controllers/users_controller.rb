@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
-  load_and_authorize_resource except: [:index, :show]
   before_filter :set_user, only: [:show, :edit, :update, :destroy]
+
+  load_and_authorize_resource except: [:index, :show]
 
   def index
     @users = User.order('LOWER(COALESCE(name, github_handle))')

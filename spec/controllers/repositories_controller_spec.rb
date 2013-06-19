@@ -2,12 +2,18 @@ require 'spec_helper'
 
 describe RepositoriesController do
 
-  let(:valid_attributes) { build(:repository).attributes }
-  let(:valid_session) { {} }
+  let(:user)             { create(:user) }
+  let(:team)             { create(:team) }
+  let(:repository)       { create(:repository, team: team) }
+  let(:valid_attributes) { build(:repository, team: team).attributes }
+  let(:valid_session)    { { "warden.user.user.key" => session["warden.user.user.key"] } }
+
+  before :each do
+    sign_in user
+  end
 
   describe "GET index" do
     it "assigns all repositories as @repositories" do
-      repository = create(:repository)
       get :index, { team_id: repository.team.to_param }, valid_session
       assigns(:repositories).should eq([repository])
     end
@@ -15,15 +21,15 @@ describe RepositoriesController do
 
   describe "GET show" do
     it "assigns the requested repository as @repository" do
-      repository = create(:repository)
       get :show, { team_id: repository.team.to_param, id: repository.to_param }, valid_session
       assigns(:repository).should eq(repository)
     end
   end
 
   describe "GET new" do
+    let!(:role) { create(:role, name: 'student', team: team, member: user) }
+
     it "assigns a new repository as @repository" do
-      team = create(:team)
       get :new, { team_id: team.to_param }, valid_session
       assigns(:repository).should be_a_new(Repository)
     end
@@ -31,105 +37,139 @@ describe RepositoriesController do
 
   describe "GET edit" do
     it "assigns the requested repository as @repository" do
-      repository = create(:repository)
       get :edit, { team_id: repository.team.to_param, id: repository.to_param }, valid_session
       assigns(:repository).should eq(repository)
     end
   end
 
   describe "POST create" do
-    describe "with valid params" do
-      it "creates a new Repository" do
-        team = create(:team)
-        expect {
+    describe "on their own team" do
+      let!(:role) { create(:role, name: 'student', team: team, member: user) }
+
+      describe "with valid params" do
+        it "creates a new Repository" do
+          params = { team_id: team.to_param, repository: valid_attributes }
+          expect { post :create, params, valid_session }.to change(Repository, :count).by(1)
+        end
+
+        it "assigns a newly created repository as @repository" do
           post :create, { team_id: team.to_param, repository: valid_attributes }, valid_session
-        }.to change(Repository, :count).by(1)
+          assigns(:repository).should be_a(Repository)
+          assigns(:repository).should be_persisted
+        end
+
+        it "redirects to the created repository" do
+          post :create, { team_id: team.to_param, repository: valid_attributes }, valid_session
+          response.should redirect_to(assigns(:team))
+        end
       end
 
-      it "assigns a newly created repository as @repository" do
-        team = create(:team)
-        post :create, { team_id: team.to_param, repository: valid_attributes }, valid_session
-        assigns(:repository).should be_a(Repository)
-        assigns(:repository).should be_persisted
-      end
+      describe "with invalid params" do
+        let(:invalid_params) { { team_id: team.id, repository: { url: 'invalid value' } } }
 
-      it "redirects to the created repository" do
-        team = create(:team)
-        post :create, { team_id: team.to_param, repository: valid_attributes }, valid_session
-        response.should redirect_to(assigns(:team))
+        it "assigns a newly created but unsaved repository as @repository" do
+          Repository.any_instance.stub(:save).and_return(false)
+          post :create, invalid_params, valid_session
+          assigns(:repository).should be_a_new(Repository)
+        end
+
+        it "re-renders the 'new' template" do
+          Repository.any_instance.stub(:save).and_return(false)
+          post :create, invalid_params, valid_session
+          response.should render_template("new")
+        end
       end
     end
 
-    describe "with invalid params" do
-      it "assigns a newly created but unsaved repository as @repository" do
-        team = create(:team)
-        Repository.any_instance.stub(:save).and_return(false)
-        post :create, { team_id: team.to_param, repository: { 'url' => 'invalid value' } }, valid_session
-        assigns(:repository).should be_a_new(Repository)
+    describe "on someone else's team" do
+      let(:repository) { create(:repository, team: create(:team)) }
+
+      it "does not create a new Repository" do
+        params = { team_id: repository.team.to_param, repository: valid_attributes }
+        expect { post :create, params, valid_session }.to_not change(Repository, :count)
       end
 
-      it "re-renders the 'new' template" do
-        team = create(:team)
-        Repository.any_instance.stub(:save).and_return(false)
-        post :create, { team_id: team.to_param, repository: { 'url' => 'invalid value' } }, valid_session
-        response.should render_template("new")
+      it "redirects to the root_url" do
+        post :create, { team_id: team.to_param, repository: valid_attributes }, valid_session
+        response.should redirect_to(root_url)
       end
     end
   end
 
   describe "PUT update" do
-    describe "with valid params" do
-      it "updates the requested repository" do
-        repository = create(:repository)
-        Repository.any_instance.should_receive(:update_attributes).with({ 'url' => 'xxx' })
-        put :update, { team_id: repository.team.to_param, id: repository.to_param, repository: { 'url' => 'xxx' } }, valid_session
+    describe "on their own team" do
+      let!(:role) { create(:role, name: 'student', team: team, member: user) }
+
+      describe "with valid params" do
+        it "updates the requested repository" do
+          Repository.any_instance.should_receive(:update_attributes).with({ 'url' => 'xxx' })
+          put :update, { team_id: repository.team.to_param, id: repository.to_param, repository: { 'url' => 'xxx' } }, valid_session
+        end
+
+        it "assigns the requested repository as @repository" do
+          put :update, { team_id: repository.team.to_param, id: repository.to_param, repository: valid_attributes }, valid_session
+          assigns(:repository).should eq(repository)
+        end
+
+        it "redirects to the repository" do
+          put :update, { team_id: repository.team.to_param, id: repository.to_param, repository: valid_attributes }, valid_session
+          response.should redirect_to(assigns(:team))
+        end
       end
 
-      it "assigns the requested repository as @repository" do
-        repository = create(:repository)
-        put :update, { team_id: repository.team.to_param, id: repository.to_param, repository: valid_attributes }, valid_session
-        assigns(:repository).should eq(repository)
-      end
+      describe "with invalid params" do
+        it "assigns the repository as @repository" do
+          Repository.any_instance.stub(:save).and_return(false)
+          put :update, { team_id: repository.team.to_param, id: repository.to_param, repository: { 'url' => 'invalid value' } }, valid_session
+          assigns(:repository).should eq(repository)
+        end
 
-      it "redirects to the repository" do
-        repository = create(:repository)
-        put :update, { team_id: repository.team.to_param, id: repository.to_param, repository: valid_attributes }, valid_session
-        response.should redirect_to(assigns(:team))
+        it "re-renders the 'edit' template" do
+          Repository.any_instance.stub(:save).and_return(false)
+          put :update, { team_id: repository.team.to_param, id: repository.to_param, repository: { 'url' => 'invalid value' } }, valid_session
+          response.should render_template("edit")
+        end
       end
     end
 
-    describe "with invalid params" do
-      it "assigns the repository as @repository" do
-        repository = create(:repository)
-        # Trigger the behavior that occurs when invalid params are submitted
-        Repository.any_instance.stub(:save).and_return(false)
-        put :update, { team_id: repository.team.to_param, id: repository.to_param, repository: { 'url' => 'invalid value' } }, valid_session
-        assigns(:repository).should eq(repository)
+    describe "on someone else's team" do
+      it "does not does not update the repository" do
+        Repository.any_instance.should_not_receive(:update_attributes)
+        put :update, { team_id: repository.team.to_param, id: repository.to_param, repository: { 'url' => 'xxx' } }, valid_session
       end
 
-      it "re-renders the 'edit' template" do
-        repository = create(:repository)
-        # Trigger the behavior that occurs when invalid params are submitted
-        Repository.any_instance.stub(:save).and_return(false)
-        put :update, { team_id: repository.team.to_param, id: repository.to_param, repository: { 'url' => 'invalid value' } }, valid_session
-        response.should render_template("edit")
+      it "redirects to the root_url" do
+        put :update, { team_id: repository.team.to_param, id: repository.to_param, repository: { 'url' => 'xxx' } }, valid_session
+        response.should redirect_to(root_url)
       end
     end
   end
 
   describe "DELETE destroy" do
-    it "destroys the requested repository" do
-      repository = create(:repository)
-      expect {
-        delete :destroy, { team_id: repository.to_param, id: repository.to_param }, valid_session
-      }.to change(Repository, :count).by(-1)
+    let!(:params) { { team_id: team.to_param, id: repository.to_param } }
+
+    describe "on their own team" do
+      let!(:role)   { create(:role, name: 'student', team: team, member: user) }
+
+      it "destroys the requested repository" do
+        expect { delete :destroy, params, valid_session }.to change(Repository, :count).by(-1)
+      end
+
+      it "redirects to the repositories list" do
+        delete :destroy, params, valid_session
+        response.should redirect_to(assigns(:team))
+      end
     end
 
-    it "redirects to the repositories list" do
-      repository = create(:repository)
-      delete :destroy, { team_id: repository.to_param, id: repository.to_param }, valid_session
-      response.should redirect_to(assigns(:team))
+    describe "on someone else's team" do
+      it "does not does not destroy the repository" do
+        expect { delete :destroy, params, valid_session }.to_not change(Repository, :count)
+      end
+
+      it "redirects to the root_url" do
+        delete :destroy, params, valid_session
+        response.should redirect_to(root_url)
+      end
     end
   end
-
 end

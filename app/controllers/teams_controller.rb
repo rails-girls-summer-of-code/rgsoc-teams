@@ -2,6 +2,8 @@ class TeamsController < ApplicationController
   before_filter :set_team,  only: [:show, :edit, :update, :destroy]
   before_filter :set_users, only: [:new, :edit]
 
+  load_and_authorize_resource except: [:index, :show]
+
   def index
     @teams = Team.order(:id)
   end

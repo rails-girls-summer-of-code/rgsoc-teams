@@ -2,6 +2,8 @@ class RolesController < ApplicationController
   before_filter :set_team
   before_filter :set_role, only: :destroy
 
+  load_and_authorize_resource except: [:index, :show]
+
   def new
     @role = @team.roles.new(name: params[:name])
     @users = User.order(:github_handle)

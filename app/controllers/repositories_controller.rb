@@ -1,24 +1,18 @@
 class RepositoriesController < ApplicationController
   before_filter :set_team
-  before_filter :set_repository, only: [:show, :edit, :update, :destroy]
+  before_filter :set_repository, except: [:index, :new]
+
+  load_and_authorize_resource except: [:index, :show]
 
   def index
     @repositories = @team.repositories
   end
 
-  def show
-  end
-
   def new
-    @repository = @team.repositories.new
-  end
-
-  def edit
+    @repository = Repository.new
   end
 
   def create
-    @repository = @team.repositories.new(repository_params)
-
     respond_to do |format|
       if @repository.save
         format.html { redirect_to @team, notice: 'Repository was successfully created.' }
@@ -58,7 +52,11 @@ class RepositoriesController < ApplicationController
     end
 
     def set_repository
-      @repository = @team.repositories.find(params[:id])
+      @repository = if params[:id]
+        @team.repositories.find(params[:id])
+      else
+        @team.repositories.build(repository_params)
+      end
     end
 
     def repository_params
