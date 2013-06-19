@@ -14,6 +14,7 @@ notifications:
       - "chat.freenode.net#rgsoc"
 before_script:
   - cp config/database.yml.travis config/database.yml
+  - gem install bundler
   - bundle exec rake db:create db:schema:load RAILS_ENV=test
 script:
   - bundle exec rake spec
