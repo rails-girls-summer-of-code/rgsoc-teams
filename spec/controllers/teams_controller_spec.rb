@@ -6,7 +6,7 @@ describe TeamsController do
   let(:user) { FactoryGirl.create(:user) }
   let(:team) { FactoryGirl.create(:team) }
 
-  let(:valid_attributes) { build(:team).attributes }
+  let(:valid_attributes) { build(:team).attributes.merge(roles_attributes: [{ name: 'coach', github_handle: 'tobias' }]) }
   let(:valid_session)    { { "warden.user.user.key" => session["warden.user.user.key"] } }
 
   before :each do

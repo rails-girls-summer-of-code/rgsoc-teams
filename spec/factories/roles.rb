@@ -1,7 +1,7 @@
 FactoryGirl.define do
   factory :role do
     team
-    member
+    user
     name { Role::ROLES.sample }
 
     factory :student_role do

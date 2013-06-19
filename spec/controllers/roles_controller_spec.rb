@@ -23,7 +23,7 @@ describe RolesController do
     let(:params) { { team_id: team.to_param, role: valid_attributes.merge(github_handle: 'steve') } }
 
     context "on their own team" do
-      let!(:role) { create(:role, name: 'student', team: team, member: user) }
+      let!(:role) { create(:role, name: 'student', team: team, user: user) }
 
       it "creates a new Role" do
         expect { post :create, params, valid_session }.to change(Role, :count).by(1)
@@ -37,7 +37,7 @@ describe RolesController do
 
     context "someone else's team" do
       let(:another_user) { create(:user) }
-      let!(:role)        { create(:role, name: 'student', team: team, member: another_user) }
+      let!(:role)        { create(:role, name: 'student', team: team, user: another_user) }
 
       it "does not create the Role" do
         expect { post :create, params, valid_session }.to_not change(Role, :count)
@@ -55,7 +55,7 @@ describe RolesController do
     let(:params) { { id: role.to_param, team_id: team.id } }
 
     context "their own role" do
-      let!(:role) { create(:role, name: 'student', team: team, member: user) }
+      let!(:role) { create(:role, name: 'student', team: team, user: user) }
 
       it "destroys the requested role" do
         expect { delete :destroy, params, valid_session }.to change(Role, :count).by(-1)
@@ -69,7 +69,7 @@ describe RolesController do
 
     context "someone else's role" do
       let(:another_user) { create(:user) }
-      let!(:role)        { create(:role, name: 'student', team: team, member: another_user) }
+      let!(:role)        { create(:role, name: 'student', team: team, user: another_user) }
 
       it "does not destroy the requested role" do
         expect { delete :destroy, params, valid_session }.to_not change(Role, :count)

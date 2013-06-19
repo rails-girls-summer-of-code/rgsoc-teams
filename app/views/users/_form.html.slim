@@ -8,9 +8,9 @@
 
   = f.input :github_handle
   = f.input :name
-  = f.input :email
+  = f.input :email, required: true
   = f.input :location
-  = f.input :bio
+  = f.input :bio, label: 'About you'
   = f.input :homepage, as: :url
 
   .actions

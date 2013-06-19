@@ -1,14 +1,18 @@
 class Team < ActiveRecord::Base
-  validates :name, uniqueness: true
+  validates :name, uniqueness: true, allow_blank: true
+  # validate :must_have_members
+  # validate :must_have_unique_students
 
   has_many :roles
-  has_many :members,  class_name: 'User', through: :roles, source: :member
-  has_many :students, class_name: 'User', through: :roles, source: :member, conditions: { roles: { name: 'student' } }
-  has_many :coaches,  class_name: 'User', through: :roles, source: :member, conditions: { roles: { name: 'coach'   } }
-  has_many :mentors,  class_name: 'User', through: :roles, source: :member, conditions: { roles: { name: 'mentor'  } }
+  has_many :members,  class_name: 'User', through: :roles, source: :user
+  has_many :students, class_name: 'User', through: :roles, source: :user, conditions: { roles: { name: 'student' } }
+  has_many :coaches,  class_name: 'User', through: :roles, source: :user, conditions: { roles: { name: 'coach'   } }
+  has_many :mentors,  class_name: 'User', through: :roles, source: :user, conditions: { roles: { name: 'mentor'  } }
 
   has_many :repositories
   has_many :activities
+
+  accepts_nested_attributes_for :roles, allow_destroy: true
 
   before_create :set_number
 
@@ -21,5 +25,19 @@ class Team < ActiveRecord::Base
       result << " #{name}" if name
       result << ", #{students.map(&:name_or_handle).join('/')}" if students.any?
     end
+  end
+
+  def must_have_unique_students
+    students.each do |user|
+      errors.add(:base, "#{user.github_handle} is already member of another team") if (user.teams - [self]).present?
+    end
+  end
+
+  def must_have_members
+    errors.add(:team, 'must have at least one member') if members_empty?
+  end
+
+  def members_empty?
+    roles.empty? or roles.all? { |role| role.marked_for_destruction? }
   end
 end

@@ -3,34 +3,34 @@ require 'spec_helper'
 describe ApplicationHelper do
   describe '.link_to_team_members' do
     before do
-      @team   = create(:team)
-      @member1 = create(:member, name: 'Trung Le')
-      @member2 = create(:member, name: 'Hieu Le')
-      @member3 = create(:member, name: 'Trang Le')
-      @role1  = create(:student_role, member: @member1, team: @team)
-      @role2  = create(:coach_role,   member: @member2, team: @team)
-      @role3  = create(:mentor_role,  member: @member3, team: @team)
+      @team  = create(:team)
+      @user1 = create(:user, name: 'Trung Le')
+      @user2 = create(:user, name: 'Hieu Le')
+      @user3 = create(:user, name: 'Trang Le')
+      @role1 = create(:student_role, user: @user1, team: @team)
+      @role2 = create(:coach_role,   user: @user2, team: @team)
+      @role3 = create(:mentor_role,  user: @user3, team: @team)
     end
 
     it 'should return link_to student based on role type' do
-      link_to_team_members(@team).should           == "<a href=\"/users/#{@member1.id}\">Trung Le</a>, <a href=\"/users/#{@member2.id}\">Hieu Le</a>, <a href=\"/users/#{@member3.id}\">Trang Le</a>"
-      link_to_team_members(@team, :student).should == "<a href=\"/users/#{@member1.id}\">Trung Le</a>"
-      link_to_team_members(@team, :coach).should   == "<a href=\"/users/#{@member2.id}\">Hieu Le</a>"
-      link_to_team_members(@team, :mentor).should  == "<a href=\"/users/#{@member3.id}\">Trang Le</a>"
+      link_to_team_members(@team).should           == "<a href=\"/users/#{@user1.id}\">Trung Le</a>, <a href=\"/users/#{@user2.id}\">Hieu Le</a>, <a href=\"/users/#{@user3.id}\">Trang Le</a>"
+      link_to_team_members(@team, :student).should == "<a href=\"/users/#{@user1.id}\">Trung Le</a>"
+      link_to_team_members(@team, :coach).should   == "<a href=\"/users/#{@user2.id}\">Hieu Le</a>"
+      link_to_team_members(@team, :mentor).should  == "<a href=\"/users/#{@user3.id}\">Trang Le</a>"
     end
 
   end
 
   describe '.link_to_user_roles' do
     before do
-      @team    = create(:team, name: '29-enim')
-      @member1 = create(:member, name: 'Trung Le')
-      @role2   = create(:coach_role,  member: @member1, team: @team)
-      @role3   = create(:mentor_role, member: @member1, team: @team)
+      @team  = create(:team, name: '29-enim')
+      @user1 = create(:user, name: 'Trung Le')
+      @role2 = create(:coach_role,  user: @user1, team: @team)
+      @role3 = create(:mentor_role, user: @user1, team: @team)
     end
 
     it 'should return link_to role based on student' do
-      link_to_user_roles(@member1).should == "<a href=\"/teams/#{@team.id}\">##{@team.number} 29-enim (coach)</a>, <a href=\"/teams/#{@team.id}\">##{@team.number} 29-enim (mentor)</a>"
+      link_to_user_roles(@user1).should == "<a href=\"/teams/#{@team.id}\">##{@team.number} 29-enim (coach)</a>, <a href=\"/teams/#{@team.id}\">##{@team.number} 29-enim (mentor)</a>"
     end
   end
 

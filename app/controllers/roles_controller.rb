@@ -13,7 +13,7 @@ class RolesController < ApplicationController
     @user = User.where(github_handle: params[:role][:github_handle]).first_or_create
 
     @role = @team.roles.new(role_params)
-    @role.member = @user
+    @role.user = @user
 
     respond_to do |format|
       if @role.save

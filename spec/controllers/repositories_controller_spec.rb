@@ -27,7 +27,7 @@ describe RepositoriesController do
   end
 
   describe "GET new" do
-    let!(:role) { create(:role, name: 'student', team: team, member: user) }
+    let!(:role) { create(:role, name: 'student', team: team, user: user) }
 
     it "assigns a new repository as @repository" do
       get :new, { team_id: team.to_param }, valid_session
@@ -44,7 +44,7 @@ describe RepositoriesController do
 
   describe "POST create" do
     describe "on their own team" do
-      let!(:role) { create(:role, name: 'student', team: team, member: user) }
+      let!(:role) { create(:role, name: 'student', team: team, user: user) }
 
       describe "with valid params" do
         it "creates a new Repository" do
@@ -98,7 +98,7 @@ describe RepositoriesController do
 
   describe "PUT update" do
     describe "on their own team" do
-      let!(:role) { create(:role, name: 'student', team: team, member: user) }
+      let!(:role) { create(:role, name: 'student', team: team, user: user) }
 
       describe "with valid params" do
         it "updates the requested repository" do
@@ -149,7 +149,7 @@ describe RepositoriesController do
     let!(:params) { { team_id: team.to_param, id: repository.to_param } }
 
     describe "on their own team" do
-      let!(:role)   { create(:role, name: 'student', team: team, member: user) }
+      let!(:role)   { create(:role, name: 'student', team: team, user: user) }
 
       it "destroys the requested repository" do
         expect { delete :destroy, params, valid_session }.to change(Repository, :count).by(-1)

@@ -124,19 +124,40 @@ nav
     font-size: 1.25em
     margin-bottom: 0
 
+  h4
+    font-size: 1.15em
+
 .profile
   img
     float: right
 
-// hrmmm
-input, select, textarea
-  font-size: 0.9em !important
-input
-  height: auto !important
-
 form
+  position: relative
+  // hrmmm
+  input, select, textarea
+    margin-bottom: 0 !important
+    font-size: 0.9em !important
+  input
+    height: auto !important
+  textarea
+    width: 100%
+    height: 200px
+
   .help-block
     font-size: 0.8em
+
+  .members
+    display: table
+    margin-bottom: 1em
+    .header, & > .fields
+      display: table-row
+    label, .control-group
+      display: table-cell
+      padding: 0 1em 0.5em 0
+    & > .fields:nth-of-type(2) a.remove_nested_fields
+      display: none
+    a
+      font-size: 0.9em
 
 // Error message on submit
 #error_explanation

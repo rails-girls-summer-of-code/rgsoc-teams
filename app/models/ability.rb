@@ -10,9 +10,6 @@ class Ability
     can :manage, User, id: user.id
 
     can :manage, Team do |team|
-      p user
-      p user.teams
-      p team
       signed_in?(user) && team.new_record? or on_team?(user, team)
     end
 

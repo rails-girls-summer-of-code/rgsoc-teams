@@ -90,6 +90,7 @@ GEM
     mime-types (1.23)
     multi_json (1.7.7)
     multipart-post (1.2.0)
+    nested_form (0.3.2)
     oauth2 (0.8.1)
       faraday (~> 0.8)
       httpauth (~> 0.1)
@@ -215,6 +216,7 @@ DEPENDENCIES
   ffaker
   font-awesome-sass-rails
   jquery-rails
+  nested_form
   omniauth-github
   pg
   quiet_assets

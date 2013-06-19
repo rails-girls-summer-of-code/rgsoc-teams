@@ -11,6 +11,7 @@ gem 'simple-rss'
 gem 'strong_parameters'
 gem 'redcarpet'
 gem 'simple_form'
+gem 'nested_form'
 
 gem 'slim-rails'
 gem 'jquery-rails'
