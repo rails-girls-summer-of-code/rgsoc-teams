@@ -8,18 +8,25 @@ class Ability
     user ||= User.new
 
     can :manage, User, id: user.id
-    # can :manage, Repository, id: Repository.where(team_id: team_ids), team_id: team_ids
 
     can :manage, Team do |team|
-      team.new_record? || user.teams.include?(team)
+      signed_in?(user) && team.new_record? or on_team?(user, team)
     end
 
     can :manage, Role do |role|
-      user.teams.include?(role.team)
+      on_team?(user, role.team)
     end
 
     can :manage, Repository do |repository|
-      user.teams.include?(repository.team)
+      on_team?(user, repository.team)
     end
+  end
+
+  def signed_in?(user)
+    !user.new_record?
+  end
+
+  def on_team?(user, team)
+    user.teams.include?(team)
   end
 end
