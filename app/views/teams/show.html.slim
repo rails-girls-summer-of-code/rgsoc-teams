@@ -6,18 +6,15 @@ nav.page
   nav.actions
     ul
       li = link_to 'Edit', edit_team_path(@team), class: 'edit'
-      li = link_to 'Add a repostiory', new_team_repository_path(@team)
-      li = link_to 'Add a student', new_team_role_path(@team, name: :student)
-      li = link_to 'Add a coach', new_team_role_path(@team, name: :coach)
-      li = link_to 'Add a mentor', new_team_role_path(@team, name: :mentor)
+      li = link_to 'Add a source', new_team_source_path(@team)
 
 h1 = "Team #{@team.name}"
 
 - if @team.description
   p = render_markdown(@team.description).html_safe
 
-h3 Repositories
-= @team.repositories.any? ? list_repositories(@team) : '-'
+h3 Sources
+= @team.sources.any? ? list_sources(@team) : '-'
 
 h3 Students
 p = @team.students.any? ? link_to_team_members(@team, :student) : '-'

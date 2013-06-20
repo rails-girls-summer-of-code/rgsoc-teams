@@ -1,4 +1,4 @@
-class Repository < ActiveRecord::Base
+class Source < ActiveRecord::Base
   belongs_to :team
 
   validates :url, presence: true, uniqueness: true

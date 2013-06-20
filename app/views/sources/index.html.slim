@@ -1,0 +1,17 @@
+nav.actions
+  ul
+    li = link_to 'New Source', new_source_path, class: 'new'
+
+h1 Sources
+
+table.table.table-striped.table-bordered.table-condensed
+  thead
+    tr
+      th URL
+
+  tbody
+    - @sources.each do |source|
+      tr
+        td = source.url
+        td = link_to 'Show', source
+

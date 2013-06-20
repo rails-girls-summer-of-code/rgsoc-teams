@@ -17,7 +17,7 @@ class Ability
       user.admin? or on_team?(user, role.team)
     end
 
-    can :manage, Repository do |repo|
+    can :manage, Source do |repo|
       user.admin? or on_team?(user, repo.team)
     end
   end

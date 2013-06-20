@@ -4,7 +4,7 @@ describe Team do
   subject { Team.new(kind: 'sponsored') }
 
   it { should have_many(:activities) }
-  it { should have_many(:repositories) }
+  it { should have_many(:sources) }
   it { should have_many(:members) }
   it { should have_many(:students) }
   it { should have_many(:coaches) }

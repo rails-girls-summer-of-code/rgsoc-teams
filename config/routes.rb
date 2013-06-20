@@ -8,7 +8,7 @@ RgsocTeams::Application.routes.draw do
   resources :users, except: [:new]
 
   resources :teams do
-    resources :repositories
+    resources :sources
     resources :roles, only: [:new, :create, :destroy]
   end
 

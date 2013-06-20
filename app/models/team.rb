@@ -12,7 +12,7 @@ class Team < ActiveRecord::Base
   has_many :coaches,  class_name: 'User', through: :roles, source: :user, conditions: { roles: { name: 'coach'   } }
   has_many :mentors,  class_name: 'User', through: :roles, source: :user, conditions: { roles: { name: 'mentor'  } }
 
-  has_many :repositories, dependent: :destroy
+  has_many :sources, dependent: :destroy
   has_many :activities, dependent: :destroy
 
   accepts_nested_attributes_for :roles, allow_destroy: true
