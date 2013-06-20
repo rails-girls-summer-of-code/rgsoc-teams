@@ -5,7 +5,7 @@ class TeamsController < ApplicationController
   load_and_authorize_resource except: [:index, :show]
 
   def index
-    @teams = Team.order(:id)
+    @teams = Team.order(:name)
   end
 
   def show

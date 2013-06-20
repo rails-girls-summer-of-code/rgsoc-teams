@@ -21,10 +21,7 @@ class Team < ActiveRecord::Base
   end
 
   def display_name
-    "Team ##{number}".tap do |result|
-      result << " #{name}" if name.present?
-      # result << ", #{students.map(&:name_or_handle).join('/')}" if students.any?
-    end
+    "Team #{name.present? ? name : '?'}"
   end
 
   def must_have_unique_students

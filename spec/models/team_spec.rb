@@ -24,13 +24,13 @@ describe Team do
 
     before { subject.save! }
 
-    it 'returns "Team #1" if no name given' do
-      subject.display_name.should == 'Team #1'
+    it 'returns "Team ?" if no name given' do
+      subject.display_name.should == 'Team ?'
     end
 
-    it 'returns "Team #1 Blue" if name given' do
+    it 'returns "Team Blue" if name given' do
       subject.name = 'Blue'
-      subject.display_name.should == 'Team #1 Blue'
+      subject.display_name.should == 'Team Blue'
     end
   end
 end
