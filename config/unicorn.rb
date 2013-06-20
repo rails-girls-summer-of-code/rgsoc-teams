@@ -7,10 +7,21 @@ preload_app true
 
 before_fork do |server, worker|
   ActiveRecord::Base.connection.disconnect! if defined?(ActiveRecord::Base)
+
+  # alternatively: https://github.com/brandonhilkert/sucker_punch
+  #
+  # # https://coderwall.com/p/fprnhg
+  # @sidekiq_pid ||= spawn('bundle exec sidekiq -c 2')
 end
 
 after_fork do |server, worker|
   ActiveRecord::Base.establish_connection if defined?(ActiveRecord::Base)
+
+  # alternatively: https://github.com/brandonhilkert/sucker_punch
+  #
+  # # https://coderwall.com/p/fprnhg
+  # Sidekiq.configure_client { |config| config.redis = { :size => 1 } }
+  # Sidekiq.configure_server { |config| config.redis = { :size => 5 } }
 end
 
 
