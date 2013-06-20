@@ -4,7 +4,7 @@ module ApplicationHelper
   end
 
   def accessible_roles
-    current_user.admin? ? Role::ALL_ROLES : Role::TEAM_ROLES
+    current_user.admin? ? Role::ROLES : Role::TEAM_ROLES
   end
 
   def list_repositories(team)
