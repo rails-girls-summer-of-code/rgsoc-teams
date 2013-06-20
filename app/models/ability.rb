@@ -10,15 +10,15 @@ class Ability
     can :manage, User, id: user.id
 
     can :manage, Team do |team|
-      signed_in?(user) && team.new_record? or on_team?(user, team)
+      user.admin? or signed_in?(user) && team.new_record? or on_team?(user, team)
     end
 
     can :manage, Role do |role|
-      on_team?(user, role.team)
+      user.admin? or on_team?(user, role.team)
     end
 
     can :manage, Repository do |repo|
-      on_team?(user, repo.team)
+      user.admin? or on_team?(user, repo.team)
     end
   end
 
