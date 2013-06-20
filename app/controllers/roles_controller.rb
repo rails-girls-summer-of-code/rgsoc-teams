@@ -1,6 +1,6 @@
 class RolesController < ApplicationController
   before_filter :set_team
-  before_filter :set_role, only: :destroy
+  before_filter :set_role, except: [:index, :show]
 
   load_and_authorize_resource except: [:index, :show]
 
@@ -10,10 +10,7 @@ class RolesController < ApplicationController
   end
 
   def create
-    @user = User.where(github_handle: params[:role][:github_handle]).first_or_create
-
-    @role = @team.roles.new(role_params)
-    @role.user = @user
+    @role.user = User.where(github_handle: params[:role][:github_handle]).first_or_create
 
     respond_to do |format|
       if @role.save
@@ -39,10 +36,15 @@ class RolesController < ApplicationController
     end
 
     def set_role
-      @role = @team.roles.find(params[:id])
+      @role = if params[:id]
+        @team.roles.find(params[:id])
+      else
+        @team.roles.new(role_params)
+      end
     end
 
     def role_params
+      params[:role] ||= { name: params[:name] }
       params.require(:role).permit(:user_id, :team_id, :name)
     end
 

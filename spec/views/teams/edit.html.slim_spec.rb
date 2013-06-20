@@ -9,6 +9,7 @@ describe 'teams/edit' do
   end
 
   it 'renders the edit team form' do
+    view.stub(:accessible_roles).and_return(Role::TEAM_ROLES) # what.
     render
 
     # Run the generator again with the --webrat flag if you want to use webrat matchers

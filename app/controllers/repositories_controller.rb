@@ -1,6 +1,6 @@
 class RepositoriesController < ApplicationController
   before_filter :set_team
-  before_filter :set_repository, except: [:index, :new]
+  before_filter :set_repository, except: [:index]
 
   load_and_authorize_resource except: [:index, :show]
 
@@ -55,11 +55,12 @@ class RepositoriesController < ApplicationController
       @repository = if params[:id]
         @team.repositories.find(params[:id])
       else
-        @team.repositories.build(repository_params)
+        @team.repositories.new(repository_params)
       end
     end
 
     def repository_params
+      params[:repository] ||= { url: params[:url] }
       params.require(:repository).permit(:url)
     end
 end

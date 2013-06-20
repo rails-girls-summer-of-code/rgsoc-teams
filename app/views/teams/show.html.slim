@@ -17,7 +17,7 @@ h1 = "Team #{@team.name}"
   p = render_markdown(@team.description).html_safe
 
 h3 Repositories
-p = @team.repositories.any? ? link_to_repositories(@team) : '-'
+= @team.repositories.any? ? list_repositories(@team) : '-'
 
 h3 Students
 p = @team.students.any? ? link_to_team_members(@team, :student) : '-'

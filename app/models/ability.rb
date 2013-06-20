@@ -17,8 +17,8 @@ class Ability
       on_team?(user, role.team)
     end
 
-    can :manage, Repository do |repository|
-      on_team?(user, repository.team)
+    can :manage, Repository do |repo|
+      on_team?(user, repo.team)
     end
   end
 

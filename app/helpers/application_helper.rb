@@ -7,10 +7,12 @@ module ApplicationHelper
     current_user.admin? ? Role::ALL_ROLES : Role::TEAM_ROLES
   end
 
-  def link_to_repositories(team)
-    team.repositories.map do |repository|
-      link_to(repository.name, repository.url)
-    end.join(', ').html_safe
+  def list_repositories(team)
+    content_tag(:ul, class: 'repositories') do
+      team.repositories.each do |repository|
+        concat content_tag(:li, link_to(repository.name, repository.url))
+      end
+    end
   end
 
   def link_to_team_members(team, role = :member)
