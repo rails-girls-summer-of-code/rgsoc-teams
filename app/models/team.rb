@@ -1,5 +1,8 @@
 class Team < ActiveRecord::Base
+  KINDS = %w(sponsored voluntary)
+
   validates :name, uniqueness: true, allow_blank: true
+  validates :kind, presence: true
   # validate :must_have_members
   # validate :must_have_unique_students
 
@@ -22,6 +25,10 @@ class Team < ActiveRecord::Base
 
   def display_name
     "Team #{name.present? ? name : '?'}"
+  end
+
+  def kind
+    super || ''
   end
 
   def must_have_unique_students
