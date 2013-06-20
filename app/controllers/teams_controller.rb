@@ -14,6 +14,7 @@ class TeamsController < ApplicationController
   def new
     @team = Team.new
     @team.roles.build(name: 'student', github_handle: current_user.github_handle)
+    @team.sources.build(kind: 'blog')
   end
 
   def edit
@@ -65,6 +66,10 @@ class TeamsController < ApplicationController
     end
 
     def team_params
-      params.require(:team).permit(:name, :kind, :description, roles_attributes: [:id, :name, :github_handle, :_destroy])
+      params.require(:team).permit(
+        :name, :kind, :description,
+        roles_attributes: [:id, :name, :github_handle, :_destroy],
+        sources_attributes: [:id, :kind, :url, :_destroy]
+      )
     end
 end

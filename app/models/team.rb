@@ -15,7 +15,7 @@ class Team < ActiveRecord::Base
   has_many :sources, dependent: :destroy
   has_many :activities, dependent: :destroy
 
-  accepts_nested_attributes_for :roles, allow_destroy: true
+  accepts_nested_attributes_for :roles, :sources, allow_destroy: true
 
   before_create :set_number
 

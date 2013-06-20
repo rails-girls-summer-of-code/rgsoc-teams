@@ -4,8 +4,8 @@ require 'simple-rss'
 class Feed
   class << self
     def update_all
-      Team.where("log_url <> ''").each do |team|
-        Feed.new(team.id, team.log_url).update
+      Source.where(kind: 'blog').each do |source|
+        Feed.new(source.team_id, source.url).update
       end
     end
   end
@@ -21,6 +21,9 @@ class Feed
     parse.items.each do |item|
       create_activity(item) unless Activity.exists?(:guid => item.id)
     end
+  rescue => e
+    puts e.message
+    # puts e.backtrace
   end
 
   private
@@ -32,6 +35,7 @@ class Feed
     end
 
     def fetch
+      puts "Feeds: going to fetch #{source}"
       open(source)
     end
 

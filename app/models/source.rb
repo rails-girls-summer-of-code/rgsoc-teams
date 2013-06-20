@@ -1,9 +1,9 @@
 class Source < ActiveRecord::Base
-  KINDS = %w(repository log)
+  KINDS = %w(blog repository)
 
   belongs_to :team
 
-  validates :url, presence: true, uniqueness: true
+  validates :url, presence: true
   validates :kind, presence: true
 
   # def name

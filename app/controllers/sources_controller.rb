@@ -9,7 +9,7 @@ class SourcesController < ApplicationController
   end
 
   def new
-    @source = Source.new
+    @source = Source.new(kind: 'blog')
   end
 
   def create
