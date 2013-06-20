@@ -7,10 +7,10 @@ module ApplicationHelper
     current_user.admin? ? Role::ROLES : Role::TEAM_ROLES
   end
 
-  def list_repositories(team)
-    content_tag(:ul, class: 'repositories') do
-      team.repositories.each do |repository|
-        concat content_tag(:li, link_to(repository.name, repository.url))
+  def list_sources(team)
+    content_tag(:ul, class: 'sources') do
+      team.sources.each do |source|
+        concat content_tag(:li, link_to(source.url, source.url))
       end
     end
   end

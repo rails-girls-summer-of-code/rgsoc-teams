@@ -61,6 +61,6 @@ class SourcesController < ApplicationController
 
     def source_params
       params[:source] ||= { url: params[:url] }
-      params.require(:source).permit(:url)
+      params.require(:source).permit(:url, :kind)
     end
 end

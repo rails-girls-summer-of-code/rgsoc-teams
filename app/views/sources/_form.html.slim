@@ -7,6 +7,7 @@
           li = message
 
   = f.input :url, placeholder: 'https://github.com/your_repo.git'
+  = f.input :kind, as: :radio_buttons, collection: Source::KINDS.map { |k| [k.capitalize, k] }, label: 'Type', blank: false
 
   .actions
     = f.submit 'Save', class: 'btn'
