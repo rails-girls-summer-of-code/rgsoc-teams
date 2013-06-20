@@ -17,7 +17,7 @@ module Github
         location:   data['location'],
         bio:        data['bio'],
         avatar_url: data['_links']['avatar']['href'],
-        homepage:   data['_links']['blog']['href']
+        homepage:   data['_links']['blog'] && data['_links']['blog']['href']
       }
     end
 
