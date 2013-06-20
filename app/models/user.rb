@@ -14,7 +14,7 @@ class User < ActiveRecord::Base
   validates :github_handle, presence: true, uniqueness: true
 
   def name_or_handle
-    name || github_handle
+    name.present? ? name : github_handle
   end
 
   def github_url
