@@ -22,8 +22,8 @@ class Team < ActiveRecord::Base
 
   def display_name
     "Team ##{number}".tap do |result|
-      result << " #{name}" if name
-      result << ", #{students.map(&:name_or_handle).join('/')}" if students.any?
+      result << " #{name}" if name.present?
+      # result << ", #{students.map(&:name_or_handle).join('/')}" if students.any?
     end
   end
 

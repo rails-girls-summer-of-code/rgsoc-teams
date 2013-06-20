@@ -24,24 +24,13 @@ describe Team do
 
     before { subject.save! }
 
-    it 'returns "Team #1" if no name given and no students present' do
+    it 'returns "Team #1" if no name given' do
       subject.display_name.should == 'Team #1'
     end
 
-    it 'returns "Team #1 Blue" if name given but no students present' do
+    it 'returns "Team #1 Blue" if name given' do
       subject.name = 'Blue'
       subject.display_name.should == 'Team #1 Blue'
-    end
-
-    it 'returns "Team #1, Nina/Maya" if no name given but students present' do
-      subject.stub!(:students).and_return(students)
-      subject.display_name.should == 'Team #1, Nina/Maya'
-    end
-
-    it 'returns "Team #1 Blue, Nina/Maya" if name given and students present' do
-      subject.name = 'Blue'
-      subject.stub!(:students).and_return(students)
-      subject.display_name.should == 'Team #1 Blue, Nina/Maya'
     end
   end
 end
