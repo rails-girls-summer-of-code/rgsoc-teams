@@ -2,12 +2,9 @@ require 'spec_helper'
 require 'github/user'
 
 describe Github::User do
-  let(:json) { File.read('spec/stubs/github/user.json') }
-
   before :each do
-    stub_request(:get, /./).to_return(body: json)
+    stub_request(:get, /./).to_return(body: File.read('spec/stubs/github/user.json'))
   end
-
 
   it 'fetches the user from GitHub and normalizes attributes' do
     Github::User.new('octocat').attrs.should == {

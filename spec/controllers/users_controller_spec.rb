@@ -83,7 +83,7 @@ describe UsersController do
       end
 
       context "another user's profile" do
-        let(:another_user) { FactoryGirl.create(:user) }
+        let!(:another_user) { FactoryGirl.create(:user) }
 
         it "does not update the requested user" do
           User.any_instance.should_not_receive(:update_attributes)

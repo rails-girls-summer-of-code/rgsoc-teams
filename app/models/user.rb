@@ -1,3 +1,5 @@
+require 'github/user'
+
 class User < ActiveRecord::Base
   include ActiveModel::ForbiddenAttributesProtection
   include Authentication::ActiveRecordHelpers
@@ -13,6 +15,8 @@ class User < ActiveRecord::Base
 
   validates :github_handle, presence: true, uniqueness: true
 
+  after_create :complete_from_github
+
   def name_or_handle
     name.present? ? name : github_handle
   end
@@ -23,5 +27,10 @@ class User < ActiveRecord::Base
 
   def admin?
     roles.admin.any?
+  end
+
+  def complete_from_github
+    attrs = Github::User.new(github_handle).attrs rescue {}
+    update_attributes attrs.select { |key, value| send(key).blank? }
   end
 end

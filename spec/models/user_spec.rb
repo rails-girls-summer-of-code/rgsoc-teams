@@ -1,10 +1,23 @@
 require 'spec_helper'
 
 describe User do
+  before :each do
+    stub_request(:get, /./).to_return(body: File.read('spec/stubs/github/user.json'))
+  end
+
   it { should have_many(:teams) }
   it { should have_many(:roles) }
   it { should validate_presence_of(:github_handle) }
   it { should validate_uniqueness_of(:github_handle) }
+
+  describe 'after_create' do
+    let(:user) { User.create(github_handle: 'octocat') }
+
+    it 'completes attributes from Github' do
+      attrs = user.attributes.slice(*%w(github_id email location))
+      attrs.values.should == [1, 'octocat@github.com', 'San Francisco']
+    end
+  end
 
   describe '#github_url' do
     it 'should return github url' do

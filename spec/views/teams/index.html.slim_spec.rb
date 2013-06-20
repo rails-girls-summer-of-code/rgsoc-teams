@@ -12,7 +12,7 @@ describe 'teams/index' do
   end
 
   it 'renders a list of teams' do
-    assert_select 'tr>td', text: 'Team Name', count: 1
+    assert_select 'tr>td', text: 'Team Name', count: 2
   end
 
   describe 'can add teams' do
