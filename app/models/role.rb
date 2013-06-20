@@ -1,6 +1,6 @@
 class Role < ActiveRecord::Base
-  TEAM_ROLES  = %w{ student coach mentor }.freeze
-  ADMIN_ROLES = %(supervisor organizer)
+  TEAM_ROLES  = %w(student coach mentor).freeze
+  ADMIN_ROLES = %w(supervisor organizer)
   ROLES = TEAM_ROLES + ADMIN_ROLES
 
   belongs_to :user
