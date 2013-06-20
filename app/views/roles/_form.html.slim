@@ -7,7 +7,7 @@
           li = message
 
   = f.input :github_handle, required: true
-  = f.input :name, collection: Role::ROLES.map { |r| [r.capitalize, r] }, label: 'Role'
+  = f.input :name, collection: accessible_roles.map { |r| [r.capitalize, r] }, label: 'Role'
 
   .actions
     = f.submit 'Save', class: 'btn'

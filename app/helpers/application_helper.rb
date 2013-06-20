@@ -3,6 +3,10 @@ module ApplicationHelper
     %Q{<i class="icon-#{type}"></i>#{text == nil ? '' : " #{text}"}}.html_safe
   end
 
+  def accessible_roles
+    current_user.admin? ? Role::ALL_ROLES : Role::TEAM_ROLES
+  end
+
   def link_to_repositories(team)
     team.repositories.map do |repository|
       link_to(repository.name, repository.url)

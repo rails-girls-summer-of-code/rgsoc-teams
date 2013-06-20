@@ -4,7 +4,11 @@ class User < ActiveRecord::Base
 
   devise :omniauthable
 
-  has_many :roles
+  has_many :roles do
+    def admin
+      where(name: Role::ADMIN_ROLES)
+    end
+  end
   has_many :teams, through: :roles
 
   validates :github_handle, presence: true, uniqueness: true
@@ -15,5 +19,9 @@ class User < ActiveRecord::Base
 
   def github_url
     "https://github.com/#{github_handle}"
+  end
+
+  def admin?
+    roles.admin.any?
   end
 end

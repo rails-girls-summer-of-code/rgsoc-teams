@@ -16,7 +16,7 @@
       label Role
     = f.simple_fields_for :roles do |r|
       = r.input :github_handle, required: false, label: false
-      = r.input :name, collection: Role::ROLES.map { |r| [r.capitalize, r] }, required: false, label: false
+      = r.input :name, collection: accessible_roles.map { |r| [r.capitalize, r] }, required: false, label: false
       = r.link_to_remove 'Remove'
     = f.link_to_add 'Add another member', :roles
 
