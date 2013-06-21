@@ -11,6 +11,8 @@ nav.page
 
 h1 = @team.display_name
 
+p = @team.kind
+
 - if @team.description
   p = render_markdown(@team.description).html_safe
 
