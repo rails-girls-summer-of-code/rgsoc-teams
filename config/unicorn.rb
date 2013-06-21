@@ -8,14 +8,16 @@ preload_app true
 before_fork do |server, worker|
   ActiveRecord::Base.connection.disconnect! if defined?(ActiveRecord::Base)
 
-  # alternatively: https://github.com/brandonhilkert/sucker_punch
-  #
   # # https://coderwall.com/p/fprnhg
   # @sidekiq_pid ||= spawn('bundle exec sidekiq -c 2')
 end
 
 after_fork do |server, worker|
   ActiveRecord::Base.establish_connection if defined?(ActiveRecord::Base)
+
+  # SuckerPunch.config do
+  #   queue name: :log_queue, worker: LogWorker, workers: 10
+  # end
 
   # alternatively: https://github.com/brandonhilkert/sucker_punch
   #

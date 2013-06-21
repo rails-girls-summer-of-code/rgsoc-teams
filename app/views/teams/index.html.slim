@@ -10,11 +10,11 @@ table.table.table-striped.table-bordered.table-condensed
   tr
     th Name
     th Students
-    th
 
   - @teams.each do |team|
     tr
-      td = link_to team.display_name, team
+      td = link_to team.display_name, team, class: "team #{team.kind}"
       td = link_to_team_members(team, :student)
-      td = team.kind
 
+p.hint
+  | <i class="icon-star-empty"></i> Sponsored team
