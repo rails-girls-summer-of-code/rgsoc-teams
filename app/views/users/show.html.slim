@@ -13,8 +13,9 @@ nav.actions
 
   h1 = @user.name
 
-  p.github
-    = "On GitHub: #{link_to @user.github_handle, @user.github_url} &rarr;".html_safe
+  ul.profiles
+    li = link_to @user.github_handle, @user.github_url, class: :github
+    li = link_to @user.twitter_handle, @user.twitter_url, class: :twitter
 
   - if @user.location.present?
     p = @user.location

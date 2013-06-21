@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe 'teams/index' do
 
-  let(:teams)   { [stub_model(Team, number: 1, name: 'Name'), stub_model(Team, number: 2, name: 'Name')] }
+  let(:teams)   { [FactoryGirl.build(:team), FactoryGirl.build(:team)] }
   let(:can_add) { false }
 
   before :each do
@@ -12,7 +12,7 @@ describe 'teams/index' do
   end
 
   it 'renders a list of teams' do
-    assert_select 'tr>td', text: 'Team Name', count: 2
+    assert_select 'tr>td', text: "Team #{teams.first.name} (#{teams.first.projects})", count: 1
   end
 
   describe 'can add teams' do

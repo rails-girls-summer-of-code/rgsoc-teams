@@ -3,6 +3,7 @@ require 'github/user'
 class User < ActiveRecord::Base
   include ActiveModel::ForbiddenAttributesProtection
   include Authentication::ActiveRecordHelpers
+  include ProfilesHelper
 
   devise :omniauthable
 
@@ -29,10 +30,6 @@ class User < ActiveRecord::Base
 
   def name_or_handle
     name.present? ? name : github_handle
-  end
-
-  def github_url
-    "https://github.com/#{github_handle}"
   end
 
   def admin?

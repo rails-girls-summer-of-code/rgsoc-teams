@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130621110814) do
+ActiveRecord::Schema.define(:version => 20130621153119) do
 
   create_table "activities", :force => true do |t|
     t.integer  "team_id"
@@ -44,13 +44,15 @@ ActiveRecord::Schema.define(:version => 20130621110814) do
 
   create_table "teams", :force => true do |t|
     t.string   "name"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
     t.string   "log_url"
     t.text     "description"
     t.integer  "number"
     t.string   "kind"
     t.string   "projects"
+    t.string   "twitter_handle"
+    t.string   "github_handle"
   end
 
   create_table "users", :force => true do |t|
@@ -62,9 +64,10 @@ ActiveRecord::Schema.define(:version => 20130621110814) do
     t.text     "bio"
     t.string   "homepage"
     t.string   "avatar_url"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
     t.integer  "team_id"
+    t.string   "twitter_handle"
   end
 
 end

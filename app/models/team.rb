@@ -1,4 +1,6 @@
 class Team < ActiveRecord::Base
+  include ProfilesHelper
+
   KINDS = %w(sponsored voluntary)
 
   validates :kind, presence: true
@@ -24,12 +26,12 @@ class Team < ActiveRecord::Base
     self.number = Team.count + 1
   end
 
-  def display_name
-    "Team #{name.present? ? "#{name} (#{projects})" : projects}"
-  end
-
   def kind
     super || ''
+  end
+
+  def display_name
+    "Team #{name.present? ? "#{name} (#{projects})" : projects}"
   end
 
   def must_have_unique_students

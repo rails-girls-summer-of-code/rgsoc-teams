@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe Team do
-  subject { Team.new(kind: 'sponsored') }
+  subject { Team.new(kind: 'sponsored', projects: 'Sinatra') }
 
   it { should have_many(:activities) }
   it { should have_many(:sources) }
@@ -27,12 +27,12 @@ describe Team do
     before { subject.save! }
 
     it 'returns "Team ?" if no name given' do
-      subject.display_name.should == 'Team ?'
+      subject.display_name.should == 'Team Sinatra'
     end
 
     it 'returns "Team Blue" if name given' do
       subject.name = 'Blue'
-      subject.display_name.should == 'Team Blue'
+      subject.display_name.should == 'Team Blue (Sinatra)'
     end
   end
 end
