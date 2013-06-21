@@ -23,5 +23,11 @@ nav.actions
     p = link_to @user.homepage, @user.homepage
 
   - if @user.bio.present?
+    h4 About me
     p = "#{@user.bio}"
+
+  h4 Teams
+  ul.teams
+    - @user.teams.each do |team|
+      li = link_to team.display_name, team
 

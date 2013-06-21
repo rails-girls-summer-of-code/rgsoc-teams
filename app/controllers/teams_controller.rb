@@ -68,7 +68,7 @@ class TeamsController < ApplicationController
 
     def team_params
       params.require(:team).permit(
-        :name, :kind, :description,
+        :name, :projects, :kind, :description,
         roles_attributes: [:id, :name, :github_handle, :_destroy],
         sources_attributes: [:id, :kind, :url, :_destroy]
       )

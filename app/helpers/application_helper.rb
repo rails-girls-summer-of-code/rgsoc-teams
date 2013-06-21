@@ -23,7 +23,7 @@ module ApplicationHelper
 
   def link_to_user_roles(user)
     user.roles.map do |role|
-      link_to("##{role.team.number} #{role.team.name} (#{role.name})", role.team) if role.team
+      link_to("#{role.name.capitalize} at #{role.team.name} (#{role.team.projects})", role.team) if role.team
     end.compact.join(', ').html_safe
   end
 

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130620215828) do
+ActiveRecord::Schema.define(:version => 20130621110814) do
 
   create_table "activities", :force => true do |t|
     t.integer  "team_id"
@@ -50,6 +50,7 @@ ActiveRecord::Schema.define(:version => 20130620215828) do
     t.text     "description"
     t.integer  "number"
     t.string   "kind"
+    t.string   "projects"
   end
 
   create_table "users", :force => true do |t|
