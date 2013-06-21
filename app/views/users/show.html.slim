@@ -14,8 +14,8 @@ nav.actions
   h1 = @user.name
 
   ul.profiles
-    li = link_to @user.github_handle, @user.github_url, class: :github
-    li = link_to @user.twitter_handle, @user.twitter_url, class: :twitter
+    li = link_to @user.github_handle, @user.github_url, class: :github if @user.github_handle.present?
+    li = link_to @user.twitter_handle, @user.twitter_url, class: :twitter if @user.twitter_handle.present?
 
   - if @user.location.present?
     p = @user.location
