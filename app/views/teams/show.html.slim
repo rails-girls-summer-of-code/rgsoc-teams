@@ -12,9 +12,9 @@ nav.page
 = content_tag :h1, @team.display_name, class: "team #{@team.kind}"
 
 ul.profiles
-  if @team.github_handle.present?
+  - if @team.github_handle.present?
     li = link_to @team.github_handle, @team.github_url, class: :github
-  if @team.twitter_handle.present?
+  - if @team.twitter_handle.present?
     li = link_to @team.twitter_handle, @team.twitter_url, class: :twitter
 
 - if @team.description
