@@ -11,13 +11,20 @@
   = f.input :kind, as: :radio_buttons, collection: Team::KINDS.map { |k| [k.capitalize, k] }, label: 'Type', blank: false, required: false
 
   h4 Sources
+
+  p.help-block
+    | We will aggregate activities for all teams on the Activity page. Sources
+      are where these activities are coming from. Blog feeds must be RSS/Atom feeds.
+      Please make sure to add at least your team log feed and repositories that
+      you are working on:
+
   fieldset.sources
     .header
       label URL
       label Type
     = f.simple_fields_for :sources do |s|
       = s.input :url, required: false, label: false
-      = s.input :kind, as: :radio_buttons, collection: Source::KINDS.map { |k| [k.capitalize, k] }, required: false, label: false
+      = s.input :kind, as: :radio_buttons, collection: Source::KINDS.invert, required: false, label: false
       = s.link_to_remove 'Remove'
     = f.link_to_add 'Add another source', :sources
 

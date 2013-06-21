@@ -6,8 +6,14 @@
         - @source.errors.full_messages.each do |message|
           li = message
 
+  p.help-block
+    | We will aggregate activities for all teams on the Activity page. Sources
+      are where these activities are coming from. Blog feeds must be RSS/Atom feeds.
+      Please make sure to add at least your team log feed and repositories that
+      you are working on.
+
   = f.input :url, placeholder: 'https://github.com/your_repo.git'
-  = f.input :kind, as: :radio_buttons, collection: Source::KINDS.map { |k| [k.capitalize, k] }, label: 'Type', blank: false
+  = f.input :kind, as: :radio_buttons, collection: Source::KINDS.invert, label: 'Type', blank: false
 
   .actions
     = f.submit 'Save', class: 'btn'
