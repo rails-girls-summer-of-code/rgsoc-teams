@@ -2,6 +2,38 @@ require 'open-uri'
 require 'simple-rss'
 
 class Feed
+  class Item
+    attr_reader :team_id, :item
+
+    delegate :title, :content, :author, :link, to: :item
+
+    def initialize(team_id, item)
+      @team_id = team_id
+      @item = item
+    end
+
+    def attrs
+      @attrs ||= {
+        team_id:      team_id,
+        kind:         :feed_entry,
+        guid:         guid,
+        title:        title,
+        content:      content,
+        author:       author,
+        source_url:   link,
+        published_at: published_at
+      }
+    end
+
+    def guid
+      item.id || item.guid
+    end
+
+    def published_at
+      item.published || item.updated || item.pubDate
+    end
+  end
+
   class << self
     def update_all
       Source.where(kind: 'blog').each do |source|
@@ -18,10 +50,12 @@ class Feed
   end
 
   def update
-    parse.items.each do |item|
-      attrs  = attrs_for(item)
-      record = Activity.where(:guid => item.id).first
-      record ? record.update_attributes!(attrs) : Activity.create!(attrs)
+    parse.items.each do |data|
+      item = Item.new(team_id, data)
+      raise "can not find guid for item in source #{source}" unless item.guid
+      # puts "processing item #{item.guid}: #{item.title}"
+      record = Activity.where(:guid => item.guid).first
+      record ? record.update_attributes!(item.attrs) : Activity.create!(item.attrs)
     end
   rescue => e
     puts e.message
@@ -39,18 +73,5 @@ class Feed
     def fetch
       puts "Feeds: going to fetch #{source}"
       open(source)
-    end
-
-    def attrs_for(item)
-      {
-        team_id:      team_id,
-        kind:         :feed_entry,
-        guid:         item.id,
-        title:        item.title,
-        content:      item.content,
-        author:       item.author,
-        source_url:   item.link,
-        published_at: item.published || item.updated || item.pubDate
-      }
     end
 end
