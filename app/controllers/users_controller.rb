@@ -1,10 +1,11 @@
 class UsersController < ApplicationController
+  before_filter :normalize_params, only: :index
+  before_filter :set_users, only: :index
   before_filter :set_user, only: [:show, :edit, :update, :destroy]
 
   load_and_authorize_resource except: [:index, :show]
 
   def index
-    @users = User.order('LOWER(COALESCE(name, github_handle))')
   end
 
   def show
@@ -50,11 +51,20 @@ class UsersController < ApplicationController
 
   private
 
+    def set_users
+      @users = User.ordered
+      @users = @users.with_role(params[:role]) if params[:role].present? && params[:role] != 'all'
+    end
+
     def set_user
       @user = User.find(params[:id])
     end
 
     def user_params
       params.require(:user).permit(:github_handle, :bio, :email, :homepage, :location, :name, :role)
+    end
+
+    def normalize_params
+      params[:role] = 'all' if params[:role].blank?
     end
 end

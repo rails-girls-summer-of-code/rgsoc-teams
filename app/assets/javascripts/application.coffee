@@ -1,0 +1,9 @@
+#= require jquery
+#= require jquery_ujs
+#= require bootstrap
+#= require_tree .
+#= require_self
+
+$ ->
+  $('.filter input[type=radio]').click ->
+    $(this).closest('form').submit()
