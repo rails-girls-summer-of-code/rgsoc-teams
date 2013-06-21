@@ -2,6 +2,13 @@ h1.header
   = icon('user')
   span Participants
 
+form.filter target=users_path
+  - (['all'] + Role::ROLES).each do |role|
+    label.radio
+      = radio_button_tag :role, role == 'all' ? '' : role, params[:role] == role
+      = role.capitalize
+
+
 table.table.table-striped.table-bordered.table-condensed.table-hover
   thead
     tr

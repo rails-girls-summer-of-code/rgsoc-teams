@@ -17,6 +17,16 @@ class User < ActiveRecord::Base
 
   after_create :complete_from_github
 
+  class << self
+    def ordered
+      order('LOWER(COALESCE(users.name, github_handle))')
+    end
+
+    def with_role(name)
+      includes(:roles).where('roles.name = ?', name)
+    end
+  end
+
   def name_or_handle
     name.present? ? name : github_handle
   end
