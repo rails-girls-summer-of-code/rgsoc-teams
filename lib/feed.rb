@@ -19,7 +19,9 @@ class Feed
 
   def update
     parse.items.each do |item|
-      create_activity(item) unless Activity.exists?(:guid => item.id)
+      attrs  = attrs_for(item)
+      record = Activity.where(:guid => item.id).first
+      record ? record.update_attributes!(attrs) : Activity.create!(attrs)
     end
   rescue => e
     puts e.message
@@ -39,8 +41,8 @@ class Feed
       open(source)
     end
 
-    def create_activity(item)
-      Activity.create!(
+    def attrs_for(item)
+      {
         team_id:      team_id,
         kind:         :feed_entry,
         guid:         item.id,
@@ -48,7 +50,7 @@ class Feed
         content:      item.content,
         author:       item.author,
         source_url:   item.link,
-        published_at: item.published || item.updated
-      )
+        published_at: item.published || item.updated || item.pubDate
+      }
     end
 end
