@@ -67,4 +67,8 @@ class UsersController < ApplicationController
     def normalize_params
       params[:role] = 'all' if params[:role].blank?
     end
+
+    def normalize_params
+      params[:role] = 'all' if params[:role].blank?
+    end
 end
