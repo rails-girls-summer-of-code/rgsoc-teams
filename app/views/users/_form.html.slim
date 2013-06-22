@@ -6,14 +6,14 @@
         - @user.errors.full_messages.each do |message|
           li = message
 
+  = f.input :name
+  = f.input :email, required: true
   = f.input :github_handle
   = f.input :twitter_handle
   = f.input :irc_handle
-  = f.input :name
-  = f.input :email, required: true
+  = f.input :homepage, as: :url
   = f.input :location
   = f.input :bio, label: 'About you'
-  = f.input :homepage, as: :url
 
   .actions
     = f.submit 'Save', class: 'btn'
