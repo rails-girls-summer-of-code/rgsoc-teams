@@ -12,5 +12,7 @@ RgsocTeams::Application.routes.draw do
     resources :roles, only: [:new, :create, :destroy]
   end
 
+  get 'pages/:page', to: 'pages#show', as: :page
+
   root to: 'activities#index'
 end
