@@ -21,14 +21,22 @@ nav.page
   - if @team.description
     p = render_markdown(@team.description).html_safe
 
-h3 Sources
-= @team.sources.any? ? list_sources(@team) : '-'
+- if @team.organizers.any?
+  h3 Organizers
+  = @team.organizers.any? ? link_to_team_members(@team, :organizer) : '-'
 
-h3 Students
-p = @team.students.any? ? link_to_team_members(@team, :student) : '-'
+  h3 Supervisors
+  = @team.supervisors.any? ? link_to_team_members(@team, :supervisor) : '-'
 
-h3 Coaches
-p = @team.coaches.any? ? link_to_team_members(@team, :coach) : '-'
+- else
+  h3 Sources
+  = @team.sources.any? ? list_sources(@team) : '-'
 
-h3 Mentors
-p = @team.mentors.any? ? link_to_team_members(@team, :mentor) : '-'
+  h3 Students
+  p = @team.students.any? ? link_to_team_members(@team, :student) : '-'
+
+  h3 Coaches
+  p = @team.coaches.any? ? link_to_team_members(@team, :coach) : '-'
+
+  h3 Mentors
+  p = @team.mentors.any? ? link_to_team_members(@team, :mentor) : '-'

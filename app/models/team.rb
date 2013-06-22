@@ -10,10 +10,12 @@ class Team < ActiveRecord::Base
   # validate :must_have_unique_students
 
   has_many :roles, dependent: :destroy
-  has_many :members,  class_name: 'User', through: :roles, source: :user
-  has_many :students, class_name: 'User', through: :roles, source: :user, conditions: { roles: { name: 'student' } }
-  has_many :coaches,  class_name: 'User', through: :roles, source: :user, conditions: { roles: { name: 'coach'   } }
-  has_many :mentors,  class_name: 'User', through: :roles, source: :user, conditions: { roles: { name: 'mentor'  } }
+  has_many :members,     class_name: 'User', through: :roles, source: :user
+  has_many :students,    class_name: 'User', through: :roles, source: :user, conditions: { roles: { name: 'student' } }
+  has_many :coaches,     class_name: 'User', through: :roles, source: :user, conditions: { roles: { name: 'coach'   } }
+  has_many :mentors,     class_name: 'User', through: :roles, source: :user, conditions: { roles: { name: 'mentor'  } }
+  has_many :organizers,  class_name: 'User', through: :roles, source: :user, conditions: { roles: { name: 'organizer' } }
+  has_many :supervisors, class_name: 'User', through: :roles, source: :user, conditions: { roles: { name: 'supervisor' } }
 
   has_many :sources, dependent: :destroy
   has_many :activities, dependent: :destroy
