@@ -7,6 +7,14 @@ module ApplicationHelper
     current_user.admin? ? Role::ROLES : Role::TEAM_ROLES
   end
 
+  def each_handle(user, names)
+    names.each do |name|
+      handle = user.send(:"#{name}_handle")
+      url = user.send(:"#{name}_url") if user.respond_to?(:"#{name}_url")
+      yield name, handle, url if handle.present?
+    end
+  end
+
   def list_sources(team)
     content_tag(:ul, class: 'sources') do
       team.sources.each do |source|

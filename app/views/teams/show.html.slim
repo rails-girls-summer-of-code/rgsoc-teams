@@ -11,14 +11,14 @@ nav.page
 
 = content_tag :h1, @team.display_name, class: "team #{@team.kind}"
 
-ul.profiles
-  - if @team.github_handle.present?
-    li = link_to @team.github_handle, @team.github_url, class: :github
-  - if @team.twitter_handle.present?
-    li = link_to @team.twitter_handle, @team.twitter_url, class: :twitter
+.profile
+  dl
+    - each_handle(@team, [:github, :twitter]) do |name, handle, url|
+      dt = name.capitalize
+      dd = url ? link_to(handle, url) : handle
 
-- if @team.description
-  p = render_markdown(@team.description).html_safe
+  - if @team.description
+    p = render_markdown(@team.description).html_safe
 
 h3 Sources
 = @team.sources.any? ? list_sources(@team) : '-'

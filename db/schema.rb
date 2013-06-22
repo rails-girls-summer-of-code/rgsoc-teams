@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130621153119) do
+ActiveRecord::Schema.define(:version => 20130622142925) do
 
   create_table "activities", :force => true do |t|
     t.integer  "team_id"
@@ -68,6 +68,7 @@ ActiveRecord::Schema.define(:version => 20130621153119) do
     t.datetime "updated_at",     :null => false
     t.integer  "team_id"
     t.string   "twitter_handle"
+    t.string   "irc_handle"
   end
 
 end

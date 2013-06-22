@@ -130,14 +130,25 @@ nav
 .pages #content
   width: 700px
 
-.sources, .teams, .profiles
+.sources, .profile .teams, .profiles
   li
     list-style-type: disc
 
 .profile
   img
-    float: right
-    width: 200px
+    float: left
+    width: 180px
+    height: 180px
+    margin-right: 2em
+    border-radius: 10px
+
+  dl
+    margin-bottom: 1em
+    @include clearfix
+  dt
+    float: left
+    width: 100px
+    font-weight: normal
 
 .team
   &.sponsored:after
