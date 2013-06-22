@@ -12,9 +12,28 @@
  *= require_tree .
  */
 
-@import "variables"
+@import "vars-bootstrap"
+@import "vars-font_awesome"
 @import "bootstrap"
 @import "font-awesome"
+
+@mixin icon($icon)
+  content: $icon
+  display: inline-block
+  width: 1em
+  text-decoration: inherit
+  font-family: FontAwesome
+  font-size: 0.8em
+  font-weight: normal
+  font-style: normal
+@mixin icon-before($icon)
+  &:before
+    @include icon($icon)
+    margin-right: 0.5em
+@mixin icon-after($icon)
+  &:after
+    @include icon($icon)
+    margin-left: 0.5em
 
 *
   box-sizing: border-box
@@ -127,6 +146,16 @@ nav
   h4
     font-size: 1.15em
 
+.activities
+  h4
+    margin: 0
+    font-size: 1em
+    font-weight: normal
+    @include icon-before('\f040')
+  .info
+    padding-left: 1.5em
+    font-size: 0.9em
+
 .pages
   #content
     width: 700px
@@ -159,14 +188,8 @@ nav
     font-weight: normal
 
 .team
-  &.sponsored:after
-    content: '\f006'
-    margin-left: 0.5em
-    display: inline-block
-    text-decoration: inherit
-    font-family: FontAwesome
-    font-weight: normal
-    font-style: normal
+  &.sponsored
+    @include icon-after($star-empty)
 
 .hint
   font-size: 0.9em

@@ -1,6 +1,7 @@
 li class="activity #{activity.kind}"
-  p = link_to(activity.title, activity.source_url, class: 'title')
+  = content_tag :h4, link_to(activity.title, activity.source_url, class: 'title')
   p.info
-    span.team = activity.team.display_name
-    span.published_at = " &mdash; #{activity.published_at.to_formatted_s(:short)}".html_safe if activity.published_at
+    span.published_at = "#{activity.published_at.to_formatted_s(:short)}".html_safe if activity.published_at
+    | , by: &nbsp;
+    = link_to activity.team.display_name, activity.team
 
