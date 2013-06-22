@@ -9,7 +9,7 @@ nav.actions
 
 .profile
   - if @user.avatar_url.present?
-    img src=@user.avatar_url
+    img src="#{@user.avatar_url}&s=200"
 
   h1 = @user.name
 
