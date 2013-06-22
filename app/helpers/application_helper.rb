@@ -1,4 +1,9 @@
 module ApplicationHelper
+  def with_layout(layout)
+    view_flow.set :layout, capture { yield }
+    render template: "layouts/#{layout}"
+  end
+
   def icon(type, text = nil)
     %Q{<i class="icon-#{type}"></i>#{text == nil ? '' : " #{text}"}}.html_safe
   end
