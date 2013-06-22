@@ -6,6 +6,9 @@
         - @team.errors.full_messages.each do |message|
           li = message
 
+  p.help-block
+    Please see the #{link_to 'Help section', page_path('help')} for information about teams.
+
   = f.input :name, placeholder: 'Any name you like ...'
   = f.input :projects, placeholder: 'Project name(s)'
   = f.input :github_handle, placeholder: '', hint: 'Should your team have an organization ...'
