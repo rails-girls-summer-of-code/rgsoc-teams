@@ -13,16 +13,17 @@ nav.actions
 
   h1 = @user.name
 
-  dl
-    - each_handle(@user, [:github, :twitter, :irc]) do |name, handle, url|
-      dt = name.capitalize
-      dd = url ? link_to(handle, url) : handle
-    - if @user.location.present?
-      dt Location
-      dd = @user.location
-    - if @user.homepage.present?
-      dt Homepage
-      dd = link_to(@user.homepage, @user.homepage)
+  - if_present? @user, :github_handle, :twitter_handle, :irc_handle, :location, :homepage
+    dl
+      - each_handle(@user, :github, :twitter, :irc) do |name, handle, url|
+        dt = name.capitalize
+        dd = url ? link_to(handle, url) : handle
+      - if @user.location.present?
+        dt Location
+        dd = @user.location
+      - if @user.homepage.present?
+        dt Homepage
+        dd = link_to(@user.homepage, @user.homepage)
 
   - if @user.bio.present?
     h4 About me

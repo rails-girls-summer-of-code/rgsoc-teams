@@ -7,7 +7,11 @@ module ApplicationHelper
     current_user.admin? ? Role::ROLES : Role::TEAM_ROLES
   end
 
-  def each_handle(user, names)
+  def if_present?(user, *attrs)
+    yield if attrs.any? { |attr| user.send(attr).present? }
+  end
+
+  def each_handle(user, *names)
     names.each do |name|
       handle = user.send(:"#{name}_handle")
       url = user.send(:"#{name}_url") if user.respond_to?(:"#{name}_url")
