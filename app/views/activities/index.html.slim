@@ -1,9 +1,5 @@
-.activities
+h1.header
+  = icon('comments-alt')
+  span Activities
 
-  h1.header
-    = icon('comments-alt')
-    span Activities
-
-ul
-- @activities.each do |activity|
-  = render partial: activity.kind, object: activity, as: :activity
+= render 'activities', object: @activities

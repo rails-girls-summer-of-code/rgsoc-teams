@@ -1,0 +1,4 @@
+ul.activities
+  - object.each do |activity|
+    = render partial: "activities/#{activity.kind}", object: activity, as: :activity
+

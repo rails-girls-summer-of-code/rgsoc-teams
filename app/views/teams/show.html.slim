@@ -40,3 +40,7 @@ h3 Sources
 
   h3 Mentors
   p = @team.mentors.any? ? link_to_team_members(@team, :mentor) : '-'
+
+- if @team.activities.any?
+  h3 Activities
+  = render 'activities/activities', object: @team.activities
