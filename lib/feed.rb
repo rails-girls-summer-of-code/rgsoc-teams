@@ -66,7 +66,9 @@ class Feed
     def parse
       silence_warnings do
         puts "Feeds: going to fetch #{source}"
-        Feedzirra::Feed.fetch_and_parse(source)
+        data = Feedzirra::Feed.fetch_and_parse(source)
+        puts "this does not look like a valid feed" unless data.respond_to?(:entries)
+        data
       end
     end
 
