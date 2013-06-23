@@ -2,33 +2,29 @@ require 'spec_helper'
 require 'feed'
 
 describe Feed do
-  let :feeds do
-    Dir['spec/stubs/feeds/*'].sort.inject({}) do |stubs, file|
-      stubs.merge(File.basename(file) => File.read(file))
-    end
+  def source(name)
+    "file://#{File.expand_path("spec/stubs/feeds/#{name}")}"
   end
 
-  let(:team_id)    { 1 }
-  let(:source_url) { 'http://sloblog.io/~donswelt.atom' }
-
-  subject { Feed.new(team_id, source_url) }
+  let(:team_id) { 1 }
+  let(:sources) { [source('sloblog.1.atom'), source('sloblog.2.atom')] }
 
   it 'fetches and parses the given feeds, not adding duplicate entries' do
-    stub_request(:get, source_url).to_return(body: feeds['sloblog.1.atom'])
-    -> { subject.update }.should change(Activity, :count).by(2)
+    update = -> { Feed.new(team_id, sources[0]).update }
+    update.should change(Activity, :count).by(2)
 
-    stub_request(:get, source_url).to_return(body: feeds['sloblog.2.atom'])
-    -> { subject.update }.should change(Activity, :count).by(1)
+    update = -> { Feed.new(team_id, sources[1]).update }
+    update.should change(Activity, :count).by(1)
   end
 
   it 'sets the expected attributes' do
-    stub_request(:get, source_url).to_return(body: feeds['sloblog.1.atom'])
-    subject.update
+    Feed.new(team_id, sources[0]).update
+
     attrs = Activity.first.attributes.symbolize_keys
     attrs.slice(*%i(kind guid author source_url)).should == {
       kind: 'feed_entry',
       guid: 'tag:sloblog.io,2005:tuVpApz3THQ',
-      author: "@donswelt\n      http://sloblog.io/~donswelt",
+      author: '@donswelt',
       source_url: 'http://sloblog.io/tuVpApz3THQ',
     }
     attrs[:content].should =~ /Es ist mitten/

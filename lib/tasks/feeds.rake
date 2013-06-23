@@ -1,7 +1,7 @@
 require 'feed'
 
-namespace :feeds do
-  desc 'Update all feeds'
+namespace :activity do
+  desc 'Update activity'
   task update: :environment do
     Feed.update_all
   end

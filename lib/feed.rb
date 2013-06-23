@@ -1,11 +1,10 @@
-require 'open-uri'
-require 'simple-rss'
+require 'feedzirra'
 
 class Feed
   class Item
     attr_reader :team_id, :item
 
-    delegate :title, :content, :author, :link, to: :item
+    delegate :title, :content, :author, :url, to: :item
 
     def initialize(team_id, item)
       @team_id = team_id
@@ -20,7 +19,7 @@ class Feed
         title:        title,
         content:      content,
         author:       author,
-        source_url:   link,
+        source_url:   url,
         published_at: published_at
       }
     end
@@ -50,7 +49,7 @@ class Feed
   end
 
   def update
-    parse.items.each do |data|
+    parse.entries.each do |data|
       item = Item.new(team_id, data)
       raise "can not find guid for item in source #{source}" unless item.guid
       # puts "processing item #{item.guid}: #{item.title}"
@@ -66,7 +65,8 @@ class Feed
 
     def parse
       silence_warnings do
-        SimpleRSS.parse(fetch)
+        puts "Feeds: going to fetch #{source}"
+        Feedzirra::Feed.fetch_and_parse(source)
       end
     end
 

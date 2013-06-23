@@ -46,6 +46,7 @@ GEM
     columnize (0.3.6)
     crack (0.4.0)
       safe_yaml (~> 0.9.0)
+    curb (0.8.4)
     database_cleaner (1.0.1)
     debugger (1.6.0)
       columnize (>= 0.3.1)
@@ -69,6 +70,12 @@ GEM
       railties (>= 3.0.0)
     faraday (0.8.7)
       multipart-post (~> 1.1)
+    feedzirra (0.2.0.rc2)
+      curb (~> 0.8.0)
+      gorillib (~> 0.1.9)
+      loofah (~> 1.2.1)
+      nokogiri (~> 1.5.3)
+      sax-machine (~> 0.2.0.rc1)
     ffaker (1.16.1)
     font-awesome-sass-rails (3.0.2.2)
       railties (>= 3.1.1)
@@ -80,6 +87,8 @@ GEM
       multi_json (~> 1.0)
       net-http-persistent (>= 2.7)
       net-http-pipeline
+    gorillib (0.1.11)
+      json
     hashie (2.0.5)
     hike (1.2.3)
     httpauth (0.2.0)
@@ -92,6 +101,8 @@ GEM
     jwt (0.1.8)
       multi_json (>= 1.5)
     kgio (2.8.0)
+    loofah (1.2.1)
+      nokogiri (>= 1.4.4)
     mail (2.5.4)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
@@ -101,6 +112,7 @@ GEM
     nested_form (0.3.2)
     net-http-persistent (2.8)
     net-http-pipeline (1.0.1)
+    nokogiri (1.5.10)
     oauth2 (0.8.1)
       faraday (~> 0.8)
       httpauth (~> 0.1)
@@ -165,13 +177,14 @@ GEM
       railties (~> 3.2.0)
       sass (>= 3.1.10)
       tilt (~> 1.3)
+    sax-machine (0.2.0.rc1)
+      nokogiri (~> 1.5.2)
     shoulda (3.5.0)
       shoulda-context (~> 1.0, >= 1.0.1)
       shoulda-matchers (>= 1.4.1, < 3.0)
     shoulda-context (1.1.2)
     shoulda-matchers (2.2.0)
       activesupport (>= 3.0.0)
-    simple-rss (1.2.3)
     simple_form (2.1.0)
       actionpack (~> 3.0)
       activemodel (~> 3.0)
@@ -223,6 +236,7 @@ DEPENDENCIES
   debugger
   devise
   factory_girl_rails
+  feedzirra (>= 0.2.0.rc2)
   ffaker
   font-awesome-sass-rails
   gh
@@ -236,7 +250,6 @@ DEPENDENCIES
   rspec-rails
   sass-rails (~> 3.2.3)
   shoulda
-  simple-rss
   simple_form
   slim-rails
   strong_parameters

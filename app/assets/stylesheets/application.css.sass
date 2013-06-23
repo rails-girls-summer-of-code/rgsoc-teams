@@ -26,6 +26,7 @@
   font-size: 0.8em
   font-weight: normal
   font-style: normal
+  line-height: 1em
 @mixin icon-before($icon)
   &:before
     @include icon($icon)
@@ -186,6 +187,12 @@ nav
     float: left
     width: 100px
     font-weight: normal
+
+.github
+  @include icon-after($github-alt)
+
+.twitter
+  @include icon-after($twitter)
 
 .team
   &.sponsored
