@@ -147,46 +147,46 @@ nav
   h4
     font-size: 1.15em
 
-.activities
-  h4
-    margin: 0
-    font-size: 1em
-    font-weight: normal
-    @include icon-before('\f040')
-  .info
-    padding-left: 1.5em
-    font-size: 0.9em
+  .activities
+    h4
+      margin: 0
+      font-size: 1em
+      font-weight: normal
+      @include icon-before('\f040')
+    .info
+      padding-left: 1.5em
+      font-size: 0.9em
 
-.pages
-  #content
-    width: 700px
+  .pages
+    #content
+      width: 700px
 
-  aside
-    position: absolute
-    right: 0
-    width: 220px
-    ul
-      margin-left: 0
+    aside
+      position: absolute
+      right: 0
+      width: 220px
+      ul
+        margin-left: 0
 
-.sources, .profile .teams, .profiles
-  li
-    list-style-type: disc
+  .profile
+    img
+      float: left
+      width: 180px
+      height: 180px
+      margin-right: 2em
+      border-radius: 10px
 
-.profile
-  img
-    float: left
-    width: 180px
-    height: 180px
-    margin-right: 2em
-    border-radius: 10px
+    dl
+      margin-bottom: 1em
+      @include clearfix
+    dt
+      float: left
+      width: 100px
+      font-weight: normal
 
-  dl
-    margin-bottom: 1em
-    @include clearfix
-  dt
-    float: left
-    width: 100px
-    font-weight: normal
+  .sources, .teams, .profiles
+    li
+      list-style-type: disc
 
 .github
   @include icon-after($github-alt)
