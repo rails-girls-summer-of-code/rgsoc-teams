@@ -38,6 +38,7 @@ end
 
 group :development do
   gem 'quiet_assets'
+  gem 'better_errors'
 end
 
 group :test do
