@@ -1,6 +1,6 @@
 class Source < ActiveRecord::Base
   KINDS = {
-    blog: 'Blog feed',
+    blog: 'Blog',
     repository: 'Repository'
   }
 
