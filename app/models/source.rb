@@ -1,8 +1,5 @@
 class Source < ActiveRecord::Base
-  KINDS = {
-    blog: 'Blog',
-    repository: 'Repository'
-  }
+  KINDS = %w(blog repository)
 
   belongs_to :team
 

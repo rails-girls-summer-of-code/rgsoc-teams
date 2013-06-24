@@ -1,8 +1,10 @@
-nav.actions
-  ul
-    li = link_to 'New Source', new_source_path, class: 'new'
-
 h1 Sources
+
+form.filter action=sources_path
+  - (['all'] + Source::KINDS).each do |kind|
+    label.radio
+      = radio_button_tag :kind, kind == 'all' ? '' : kind, params[:kind] == kind
+      = kind.capitalize
 
 table.table.table-striped.table-bordered.table-condensed
   thead
@@ -12,6 +14,5 @@ table.table.table-striped.table-bordered.table-condensed
   tbody
     - @sources.each do |source|
       tr
-        td = source.url
-        td = link_to 'Show', source
+        td = link_to source.url, source.url
 

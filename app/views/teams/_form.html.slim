@@ -30,7 +30,7 @@
       label Type
     = f.simple_fields_for :sources do |s|
       = s.input :url, required: false, label: false
-      = s.input :kind, as: :radio_buttons, collection: Source::KINDS.invert, required: false, label: false
+      = s.input :kind, as: :radio_buttons, collection: Source::KINDS.map { |k| [k.capitalize, k] }, required: false, label: false
       = s.link_to_remove 'Remove'
     = f.link_to_add 'Add another source', :sources
 

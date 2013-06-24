@@ -1,11 +1,15 @@
 class SourcesController < ApplicationController
   before_filter :set_team
+  before_filter :set_sources, only: :index
   before_filter :set_source, except: [:index]
 
   load_and_authorize_resource except: [:index, :show]
 
   def index
-    @sources = @team.sources
+    respond_to do |format|
+      format.html { render :index }
+      format.json { render json: @sources }
+    end
   end
 
   def new
@@ -48,7 +52,16 @@ class SourcesController < ApplicationController
   private
 
     def set_team
-      @team = Team.find(params[:team_id])
+      @team = Team.find(params[:team_id]) if params[:team_id]
+    end
+
+    def set_sources
+      @sources = if @team
+        @team.sources
+      else
+        options = { kind: params[:kind] } if params[:kind].present?
+        Source.where(options || {}).order(:url)
+      end
     end
 
     def set_source
