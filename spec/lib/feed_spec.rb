@@ -3,7 +3,8 @@ require 'feed'
 
 describe Feed do
   def source(name)
-    Source.new(team_id: 1, feed_url: "file://#{File.expand_path("spec/stubs/feeds/#{name}")}")
+    url = "file://#{File.expand_path("spec/stubs/feeds/#{name}")}"
+    Source.new(team_id: 1, kind: 'blog', url: url, feed_url: url)
   end
 
   it 'fetches and parses the given feeds, not adding duplicate entries' do
@@ -33,7 +34,7 @@ describe Feed do
     url = 'http://sloblog.io/~donswelt'
     stub_request(:get, url).to_return(body: File.read('spec/stubs/feeds/sloblog.html'))
     source = Source.new(team_id: 1, kind: 'blog', url: url)
-    source.should_receive(:update_attributes!).with(feed_url: 'http://sloblog.io/~donswelt.atom')
+    source.should_receive(:feed_url=).with('http://sloblog.io/~donswelt.atom')
     Feed.new(source).update
   end
 end
