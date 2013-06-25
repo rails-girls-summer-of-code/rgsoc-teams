@@ -26,15 +26,18 @@ nav.page
   - if @team.description
     p = render_markdown(@team.description).html_safe
 
-h3 Sources
 - if @team.helpdesk?
-  = list_sources(@team) if @team.sources.any?
+  if @team.sources.any?
+    h3 Sources
+    = list_sources(@team)
 
   h3 Members
   = link_to_team_members(@team, :helpdesk)
 
 - elsif @team.organizers.any? || @team.supervisors.any?
-  = list_sources(@team) if @team.sources.any?
+  if @team.sources.any?
+    h3 Sources
+    = list_sources(@team)
 
   h3 Organizers
   = link_to_team_members(@team, :organizer)
@@ -43,6 +46,7 @@ h3 Sources
   = link_to_team_members(@team, :supervisor)
 
 - else
+  h3 Sources
   = @team.sources.any? ? list_sources(@team) : '-'
 
   h3 Students
