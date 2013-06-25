@@ -12,29 +12,11 @@
  *= require_tree .
  */
 
+@import "mixins"
 @import "vars-bootstrap"
 @import "vars-font_awesome"
 @import "bootstrap"
 @import "font-awesome"
-
-@mixin icon($icon)
-  content: $icon
-  display: inline-block
-  width: 1em
-  text-decoration: inherit
-  font-family: FontAwesome
-  font-size: 0.8em
-  font-weight: normal
-  font-style: normal
-  line-height: 1em
-@mixin icon-before($icon)
-  &:before
-    @include icon($icon)
-    margin-right: 0.5em
-@mixin icon-after($icon)
-  &:after
-    @include icon($icon)
-    margin-left: 0.5em
 
 *
   box-sizing: border-box
@@ -202,8 +184,9 @@ ul.activities
   @include icon-after($twitter)
 
 .team
+  @include icon-before($star-empty)
   &.sponsored
-    @include icon-after($star-empty)
+    @include icon-before($star)
 
 .hint
   font-size: 0.9em
@@ -273,3 +256,4 @@ h1.header
     display: inline-block
   span
     margin-left: 10px
+
