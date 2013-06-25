@@ -21,7 +21,7 @@ class Feed
   def update
     source.feed_url = discover_feed_url unless source.feed_url.present?
     update_entries
-    source.save! if source.feed_url_changed?
+    source.save! if source.feed_url_changed? && source.feed_url != source.url
   rescue => e
     puts e.message
     # puts e.backtrace
@@ -33,7 +33,7 @@ class Feed
       urls = Discovery.new(source.url).feed_urls
       url = urls.reject { |url| url =~ /comment/ }.first
       puts "discovered feed url for #{source.url}: #{url}" if url
-      url || source
+      url || source.url
     end
 
     def update_entries

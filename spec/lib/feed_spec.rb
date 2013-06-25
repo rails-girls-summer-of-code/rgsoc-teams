@@ -37,4 +37,12 @@ describe Feed do
     source.should_receive(:feed_url=).with('http://sloblog.io/~donswelt.atom')
     Feed.new(source).update
   end
+
+  it 'defaults to the source url if discovery fails' do
+    url = 'http://sloblog.io/~donswelt'
+    stub_request(:get, url).to_return(body: '')
+    source = Source.new(team_id: 1, kind: 'blog', url: url)
+    source.should_receive(:feed_url=).with('http://sloblog.io/~donswelt')
+    Feed.new(source).update
+  end
 end
