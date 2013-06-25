@@ -38,4 +38,36 @@ describe Team do
       subject.display_name.should == 'Team Blue (Sinatra)'
     end
   end
+
+  describe 'github_handle=' do
+    it 'keeps an empty handle' do
+      Team.new(github_handle: nil).github_handle.should be_nil
+    end
+
+    it 'strips leading/tailing spaces' do
+      Team.new(github_handle: ' foo ').github_handle.should == 'foo'
+    end
+
+    it 'extracts the handle from a github url' do
+      Team.new(github_handle: 'https://github.com/foo').github_handle.should == 'foo'
+    end
+  end
+
+  describe 'twitter_handle=' do
+    it 'keeps an empty handle' do
+      Team.new(twitter_handle: nil).twitter_handle.should be_nil
+    end
+
+    it 'with an @' do
+      Team.new(twitter_handle: '@foo').twitter_handle.should == '@foo'
+    end
+
+    it 'strips leading/tailing spaces' do
+      Team.new(twitter_handle: ' foo ').twitter_handle.should == '@foo'
+    end
+
+    it 'extracts the handle from a github url' do
+      Team.new(twitter_handle: 'https://twitter.com/foo').twitter_handle.should == '@foo'
+    end
+  end
 end

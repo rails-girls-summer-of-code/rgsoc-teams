@@ -1,11 +1,11 @@
 module ProfilesHelper
-  def github_handle=(github_handle)
-    super(github_handle.to_s.sub(%r(^https?://github\.com/), '').split('/').first)
+  def github_handle=(handle)
+    super(normalize_handle(handle))
   end
 
-  def twitter_handle=(twitter_handle)
-    twitter_handle = twitter_handle.to_s.sub(%r(^https?://twitter\.com/), '').sub(/^@/, '').split('/').first
-    super(twitter_handle && "@#{twitter_handle}")
+  def twitter_handle=(handle)
+    handle = normalize_handle(handle)
+    super(handle.present? && "@#{handle}" || nil)
   end
 
   def twitter_url
@@ -14,5 +14,9 @@ module ProfilesHelper
 
   def github_url
     "https://github.com/#{github_handle}"
+  end
+
+  def normalize_handle(handle)
+    handle.to_s.sub(%r(^https?://[^/]+/), '').sub(/^@/, '').split('/').first.try(:strip)
   end
 end
