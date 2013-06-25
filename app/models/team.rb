@@ -5,6 +5,7 @@ class Team < ActiveRecord::Base
 
   validates :kind, presence: true
   validates :name, uniqueness: true, allow_blank: true
+  validates :projects, presence: true
   # validate :must_have_members
   # validate :must_have_unique_students
 
