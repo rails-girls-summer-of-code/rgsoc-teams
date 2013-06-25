@@ -28,13 +28,13 @@ nav.page
 
 h3 Sources
 - if @team.helpdesk?
-  = @team.sources.any? ? list_sources(@team) : '-'
+  = list_sources(@team) if @team.sources.any?
 
   h3 Members
   = link_to_team_members(@team, :helpdesk)
 
 - elsif @team.organizers.any? || @team.supervisors.any?
-  = @team.sources.any? ? list_sources(@team) : '-'
+  = list_sources(@team) if @team.sources.any?
 
   h3 Organizers
   = link_to_team_members(@team, :organizer)
