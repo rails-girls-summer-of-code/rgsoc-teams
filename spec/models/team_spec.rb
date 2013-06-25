@@ -9,6 +9,9 @@ describe Team do
   it { should have_many(:students) }
   it { should have_many(:coaches) }
   it { should have_many(:mentors) }
+  it { should have_many(:helpdesks) }
+  it { should have_many(:organizers) }
+  it { should have_many(:supervisors) }
   it { should have_many(:roles) }
 
   it { should validate_uniqueness_of(:name) }

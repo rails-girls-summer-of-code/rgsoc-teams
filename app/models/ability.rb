@@ -7,17 +7,23 @@ class Ability
   def initialize(user)
     user ||= User.new
 
-    can :manage, User, id: user.id
+    alias_action :create, :read, :update, :destroy, :to => :crud
 
-    can :manage, Team do |team|
+    can :crud, User, id: user.id
+
+    can :crud, Team do |team|
       user.admin? or signed_in?(user) && team.new_record? or on_team?(user, team)
     end
 
-    can :manage, Role do |role|
+    can :join, Team do |team|
+      team.helpdesk? and not on_team?(user, team)
+    end
+
+    can :crud, Role do |role|
       user.admin? or on_team?(user, role.team)
     end
 
-    can :manage, Source do |repo|
+    can :crud, Source do |repo|
       user.admin? or on_team?(user, repo.team)
     end
   end

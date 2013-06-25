@@ -1,12 +1,13 @@
 require 'spec_helper'
 
 describe 'teams/show' do
-  let(:team)       { stub_model(Team, name: 'Name', description: 'Description') }
-  let(:can_manage) { false }
+  let(:team)     { stub_model(Team, name: 'Name', description: 'Description') }
+  let(:can_edit) { false }
 
   before(:each) do
     assign(:team, team)
-    view.should_receive(:can?).with(:manage, team).and_return(can_manage)
+    view.stub(:can?).with(:join, team).and_return(false)
+    view.stub(:can?).with(:edit, team).and_return(can_edit)
     render
   end
 
@@ -14,15 +15,15 @@ describe 'teams/show' do
     rendered.should match(/Name/)
   end
 
-  describe 'can manage teams' do
-    let(:can_manage) { true }
+  describe 'can edit teams' do
+    let(:can_edit) { true }
 
     it 'renders an manage team links' do
       assert_select "a[href='#{edit_team_path(team)}']", count: 1
     end
   end
 
-  describe 'can not manage team' do
+  describe 'can not edit team' do
     it 'does not render manage team links' do
       assert_select "a[href='#{edit_team_path(team)}']", count: 0
     end

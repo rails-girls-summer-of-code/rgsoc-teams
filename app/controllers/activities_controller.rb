@@ -1,6 +1,6 @@
 class ActivitiesController < ApplicationController
   def index
-    @activities = Activity.includes(:team).order('published_at DESC, id DESC')
+    @activities = Activity.includes(:team).ordered
   end
 end
 

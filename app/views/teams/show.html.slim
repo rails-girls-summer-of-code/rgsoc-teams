@@ -2,7 +2,12 @@ nav.page
   ul
     li = link_to 'All teams', teams_path, class: 'back'
 
-- if can? :manage, @team
+- if can? :join, @team
+  nav.actions
+    ul
+      li = link_to "Join #{@team.name}", new_team_join_path(@team), class: 'btn btn-success'
+
+- if can? :edit, @team
   nav.actions
     ul
       li = link_to 'Edit', edit_team_path(@team), class: 'edit'
@@ -24,12 +29,16 @@ nav.page
 h3 Sources
 = @team.sources.any? ? list_sources(@team) : '-'
 
-- if @team.organizers.any?
+- if @team.helpdesk?
+  h3 Members
+  = link_to_team_members(@team, :helpdesk)
+
+- elsif @team.organizers.any? || @team.supervisors.any?
   h3 Organizers
-  = @team.organizers.any? ? link_to_team_members(@team, :organizer) : '-'
+  = link_to_team_members(@team, :organizer)
 
   h3 Supervisors
-  = @team.supervisors.any? ? link_to_team_members(@team, :supervisor) : '-'
+  = link_to_team_members(@team, :supervisor)
 
 - else
   h3 Students
@@ -43,4 +52,4 @@ h3 Sources
 
 - if @team.activities.any?
   h3 Activities
-  = render 'activities/activities', object: @team.activities
+  = render 'activities/activities', object: @team.activities.ordered
