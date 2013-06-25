@@ -4,7 +4,7 @@ class JoinController < ApplicationController
 
   def create
     @team.roles.create!(user: current_user, name: 'helpdesk')
-    redirect_to edit_user_url(current_user), flash: { notice: 'You have joined the Helpdesk team. Please make sure your profile is complete :)' }
+    redirect_to edit_user_url(current_user), flash: { notice: 'You have joined the Helpdesk team. Please make sure your profile is complete. Especially add your IRC handle :)' }
   end
 
   private
