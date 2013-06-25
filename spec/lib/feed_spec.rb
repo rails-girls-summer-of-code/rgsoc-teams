@@ -30,6 +30,11 @@ describe Feed do
     attrs[:published_at].to_s.should == '2013-02-02 23:55:58 UTC'
   end
 
+  it 'deals with local entry links' do
+    Feed.new(source('lipenco.atom')).update
+    Activity.first.source_url.should == "http://lipen.co/til/impress-js-i-love-you.html"
+  end
+
   it 'tries to discover the feed_url unless present' do
     url = 'http://sloblog.io/~donswelt'
     stub_request(:get, url).to_return(body: File.read('spec/stubs/feeds/sloblog.html'))

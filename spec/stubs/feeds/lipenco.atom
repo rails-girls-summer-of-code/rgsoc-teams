@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Lipen.co</title>
+  <subtitle>Today I Learned</subtitle>
+  <id>http://lipen.co/til</id>
+  <link href="http://lipen.co/til"/>
+  <link href="http://lipen.co/til/feed.xml" rel="self"/>
+  <updated>2013-06-24T00:00:00Z</updated>
+  <author>
+    <name>Magdalena Lipinska</name>
+  </author>
+  <entry>
+    <title>Impress.js I Love You, but You Turn me Down</title>
+    <link rel="alternate" href="/impress-js-i-love-you.html"/>
+    <id>http://lipen.co/til/impress-js-i-love-you.html</id>
+    <published>2013-06-24T00:00:00Z</published>
+    <updated>2013-06-24T00:00:00Z</updated>
+    <author>
+      <name>Article Author</name>
+    </author>
+    <content type="html">&lt;p&gt;John saved me (again) and reset all the mess from my computer (pff. machine ;p). He dictated (as dictators do) to use &lt;a href='http://boxen.github.com'&gt;Boxen&lt;/a&gt; and Time Machine. Now I can run the Speakerinnen application from localhost. John as my backseat developer is just irreplaceable. Well, he is irreplaceable anyways.&lt;/p&gt;
+
+&lt;p&gt;I started my day with &lt;a href='https://github.com/bartaz/impress.js/'&gt;impress.js&lt;/a&gt;, having a briliant idea to steal some features I need for my presentation form &lt;a href='http://jmpressjs.github.io/jmpress.js/#/home'&gt;Jmpress.js&lt;/a&gt; (the framework based on impress.js). As unfair as it sounds, using libraries doesn&amp;#8217;t make you a developer. After trying and trying I was beaten up and decided to get to JavaScript fundaments. I started reading the book &lt;a href='http://www.javascriptenlightenment.com/'&gt;&amp;#8220;Java Script - Enlightement&amp;#8221;&lt;/a&gt;, which was a perfect intro to an afternoon nap. Nonetheless I belive it is the right way to get some front-end power and jump form imitation into creation.&lt;/p&gt;
+
+&lt;p&gt;Today, on my last Rubymonster Monday meet up in Berlin we &lt;a href='https://github.com/rubymonsters/speakerinnen_liste/commit/986468c18e527b06b9c047102c4a0ca5a543f59a'&gt;merged my design to master&lt;/a&gt;. It was a nice and rewarding feeling. I will miss this crew, especially now that this project has gained momentum. I am not a person who gets mushy on the sound of the word &amp;#8220;community,&amp;#8221; and even less when it comes to all this feminism bullsh..hmm&amp;#8230; discourse, but RailsGirls really makes a lot of sense.&lt;/p&gt;
+
+&lt;h3 id='today_i_learned'&gt;Today I Learned:&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;With a liitle bit of cheating, stealing and PS transforming you can figure out how to make a decent logo for free.&lt;/li&gt;
+
+&lt;li&gt;Reading books about programing is like reading porno stories, so much work to imagine it all, it is so much better to just to it.&lt;/li&gt;
+
+&lt;li&gt;Peer to peer learning is effective maybe 15% of the time, but it is worth every minute you wasted on it.&lt;/li&gt;
+
+&lt;li&gt;Git is exactly what it means.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;em&gt;To sum up&lt;/em&gt;: I am so enthiusiastic about my nerdy life that I added a new moving gradient footer to the blog, even if it has a similar aesthetic to Kreusberg and Nukloin&amp;#8217;s clothing shops mixed with a bit of kebab smell.&lt;/p&gt;</content>
+  </entry>
+  <entry>
+    <title>Rails, impress.js, Design &amp; Disappointment.</title>
+    <link rel="alternate" href="/rails-impress-js.html"/>
+    <id>http://lipen.co/til/rails-impress-js.html</id>
+    <published>2013-06-20T00:00:00Z</published>
+    <updated>2013-06-20T00:00:00Z</updated>
+    <author>
+      <name>Article Author</name>
+    </author>
+    <content type="html">&lt;p&gt;I’ll give you $10 if you can get this application to work on my computer. Additional features like air conditioning highly desirable. You in?&lt;/p&gt;
+
+&lt;p&gt;After a productive couple of hours working on implementating my classy design for Speakerinnen Liste with &lt;a href='https://github.com/thatbettina'&gt;Bettina&lt;/a&gt; and &lt;a href='https://github.com/zaziemo'&gt;Maren&lt;/a&gt; (members of the &lt;a href='https://github.com/rubymonsters'&gt;Ruby Monsters&lt;/a&gt; team form Berlin) we apparently had some achievements. Though, if it hadn’t been for John’s help we would have made just a big mess in the code. It’s too bad that when I tried to run the application on my own computer it didn’t work. I&amp;#8217;m having problems with the database.&lt;/p&gt;
+
+&lt;p&gt;I had to stop working on design implementation until the problem is resolved. Instead, I put my hands into &lt;a href='https://github.com/bartaz/impress.js/'&gt;impress.js&lt;/a&gt; – the open source project I will work on this summer. I&amp;#8217;m working with Bartek, impress.js’ owner, and my coaches - John, Chris, and Tom. To understand what is going on behind the scenes, I read the documentation and went through the jQuery code. My jQuery skills can be compared to my Spanish skills – I understand to a certain extent, but active use is quite miserable. I think I have to focus more on this framework.&lt;/p&gt;
+
+&lt;p&gt;Impress.js has a challenge on &lt;a href='http://impressjs.challengepost.com/'&gt;ChallengePost&lt;/a&gt;. It is a great opportunity to practice a little before I start the Summer of Code. I am building a presentation about tax evasion while trying to add new features to the framework. I already made some very fancy CSS3 effects, but I guess the art of this challenge is to translate this mess of CSS into jQuery and make using the features universal and simple. I will try hard, but am not too optimistic about my ability to do it at this point. With JavaScript or without – I promise to gift your eyes.&lt;/p&gt;
+
+&lt;h3 id='today_i_learned'&gt;Today I Learned:&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;A good chank of CSS animations and 3D transformation effects.&lt;/li&gt;
+
+&lt;li&gt;How to create sub-steps in my presenatation by showing hidden content with a CSS delay property.&lt;/li&gt;
+
+&lt;li&gt;I started to believe I have to erase my computer to get this database to work.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;em&gt;To sum up&lt;/em&gt;: Steve Jobs would have checked out much sooner had he known this was the way I could set up my developer’s tools.&lt;/p&gt;</content>
+  </entry>
+  <entry>
+    <title>Blast Off</title>
+    <link rel="alternate" href="/blast-off.html"/>
+    <id>http://lipen.co/til/blast-off.html</id>
+    <published>2013-06-19T00:00:00Z</published>
+    <updated>2013-06-19T00:00:00Z</updated>
+    <author>
+      <name>Article Author</name>
+    </author>
+    <content type="html">&lt;p&gt;Time to prepare for the Rails Girls Summer of Code. My first task was to create this blog to track my work. It seems like changing my every-day passion into a full-time routine, but as an ex-journalist I&amp;#8217;m looking forward to some exhibitionist pleasure. It&amp;#8217;s most likely a one-sided pleasure, my dear small audience.&lt;/p&gt;
+
+&lt;p&gt;Rails Girls Summer of Code starts in two weeks. All the participants are supposed to keep a blog to track progress. I&amp;#8217;ve seen some of them already – beautiful design made in five minutes using popular services. Some people call it effectiveness, but there is such a masochistic pleasure in reinventing the wheel that I can&amp;#8217;t resist. I decided to build my hand-made blog. John believes that the only sensible choice for a developer blog is to use a static website generator. I am under constant static-website propaganda that I started to believe that a good front-end developer does not need to get her hands dirty with PHP and I gave up tha idea of creating a Wordpress theme.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href='http://middlemanapp.com'&gt;Middleman&lt;/a&gt;, the open static website generator made it possible to build all all the blogging infrastructure on my website. I hit a roadblock when I decided to add a &lt;a href='https://github.com/masukomi/kudos'&gt;Kudos&lt;/a&gt; feature to my posts. Kudos are definitely too &amp;#8220;osom&amp;#8221; (pol. awesome) to go without. This feature totally made my day, and by made my day I mean it just took all the time. Not only mine, but also John&amp;#8217;s.&lt;/p&gt;
+
+&lt;p&gt;jQuery was not enough for building Kudos. We needed a backend to store our Kudos and remember the huge numbers of Kudos you all are going to give me. Since there&amp;#8217;s no way to dyanmically store data on a static website, we had to use something else. &lt;a href='http://parse.com'&gt;Parse&lt;/a&gt; to the rescue. After painfully wading through the documentation and trying hundreds of variations of code, we made it. Ok, no-cheating -he made it, I gave up on the back end.&lt;/p&gt;
+
+&lt;h3 id='today_i_learned'&gt;Today I Learned:&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Looking at someone coding can be more tiring than coding on your own.&lt;/li&gt;
+
+&lt;li&gt;Before I show any code to John I have to count and correct my messy code, we will not move forward until it&amp;#8217;s cleaned up.&lt;/li&gt;
+
+&lt;li&gt;Learning by watching doesn&amp;#8217;t work, but it sure does speed up your progress.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;em&gt;To sum up&lt;/em&gt;: You&amp;#8217;d better make good use of Kudos - it cost me so much time! Viciously I (we) made it so that you cannot remove your kudo in case you change your mind ;p.&lt;/p&gt;</content>
+  </entry>
+  <entry>
+    <title>First Post</title>
+    <link rel="alternate" href="/first-post.html"/>
+    <id>http://lipen.co/til/first-post.html</id>
+    <published>2013-06-18T00:00:00Z</published>
+    <updated>2013-06-18T00:00:00Z</updated>
+    <author>
+      <name>Article Author</name>
+    </author>
+    <content type="html">&lt;p&gt;&lt;code&gt;puts &amp;quot;hello world&amp;quot;&lt;/code&gt;&lt;/p&gt;</content>
+  </entry>
+</feed>
+
