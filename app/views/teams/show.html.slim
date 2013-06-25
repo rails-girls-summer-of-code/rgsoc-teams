@@ -39,11 +39,13 @@ nav.page
     h3 Sources
     = list_sources(@team)
 
-  h3 Organizers
-  = link_to_team_members(@team, :organizer)
+  if @team.organizers.any?
+    h3 Organizers
+    = link_to_team_members(@team, :organizer)
 
-  h3 Supervisors
-  = link_to_team_members(@team, :supervisor)
+  if @team.supervisors.any?
+    h3 Supervisors
+    = link_to_team_members(@team, :supervisor)
 
 - else
   h3 Sources
