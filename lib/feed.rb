@@ -32,8 +32,8 @@ class Feed
     def discover_feed_url
       urls = Discovery.new(source.url).feed_urls
       url = urls.reject { |url| url =~ /comment/ }.first
-      puts "discovered feed url for #{source.url}: #{url}"
-      url
+      puts "discovered feed url for #{source.url}: #{url}" if url
+      url || source
     end
 
     def update_entries
