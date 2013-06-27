@@ -8,7 +8,7 @@ atom_feed language: 'en-US' do |feed|
     feed.entry(activity, url: activity.source_url) do |entry|
       entry.url activity.source_url
       entry.title activity.title
-      entry.updated(activity.updated_at.strftime("%Y-%m-%dT%H:%M:%SZ"))
+      entry.updated(activity.published_at.strftime("%Y-%m-%dT%H:%M:%SZ"))
       entry.author do |author|
         author.name activity.team.display_name
       end
