@@ -1,0 +1,22 @@
+nav.actions
+  ul
+    li = link_to 'New Mailing', new_mailing_path, class: 'btn btn-small btn-success'
+
+h1 Mailings
+
+p.pagination-info
+  = page_entries_info @mailings
+
+- if @mailings.any?
+  table.table.table-striped.table-bordered.table-condensed
+    thead
+      tr
+        th Sent
+        th Subject
+        th From
+        th To
+    tbody
+      = render @mailings
+
+  = paginate @mailings, theme: 'twitter-bootstrap'
+

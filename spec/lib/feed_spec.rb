@@ -4,7 +4,7 @@ require 'feed'
 describe Feed do
   def source(name)
     url = "file://#{File.expand_path("spec/stubs/feeds/#{name}")}"
-    Source.new(team_id: 1, kind: 'blog', url: url, feed_url: url)
+    Source.new(team_id: 1, kind: 'blog', url: url, feed_url: url, title: 'title')
   end
 
   it 'fetches and parses the given feeds, not adding duplicate entries' do

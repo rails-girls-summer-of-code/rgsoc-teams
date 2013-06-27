@@ -15,12 +15,10 @@ end
 after_fork do |server, worker|
   ActiveRecord::Base.establish_connection if defined?(ActiveRecord::Base)
 
-  # SuckerPunch.config do
-  #   queue name: :log_queue, worker: LogWorker, workers: 10
-  # end
+  SuckerPunch.config do
+    queue name: :submissions, worker: SubmissionWorker, workers: 5
+  end
 
-  # alternatively: https://github.com/brandonhilkert/sucker_punch
-  #
   # # https://coderwall.com/p/fprnhg
   # Sidekiq.configure_client { |config| config.redis = { :size => 1 } }
   # Sidekiq.configure_server { |config| config.redis = { :size => 5 } }
