@@ -19,15 +19,22 @@ class Feed
   end
 
   def update
+    source.update_attributes!(title: discover_title) unless source.title.present?
     source.feed_url = discover_feed_url unless source.feed_url.present?
     update_entries
     source.save! if source.feed_url_changed? && source.feed_url != source.url
   rescue => e
     puts e.message
-    # puts e.backtrace
+    puts e.backtrace
   end
 
   private
+
+    def discover_title
+      title = Discovery.new(source.url).title
+      puts "discovered title for #{source.url}: #{title}"
+      title
+    end
 
     def discover_feed_url
       urls = Discovery.new(source.url).feed_urls

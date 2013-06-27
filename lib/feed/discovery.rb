@@ -8,6 +8,10 @@ class Feed
       @url = url
     end
 
+    def title
+      html =~ %r(<title>(.*)</title) && $1.strip || nil
+    end
+
     def feed_urls
       urls.map { |url| expand(url) }
     end
