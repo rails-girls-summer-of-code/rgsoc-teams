@@ -39,7 +39,7 @@ class MailingsController < ApplicationController
       if params[:mailing]
         params.require(:mailing).permit(:from, :to, :cc, :bcc, :subject, :body)
       else
-        { from: 'summer-of-code-teams@railsgirls.com', to: 'teams' }
+        { from: ENV['EMAIL_FROM'], to: 'teams' }
       end
     end
 end

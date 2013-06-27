@@ -69,7 +69,7 @@ RgsocTeams::Application.configure do
     address:              'smtp.gmail.com',
     port:                 587,
     domain:               'railsgirls.com',
-    user_name:            'summer-of-code-team@railsgirls.com',
+    user_name:            ENV['EMAIL_FROM'],
     password:             ENV['EMAIL_PASSWORD'],
     authentication:       'plain',
     enable_starttls_auto: true
