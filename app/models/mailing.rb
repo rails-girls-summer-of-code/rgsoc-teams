@@ -1,5 +1,5 @@
 class Mailing < ActiveRecord::Base
-  TO = %w(teams students coaches helpdesk)
+  TO = %w(teams students coaches helpdesk organizers supervisors)
 
   has_many :submissions, dependent: :destroy
 
