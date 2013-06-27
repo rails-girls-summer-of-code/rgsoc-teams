@@ -1,5 +1,9 @@
+aside
+  = link_to 'Atom Feed', activities_path(format: :atom), class: 'atom'
+
 h1.header
   = icon('comments-alt')
   span Activities
 
 = render 'activities', object: @activities
+
