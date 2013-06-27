@@ -13,6 +13,8 @@ class SubmissionWorker
     Mailer.email(submission).deliver
     puts "done delivering to: #{submission.to}"
   rescue => e
+    puts "[error] delivering to: #{submission.to}"
+    puts e.message
     submission.error = e.message
   ensure
     submission.sent_at = Time.now
