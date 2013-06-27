@@ -17,5 +17,6 @@ RgsocTeams::Application.routes.draw do
   get 'pages/:page', to: 'pages#show', as: :page
 
   root to: 'activities#index'
-  get 'activities(.:format)', to: 'activities#index', as: :activities
+  # get 'activities(.:format)', to: 'activities#index', as: :activities
+  get 'activities(/page/:page)(.:format)', to: 'activities#index', as: :activities
 end

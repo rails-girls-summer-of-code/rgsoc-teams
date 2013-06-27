@@ -5,5 +5,9 @@ h1.header
   = icon('comments-alt')
   span Activities
 
+p.pagination-info
+  = page_entries_info @activities
+
 = render 'activities', object: @activities
 
+= paginate @activities, theme: 'twitter-bootstrap'

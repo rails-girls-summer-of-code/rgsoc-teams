@@ -13,6 +13,8 @@ gem 'simple_form'
 gem 'nested_form'
 gem 'gh'
 gem 'feedzirra', '>= 0.2.0.rc2'
+gem 'kaminari'
+gem 'bootstrap-kaminari-views'
 
 gem 'slim-rails'
 gem 'jquery-rails'
@@ -34,12 +36,12 @@ group :development, :test do
   gem 'factory_girl_rails'
   gem 'database_cleaner'
   gem 'debugger'
-  gem 'binding_of_caller'
 end
 
 group :development do
   gem 'quiet_assets'
   gem 'better_errors'
+  gem 'binding_of_caller'
 end
 
 group :test do

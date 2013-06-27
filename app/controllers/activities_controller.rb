@@ -15,7 +15,7 @@ class ActivitiesController < ApplicationController
   private
 
     def set_activities
-      @activities = Activity.includes(:team).ordered
+      @activities = Activity.includes(:team).ordered.page(params[:page])
     end
 end
 

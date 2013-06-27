@@ -37,6 +37,9 @@ GEM
       erubis (>= 2.6.6)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
+    bootstrap-kaminari-views (0.0.2)
+      kaminari (>= 0.13)
+      rails (>= 3.1)
     bootstrap-sass (2.3.2.0)
       sass (~> 3.2)
     builder (3.0.4)
@@ -107,6 +110,9 @@ GEM
     json (1.8.0)
     jwt (0.1.8)
       multi_json (>= 1.5)
+    kaminari (0.14.1)
+      actionpack (>= 3.0.0)
+      activesupport (>= 3.0.0)
     kgio (2.8.0)
     loofah (1.2.1)
       nokogiri (>= 1.4.4)
@@ -238,6 +244,7 @@ PLATFORMS
 DEPENDENCIES
   better_errors
   binding_of_caller
+  bootstrap-kaminari-views
   bootstrap-sass
   cancan
   coffee-rails (~> 3.2.1)
@@ -250,6 +257,7 @@ DEPENDENCIES
   font-awesome-sass-rails
   gh
   jquery-rails
+  kaminari
   nested_form
   omniauth-github
   pg
