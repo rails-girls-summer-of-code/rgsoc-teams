@@ -2,6 +2,6 @@ tr
   td = submission.to
   td = submission.sent_at.to_formatted_s(:short)
   td = submission.error
-  td = !submission.errored? ? link_to('Retry', [submission.mailing, submission], method: :put) : ''
+  td = submission.errored? ? link_to('Resend', [submission.mailing, submission], method: :put) : ''
 
 

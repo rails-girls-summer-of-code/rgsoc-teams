@@ -30,6 +30,6 @@ class Mailing < ActiveRecord::Base
   end
 
   def recipient_roles
-    to == 'teams' ? %w(student coach) : [to.singularize]
+    to == 'teams' ? %w(student coach mentors) : [to.singularize]
   end
 end
