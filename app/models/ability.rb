@@ -27,6 +27,7 @@ class Ability
       user.admin? or on_team?(user, repo.team)
     end
 
+    can :read, Mailing
     can :crud, Mailing    if user.admin?
     can :crud, Submission if user.admin?
   end

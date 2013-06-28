@@ -1,7 +1,11 @@
 class Mailing < ActiveRecord::Base
-  TO = %w(teams students coaches helpdesk organizers supervisors)
+  TO = %w(teams students coaches helpdesk organizers supervisors developers)
 
   has_many :submissions, dependent: :destroy
+
+  def display_recipients
+    [to, cc].join(', ')
+  end
 
   def sent?
     submissions.any?

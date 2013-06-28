@@ -1,6 +1,7 @@
-nav.actions
-  ul
-    li = link_to 'New Mailing', new_mailing_path, class: 'btn btn-small btn-success'
+- if can? :crud, Mailing
+  nav.actions
+    ul
+      li = link_to 'New Mailing', new_mailing_path, class: 'btn btn-small btn-success'
 
 h1 Mailings
 
@@ -13,8 +14,8 @@ p.pagination-info
       tr
         th Sent
         th Subject
-        th From
         th To
+        th From
     tbody
       = render @mailings
 

@@ -10,6 +10,7 @@ class SubmissionWorker
 
   def submit(submission)
     puts "about to deliver to: #{submission.to}"
+    submission.error = nil
     Mailer.email(submission).deliver
     puts "done delivering to: #{submission.to}"
   rescue => e

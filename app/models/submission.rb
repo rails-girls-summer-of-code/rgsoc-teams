@@ -13,5 +13,9 @@ class Submission < ActiveRecord::Base
     puts "enqueueing submission: #{id}"
     SuckerPunch::Queue[:submissions].async.run(submission_id: id)
   end
+
+  def errored?
+    error.present?
+  end
 end
 
