@@ -21,7 +21,9 @@ class Mailing < ActiveRecord::Base
   end
 
   def recipient_emails
-    recipients.map { |recipient| "#{recipient.name} <#{recipient.email}>" }
+    recipients.map do |recipient|
+      recipient.name.present? ? "#{recipient.name} <#{recipient.email}>" : recipient.email
+    end
   end
 
   def recipients
