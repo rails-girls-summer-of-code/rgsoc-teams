@@ -1,0 +1,8 @@
+li class="activity #{activity.kind}"
+  = content_tag :h4, link_to(activity.title, mailing_url(activity.guid), class: 'title')
+  p.info
+    span.published_at = "#{activity.published_at.to_formatted_s(:short)}".html_safe if activity.published_at
+    | , by: &nbsp;
+    = activity.author
+
+
