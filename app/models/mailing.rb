@@ -5,6 +5,7 @@ class Mailing < ActiveRecord::Base
 
   def submit
     recipient_emails.each { |email| submissions.create!(to: email) }
+    update_attributes! sent_at: Time.now
   end
 
   def recipient_emails
