@@ -178,9 +178,12 @@ nav
     margin: 0
     font-size: 1em
     font-weight: normal
-    @include icon-before('\f040')
+  .feed_entry h4
+    @include icon-before($pencil)
+  .mailing h4
+    @include icon-before($envelope-alt)
   .info
-    padding-left: 1.5em
+    padding-left: 2em
     font-size: 0.9em
   aside
     float: right
