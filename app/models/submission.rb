@@ -1,4 +1,10 @@
 class Submission < ActiveRecord::Base
+  class << self
+    def unsent
+      where(sent_at: nil)
+    end
+  end
+
   belongs_to :mailing
 
   after_commit :enqueue, on: :create

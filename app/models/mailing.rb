@@ -3,9 +3,17 @@ class Mailing < ActiveRecord::Base
 
   has_many :submissions, dependent: :destroy
 
+  def sent?
+    submissions.any?
+  end
+
   def submit
-    recipient_emails.each { |email| submissions.create!(to: email) }
-    update_attributes! sent_at: Time.now
+    if sent?
+      submissions.unsent.each { |submission| submission.enqueue }
+    else
+      recipient_emails.each { |email| submissions.create!(to: email) }
+      update_attributes! sent_at: Time.now
+    end
   end
 
   def recipient_emails
