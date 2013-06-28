@@ -28,7 +28,7 @@ class MailingsController < ApplicationController
   private
 
     def set_mailings
-      @mailings = Mailing.order(:sent_at).page(params[:page])
+      @mailings = Mailing.order('id DESC').page(params[:page])
     end
 
     def set_mailing
