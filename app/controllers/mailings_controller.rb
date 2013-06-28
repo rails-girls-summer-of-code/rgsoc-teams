@@ -1,4 +1,5 @@
 class MailingsController < ApplicationController
+  before_filter :normalize_params, only: [:create, :update]
   before_filter :set_mailings, only: :index
   before_filter :set_mailing, except: :index
 
@@ -35,9 +36,13 @@ class MailingsController < ApplicationController
       @mailing = params[:id] ? Mailing.find(params[:id]) : Mailing.new(mailing_params)
     end
 
+    def normalize_params
+      params[:mailing][:to] = params[:mailing][:to].select(&:present?)
+    end
+
     def mailing_params
       if params[:mailing]
-        params.require(:mailing).permit(:from, :to, :cc, :bcc, :subject, :body)
+        self.params.require(:mailing).permit(:from, :cc, :bcc, :subject, :body, to: [])
       else
         { from: ENV['EMAIL_FROM'], to: 'teams' }
       end

@@ -6,7 +6,7 @@ h1 Submit mailing
 
 p The email "#{@mailing.subject}" will be sent to the following recipients:
 
-p = @mailing.recipient_emails.join(', ')
+p = @mailing.emails.join(', ')
 
 = simple_nested_form_for @submission, url: mailing_submissions_path(@mailing) do |f|
   .actions

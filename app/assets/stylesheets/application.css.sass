@@ -170,6 +170,8 @@ nav
       border-radius: 5px
       li
         list-style-type: disc
+      *:last-child
+        margin-bottom: 0
 
 .activities
   h4
@@ -232,13 +234,13 @@ form
     font-size: 0.9em !important
   input
     height: auto !important
-  input[type=radio]
+  input[type=radio], input[type=checkbox]
     margin-left: 0 !important
     margin-right: 0.5em !important
   textarea
     width: 100%
     height: 200px
-  label.radio
+  label.radio, label.checkbox
     display: inline-block
     padding-left: 0
     padding-right: 1em

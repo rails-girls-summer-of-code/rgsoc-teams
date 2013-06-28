@@ -1,6 +1,6 @@
 tr
   td = mailing.sent_at ? mailing.sent_at.to_formatted_s(:short) : '-'
   td = link_to mailing.subject, mailing
-  td = mailing.to.capitalize
+  td = mailing.to.map(&:capitalize).join(', ')
   td = mailing.from
 

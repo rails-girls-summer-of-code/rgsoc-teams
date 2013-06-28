@@ -12,15 +12,15 @@ h1 class="mailing" = @mailing.subject
 
 .mailing
   dl
-    - %i(to from sent_at).each do |attr|
-      - value = @mailing.send(attr)
-      - if value.present?
-        dt = "#{attr.to_s.titleize.downcase.capitalize}:"
-        dd = format_mailing_attribute(attr, value)
+    dt To
+    dd = @mailing.to.map(&:capitalize).join(', ')
+    dt From
+    dd = @mailing.from
+    dt Sent at
+    dd = @mailing.sent_at ? @mailing.sent_at.to_formatted_s(:short) : '-'
 
   .body
     = render_markdown(@mailing.body).html_safe
-
 
 - if can?(:read, Submission)
   = render partial: 'submissions', locals: { mailing: @mailing, submissions: @mailing.submissions }

@@ -24,17 +24,6 @@ module ApplicationHelper
     end
   end
 
-  def format_mailing_attribute(name, value)
-    case name
-    when :sent_at
-      value.to_formatted_s(:short)
-    when :to
-      value.capitalize
-    else
-      value
-    end
-  end
-
   def list_sources(team)
     content_tag(:ul, class: 'sources') do
       team.sources.each do |source|
