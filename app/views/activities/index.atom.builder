@@ -5,13 +5,23 @@ atom_feed language: 'en-US' do |feed|
   @activities.each do |activity|
     next if activity.updated_at.blank?
 
-    feed.entry(activity, url: activity.source_url) do |entry|
-      entry.url activity.source_url
-      entry.title activity.title
-      entry.updated(activity.published_at.strftime("%Y-%m-%dT%H:%M:%SZ"))
-      entry.author do |author|
-        author.name activity.team.display_name
-      end
+    title = activity.title
+    updated_at = activity.published_at.strftime('%Y-%m-%dT%H:%M:%SZ')
+
+    case activity.kind
+    when 'feed_entry'
+      url = activity.source_url
+      author_name = activity.team.display_name
+    when 'mailing'
+      url = mailing_url(activity.guid)
+      author_name = activity.author
+    end
+
+    feed.entry(activity, url: url) do |entry|
+      entry.url url
+      entry.title title
+      entry.author { |author| author.name author_name }
+      entry.updated updated_at
     end
   end
 end
