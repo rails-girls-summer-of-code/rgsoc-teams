@@ -17,11 +17,12 @@ nav.page
 = content_tag :h1, @team.display_name, class: "team #{@team.kind}"
 
 .profile
-  - if_present? @team, :github_handle, :twitter_handle
-    dl
-      - each_handle(@team, :github, :twitter) do |name, handle, url|
-        dt = name.capitalize
-        dd = url ? link_to(handle, url) : handle
+  dl
+    - each_handle(@team, :github, :twitter) do |name, handle, url|
+      dt = name.capitalize
+      dd = url ? link_to(handle, url) : handle
+    dt Last Activity
+    dd = format_date(@team.last_activity.try(:last_activity))
 
   - if @team.description
     p = render_markdown(@team.description).html_safe

@@ -16,6 +16,7 @@ class Team < ActiveRecord::Base
   end
   has_many :sources, dependent: :destroy
   has_many :activities, dependent: :destroy
+  has_one :last_activity, class_name: 'Activity', order: 'id DESC'
 
   accepts_nested_attributes_for :roles, :sources, allow_destroy: true
 

@@ -12,6 +12,10 @@ module ApplicationHelper
     current_user.admin? ? Role::ROLES : Role::TEAM_ROLES
   end
 
+  def format_date(date, format = :short)
+    date && date.to_date.to_formatted_s(format) || '-'
+  end
+
   def if_present?(user, *attrs)
     yield if attrs.any? { |attr| user.send(attr).present? }
   end
