@@ -4,7 +4,7 @@ describe SourcesController do
 
   let(:user)             { create(:user) }
   let(:team)             { create(:team) }
-  let(:source)       { create(:source, team: team) }
+  let(:source)           { create(:source, team: team) }
   let(:valid_attributes) { build(:source, team: team).attributes }
   let(:valid_session)    { { "warden.user.user.key" => session["warden.user.user.key"] } }
 

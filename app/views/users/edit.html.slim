@@ -3,7 +3,7 @@ nav.page
     li = link_to 'Back', @user, class: 'back'
 nav.actions
   ul
-    li = link_to 'Destroy', @user, confirm: 'Are you sure?', method: :delete, class: 'destroy'
+    li = link_to 'Destroy', @user, data: { confirm: 'Are you sure?' }, method: :delete, class: 'destroy'
 
 h1 Editing user
 

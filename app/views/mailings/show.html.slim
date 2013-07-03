@@ -6,7 +6,7 @@ nav.page
   nav.actions
     ul
       li = link_to 'Edit', edit_mailing_path(@mailing), class: 'edit'
-      li = link_to 'Delete', mailing_path(@mailing), method: :delete, class: 'edit', confirm: 'Are you sure?'
+      li = link_to 'Delete', mailing_path(@mailing), method: :delete, class: 'edit', data: { confirm: 'Are you sure?' }
 
 h1 class="mailing" = @mailing.subject
 

@@ -5,7 +5,7 @@ nav.page
 nav.actions
   ul
     li
-      = link_to 'Destroy', @team, confirm: 'Are you sure?', method: :delete, class: 'destroy'
+      = link_to 'Destroy', @team, data: { confirm: 'Are you sure?' }, method: :delete, class: 'destroy'
 
 h1 Editing team
 

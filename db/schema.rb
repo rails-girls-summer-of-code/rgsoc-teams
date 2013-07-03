@@ -9,11 +9,14 @@
 # from scratch. The latter is a flawed and unsustainable approach (the more migrations
 # you'll amass, the slower it'll run and the greater likelihood for issues).
 #
-# It's strongly recommended to check this file into your version control system.
+# It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130627162940) do
+ActiveRecord::Schema.define(version: 20130627162940) do
 
-  create_table "activities", :force => true do |t|
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
+  create_table "activities", force: true do |t|
     t.integer  "team_id"
     t.string   "kind"
     t.string   "guid"
@@ -22,11 +25,11 @@ ActiveRecord::Schema.define(:version => 20130627162940) do
     t.text     "content"
     t.string   "source_url"
     t.datetime "published_at"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
-  create_table "mailings", :force => true do |t|
+  create_table "mailings", force: true do |t|
     t.string   "from"
     t.string   "to"
     t.string   "cc"
@@ -34,41 +37,41 @@ ActiveRecord::Schema.define(:version => 20130627162940) do
     t.string   "subject"
     t.text     "body"
     t.datetime "sent_at"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
-  create_table "roles", :force => true do |t|
+  create_table "roles", force: true do |t|
     t.integer  "team_id"
     t.integer  "user_id"
     t.string   "name"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
-  create_table "sources", :force => true do |t|
+  create_table "sources", force: true do |t|
     t.string   "url"
     t.integer  "team_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.string   "kind"
     t.string   "feed_url"
     t.string   "title"
   end
 
-  create_table "submissions", :force => true do |t|
+  create_table "submissions", force: true do |t|
     t.integer  "mailing_id"
     t.string   "to"
     t.text     "error"
     t.datetime "sent_at"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
-  create_table "teams", :force => true do |t|
+  create_table "teams", force: true do |t|
     t.string   "name"
-    t.datetime "created_at",     :null => false
-    t.datetime "updated_at",     :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.string   "log_url"
     t.text     "description"
     t.integer  "number"
@@ -78,7 +81,7 @@ ActiveRecord::Schema.define(:version => 20130627162940) do
     t.string   "github_handle"
   end
 
-  create_table "users", :force => true do |t|
+  create_table "users", force: true do |t|
     t.integer  "github_id"
     t.string   "github_handle"
     t.string   "name"
@@ -87,8 +90,8 @@ ActiveRecord::Schema.define(:version => 20130627162940) do
     t.text     "bio"
     t.string   "homepage"
     t.string   "avatar_url"
-    t.datetime "created_at",     :null => false
-    t.datetime "updated_at",     :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.integer  "team_id"
     t.string   "twitter_handle"
     t.string   "irc_handle"

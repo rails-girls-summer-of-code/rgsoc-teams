@@ -73,4 +73,5 @@ class TeamsController < ApplicationController
         sources_attributes: [:id, :kind, :url, :_destroy]
       )
     end
+
 end
