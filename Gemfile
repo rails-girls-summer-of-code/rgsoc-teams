@@ -2,14 +2,14 @@ source 'https://rubygems.org'
 
 ruby '2.0.0'
 
-gem 'rails', '3.2.13'
+gem 'rails', '4.0.0'
 gem 'pg'
-gem 'devise'
+gem 'devise', github: 'plataformatec/devise', branch: 'rails4'
 gem 'omniauth-github'
 gem 'cancan'
-gem 'strong_parameters'
+# gem 'strong_parameters'
 gem 'redcarpet'
-gem 'simple_form'
+gem 'simple_form', github: 'plataformatec/simple_form'
 gem 'nested_form'
 gem 'gh'
 gem 'feedzirra', '>= 0.2.0.rc2'
@@ -22,14 +22,14 @@ gem 'jquery-rails'
 gem 'bootstrap-sass'
 gem 'font-awesome-sass-rails'
 
-group :assets do
-  gem 'sass-rails',   '~> 3.2.3'
-  gem 'coffee-rails', '~> 3.2.1'
-  gem 'uglifier', '>= 1.0.3'
-end
+gem 'sass-rails'
+gem 'coffee-rails'
+gem 'uglifier', '>= 1.0.3'
+gem 'sprockets-rails'
 
 group :production do
   gem 'unicorn'
+  gem 'rails_12factor'
 end
 
 group :development, :test do
@@ -50,3 +50,5 @@ group :test do
   gem 'ffaker'
   gem 'webmock'
 end
+
+gem 'rails4_upgrade'

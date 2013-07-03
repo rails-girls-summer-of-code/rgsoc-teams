@@ -12,7 +12,7 @@ class Team < ActiveRecord::Base
   has_many :roles, dependent: :destroy
   has_many :members, class_name: 'User', through: :roles, source: :user
   Role::ROLES.each do |role|
-    has_many role.pluralize.to_sym, class_name: 'User', through: :roles, source: :user, conditions: { roles: { name: role } }
+    has_many role.pluralize.to_sym, -> { where(roles: { name: role }) }, class_name: 'User', through: :roles, source: :user
   end
   has_many :sources, dependent: :destroy
   has_many :activities, dependent: :destroy

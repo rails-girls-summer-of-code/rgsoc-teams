@@ -5,7 +5,7 @@ nav.page
 nav.actions
   ul
     li = link_to 'Edit', edit_user_path(@user), class: 'edit' if can? :edit, @user
-    li = link_to 'Destroy', @user, confirm: 'Are you sure?', method: :delete, class: 'destroy' if can? :destroy, @user
+    li = link_to 'Destroy', @user, data: { confirm: 'Are you sure?' }, method: :delete, class: 'destroy' if can? :destroy, @user
 
 .profile
   - if @user.avatar_url.present?
