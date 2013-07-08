@@ -8,6 +8,10 @@ module ApplicationHelper
     %Q{<i class="icon-#{type}"></i>#{text == nil ? '' : " #{text}"}}.html_safe
   end
 
+  def admin?
+    current_user.try(:admin?)
+  end
+
   def accessible_roles
     current_user.admin? ? Role::ROLES : Role::TEAM_ROLES
   end

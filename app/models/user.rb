@@ -1,6 +1,8 @@
 require 'github/user'
 
 class User < ActiveRecord::Base
+  TSHIRT_SIZES = %w(XXS XS S M L XL 2XL 3XL)
+
   include ActiveModel::ForbiddenAttributesProtection
   include Authentication::ActiveRecordHelpers
   include ProfilesHelper

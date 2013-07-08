@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130707150835) do
+ActiveRecord::Schema.define(version: 20130708182448) do
 
   create_table "activities", force: true do |t|
     t.integer  "team_id"
@@ -22,8 +22,8 @@ ActiveRecord::Schema.define(version: 20130707150835) do
     t.text     "content"
     t.string   "source_url"
     t.datetime "published_at"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
   end
 
   create_table "mailings", force: true do |t|
@@ -34,13 +34,6 @@ ActiveRecord::Schema.define(version: 20130707150835) do
     t.string   "subject"
     t.text     "body"
     t.datetime "sent_at"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "repositories", force: true do |t|
-    t.string   "url"
-    t.integer  "team_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -49,15 +42,15 @@ ActiveRecord::Schema.define(version: 20130707150835) do
     t.integer  "team_id"
     t.integer  "user_id"
     t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "sources", force: true do |t|
     t.string   "url"
     t.integer  "team_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.string   "kind"
     t.string   "feed_url"
     t.string   "title"
@@ -68,14 +61,14 @@ ActiveRecord::Schema.define(version: 20130707150835) do
     t.string   "to"
     t.text     "error"
     t.datetime "sent_at"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "teams", force: true do |t|
     t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
     t.string   "log_url"
     t.text     "description"
     t.integer  "number"
@@ -96,11 +89,12 @@ ActiveRecord::Schema.define(version: 20130707150835) do
     t.text     "bio"
     t.string   "homepage"
     t.string   "avatar_url"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
     t.integer  "team_id"
     t.string   "twitter_handle"
     t.string   "irc_handle"
+    t.string   "tshirt_size"
   end
 
 end

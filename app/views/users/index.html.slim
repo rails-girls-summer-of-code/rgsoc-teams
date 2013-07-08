@@ -13,9 +13,13 @@ table.table.table-striped.table-bordered.table-condensed.table-hover
     tr
       th Name
       th Team
+      - if admin?
+        th T-Shirt size
 
   tbody
     - @users.each do |user|
       tr
         td = link_to user.name_or_handle, user
         td = link_to_user_roles(user)
+        - if admin?
+          td = user.tshirt_size

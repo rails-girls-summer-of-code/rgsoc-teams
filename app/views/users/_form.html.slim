@@ -13,6 +13,7 @@
   = f.input :irc_handle
   = f.input :homepage, as: :url
   = f.input :location
+  = f.input :tshirt_size, as: :radio_buttons, collection: User::TSHIRT_SIZES.map { |k| [k, k] }, label: 'T-Shirt size', blank: false, required: false, hint: 'For sponsor T-Shirts, in case they send some.'
   = f.input :bio, label: 'About you'
 
   .actions

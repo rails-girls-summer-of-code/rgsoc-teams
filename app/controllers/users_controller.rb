@@ -61,7 +61,7 @@ class UsersController < ApplicationController
     end
 
     def user_params
-      params.require(:user).permit(:github_handle, :twitter_handle, :irc_handle, :bio, :email, :homepage, :location, :name, :role)
+      params.require(:user).permit(:github_handle, :twitter_handle, :irc_handle, :bio, :email, :homepage, :location, :name, :role, :tshirt_size)
     end
 
     def normalize_params

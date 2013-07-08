@@ -24,6 +24,9 @@ nav.actions
       - if @user.homepage.present?
         dt Homepage
         dd = link_to(@user.homepage, @user.homepage)
+      - if @user.tshirt_size.present? && admin?
+        dt T-Shirt size
+        dd = @user.tshirt_size
 
   - if @user.bio.present?
     h4 About me
