@@ -21,6 +21,10 @@ nav.page
     - each_handle(@team, :github, :twitter) do |name, handle, url|
       dt = name.capitalize
       dd = url ? link_to(handle, url) : handle
+    dt Starts On
+    dd = format_date(@team.starts_on)
+    dt Finishes On
+    dd = format_date(@team.finishes_on)
     dt Last Activity
     dd = format_date(@team.last_activity.try(:last_activity))
 
