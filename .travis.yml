@@ -1,18 +1,24 @@
+---
 language: ruby
 rvm:
-  - 2.0.0
+- 2.0.0
 bundler_args: --without development production --quiet
 notifications:
   email:
-    - me@svenfuchs.com
-    - joneslee85@gmail.com
+  - me@svenfuchs.com
+  - joneslee85@gmail.com
   notifications:
     irc:
-      - "irc.freenode.net#rgsoc"
+    - irc.freenode.net#rgsoc
 before_install:
-  - gem install bundler
+- gem install bundler
 before_script:
-  - cp config/database.yml.travis config/database.yml
-  - bundle exec rake db:create db:schema:load RAILS_ENV=test
+- cp config/database.yml.travis config/database.yml
+- bundle exec rake db:create db:schema:load RAILS_ENV=test
 script:
-  - bundle exec rake spec
+- bundle exec rake spec
+deploy:
+  provider: heroku
+  app: rgsoc-teams-production
+  api_key:
+    secure: 'Iol0/uuBMn/3re2hcJmF3iauUSnOB7OvSdozIrSqaGpjmd0iPLiocIhfAY9bl6uBqoeDlbV6q8eHau3Da38E90l/Yd/NAPCmZh0Tw6RexHrB1kCcYDnCzA7Pr6y8CYdJFOjXi/Ddg9V19JAFiQHAF8ubeuRBkitIA1u4qpg/qT8='
