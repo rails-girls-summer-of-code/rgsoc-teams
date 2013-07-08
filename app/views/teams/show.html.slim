@@ -26,7 +26,7 @@ nav.page
     dt Finishes On
     dd = format_date(@team.finishes_on)
     dt Last Activity
-    dd = format_date(@team.last_activity.try(:last_activity))
+    dd = format_date(@team.last_activity.try(:created_at))
 
   - if @team.description
     p = render_markdown(@team.description).html_safe
