@@ -12,6 +12,10 @@ module ApplicationHelper
     current_user.try(:admin?)
   end
 
+  def can_see_tshirt_size?
+    admin? || current_user == @user
+  end
+
   def accessible_roles
     current_user.admin? ? Role::ROLES : Role::TEAM_ROLES
   end
