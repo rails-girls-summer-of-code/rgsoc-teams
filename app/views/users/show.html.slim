@@ -30,11 +30,11 @@ nav.actions
 
   - if @user.bio.present?
     h4 About me
-    p = "#{@user.bio}"
+    p = render_markdown(@user.bio).html_safe
 
   - if @user.teams.any?
     h4 Teams
     ul.teams
       - @user.teams.each do |team|
-        li = link_to team.display_name, team
+        li #{link_to team.display_name, team} &ndash; #{role_names(team, @user)}
 

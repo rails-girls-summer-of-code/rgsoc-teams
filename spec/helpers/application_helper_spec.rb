@@ -45,4 +45,17 @@ describe ApplicationHelper do
       icon('edit', 'Edit').should == '<i class="icon-edit"></i> Edit'
     end
   end
+
+  describe '#role_names' do
+    before do
+      @team  = create(:team)
+      @user  = create(:user, name: 'Trung Le')
+      @role1 = create(:coach_role,   user: @user, team: @team)
+      @role2 = create(:mentor_role,  user: @user, team: @team)
+    end
+
+    it 'returns coach and mentor' do
+      expect(role_names(@team, @user)).to eql 'Coach, Mentor'
+    end
+  end
 end
