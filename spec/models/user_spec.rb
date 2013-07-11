@@ -37,4 +37,13 @@ describe User do
       @user.name_or_handle.should == 'rails-girl'
     end
   end
+
+  context 'with roles' do
+    it 'lists unique teams even with different roles' do
+      coach_role = FactoryGirl.create(:coach_role)
+      user, team = coach_role.user, coach_role.team
+      FactoryGirl.create(:mentor_role, user: user, team: team)
+      expect(user.teams.count).to eql 1
+    end
+  end
 end

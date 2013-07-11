@@ -14,7 +14,7 @@ class User < ActiveRecord::Base
       where(name: Role::ADMIN_ROLES)
     end
   end
-  has_many :teams, through: :roles
+  has_many :teams, through: :roles, uniq: true
 
   validates :github_handle, presence: true, uniqueness: true
 
