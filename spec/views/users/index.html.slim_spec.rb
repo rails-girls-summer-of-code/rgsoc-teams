@@ -20,6 +20,7 @@ describe 'users/index' do
         role: 'coach'
       )
     ])
+    controller.stub(:current_user).as_null_object
   end
 
   it 'renders a list of users' do
