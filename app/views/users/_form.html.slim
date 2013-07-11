@@ -14,7 +14,8 @@
   = f.input :homepage, as: :url
   = f.input :location
   = f.input :tshirt_size, as: :radio_buttons, collection: User::TSHIRT_SIZES.map { |k| [k, k] }, label: 'T-Shirt size', blank: false, required: false, hint: 'For sponsor T-Shirts, in case they send some.'
-  = f.input :bio, label: 'About you'
+  = f.input :bio, label: 'About you', hint: 'You can use basic <a href="http://en.wikipedia.org/wiki/Markdown">Markdown</a> here.'
+
 
   .actions
     = f.submit 'Save', class: 'btn'
