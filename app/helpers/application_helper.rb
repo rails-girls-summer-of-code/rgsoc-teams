@@ -57,4 +57,10 @@ module ApplicationHelper
       links.join(' at ')
     end.compact.join(', ').html_safe
   end
+
+  def role_names(team, user)
+    team.roles.select{|role| role.user == user}.map do |role|
+      role.name.titleize
+    end.join(', ').html_safe
+  end
 end
