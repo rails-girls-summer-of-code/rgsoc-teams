@@ -7,6 +7,7 @@ atom_feed language: 'en-US' do |feed|
 
     title = activity.title
     updated_at = activity.published_at.strftime('%Y-%m-%dT%H:%M:%SZ')
+    content = activity.content
 
     case activity.kind
     when 'feed_entry'
@@ -22,6 +23,7 @@ atom_feed language: 'en-US' do |feed|
       entry.title title
       entry.author { |author| author.name author_name }
       entry.updated updated_at
+      entry.description content
     end
   end
 end
