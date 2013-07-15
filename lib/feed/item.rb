@@ -13,7 +13,7 @@ class Feed
         kind:         :feed_entry,
         guid:         guid,
         title:        item.title,
-        content:      item.content,
+        content:      item.content || item.description,
         author:       item.author,
         source_url:   url,
         published_at: published_at
