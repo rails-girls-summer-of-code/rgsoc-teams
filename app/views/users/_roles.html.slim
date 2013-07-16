@@ -1,0 +1,6 @@
+form.filter action=request.url
+  - (['all'] + Role::ROLES).each do |role|
+    label.radio
+      = radio_button_tag :role, role == 'all' ? '' : role, params[:role] == role
+      = role.capitalize
+

@@ -5,6 +5,7 @@ RgsocTeams::Application.routes.draw do
     delete 'sign_out' => 'devise/sessions#destroy'
   end
 
+  get 'users/info', to: 'users_info#index'
   resources :users, except: :new
   resources :sources, only: :index
 

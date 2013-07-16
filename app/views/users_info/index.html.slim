@@ -1,0 +1,20 @@
+h1.header User info
+
+= render partial: 'users/roles'
+
+table.table.table-striped.table-bordered.table-condensed.table-hover
+  thead
+    tr
+      th Name
+      th T-Shirt size
+      th Banking
+      th Address
+
+  tbody
+    - users.each do |user|
+      tr
+        td = link_to user.name_or_handle, user
+        td = user.tshirt_size
+        td = simple_format user.banking_info
+        td = simple_format user.postal_address
+
