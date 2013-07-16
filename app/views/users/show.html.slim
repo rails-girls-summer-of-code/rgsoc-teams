@@ -24,9 +24,6 @@ nav.actions
       - if @user.homepage.present?
         dt Homepage
         dd = link_to(@user.homepage, @user.homepage)
-      - if @user.tshirt_size.present? && can_see_tshirt_size?
-        dt T-Shirt size
-        dd = @user.tshirt_size
 
   - if @user.bio.present?
     h4 About me
@@ -37,4 +34,18 @@ nav.actions
     ul.teams
       - @user.teams.each do |team|
         li #{link_to team.display_name, team} &ndash; #{role_names(team, @user)}
+
+  - if can_see_private_info?
+    .private-info
+      h3 Private info
+      dl
+        - if @user.tshirt_size.present?
+          dt T-Shirt size
+          dd = @user.tshirt_size
+      - if @user.postal_address.present?
+        h5 Postal Address
+        = simple_format @user.postal_address
+      - if @user.banking_info.present?
+        h5 Banking info
+        = simple_format @user.banking_info
 

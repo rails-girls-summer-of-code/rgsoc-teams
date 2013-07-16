@@ -12,7 +12,7 @@ module ApplicationHelper
     current_user.try(:admin?)
   end
 
-  def can_see_tshirt_size?
+  def can_see_private_info?
     admin? || current_user == @user
   end
 

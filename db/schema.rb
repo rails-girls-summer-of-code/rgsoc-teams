@@ -11,7 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130708182448) do
+ActiveRecord::Schema.define(version: 20130716134459) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
 
   create_table "activities", force: true do |t|
     t.integer  "team_id"
@@ -95,6 +98,8 @@ ActiveRecord::Schema.define(version: 20130708182448) do
     t.string   "twitter_handle"
     t.string   "irc_handle"
     t.string   "tshirt_size"
+    t.text     "banking_info"
+    t.text     "postal_address"
   end
 
 end
