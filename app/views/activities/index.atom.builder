@@ -23,7 +23,7 @@ atom_feed language: 'en-US' do |feed|
       entry.title title
       entry.author { |author| author.name author_name }
       entry.updated updated_at
-      entry.description content
+      entry.content content
     end
   end
 end
