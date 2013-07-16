@@ -13,6 +13,7 @@ describe 'users/show' do
     @ability = Object.new
     @ability.extend(CanCan::Ability)
     controller.stub(:current_ability) { @ability }
+    view.stub(:can_see_private_info?).and_return(false)
    end
 
   it 'renders attributes in <p>' do
