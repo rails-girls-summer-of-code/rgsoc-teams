@@ -7,6 +7,7 @@ h1.header
 table.table.table-striped.table-bordered.table-condensed.table-hover
   thead
     tr
+      th
       th Name
       th Team
       - if admin?
@@ -15,6 +16,9 @@ table.table.table-striped.table-bordered.table-condensed.table-hover
   tbody
     - @users.each do |user|
       tr
+        td.image
+          - if user.avatar_url.present?
+            img src="#{user.avatar_url}&s=50"
         td = link_to user.name_or_handle, user
         td = link_to_user_roles(user)
         - if admin?
