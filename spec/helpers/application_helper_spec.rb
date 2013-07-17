@@ -13,7 +13,7 @@ describe ApplicationHelper do
     end
 
     it 'should return link_to student based on role type' do
-      link_to_team_members(@team).should           == "<a href=\"/users/#{@user1.id}\">Trung Le</a>, <a href=\"/users/#{@user2.id}\">Hieu Le</a>, <a href=\"/users/#{@user3.id}\">Trang Le</a>"
+      link_to_team_members(@team).should           == "<a href=\"/users/#{@user2.id}\">Hieu Le</a>, <a href=\"/users/#{@user3.id}\">Trang Le</a>, <a href=\"/users/#{@user1.id}\">Trung Le</a>"
       link_to_team_members(@team, :student).should == "<a href=\"/users/#{@user1.id}\">Trung Le</a>"
       link_to_team_members(@team, :coach).should   == "<a href=\"/users/#{@user2.id}\">Hieu Le</a>"
       link_to_team_members(@team, :mentor).should  == "<a href=\"/users/#{@user3.id}\">Trang Le</a>"
