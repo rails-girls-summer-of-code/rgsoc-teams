@@ -45,7 +45,7 @@ module ApplicationHelper
   end
 
   def link_to_team_members(team, role = :member)
-    team.send(role.to_s.pluralize).map do |student|
+    team.send(role.to_s.pluralize).sort_by(&:name_or_handle).map do |student|
       link_to(student.name_or_handle, student)
     end.join(', ').html_safe
   end
