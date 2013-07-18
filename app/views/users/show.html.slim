@@ -24,6 +24,9 @@ nav.actions
       - if @user.homepage.present?
         dt Homepage
         dd = link_to(@user.homepage, @user.homepage)
+      - if can? :read, :users_info
+        dt E-Mail
+        dd = link_to @user.email, "mailto:#{@user.email}" if @user.email.present?
 
   - if @user.bio.present?
     h4 About me

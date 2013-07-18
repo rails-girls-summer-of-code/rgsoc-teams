@@ -10,6 +10,7 @@ class Ability
     alias_action :create, :read, :update, :destroy, :to => :crud
 
     can :crud, User, id: user.id
+    can :crud, User if user.admin?
 
     can :crud, Team do |team|
       user.admin? or signed_in?(user) && team.new_record? or on_team?(user, team)
@@ -30,7 +31,7 @@ class Ability
     can :read, Mailing
     can :crud, Mailing    if user.admin?
     can :crud, Submission if user.admin?
-
+    can :crud, :comments  if user.admin?
     can :read, :users_info if user.admin?
   end
 

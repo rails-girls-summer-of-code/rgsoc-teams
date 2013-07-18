@@ -17,6 +17,8 @@
   = f.input :kind, as: :radio_buttons, collection: Team::KINDS.map { |k| [k.capitalize, k] }, label: 'Type', blank: false, required: false
   = f.input :starts_on,   discard_year: true, order: [:day, :month], input_html: { class: 'short' }
   = f.input :finishes_on, discard_year: true, order: [:day, :month], input_html: { class: 'short' }
+  - if can? :read, :users_info
+    = f.input :post_info, label: 'Blog post info'
 
   h4 Sources
 

@@ -7,3 +7,5 @@
 $ ->
   $('.filter input[type=radio]').click ->
     $(this).closest('form').submit()
+  $('.comments a').click ->
+    $('.comments').hide()
