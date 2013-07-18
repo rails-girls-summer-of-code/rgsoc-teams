@@ -2,10 +2,8 @@ require 'spec_helper'
 
 describe 'teams/edit' do
   before(:each) do
-    @team = assign(:team, stub_model(Team,
-      name: 'Team A+',
-      description: 'The best',
-    ))
+    @team = assign(:team, stub_model(Team, name: 'Team A+', description: 'The best'))
+    view.stub(:can?).and_return(true)
   end
 
   it 'renders the edit team form' do

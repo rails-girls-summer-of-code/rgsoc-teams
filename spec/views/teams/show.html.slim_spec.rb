@@ -6,6 +6,7 @@ describe 'teams/show' do
 
   before(:each) do
     assign(:team, team)
+    view.stub(:can?).and_return(true)
     view.stub(:can?).with(:read, :users_info).and_return(true)
     view.stub(:can?).with(:crud, :comments).and_return(true)
     view.stub(:can?).with(:join, team).and_return(true)
