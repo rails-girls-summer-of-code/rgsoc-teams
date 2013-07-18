@@ -30,7 +30,7 @@ class Ability
     can :read, Mailing
     can :crud, Mailing    if user.admin?
     can :crud, Submission if user.admin?
-
+    can :crud, :comments  if user.admin?
     can :read, :users_info if user.admin?
   end
 

@@ -22,3 +22,4 @@ deploy:
   app: rgsoc-teams-production
   api_key:
     secure: 'Iol0/uuBMn/3re2hcJmF3iauUSnOB7OvSdozIrSqaGpjmd0iPLiocIhfAY9bl6uBqoeDlbV6q8eHau3Da38E90l/Yd/NAPCmZh0Tw6RexHrB1kCcYDnCzA7Pr6y8CYdJFOjXi/Ddg9V19JAFiQHAF8ubeuRBkitIA1u4qpg/qT8='
+  run: 'rake db:migrate'

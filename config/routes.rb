@@ -8,6 +8,7 @@ RgsocTeams::Application.routes.draw do
   get 'users/info', to: 'users_info#index'
   resources :users, except: :new
   resources :sources, only: :index
+  resources :comments, only: :create
 
   resources :teams do
     resources :join, only: [:new, :create]
