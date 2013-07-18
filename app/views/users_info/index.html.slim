@@ -6,6 +6,7 @@ table.table.table-striped.table-bordered.table-condensed.table-hover
   thead
     tr
       th Name
+      th E-Mail
       th T-Shirt size
       th Banking
       th Address
@@ -14,6 +15,7 @@ table.table.table-striped.table-bordered.table-condensed.table-hover
     - users.each do |user|
       tr
         td = link_to user.name_or_handle, user
+        td = user.email
         td = user.tshirt_size
         td = simple_format user.banking_info
         td = simple_format user.postal_address

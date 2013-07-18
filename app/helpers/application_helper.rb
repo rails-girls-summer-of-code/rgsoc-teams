@@ -44,6 +44,13 @@ module ApplicationHelper
     end
   end
 
+  def team_group_emails(team)
+    %w(students members).map do |group|
+      emails = team.send(group).map(&:email).select(&:present?)
+      [group.capitalize, emails] if emails.present?
+    end.compact
+  end
+
   def link_to_team_members(team, role = :member)
     team.send(role.to_s.pluralize).sort_by(&:name_or_handle).map do |student|
       link_to(student.name_or_handle, student)
