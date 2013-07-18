@@ -1,13 +1,13 @@
 require 'spec_helper'
 
 describe 'teams/index' do
-
   let(:teams)   { [FactoryGirl.build(:team), FactoryGirl.build(:team)] }
   let(:can_add) { false }
 
   before :each do
     assign :teams, teams
-    view.should_receive(:can?).with(:create, an_instance_of(Team)).and_return(can_add)
+    view.stub(:can?).and_return(true)
+    view.stub(:can?).with(:create, an_instance_of(Team)).and_return(can_add)
     render
   end
 

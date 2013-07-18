@@ -2,10 +2,8 @@ require 'spec_helper'
 
 describe 'teams/new' do
   before(:each) do
-    assign(:team, stub_model(Team,
-      name: 'Team A+',
-      description: 'The best',
-    ).as_new_record)
+    assign(:team, stub_model(Team, name: 'Team A+', description: 'The best',).as_new_record)
+    view.stub(:can?).and_return(true)
   end
 
   it 'renders new team form' do
