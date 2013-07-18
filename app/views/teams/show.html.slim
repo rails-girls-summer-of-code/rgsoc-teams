@@ -15,7 +15,7 @@ nav.page
       li = link_to 'Add a member', new_team_role_path(@team)
       - if can? :read, :users_info
         - team_group_emails(@team).each do |group, emails|
-          li = link_to "Email #{group}", "mailto:#{emails.join(', ')}"
+          li = link_to "Email #{group}", "mailto:#{emails.join(',')}"
 
 - if can? :crud, :comments
   .comments

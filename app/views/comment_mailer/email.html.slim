@@ -1,0 +1,13 @@
+doctype html
+html
+  head
+    meta content="text/html; charset=UTF-8" http-equiv="Content-Type"
+
+    style
+      | html, body {
+      |   font-family: Helvetica, sans-serif;
+      | }
+  body
+    h3 = team.display_name
+    p = "#{comment.user.name}, #{comment.created_at.to_formatted_s(:short)}"
+    = simple_format comment.text

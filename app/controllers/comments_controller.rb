@@ -1,6 +1,7 @@
 class CommentsController < ApplicationController
   def create
     comment = Comment.create(comment_params)
+    CommentMailer.email(comment).deliver
     redirect_to comment.team
   end
 
