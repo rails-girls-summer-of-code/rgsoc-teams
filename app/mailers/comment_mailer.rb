@@ -8,10 +8,14 @@ class CommentMailer < ActionMailer::Base
 
   def email(comment)
     set comment
-    mail subject: subject, to: team.members.map(&:email).join(',')
+    mail subject: subject, to: supervisors.map(&:email).join(',')
   end
 
   private
+
+    def supervisors
+      Team.where(name: 'Supervisors').first.members
+    end
 
     def subject
       "[rgsoc-teams] New comment: #{team.name} - #{truncate(comment.text)}"
