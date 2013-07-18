@@ -35,7 +35,7 @@ class Feed
       end
 
       def tags
-        html.scan(/(<(a|link).*?>)/).flatten.select do |tag|
+        html.scan(/(<(a|link)[^>]*>)/).flatten.select do |tag|
           tag =~ /.*type=['"]application\/(rss|atom)\+xml['"].*/
         end
       end
