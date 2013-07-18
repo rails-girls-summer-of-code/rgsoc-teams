@@ -8,7 +8,7 @@ class CommentMailer < ActionMailer::Base
 
   def email(comment)
     set comment
-    mail subject: subject, to: supervisors.map(&:email).compact..join(',')
+    mail subject: subject, to: supervisors.map(&:email).compact.join(',')
   end
 
   private
