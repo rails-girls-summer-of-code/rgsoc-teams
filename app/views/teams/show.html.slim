@@ -37,6 +37,9 @@ nav.page
     dd = format_date(@team.finishes_on)
     dt Last Activity
     dd = format_date(@team.last_activity.try(:created_at))
+    - if can? :read, :users_info
+      dt Blog post
+      dd = @team.post_info
 
   - if @team.description
     p = render_markdown(@team.description).html_safe

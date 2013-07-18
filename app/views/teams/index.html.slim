@@ -11,12 +11,16 @@ table.table.table-striped.table-bordered.table-condensed
     th Name
     th Students
     th Last Activity
+    - if can? :read, :users_info
+      th Blog post
 
   - @teams.each do |team|
     tr
       td = link_to team.display_name, team, class: "team #{team.kind}"
       td = link_to_team_members(team, :student)
       td = format_date(team.last_activity.try(:created_at))
+      - if can? :read, :users_info
+        td = team.post_info
 
 p.hint
   | <i class="icon-star"></i> Sponsored team
