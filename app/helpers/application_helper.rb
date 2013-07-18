@@ -53,8 +53,15 @@ module ApplicationHelper
 
   def link_to_team_members(team, role = :member)
     team.send(role.to_s.pluralize).sort_by(&:name_or_handle).map do |student|
-      link_to(student.name_or_handle, student)
-    end.join(', ').html_safe
+      link_to_team_member(student)
+    end.join.html_safe
+  end
+
+  def link_to_team_member(member)
+    content_tag(:div, :class => :user) do
+      image_tag(member.avatar_url || 'default_avatar.png', alt: member.name_or_handle) +
+        link_to(member.name_or_handle, member)
+    end
   end
 
   def link_to_user_roles(user)

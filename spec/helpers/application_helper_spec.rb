@@ -13,12 +13,23 @@ describe ApplicationHelper do
     end
 
     it 'should return link_to student based on role type' do
-      link_to_team_members(@team).should           == "<a href=\"/users/#{@user2.id}\">Hieu Le</a>, <a href=\"/users/#{@user3.id}\">Trang Le</a>, <a href=\"/users/#{@user1.id}\">Trung Le</a>"
-      link_to_team_members(@team, :student).should == "<a href=\"/users/#{@user1.id}\">Trung Le</a>"
-      link_to_team_members(@team, :coach).should   == "<a href=\"/users/#{@user2.id}\">Hieu Le</a>"
-      link_to_team_members(@team, :mentor).should  == "<a href=\"/users/#{@user3.id}\">Trang Le</a>"
+      link_to_team_members(@team).should           == link_to_team_member(@user2) + link_to_team_member(@user3) + link_to_team_member(@user1)
+      link_to_team_members(@team, :student).should == link_to_team_member(@user1)
+      link_to_team_members(@team, :coach).should   == link_to_team_member(@user2)
+      link_to_team_members(@team, :mentor).should  == link_to_team_member(@user3)
+    end
+  end
+
+  describe '.link_to_team_member' do
+    let(:user) { create(:user, name: 'Trung Le', avatar_url: 'http://example.com/avatar.png') }
+
+    it 'should include a link to the member' do
+      link_to_team_member(user).should include("<a href=\"/users/#{user.id}\">Trung Le</a>")
     end
 
+    it 'should include the avatar image' do
+      link_to_team_member(user).should include("<img alt=\"Trung Le\" src=\"#{user.avatar_url}\" />")
+    end
   end
 
   describe '.link_to_user_roles' do
