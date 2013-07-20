@@ -5,7 +5,12 @@ class TeamsController < ApplicationController
   load_and_authorize_resource except: [:index, :show]
 
   def index
-    @teams = Team.order(:kind, :name)
+    if params[:sort]
+      direction = params[:direction] == 'asc' ? 'ASC' : 'DESC'
+      @teams = Team.includes(:activities).order("teams.kind, activities.created_at #{direction}")
+    else
+      @teams = Team.order(:kind, :name)
+    end
   end
 
   def show
