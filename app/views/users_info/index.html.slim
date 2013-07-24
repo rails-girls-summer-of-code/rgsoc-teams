@@ -1,6 +1,17 @@
 h1.header User info
 
-= render partial: 'users/roles'
+form.filter action=request.url
+  h5 Role
+  - (['all'] + Role::ROLES).each do |role|
+    label.radio
+      = radio_button_tag :role, role == 'all' ? '' : role, params[:role] == role
+      = role.capitalize
+
+  h5 Type
+  - %w(all sponsored volunteering).each do |kind|
+    label.radio
+      = radio_button_tag :kind, kind == 'all' ? '' : kind, params[:kind] == kind
+      = kind.capitalize
 
 table.table.table-striped.table-bordered.table-condensed.table-hover
   thead

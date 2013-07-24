@@ -28,6 +28,10 @@ class User < ActiveRecord::Base
     def with_role(name)
       includes(:roles).where('roles.name = ?', name)
     end
+
+    def with_team_kind(kind)
+      includes(:teams).where('teams.kind = ?', kind)
+    end
   end
 
   def name_or_handle
