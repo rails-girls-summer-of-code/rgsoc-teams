@@ -10,7 +10,7 @@ table.table.table-striped.table-bordered.table-condensed
   tr
     th Name
     th Students
-    th Last Activity
+    th = sortable "created_at", "Last Activity"
     - if can? :read, :users_info
       th Blog post
 
