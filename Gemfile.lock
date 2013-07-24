@@ -60,6 +60,9 @@ GEM
     bootstrap-sass (2.3.2.0)
       sass (~> 3.2)
     builder (3.1.4)
+    byebug (1.6.1)
+      columnize (~> 0.3.6)
+      debugger-linecache (~> 1.2.0)
     cancan (1.6.10)
     celluloid (0.14.1)
       timers (>= 1.0.0)
@@ -77,12 +80,7 @@ GEM
     curb (0.8.4)
     database_cleaner (1.0.1)
     debug_inspector (0.0.2)
-    debugger (1.6.0)
-      columnize (>= 0.3.1)
-      debugger-linecache (~> 1.2.0)
-      debugger-ruby_core_source (~> 1.2.1)
     debugger-linecache (1.2.0)
-    debugger-ruby_core_source (1.2.3)
     diff-lcs (1.2.4)
     erubis (2.7.0)
     execjs (1.4.0)
@@ -263,10 +261,10 @@ DEPENDENCIES
   binding_of_caller
   bootstrap-kaminari-views
   bootstrap-sass
+  byebug
   cancan
   coffee-rails
   database_cleaner
-  debugger
   devise!
   factory_girl_rails
   feedzirra (>= 0.2.0.rc2)
