@@ -51,6 +51,12 @@ module ApplicationHelper
     end.compact
   end
 
+  def links_to_user_teams(user)
+    user.teams.map do |team|
+      link_to(team.display_name, team, class: "team #{team.sponsored? ? 'sponsored' : ''}")
+    end.map(&:html_safe)
+  end
+
   def link_to_team_members(team, role = :member)
     team.send(role.to_s.pluralize).sort_by(&:name_or_handle).map do |student|
       link_to_team_member(student)
