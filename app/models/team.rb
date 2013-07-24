@@ -41,8 +41,16 @@ class Team < ActiveRecord::Base
     kind == 'sponsored'
   end
 
-  def helpdesk?
+  def helpdesk_team?
     name.downcase == 'helpdesk'
+  end
+
+  def organizers_team?
+    name.downcase == 'organizers'
+  end
+
+  def supervisors_team?
+    name.downcase == 'supervisors'
   end
 
   # def must_have_unique_students

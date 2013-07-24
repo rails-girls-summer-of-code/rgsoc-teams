@@ -44,26 +44,13 @@ nav.page
   - if @team.description
     p = render_markdown(@team.description).html_safe
 
-- if @team.helpdesk?
+- if @team.helpdesk_team? || @team.organizers_team? || @team.supervisors_team?
   - if @team.sources.any?
     h3 Sources
     = list_sources(@team)
 
   h3 Members
   = link_to_team_members(@team, :helpdesk)
-
-- elsif @team.organizers.any? || @team.supervisors.any?
-  - if @team.sources.any?
-    h3 Sources
-    = list_sources(@team)
-
-  - if @team.organizers.any?
-    h3 Organizers
-    = link_to_team_members(@team, :organizer)
-
-  - if @team.supervisors.any?
-    h3 Supervisors
-    = link_to_team_members(@team, :supervisor)
 
 - else
   h3 Sources
