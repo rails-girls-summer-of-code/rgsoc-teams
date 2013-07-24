@@ -22,7 +22,7 @@ class User < ActiveRecord::Base
 
   class << self
     def ordered
-      order('LOWER(COALESCE(users.name, github_handle))')
+      order('LOWER(COALESCE(users.name, users.github_handle))')
     end
 
     def with_role(name)
