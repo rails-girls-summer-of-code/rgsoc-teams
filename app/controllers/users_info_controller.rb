@@ -4,7 +4,7 @@ class UsersInfoController < ApplicationController
   private
 
     def users
-      users = User.ordered
+      users = User.includes(:teams).ordered
       users = users.with_role(params[:role]) if params[:role].present? && params[:role] != 'all'
       users
     end

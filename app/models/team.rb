@@ -37,6 +37,10 @@ class Team < ActiveRecord::Base
     "Team #{chunks.join(' ')}"
   end
 
+  def sponsored?
+    kind == 'sponsored'
+  end
+
   def helpdesk?
     name.downcase == 'helpdesk'
   end
