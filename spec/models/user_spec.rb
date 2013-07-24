@@ -9,6 +9,9 @@ describe User do
   it { should have_many(:roles) }
   it { should validate_presence_of(:github_handle) }
   it { should validate_uniqueness_of(:github_handle) }
+  it { should allow_value('http://example.com').for(:homepage) }
+  it { should allow_value('https://example.com').for(:homepage) }
+  it { should_not allow_value('example.com').for(:homepage) }
 
   describe 'after_create' do
     let(:user) { User.create(github_handle: 'octocat') }

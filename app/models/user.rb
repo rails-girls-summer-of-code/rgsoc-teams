@@ -17,6 +17,7 @@ class User < ActiveRecord::Base
   has_many :teams, -> { uniq }, through: :roles
 
   validates :github_handle, presence: true, uniqueness: true
+  validates :homepage, format: { with: /\A(http|https).*/i }, allow_blank: true
 
   after_create :complete_from_github
 
