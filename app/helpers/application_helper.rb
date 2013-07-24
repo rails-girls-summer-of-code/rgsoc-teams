@@ -53,7 +53,7 @@ module ApplicationHelper
 
   def links_to_user_teams(user)
     user.teams.map do |team|
-      link_to(team.name, team, class: "team #{team.sponsored? ? 'sponsored' : ''}")
+      link_to(team.name || team.project, team, class: "team #{team.sponsored? ? 'sponsored' : ''}")
     end.map(&:html_safe)
   end
 
