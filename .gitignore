@@ -18,3 +18,5 @@
 # Ignore all logfiles and tempfiles.
 /log/*.log
 /tmp
+
+conferences_data.rb
