@@ -1,11 +1,11 @@
 class Confs
   include Enumerable
 
-  attr_reader :data, :confs
+  attr_reader :confs
 
   def initialize(data)
-    @data = data
-    @confs = data.map { |name, conf| Conf.new(name, conf[:tickets], conf[:flights]) }
+    data = data.map { |name, conf| [name, conf[:tickets], conf[:flights]] }.shuffle
+    @confs = data.map { |row| Conf.new(*row) }
   end
 
   def each(&block)
