@@ -29,30 +29,7 @@
 #     }
 #   }
 
-require 'confs/application'
-require 'confs/applications'
-require 'confs/conf'
-require 'confs/confs'
-require 'confs/raffle'
-require 'confs/result'
-require 'confs/table'
-
-DATA = eval(File.read(ARGV[0]))
-confs = Confs.new(DATA['confs'])
-result = Result.new(confs)
-types = DATA['applications'].keys
-raffles = DATA['applications'].inject({}) { |r, (type, data)| r.merge(type => Raffle.new(confs, data)) }
-
-TABLE_HEADERS = {
-  apps: ['Conference', 'Name', 'Team'],
-  confs: ['Conference', 'Tickets', 'Flights']
-}
-
-def tp(type, data)
-  puts Table.new(data, headers: TABLE_HEADERS[type]).to_s
-end
-
-puts <<txt
+BANNER = <<txt
 Rails Girls Summer of Code Conference Raffle
 
 Applications are grouped by: sponsored teams, volunteering teams, students
@@ -84,11 +61,36 @@ You can find the full code that generated the following results here:
 
 https://github.com/rails-girls-summer-of-code/rgsoc-teams/blob/master/lib/confs.rb
 txt
-puts
+
+require 'confs/application'
+require 'confs/applications'
+require 'confs/conf'
+require 'confs/confs'
+require 'confs/raffle'
+require 'confs/result'
+require 'confs/table'
+
+DATA = eval(File.read(ARGV[0]))
+confs = Confs.new(DATA['confs'])
+result = Result.new(confs)
+types = DATA['applications'].keys
+raffles = DATA['applications'].inject({}) { |r, (type, data)| r.merge(type => Raffle.new(confs, data)) }
+
+TABLE_HEADERS = {
+  apps: ['Conference', 'Name', 'Team'],
+  confs: ['Applications', 'Conference', 'Tickets', 'Flights']
+}
+
+def tp(type, data)
+  puts Table.new(data, headers: TABLE_HEADERS[type]).to_s
+end
 
 # A round of raffles is one raffle per type (sponsored, volunteering, no-team).
 # Winners from each raffle are added to the result set. We run another round of
 # raffles while any of the raffles from last round yielded winners.
+
+# puts BANNER
+# puts
 
 begin
   winners_found = false

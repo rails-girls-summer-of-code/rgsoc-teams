@@ -12,6 +12,8 @@ class Raffle
         end
       end
     end
+
+    confs.sort!
   end
 
   # Main loop for the raffe. Cleans out unavailable confs from the applications set.
@@ -37,7 +39,7 @@ class Raffle
     end
 
     def available_confs
-      confs.by_popularity.select { |conf| conf.tickets? }
+      confs.select { |conf| conf.tickets? }
     end
 
     # Tries to pick a team for the given conf. If there are at least two

@@ -8,8 +8,10 @@ class Confs
     @confs = data.map { |row| Conf.new(*row) }
   end
 
-  def by_popularity
-    confs.sort_by(&:popularity).reverse
+  def sort!
+    @confs = confs.sort do |lft, rgt|
+      cmp(:popularity, lft, rgt) || cmp(:tickets, lft, rgt) || 0
+    end.reverse
   end
 
   def each(&block)
@@ -19,4 +21,11 @@ class Confs
   def [](name)
     confs.detect { |conf| conf.name == name.downcase }
   end
+
+  private
+
+    def cmp(attr, lft, rgt)
+      order = lft.send(attr) <=> rgt.send(attr)
+      order unless order == 0
+    end
 end

@@ -27,7 +27,7 @@ class Conf
   end
 
   def to_row
-    [name, tickets, flights]
+    [popularity, name, tickets, flights]
   end
 
   def <=> (other)
