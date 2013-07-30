@@ -1,4 +1,6 @@
-# Pass a filename as ARGV[0] as in $ ruby -Ilib lib/confs.rb path/to/data.rb
+# To run this script pass a filename as ARGV[0], as in
+#
+#   $ ruby -Ilib lib/confs.rb path/to/data.rb
 #
 # data.rb is supposed to define a hash as follows:
 #
@@ -50,9 +52,44 @@ def tp(type, data)
   puts Table.new(data, headers: TABLE_HEADERS[type]).to_s
 end
 
+puts <<txt
+Rails Girls Summer of Code Conference Raffle
+
+Applications are grouped by: sponsored teams, volunteering teams, students
+who applied but did not make it into the program. Conferences are sorted by
+popularity (number of applications we have received), most popular ones
+first.
+
+1) We run a raffle for students from sponsored teams:
+
+  a) We try to randomly pick a team that has applied for the most popular
+     conference.
+  b) If there's no such team we try to randomly pick a student who has
+     applied for this conference.
+  c) If we've successfully picked a team or student we remove all other
+     applications from these students for this raffle (the will be added
+     back for the next round).
+  d) We repeat this process for the next popular conference, and so on,
+     for each of the conferences.
+
+2) We run the same raffle for students from volunteering teams.
+3) We run the same raffle for students who applied but are not on the
+   program.
+4) If any of the raffles in this round have yielded winners then we will do
+   another round of raffles, i.e. run steps 1-3 again. If none of the
+   raffles in a round yielded any winners then we have our final result and
+   stop.
+
+You can find the full code that generated the following results here:
+
+https://github.com/rails-girls-summer-of-code/rgsoc-teams/blob/master/lib/confs.rb
+txt
+puts
+
 # A round of raffles is one raffle per type (sponsored, volunteering, no-team).
 # Winners from each raffle are added to the result set. We run another round of
 # raffles while any of the raffles from last round yielded winners.
+
 begin
   winners_found = false
   puts
@@ -83,7 +120,7 @@ begin
 end while winners_found
 
 puts
-puts "RESULTS"
+puts "FINAL RESULTS - CONGRATULATIONS!"
 puts
 
 tp :app, result.winners.map(&:to_row)
