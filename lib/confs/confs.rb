@@ -22,6 +22,10 @@ class Confs
     confs.detect { |conf| conf.name == name.downcase }
   end
 
+  def total_tickets
+    confs.map(&:tickets).inject(&:+)
+  end
+
   private
 
     def cmp(attr, lft, rgt)

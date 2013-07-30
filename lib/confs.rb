@@ -62,6 +62,7 @@ You can find the full code that generated the following results here:
 https://github.com/rails-girls-summer-of-code/rgsoc-teams/blob/master/lib/confs.rb
 txt
 
+require 'artii'
 require 'confs/application'
 require 'confs/applications'
 require 'confs/conf'
@@ -76,22 +77,25 @@ result = Result.new(confs)
 types = DATA['applications'].keys
 raffles = DATA['applications'].inject({}) { |r, (type, data)| r.merge(type => Raffle.new(confs, data)) }
 
-MSG = {
-  winners_found: {
-    true  => 'Still tickets available, doing another round ...',
-    false => 'This rounds yielded no winners any more. So we have our final result.'
-  },
-  final_results: 'FINAL RESULTS - CONGRATULATIONS!'
-}
-
 TABLE_HEADERS = {
   apps: ['Conference', 'Name', 'Team'],
   confs: ['Applications', 'Conference', 'Tickets', 'Flights']
 }
 
-def heading(string)
-  width = 30 - string.length / 2
-  out '', '', "#{'=' * width} #{string} #{'=' * width}\n"
+def titleize(font, string)
+  string = Artii::Base.new(font: font).asciify(string).gsub(/\s*$/, '')
+  string = string.split("\n").map { |line| '   ' + line }.join("\n")
+  string + "\n"
+end
+
+def h1(string)
+  puts titleize('big', string)
+  puts
+end
+
+def h2(string)
+  puts titleize('small', string)
+  puts
 end
 
 def table(type, data)
@@ -99,64 +103,150 @@ def table(type, data)
 end
 
 def msg(*strings)
-  out '', '', *strings
+  out '', *strings
 end
 
-def progress
-  msg ''
-  print 'Working: '
-  ('.' * 55).each_char { |char| print_d(char, 0.001) }
+def progress(count)
+  puts
+  print '    Working: '
+  ('.' * count).each_char { |char| print_d(char, 0.001) }
+  puts
   puts
 end
 
 def out(*strings)
+  strings = strings.map { |string| '    ' + string }
   strings.join("\n").each_char { |char| print_d(char) }
+  puts
 end
 
-def print_d(char, delay = 0.0005)
+def print_d(char, delay = 0.0003)
   print char
   sleep delay
 end
 
-def pause(delay = :long)
-  sleep(delay == :long ? 0.5 : 0.25)
+def pause
+  puts
+  puts
+  sleep 1
+end
+
+def clear
+  printf "\033c"
+  puts
+  puts
 end
 
 # A round of raffles is one raffle per type (sponsored, volunteering, no-team).
 # Winners from each raffle are added to the result set. We run another round of
 # raffles while any of the raffles from last round yielded winners.
 
-# puts BANNER
-# puts
+# out BANNER
+# pause
+# pause
+#
+clear
+
+h1 'Rails Girls Summer of Code'
+h2 'CONFERENCES RAFFLE'
+pause
+
+clear
+h2 'Free tickets + flights!'
+msg "No less than #{confs.total_tickets} conference tickets to give away ..."
+msg 'Thanks to our amazing conference sponsors!'
+msg 'Please visit http://railsgirlssummerofcode.org/conferences and say thanks to them :)'
+pause
+
+clear
+h1 'Are you ready?'
+pause
+
+clear
+h1 'Get ready!'
+pause
+
+h2 '5 ...'
+pause
+
+h2 '4 ...'
+pause
+
+h2 '3 ...'
+pause
+
+h2 '2 ...'
+pause
+
+h2 '1 ...'
+pause
+
+h1 'Goooooooooooooooooooo!'
+pause
+
+clear
+h1 'Rails Girls Summer of Code'
+h2 'CONFERENCES RAFFLE'
+msg 'Available tickets:', *table(:confs, confs.map(&:to_row))
+pause
 
 start = Time.now
+round = 0
 
 begin
+  round += 1
   winners_found = false
-  msg 'Available tickets:', *table(:confs, confs.map(&:to_row))
+
+  clear
+  h1 "ROUND ##{round}"
   pause
+  clear
 
   types.each do |type|
-    heading "RAFFLE: #{type.upcase}"
+    next if type == 'no team'
 
+    h1 'RAFFLE'
+    h2 "#{type.upcase} TEAMS"
+
+    progress(confs.total_tickets)
     winners = raffles[type].run
     result.add(winners)
-    progress
     winners_found |= winners.any?
 
     if winners.any?
-      msg "Winners:", *table(:apps, winners.map(&:to_row))
-      pause
+      msg "YAY! We've got some winners:", *table(:apps, winners.map(&:to_row))
     else
       msg "No winners this time."
-      pause :short
     end
+
+    pause
+    clear
   end
 
-  msg MSG[:winners_found][winners_found]
+  h1 'DONE.'
+
+  if winners_found
+    h2 'Doing another round ...'
+    msg "We still have #{confs.total_tickets} tickets available:", *table(:confs, confs.map(&:to_row))
+  else
+    msg'This rounds yielded no winners any more. So we have our final result.'
+  end
+
+  pause
 end while winners_found
 
-msg MSG[:final_results], *table(:app, result.winners.map(&:to_row))
+clear
+h1 'FINAL RESULTS'
+h2 'CONGRATULATIONS!'
+
+msg *table(:apps, result.winners.map(&:to_row))
+msg '*) flights covered', ''
+
+h2 'HAPPY CONFERENCING!!'
+
+msg 'THANKS TO OUR AMAZING SPONSORS!'
+msg 'Please visit http://railsgirlssummerofcode.org/conferences and say thanks to them :)'
+
 
 # puts
 # puts "RESULTS BY CONFS"
@@ -170,4 +260,7 @@ msg MSG[:final_results], *table(:app, result.winners.map(&:to_row))
 #
 # tp :app, result.by_team.values.flatten.map(&:to_row)
 
-p Time.now - start
+puts
+puts
+puts "\n\nTime taken: #{Time.now - start}"
+puts
