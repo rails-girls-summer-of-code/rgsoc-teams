@@ -6,6 +6,11 @@ class Application
     @team = team
     @name = name
     @conf = conf
+    conf.popularity += 1
+  end
+
+  def conf_name
+    conf.name
   end
 
   def to_row

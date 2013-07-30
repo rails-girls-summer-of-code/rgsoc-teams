@@ -1,10 +1,12 @@
 class Conf
   attr_reader :name, :tickets, :flights
+  attr_accessor :popularity
 
   def initialize(name, tickets, flights)
     @name = name.downcase
     @tickets = tickets
     @flights = flights
+    @popularity = 0
   end
 
   def tickets?

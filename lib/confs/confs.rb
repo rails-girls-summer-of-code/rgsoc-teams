@@ -8,6 +8,10 @@ class Confs
     @confs = data.map { |row| Conf.new(*row) }
   end
 
+  def by_popularity
+    confs.sort_by(&:popularity).reverse
+  end
+
   def each(&block)
     confs.each(&block)
   end

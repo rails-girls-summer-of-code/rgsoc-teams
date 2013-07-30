@@ -37,7 +37,7 @@ class Raffle
     end
 
     def available_confs
-      apps.confs_by_times_requested.select { |conf| conf.tickets? }
+      confs.by_popularity.select { |conf| conf.tickets? }
     end
 
     # Tries to pick a team for the given conf. If there are at least two
@@ -46,7 +46,7 @@ class Raffle
     # one of these teams randomly.
     def pick_team(conf)
       return unless conf.tickets >= 2
-      teams = apps.teams_by_conf(conf.name)
+      teams = apps.select_teams_by(conf_name: conf.name)
       teams = teams.reject { |team| team.any? { |app| winner?(app) } }
       if team = teams.shuffle.first
         team.each { |app| win(app) }
@@ -58,7 +58,7 @@ class Raffle
     # this raffle already. Then picks one of these students randomly.
     def pick_student(conf)
       return unless conf.tickets?
-      apps = self.apps.by_conf(conf.name)
+      apps = self.apps.select_by(conf_name: conf.name)
       apps = apps.reject { |app| winner?(app) }
       if app = apps.shuffle.first
         win(app)

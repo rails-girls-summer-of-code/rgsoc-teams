@@ -6,10 +6,7 @@ class Applications
   end
 
   def add(team, name, conf)
-    app = Application.new(team, name, conf)
-    apps << app
-    count(app)
-    app
+    apps << Application.new(team, name, conf)
   end
 
   def remove(app)
@@ -20,41 +17,12 @@ class Applications
     apps.select! { |app| app.conf.tickets? }
   end
 
-  def counts
-    @counts ||= {}
+  def select_by(attrs)
+    apps.select { |app| attrs.all? { |name, value| app.send(name) == value } }
   end
 
-  def confs_by_times_requested
-    apps_by_times_requested.map(&:conf).uniq
-  end
-
-  def by_conf(name)
-    apps.select { |app| app.conf.name == name }
-  end
-
-  def by_conf_and_team_mate(conf, team, name)
-    apps.select { |app| app.conf.name == conf && app.team == team && app.name != name }
-  end
-
-  def teams_by_conf(name)
-    teams = by_conf(name).inject({}) do |teams, app|
-      teams[app.team] ||= []
-      teams[app.team] << app
-      teams
-    end
+  def select_teams_by(attrs)
+    teams = select_by(attrs).group_by(&:team)
     teams.values.select { |apps| apps.length == 2 }
   end
-
-  private
-
-    def count(app)
-      counts[app.conf] ||= 0
-      counts[app.conf] += 1
-    end
-
-    def apps_by_times_requested
-      apps.sort { |lft, rgt| counts[rgt.conf] <=> counts[lft.conf] }
-    end
 end
-
-
