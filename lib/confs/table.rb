@@ -24,11 +24,15 @@ class Table
     rows.map { |row| row[col].to_s.length }.max
   end
 
-  def to_s
+  def lines
     lines = [separator] + rows.map { |row| format_row(row) } + [separator]
     lines.insert(2, separator) if options[:headers]
     lines = lines.map { |line| ' ' * options[:indent] + line } if options[:indent]
     lines
+  end
+
+  def to_s
+    lines.join("\n")
   end
 
   private

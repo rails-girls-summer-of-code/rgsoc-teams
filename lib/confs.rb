@@ -76,13 +76,50 @@ result = Result.new(confs)
 types = DATA['applications'].keys
 raffles = DATA['applications'].inject({}) { |r, (type, data)| r.merge(type => Raffle.new(confs, data)) }
 
+MSG = {
+  winners_found: {
+    true  => 'Still tickets available, doing another round ...',
+    false => 'This rounds yielded no winners any more. So we have our final result.'
+  },
+  final_results: 'FINAL RESULTS - CONGRATULATIONS!'
+}
+
 TABLE_HEADERS = {
   apps: ['Conference', 'Name', 'Team'],
   confs: ['Applications', 'Conference', 'Tickets', 'Flights']
 }
 
-def tp(type, data)
-  puts Table.new(data, headers: TABLE_HEADERS[type]).to_s
+def heading(string)
+  width = 30 - string.length / 2
+  out '', '', "#{'=' * width} #{string} #{'=' * width}\n"
+end
+
+def table(type, data)
+  ['', *Table.new(data, headers: TABLE_HEADERS[type]).lines]
+end
+
+def msg(*strings)
+  out '', '', *strings
+end
+
+def progress
+  msg ''
+  print 'Working: '
+  ('.' * 55).each_char { |char| print_d(char, 0.001) }
+  puts
+end
+
+def out(*strings)
+  strings.join("\n").each_char { |char| print_d(char) }
+end
+
+def print_d(char, delay = 0.0005)
+  print char
+  sleep delay
+end
+
+def pause(delay = :long)
+  sleep(delay == :long ? 0.5 : 0.25)
 end
 
 # A round of raffles is one raffle per type (sponsored, volunteering, no-team).
@@ -92,40 +129,34 @@ end
 # puts BANNER
 # puts
 
+start = Time.now
+
 begin
   winners_found = false
-  puts
-  puts "Available tickets:"
-  puts
-  tp :confs, confs.map(&:to_row)
+  msg 'Available tickets:', *table(:confs, confs.map(&:to_row))
+  pause
 
   types.each do |type|
-    puts
-    puts  '=' * 20 + " RAFFLE: #{type.upcase} " + '=' * 20
-    puts
+    heading "RAFFLE: #{type.upcase}"
 
     winners = raffles[type].run
     result.add(winners)
+    progress
     winners_found |= winners.any?
 
     if winners.any?
-      puts "Winners:"
-      puts
-      tp :apps, winners.map(&:to_row)
+      msg "Winners:", *table(:apps, winners.map(&:to_row))
+      pause
     else
-      puts 'No winners this time.'
+      msg "No winners this time."
+      pause :short
     end
   end
 
-  puts
-  puts winners_found ? 'Still tickets available, doing another round ...' : 'This rounds yielded no winners any more. So we have our final result.'
+  msg MSG[:winners_found][winners_found]
 end while winners_found
 
-puts
-puts "FINAL RESULTS - CONGRATULATIONS!"
-puts
-
-tp :app, result.winners.map(&:to_row)
+msg MSG[:final_results], *table(:app, result.winners.map(&:to_row))
 
 # puts
 # puts "RESULTS BY CONFS"
@@ -139,4 +170,4 @@ tp :app, result.winners.map(&:to_row)
 #
 # tp :app, result.by_team.values.flatten.map(&:to_row)
 
-
+p Time.now - start
