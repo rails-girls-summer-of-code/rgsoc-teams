@@ -8,7 +8,7 @@ class Table
     end
 
     def to_s(delim = '|')
-      "#{delim} #{cells.each_with_index.map { |cell, ix| cell.ljust(table.width(ix)) }.join(" #{delim} ")} #{delim}"
+      "#{delim} #{cells.each_with_index.map { |cell, ix| cell.to_s.ljust(table.width(ix)) }.join(" #{delim} ")} #{delim}"
     end
   end
 
@@ -21,7 +21,7 @@ class Table
   end
 
   def width(col)
-    rows.map { |row| row[col].length }.max
+    rows.map { |row| row[col].to_s.length }.max
   end
 
   def to_s

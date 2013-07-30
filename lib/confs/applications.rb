@@ -1,9 +1,8 @@
 class Applications
-  attr_reader :apps, :confs
+  attr_reader :apps
 
-  def initialize(confs)
+  def initialize
     @apps = []
-    @confs = confs
   end
 
   def add(team, name, conf)
@@ -14,33 +13,35 @@ class Applications
   end
 
   def remove(app)
-    confs.attend(app)
     apps.delete(app)
   end
 
   def reject_unavailable_confs!
-    apps.select! { |app| confs.tickets_available?(app.conf) }
+    apps.select! { |app| app.conf.tickets? }
   end
-
 
   def counts
     @counts ||= {}
   end
 
   def confs_by_times_requested
-    apps_by_times_requested.map { |app| app.conf }.uniq
+    apps_by_times_requested.map(&:conf).uniq
   end
 
-  def by_conf(conf)
-    apps.select { |app| app.conf == conf }
+  def by_conf(name)
+    apps.select { |app| app.conf.name == name }
   end
 
   def by_conf_and_team_mate(conf, team, name)
-    apps.select { |app| app.conf == conf && app.team == team && app.name != name }
+    apps.select { |app| app.conf.name == conf && app.team == team && app.name != name }
   end
 
-  def teams_by_conf(conf)
-    teams = by_conf(conf).inject({}) { |teams, app| (teams[app.team] ||= []) << app; teams }
+  def teams_by_conf(name)
+    teams = by_conf(name).inject({}) do |teams, app|
+      teams[app.team] ||= []
+      teams[app.team] << app
+      teams
+    end
     teams.values.select { |apps| apps.length == 2 }
   end
 
@@ -52,7 +53,7 @@ class Applications
     end
 
     def apps_by_times_requested
-      apps.sort { |lft, rgt| counts[lft.conf] <=> counts[rgt.conf] }.reverse
+      apps.sort { |lft, rgt| counts[rgt.conf] <=> counts[lft.conf] }
     end
 end
 

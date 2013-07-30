@@ -1,23 +1,18 @@
 class Confs
-  attr_reader :data
+  include Enumerable
+
+  attr_reader :data, :confs
 
   def initialize(data)
     @data = data
+    @confs = data.map { |name, conf| Conf.new(name, conf[:tickets], conf[:flights]) }
   end
 
-  def names
-    @data.keys
+  def each(&block)
+    confs.each(&block)
   end
 
-  def tickets_available?(conf)
-    available_tickets(conf) > 0
-  end
-
-  def available_tickets(conf)
-    @data.fetch(conf, {})[:tickets]
-  end
-
-  def attend(app)
-    @data[app.conf][:tickets] -= 1
+  def [](name)
+    confs.detect { |conf| conf.name == name.downcase }
   end
 end

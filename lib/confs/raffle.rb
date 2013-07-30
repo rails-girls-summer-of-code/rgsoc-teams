@@ -3,10 +3,20 @@ class Raffle
 
   def initialize(confs, data)
     @confs = confs
-    @apps = Applications.new(confs)
-    data.each { |team, data| data.map { |name, confs| confs.map { |conf| apps.add(team, name, conf) } } }
+    @apps = Applications.new
+
+    data.each do |team, data|
+      data.map do |name, conf_names|
+        conf_names.map do |conf|
+          apps.add(team, name, confs[conf])
+        end
+      end
+    end
   end
 
+  # Main loop for the raffe. Cleans out unavailable confs from the applications set.
+  # Then for each available conf (ordered by popularity, most popular first) it first
+  # tries to pick a full team, then tries to pick a student. Force stops after 100 runs.
   def run
     @runs = 0
     @winners = []
@@ -23,32 +33,36 @@ class Raffle
   private
 
     def run?
-      confs.names.any? { |conf| confs.tickets_available?(conf) && runs < 100 }
+      confs.any? { |confs| confs.tickets? } && runs < 100
     end
 
     def available_confs
-      apps.confs_by_times_requested.select { |conf| confs.tickets_available?(conf) }
+      apps.confs_by_times_requested.select { |conf| conf.tickets? }
     end
 
+    # Tries to pick a team for the given conf. If there are at least two
+    # tickets available then it tries to find teams who has applied and where
+    # none of the student who has won during this raffle already. Then picks
+    # one of these teams randomly.
     def pick_team(conf)
-      return unless confs.available_tickets(conf) >= 2
-      teams = apps.teams_by_conf(conf)
+      return unless conf.tickets >= 2
+      teams = apps.teams_by_conf(conf.name)
       teams = teams.reject { |team| team.any? { |app| winner?(app) } }
       if team = teams.shuffle.first
         team.each { |app| win(app) }
       end
     end
 
+    # Tries to pick a student for the given conf. If there's at least one
+    # ticket avaialbe then it tries to find students who have not won during
+    # this raffle already. Then picks one of these students randomly.
     def pick_student(conf)
-      apps = self.apps.by_conf(conf)
+      return unless conf.tickets?
+      apps = self.apps.by_conf(conf.name)
       apps = apps.reject { |app| winner?(app) }
       if app = apps.shuffle.first
         win(app)
       end
-    end
-
-    def any_winners?(apps)
-
     end
 
     def winner?(app)
@@ -57,17 +71,7 @@ class Raffle
 
     def win(app)
       apps.remove(app)
+      app.conf.attend(app)
       winners << app
     end
-
-    def try_pick_team_mate(app)
-      app = find_pick_team_mate(app)
-      win(app) if app
-    end
-
-    def find_pick_team_mate(app)
-      apps.by_conf_and_team_mate(app.conf, app.team, app.name).first
-    end
 end
-
-

@@ -1,13 +1,39 @@
+# Pass a filename as ARGV[0] as in $ ruby -Ilib lib/confs.rb path/to/data.rb
+#
+# data.rb is supposed to define a hash as follows:
+#
+#   {
+#     'applications' => {
+#       'sponsored' => {
+#         'Team 1' => {
+#           'Student 1' => ['conf 1', 'conf 2', ...],
+#           'Student 2' => ['conf 1', 'conf 3', ...]
+#         },
+#         'Team 2' => {
+#           # ...
+#         }
+#       },
+#       'volunteering' => {
+#         # ...
+#       },
+#       'no team' => {
+#         # ...
+#       }
+#     },
+#     'confs' => {
+#       'conf 1' => { tickets: 1, flights: 0 },
+#       'conf 2' => { tickets: 2, flights: 2 },
+#       'conf 3' => { tickets: 2, flights: 0 }
+#     }
+#   }
+
 require 'confs/application'
 require 'confs/applications'
+require 'confs/conf'
 require 'confs/confs'
 require 'confs/raffle'
 require 'confs/result'
 require 'confs/table'
-
-def tp(data)
-  puts Table.new(data, headers: ['Conference', 'Name', 'Team'], indent: 2).to_s
-end
 
 DATA = eval(File.read(ARGV[0]))
 confs = Confs.new(DATA['confs'])
@@ -15,46 +41,63 @@ result = Result.new(confs)
 types = DATA['applications'].keys
 raffles = DATA['applications'].inject({}) { |r, (type, data)| r.merge(type => Raffle.new(confs, data)) }
 
+TABLE_HEADERS = {
+  apps: ['Conference', 'Name', 'Team'],
+  confs: ['Conference', 'Tickets', 'Flights']
+}
+
+def tp(type, data)
+  puts Table.new(data, headers: TABLE_HEADERS[type]).to_s
+end
+
+# A round of raffles is one raffle per type (sponsored, volunteering, no-team).
+# Winners from each raffle are added to the result set. We run another round of
+# raffles while any of the raffles from last round yielded winners.
 begin
-  round = false
+  winners_found = false
+  puts
+  puts "Available tickets:"
+  puts
+  tp :confs, confs.map(&:to_row)
+
   types.each do |type|
     puts
-    puts "Raffle: #{type.upcase}"
-    puts "Available tickets: #{confs.data.select { |name, conf| conf[:tickets] > 0 }.map { |name, conf| [name, conf[:tickets]].join(': ') }.join(', ')}"
+    puts  '=' * 20 + " RAFFLE: #{type.upcase} " + '=' * 20
     puts
 
-    raffle = raffles[type]
-    winners = raffle.run
+    winners = raffles[type].run
     result.add(winners)
-    round |= winners.any?
+    winners_found |= winners.any?
 
     if winners.any?
-      tp(winners.map { |winner| [winner.conf, winner.name, winner.team] })
+      puts "Winners:"
+      puts
+      tp :apps, winners.map(&:to_row)
     else
-      puts '  no winners this time'
+      puts 'No winners this time.'
     end
-
-    puts
-    puts round ? 'Still tickets available, doing another round ...' : 'This rounds yielded no winners any more. So we have our final result.'
   end
-end while round
+
+  puts
+  puts winners_found ? 'Still tickets available, doing another round ...' : 'This rounds yielded no winners any more. So we have our final result.'
+end while winners_found
 
 puts
 puts "RESULTS"
 puts
 
-tp result.winners.map { |winner| [winner.conf, winner.name, winner.team] }
+tp :app, result.winners.map(&:to_row)
 
-puts
-puts "RESULTS BY CONFS"
-puts
-
-tp result.by_conf.values.flatten.map { |winner| [winner.conf, winner.name, winner.team] }
-
-puts
-puts "RESULTS BY TEAMS"
-puts
-
-tp result.by_team.values.flatten.map { |winner| [winner.conf, winner.name, winner.team] }
+# puts
+# puts "RESULTS BY CONFS"
+# puts
+#
+# tp :app, result.by_conf.values.flatten.map(&:to_row)
+#
+# puts
+# puts "RESULTS BY TEAMS"
+# puts
+#
+# tp :app, result.by_team.values.flatten.map(&:to_row)
 
 
