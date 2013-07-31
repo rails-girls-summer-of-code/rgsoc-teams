@@ -63,6 +63,8 @@ https://github.com/rails-girls-summer-of-code/rgsoc-teams/blob/master/lib/confs.
 txt
 
 require 'artii'
+require 'lolize'
+
 require 'confs/application'
 require 'confs/applications'
 require 'confs/conf'
@@ -71,30 +73,34 @@ require 'confs/raffle'
 require 'confs/result'
 require 'confs/table'
 
+
 DATA = eval(File.read(ARGV[0]))
 confs = Confs.new(DATA['confs'])
 result = Result.new(confs)
 types = DATA['applications'].keys
 raffles = DATA['applications'].inject({}) { |r, (type, data)| r.merge(type => Raffle.new(confs, data)) }
+COLORIZER = Lolize::Colorizer.new
+LOG = File.open('conferences_raffle.txt', 'w+')
 
 TABLE_HEADERS = {
   apps: ['Conference', 'Name', 'Team'],
-  confs: ['Applications', 'Conference', 'Tickets', 'Flights']
+  confs: ['#', 'Conference', 'Tickets', 'Flights']
 }
+INDENT = ' ' * 8
 
 def titleize(font, string)
   string = Artii::Base.new(font: font).asciify(string).gsub(/\s*$/, '')
-  string = string.split("\n").map { |line| '   ' + line }.join("\n")
+  string = string.split("\n").map { |line| INDENT.sub(' ', '') + line }.join("\n")
   string + "\n"
 end
 
 def h1(string)
-  puts titleize('big', string)
+  print titleize('big', string)
   puts
 end
 
 def h2(string)
-  puts titleize('small', string)
+  print titleize('small', string)
   puts
 end
 
@@ -107,35 +113,43 @@ def msg(*strings)
 end
 
 def progress(count)
-  puts
-  print '    Working: '
+  1.times { puts }
+  print INDENT + 'Working: '
   ('.' * count).each_char { |char| print_d(char, 0.001) }
-  puts
-  puts
+  2.times { puts }
 end
 
 def out(*strings)
-  strings = strings.map { |string| '    ' + string }
+  strings = strings.map { |string| INDENT + string }
   strings.join("\n").each_char { |char| print_d(char) }
-  puts
+  1.times { puts }
 end
 
-def print_d(char, delay = 0.0003)
+def print_d(char, delay = 0.0005)
   print char
   sleep delay
 end
 
-def pause
-  puts
-  puts
-  sleep 1
+def pause(delay = :short)
+  2.times { puts }
+  sleep delay == :long ? 2 : 1
 end
 
 def clear
   printf "\033c"
-  puts
-  puts
+  3.times { puts }
+  LOG.print('-' * 100)
 end
+
+def print(str)
+  COLORIZER.write(str)
+  LOG.print(str)
+end
+
+def puts(str = '')
+  print str + "\n"
+end
+
 
 # A round of raffles is one raffle per type (sponsored, volunteering, no-team).
 # Winners from each raffle are added to the result set. We run another round of
@@ -149,18 +163,18 @@ clear
 
 h1 'Rails Girls Summer of Code'
 h2 'CONFERENCES RAFFLE'
-pause
+pause :long
 
 clear
 h2 'Free tickets + flights!'
 msg "No less than #{confs.total_tickets} conference tickets to give away ..."
 msg 'Thanks to our amazing conference sponsors!'
 msg 'Please visit http://railsgirlssummerofcode.org/conferences and say thanks to them :)'
-pause
+pause :long
 
 clear
 h1 'Are you ready?'
-pause
+pause :long
 
 clear
 h1 'Get ready!'
@@ -181,14 +195,14 @@ pause
 h2 '1 ...'
 pause
 
-h1 'Goooooooooooooooooooo!'
+h1 'Goooooooooooooooooo!'
 pause
 
 clear
 h1 'Rails Girls Summer of Code'
 h2 'CONFERENCES RAFFLE'
 msg 'Available tickets:', *table(:confs, confs.map(&:to_row))
-pause
+pause :long
 
 start = Time.now
 round = 0
@@ -239,9 +253,9 @@ clear
 h1 'FINAL RESULTS'
 h2 'CONGRATULATIONS!'
 
-msg *table(:apps, result.winners.map(&:to_row))
-msg '*) flights covered', ''
+msg *table(:apps, result.winners.map(&:to_row)), '*) flights covered'
 
+pause :long
 h2 'HAPPY CONFERENCING!!'
 
 msg 'THANKS TO OUR AMAZING SPONSORS!'
@@ -260,6 +274,9 @@ msg 'Please visit http://railsgirlssummerofcode.org/conferences and say thanks t
 #
 # tp :app, result.by_team.values.flatten.map(&:to_row)
 
+LOG.close
+
+sleep 1000
 puts
 puts
 puts "\n\nTime taken: #{Time.now - start}"
