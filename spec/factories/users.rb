@@ -8,15 +8,21 @@ FactoryGirl.define do
     homepage { Faker::Internet.http_url }
 
     factory :coach do
-      role 'coach'
+      after(:create) do |user|
+        FactoryGirl.create(:coach_role, user: user)
+      end
     end
 
     factory :student do
-      role 'student'
+      after(:create) do |user|
+        FactoryGirl.create(:student_role, user: user)
+      end
     end
 
     factory :mentor do
-      role 'mentor'
+      after(:create) do |user|
+        FactoryGirl.create(:mentor_role, user: user)
+      end
     end
   end
 end

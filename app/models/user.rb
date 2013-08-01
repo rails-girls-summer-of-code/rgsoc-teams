@@ -30,6 +30,10 @@ class User < ActiveRecord::Base
       includes(:roles).where('roles.name = ?', name)
     end
 
+    def with_assigned_roles
+      includes(:roles).having('COUNT(roles.*) > 0').group('users.id, roles.id').references([:roles, :users])
+    end
+
     def with_team_kind(kind)
       includes(:teams).where('teams.kind = ?', kind)
     end

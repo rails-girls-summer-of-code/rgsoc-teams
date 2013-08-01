@@ -13,6 +13,19 @@ describe User do
   it { should allow_value('https://example.com').for(:homepage) }
   it { should_not allow_value('example.com').for(:homepage) }
 
+  describe 'scopes' do
+    describe '.with_assigned_roles' do
+      before do
+        @user1 = create(:user)
+        @user2 = create(:coach)
+      end
+
+      it 'returns users that have any roles assigned' do
+        User.with_assigned_roles.should == [@user2]
+      end
+    end
+  end
+
   describe 'after_create' do
     let(:user) { User.create(github_handle: 'octocat') }
 
