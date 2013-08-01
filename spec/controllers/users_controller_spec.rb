@@ -6,10 +6,11 @@ describe UsersController do
   let(:valid_session)    { { "warden.user.user.key" => session["warden.user.user.key"] } }
 
   describe "GET index" do
-    it "assigns all users as @users" do
-      user = create(:user)
+    it "assigns all users that have any roles assigned as @users" do
+      user  = create(:user)
+      coach = create(:coach)
       get :index, {}, valid_session
-      assigns(:users).should eq([user])
+      assigns(:users).should eq([coach])
     end
   end
 
