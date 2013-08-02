@@ -25,8 +25,8 @@ module ApplicationHelper
   end
 
   def format_conference_date(starts_on, ends_on)
-    starts_on = starts_on.to_formatted_s(:short)
-    ends_on = ends_on.to_formatted_s(:short)
+    starts_on = starts_on.strftime('%d %b %y')
+    ends_on = ends_on.strftime('%d %b %y')
     starts_on == ends_on ? starts_on : [starts_on, ends_on].join(' - ')
   end
 
