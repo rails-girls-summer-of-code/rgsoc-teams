@@ -32,13 +32,19 @@ class Team < ActiveRecord::Base
   end
 
   def display_name
-    chunks = [name, projects].select(&:present?)
+    chunks = [name]
+    chunks << projects unless admin_team?
+    chunks = chunks.select(&:present?)
     chunks[1] = "(#{chunks[1]})" if chunks[1]
     "Team #{chunks.join(' ')}"
   end
 
   def sponsored?
     kind == 'sponsored'
+  end
+
+  def admin_team?
+    helpdesk_team? || organizers_team? || supervisors_team?
   end
 
   def helpdesk_team?

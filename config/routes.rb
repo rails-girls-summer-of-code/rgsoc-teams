@@ -9,6 +9,8 @@ RgsocTeams::Application.routes.draw do
   resources :users, except: :new
   resources :sources, only: :index
   resources :comments, only: :create
+  resources :conferences
+  resources :attendances
 
   resources :teams do
     resources :join, only: [:new, :create]

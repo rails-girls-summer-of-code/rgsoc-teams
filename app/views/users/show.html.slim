@@ -38,6 +38,23 @@ nav.actions
       - @user.teams.each do |team|
         li #{link_to team.display_name, team} &ndash; #{role_names(team, @user)}
 
+  - if @user.conferences.any?
+    h4 Conferences
+    ul.conferences
+      - @user.attendances.includes(:conference).order('conferences.starts_on').each do |a|
+        li
+          p
+            ' #{link_to a.conference.name, a.conference}
+            ' (#{a.conference.location}, #{format_conference_date(a.conference.starts_on, a.conference.ends_on)})
+          - if can?(:crud, a)
+            ul.actions
+              - if a.confirmed?
+                li Confirmed
+                li = link_to('Revoke', attendance_path(a, attendance: { confirmed: false }, return_to: request.url), method: :put, class: 'confirm')
+              - else
+                li = link_to('Yes, I can attend', attendance_path(a, attendance: { confirmed: true }, return_to: request.url), method: :put, class: 'confirm')
+                li = link_to('No, I cannot attend', attendance_path(a, return_to: request.url), method: :delete, class: 'cancel', data: { confirm: 'Are you sure? Your ticket will go back into the pool of available tickets.' })
+
   - if can_see_private_info?
     .private-info
       h3 Private info

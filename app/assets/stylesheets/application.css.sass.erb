@@ -138,9 +138,6 @@ nav
   p
     margin-bottom: 1em
 
-  th, td:first-child
-    white-space: nowrap
-
   .profile
     img
       float: left
@@ -154,7 +151,7 @@ nav
       background-color: #eee
       border-radius: 1em
 
-  .profile, .mailing
+  .profile, .mailing, .conference
     dl
       // margin-bottom: 1em
       @include clearfix
@@ -162,12 +159,28 @@ nav
       float: left
       width: 100px
       font-weight: normal
+  .conference
+    dt
+      width: 120px
 
-  .sources, .teams, .profiles
+  .sources, .teams, .profiles, .attendees, .conferences
     li
       list-style-type: disc
+      p, ul
+        margin: 0
+      .actions
+        li
+          display: inline-block
+          font-size: 0.8em
+          list-style-type: none
+          &:first-child:after
+            content: ' · '
+            padding-right: 0.3em
 
   table
+    th, td:first-child
+      white-space: nowrap
+
     td
       vertical-align: top
       ul
@@ -183,6 +196,20 @@ nav
       display: block
       img
         width: 20px
+
+    &.conferences
+      td
+        white-space: nowrap
+      td:nth-child(4)
+        white-space: normal
+        a
+          white-space: nowrap
+        a:not(.confirmed)
+          @include icon-after($question-sign)
+          &:after
+            color: #ccc
+            font-size: 0.9em
+            text-decoration: none !important
 
   .mailing
     dt
@@ -301,7 +328,7 @@ form
   h4
     margin-top: 2em
 
-  .members, .sources
+  .members, .sources, .conferences, .attendees
     display: table
     margin-bottom: 1em
     .header, & > .fields

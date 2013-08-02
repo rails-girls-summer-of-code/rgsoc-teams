@@ -1,0 +1,25 @@
+nav.actions
+  ul
+    li = link_to icon('plus', 'New Conference'), new_conference_path, class: 'btn btn-small' if can? :create, Conference.new
+
+h1.header
+  / = icon('group')
+  span Conferences
+
+table.table.table-striped.table-bordered.table-condensed.conferences
+  tr
+    th = sortable 'name', 'Conference'
+    th = sortable 'location', 'Location'
+    th = sortable 'starts_on', 'Date'
+    th Attendees
+    th Tickets left
+
+  - conferences.each do |conference|
+    tr
+      td = link_to conference.name, conference
+      td = conference.location
+      td = format_conference_date(conference.starts_on, conference.ends_on)
+      td = conference.attendees.any? ? links_to_attendances(conference).join(', ').html_safe : '-'
+      td = conference.tickets_left
+
+

@@ -10,6 +10,7 @@ table.table.table-striped.table-bordered.table-condensed
   tr
     th Name
     th Students
+    th Conferences
     th = sortable "created_at", "Last Activity"
     - if can? :read, :users_info
       th Blog post
@@ -18,6 +19,7 @@ table.table.table-striped.table-bordered.table-condensed
     tr
       td = link_to team.display_name, team, class: "team #{team.kind}"
       td = link_to_team_members(team, :student)
+      td = links_to_conferences(team.members.map(&:conferences).flatten.uniq).join(', ').html_safe
       td = format_date(team.last_activity.try(:created_at))
       - if can? :read, :users_info
         td = team.post_info

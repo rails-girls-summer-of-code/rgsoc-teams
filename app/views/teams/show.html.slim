@@ -84,6 +84,13 @@ nav.page
   h3 Supervisors
   p = @team.supervisors.any? ? link_to_team_members(@team, :supervisor) : '-'
 
+- if @team.members.any? { |user| user.conferences.any? }
+  h4 Conferences
+  ul.conferences
+    - @team.members.each do |user|
+      - if user.conferences.any?
+        li = "#{link_to user.name, user}: #{links_to_conferences(user.conferences, true).join(', ')}".html_safe
+
 - if @team.activities.any?
   h3 Activities
   = render 'activities/activities', object: @team.activities.ordered

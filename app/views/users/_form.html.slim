@@ -1,4 +1,4 @@
-= simple_form_for @user do |f|
+= simple_nested_form_for @user do |f|
   - if @user.errors.any?
     #error_explanation
       h2 = "#{pluralize(@user.errors.count, "error")} prohibited this user from being saved:"
@@ -15,13 +15,22 @@
   = f.input :location
   = f.input :bio, label: 'About you', hint: 'You can use basic <a href="http://en.wikipedia.org/wiki/Markdown">Markdown</a> here.'
 
-
   h3 Private information
   p.help-block This information will only be visible to yourself and organizers.
 
   = f.input :tshirt_size, as: :radio_buttons, collection: User::TSHIRT_SIZES.map { |k| [k, k] }, label: 'T-Shirt size', blank: false, required: false, hint: 'For sponsor T-Shirts, in case they send some.'
   = f.input :postal_address, hint: "Please give your postal address so we can send things we've received from our sponsors for you :)"
   = f.input :banking_info, label: 'Money transfer information', hint: "Please provide the following information so we can send money to you.<br>For EU: your name, your IBAN and BIC.<br>For US: your name, bank account number, and bank routing number. OR if you cannot receive bank transfers: your address for sending a check (bank transfers are preferred).<br>For all others: name and address, your bank account number, the SWIFT code of your bank and the bank's address."
+
+  - if admin?
+    h3 Conferences
+    fieldset.conferences
+      .header
+        label Conference
+      = f.simple_fields_for :attendances do |s|
+        = s.input :conference_id, as: :select, collection: conferences, required: false, label: false
+        = s.link_to_remove 'Remove'
+      = f.link_to_add 'Add another conference', :attendances
 
   .actions
     = f.submit 'Save', class: 'btn btn-success'

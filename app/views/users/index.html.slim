@@ -10,6 +10,7 @@ table.table.table-striped.table-bordered.table-condensed.table-hover
       th
       th Name
       th Team
+      th Conferences
       - if admin?
         th T-Shirt size
 
@@ -21,5 +22,6 @@ table.table.table-striped.table-bordered.table-condensed.table-hover
             img src="#{user.avatar_url}&s=50"
         td = link_to user.name_or_handle, user
         td = link_to_user_roles(user)
+        td = links_to_conferences(user.conferences).join(', ').html_safe
         - if admin?
           td = user.tshirt_size

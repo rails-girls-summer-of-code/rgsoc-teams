@@ -15,9 +15,13 @@ class User < ActiveRecord::Base
     end
   end
   has_many :teams, -> { uniq }, through: :roles
+  has_many :attendances
+  has_many :conferences, through: :attendances
 
   validates :github_handle, presence: true, uniqueness: true
   validates :homepage, format: { with: /\A(http|https).*/i }, allow_blank: true
+
+  accepts_nested_attributes_for :attendances, allow_destroy: true
 
   after_create :complete_from_github
 

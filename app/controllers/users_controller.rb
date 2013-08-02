@@ -11,7 +11,12 @@ class UsersController < ApplicationController
   def show
   end
 
+  def new
+    @user.attendances.build
+  end
+
   def edit
+    @user.attendances.build unless @user.attendances.any?
   end
 
   def create
@@ -60,8 +65,18 @@ class UsersController < ApplicationController
       @user = User.find(params[:id])
     end
 
+    def conferences
+      @conferences ||= Conference.order(:name)
+    end
+    helper_method :conferences
+
     def user_params
-      params.require(:user).permit(:github_handle, :twitter_handle, :irc_handle, :bio, :email, :homepage, :location, :name, :role, :tshirt_size, :banking_info, :postal_address)
+      params.require(:user).permit(
+        :github_handle, :twitter_handle, :irc_handle,
+        :name, :email, :homepage, :location, :bio,
+        :tshirt_size, :banking_info, :postal_address,
+        attendances_attributes: [:id, :conference_id, :_destroy]
+      )
     end
 
     def normalize_params

@@ -24,6 +24,28 @@ module ApplicationHelper
     date && date.to_date.to_formatted_s(format) || '-'
   end
 
+  def format_conference_date(starts_on, ends_on)
+    starts_on = starts_on.to_formatted_s(:short)
+    ends_on = ends_on.to_formatted_s(:short)
+    starts_on == ends_on ? starts_on : [starts_on, ends_on].join(' - ')
+  end
+
+  def format_conference_scholarships(tickets, flights, accomodation)
+    result = "#{tickets} #{tickets == 1 ? 'ticket' : 'tickets'}"
+    if flights && accomodation
+      result << ", #{flights} #{flights == 1 ? 'flight' : 'flights'}/hotel"
+    elsif flights
+      result << ", #{flights} #{flights == 1 ? 'flight' : 'flights'}"
+    elsif accomodation
+      result << ", #{accomodation}x hotel"
+    end
+    result
+  end
+
+  def format_conference_twitter(twitter)
+    twitter.to_s.starts_with?('@') ? link_to(twitter, "http://twitter.com/#{twitter.gsub('@', '')}") : twitter
+  end
+
   def if_present?(user, *attrs)
     yield if attrs.any? { |attr| user.send(attr).present? }
   end
@@ -49,6 +71,25 @@ module ApplicationHelper
       emails = team.send(group).map(&:email).select(&:present?)
       [group.capitalize, emails] if emails.present?
     end.compact
+  end
+
+  def links_to_users(users)
+    users.map { |user| link_to(user.name.present? ? user.name : user.github_handle, user) }
+  end
+
+  def links_to_attendances(conference)
+    conference.attendances.includes(:user).order('users.name || users.github_handle').map do |attendance|
+      user = attendance.user
+      link_to(user.name.present? ? user.name : user.github_handle, user, class: attendance.confirmed? ? 'confirmed' : '')
+    end
+  end
+
+  def links_to_conferences(conferences, extra_info = false)
+    conferences.map do |conference|
+      text = conference.name
+      text += " (#{conference.location}, #{format_conference_date(conference.starts_on, conference.ends_on)})" if extra_info
+      link_to(text, conference)
+    end
   end
 
   def links_to_user_teams(user)
@@ -87,7 +128,7 @@ module ApplicationHelper
   # stolen from: http://railscasts.com/episodes/228-sortable-table-columns?view=asciicast
   def sortable(column, title = nil)
     title ||= column.titleize
-    direction = (column == params[:sort] && params[:direction] == "asc") ? "desc" : "asc"
-    link_to title, :sort => column, :direction => direction
+    direction = (column == params[:sort] && params[:direction] == 'asc') ? 'desc' : 'asc'
+    link_to title, sort: column, direction: direction
   end
 end
