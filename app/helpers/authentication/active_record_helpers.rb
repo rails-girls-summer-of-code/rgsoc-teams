@@ -18,7 +18,7 @@ module Authentication
           avatar_url:    auth.extra.raw_info.avatar_url,
           name:          auth.info.name,
           email:         auth.info.email,
-          homepage:      auth.extra.raw_info.blog,
+          homepage:      github_homepage(auth),
           location:      auth.extra.raw_info.location,
           bio:           auth.extra.raw_info.bio
         )
@@ -26,6 +26,15 @@ module Authentication
         user.github_handle = auth.extra.raw_info.login
         user.save!
         user
+      end
+
+      private
+      def github_homepage(auth)
+        homepage = auth.extra.raw_info.blog
+        if homepage.present? && !homepage.match(User::URL_PREFIX_PATTERN)
+          homepage = "http://" + homepage
+        end
+        homepage
       end
     end
   end

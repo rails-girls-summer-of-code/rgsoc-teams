@@ -2,6 +2,7 @@ require 'github/user'
 
 class User < ActiveRecord::Base
   TSHIRT_SIZES = %w(XXS XS S M L XL 2XL 3XL)
+  URL_PREFIX_PATTERN = /\A(http|https).*/i
 
   include ActiveModel::ForbiddenAttributesProtection
   include Authentication::ActiveRecordHelpers
@@ -19,7 +20,7 @@ class User < ActiveRecord::Base
   has_many :conferences, through: :attendances
 
   validates :github_handle, presence: true, uniqueness: true
-  validates :homepage, format: { with: /\A(http|https).*/i }, allow_blank: true
+  validates :homepage, format: { with: URL_PREFIX_PATTERN }, allow_blank: true
 
   accepts_nested_attributes_for :attendances, allow_destroy: true
 
