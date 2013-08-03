@@ -19,12 +19,8 @@ table.table.table-striped.table-bordered.table-condensed
   - @teams.each do |team|
     tr
       td = link_to team.display_name, team, class: "team #{team.kind}"
-<<<<<<< HEAD
-      td = link_to_team_members(team, :student)
-      td = links_to_conferences(team.members.map(&:conferences).flatten.uniq).join(', ').html_safe
-=======
       td = link_to_team_members_with_irc_handle(team, :student)
->>>>>>> f722846... adding irc handle to team overview, should be half of #36
+      td = links_to_conferences(team.members.map(&:conferences).flatten.uniq).join(', ').html_safe
       td = format_date(team.last_activity.try(:created_at))
       - if can? :read, :users_info
         td = team.post_info
