@@ -2,7 +2,9 @@ require 'feedzirra'
 
 class Feed
   autoload :Discovery, 'feed/discovery'
+  autoload :Image,     'feed/image'
   autoload :Item,      'feed/item'
+  autoload :S3,        'feed/s3'
 
   class << self
     def update_all
@@ -16,6 +18,7 @@ class Feed
 
   def initialize(source)
     @source = source
+    Feed::S3.setup(access_key_id: ENV['AWS_ACCESS_KEY_ID'], secret_access_key: ENV['AWS_SECRET_ACCESS_KEY'])
   end
 
   def update
@@ -49,7 +52,8 @@ class Feed
         raise "can not find guid for item in source #{source.feed_url}" unless item.guid
         # puts "processing item #{item.guid}: #{item.title}"
         record = Activity.where(:guid => item.guid).first
-        record ? record.update_attributes!(item.attrs) : Activity.create!(item.attrs)
+        attrs = item.attrs.merge(img_url: record.try(:img_url) || Image.new(item.url).store)
+        record ? record.update_attributes!(attrs) : Activity.create!(attrs)
       end
     end
 

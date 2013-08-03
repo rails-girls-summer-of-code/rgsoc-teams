@@ -28,6 +28,7 @@ gem 'uglifier', '>= 1.0.3'
 gem 'sprockets-rails'
 
 gem 'newrelic_rpm'
+gem 'aws-sdk'
 
 group :production do
   gem 'unicorn'

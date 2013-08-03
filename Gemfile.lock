@@ -47,6 +47,10 @@ GEM
     addressable (2.3.5)
     arel (4.0.0)
     atomic (1.1.10)
+    aws-sdk (1.14.1)
+      json (~> 1.4)
+      nokogiri (< 1.6.0)
+      uuidtools (~> 2.1)
     backports (3.3.3)
     bcrypt-ruby (3.0.1)
     better_errors (0.9.0)
@@ -248,6 +252,7 @@ GEM
       kgio (~> 2.6)
       rack
       raindrops (~> 0.7)
+    uuidtools (2.1.4)
     warden (1.2.1)
       rack (>= 1.0)
     webmock (1.12.3)
@@ -258,6 +263,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  aws-sdk
   better_errors
   binding_of_caller
   bootstrap-kaminari-views
