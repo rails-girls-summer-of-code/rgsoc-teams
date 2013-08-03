@@ -9,5 +9,8 @@ class AddMissingTimestamps < ActiveRecord::Migration
     add_column :conferences, :updated_at, :datetime
     connection.execute "UPDATE conferences SET created_at='#{Time.now}' WHERE created_at IS NULL"
     connection.execute "UPDATE conferences SET updated_at='#{Time.now}' WHERE updated_at IS NULL"
+
+    connection.execute "UPDATE comments SET created_at='#{Time.now}' WHERE created_at IS NULL"
+    connection.execute "UPDATE comments SET updated_at='#{Time.now}' WHERE updated_at IS NULL"
   end
 end
