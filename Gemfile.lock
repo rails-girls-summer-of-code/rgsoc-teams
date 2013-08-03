@@ -137,6 +137,7 @@ GEM
     nested_form (0.3.2)
     net-http-persistent (2.8)
     net-http-pipeline (1.0.1)
+    newrelic_rpm (3.6.4.122)
     nokogiri (1.5.10)
     oauth2 (0.8.1)
       faraday (~> 0.8)
@@ -274,6 +275,7 @@ DEPENDENCIES
   jquery-rails
   kaminari
   nested_form
+  newrelic_rpm
   omniauth-github
   pg
   quiet_assets

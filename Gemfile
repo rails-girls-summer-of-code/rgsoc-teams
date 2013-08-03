@@ -27,6 +27,8 @@ gem 'coffee-rails'
 gem 'uglifier', '>= 1.0.3'
 gem 'sprockets-rails'
 
+gem 'newrelic_rpm'
+
 group :production do
   gem 'unicorn'
   gem 'rails_12factor'
