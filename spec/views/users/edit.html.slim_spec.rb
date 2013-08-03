@@ -3,6 +3,8 @@ require 'spec_helper'
 describe 'users/edit' do
   before(:each) do
     @user = assign(:user, stub_model(User, name: 'MyString', email: 'MyString', location: 'MyString', bio: 'MyString', homepage: 'MyString', role: 'coach'))
+    view.stub(:admin?).and_return(true)
+    view.stub(:conferences).and_return([])
   end
 
   it 'renders the edit user form' do

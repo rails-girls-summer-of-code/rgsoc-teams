@@ -1,8 +1,9 @@
 class Feed
   class Item
-    attr_reader :team_id, :item
+    attr_reader :base_url, :team_id, :item
 
-    def initialize(team_id, item)
+    def initialize(base_url, team_id, item)
+      @base_url = base_url
       @team_id = team_id
       @item = item
     end
@@ -29,7 +30,9 @@ class Feed
     end
 
     def url
-      %i(entry_id url).map { |attr| item.send(attr) }.detect { |url| url =~ /^http/ }
+      url = %i(url entry_id).map { |attr| item.send(attr) }.first
+      url = [base_url.gsub(%r(/$), ''), url.gsub(%r(^/), '')].join('/') unless url =~ /^(http|file)/
+      url
     end
   end
 end

@@ -45,7 +45,7 @@ class Feed
 
     def update_entries
       parse.entries.each do |data|
-        item = Item.new(source.team_id, data)
+        item = Item.new(source.url, source.team_id, data)
         raise "can not find guid for item in source #{source.feed_url}" unless item.guid
         # puts "processing item #{item.guid}: #{item.title}"
         record = Activity.where(:guid => item.guid).first

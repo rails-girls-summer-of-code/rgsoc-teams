@@ -2,9 +2,12 @@ require 'spec_helper'
 require 'feed'
 
 describe Feed do
+  def source_url(name)
+    "file://#{File.expand_path("spec/stubs/feeds/#{name}")}"
+  end
+
   def source(name)
-    url = "file://#{File.expand_path("spec/stubs/feeds/#{name}")}"
-    Source.new(team_id: 1, kind: 'blog', url: url, feed_url: url, title: 'title')
+    Source.new(team_id: 1, kind: 'blog', url: source_url(name), feed_url: source_url(name), title: 'title')
   end
 
   it 'fetches and parses the given feeds, not adding duplicate entries' do
@@ -32,7 +35,7 @@ describe Feed do
 
   it 'deals with local entry links' do
     Feed.new(source('lipenco.atom')).update
-    Activity.first.source_url.should == "http://lipen.co/til/impress-js-i-love-you.html"
+    Activity.first.source_url.should == "#{source_url('lipenco.atom')}/impress-js-i-love-you.html"
   end
 
   it 'tries to discover the feed_url unless present' do

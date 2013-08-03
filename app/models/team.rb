@@ -48,15 +48,15 @@ class Team < ActiveRecord::Base
   end
 
   def helpdesk_team?
-    name.downcase == 'helpdesk'
+    name.to_s.downcase == 'helpdesk'
   end
 
   def organizers_team?
-    name.downcase == 'organizers'
+    name.to_s.downcase == 'organizers'
   end
 
   def supervisors_team?
-    name.downcase == 'supervisors'
+    name.to_s.downcase == 'supervisors'
   end
 
   # def must_have_unique_students
