@@ -59,6 +59,11 @@ class Team < ActiveRecord::Base
     name.try(:downcase) == 'supervisors'
   end
 
+
+  def location
+    members.map(&:location).reject{|l| l.empty?}.to_sentence
+  end
+
   # def must_have_unique_students
   #   students.each do |user|
   #     errors.add(:base, "#{user.github_handle} is already member of another team") if (user.teams - [self]).present?
