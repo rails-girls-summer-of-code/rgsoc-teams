@@ -2,6 +2,8 @@ require 'spec_helper'
 require 'feed'
 
 describe Feed do
+  include_context "capture_system_io"
+
   def source(name)
     url = "file://#{File.expand_path("spec/stubs/feeds/#{name}")}"
     Source.new(team_id: 1, kind: 'blog', url: url, feed_url: url, title: 'title')
