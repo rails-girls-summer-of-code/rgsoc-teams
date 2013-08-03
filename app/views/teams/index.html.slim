@@ -24,7 +24,7 @@ table.table.table-striped.table-bordered.table-condensed
       td = format_date(team.last_activity.try(:created_at))
       - if can? :read, :users_info
         td = team.post_info
-        td = team.location
+        td = team.students_location
 
 p.hint
   | <i class="icon-star"></i> Sponsored team
