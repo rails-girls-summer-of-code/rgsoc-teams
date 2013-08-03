@@ -51,7 +51,7 @@ class User < ActiveRecord::Base
   def name_and_irc_handle
     name = name_or_handle
     handle = irc_handle.present? ? irc_handle : "-"
-    "#{name} ( #{handle} )"
+    "#{name} (#{handle})"
   end
 
   def admin?
