@@ -111,6 +111,19 @@ module ApplicationHelper
     end
   end
 
+  def link_to_team_members_with_irc_handle(team, role = :member)
+    team.send(role.to_s.pluralize).sort_by(&:name_or_handle).map do |student|
+      link_to_team_member_with_irc_handle(student)
+    end.join.html_safe
+  end
+
+  def link_to_team_member_with_irc_handle(member)
+    content_tag(:div, :class => :user) do
+      image_tag(member.avatar_url || 'default_avatar.png', alt: member.name_or_handle) +
+        link_to(member.name_and_irc_handle, member)
+    end
+  end
+
   def link_to_user_roles(user)
     user.roles.map do |role|
       links = [link_to(role.name.capitalize, users_path(role: role.name))]
