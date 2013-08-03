@@ -59,9 +59,8 @@ class Team < ActiveRecord::Base
     name.to_s.downcase == 'supervisors'
   end
 
-
-  def location
-    members.students.map(&:location).reject(&:blank?).to_sentence
+  def students_location
+    students.map(&:location).reject(&:blank?).to_sentence
   end
 
   # def must_have_unique_students
