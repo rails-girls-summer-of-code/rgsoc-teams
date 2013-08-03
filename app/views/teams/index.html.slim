@@ -14,6 +14,7 @@ table.table.table-striped.table-bordered.table-condensed
     th = sortable "created_at", "Last Activity"
     - if can? :read, :users_info
       th Blog post
+      th Location
 
   - @teams.each do |team|
     tr
@@ -27,6 +28,7 @@ table.table.table-striped.table-bordered.table-condensed
       td = format_date(team.last_activity.try(:created_at))
       - if can? :read, :users_info
         td = team.post_info
+        td = team.location
 
 p.hint
   | <i class="icon-star"></i> Sponsored team
