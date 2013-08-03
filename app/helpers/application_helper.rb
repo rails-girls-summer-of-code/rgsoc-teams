@@ -144,4 +144,8 @@ module ApplicationHelper
     direction = (column == params[:sort] && params[:direction] == 'asc') ? 'desc' : 'asc'
     link_to title, sort: column, direction: direction
   end
+
+  def required_helper
+    tag('abbr', title: "required") + "*"
+  end
 end
