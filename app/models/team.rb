@@ -60,7 +60,7 @@ class Team < ActiveRecord::Base
   end
 
   def students_location
-    students.map(&:location).reject(&:blank?).to_sentence
+    students.map(&:location).reject(&:blank?).uniq.to_sentence
   end
 
   # def must_have_unique_students
