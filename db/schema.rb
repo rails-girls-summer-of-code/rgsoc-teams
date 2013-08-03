@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130802120631) do
+ActiveRecord::Schema.define(version: 20130803060540) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,14 +25,16 @@ ActiveRecord::Schema.define(version: 20130802120631) do
     t.text     "content"
     t.string   "source_url"
     t.datetime "published_at"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "attendances", force: true do |t|
-    t.integer "conference_id"
-    t.integer "user_id"
-    t.boolean "confirmed"
+    t.integer  "conference_id"
+    t.integer  "user_id"
+    t.boolean  "confirmed"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "comments", force: true do |t|
@@ -44,15 +46,17 @@ ActiveRecord::Schema.define(version: 20130802120631) do
   end
 
   create_table "conferences", force: true do |t|
-    t.string  "name"
-    t.string  "location"
-    t.string  "twitter"
-    t.string  "url"
-    t.date    "starts_on"
-    t.date    "ends_on"
-    t.integer "tickets"
-    t.integer "accomodation"
-    t.integer "flights"
+    t.string   "name"
+    t.string   "location"
+    t.string   "twitter"
+    t.string   "url"
+    t.date     "starts_on"
+    t.date     "ends_on"
+    t.integer  "tickets"
+    t.integer  "accomodation"
+    t.integer  "flights"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "mailings", force: true do |t|
@@ -63,23 +67,23 @@ ActiveRecord::Schema.define(version: 20130802120631) do
     t.string   "subject"
     t.text     "body"
     t.datetime "sent_at"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "roles", force: true do |t|
     t.integer  "team_id"
     t.integer  "user_id"
     t.string   "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "sources", force: true do |t|
     t.string   "url"
     t.integer  "team_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.string   "kind"
     t.string   "feed_url"
     t.string   "title"
@@ -90,14 +94,14 @@ ActiveRecord::Schema.define(version: 20130802120631) do
     t.string   "to"
     t.text     "error"
     t.datetime "sent_at"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "teams", force: true do |t|
     t.string   "name"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.string   "log_url"
     t.text     "description"
     t.integer  "number"
@@ -119,8 +123,8 @@ ActiveRecord::Schema.define(version: 20130802120631) do
     t.text     "bio"
     t.string   "homepage"
     t.string   "avatar_url"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.integer  "team_id"
     t.string   "twitter_handle"
     t.string   "irc_handle"
