@@ -128,6 +128,9 @@ nav
   h1
     font-size: 2em
 
+  h2
+    font-size: 1.5em
+
   h3
     font-size: 1.25em
     margin-bottom: 0
@@ -242,47 +245,63 @@ nav
       font-size: 0.9rem
 
 
-.activities
-  h4
-    margin: 0
-    font-size: 1em
-    font-weight: normal
-  .feed_entry h4
-    @include icon-before($pencil)
-  .mailing h4
-    @include icon-before($envelope-alt)
-  .info
-    padding-left: 2em
-    font-size: 0.9em
-  aside
-    float: right
-    margin-top: 0.5em
-  a.atom
-    display: inline-block
-    height: 32px
-    line-height: 32px
-    padding-right: 36px
-    background: url(<%= asset_path('feed.png') %>) no-repeat right
-    background-size: 24px 24px
-    // @include icon-after($rss)
+  .activities
+    h4
+      margin: 0 0 1em 0
+      font-size: 1.1em
+    .activity
+      @include clearfix
+      clear: left
+      padding: 1em
+      border: 1px solid #ddd
+      border-radius: 4px
+      img
+        float: left
+        width: 200px
+        height: 150px
+        margin-right: 1em
+        border: 1px solid #ddd
+        border-radius: 4px
+      &.mailing img
+        height: 160px
+        border-width: 0
+      .content
+        padding-left: 2em
+        font-size: 0.9em
+      .info
+        margin-bottom: 0
+        padding-left: 2em
+        font-size: 0.9em
+        font-style: italic
+    aside
+      float: right
+      margin-top: 0.5em
+    a.atom
+      display: inline-block
+      height: 32px
+      line-height: 32px
+      padding-right: 36px
+      background: url(<%= asset_path('feed.png') %>) no-repeat right
+      background-size: 24px 24px
+      // @include icon-after($rss)
 
-ul.activities
-  margin-left: 0
+  ul.activities
+    margin-left: 0
 
-.pagination-info
-  color: #999
+  .pagination-info
+    color: #999
 
-.pages
-  #content
-    width: 100%
-    padding-right: 300px
+  .pages
+    #content
+      width: 100%
+      padding-right: 300px
 
-  aside
-    position: absolute
-    right: 0
-    width: 220px
-    ul
-      margin-left: 0
+    aside
+      position: absolute
+      right: 0
+      width: 220px
+      ul
+        margin-left: 0
 
 .github
   @include icon-after($github-alt)

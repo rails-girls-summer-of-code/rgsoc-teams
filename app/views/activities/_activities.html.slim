@@ -1,5 +1,5 @@
 - object.group_by { |a| a.published_at.to_date }.each do |date, activities|
-  h3= date.to_formatted_s(:long)
+  h2= date.to_formatted_s(:long)
 
   - activities.each do |activity|
     ul.activities

@@ -1,3 +1,5 @@
+require 'cgi'
+
 module ApplicationHelper
   def with_layout(layout)
     view_flow.set :layout, capture { yield }
@@ -18,6 +20,16 @@ module ApplicationHelper
 
   def accessible_roles
     current_user.admin? ? Role::ROLES : Role::TEAM_ROLES
+  end
+
+  def format_activity_content(activity, options = {})
+    read_more = " &hellip; #{link_to('Read more.', activity.source_url)}"
+    content = activity.content
+    content = strip_tags(content || '')
+    content = CGI::unescapeHTML(content)
+    content = sanitize(content, tags: [])
+    content = truncate(content, options.merge(omission: '', separator: ' ')) { read_more.html_safe }
+    content
   end
 
   def format_date(date, format = :short)
