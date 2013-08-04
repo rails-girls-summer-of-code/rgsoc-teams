@@ -148,7 +148,7 @@ module ApplicationHelper
   def sortable(column, title = nil)
     title ||= column.to_s.titleize
     direction = (column.to_s == params[:sort] && params[:direction] == 'asc') ? 'desc' : 'asc'
-    link_to title, sort: column, direction: direction
+    link_to title, params.except('action', 'controller').merge(sort: column, direction: direction)
   end
 
   def required_helper
