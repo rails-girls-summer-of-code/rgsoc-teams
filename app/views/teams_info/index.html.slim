@@ -1,20 +1,16 @@
-nav.actions
-  ul
-    li = link_to icon('plus', 'New Team'), new_team_path, class: 'btn btn-small' if can? :create, Team.new
-
 h1.header
   = icon('group')
-  span Teams
+  span Teams Info
 
 table.table.table-striped.table-bordered.table-condensed
   tr
     th Name
-    th Students
-    th Conferences
-    th Location
+    th Students (irc)
     th = sortable "created_at", "Last Activity"
+    - if admin?
+      th Blog post
 
-  - @teams.each do |team|
+  - teams.each do |team|
     tr
       td = link_to team.display_name, team, class: "team #{team.kind}"
       td
@@ -22,10 +18,10 @@ table.table.table-striped.table-bordered.table-condensed
           - team.students.each do |user|
             li.user
               = image_tag(user.avatar_url || 'default_avatar.png', alt: user.name_or_handle)
-              = link_to(user.name_or_handle, user)
-      td = links_to_conferences(team.members.map(&:conferences).flatten.uniq).join(', ').html_safe
-      td = team.students_location
+              = link_to_user_with_irc_handle(user)
       td = format_date(team.last_activity.try(:created_at))
+      - if can? :read, :users_info
+        td = team.post_info
 
 p.hint
   | <i class="icon-star"></i> Sponsored team

@@ -23,6 +23,12 @@ class Team < ActiveRecord::Base
 
   before_create :set_number
 
+  class << self
+    def ordered(sort = {})
+      order([sort[:order] || 'kind, name || projects', sort[:direction] || 'asc'].join(' '))
+    end
+  end
+
   def set_number
     self.number = Team.count + 1
   end

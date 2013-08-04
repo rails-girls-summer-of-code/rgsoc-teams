@@ -118,23 +118,16 @@ module ApplicationHelper
   end
 
   def link_to_team_member(member)
-    content_tag(:div, :class => :user) do
+    content_tag(:li, :class => :user) do
       image_tag(member.avatar_url || 'default_avatar.png', alt: member.name_or_handle) +
         link_to(member.name_or_handle, member)
     end
   end
 
-  def link_to_team_members_with_irc_handle(team, role = :member)
-    team.send(role.to_s.pluralize).sort_by(&:name_or_handle).map do |student|
-      link_to_team_member_with_irc_handle(student)
-    end.join.html_safe
-  end
-
-  def link_to_team_member_with_irc_handle(member)
-    content_tag(:div, :class => :user) do
-      image_tag(member.avatar_url || 'default_avatar.png', alt: member.name_or_handle) +
-        link_to(member.name_and_irc_handle, member)
-    end
+  def link_to_user_with_irc_handle(user)
+    text = user.name_or_handle
+    text = "#{text} (#{user.irc_handle})" if user.irc_handle.present?
+    link_to(text, user)
   end
 
   def link_to_user_roles(user)

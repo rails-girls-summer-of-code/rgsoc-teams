@@ -48,11 +48,11 @@ class User < ActiveRecord::Base
     name.present? ? name : github_handle
   end
 
-  def name_and_irc_handle
-    name = name_or_handle
-    handle = irc_handle.present? ? irc_handle : "-"
-    "#{name} (#{handle})"
-  end
+  # def name_and_irc_handle
+  #   name = name_or_handle
+  #   handle = irc_handle.present? ? irc_handle : "-"
+  #   "#{name} (#{handle})"
+  # end
 
   def admin?
     roles.admin.any?

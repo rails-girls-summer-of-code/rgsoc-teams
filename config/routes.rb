@@ -12,6 +12,7 @@ RgsocTeams::Application.routes.draw do
   resources :conferences
   resources :attendances
 
+  get 'teams/info', to: 'teams_info#index'
   resources :teams do
     resources :join, only: [:new, :create]
     resources :sources
