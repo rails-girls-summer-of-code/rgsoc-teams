@@ -3,17 +3,18 @@ require 'open-uri'
 
 class Feed
   class Image
-    attr_reader :url, :s3
+    attr_reader :url, :s3, :logger
 
-    def initialize(url)
+    def initialize(url, options)
       @url = url
-      @s3 = S3.new(url)
+      @s3 = S3.new(url, options)
+      @logger = options[:logger] || Logger.new(STDOUT)
     end
 
     def store
-      puts "fetching image for #{url} ..."
+      logger.info "fetching image for #{url} ..."
       if image = fetch
-        puts "storing image for #{url} ..."
+        logger.info "storing image for #{url} ..."
         s3.store(image, image.content_type)
         "https://s3.amazonaws.com/rgsoc/#{s3.path}"
       end
@@ -22,7 +23,7 @@ class Feed
     def fetch
       open("http://api.snapito.com/web/#{ENV['SNAPITO_KEY']}/mc?url=#{URI::encode(url)}&fast&freshness=0")
     rescue => e
-      puts "Could not fetch image for #{url}: #{e.message}"
+      logger.error "Could not fetch image for #{url}: #{e.message}"
       nil
     end
   end

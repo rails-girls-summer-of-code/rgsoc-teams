@@ -14,10 +14,11 @@ class Feed
     end
   end
 
-  attr_reader :source
+  attr_reader :source, :logger
 
-  def initialize(source)
+  def initialize(source, options = {})
     @source = source
+    @logger = options[:logger] || Logger.new(STDOUT)
     Feed::S3.setup(access_key_id: ENV['AWS_ACCESS_KEY_ID'], secret_access_key: ENV['AWS_SECRET_ACCESS_KEY'])
   end
 
@@ -34,15 +35,15 @@ class Feed
   private
 
     def discover_title
-      title = Discovery.new(source.url).title
-      puts "discovered title for #{source.url}: #{title}"
+      title = Discovery.new(source.url, logger: logger).title
+      logger.info "discovered title for #{source.url}: #{title}"
       title
     end
 
     def discover_feed_url
-      urls = Discovery.new(source.url).feed_urls
+      urls = Discovery.new(source.url, logger: logger).feed_urls
       url = urls.reject { |url| url =~ /comment/ }.first
-      puts "discovered feed url for #{source.url}: #{url}" if url
+      logger.info "discovered feed url for #{source.url}: #{url}" if url
       url || source.url
     end
 
@@ -50,18 +51,18 @@ class Feed
       parse.entries.each do |data|
         item = Item.new(source.url, source.team_id, data)
         raise "can not find guid for item in source #{source.feed_url}" unless item.guid
-        # puts "processing item #{item.guid}: #{item.title}"
+        # logger.info "processing item #{item.guid}: #{item.title}"
         record = Activity.where(:guid => item.guid).first
-        attrs = item.attrs.merge(img_url: record.try(:img_url) || Image.new(item.url).store)
+        attrs = item.attrs.merge(img_url: record.try(:img_url) || Image.new(item.url, logger: logger).store)
         record ? record.update_attributes!(attrs) : Activity.create!(attrs)
       end
     end
 
     def parse
       silence_warnings do
-        puts "Feeds: going to fetch #{source.feed_url}"
+        logger.info "Feeds: going to fetch #{source.feed_url}"
         data = Feedzirra::Feed.fetch_and_parse(source.feed_url)
-        puts "this does not look like a valid feed" unless data.respond_to?(:entries)
+        logger.info "this does not look like a valid feed" unless data.respond_to?(:entries)
         data
       end
     end

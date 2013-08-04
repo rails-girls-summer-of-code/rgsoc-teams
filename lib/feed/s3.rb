@@ -6,17 +6,18 @@ class Feed
       end
     end
 
-    attr_reader :s3, :url
+    attr_reader :s3, :url, :logger
 
-    def initialize(url)
+    def initialize(url, options = {})
       @s3 = AWS::S3.new
       @url = url
+      @logger = options[:logger] || Logger.new(STDOUT)
     end
 
     def store(data, content_type)
       object.write(data, content_type: content_type, acl: :public_read)
     rescue => e
-      puts "Could not store to S3: #{e.message}"
+      logger.error "Could not store to S3: #{e.message}"
     end
 
     def object

@@ -1,8 +1,15 @@
 require 'spec_helper'
 require 'feed'
+require 'stringio'
 
 describe Feed do
-  include_context "capture_system_io"
+  let(:out)    { StringIO.new }
+  let(:logger) { Logger.new(out) }
+
+  before :each do
+    stub_request(:get, %r(api.snapito.com)).to_return(status: 200, body: '', headers: {})
+    stub_request(:get, %r(iam/security-credentials)).to_return(status: 401)
+  end
 
   def source_url(name)
     "file://#{File.expand_path("spec/stubs/feeds/#{name}")}"
@@ -12,16 +19,20 @@ describe Feed do
     Source.new(team_id: 1, kind: 'blog', url: source_url(name), feed_url: source_url(name), title: 'title')
   end
 
+  def feed(source)
+    Feed.new(source, logger: logger)
+  end
+
   it 'fetches and parses the given feeds, not adding duplicate entries' do
-    update = -> { Feed.new(source('sloblog.1.atom')).update }
+    update = -> { feed(source('sloblog.1.atom')).update }
     update.should change(Activity, :count).by(2)
 
-    update = -> { Feed.new(source('sloblog.2.atom')).update }
+    update = -> { feed(source('sloblog.2.atom')).update }
     update.should change(Activity, :count).by(1)
   end
 
   it 'sets the expected attributes' do
-    Feed.new(source('sloblog.1.atom')).update
+    feed(source('sloblog.1.atom')).update
 
     attrs = Activity.first.attributes.symbolize_keys
     attrs.slice(*%i(team_id kind guid author source_url)).should == {
@@ -36,7 +47,7 @@ describe Feed do
   end
 
   it 'deals with local entry links' do
-    Feed.new(source('lipenco.atom')).update
+    feed(source('lipenco.atom')).update
     Activity.first.source_url.should == "#{source_url('lipenco.atom')}/impress-js-i-love-you.html"
   end
 
@@ -45,7 +56,7 @@ describe Feed do
     stub_request(:get, url).to_return(body: File.read('spec/stubs/feeds/sloblog.html'))
     source = Source.new(team_id: 1, kind: 'blog', url: url)
     source.should_receive(:feed_url=).with('http://sloblog.io/~donswelt.atom')
-    Feed.new(source).update
+    feed(source).update
   end
 
   it 'defaults to the source url if discovery fails' do
@@ -53,6 +64,6 @@ describe Feed do
     stub_request(:get, url).to_return(body: '')
     source = Source.new(team_id: 1, kind: 'blog', url: url)
     source.should_receive(:feed_url=).with('http://sloblog.io/~donswelt')
-    Feed.new(source).update
+    feed(source).update
   end
 end

@@ -2,10 +2,11 @@ require 'open-uri'
 
 class Feed
   class Discovery
-    attr_reader :url
+    attr_reader :url, :logger
 
-    def initialize(url)
+    def initialize(url, options = {})
       @url = url
+      @logger = options[:logger] || Logger.new(STDOUT)
     end
 
     def title
