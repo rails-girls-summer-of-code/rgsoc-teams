@@ -8,8 +8,4 @@ class Activity < ActiveRecord::Base
       order('published_at DESC, id DESC')
     end
   end
-
-  def img_url
-    super || '/assets/screenshot-missing.png'
-  end
 end

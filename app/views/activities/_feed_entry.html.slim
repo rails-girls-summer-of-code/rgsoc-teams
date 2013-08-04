@@ -1,6 +1,6 @@
 li class="activity #{activity.kind}"
   = link_to activity.source_url
-    img src=activity.img_url
+    = image_tag(activity.img_url || asset_path('screenshot-missing.png'))
   = content_tag :h4, link_to(activity.title, activity.source_url, class: 'title')
   p.content= format_activity_content(activity, length: 300)
   p.info
