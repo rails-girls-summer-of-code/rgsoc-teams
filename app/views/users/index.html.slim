@@ -4,6 +4,9 @@ h1.header
 
 = render partial: 'users/roles'
 
+- if admin?
+  p.info = link_to 'Users organizers info &rarr;'.html_safe, users_info_path
+
 table.users.table.table-striped.table-bordered.table-condensed.table-hover
   thead
     tr

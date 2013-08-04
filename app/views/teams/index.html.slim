@@ -6,6 +6,9 @@ h1.header
   = icon('group')
   span Teams
 
+- if admin?
+  p.info = link_to 'Teams organizers info &rarr;'.html_safe, teams_info_path
+
 table.table.table-striped.table-bordered.table-condensed
   tr
     th Name
