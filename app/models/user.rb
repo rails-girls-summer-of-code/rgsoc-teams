@@ -4,6 +4,13 @@ class User < ActiveRecord::Base
   TSHIRT_SIZES = %w(XXS XS S M L XL 2XL 3XL)
   URL_PREFIX_PATTERN = /\A(http|https).*/i
 
+  ORDERS = {
+    name:   'LOWER(users.name || users.github_handle)',
+    team:   'teams.name || teams.projects',
+    github: 'users.github_handle',
+    irc:    'users.irc_handle'
+  }
+
   include ActiveModel::ForbiddenAttributesProtection
   include Authentication::ActiveRecordHelpers
   include ProfilesHelper
@@ -27,8 +34,11 @@ class User < ActiveRecord::Base
   after_create :complete_from_github
 
   class << self
-    def ordered
-      order('LOWER(COALESCE(users.name, users.github_handle))')
+    def ordered(order)
+      order = order.to_sym if order
+      scope = order(ORDERS[order || :name]).references(:teams)
+      scope = scope.includes(:teams).references(:teams) if order == :team
+      scope
     end
 
     def with_role(name)
@@ -36,7 +46,7 @@ class User < ActiveRecord::Base
     end
 
     def with_assigned_roles
-      includes(:roles).having('COUNT(roles.*) > 0').group('users.id, roles.id').references([:roles, :users])
+      includes(:roles).where('roles.id IS NOT NULL')
     end
 
     def with_team_kind(kind)
@@ -47,12 +57,6 @@ class User < ActiveRecord::Base
   def name_or_handle
     name.present? ? name : github_handle
   end
-
-  # def name_and_irc_handle
-  #   name = name_or_handle
-  #   handle = irc_handle.present? ? irc_handle : "-"
-  #   "#{name} (#{handle})"
-  # end
 
   def admin?
     roles.admin.any?

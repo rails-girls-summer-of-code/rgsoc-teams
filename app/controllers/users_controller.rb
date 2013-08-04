@@ -57,7 +57,7 @@ class UsersController < ApplicationController
   private
 
     def set_users
-      @users = User.ordered.with_assigned_roles
+      @users = User.ordered(params[:sort]).with_assigned_roles
       @users = @users.with_role(params[:role]) if params[:role].present? && params[:role] != 'all'
     end
 
