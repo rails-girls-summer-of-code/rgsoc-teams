@@ -17,7 +17,7 @@ class Mailing < ActiveRecord::Base
     else
       emails.each { |email| submissions.create!(to: email) }
       update_attributes! sent_at: Time.now
-      Activity.create!(kind: 'mailing', guid: id, author: from, title: subject, published_at: sent_at)
+      Activity.create!(kind: 'mailing', guid: id, author: from, title: subject, content: body, published_at: sent_at)
     end
   end
 

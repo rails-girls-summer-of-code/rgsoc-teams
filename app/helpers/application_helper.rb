@@ -25,6 +25,7 @@ module ApplicationHelper
   def format_activity_content(activity, options = {})
     read_more = " &hellip; #{link_to('Read more.', activity.source_url)}"
     content = activity.content
+    content = render_markdown(content) if activity.kind == 'mailing'
     content = strip_tags(content || '')
     content = CGI::unescapeHTML(content)
     content = sanitize(content, tags: [])

@@ -1,6 +1,7 @@
 li class="activity #{activity.kind}"
   = image_tag('envelope.svg')
   = content_tag :h4, link_to(activity.title, mailing_url(activity.guid), class: 'title')
+  p.content= format_activity_content(activity, length: 300)
   p.info
     span.published_at = "at #{activity.published_at.to_formatted_s(:time)}".html_safe if activity.published_at
     | , by: &nbsp;
