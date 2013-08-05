@@ -34,7 +34,7 @@ class User < ActiveRecord::Base
   after_create :complete_from_github
 
   class << self
-    def ordered(order)
+    def ordered(order = nil)
       order = order.to_sym if order
       scope = order(ORDERS[order || :name]).references(:teams)
       scope = scope.includes(:teams).references(:teams) if order == :team
