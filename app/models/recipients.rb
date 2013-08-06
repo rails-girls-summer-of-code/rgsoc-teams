@@ -16,7 +16,7 @@ class Recipients
   end
 
   def users
-    User.includes(:roles).where('roles.name IN (?)', roles).select { |u| u.email.present? }
+    User.joins(:roles).where('roles.name IN (?)', roles).select { |u| u.email.present? }
   end
 
   def roles
