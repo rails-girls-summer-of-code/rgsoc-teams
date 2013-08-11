@@ -15,7 +15,7 @@ describe SourcesController do
   describe "GET index" do
     it "assigns all sources as @sources" do
       get :index, { team_id: source.team.to_param }, valid_session
-      assigns(:sources).should eq([source])
+      assigns(:sources).should == [source]
     end
   end
 
