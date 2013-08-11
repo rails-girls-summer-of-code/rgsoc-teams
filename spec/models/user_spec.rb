@@ -14,14 +14,28 @@ describe User do
   it { should_not allow_value('example.com').for(:homepage) }
 
   describe 'scopes' do
-    describe '.with_assigned_roles' do
-      before do
-        @user1 = create(:user)
-        @user2 = create(:coach)
-      end
+    before(:all) do
+      @user1 = create(:user)
+      @user2 = create(:coach)
 
+      Role.find_by(name: 'coach', user_id: @user2.id).team.update_attribute(:kind, 'Charity')
+    end
+
+    describe '.with_assigned_roles' do
       it 'returns users that have any roles assigned' do
         User.with_assigned_roles.should == [@user2]
+      end
+    end
+
+    describe '.with_role' do
+      it 'returns users that have matching role name' do
+        User.with_role('coach').should == [@user2]
+      end
+    end
+
+    describe '.with_team_kind' do
+      it 'returns users that have matching team kind' do
+        User.with_team_kind('Charity').should == [@user2]
       end
     end
   end

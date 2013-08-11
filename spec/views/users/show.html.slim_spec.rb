@@ -29,9 +29,9 @@ describe 'users/show' do
 
   describe 'on its own page' do
     before :each do
-      @ability.stub!(:can?).with(:read, :users_info).and_return(false)
-      @ability.stub!(:can?).with(:edit, @user).and_return(true)
-      @ability.stub!(:can?).with(:destroy, @user).and_return(true)
+      @ability.stub(:can?).with(:read, :users_info).and_return(false)
+      @ability.stub(:can?).with(:edit, @user).and_return(true)
+      @ability.stub(:can?).with(:destroy, @user).and_return(true)
     end
     it "shows Edit and Destroy link if user can manage" do
       render
@@ -42,9 +42,9 @@ describe 'users/show' do
 
   describe "on someone else's page" do
     before :each do
-      @ability.stub!(:can?).with(:read, :users_info).and_return(false)
-      @ability.stub!(:can?).with(:edit, @user).and_return(false)
-      @ability.stub!(:can?).with(:destroy, @user).and_return(false)
+      @ability.stub(:can?).with(:read, :users_info).and_return(false)
+      @ability.stub(:can?).with(:edit, @user).and_return(false)
+      @ability.stub(:can?).with(:destroy, @user).and_return(false)
     end
 
     it "hides Edit and Destroy link if user can't manage" do
