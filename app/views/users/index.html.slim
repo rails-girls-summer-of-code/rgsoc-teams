@@ -15,6 +15,8 @@ table.users.table.table-striped.table-bordered.table-condensed.table-hover
       th = sortable :github
       th = sortable :irc
       th = sortable :team
+      th = sortable :location
+      th Time now
       th Conferences
 
   tbody
@@ -27,4 +29,6 @@ table.users.table.table-striped.table-bordered.table-condensed.table-hover
         td = link_to user.github_handle, "http://github.com/#{user.github_handle}"
         td = user.irc_handle.present? ? user.irc_handle : '-'
         td = link_to_user_roles(user)
+        td = user.location
+        td = time_for_user(user)
         td = links_to_conferences(user.conferences).join(', ').html_safe

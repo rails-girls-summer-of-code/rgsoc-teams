@@ -70,7 +70,7 @@ class UsersController < ApplicationController
       params.require(:user).permit(
         :github_handle, :twitter_handle, :irc_handle,
         :name, :email, :homepage, :location, :bio,
-        :tshirt_size, :banking_info, :postal_address,
+        :tshirt_size, :banking_info, :postal_address, :timezone,
         attendances_attributes: [:id, :conference_id, :_destroy]
       )
     end
