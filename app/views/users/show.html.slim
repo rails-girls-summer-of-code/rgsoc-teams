@@ -27,6 +27,8 @@ nav.actions
       - if can? :read, :users_info
         dt E-Mail
         dd = link_to @user.email, "mailto:#{@user.email}" if @user.email.present?
+        dt Timezone
+        dd = @user.timezone
 
   - if @user.bio.present?
     h4 About me
@@ -68,4 +70,3 @@ nav.actions
       - if @user.banking_info.present?
         h5 Banking info
         = simple_format @user.banking_info
-
