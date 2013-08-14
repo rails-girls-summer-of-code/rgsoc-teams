@@ -158,6 +158,7 @@ module ApplicationHelper
     tag('abbr', title: "required") + "*"
   end
 
+
   def user_for_comment(comment)
     if comment.user.nil?
       "Deleted user"
