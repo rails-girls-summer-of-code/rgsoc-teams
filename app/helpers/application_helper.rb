@@ -166,7 +166,6 @@ module ApplicationHelper
     end
   end
 
-
   def time_for_user(user)
     if user.timezone
       Time.use_zone(user.timezone) do |time|
