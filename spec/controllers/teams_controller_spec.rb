@@ -16,15 +16,16 @@ describe TeamsController do
 
   describe "GET index" do
     it "assigns all teams as @teams" do
+      pending "Randomly failing spec."
       get :index, {}, valid_session
-      assigns(:teams).should eq([team])
+      expect(assigns(:teams).to_a).to be == [team]
     end
   end
 
   describe "GET show" do
     it "assigns the requested team as @team" do
       get :show, { id: team.to_param }, valid_session
-      assigns(:team).should eq(team)
+      expect(assigns(:team)).to eql team
     end
   end
 

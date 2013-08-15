@@ -37,20 +37,20 @@ class User < ActiveRecord::Base
     def ordered(order = nil)
       order = order.to_sym if order
       scope = order(ORDERS[order || :name]).references(:teams)
-      scope = scope.includes(:teams).references(:teams) if order == :team
+      scope = scope.joins(:teams).references(:teams) if order == :team
       scope
     end
 
     def with_role(name)
-      includes(:roles).where('roles.name = ?', name)
+      joins(:roles).where('roles.name = ?', name)
     end
 
     def with_assigned_roles
-      includes(:roles).where('roles.id IS NOT NULL')
+      joins(:roles).where('roles.id IS NOT NULL')
     end
 
     def with_team_kind(kind)
-      includes(:teams).where('teams.kind = ?', kind)
+      joins(:teams).where('teams.kind = ?', kind)
     end
   end
 

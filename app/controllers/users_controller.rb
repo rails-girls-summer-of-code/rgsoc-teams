@@ -1,11 +1,12 @@
 class UsersController < ApplicationController
   before_filter :normalize_params, only: :index
-  before_filter :set_users, only: :index
   before_filter :set_user, only: [:show, :edit, :update, :destroy]
 
   load_and_authorize_resource except: [:index, :show]
 
   def index
+    @users = User.ordered(params[:sort]).with_assigned_roles
+    @users = @users.with_role(params[:role]) if params[:role].present? && params[:role] != 'all'
   end
 
   def show
@@ -55,11 +56,6 @@ class UsersController < ApplicationController
 
 
   private
-
-    def set_users
-      @users = User.ordered(params[:sort]).with_assigned_roles
-      @users = @users.with_role(params[:role]) if params[:role].present? && params[:role] != 'all'
-    end
 
     def set_user
       @user = User.find(params[:id])

@@ -17,57 +17,60 @@ describe Team do
   it { should validate_uniqueness_of(:name) }
 
   describe 'creating a new team' do
-    before  { subject.save! }
+    before do
+      Team.destroy_all
+      subject.save!
+    end
 
     it 'sets the team number' do
-      subject.reload.number.should == 1
+      expect(subject.reload.number).to eql 1
     end
   end
 
-  describe 'display_name' do
+  describe '#display_name' do
     let(:students) { [User.new(name: 'Nina'), User.new(name: 'Maya')] }
 
     before { subject.save! }
 
     it 'returns "Team ?" if no name given' do
-      subject.display_name.should == 'Team Sinatra'
+      expect(subject.display_name).to be == 'Team Sinatra'
     end
 
     it 'returns "Team Blue" if name given' do
       subject.name = 'Blue'
-      subject.display_name.should == 'Team Blue (Sinatra)'
+      expect(subject.display_name).to be == 'Team Blue (Sinatra)'
     end
   end
 
-  describe 'github_handle=' do
+  describe '#github_handle=' do
     it 'keeps an empty handle' do
-      Team.new(github_handle: nil).github_handle.should be_nil
+      expect(Team.new(github_handle: nil).github_handle).to be_nil
     end
 
     it 'strips leading/tailing spaces' do
-      Team.new(github_handle: ' foo ').github_handle.should == 'foo'
+      expect(Team.new(github_handle: ' foo ').github_handle).to be == 'foo'
     end
 
     it 'extracts the handle from a github url' do
-      Team.new(github_handle: 'https://github.com/foo').github_handle.should == 'foo'
+      expect(Team.new(github_handle: 'https://github.com/foo').github_handle).to be == 'foo'
     end
   end
 
-  describe 'twitter_handle=' do
+  describe '#twitter_handle=' do
     it 'keeps an empty handle' do
-      Team.new(twitter_handle: nil).twitter_handle.should be_nil
+      expect(Team.new(twitter_handle: nil).twitter_handle).to be_nil
     end
 
     it 'with an @' do
-      Team.new(twitter_handle: '@foo').twitter_handle.should == '@foo'
+      expect(Team.new(twitter_handle: '@foo').twitter_handle).to be == '@foo'
     end
 
     it 'strips leading/tailing spaces' do
-      Team.new(twitter_handle: ' foo ').twitter_handle.should == '@foo'
+      expect(Team.new(twitter_handle: ' foo ').twitter_handle).to be == '@foo'
     end
 
     it 'extracts the handle from a github url' do
-      Team.new(twitter_handle: 'https://twitter.com/foo').twitter_handle.should == '@foo'
+      expect(Team.new(twitter_handle: 'https://twitter.com/foo').twitter_handle).to be == '@foo'
     end
   end
 end
