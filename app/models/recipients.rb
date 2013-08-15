@@ -16,7 +16,7 @@ class Recipients
   end
 
   def users
-    User.joins(:roles).where('roles.name IN (?)', roles).select { |u| u.email.present? }
+    User.joins(:roles).all(:conditions => ["roles.name in (?)",roles]).uniq
   end
 
   def roles
