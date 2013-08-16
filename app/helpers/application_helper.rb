@@ -158,7 +158,6 @@ module ApplicationHelper
     tag('abbr', title: "required") + "*"
   end
 
-
   def user_for_comment(comment)
     if comment.user.nil?
       "Deleted user"
@@ -166,6 +165,7 @@ module ApplicationHelper
       comment.user.name
     end
   end
+
 
   def time_for_user(user)
     if user.timezone
@@ -176,7 +176,6 @@ module ApplicationHelper
         "-"
     end
   end
-
 
   def list_all_timezones
     TIMEZONES
