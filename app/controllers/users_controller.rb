@@ -5,7 +5,7 @@ class UsersController < ApplicationController
   load_and_authorize_resource except: [:index, :show]
 
   def index
-    @users = User.ordered(params[:sort]).with_assigned_roles
+    @users = User.ordered(params[:sort]).with_assigned_roles.group('users.id')
     @users = @users.with_role(params[:role]) if params[:role].present? && params[:role] != 'all'
   end
 

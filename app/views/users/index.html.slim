@@ -22,7 +22,7 @@ table.users.table.table-striped.table-bordered.table-condensed.table-hover
       tr
         td.image
           - if user.avatar_url.present?
-            img src="#{user.avatar_url}&s=50"
+            img src="#{user.avatar_url}&s=40"
         td = link_to user.name_or_handle, user
         td = link_to user.github_handle, "http://github.com/#{user.github_handle}"
         td = user.irc_handle.present? ? user.irc_handle : '-'
