@@ -1,6 +1,9 @@
-require 'cgi'
 
+require 'cgi'
 module ApplicationHelper
+
+  TIMEZONES = ActiveSupport::TimeZone.all.map{|t| t.tzinfo.name}
+
   def with_layout(layout)
     view_flow.set :layout, capture { yield }
     render template: "layouts/#{layout}"
@@ -174,7 +177,8 @@ module ApplicationHelper
     end
   end
 
+
   def list_all_timezones
-    ActiveSupport::TimeZone.all.map{|t| t.tzinfo.name}
+    TIMEZONES
   end
 end
