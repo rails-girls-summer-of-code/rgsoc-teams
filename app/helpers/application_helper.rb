@@ -1,6 +1,9 @@
-require 'cgi'
 
+require 'cgi'
 module ApplicationHelper
+
+  TIMEZONES = ActiveSupport::TimeZone.all.map{|t| t.tzinfo.name}
+
   def with_layout(layout)
     view_flow.set :layout, capture { yield }
     render template: "layouts/#{layout}"
@@ -147,7 +150,7 @@ module ApplicationHelper
   # stolen from: http://railscasts.com/episodes/228-sortable-table-columns?view=asciicast
   def sortable(column, title = nil)
     title ||= column.to_s.titleize
-    direction = (column.to_s == params[:sort] && params[:direction] == 'asc') ? 'desc' : 'asc'
+    direction = (column.to_s == params[:sort] && params[:direction] == 'asc') ? 'asc' : 'desc'
     link_to title, params.except('action', 'controller').merge(sort: column, direction: direction)
   end
 
@@ -155,11 +158,26 @@ module ApplicationHelper
     tag('abbr', title: "required") + "*"
   end
 
+
   def user_for_comment(comment)
     if comment.user.nil?
       "Deleted user"
     else
       comment.user.name
     end
+  end
+
+  def time_for_user(user)
+    if user.timezone
+      Time.use_zone(user.timezone) do |time|
+        localize(Time.zone.now, format: "%I:%m %p")
+      end
+    else
+        "-"
+    end
+  end
+
+  def list_all_timezones
+    TIMEZONES
   end
 end
