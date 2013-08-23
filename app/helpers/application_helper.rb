@@ -2,7 +2,7 @@
 require 'cgi'
 module ApplicationHelper
 
-  TIMEZONES = ActiveSupport::TimeZone.all.map{|t| t.tzinfo.name}.uniq
+  TIMEZONES = ActiveSupport::TimeZone.all.map{|t| t.tzinfo.name}.uniq.sort
 
   def with_layout(layout)
     view_flow.set :layout, capture { yield }
