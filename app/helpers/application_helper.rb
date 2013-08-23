@@ -170,7 +170,7 @@ module ApplicationHelper
   def time_for_user(user)
     if user.timezone
       Time.use_zone(user.timezone) do |time|
-        localize(Time.zone.now, format: "%I:%m %p")
+        localize(Time.zone.now, format: "%I:%M %p")
       end
     else
         "-"
