@@ -54,6 +54,10 @@ common: &default_settings
   # development as it has very high overhead in memory.
   developer_mode: false
 
+  # XXX: See https://github.com/newrelic/rpm/pull/128
+  disable_curb: true
+
+
   # The newrelic agent generates its own log file to keep its logging
   # information separate from that of your application. Specify its
   # log level here.
