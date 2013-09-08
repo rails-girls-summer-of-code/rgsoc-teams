@@ -2,6 +2,7 @@
 
 [![Build Status](https://travis-ci.org/rails-girls-summer-of-code/rgsoc-teams.png)](https://travis-ci.org/rails-girls-summer-of-code/rgsoc-teams)
 [![Code Climate](https://codeclimate.com/github/rails-girls-summer-of-code/rgsoc-teams.png)](https://codeclimate.com/github/rails-girls-summer-of-code/rgsoc-teams)
+[![Dependency Status](https://gemnasium.com/pxlpnk/rgsoc-teams.png)](https://gemnasium.com/pxlpnk/rgsoc-teams)
 
 **Looking for your help!**
 
