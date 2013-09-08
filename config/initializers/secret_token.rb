@@ -4,4 +4,5 @@
 # If you change this key, all old signed cookies will become invalid!
 # Make sure the secret is at least 30 characters and all random,
 # no regular words or you'll be exposed to dictionary attacks.
-RgsocTeams::Application.config.secret_key_base = '2bab16a1f1c9acf8ea6b557783800720f011edc448e2295edcfce58aa93df66d247ab03c6730549863eb820d60e52068b2f5849276c786fae5ad9cfd709e880c'
+
+RgsocTeams::Application.config.secret_key_base = ENV['SECRET_TOKEN'] || '73d112362109022a68873f5942358fd50138e1edff8fafdd7ad668c93116f535ff035e58c959876c2b3c1b44c7a1ad708f5d7f2dfe936043920f5c2dd7535934'
