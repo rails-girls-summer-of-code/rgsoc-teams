@@ -6,6 +6,7 @@ GITHUB_APP_SECRET = Rails.env.production? ? ENV['GITHUB_APP_SECRET'] : 'e9398859
 
 Devise.setup do |config|
   config.omniauth :github, GITHUB_APP_ID, GITHUB_APP_SECRET, :scope => 'user:email'
+  config.secret_key = '8ee56b07fd0d31c8d5bff27790a9af62d4373da60bf470354082cacb1a50045c9c16bb9f465d7a8648539b9530995a27b46df8cc97b9c5279011477f8f1af128'
 
   # ==> Mailer Configuration
   # Configure the e-mail address which will be shown in Devise::Mailer,
