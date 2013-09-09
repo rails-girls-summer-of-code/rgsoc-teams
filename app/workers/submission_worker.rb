@@ -1,7 +1,8 @@
 class SubmissionWorker
-  include SuckerPunch::Worker
+    include SuckerPunch::Job
 
-  def run(payload)
+
+  def perform(payload)
     puts "dequeued submission: #{payload}"
     ActiveRecord::Base.connection_pool.with_connection do
       submit(Submission.find(payload[:submission_id]))
