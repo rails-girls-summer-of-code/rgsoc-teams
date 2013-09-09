@@ -24,11 +24,11 @@ describe Mailer do
   end
 
   it 'renders the cc' do
-    mail.cc.should == ['cc@email.com']
+    mail.cc.should be_nil
   end
 
   it 'renders the bcc' do
-    mail.bcc.should == ['bcc@email.com']
+    mail.bcc.should be_nil
   end
 
   it 'renders the subject' do

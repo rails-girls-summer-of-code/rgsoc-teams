@@ -10,7 +10,7 @@ class Mailer < ActionMailer::Base
 
   def email(submission)
     set submission
-    mail subject: subject, from: from, to: to, cc: cc, bcc: bcc
+    mail subject: subject, from: from, to: to
   end
 
   private
