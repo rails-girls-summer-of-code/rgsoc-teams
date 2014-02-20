@@ -22,4 +22,4 @@ table.table.table-striped.table-bordered.table-condensed.conferences
       td = conference.attendees.any? ? links_to_attendances(conference).join(', ').html_safe : '-'
       td = conference.tickets_left
 
-
+p = link_to "View as Calendar", calendar_index_path
