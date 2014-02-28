@@ -19,7 +19,7 @@ script:
 deploy:
   provider: heroku
   api_key:
-    secure: ES0VxL9vi6rnj2DQQSHiqtOTk0zvU/j0hxj64fSe3J/BIal+bkNSei6LTAfBlmDTp15gTJ8rVVif9+cS1TdXEnmxIdjFooiX9CrNtV93Vn96h6Wtey4owQyvQ6u6DVYTMOAI08/6f40QBy4po4H2gWvHUhtv5R4a+S85o/zhlac=
-  app: rgsoc-teams
+    secure: EuT2CooTTomlmRJJzO8dQAelx7I/lUCsUOKIaYkYey2D/od12bPNwe1yJnaxZS4xDwDKtdCVRHKtMwIbz7EiWloE7xovm+nFb8V/hDvc05h9h0BnckNfJ2wFPcEKmMkl8gJdtgxkgAO39+qpUSzNDjOF0jIwkGimFDFWT4oTTAQ=
+  app: rgsoc-teams-production
   on:
     repo: rails-girls-summer-of-code/rgsoc-teams
