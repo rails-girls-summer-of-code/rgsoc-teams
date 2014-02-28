@@ -1,4 +1,3 @@
----
 language: ruby
 rvm:
 - 2.0.0
@@ -19,7 +18,8 @@ script:
 - bundle exec rake spec
 deploy:
   provider: heroku
-  app: rgsoc-teams-production
   api_key:
-    secure: 'Iol0/uuBMn/3re2hcJmF3iauUSnOB7OvSdozIrSqaGpjmd0iPLiocIhfAY9bl6uBqoeDlbV6q8eHau3Da38E90l/Yd/NAPCmZh0Tw6RexHrB1kCcYDnCzA7Pr6y8CYdJFOjXi/Ddg9V19JAFiQHAF8ubeuRBkitIA1u4qpg/qT8='
-  run: 'rake db:migrate'
+    secure: ES0VxL9vi6rnj2DQQSHiqtOTk0zvU/j0hxj64fSe3J/BIal+bkNSei6LTAfBlmDTp15gTJ8rVVif9+cS1TdXEnmxIdjFooiX9CrNtV93Vn96h6Wtey4owQyvQ6u6DVYTMOAI08/6f40QBy4po4H2gWvHUhtv5R4a+S85o/zhlac=
+  app: rgsoc-teams
+  on:
+    repo: rails-girls-summer-of-code/rgsoc-teams
