@@ -7,6 +7,8 @@ notifications:
   - me@svenfuchs.com
   - joneslee85@gmail.com
   notifications:
+    webhooks:
+      secure: "AziQTqGNQCCe/673UZy3bW0XB0oGywiEAyxygTWs2Cki0lqNldgELlPg+eC+CgvCJpMXRY6PLS/MXWeu4eR/6iONnBo+So8l9wJSZasxrCwVWqI9UFZYaMXXzFTGlz2JmBJ7JigW5zxL/Y3ukqu+wjA3MytT8N5tuNdR5SYqy40="
     irc:
     - irc.freenode.net#rgsoc
 before_install:
