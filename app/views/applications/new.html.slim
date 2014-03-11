@@ -44,9 +44,9 @@
         .form-group
           = f.input :attended_rg_workshop, as: :text, label: 'Did you ever attend a Rails/Ruby workshop?', hint: ' Please give us a little bit of history about yourself and your pair (if any)', input_html: { class: 'form-control', rows: '5' }
         .form-group
-          = f.input :coding_level, :collection => 1..5, :as => :radio_buttons, label: 'What level of coding do you see yourself in Ruby/Rails?', hint: 'Please try to verify this with your pair and coach, we are aware this is tricky to estimate.'
+          = f.input :coding_level, :collection => 1..5, :as => :radio_label, label: 'What level of coding do you see yourself in Ruby/Rails?', hint: 'Please try to verify this with your pair and coach, we are aware this is tricky to estimate.'
         .form-group
-          = f.input :coding_level_pair, :collection => 1..5, :as => :radio_buttons, label: 'What level of coding does your pair have?', hint: '(Same as above)', :input_html => { class: 'level-radio'}
+          = f.input :coding_level_pair, :collection => 1..5, :as => :radio_label, label: 'What level of coding does your pair have?', hint: '(Same as above)', :input_html => { class: 'level-radio'}
         .form-group
           = f.input :skills, as: :text, label: 'Please give us a summary of your skills', hint: 'Please add a summary for your pair if you have one, too.', input_html: { class: 'form-control', rows: '5' }
         .form-group

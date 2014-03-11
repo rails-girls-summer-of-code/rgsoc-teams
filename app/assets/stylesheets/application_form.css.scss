@@ -16,3 +16,10 @@ p.help-block {
 .application-form {
 	padding: 4em 0 2em;
 }
+.skill-level:before {
+	content: "total beginner";
+}
+.skill-level:after {
+	content: "expert";
+	margin-left: 1em;
+}
