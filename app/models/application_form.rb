@@ -10,7 +10,7 @@ class ApplicationForm
             :location, :attended_rg_workshop,
             :coding_level, :coding_level_pair,
             :skills, :learing_summary, :learning_since_workshop, :learning_since_workshop_pair,
-            :code_samples, :coaches, :hours_per_coach, :why_team_successful, :projects, :project_period]
+            :code_samples, :coaches, :hours_per_coach, :why_team_successful, :projects, :project_period, :minimum_money]
 
   attr_accessor *FIELDS
 

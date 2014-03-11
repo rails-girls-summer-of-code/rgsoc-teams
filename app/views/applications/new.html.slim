@@ -26,8 +26,9 @@
           = link_to 'https://groups.google.com/d/forum/rails-girls-summer-of-code-community'
 .container-fluid
   .row
+    / offsets maybe?
     /.col-sm-offset-1.col-md-offset-3
-    .col-md-6.col-sm-8
+    .col-md-6.col-sm-8.application-form
       = simple_form_for @application_form, as: :application do |f|
 
         .form-group
@@ -67,6 +68,6 @@
         .form-group
           = f.input :project_period, as: :text, label: 'When do you plan to work on this?', hint: 'We are aiming at July 1st to September 30th for most students, but you can be flexible. Please discuss this with your team.', input_html: { class: 'form-control', rows: '5' }
         .form-group
-          /= f.input :minimum_money, label: 'Where you live, how much money do you need at the very minimum per month to sustain yourself while working fulltime on an open source project?', hint: 'This questions is optional', input_html: { class: 'form-control' }
+          = f.input :minimum_money, label: 'Where you live, how much money do you need at the very minimum per month to sustain yourself while working fulltime on an open source project?', hint: 'This questions is optional', input_html: { class: 'form-control' }
         .form-action
-          = f.button :submit, 'Apply!', class: 'btn btn-primary'
+          = f.button :submit, 'Apply!', class: 'btn btn-default'
