@@ -4,7 +4,7 @@ header
 
   nav.top
     ul
-      li = link_to 'Apply NOW!',  application_path
+      / li = link_to 'Apply NOW!',  application_path
       li = link_to 'Activity',     root_path,  class: params[:controller] == 'activities' ? 'active' : ''
       li = link_to 'Teams',        teams_path, class: params[:controller] == 'teams' ? 'active' : ''
       li = link_to 'Participants', users_path, class: params[:controller] == 'users' ? 'active' : ''
