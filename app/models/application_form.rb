@@ -12,9 +12,11 @@ class ApplicationForm
             :skills, :learing_summary, :learning_since_workshop, :learning_since_workshop_pair,
             :code_samples, :coaches, :hours_per_coach, :why_team_successful, :projects, :project_period, :minimum_money]
 
+  MUST_FIELDS = FIELDS - [:minimum_money]
+
   attr_accessor *FIELDS
 
-  validates_presence_of *FIELDS
+  validates_presence_of *MUST_FIELDS
 
   def initialize(attributes = {})
     attributes.each do |name, value|
