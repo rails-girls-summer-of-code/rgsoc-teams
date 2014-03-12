@@ -46,6 +46,8 @@ group :development do
   gem 'quiet_assets'
   gem 'better_errors'
   gem 'binding_of_caller'
+  gem 'jazz_hands'
+  gem 'pry'
 end
 
 group :test do

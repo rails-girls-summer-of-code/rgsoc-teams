@@ -1,0 +1,25 @@
+// Place all the styles related to the ApplicationForm controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.radio {
+  display: inline-block;
+}
+p.help-block {
+  display: block;
+}
+
+.controls {
+  display: block;
+}
+
+.application-form {
+	padding: 4em 0 2em;
+}
+.skill-level:before {
+	content: "never coded before"
+}
+.skill-level:after {
+	content: "junior developer or better";
+	margin-left: 1em;
+}
