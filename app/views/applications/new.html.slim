@@ -1,29 +1,10 @@
-.container-fluid
-  .row
-    .col-md-12.col-xs-12
-      h1.header Student Application for Rails Girls Summer of Code 2014
+h1.header Student Application for Rails Girls Summer of Code 2014
 
-  .row
-    .col-md-12.col-xs-12
-      p.attention
-        | Before you fill out this form, be sure to read our &nbsp;
-        = link_to "Student Application Guide", "http://railsgirlssummerofcode.org/application-guide"
-        | .
-  .row
-    .col-md-12.col-xs-12
-      ul
-        li
-          | E-mail:&nbsp;
-          = link_to 'summer-of-code@railsgirls.com'
-        li
-          | Website:&nbsp;
-          = link_to 'http://railsgirlssummerofcode.org'
-        li
-          | GitHub:&nbsp;
-          = link_to 'https://github.com/summer-of-code/summer-of-code'
-        li
-          | Rails Girls Summer of Code Community Group:&nbsp;
-          = link_to 'https://groups.google.com/d/forum/rails-girls-summer-of-code-community'
+p.attention
+  | Please read our
+    #{link_to "Student Application Guide", "http://railsgirlssummerofcode.org/application-guide"}
+    before you fill out this form.
+
 .container-fluid
   .row
     / offsets maybe?
@@ -70,4 +51,4 @@
         .form-group
           = f.input :minimum_money, label: 'Where you live, how much money do you need at the very minimum per month to sustain yourself while working fulltime on an open source project?', hint: 'This questions is optional', input_html: { class: 'form-control' }
         .form-action
-          = f.button :submit, 'Apply!', class: 'btn btn-default'
+          = f.button :submit, 'Ok, apply!', class: 'btn btn-default'
