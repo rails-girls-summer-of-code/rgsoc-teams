@@ -1,11 +1,63 @@
-nav.page
-  ul
-    li = link_to 'Back', @user, class: 'back'
-nav.actions
-  ul
-    li = link_to 'Destroy', @user, data: { confirm: 'Are you sure?' }, method: :delete, class: 'destroy'
+- if params[:welcome]
+  h1 Welcome!
 
-h1 Editing user
+  p Please complete your profile:
 
-== render 'form'
+- else
+  nav.page
+    ul
+      li = link_to 'Back', @user, class: 'back'
+  nav.actions
+    ul
+      li = link_to 'Destroy', @user, data: { confirm: 'Are you sure?' }, method: :delete, class: 'destroy'
+
+  h1 Edit your profile
+
+= simple_nested_form_for @user do |f|
+  - if @user.errors.any?
+    #error_explanation
+      h2 = "#{pluralize(@user.errors.count, "error")} prohibited this user from being saved:"
+      ul
+        - @user.errors.full_messages.each do |message|
+          li = message
+
+  = hidden_field_tag :welcome, params[:welcome]
+  = hidden_field_tag :redirect_to, params[:redirect_to]
+
+  = f.input :name, wrapper_html: { class: 'col-md-6' }
+  = f.input :email, required: true, wrapper_html: { class: 'col-md-6' }
+  = f.input :github_handle, wrapper_html: { class: 'col-md-6' }
+  = f.input :twitter_handle, wrapper_html: { class: 'col-md-6' }
+  = f.input :irc_handle, wrapper_html: { class: 'col-md-6' }
+  = f.input :homepage, as: :url, wrapper_html: { class: 'col-md-6' }
+  = f.input :location, wrapper_html: { class: 'col-md-6' }
+  = f.input :timezone, as: :select, collection: list_all_timezones, label: "Timezone", prompt: "Select your timezone", wrapper_html: { class: 'col-md-6' }
+
+  = f.input :bio, label: 'About you', hint: 'You can use basic <a href="http://en.wikipedia.org/wiki/Markdown">Markdown</a> here.'
+
+  h3 I am interested in:
+
+  = f.collection_check_boxes :interested_in, User::INTERESTS.to_a, :first, :last, item_wrapper_tag: 'div', item_wrapper_class: 'interested_in'
+
+  / = f.input :bio, label: 'Comments about your interests', hint: 'Short summary. E.g. if you are interested in mentoring, mention your project.'
+
+  / h3 Private information
+  / p.help-block This information will only be visible to yourself and organizers.
+
+  / = f.input :tshirt_size, as: :radio_buttons, collection: User::TSHIRT_SIZES.map { |k| [k, k] }, label: 'T-Shirt size', blank: false, required: false, hint: 'For sponsor T-Shirts, in case they send some.'
+  / = f.input :postal_address, hint: "Please give your postal address so we can send things we've received from our sponsors for you :)"
+  / = f.input :banking_info, label: 'Money transfer information', hint: "Please provide the following information so we can send money to you.<br>For EU: your name, your IBAN and BIC.<br>For US: your name, bank account number, and bank routing number. OR if you cannot receive bank transfers: your address for sending a check (bank transfers are preferred).<br>For all others: name and address, your bank account number, the SWIFT code of your bank and the bank's address."
+
+  - if admin?
+    h3 Conferences
+    fieldset.conferences
+      .header
+        label Conference
+      = f.simple_fields_for :attendances do |s|
+        = s.input :conference_id, as: :select, collection: conferences, required: false, label: false
+        = s.link_to_remove 'Remove'
+      = f.link_to_add 'Add another conference', :attendances
+
+  .actions
+    = f.submit 'Save', class: 'btn btn-success'
 

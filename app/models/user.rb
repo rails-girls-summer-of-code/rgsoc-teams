@@ -11,6 +11,16 @@ class User < ActiveRecord::Base
     irc:    'users.irc_handle'
   }
 
+  INTERESTS = {
+    'pair' => 'Finding a pair',
+    'coaches' => 'Finding coaches',
+    'project' => 'Finding a project',
+    'coaching' => 'Helping as a coach',
+    'mentoring' => 'Helping as a mentor for a project that I am part of',
+    'helpdesk' => 'Helping as a remote coach (helpdesk)',
+    'organizing' => 'Helping as an organizer'
+  }
+
   include ActiveModel::ForbiddenAttributesProtection
   include Authentication::ActiveRecordHelpers
   include ProfilesHelper
@@ -60,6 +70,10 @@ class User < ActiveRecord::Base
     end
   end
 
+  def just_created?
+    !!@just_created
+  end
+
   def name_or_handle
     name.present? ? name : github_handle
   end
@@ -71,5 +85,6 @@ class User < ActiveRecord::Base
   def complete_from_github
     attrs = Github::User.new(github_handle).attrs rescue {}
     update_attributes attrs.select { |key, value| send(key).blank? }
+    @just_created = true
   end
 end

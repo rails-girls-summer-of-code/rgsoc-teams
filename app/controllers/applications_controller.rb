@@ -2,7 +2,11 @@ class ApplicationsController < ApplicationController
 
   respond_to :html
   def new
-    @application_form = ApplicationForm.new
+    if signed_in?
+      @application_form = ApplicationForm.new
+    else
+      render 'sign_in'
+    end
   end
 
   def create

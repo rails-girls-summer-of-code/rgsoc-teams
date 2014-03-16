@@ -1,11 +1,15 @@
 # Use this setup block to configure all options available in SimpleForm.
 SimpleForm.setup do |config|
-  config.wrappers :bootstrap, :tag => 'div', :class => 'control-group', :error_class => 'error' do |b|
+  # config.form_class = 'form-vertical'
+  config.input_class = 'form-control'
+  config.label_class = "control-label"
+
+  config.wrappers :bootstrap, :tag => 'div', :class => 'form-group', :error_class => 'error' do |b|
     b.use :html5
     b.use :placeholder
     b.use :label
-    b.wrapper :tag => 'div', :class => 'controls' do |ba|
-      ba.use :input
+    b.wrapper :tag => 'div' do |ba|
+      ba.use :input, class: 'form-control', wrap_with: { class: 'controls' }
       ba.use :error, :wrap_with => { :tag => 'span', :class => 'help-inline' }
       ba.use :hint,  :wrap_with => { :tag => 'p', :class => 'help-block' }
     end

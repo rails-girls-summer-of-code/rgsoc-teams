@@ -5,7 +5,7 @@ class UsersController < ApplicationController
   load_and_authorize_resource except: [:index, :show]
 
   def index
-    @users = User.ordered(params[:sort]).with_assigned_roles.group('users.id').with_all_associations_joined
+    @users = User.ordered(params[:sort]).group('users.id').with_all_associations_joined #.with_assigned_roles
     @users = @users.with_role(params[:role]) if params[:role].present? && params[:role] != 'all'
   end
 
@@ -25,7 +25,7 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if @user.save
-        format.html { redirect_to @user, notice: 'User was successfully created.' }
+        format.html { redirect_to params[:redirect_to] || @user, notice: 'User was successfully created.' }
         format.json { render action: :show, status: :created, location: @user }
       else
         format.html { render action: :new }
@@ -37,7 +37,7 @@ class UsersController < ApplicationController
   def update
     respond_to do |format|
       if @user.update_attributes(user_params)
-        format.html { redirect_to @user, notice: 'User was successfully updated.' }
+        format.html { redirect_to params[:redirect_to] || @user, notice: 'User was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: :edit }
@@ -71,6 +71,7 @@ class UsersController < ApplicationController
         :github_handle, :twitter_handle, :irc_handle,
         :name, :email, :homepage, :location, :bio,
         :tshirt_size, :banking_info, :postal_address, :timezone,
+        interested_in: [],
         attendances_attributes: [:id, :conference_id, :_destroy]
       )
     end
