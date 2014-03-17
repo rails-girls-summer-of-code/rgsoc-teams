@@ -1,6 +1,6 @@
 class ApplicationsController < ApplicationController
-
   respond_to :html
+
   def new
     if signed_in?
       @application_form = ApplicationForm.new
@@ -23,7 +23,7 @@ class ApplicationsController < ApplicationController
   private
 
   def application_form
-    @application_form = ApplicationForm.new(application_params)
+    @application_form ||= ApplicationForm.new(application_params)
   end
 
   def application_params
