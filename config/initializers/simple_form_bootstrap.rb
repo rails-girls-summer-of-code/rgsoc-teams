@@ -4,13 +4,13 @@ SimpleForm.setup do |config|
   config.input_class = 'form-control'
   config.label_class = "control-label"
 
-  config.wrappers :bootstrap, :tag => 'div', :class => 'form-group', :error_class => 'error' do |b|
+  config.wrappers :bootstrap, :tag => 'div', :class => 'form-group', :error_class => 'error has-error' do |b|
     b.use :html5
     b.use :placeholder
     b.use :label
     b.wrapper :tag => 'div' do |ba|
+      ba.use :error, :wrap_with => { :tag => 'p', :class => 'help-block' }
       ba.use :input, class: 'form-control', wrap_with: { class: 'controls' }
-      ba.use :error, :wrap_with => { :tag => 'span', :class => 'help-inline' }
       ba.use :hint,  :wrap_with => { :tag => 'p', :class => 'help-block' }
     end
   end
