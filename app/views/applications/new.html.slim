@@ -31,7 +31,7 @@ p.attention
         .form-group
           = f.input :skills, as: :text, label: 'Please give us a summary of your skills', hint: 'Please add a summary for your pair if you have one, too.', input_html: { class: 'form-control', rows: '5' }
         .form-group
-          = f.input :learing_summary, as: :text, label: 'Please summaryize what you have been doing to learn programming since your first workshop', hint: 'E.g. Study Group, learning rails by doing exercises etc. Please add a summary for your pair if you have one, too.', input_html: { class: 'form-control', rows: '5' }
+          = f.input :learing_summary, as: :text, label: 'Please summarize what you have been doing to learn programming since your first workshop', hint: 'E.g. Study Group, learning rails by doing exercises etc. Please add a summary for your pair if you have one, too.', input_html: { class: 'form-control', rows: '5' }
         .form-group
           = f.input :learning_since_workshop, collection: time_span_array, label: 'For how many months have you actively been learning after your first workshop?', input_html: { class: 'form-control' }
         .form-group
