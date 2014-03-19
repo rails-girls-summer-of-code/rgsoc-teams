@@ -32,6 +32,7 @@ class User < ActiveRecord::Base
       where(name: Role::ADMIN_ROLES)
     end
   end
+  has_many :applications
   has_many :teams, -> { uniq }, through: :roles
   has_many :attendances
   has_many :conferences, through: :attendances

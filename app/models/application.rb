@@ -1,4 +1,4 @@
 class Application < ActiveRecord::Base
-  validates_presence_of :name, :email, :application_data
-
+  belongs_to :user
+  validates_presence_of :user_id, :name, :email, :application_data
 end
