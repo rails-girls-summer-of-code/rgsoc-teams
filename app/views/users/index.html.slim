@@ -1,23 +1,25 @@
 h1.header
   = icon('user')
-  span Participants
+  span Community
 
-= render partial: 'users/roles'
+/ = render partial: 'users/roles'
 
-- if admin?
-  p.organizers = link_to 'Users organizers info &rarr;'.html_safe, users_info_path
+/ - if admin?
+/   p.organizers = link_to 'Users organizers info &rarr;'.html_safe, users_info_path
 
 table.users.table.table-striped.table-bordered.table-condensed.table-hover
   thead
     tr
       th
       th = sortable :name
-      th = sortable :github
-      th = sortable :irc
-      th = sortable :team
+      th = sortable :interested_in
       th = sortable :location
-      th Time now
-      th Conferences
+      / th = sortable :github
+      / th = sortable :irc
+      / th = sortable :team
+      / th = sortable :location
+      / th Time now
+      / th Conferences
 
   tbody
     - @users.each do |user|
@@ -26,9 +28,11 @@ table.users.table.table-striped.table-bordered.table-condensed.table-hover
           - if user.avatar_url.present?
             img src="#{user.avatar_url}&s=40"
         td = link_to user.name_or_handle, user
-        td = link_to user.github_handle, "http://github.com/#{user.github_handle}"
-        td = user.irc_handle.present? ? user.irc_handle : '-'
-        td = link_to_user_roles(user)
+        td = user.interested_in.map { |key| User::INTERESTS[key] }.join(', ')
         td = user.location
-        td = time_for_user(user)
-        td = links_to_conferences(user.conferences).join(', ').html_safe
+        / td = link_to user.github_handle, "http://github.com/#{user.github_handle}"
+        / td = user.irc_handle.present? ? user.irc_handle : '-'
+        / td = link_to_user_roles(user)
+        / td = user.location
+        / td = time_for_user(user)
+        / td = links_to_conferences(user.conferences).join(', ').html_safe

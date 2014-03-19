@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140223205209) do
+ActiveRecord::Schema.define(version: 20140319181254) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -37,6 +37,7 @@ ActiveRecord::Schema.define(version: 20140223205209) do
     t.hstore   "application_data"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "user_id"
   end
 
   create_table "attendances", force: true do |t|
@@ -133,8 +134,8 @@ ActiveRecord::Schema.define(version: 20140223205209) do
     t.text     "bio"
     t.string   "homepage"
     t.string   "avatar_url"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
     t.integer  "team_id"
     t.string   "twitter_handle"
     t.string   "irc_handle"
@@ -142,6 +143,7 @@ ActiveRecord::Schema.define(version: 20140223205209) do
     t.text     "banking_info"
     t.text     "postal_address"
     t.string   "timezone"
+    t.string   "interested_in",  default: [],              array: true
   end
 
 end

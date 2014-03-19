@@ -1,4 +1,6 @@
 RgsocTeams::Application.routes.draw do
+  # root to: 'activities#index'
+  root to: 'users#index'
 
   get 'application_forms', to: 'applications#new'
   post 'application_forms', to: 'applications#create'
@@ -33,11 +35,6 @@ RgsocTeams::Application.routes.draw do
     resources :submissions
   end
 
-  root to: 'activities#index'
   # get 'activities(.:format)', to: 'activities#index', as: :activities
   get 'activities(/page/:page)(.:format)', to: 'activities#index', as: :activities
-
-
-  # match 'application_form' => 'application_form#new', :as => 'application_form', :via => :get
-  # match 'application_form' => 'application_form#create', :as => 'application_form', :via => :post
 end
