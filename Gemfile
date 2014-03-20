@@ -54,6 +54,7 @@ group :test do
   gem 'shoulda'
   gem 'ffaker'
   gem 'webmock'
+  gem 'simplecov', require: false
 end
 
 gem 'rails4_upgrade'

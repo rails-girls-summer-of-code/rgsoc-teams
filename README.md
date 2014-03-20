@@ -60,6 +60,12 @@ bundle exec rake db:drop db:create db:migrate
 bundle exec rake spec
 ```
 
+You can optionally create a test-coverage report in `coverage/*` like so:
+
+```bash
+COVERAGE=yes bundle exec rake spec
+```
+
 ## Deployment
 
 The staging app lives at http://rgsoc-teams-staging.herokuapp.com/users. The production app is
