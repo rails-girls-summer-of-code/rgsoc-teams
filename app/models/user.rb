@@ -18,7 +18,9 @@ class User < ActiveRecord::Base
     'coaching' => 'Helping as a coach',
     'mentoring' => 'Helping as a mentor for a project that I am part of',
     'helpdesk' => 'Helping as a remote coach (helpdesk)',
-    'organizing' => 'Helping as an organizer'
+    'organizing' => 'Helping as an organizer',
+    'deskspace' => 'Providing office/desk space',
+    'coachingcompany' => 'Providing a coaching team from our company'
   }
 
   include ActiveModel::ForbiddenAttributesProtection
