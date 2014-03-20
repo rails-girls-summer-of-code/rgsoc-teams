@@ -12,13 +12,15 @@ class User < ActiveRecord::Base
   }
 
   INTERESTS = {
-    'pair' => 'Finding a pair',
-    'coaches' => 'Finding coaches',
-    'project' => 'Finding a project',
-    'coaching' => 'Helping as a coach',
-    'mentoring' => 'Helping as a mentor for a project that I am part of',
-    'helpdesk' => 'Helping as a remote coach (helpdesk)',
-    'organizing' => 'Helping as an organizer'
+    'pair'            => 'Finding a pair',
+    'coaches'         => 'Finding coaches',
+    'project'         => 'Finding a project',
+    'coaching'        => 'Helping as a coach',
+    'mentoring'       => 'Helping as a mentor for a project that I am part of',
+    'helpdesk'        => 'Helping as a remote coach (helpdesk)',
+    'organizing'      => 'Helping as an organizer',
+    'deskspace'       => 'Providing office/desk space',
+    'coachingcompany' => 'Providing a coaching team from our company'
   }
 
   include ActiveModel::ForbiddenAttributesProtection
