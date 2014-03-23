@@ -71,6 +71,7 @@ class UsersController < ApplicationController
         :github_handle, :twitter_handle, :irc_handle,
         :name, :email, :homepage, :location, :bio,
         :tshirt_size, :banking_info, :postal_address, :timezone,
+        :hide_email,
         interested_in: [],
         attendances_attributes: [:id, :conference_id, :_destroy]
       )

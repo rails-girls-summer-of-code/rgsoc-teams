@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140319181254) do
+ActiveRecord::Schema.define(version: 20140323115249) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -144,6 +144,7 @@ ActiveRecord::Schema.define(version: 20140319181254) do
     t.text     "postal_address"
     t.string   "timezone"
     t.string   "interested_in",  default: [],              array: true
+    t.boolean  "hide_email"
   end
 
 end
