@@ -23,5 +23,8 @@ deploy:
   api_key:
     secure: EuT2CooTTomlmRJJzO8dQAelx7I/lUCsUOKIaYkYey2D/od12bPNwe1yJnaxZS4xDwDKtdCVRHKtMwIbz7EiWloE7xovm+nFb8V/hDvc05h9h0BnckNfJ2wFPcEKmMkl8gJdtgxkgAO39+qpUSzNDjOF0jIwkGimFDFWT4oTTAQ=
   app: rgsoc-teams-production
+  run:
+    - "rake db:migrate"
+    - restart  
   on:
     repo: rails-girls-summer-of-code/rgsoc-teams
