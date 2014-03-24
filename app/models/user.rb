@@ -71,6 +71,11 @@ class User < ActiveRecord::Base
       includes(:roles).group("roles.id").
       includes(roles: :team).group("teams.id")
     end
+
+    def with_interest(interest)
+      where(":interest = ANY(interested_in)", interest: interest)
+    end
+
   end
 
   def just_created?
