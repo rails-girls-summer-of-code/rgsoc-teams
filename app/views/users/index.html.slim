@@ -7,13 +7,7 @@ h1.header
 / - if admin?
 /   p.organizers = link_to 'Users organizers info &rarr;'.html_safe, users_info_path
 
-form.filter action=request.url
-  input type='hidden' name='sort' value=params[:sort]
-  input type='hidden' name='direction' value=params[:direction]
-  - @filters.each do |interest, label|
-    label.radio
-      = radio_button_tag :interest, interest, params[:interest] == interest.to_s
-      = label
+= render 'users/interests'
 
 table.users.table.table-striped.table-bordered.table-condensed.table-hover
   thead
