@@ -7,7 +7,7 @@ class UsersController < ApplicationController
   def index
     @filters = {
       all:        'All',
-      coaches:    'Coaches',
+      coaching:   'Coaches',
       pair:       'Looking for a pair',
       deskspace:  'Offering desk space',
       organizing: 'Organizers'
