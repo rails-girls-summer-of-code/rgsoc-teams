@@ -38,6 +38,15 @@ describe User do
         expect(User.with_team_kind('Charity')).to be ==[@user2]
       end
     end
+
+    describe '.with_interest' do
+      let(:user) { create(:user) }
+
+      it 'returns users matching one out of many interests' do
+        user.update interested_in: %w(coaches pairs helpdesk)
+        expect(User.with_interest('helpdesk')).to eq [user]
+      end
+    end
   end
 
   describe 'after_create' do
