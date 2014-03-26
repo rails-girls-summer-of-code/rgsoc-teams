@@ -72,6 +72,7 @@ class UsersController < ApplicationController
         :name, :email, :homepage, :location, :bio,
         :tshirt_size, :banking_info, :postal_address, :timezone,
         :hide_email,
+        :is_company, :company_name, :company_info,
         interested_in: [],
         attendances_attributes: [:id, :conference_id, :_destroy]
       )
