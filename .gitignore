@@ -6,6 +6,7 @@
 
 /config/database.yml
 .ruby-version
+.ruby-gemset
 
 .DS_Store
 
