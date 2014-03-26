@@ -16,6 +16,7 @@ gem 'feedzirra', '>= 0.2.0.rc2'
 gem 'kaminari'
 gem 'bootstrap-kaminari-views'
 gem 'sucker_punch'
+gem 'country_select'
 
 gem 'slim-rails'
 gem 'jquery-rails'
