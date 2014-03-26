@@ -1,8 +1,23 @@
 require 'spec_helper'
 
 describe 'users/edit' do
+  let(:user) {
+    stub_model(
+      User,
+      name: 'MyString',
+      email: 'MyString',
+      location: 'MyString',
+      bio: 'MyString',
+      homepage: 'MyString',
+      role: 'coach',
+      is_company: false,
+      company_name: 'Company name',
+      company_info: 'Company info'
+    )
+  }
+
   before(:each) do
-    @user = assign(:user, stub_model(User, name: 'MyString', email: 'MyString', location: 'MyString', bio: 'MyString', homepage: 'MyString', role: 'coach'))
+    @user = assign(:user, user)
     controller.stub(:current_user).as_null_object
   end
 
@@ -16,6 +31,9 @@ describe 'users/edit' do
       assert_select 'input#user_location[name=?]', 'user[location]'
       assert_select 'textarea#user_bio[name=?]', 'user[bio]'
       assert_select 'input#user_homepage[name=?]', 'user[homepage]'
+      assert_select 'input#user_is_company[name=?]', 'user[is_company]'
+      assert_select 'input#user_company_name[name=?]', 'user[company_name]'
+      assert_select 'input#user_company_info[name=?]', 'user[company_info]'
     end
   end
 end

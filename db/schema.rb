@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140323115249) do
+ActiveRecord::Schema.define(version: 20140324172426) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -134,8 +134,8 @@ ActiveRecord::Schema.define(version: 20140323115249) do
     t.text     "bio"
     t.string   "homepage"
     t.string   "avatar_url"
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
     t.integer  "team_id"
     t.string   "twitter_handle"
     t.string   "irc_handle"
@@ -143,7 +143,10 @@ ActiveRecord::Schema.define(version: 20140323115249) do
     t.text     "banking_info"
     t.text     "postal_address"
     t.string   "timezone"
-    t.string   "interested_in",  default: [],              array: true
+    t.string   "interested_in",  default: [],                 array: true
+    t.boolean  "is_company",     default: false
+    t.string   "company_name"
+    t.text     "company_info"
     t.boolean  "hide_email"
   end
 
