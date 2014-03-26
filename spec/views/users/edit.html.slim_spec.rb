@@ -31,6 +31,7 @@ describe 'users/edit' do
       assert_select 'input#user_location[name=?]', 'user[location]'
       assert_select 'textarea#user_bio[name=?]', 'user[bio]'
       assert_select 'input#user_homepage[name=?]', 'user[homepage]'
+      assert_select 'input#user_hide_email[name=?]', 'user[hide_email]'
       assert_select 'input#user_is_company[name=?]', 'user[is_company]'
       assert_select 'input#user_company_name[name=?]', 'user[company_name]'
       assert_select 'textarea#user_company_info[name=?]', 'user[company_info]'
