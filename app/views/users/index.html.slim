@@ -16,7 +16,7 @@ table.users.table.table-striped.table-bordered.table-condensed.table-hover
       th = sortable :name
       th = sortable :interested_in
       th = sortable :country
-      th = sortable :location
+      th = sortable :location, User.human_attribute_name(:location)
       - if signed_in?
         th Email
       / th = sortable :github
