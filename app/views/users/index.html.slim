@@ -15,6 +15,7 @@ table.users.table.table-striped.table-bordered.table-condensed.table-hover
       th
       th = sortable :name
       th = sortable :interested_in
+      th = sortable :country
       th = sortable :location
       - if signed_in?
         th Email
@@ -33,6 +34,7 @@ table.users.table.table-striped.table-bordered.table-condensed.table-hover
             img src="#{user.avatar_url}&s=40"
         td = link_to user.name_or_handle, user
         td = user.interested_in.map { |key| User::INTERESTS[key].presence }.compact.join(', ')
+        td = user.country
         td = user.location
         - if signed_in?
           td = mail_to user.email unless user.hide_email?
