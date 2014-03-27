@@ -18,6 +18,9 @@ nav.actions
       - each_handle(@user, :github, :twitter, :irc) do |name, handle, url|
         dt = name.capitalize
         dd = url ? link_to(handle, url) : handle
+      - if @user.country.present?
+        dt = User.human_attribute_name(:country)
+        dd = @user.country
       - if @user.location.present?
         dt = User.human_attribute_name(:location)
         dd = @user.location
