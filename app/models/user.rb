@@ -41,6 +41,7 @@ class User < ActiveRecord::Base
 
   validates :github_handle, presence: true, uniqueness: true
   validates :homepage, format: { with: URL_PREFIX_PATTERN }, allow_blank: true
+  validates :country, presence: true, on: :update
 
   accepts_nested_attributes_for :attendances, allow_destroy: true
 
