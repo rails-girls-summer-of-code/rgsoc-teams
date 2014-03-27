@@ -19,7 +19,7 @@ nav.actions
         dt = name.capitalize
         dd = url ? link_to(handle, url) : handle
       - if @user.location.present?
-        dt Location
+        dt = User.human_attribute_name(:location)
         dd = @user.location
       - if @user.homepage.present?
         dt Homepage
