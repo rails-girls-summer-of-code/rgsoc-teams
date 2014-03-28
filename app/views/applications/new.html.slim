@@ -9,7 +9,9 @@ p.attention
   = f.input :student_name, label: 'Student Name', hint: 'Please provide your first name and surname'
   = f.input :student_email, label: 'Student Email'
   = f.input :about_student, as: :text, label: 'About you', input_html: { rows: '5' }, hint: 'Please tell us who you are, provide all contact information you deem useful and tell us a little bit about yourself and your background.'
+  = f.input :gender_identification_student, label: 'Your gender self-identification', hint: 'No-one is excluded from applying on the basis of gender, but people who self-identify as female, or have experiences being socialized as female, are given preference during selection.'
   = f.input :about_pair, as: :text, label: 'About your pair', input_html: { rows: '5' }, hint: 'If you have a pair (a partner student you plan to work and pair-program with) please tell us who she is, provide contact information and tell us about herself and her background.'
+  = f.input :gender_identification_pair, label: 'Your pair\'s gender self-identification', hint: 'No-one is excluded from applying on the basis of gender, but people who self-identify as female, or have experiences being socialized as female, are given preference during selection.'
   = f.input :location, as: :text, label: 'Where do you plan to live?', input_html: { rows: '5' }
   = f.input :attended_rg_workshop, as: :text, label: 'Did you ever attend a Rails/Ruby workshop?', hint: ' Please give us a little bit of history about yourself and your pair (if any)', input_html: { rows: '5' }
   = f.input :coding_level, :collection => 1..5, :as => :radio_label, label: 'What level of coding do you see yourself in Ruby/Rails?', hint: 'Please try to verify this with your pair and coach, we are aware this is tricky to estimate.'
