@@ -36,7 +36,7 @@ describe 'users/show' do
     it "shows Edit and Destroy link if user can manage" do
       render
       rendered.should match(/Edit/)
-      rendered.should match(/Destroy/)
+      rendered.should match(/Delete Profile/)
     end
   end
 
