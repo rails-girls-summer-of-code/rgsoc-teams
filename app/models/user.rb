@@ -48,7 +48,7 @@ class User < ActiveRecord::Base
 
   accepts_nested_attributes_for :attendances, allow_destroy: true
 
-  before_create :set_username
+  before_create :set_username, :sanitize_location
   after_create :complete_from_github
 
   class << self
@@ -106,6 +106,14 @@ class User < ActiveRecord::Base
 
   def set_username
     self.name ||= self.github_handle
+  end
+
+  # Ensures that the location column either contains non-whitespace text, or is NULL
+  # This ensures that sorting by location yields useful results
+  def sanitize_location
+    if self.name.strip.empty?
+      self.name = nil
+    end
   end
 
   def complete_from_github
