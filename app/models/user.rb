@@ -48,6 +48,7 @@ class User < ActiveRecord::Base
 
   accepts_nested_attributes_for :attendances, allow_destroy: true
 
+  before_create :set_username
   after_create :complete_from_github
 
   class << self
@@ -99,6 +100,12 @@ class User < ActiveRecord::Base
 
   def admin?
     roles.admin.any?
+  end
+
+  private
+
+  def set_username
+    self.name ||= self.github_handle
   end
 
   def complete_from_github
