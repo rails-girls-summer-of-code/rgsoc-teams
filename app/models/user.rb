@@ -23,7 +23,7 @@ class User < ActiveRecord::Base
     'helpdesk'        => 'Helping as a remote coach (helpdesk)',
     'organizing'      => 'Helping as an organizer',
     'deskspace'       => 'Providing office/desk space',
-    'coachingcompany' => 'Providing a coaching team from our company'
+    'coachingcompany' => 'Providing a coaching team from our company',
   }
 
   include ActiveModel::ForbiddenAttributesProtection
