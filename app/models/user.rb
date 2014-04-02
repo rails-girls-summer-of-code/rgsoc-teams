@@ -5,10 +5,13 @@ class User < ActiveRecord::Base
   URL_PREFIX_PATTERN = /\A(http|https).*/i
 
   ORDERS = {
-    name:   'LOWER(users.name || users.github_handle)',
-    team:   'teams.name || teams.projects',
-    github: 'users.github_handle',
-    irc:    'users.irc_handle'
+    name:           "LOWER(users.name)",
+    team:           "COALESCE(teams.name, teams.projects)",
+    github:         "users.github_handle",
+    irc:            "COALESCE(users.irc_handle, '')",
+    location:       "users.location",
+    interested_in:  "users.interested_in",
+    country:        "users.country",
   }
 
   INTERESTS = {
@@ -48,9 +51,16 @@ class User < ActiveRecord::Base
   after_create :complete_from_github
 
   class << self
-    def ordered(order = nil)
-      order = order.to_sym if order
-      scope = order(ORDERS[order || :name]).references(:teams)
+    def ordered(order = nil, direction = 'asc')
+      direction = direction == 'asc' ? 'ASC' : 'DESC'
+
+      if order
+        order = ORDERS.fetch(order.to_sym) { ORDERS.fetch(:name) }
+      else
+        order = ORDERS.fetch(:name)
+      end
+
+      scope = order("#{order} #{direction}").references(:teams)
       scope = scope.joins(:teams).references(:teams) if order == :team
       scope
     end
