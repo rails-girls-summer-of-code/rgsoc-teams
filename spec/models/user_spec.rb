@@ -54,8 +54,14 @@ describe User do
     let(:user) { User.create(github_handle: 'octocat') }
 
     it 'completes attributes from Github' do
-      attrs = user.attributes.slice(*%w(github_id email location))
-      expect(attrs.values).to be == [1, 'octocat@github.com', 'San Francisco']
+      attrs = user.attributes.slice(*%w(github_id email location name))
+      expect(attrs.values).to be == [1, 'octocat@github.com', 'San Francisco', 'monalisa octocat']
+    end
+
+    it 'sets the name to the github_handle if blank' do
+      allow_any_instance_of(Github::User).
+        to receive(:attrs).and_return({ name: '' })
+      expect(user.name).to eql user.github_handle
     end
   end
 
