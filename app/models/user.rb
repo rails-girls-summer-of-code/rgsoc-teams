@@ -112,8 +112,8 @@ class User < ActiveRecord::Base
 
   def complete_from_github
     attrs = Github::User.new(github_handle).attrs rescue {}
-    attrs = attrs.select { |key, value| send(key).blank? && value.present? }
     attrs[:name] = github_handle if attrs[:name].blank?
+    attrs = attrs.select { |key, value| send(key).blank? && value.present? }
     update_attributes attrs
     @just_created = true
   end
