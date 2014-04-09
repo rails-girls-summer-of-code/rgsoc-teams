@@ -95,7 +95,7 @@ class User < ActiveRecord::Base
   end
 
   def name_or_handle
-    name.present? ? name : github_handle
+    name.presence || github_handle
   end
 
   def admin?
