@@ -40,6 +40,8 @@ RgsocTeams::Application.routes.draw do
     resources :submissions
   end
 
+  resources :companies
+
   # get 'activities(.:format)', to: 'activities#index', as: :activities
   get 'activities(/page/:page)(.:format)', to: 'activities#index', as: :activities
 end

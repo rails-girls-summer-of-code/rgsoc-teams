@@ -1,0 +1,23 @@
+nav.actions
+  ul
+    li = link_to icon('plus', 'New Company'), new_company_path, class: 'btn btn-small' if can? :create, Company.new
+
+h1.header
+  = icon('group')
+  span Companies
+
+table.table.table-striped.table-bordered.table-condensed
+  tr
+    th Name
+    th Number of slots for students
+    th Number of coaches
+    th Website
+    th Owner
+
+  - @companies.each do |company|
+    tr
+      td = current_user == company.owner ? link_to(company.name, edit_company_path(company)) : company.name
+      td = company.student_slots
+      td = company.coaches_number
+      td = company.website ? link_to(company.website)  : ''
+      td = link_to company.owner.name, company.owner

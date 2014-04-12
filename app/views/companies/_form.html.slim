@@ -1,0 +1,16 @@
+= simple_nested_form_for @company do |f|
+  - if @company.errors.any?
+    #error_explanation
+      h2 = "#{pluralize(@company.errors.count, "error")} prohibited this company from being saved:"
+      ul
+        - @company.errors.full_messages.each do |message|
+          li = message
+
+  p.help-block
+  = f.input :name, placeholder: 'The name of you company'
+  = f.input :website, placeholder: 'Your website URL'
+  = f.input :student_slots, placeholder: 'How many RGSOC students would you be able to host?'
+  = f.input :coaches_number, placeholder: 'How many coaches could you company provide?'
+
+  .actions
+    = f.submit 'Save', class: 'btn btn-success'

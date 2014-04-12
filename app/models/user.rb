@@ -41,6 +41,7 @@ class User < ActiveRecord::Base
   has_many :teams, -> { uniq }, through: :roles
   has_many :attendances
   has_many :conferences, through: :attendances
+  has_one :company, foreign_key: :owner_id, dependent: :destroy
 
   validates :github_handle, presence: true, uniqueness: true
   validates :homepage, format: { with: URL_PREFIX_PATTERN }, allow_blank: true
