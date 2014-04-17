@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 ruby '2.0.0'
 
-gem 'rails', '4.0.0'
+gem 'rails', '4.0.4'
 gem 'pg'
 gem 'devise'
 gem 'omniauth-github'
@@ -16,6 +16,7 @@ gem 'feedzirra', '>= 0.2.0.rc2'
 gem 'kaminari'
 gem 'bootstrap-kaminari-views'
 gem 'sucker_punch'
+gem 'country_select'
 
 gem 'slim-rails'
 gem 'jquery-rails'
@@ -25,6 +26,7 @@ gem 'font-awesome-sass-rails'
 gem 'sass-rails'
 gem 'coffee-rails'
 gem 'uglifier', '>= 1.0.3'
+gem 'sprockets', '<= 2.11.0' # https://github.com/rails/sass-rails/issues/191
 gem 'sprockets-rails'
 
 gem 'newrelic_rpm'
@@ -54,6 +56,7 @@ group :test do
   gem 'shoulda'
   gem 'ffaker'
   gem 'webmock'
+  gem 'simplecov', require: false
 end
 
 gem 'rails4_upgrade'

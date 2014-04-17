@@ -1,0 +1,7 @@
+form.filter action=request.url
+  input type='hidden' name='sort' value=params[:sort]
+  input type='hidden' name='direction' value=params[:direction]
+  - @filters.each do |interest, label|
+    label.radio
+      = radio_button_tag :interest, interest, params[:interest] == interest.to_s
+      = label

@@ -5,6 +5,7 @@ describe 'users/show' do
     @user = assign(:user, stub_model(User,
       name: 'Name',
       # email: 'Email',
+      country: 'Zamonia',
       location: 'Location',
       bio: 'Bio',
       homepage: 'Homepage',
@@ -22,7 +23,8 @@ describe 'users/show' do
     # Run the generator again with the --webrat flag if you want to use webrat matchers
     rendered.should match(/Name/)
     # rendered.should match(/Email/)
-    rendered.should match(/Location/)
+    rendered.should match @user.country
+    rendered.should match(/City/)
     rendered.should match(/Bio/)
     rendered.should match(/Homepage/)
   end
@@ -36,7 +38,7 @@ describe 'users/show' do
     it "shows Edit and Destroy link if user can manage" do
       render
       rendered.should match(/Edit/)
-      rendered.should match(/Destroy/)
+      rendered.should match(/Delete Profile/)
     end
   end
 

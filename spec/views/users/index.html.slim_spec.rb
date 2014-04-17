@@ -2,6 +2,7 @@ require 'spec_helper'
 
 describe 'users/index' do
   before(:each) do
+    assign(:filters, { all: 'All', foo: 'Bar' })
     assign(:users, [
       stub_model(User, name: 'Name', email: 'Email', location: 'Location', bio: 'Bio', homepage: 'Homepage', role: 'coach'),
       stub_model(User, name: 'Name', email: 'Email', location: 'Location', bio: 'Bio', homepage: 'Homepage', role: 'coach')

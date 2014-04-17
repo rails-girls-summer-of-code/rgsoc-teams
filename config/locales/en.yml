@@ -5,3 +5,8 @@ en:
   time:
     formats:
       time: '%H:%M'
+
+  activerecord:
+    attributes:
+      user:
+        location: City

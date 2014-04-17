@@ -6,6 +6,7 @@
 
 /config/database.yml
 .ruby-version
+.ruby-gemset
 
 .DS_Store
 
@@ -21,3 +22,4 @@
 
 conferences_data.rb
 conferences_raffle.txt
+coverage

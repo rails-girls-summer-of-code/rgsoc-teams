@@ -3,9 +3,9 @@ nav.page
     li = link_to 'All participants', users_path, class: 'back'
 
 nav.actions
-  ul
-    li = link_to 'Edit', edit_user_path(@user), class: 'edit' if can? :edit, @user
-    li = link_to 'Destroy', @user, data: { confirm: 'Are you sure?' }, method: :delete, class: 'destroy' if can? :destroy, @user
+  ul.list-inline
+    li = link_to 'Edit', edit_user_path(@user), class: 'btn btn-default btn-sm edit' if can? :edit, @user
+    li = link_to 'Delete Profile', @user, data: { confirm: 'This action cannot be undone. Are you sure?' }, method: :delete, class: 'btn btn-default btn-sm destroy'
 
 .profile
   - if @user.avatar_url.present?
@@ -18,8 +18,11 @@ nav.actions
       - each_handle(@user, :github, :twitter, :irc) do |name, handle, url|
         dt = name.capitalize
         dd = url ? link_to(handle, url) : handle
+      - if @user.country.present?
+        dt = User.human_attribute_name(:country)
+        dd = @user.country
       - if @user.location.present?
-        dt Location
+        dt = User.human_attribute_name(:location)
         dd = @user.location
       - if @user.homepage.present?
         dt Homepage

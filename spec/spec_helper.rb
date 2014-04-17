@@ -1,3 +1,15 @@
+# simplecov on demand coverage spec.
+# run with "COVERAGE=true bundle exec rake spec"
+if ENV["COVERAGE"]
+  require 'simplecov'
+  SimpleCov.start 'rails' do
+    add_filter '/spec'
+    add_group "Models", "app/models"
+    add_group "Controllers", "app/controllers"
+    coverage_dir File.join("coverage", Time.now.strftime("%Y%m%d-%H%M%S"))
+  end
+end
+
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 ENV["RAILS_ENV"] ||= 'test'
 require File.expand_path("../../config/environment", __FILE__)
