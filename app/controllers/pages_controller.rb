@@ -4,6 +4,16 @@ class PagesController < ActionController::Base
   }
 
   def show
-    render params[:page], layout: LAYOUTS[params[:page].to_sym] || 'application'
+    render page, layout: layout
   end
+
+  private
+
+    def page
+      params[:page].split('/').last
+    end
+
+    def layout
+      LAYOUTS[params[:page].to_sym] || 'application'
+    end
 end
