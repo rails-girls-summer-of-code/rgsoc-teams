@@ -1,6 +1,6 @@
 language: ruby
 rvm:
-- 2.0.0
+- 2.1.1
 bundler_args: --without development production
 notifications:
   email:
@@ -25,6 +25,6 @@ deploy:
   app: rgsoc-teams-production
   run:
     - "rake db:migrate"
-    - restart  
+    - restart
   on:
     repo: rails-girls-summer-of-code/rgsoc-teams
