@@ -3,6 +3,7 @@ require 'spec_helper'
 describe SourcesController do
   describe 'routing' do
     it 'routes to #index' do
+      expect(get('/sources')).to route_to('sources#index')
       expect(get('/teams/1/sources')).to route_to('sources#index', team_id: '1')
     end
 
