@@ -1,15 +1,15 @@
 source 'https://rubygems.org'
 
-ruby '2.0.0'
+ruby '2.1.1'
 
-gem 'rails', '4.0.4'
+gem 'rails', '4.1.0'
 gem 'pg'
 gem 'devise'
 gem 'omniauth-github'
 gem 'cancan'
 # gem 'strong_parameters'
 gem 'redcarpet'
-gem 'simple_form', github: 'plataformatec/simple_form'
+gem 'simple_form', '3.1.0.rc1'
 gem 'nested_form'
 gem 'gh'
 gem 'feedzirra', '>= 0.2.0.rc2'
@@ -26,7 +26,7 @@ gem 'font-awesome-sass-rails'
 gem 'sass-rails'
 gem 'coffee-rails'
 gem 'uglifier', '>= 1.0.3'
-gem 'sprockets', '<= 2.11.0' # https://github.com/rails/sass-rails/issues/191
+# gem 'sprockets', '<= 2.11.0' # https://github.com/rails/sass-rails/issues/191
 gem 'sprockets-rails'
 
 gem 'newrelic_rpm'
