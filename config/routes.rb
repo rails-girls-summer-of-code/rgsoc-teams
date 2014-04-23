@@ -1,12 +1,11 @@
 RgsocTeams::Application.routes.draw do
-  # root to: 'activities#index'
   root to: 'users#index'
 
   get 'application_forms', to: 'applications#new'
   post 'application_forms', to: 'applications#create'
   get 'application', to: 'applications#new'
 
-  get "calendar/index"
+  get 'calendar/index'
   devise_for :users, controllers: { omniauth_callbacks: 'omniauth_callbacks' }
 
   devise_scope :user do
