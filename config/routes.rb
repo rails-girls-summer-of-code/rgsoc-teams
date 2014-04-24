@@ -5,7 +5,6 @@ RgsocTeams::Application.routes.draw do
   post 'application_forms', to: 'applications#create'
   get 'application', to: 'applications#new'
 
-  get 'calendar/index'
   devise_for :users, controllers: { omniauth_callbacks: 'omniauth_callbacks' }
 
   devise_scope :user do
@@ -26,7 +25,8 @@ RgsocTeams::Application.routes.draw do
     resources :roles, only: [:new, :create, :destroy]
   end
 
-  get 'calendar/:action', controller: 'calendar'
+  get 'calendar/index', as: :calendar
+  get 'calendar/events', to: 'calendar#events'
 
   get 'pages/:page', to: 'pages#show', as: :page
 

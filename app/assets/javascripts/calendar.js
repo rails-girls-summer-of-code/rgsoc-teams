@@ -4,7 +4,7 @@ $(function() {
   var container = $('#calendarContainer');
   if(container.length > 0) {
     $.ajax({
-      url: '/calendar/get_events',
+      url: '/calendar/events',
       success: function(events){
         $('#loadingMessage').hide();
         var result = [];

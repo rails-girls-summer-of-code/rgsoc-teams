@@ -2,7 +2,9 @@ class CalendarController < ApplicationController
   def index
   end
 
-  def get_events
-  	render json:Conference.all()
+  def events
+    respond_to do |format|
+      format.json { render json: Conference.all }
+    end
   end
 end
