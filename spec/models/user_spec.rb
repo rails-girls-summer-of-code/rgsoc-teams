@@ -50,12 +50,43 @@ describe User do
     end
   end
 
+  describe 'before_save' do
+    before { subject.github_handle = 'octocat' }
+
+    context 'sanitizing the location' do
+      before do
+        allow_any_instance_of(Github::User).
+          to receive(:attrs).and_return({ location: '' })
+      end
+
+      it 'leaves an undefiend location untouched' do
+        expect { subject.save }.not_to change { subject.location }.from(nil)
+      end
+
+      it 'leaves a meaningful location untouched' do
+        subject.location = 'Testvalley'
+        expect { subject.save }.not_to change { subject.location }
+      end
+
+      it 'unsets a blank location' do
+        subject.location = '  '
+        expect { subject.save }.to change { subject.location }.to(nil)
+      end
+    end
+  end
+
   describe 'after_create' do
     let(:user) { User.create(github_handle: 'octocat') }
 
     it 'completes attributes from Github' do
-      attrs = user.attributes.slice(*%w(github_id email location))
-      expect(attrs.values).to be == [1, 'octocat@github.com', 'San Francisco']
+      attrs = user.attributes.slice(*%w(github_id email location name))
+      expect(attrs.values).to be == [1, 'octocat@github.com', 'San Francisco', 'monalisa octocat']
+    end
+
+    it 'sets the name to the github_handle if blank' do
+      allow_any_instance_of(Github::User).
+        to receive(:attrs).and_return({ name: '' })
+      expect(user.name).to eql user.github_handle
     end
   end
 
