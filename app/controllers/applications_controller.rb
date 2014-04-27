@@ -16,7 +16,6 @@ class ApplicationsController < ApplicationController
       ApplicationFormMailerWorker.new.async.perform(application_id: @application.id)
       @application
     else
-      flash.now.alert = application_form.errors
       render :new
     end
   end

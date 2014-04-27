@@ -37,8 +37,10 @@ describe ApplicationsController do
         expect do
           post :create, application: { student_name: nil }
         end.not_to change { user.applications.count }
-        expect(flash.now[:alert]).to be_present
         expect(response).to render_template 'new'
+        assigns(:application_form).errors.full_messages.each do |error_msg|
+          expect(response.body).to match CGI.escapeHTML(error_msg)
+        end
       end
 
       it 'creates a new application' do

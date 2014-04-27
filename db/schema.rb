@@ -38,6 +38,9 @@ ActiveRecord::Schema.define(version: 20140331202514) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_id"
+    t.string   "gender_identification_student"
+    t.string   "gender_identification_pair"
+    t.text     "misc_info"
   end
 
   create_table "attendances", force: true do |t|
