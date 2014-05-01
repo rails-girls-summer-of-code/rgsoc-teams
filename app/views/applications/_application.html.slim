@@ -1,0 +1,19 @@
+- application = row.application
+
+tr class=cycle(:even, :odd)
+  td = row_counter + 1
+  td = application.id
+  td = link_to application.student_name, application
+  td = application.sponsor_pick
+  td = format_application_project(application)
+  td = application.location
+
+  td = application.total_rating(:mean)
+  td = application.total_rating(:median)
+  td = application.total_rating(:weighted)
+  td = application.total_rating(:truncated)
+
+  = render partial: 'applications/ratings', collection: row.ratings, as: :rating
+
+  td = application.minimum_money
+  td = application.misc_info

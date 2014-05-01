@@ -16,6 +16,8 @@ gem 'kaminari'
 gem 'bootstrap-kaminari-views'
 gem 'sucker_punch'
 gem 'country_select'
+gem 'hashr'
+gem 'simple_statistics'
 
 gem 'slim-rails'
 gem 'jquery-rails'

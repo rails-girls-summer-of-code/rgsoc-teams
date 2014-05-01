@@ -117,6 +117,7 @@ GEM
       mime-types (~> 1.15)
       posix-spawn (~> 0.3.6)
     hashie (2.1.1)
+    hashr (0.0.22)
     hike (1.2.3)
     hirb (0.7.1)
     i18n (0.6.9)
@@ -264,6 +265,7 @@ GEM
     simple_form (3.1.0.rc1)
       actionpack (~> 4.0)
       activemodel (~> 4.0)
+    simple_statistics (0.12)
     simplecov (0.8.2)
       docile (~> 1.1.0)
       multi_json
@@ -335,6 +337,7 @@ DEPENDENCIES
   ffaker
   font-awesome-sass-rails
   gh
+  hashr
   jazz_hands
   jquery-rails
   kaminari
@@ -352,6 +355,7 @@ DEPENDENCIES
   sass-rails
   shoulda
   simple_form (= 3.1.0.rc1)
+  simple_statistics
   simplecov
   slim-rails
   sprockets-rails

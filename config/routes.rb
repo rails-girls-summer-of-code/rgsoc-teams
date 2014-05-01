@@ -1,10 +1,6 @@
 RgsocTeams::Application.routes.draw do
   root to: 'users#index'
 
-  get 'application_forms', to: 'applications#new'
-  post 'application_forms', to: 'applications#create'
-  get 'application', to: 'applications#new'
-
   devise_for :users, controllers: { omniauth_callbacks: 'omniauth_callbacks' }
 
   devise_scope :user do
@@ -17,6 +13,14 @@ RgsocTeams::Application.routes.draw do
   resources :comments, only: :create
   resources :conferences
   resources :attendances
+
+  resources :applications do
+    resources :ratings
+  end
+
+  get 'application', to: 'applications#new', as: :apply
+  get 'application_forms', to: 'applications#new'
+  post 'application_forms', to: 'applications#create'
 
   get 'teams/info', to: 'teams_info#index'
   resources :teams do

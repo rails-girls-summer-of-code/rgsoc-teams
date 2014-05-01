@@ -1,6 +1,12 @@
+require 'applications/table'
+
 class ApplicationsController < ApplicationController
   before_action :authenticate_user!, except: :new
   respond_to :html
+
+  def index
+    @applications = applications_table
+  end
 
   def new
     if signed_in?
@@ -20,6 +26,14 @@ class ApplicationsController < ApplicationController
     end
   end
 
+  def show
+    @application = Application.find(params[:id])
+    @rating = find_or_initialize_rating
+    @data = RatingData.new(@rating.data)
+    @prev = prev_application
+    @next = next_application
+  end
+
   private
 
   def application_form
@@ -36,5 +50,47 @@ class ApplicationsController < ApplicationController
 
   def application_form_params
     params.require(:application).permit(*ApplicationForm::FIELDS)
+  end
+
+  def order
+    params[:order] || session[:order] || :id
+  end
+  helper_method :order
+
+  def persist_order
+    session[:order] = :mean if session[:order] == 'total_rating'
+    session[:order] = params[:order] if params[:order]
+  end
+
+  def exclude
+    (params[:exclude] || session[:exclude] || '').split(',').map(&:strip)
+  end
+
+  def applications
+    @applications = Application.includes(:ratings).sort_by(order)
+  end
+
+  def applications_table
+    Applications::Table.new(Rating.user_names, applications, exclude: exclude)
+  end
+
+  def find_or_initialize_rating
+    @application.ratings.find_or_initialize_by(user: current_user) do |rating|
+      rating.data = Hashr.new(@application.rating_defaults)
+    end
+  end
+
+  def prev_application
+    all = applications
+    all = all.reverse if [:mean, :median, :weighted, :truncated].include?(order)
+    ix = all.index { |a| a.id == params[:id].to_i }
+    all[ix - 1]
+  end
+
+  def next_application
+    all = applications
+    all = all.reverse if [:mean, :median, :weighted, :truncated].include?(order)
+    ix = all.index { |a| a.id == params[:id].to_i }
+    all[ix + 1]
   end
 end
