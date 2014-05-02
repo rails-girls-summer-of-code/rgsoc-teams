@@ -12,4 +12,10 @@ class Role < ActiveRecord::Base
   validates :user, presence: true
   validates :name, inclusion: { in: ROLES }, presence: true
   validates :user_id, uniqueness: { scope: [:name, :team_id] }
+
+  class << self
+    def includes?(role_name)
+      !where(name: role_name).empty?
+    end
+  end
 end
