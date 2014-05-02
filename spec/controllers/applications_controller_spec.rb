@@ -57,6 +57,29 @@ describe ApplicationsController do
         expect(response).to render_template 'create'
       end
     end
+
+
+    describe 'application period' do
+      context 'period is over' do
+        before do
+          Timecop.travel(Time.utc(2014, 5, 2, 23, 59))
+        end
+
+        it 'new renders applications_end template when over' do
+          get :new
+          expect(response).to render_template 'ended'
+        end
+
+        it 'create renders applications_end template when over' do
+          post :create
+          expect(response).to render_template 'ended'
+        end
+
+        after do
+          Timecop.return
+        end
+      end
+    end
   end
 
 end
