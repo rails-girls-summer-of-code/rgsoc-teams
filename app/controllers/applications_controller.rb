@@ -1,4 +1,5 @@
 class ApplicationsController < ApplicationController
+  before_filter :checktime
   before_action :authenticate_user!, except: :new
   respond_to :html
 
@@ -36,5 +37,11 @@ class ApplicationsController < ApplicationController
 
   def application_form_params
     params.require(:application).permit(*ApplicationForm::FIELDS)
+  end
+
+  def checktime
+    if Time.now.utc >= Time.utc(2014, 5, 2, 23, 59)
+      render :ended
+    end
   end
 end
