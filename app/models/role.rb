@@ -1,4 +1,6 @@
 class Role < ActiveRecord::Base
+  include GithubHandle
+
   TEAM_ROLES  = %w(student coach mentor)
   OTHER_ROLES = %w(helpdesk)
   ADMIN_ROLES = %w(supervisor organizer developer)
@@ -10,13 +12,4 @@ class Role < ActiveRecord::Base
   validates :user, presence: true
   validates :name, inclusion: { in: ROLES }, presence: true
   validates :user_id, uniqueness: { scope: [:name, :team_id] }
-
-  def github_handle
-    user.try(:github_handle)
-  end
-
-  def github_handle=(github_handle)
-    self.user = github_handle.present? && User.where(github_handle: github_handle).first || build_user
-    user.github_handle = github_handle
-  end
 end
