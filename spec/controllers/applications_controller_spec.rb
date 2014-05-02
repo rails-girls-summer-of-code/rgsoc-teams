@@ -3,6 +3,10 @@ require 'spec_helper'
 describe ApplicationsController do
   render_views
 
+  before(:all) do
+    Timecop.travel(Time.utc(2013, 5, 2))
+  end
+
   context 'as an anonymous user' do
     describe 'GET new' do
       it 'renders the "sign_in" template' do
