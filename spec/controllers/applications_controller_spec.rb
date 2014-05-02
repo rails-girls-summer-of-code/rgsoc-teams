@@ -3,6 +3,10 @@ require 'spec_helper'
 describe ApplicationsController do
   render_views
 
+  before(:all) do
+    Timecop.travel(Time.utc(2013, 5, 2))
+  end
+
   context 'as an anonymous user' do
     describe 'GET new' do
       it 'renders the "sign_in" template' do
@@ -55,6 +59,29 @@ describe ApplicationsController do
           puts assigns(:application_form).errors.full_messages
         end.to change { user.applications.count }.by(1)
         expect(response).to render_template 'create'
+      end
+    end
+
+
+    describe 'application period' do
+      context 'period is over' do
+        before do
+          Timecop.travel(Time.utc(2014, 5, 2, 23, 59))
+        end
+
+        it 'new renders applications_end template when over' do
+          get :new
+          expect(response).to render_template 'ended'
+        end
+
+        it 'create renders applications_end template when over' do
+          post :create
+          expect(response).to render_template 'ended'
+        end
+
+        after do
+          Timecop.return
+        end
       end
     end
   end
