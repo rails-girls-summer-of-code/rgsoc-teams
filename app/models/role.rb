@@ -2,7 +2,7 @@ class Role < ActiveRecord::Base
   include GithubHandle
 
   TEAM_ROLES  = %w(student coach mentor)
-  OTHER_ROLES = %w(helpdesk)
+  OTHER_ROLES = %w(helpdesk reviewer)
   ADMIN_ROLES = %w(supervisor organizer developer)
   ROLES = TEAM_ROLES + OTHER_ROLES + ADMIN_ROLES
 
