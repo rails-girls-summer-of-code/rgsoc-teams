@@ -68,6 +68,12 @@
         = s.link_to_remove 'Remove'
       = f.link_to_add 'Add another conference', :attendances
 
+    h3 Roles
+    = f.simple_fields_for :roles do |r|
+        = r.input :team_id, as: :select, collection: @teams, required: false
+        = r.input :name, as: :select, collection: Role::ROLES
+    = f.link_to_add 'Add another role', :roles
+
   .actions
     ul.list-inline
       li = f.submit 'Save', class: 'btn btn-success'
