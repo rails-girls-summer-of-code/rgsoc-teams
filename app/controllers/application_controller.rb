@@ -41,4 +41,8 @@ class ApplicationController < ActionController::Base
     headers['Access-Control-Allow-Methods'] = 'POST, GET, OPTIONS'
     headers['Access-Control-Max-Age'] = "1728000"
   end
+
+  def require_role(role_name)
+    redirect_to '/' unless current_user.roles.includes?(role_name)
+  end
 end
