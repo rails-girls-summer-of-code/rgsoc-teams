@@ -62,6 +62,12 @@ module ApplicationHelper
     twitter.to_s.starts_with?('@') ? link_to(twitter, "http://twitter.com/#{twitter.gsub('@', '')}") : twitter
   end
 
+  def format_application_project(application)
+    project = "#{project}"
+    project = "#{application.project_name} (#{application.project_visibility})" if application.project_visibility
+    project
+  end
+
   def if_present?(user, *attrs)
     yield if attrs.any? { |attr| user.send(attr).present? }
   end
@@ -139,6 +145,15 @@ module ApplicationHelper
       links << link_to(role.team.display_name, role.team) if role.team
       links.join(' at ')
     end.compact.join(', ').html_safe
+  end
+
+  def link_to_ordered(text, type)
+    # link_to text, applications_path(order: type), class: order.to_sym == type ? 'active' : ''
+    if order.to_sym == type
+      content_tag :span, text, class: 'active'
+    else
+      link_to text, applications_path(order: type)
+    end
   end
 
   def role_names(team, user)

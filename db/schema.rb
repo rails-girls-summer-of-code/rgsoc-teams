@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140331202514) do
+ActiveRecord::Schema.define(version: 20140501101636) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -41,6 +41,9 @@ ActiveRecord::Schema.define(version: 20140331202514) do
     t.string   "gender_identification_student"
     t.string   "gender_identification_pair"
     t.text     "misc_info"
+    t.string   "sponsor_pick"
+    t.integer  "project_visibility"
+    t.string   "project_name"
   end
 
   create_table "attendances", force: true do |t|
@@ -55,8 +58,9 @@ ActiveRecord::Schema.define(version: 20140331202514) do
     t.integer  "team_id"
     t.integer  "user_id"
     t.text     "text"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.integer  "application_id"
   end
 
   create_table "conferences", force: true do |t|
@@ -83,6 +87,14 @@ ActiveRecord::Schema.define(version: 20140331202514) do
     t.datetime "sent_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "ratings", force: true do |t|
+    t.integer  "application_id"
+    t.text     "data"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "user_id"
   end
 
   create_table "roles", force: true do |t|
@@ -147,10 +159,10 @@ ActiveRecord::Schema.define(version: 20140331202514) do
     t.text     "postal_address"
     t.string   "timezone"
     t.string   "interested_in",  default: [],                 array: true
+    t.boolean  "hide_email"
     t.boolean  "is_company",     default: false
     t.string   "company_name"
     t.text     "company_info"
-    t.boolean  "hide_email"
     t.string   "country"
   end
 

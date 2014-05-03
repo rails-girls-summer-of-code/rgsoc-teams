@@ -25,5 +25,11 @@ FactoryGirl.define do
         FactoryGirl.create(:mentor_role, user: user)
       end
     end
+
+    factory :organizer do
+      after(:create) do |user|
+        FactoryGirl.create(:organizer_role, user: user)
+      end
+    end
   end
 end

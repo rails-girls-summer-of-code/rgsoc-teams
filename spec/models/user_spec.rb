@@ -22,6 +22,28 @@ describe User do
       Role.find_by(name: 'coach', user_id: @user2.id).team.update_attribute(:kind, 'Charity')
     end
 
+    describe 'roles scopes and methods' do
+      before do
+        @organizer = create(:organizer)
+        @role = Role.find_by(name: 'organizer', user_id: @organizer.id)
+      end
+
+      context 'admin scope' do
+        it 'returns admin roles of the user' do
+          expect(@organizer.roles.admin).to eq([@role])
+        end
+      end
+
+      it 'returns true for roles.includes?' do
+        @organizer.roles.includes?('organizer').should eq(true)
+      end
+
+      after do
+        @organizer.destroy
+        @role.destroy
+      end
+    end
+
     describe '.with_assigned_roles' do
       it 'returns users that have any roles assigned' do
         expect(User.with_assigned_roles).to be ==[@user2]

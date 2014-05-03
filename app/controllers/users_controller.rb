@@ -26,7 +26,10 @@ class UsersController < ApplicationController
   end
 
   def edit
-    @user.attendances.build unless @user.attendances.any?
+    if current_user.admin?
+      @user.attendances.build unless @user.attendances.any?
+      @teams = Team.all
+    end
   end
 
   def create
@@ -84,7 +87,8 @@ class UsersController < ApplicationController
         :hide_email,
         :is_company, :company_name, :company_info,
         interested_in: [],
-        attendances_attributes: [:id, :conference_id, :_destroy]
+        attendances_attributes: [:id, :conference_id, :_destroy],
+        roles_attributes: [:id, :name, :team_id]
       )
     end
 

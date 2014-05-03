@@ -47,6 +47,7 @@ class User < ActiveRecord::Base
   validates :country, presence: true, on: :update
 
   accepts_nested_attributes_for :attendances, allow_destroy: true
+  accepts_nested_attributes_for :roles
 
   before_save :sanitize_location
   after_create :complete_from_github

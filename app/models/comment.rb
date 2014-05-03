@@ -1,6 +1,11 @@
 class Comment < ActiveRecord::Base
   belongs_to :team
   belongs_to :user
+  belongs_to :application
+
+  def for_application?
+    !application_id.blank?
+  end
 
   class << self
     def ordered
@@ -8,4 +13,3 @@ class Comment < ActiveRecord::Base
     end
   end
 end
-
