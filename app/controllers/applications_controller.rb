@@ -127,7 +127,7 @@ class ApplicationsController < ApplicationController
   end
 
   def checktime
-    if Time.now.utc >= Time.utc(2014, 5, 2, 23, 59)
+    if Time.now.utc >= Time.utc(2014, 5, 2, 23, 59) && !params[:ignore_time]
       render :ended
     end
   end
