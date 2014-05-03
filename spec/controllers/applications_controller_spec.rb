@@ -3,7 +3,7 @@ require 'spec_helper'
 describe ApplicationsController do
   render_views
 
-  before(:all) do
+  before do
     Timecop.travel(Time.utc(2013, 5, 2))
   end
 
