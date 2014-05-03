@@ -39,7 +39,7 @@ class Application < ActiveRecord::Base
 
   def average_skill_level
     skill_levels = ratings.map {|rating| rating.data['skill_level'] }
-    skill_levels.inject(:+) / skill_levels.size
+    (skill_levels.inject(:+) || 0) / skill_levels.size
   end
 
   def total_rating(type)
