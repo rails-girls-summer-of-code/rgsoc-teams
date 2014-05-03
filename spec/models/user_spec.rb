@@ -23,7 +23,7 @@ describe User do
     end
 
     describe 'roles scopes and methods' do
-      before(:all) do
+      before do
         @organizer = create(:organizer)
         @role = Role.find_by(name: 'organizer', user_id: @organizer.id)
       end
@@ -36,6 +36,11 @@ describe User do
 
       it 'returns true for roles.includes?' do
         @organizer.roles.includes?('organizer').should eq(true)
+      end
+
+      after do
+        @organizer.destroy
+        @role.destroy
       end
     end
 
