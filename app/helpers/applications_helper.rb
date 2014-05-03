@@ -3,7 +3,7 @@ module ApplicationsHelper
     session[:display_bonus_points]
   end
 
-  def display_super_students?
-    session[:display_super_students]
+  def display_cs_students?
+    session[:display_cs_students]
   end
 end

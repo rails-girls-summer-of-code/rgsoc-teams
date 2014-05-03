@@ -19,11 +19,11 @@ class Application
       end
 
       def display?
-        display_super_students? || !application.super_student?
+        display_cs_students? || !application.cs_student?
       end
 
-      def display_super_students?
-        options.key?(:display_super_students) && options[:display_super_students]
+      def display_cs_students?
+        options.key?(:display_cs_students) && options[:display_cs_students]
       end
     end
 

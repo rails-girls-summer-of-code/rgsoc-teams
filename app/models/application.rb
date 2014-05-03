@@ -67,14 +67,14 @@ class Application < ActiveRecord::Base
     sponsor_pick.present?
   end
 
-  def super_student?
-    flags.include?('super_student')
+  def cs_student?
+    flags.include?('cs_student')
   end
-  alias super_student super_student?
+  alias cs_student cs_student?
 
-  def super_student=(value)
+  def cs_student=(value)
     flags_will_change!
-    value != '0' ? flags.concat(['super_student']).uniq : flags.delete('super_student')
+    value != '0' ? flags.concat(['cs_student']).uniq : flags.delete('cs_student')
   end
 
   def estimated_women_priority

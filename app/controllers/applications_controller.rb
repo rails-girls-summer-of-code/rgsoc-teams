@@ -53,7 +53,7 @@ class ApplicationsController < ApplicationController
   private
 
   def store_filters
-    [:display_bonus_points, :display_super_students].each do |key|
+    [:display_bonus_points, :display_cs_students].each do |key|
       session[key] = params[:filter][key] == 'true' if params[:filter] && params[:filter].key?(key)
     end
   end
@@ -64,7 +64,7 @@ class ApplicationsController < ApplicationController
 
   def application_params
     if params[:action] == "update"
-      params.require(:application).permit(:misc_info, :project_visibility, :project_name, :hidden, :super_student)
+      params.require(:application).permit(:misc_info, :project_visibility, :project_name, :hidden, :cs_student)
     else
       {
         name: application_form.student_name,
@@ -101,7 +101,7 @@ class ApplicationsController < ApplicationController
   end
 
   def applications_table
-    options = { exclude: exclude, display_super_students: session[:display_super_students] }
+    options = { exclude: exclude, display_cs_students: session[:display_cs_students] }
     Application::Table.new(Rating.user_names, applications, options)
   end
 
