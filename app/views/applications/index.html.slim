@@ -16,7 +16,5 @@ table.table.table-striped.table-bordered.table-condensed.table-hover
       - @applications.names.each do |name|
         th = name
 
-      th = link_to_ordered 'Money', :min_living
-
   tbody
     = render partial: 'applications/application', collection: @applications.rows, as: :row

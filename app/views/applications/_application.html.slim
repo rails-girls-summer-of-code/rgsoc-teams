@@ -13,5 +13,3 @@ tr class=cycle(:even, :odd)
   td = application.total_rating(:truncated)
 
   = render partial: 'applications/ratings', collection: row.ratings, as: :rating
-
-  td = application.minimum_money
