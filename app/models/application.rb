@@ -37,6 +37,11 @@ class Application < ActiveRecord::Base
     application_data['minimum_money']
   end
 
+  def average_skill_level
+    skill_levels = ratings.map {|rating| rating.data['skill_level'] }
+    skill_levels.inject(:+) / skill_levels.size
+  end
+
   def total_rating(type)
     total = calc_rating(type)
     total += SPONSOR_PICK if sponsor_pick?
