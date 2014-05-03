@@ -1,7 +1,7 @@
 require 'applications/table'
 
 class ApplicationsController < ApplicationController
-  before_filter :checktime
+  before_filter :checktime, only: [:new, :create]
   before_action :authenticate_user!, except: :new
   before_filter -> { require_role 'reviewer' }, except: [:new, :create]
   respond_to :html
