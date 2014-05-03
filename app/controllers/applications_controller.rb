@@ -27,6 +27,17 @@ class ApplicationsController < ApplicationController
     end
   end
 
+  def edit
+    @application = Application.find(params[:id])
+  end
+
+  def update
+    @application = Application.find(params[:id])
+    if @application.update_attributes(application_params)
+      redirect_to action: :index
+    end
+  end
+
   def show
     @application = Application.find(params[:id])
     @rating = find_or_initialize_rating
@@ -42,11 +53,15 @@ class ApplicationsController < ApplicationController
   end
 
   def application_params
-    {
-      name: application_form.student_name,
-      email: application_form.student_email,
-      application_data: application_form.serializable_hash
-    }
+    if params[:application]
+      params.require(:application).permit(:misc_info, :project_visibility, :project_name)
+    else
+      {
+        name: application_form.student_name,
+        email: application_form.student_email,
+        application_data: application_form.serializable_hash
+      }
+    end
   end
 
   def application_form_params
