@@ -5,7 +5,7 @@ tr class=cycle(:even, :odd)
   td = application.id
   td = link_to application.student_name, application
   td = format_application_project(application)
-  td = application.location
+  td = truncate(application.location)
 
   td = application.total_rating(:mean)
   td = application.total_rating(:median)
