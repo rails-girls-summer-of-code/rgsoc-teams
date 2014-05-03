@@ -15,6 +15,14 @@ class Application < ActiveRecord::Base
       end
       sorted
     end
+
+    def hidden
+      where('applications.hidden IS NOT NULL and applications.hidden = ?', true)
+    end
+
+    def visible
+      where('applications.hidden IS NULL or applications.hidden = ?', false)
+    end
   end
 
   def student_name

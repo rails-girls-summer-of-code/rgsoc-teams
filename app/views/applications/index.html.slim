@@ -18,3 +18,5 @@ table.table.table-striped.table-bordered.table-condensed.table-hover
 
   tbody
     = render partial: 'applications/application', collection: @applications.rows, as: :row
+
+= link_to "Show hidden", "?show_hidden=true"

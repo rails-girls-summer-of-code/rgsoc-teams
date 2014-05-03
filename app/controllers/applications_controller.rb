@@ -45,8 +45,10 @@ class ApplicationsController < ApplicationController
     @application = Application.find(params[:id])
     @rating = find_or_initialize_rating
     @data = RatingData.new(@rating.data)
-    @prev = prev_application
-    @next = next_application
+    unless @application.hidden
+      @prev = prev_application
+      @next = next_application
+    end
   end
 
   private
@@ -57,7 +59,7 @@ class ApplicationsController < ApplicationController
 
   def application_params
     if params[:action] == "update"
-      params.require(:application).permit(:misc_info, :project_visibility, :project_name)
+      params.require(:application).permit(:misc_info, :project_visibility, :project_name, :hidden)
     else
       {
         name: application_form.student_name,
@@ -86,7 +88,11 @@ class ApplicationsController < ApplicationController
   end
 
   def applications
-    @applications = Application.includes(:ratings).sort_by(order)
+    if params[:show_hidden]
+      @applications = Application.hidden.includes(:ratings).sort_by(order)
+    else
+      @applications = Application.visible.includes(:ratings).sort_by(order)
+    end
   end
 
   def applications_table
