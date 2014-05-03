@@ -18,7 +18,6 @@ table.table.table-striped.table-bordered.table-condensed.table-hover
         th = name
 
       th = link_to_ordered 'Money', :min_living
-      th Comment
 
   tbody
     = render partial: 'applications/application', collection: @applications.rows, as: :row

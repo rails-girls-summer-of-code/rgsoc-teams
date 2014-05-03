@@ -5,7 +5,10 @@
 
 h1 = @application.student_name
 
-= link_to 'Edit', edit_application_path(@application)
+h2 Additional Info
+p = @application.misc_info
+
+= link_to 'Edit additional Info', edit_application_path(@application)
 
 - @application.application_data.each do |title, value|
   h4 = title
