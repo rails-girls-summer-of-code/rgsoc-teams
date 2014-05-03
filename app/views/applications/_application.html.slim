@@ -7,10 +7,12 @@ tr class=cycle(:even, :odd)
   td = format_application_project(application)
   td = truncate(application.location)
 
-  td = application.total_rating(:mean)
-  td = application.total_rating(:median)
-  td = application.total_rating(:weighted)
-  td = application.total_rating(:truncated)
-  td = application.average_skill_level
+  td = application.total_rating(:mean, bonus: display_bonus_points?)
+  td = application.total_rating(:median, bonus: display_bonus_points?)
+  td = application.total_rating(:weighted, bonus: display_bonus_points?)
+  td = application.total_rating(:truncated, bonus: display_bonus_points?)
 
   = render partial: 'applications/ratings', collection: row.ratings, as: :rating
+
+  td = application.average_skill_level
+  td = application.super_student? ? 'x' : ''
