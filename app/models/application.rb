@@ -11,7 +11,7 @@ class Application < ActiveRecord::Base
       sorted = if [:mean, :median, :weighted, :truncated].include?(column)
         all.to_a.sort_by { |application| application.total_rating(column) }.reverse
       else
-        column == :id ? order(column) : all.sort_by(&column)
+        column == :id ? order(column) : all.to_a.sort_by(&column)
       end
       sorted
     end

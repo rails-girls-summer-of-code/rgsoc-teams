@@ -63,7 +63,7 @@ module ApplicationHelper
   end
 
   def format_application_project(application)
-    project = "#{project}"
+    project = "#{application.project_name}"
     project = "#{application.project_name} (#{application.project_visibility})" if application.project_visibility
     project
   end
