@@ -57,6 +57,7 @@ group :test do
   gem 'ffaker'
   gem 'webmock'
   gem 'simplecov', require: false
+  gem 'timecop'
 end
 
 gem 'rails4_upgrade'

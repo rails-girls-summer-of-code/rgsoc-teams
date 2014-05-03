@@ -296,6 +296,7 @@ GEM
     thor (0.19.1)
     thread_safe (0.3.3)
     tilt (1.4.1)
+    timecop (0.7.1)
     timers (1.1.0)
     treetop (1.4.15)
       polyglot
@@ -360,6 +361,7 @@ DEPENDENCIES
   slim-rails
   sprockets-rails
   sucker_punch
+  timecop
   uglifier (>= 1.0.3)
   unicorn
   webmock
