@@ -1,12 +1,20 @@
-form class='filter' action=request.url
+form id='applications-filter' class='filter' action=request.url
   label
     = hidden_field_tag 'filter[display_bonus_points]', false
     = check_box_tag 'filter[display_bonus_points]', true, display_bonus_points?
     ' Display bonus points
   label
-    = hidden_field_tag 'filter[display_super_students]', false
-    = check_box_tag 'filter[display_super_students]', true, display_super_students?
-    ' Display super students
+    = hidden_field_tag 'filter[display_cs_students]', false
+    = check_box_tag 'filter[display_cs_students]', true, display_cs_students?
+    ' Display CS students
+  label
+    = hidden_field_tag 'filter[display_remote_teams]', false
+    = check_box_tag 'filter[display_remote_teams]', true, display_remote_teams?
+    ' Display remote teams
+  label
+    = hidden_field_tag 'filter[display_duplicates]', false
+    = check_box_tag 'filter[display_duplicates]', true, display_duplicates?
+    ' Display duplicates
 
 table.table.table-striped.table-bordered.table-condensed.table-hover
   thead
@@ -27,7 +35,12 @@ table.table.table-striped.table-bordered.table-condensed.table-hover
         th = name
 
       th = link_to_ordered 'Skill', :average_skill_level
-      th = link_to_ordered 'S', :super_student
+      - if display_cs_students?
+        th = link_to_ordered 'CS', :cs_student
+      - if display_remote_teams?
+        th = link_to_ordered 'R', :remote_team
+      - if display_duplicates?
+        th = link_to_ordered 'D', :duplicate
 
   tbody
     = render partial: 'applications/application', collection: @applications.rows, as: :row

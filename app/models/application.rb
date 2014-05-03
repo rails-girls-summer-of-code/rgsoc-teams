@@ -67,14 +67,14 @@ class Application < ActiveRecord::Base
     sponsor_pick.present?
   end
 
-  def super_student?
-    flags.include?('super_student')
-  end
-  alias super_student super_student?
+  [:cs_student, :remote_team, :duplicate].each do |flag|
+    define_method(flag) { flags.include?(flag.to_s) }
+    alias_method :"#{flag}?", flag
 
-  def super_student=(value)
-    flags_will_change!
-    value != '0' ? flags.concat(['super_student']).uniq : flags.delete('super_student')
+    define_method :"#{flag}=" do |value|
+      flags_will_change!
+      value != '0' ? flags.concat([flag.to_s]).uniq : flags.delete(flag.to_s)
+    end
   end
 
   def estimated_women_priority
