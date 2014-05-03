@@ -18,7 +18,7 @@ gem 'sucker_punch'
 gem 'country_select'
 gem 'hashr'
 gem 'simple_statistics'
-
+gem 'rails_autolink'
 gem 'slim-rails'
 gem 'jquery-rails'
 gem 'bootstrap-sass'
