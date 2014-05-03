@@ -11,5 +11,6 @@ tr class=cycle(:even, :odd)
   td = application.total_rating(:median, bonus: display_bonus_points?)
   td = application.total_rating(:weighted, bonus: display_bonus_points?)
   td = application.total_rating(:truncated, bonus: display_bonus_points?)
+  td = application.average_skill_level
 
   = render partial: 'applications/ratings', collection: row.ratings, as: :rating
