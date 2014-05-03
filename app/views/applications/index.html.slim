@@ -12,7 +12,6 @@ table.table.table-striped.table-bordered.table-condensed.table-hover
       th = link_to_ordered 'Median', :median
       th = link_to_ordered 'Weighted', :weighted
       th = link_to_ordered "Trunc'ed", :truncated
-      th = link_to_ordered "Average Skill Level", :average_skill_level
 
       - @applications.names.each do |name|
         th = name
