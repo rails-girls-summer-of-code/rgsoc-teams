@@ -27,6 +27,7 @@ table.table.table-striped.table-bordered.table-condensed.table-hover
         th = name
 
       th = link_to_ordered 'Skill', :average_skill_level
+      th = link_to_ordered 'S', :super_student
 
   tbody
     = render partial: 'applications/application', collection: @applications.rows, as: :row
