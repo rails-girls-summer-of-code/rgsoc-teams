@@ -38,7 +38,7 @@ class Application < ActiveRecord::Base
   end
 
   def average_skill_level
-    skill_levels = ratings.map {|rating| Hashr.new(rating.data)['skill_level'] }.compact
+    skill_levels = ratings.map {|rating| rating.data['skill_level'] }.compact
     !skill_levels.empty? ? skill_levels.inject(:+) / skill_levels.size : 0
   end
 
