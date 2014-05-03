@@ -35,6 +35,8 @@ class ApplicationsController < ApplicationController
     @application = Application.find(params[:id])
     if @application.update_attributes(application_params)
       redirect_to action: :index
+    else
+      render :edit
     end
   end
 
@@ -53,7 +55,7 @@ class ApplicationsController < ApplicationController
   end
 
   def application_params
-    if params[:application]
+    if params[:action] == "update"
       params.require(:application).permit(:misc_info, :project_visibility, :project_name)
     else
       {
