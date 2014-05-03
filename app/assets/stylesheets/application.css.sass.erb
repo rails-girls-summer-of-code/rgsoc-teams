@@ -24,18 +24,22 @@
 body
   z-index: 0
   position: relative
-  width: 1026px
   margin: 0 auto
   padding-bottom: 5em
   &:before
     z-index: -1
     position: absolute
-    left: -500%
+    left: 0
+    right: 0
     top: 0
-    width: 1000%
     height: 66px
     background-color: rgb(222, 57, 12)
     content: ' '
+
+body>header,
+#content
+  width: 1026px
+  margin: 0 auto
 
 li
   list-style-type: none
@@ -47,7 +51,6 @@ header
     margin: 0
     width: 210px
     height: 58px
-
     a
       display: block
       overflow: hidden
