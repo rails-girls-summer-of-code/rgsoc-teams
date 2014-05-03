@@ -1,4 +1,6 @@
 class ApplicationsController < ApplicationController
+  include ApplicationsHelper
+
   before_filter :store_filters, only: :index
   before_filter :checktime, only: [:new, :create]
   before_action :authenticate_user!, except: :new
@@ -53,7 +55,8 @@ class ApplicationsController < ApplicationController
   private
 
   def store_filters
-    [:display_bonus_points, :display_cs_students].each do |key|
+    [:bonus_points, :cs_students, :remote_teams, :duplicates].each do |key|
+      key = :"display_#{key}"
       session[key] = params[:filter][key] == 'true' if params[:filter] && params[:filter].key?(key)
     end
   end
@@ -64,7 +67,8 @@ class ApplicationsController < ApplicationController
 
   def application_params
     if params[:action] == "update"
-      params.require(:application).permit(:misc_info, :project_visibility, :project_name, :hidden, :cs_student)
+      flags = [:cs_student, :remote_team, :duplicate]
+      params.require(:application).permit(:misc_info, :project_visibility, :project_name, :hidden, *flags)
     else
       {
         name: application_form.student_name,
@@ -101,7 +105,10 @@ class ApplicationsController < ApplicationController
   end
 
   def applications_table
-    options = { exclude: exclude, display_cs_students: session[:display_cs_students] }
+    options = { exclude: exclude }
+    options = [:cs_students, :remote_teams, :duplicates].inject(options) do |options, flag|
+      options.merge(:"display_#{flag}" => send(:"display_#{flag}?"))
+    end
     Application::Table.new(Rating.user_names, applications, options)
   end
 

@@ -1,9 +1,5 @@
 module ApplicationsHelper
-  def display_bonus_points?
-    session[:display_bonus_points]
-  end
-
-  def display_cs_students?
-    session[:display_cs_students]
+  [:bonus_points, :cs_students, :remote_teams, :duplicates].each do |flag|
+    define_method(:"display_#{flag}?") { session[:"display_#{flag}"] }
   end
 end

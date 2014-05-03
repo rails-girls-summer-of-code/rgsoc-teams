@@ -19,7 +19,16 @@ class Application
       end
 
       def display?
-        display_cs_students? || !application.cs_student?
+        p options
+        p display_cs_students?
+        (display_cs_students?  || !application.cs_student?) and
+        # (display_remote_teams? || !application.remote_team?) and
+        # (display_duplicate?    || !application.duplicate?)
+        true
+      end
+
+      def display_remote_teams?
+        options.key?(:display_remote_teams) && options[:display_remote_teams]
       end
 
       def display_cs_students?

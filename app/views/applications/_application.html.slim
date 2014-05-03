@@ -15,4 +15,9 @@ tr class=cycle(:even, :odd)
   = render partial: 'applications/ratings', collection: row.ratings, as: :rating
 
   td = application.average_skill_level
-  td = application.cs_student? ? 'x' : ''
+  - if display_cs_students?
+    td = application.cs_student? ? 'x' : ''
+  - if display_remote_teams?
+    td = application.remote_team? ? 'x' : ''
+  - if display_duplicates?
+    td = application.duplicate? ? 'x' : ''
