@@ -3,26 +3,28 @@
   = link_to 'Overview', applications_path
   = link_to @next ? 'Next &rarr;'.html_safe : '', @next, class: 'right'
 
-h1 = @application.student_name
+#application
+  h1 = @application.student_name
 
-h2 Additional Info
-p = @application.misc_info
+  h2 Additional Info
+  p = @application.misc_info
 
-= link_to 'Edit additional Info', edit_application_path(@application)
+  = link_to 'Edit additional Info', edit_application_path(@application)
 
-- @application.application_data.each do |title, value|
-  h4 = title
-  p  = simple_format(value || 'n/a')
+  h2 Submitted Application
+  - @application.application_data.each do |title, value|
+    h4 = title
+    p  = simple_format(value || 'n/a')
 
-#comments
-  h2 Comments
+  #comments
+    h2 Comments
 
-  = simple_form_for Comment.new(application_id: @application.id) do |f|
-    = f.input :application_id, as: :hidden
-    = f.input :text
-    = f.submit 'Add comment'
+    = simple_form_for Comment.new(application_id: @application.id) do |f|
+      = f.input :application_id, as: :hidden
+      = f.input :text
+      = f.submit 'Add comment'
 
-  = render @application.comments.all
+    = render @application.comments.all
 
 #rating
   = simple_form_for [@application, @rating] do |f|
