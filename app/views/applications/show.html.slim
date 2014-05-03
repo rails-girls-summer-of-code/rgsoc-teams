@@ -19,12 +19,13 @@
   #comments
     h2 Comments
 
+    = render @application.comments.all
+
     = simple_form_for Comment.new(application_id: @application.id) do |f|
       = f.input :application_id, as: :hidden
       = f.input :text
       = f.submit 'Add comment'
 
-    = render @application.comments.all
 
 #rating
   = simple_form_for [@application, @rating] do |f|
