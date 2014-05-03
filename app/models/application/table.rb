@@ -1,4 +1,4 @@
-module Applications
+class Application
   class Table
     class Row
       attr_reader :names, :application, :options
@@ -17,6 +17,14 @@ module Applications
           rating || Hashr.new(value: '-')
         end
       end
+
+      def display?
+        display_super_students? || !application.super_student?
+      end
+
+      def display_super_students?
+        options.key?(:display_super_students) && options[:display_super_students]
+      end
     end
 
     attr_reader :names, :rows
@@ -24,6 +32,8 @@ module Applications
     def initialize(names, applications, options)
       @names = names
       @rows = applications.map { |application| Row.new(names, application, options) }
+      @rows = rows.select { |row| row.display? }
     end
   end
 end
+

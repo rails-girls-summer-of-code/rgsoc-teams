@@ -1,6 +1,5 @@
-require 'applications/table'
-
 class ApplicationsController < ApplicationController
+  before_filter :store_filters, only: :index
   before_filter :checktime, only: [:new, :create]
   before_action :authenticate_user!, except: :new
   before_filter -> { require_role 'reviewer' }, except: [:new, :create]
@@ -53,13 +52,19 @@ class ApplicationsController < ApplicationController
 
   private
 
+  def store_filters
+    [:display_bonus_points, :display_super_students].each do |key|
+      session[key] = params[:filter][key] == 'true' if params[:filter] && params[:filter].key?(key)
+    end
+  end
+
   def application_form
     @application_form ||= ApplicationForm.new(application_form_params)
   end
 
   def application_params
     if params[:action] == "update"
-      params.require(:application).permit(:misc_info, :project_visibility, :project_name, :hidden)
+      params.require(:application).permit(:misc_info, :project_visibility, :project_name, :hidden, :super_student)
     else
       {
         name: application_form.student_name,
@@ -96,7 +101,8 @@ class ApplicationsController < ApplicationController
   end
 
   def applications_table
-    Applications::Table.new(Rating.user_names, applications, exclude: exclude)
+    options = { exclude: exclude, display_super_students: session[:display_super_students] }
+    Application::Table.new(Rating.user_names, applications, options)
   end
 
   def find_or_initialize_rating

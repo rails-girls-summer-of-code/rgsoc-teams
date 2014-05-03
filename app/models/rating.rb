@@ -22,7 +22,9 @@ class Rating < ActiveRecord::Base
     Hashr.new(super)
   end
 
-  def value
+  def value(options = {})
+    data = self.data
+    data = data.except(:bonus) unless options[:bonus]
     data.values.sum
   end
 end

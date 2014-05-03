@@ -42,16 +42,16 @@ class Application < ActiveRecord::Base
     (skill_levels.inject(:+) || 0) / skill_levels.size
   end
 
-  def total_rating(type)
-    total = calc_rating(type)
+  def total_rating(type, options = {})
+    total = calc_rating(type, options)
     total += SPONSOR_PICK if sponsor_pick?
     total += project_visibility.to_i unless project_visibility.blank?
     total
   end
 
-  def calc_rating(type)
+  def calc_rating(type, options)
     types = { truncated: :mean, weighted: :wma }
-    values = ratings.map(&:value).sort
+    values = ratings.map { |rating| rating.value(options) }.sort
     values.shift && values.pop if type == :truncated
     values.size > 0 ? values.send(types[type] || type).round_to(1) : 0
   rescue
@@ -65,6 +65,16 @@ class Application < ActiveRecord::Base
 
   def sponsor_pick?
     sponsor_pick.present?
+  end
+
+  def super_student?
+    flags.include?('super_student')
+  end
+  alias super_student super_student?
+
+  def super_student=(value)
+    flags_will_change!
+    value != '0' ? flags.concat(['super_student']).uniq : flags.delete('super_student')
   end
 
   def estimated_women_priority
