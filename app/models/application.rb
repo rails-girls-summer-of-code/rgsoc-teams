@@ -2,6 +2,8 @@ class Application < ActiveRecord::Base
   belongs_to :user
   validates_presence_of :user_id, :name, :email, :application_data
 
+  PROJECT_VISIBILITY_WEIGHT = 2
+
   has_many :ratings
   has_many :comments
 
@@ -44,8 +46,8 @@ class Application < ActiveRecord::Base
 
   def total_rating(type, options = {})
     total = calc_rating(type, options)
-    total += SPONSOR_PICK if sponsor_pick?
-    total += project_visibility.to_i unless project_visibility.blank?
+    # total += SPONSOR_PICK if sponsor_pick?
+    total += project_visibility.to_i * PROJECT_VISIBILITY_WEIGHT unless project_visibility.blank?
     total
   end
 
