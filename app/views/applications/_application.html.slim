@@ -3,9 +3,12 @@
 tr class=cycle(:even, :odd)
   td = row_counter + 1
   td = application.id
-  td = link_to application.student_name, application
-  td.project = format_application_project(application)
-  td = format_application_location(application)
+  td.name
+    = link_to application.student_name, application
+  td.project
+    = format_application_project(application)
+  td.location
+    = format_application_location(application)
 
   td = application.total_rating(:mean, bonus: display_bonus_points?)
   td = application.total_rating(:median, bonus: display_bonus_points?)
