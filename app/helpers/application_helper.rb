@@ -68,6 +68,24 @@ module ApplicationHelper
     project
   end
 
+  def format_application_location(application)
+    country = country_for_application(application).to_s
+    location = location_for_application(application).to_s
+    location = location.gsub(country, '').gsub(%r(^\s*/\s*), '').gsub(/[\(\)]*/, '')
+    [location.strip, country.strip].select(&:present?).join('/')
+  end
+
+  def country_for_application(application)
+    country = application.country.present? ? application.country : application.user.try(:country)
+    country = 'US' if country == 'United States of Amerika'
+    country = 'UK' if country == 'United Kingdom'
+    country
+  end
+
+  def location_for_application(application)
+    application.city.present? ? application.city : application.user.try(:location)
+  end
+
   def if_present?(user, *attrs)
     yield if attrs.any? { |attr| user.send(attr).present? }
   end
