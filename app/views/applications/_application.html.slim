@@ -20,12 +20,6 @@ tr class=cycle(:even, :odd)
   = render partial: 'applications/ratings', collection: row.ratings, as: :rating
 
   td = application.average_skill_level
-  td = application.mentor_pick? ? 'x' : ''
-  - if display_cs_students?
-    td = application.cs_student? ? 'x' : ''
-  - if display_in_teams?
-    td = application.in_team? ? 'x' : ''
-  - if display_remote_teams?
-    td = application.remote_team? ? 'x' : ''
-  - if display_duplicates?
-    td = application.duplicate? ? 'x' : ''
+  - [:mentor_pick, :volunteering_team, :remote_team, :cs_student, :in_team, :duplicate].each do |flag|
+    - if !respond_to?(:"display_#{flag}?") || send(:"display_#{flag}?")
+      td = application.send(:"#{flag}?") ? 'x' : ''
