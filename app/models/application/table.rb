@@ -72,7 +72,8 @@ class Application
     def sort_by_picks(rows)
       rows.sort do |lft, rgt|
         if lft.total_picks == rgt.total_picks
-          lft.total_rating(order, options) <=> lft.total_rating(order, options)
+          result = lft.total_rating(:mean, options) <=> rgt.total_rating(:mean, options)
+          result
         else
           lft.total_picks <=> rgt.total_picks
         end
