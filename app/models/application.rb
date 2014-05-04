@@ -36,6 +36,10 @@ class Application < ActiveRecord::Base
     !skill_levels.empty? ? skill_levels.inject(:+) / skill_levels.size : 0
   end
 
+  def total_picks
+    ratings.where(pick: true).count
+  end
+
   def total_rating(type, options = {})
     total = calc_rating(type, options)
     total += COACHING_COMPANY_WEIGHT if coaching_company.present?

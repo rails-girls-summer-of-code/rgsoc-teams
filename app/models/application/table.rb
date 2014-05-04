@@ -9,6 +9,10 @@ class Application
         @options = options
       end
 
+      def total_picks
+        application.total_picks
+      end
+
       def total_rating(column, options)
         application.total_rating(column, options)
       end
@@ -48,7 +52,13 @@ class Application
     end
 
     def sort(rows)
-      rows.sort_by { |row| row.total_rating(order, options) }.reverse
+      rows.sort_by do |row|
+        if options[:order] == :picks
+          row.total_picks
+        else
+          row.total_rating(order, options)
+        end
+      end.reverse
     end
   end
 end

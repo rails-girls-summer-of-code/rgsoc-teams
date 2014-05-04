@@ -12,6 +12,7 @@ tr class=cycle(:even, :odd)
   td.coaching_company
     = application.coaching_company
 
+  td = application.total_picks
   td = application.total_rating(:mean, bonus_points: display_bonus_points?)
   td = application.total_rating(:median, bonus_points: display_bonus_points?)
   td = application.total_rating(:weighted, bonus_points: display_bonus_points?)

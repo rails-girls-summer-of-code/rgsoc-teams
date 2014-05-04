@@ -17,7 +17,6 @@ class RatingsController < ApplicationController
   private
 
   def rating_params
-    p params
     params.require(:rating).permit(:pick, data: RatingData::FIELDS).tap { |d| p d }
   end
 
