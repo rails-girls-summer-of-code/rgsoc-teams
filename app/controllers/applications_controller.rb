@@ -107,7 +107,7 @@ class ApplicationsController < ApplicationController
 
   def applications_table
     options = { order: order, exclude: exclude }
-    options = [:cs_students, :remote_teams, :in_teams, :duplicates].inject(options) do |options, flag|
+    options = [:bonus_points, :cs_students, :remote_teams, :in_teams, :duplicates].inject(options) do |options, flag|
       options.merge(:"display_#{flag}" => send(:"display_#{flag}?"))
     end
     Application::Table.new(Rating.user_names, applications, options)
