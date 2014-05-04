@@ -23,15 +23,15 @@ class Application
       end
 
       def display?
-        (display_cs_students?  || !application.cs_student?) and
-        (display_remote_teams? || !application.remote_team?) and
-        (display_in_teams?     || !application.in_team?) and
-        (display_duplicates?   || !application.duplicate?)
+        (cs_students?  || !application.cs_student?) and
+        (remote_teams? || !application.remote_team?) and
+        (in_teams?     || !application.in_team?) and
+        (duplicates?   || !application.duplicate?)
       end
 
       [:cs_students, :remote_teams, :in_teams, :duplicates].each do |flag|
-        define_method(:"display_#{flag}?") do
-          options.key?(:"display_#{flag}") && options[:"display_#{flag}"]
+        define_method(flag) do
+          options.key?(flag) && options[flag]
         end
       end
     end
@@ -41,7 +41,6 @@ class Application
     def initialize(names, applications, options)
       @names = names
       @options = options
-      p options
       @order = options[:order].try(:to_sym) || :id
       @rows = applications.map { |application| Row.new(names, application, options) }
       @rows = rows.select { |row| row.display? }
