@@ -57,7 +57,7 @@ class ApplicationsController < ApplicationController
 
   def store_filters
     [:bonus_points, :cs_students, :remote_teams, :duplicates].each do |key|
-      key = :"display_#{key}"
+      key = :"hide_#{key}"
       session[key] = params[:filter][key] == 'true' if params[:filter] && params[:filter].key?(key)
     end
   end

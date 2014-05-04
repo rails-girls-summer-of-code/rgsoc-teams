@@ -19,20 +19,15 @@ class Application
       end
 
       def display?
-        p options
-        p display_cs_students?
         (display_cs_students?  || !application.cs_student?) and
-        # (display_remote_teams? || !application.remote_team?) and
-        # (display_duplicate?    || !application.duplicate?)
-        true
+        (display_remote_teams? || !application.remote_team?) and
+        (display_duplicates?   || !application.duplicate?)
       end
 
-      def display_remote_teams?
-        options.key?(:display_remote_teams) && options[:display_remote_teams]
-      end
-
-      def display_cs_students?
-        options.key?(:display_cs_students) && options[:display_cs_students]
+      [:cs_students, :remote_teams, :duplicates].each do |flag|
+        define_method(:"display_#{flag}?") do
+          options.key?(:"display_#{flag}") && options[:"display_#{flag}"]
+        end
       end
     end
 

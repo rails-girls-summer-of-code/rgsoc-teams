@@ -1,20 +1,20 @@
 form id='applications-filter' class='filter' action=request.url
   label
-    = hidden_field_tag 'filter[display_bonus_points]', false
-    = check_box_tag 'filter[display_bonus_points]', true, display_bonus_points?
-    ' Display bonus points
+    = hidden_field_tag 'filter[hide_bonus_points]', false
+    = check_box_tag 'filter[hide_bonus_points]', true, hide_bonus_points?
+    ' Hide bonus points
   label
-    = hidden_field_tag 'filter[display_cs_students]', false
-    = check_box_tag 'filter[display_cs_students]', true, display_cs_students?
-    ' Display CS students
+    = hidden_field_tag 'filter[hide_cs_students]', false
+    = check_box_tag 'filter[hide_cs_students]', true, hide_cs_students?
+    ' Hide CS students
   label
-    = hidden_field_tag 'filter[display_remote_teams]', false
-    = check_box_tag 'filter[display_remote_teams]', true, display_remote_teams?
-    ' Display remote teams
+    = hidden_field_tag 'filter[hide_remote_teams]', false
+    = check_box_tag 'filter[hide_remote_teams]', true, hide_remote_teams?
+    ' Hide remote teams
   label
-    = hidden_field_tag 'filter[display_duplicates]', false
-    = check_box_tag 'filter[display_duplicates]', true, display_duplicates?
-    ' Display duplicates
+    = hidden_field_tag 'filter[hide_duplicates]', false
+    = check_box_tag 'filter[hide_duplicates]', true, hide_duplicates?
+    ' Hide duplicates
 
 table.table.table-striped.table-bordered.table-condensed.table-hover
   thead
