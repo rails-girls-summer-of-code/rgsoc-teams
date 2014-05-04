@@ -30,7 +30,7 @@ class Application
       end
 
       [:cs_students, :remote_teams, :in_teams, :duplicates].each do |flag|
-        define_method(flag) do
+        define_method(:"#{flag}?") do
           options.key?(flag) && options[flag]
         end
       end
