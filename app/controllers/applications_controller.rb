@@ -69,7 +69,7 @@ class ApplicationsController < ApplicationController
   def application_params
     if params[:action] == "update"
       flags = [:hidden, :cs_student, :remote_team, :in_team, :duplicate]
-      params.require(:application).permit(:misc_info, :project_visibility, :project_name, :city, :country, *flags)
+      params.require(:application).permit(:misc_info, :project_visibility, :project_name, :city, :country, :coaching_company, *flags)
     else
       {
         name: application_form.student_name,
