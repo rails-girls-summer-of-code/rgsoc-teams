@@ -86,6 +86,13 @@ module ApplicationHelper
     application.city.present? ? application.city : application.user.try(:location)
   end
 
+  def format_application_flags(application)
+    flags = [:hidden, :cs_student, :remote_team, :duplicate, :in_team].select do |flag|
+      application.send(:"#{flag}?")
+    end
+    flags.map { |flag| flag.to_s.titleize }.join(', ')
+  end
+
   def if_present?(user, *attrs)
     yield if attrs.any? { |attr| user.send(attr).present? }
   end

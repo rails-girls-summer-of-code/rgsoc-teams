@@ -9,9 +9,29 @@
   h1 = @application.student_name
 
   h2 Additional Info
+
+  p = link_to 'Edit additional Info', edit_application_path(@application)
+
   p = @application.misc_info
 
-  = link_to 'Edit additional Info', edit_application_path(@application)
+  table.misc_info
+    tbody
+      tr
+        td Location
+        td = format_application_location(@application)
+      tr
+        td Project name
+        td = @application.project_name
+      - if @application.coaching_company
+        tr
+          td Coaching Company
+          td = @application.coaching_company
+      tr
+        td Project visibility
+        td = @application.project_visibility || '-'
+      tr
+        td Flags
+        td = format_application_flags(@application)
 
   h2 Submitted Application
   - @application.application_data.each do |title, value|
