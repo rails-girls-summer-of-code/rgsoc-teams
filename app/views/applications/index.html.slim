@@ -43,6 +43,7 @@ table#applications.table.table-striped.table-bordered.table-condensed.table-hove
 
       th = link_to_ordered 'M', :mentor_pick
       th = link_to_ordered 'V', :volunteering_team?
+
       - if display_remote_teams?
         th = link_to_ordered 'R', :remote_team
       - if display_cs_students?
