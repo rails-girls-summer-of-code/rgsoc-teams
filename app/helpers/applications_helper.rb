@@ -7,4 +7,10 @@ module ApplicationsHelper
   def rating_classes_for(rating)
     "pick" if rating.pick?
   end
+
+  def application_classes_for(application)
+    classes = [cycle(:even, :odd)]
+    classes << 'volunteering_team' if application.volunteering_team?
+    classes.join(' ')
+  end
 end
