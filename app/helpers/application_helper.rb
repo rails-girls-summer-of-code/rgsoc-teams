@@ -77,7 +77,7 @@ module ApplicationHelper
 
   def country_for_application(application)
     country = application.country.present? ? application.country : application.user.try(:country)
-    country = 'US' if country == 'United States of Amerika'
+    country = 'US' if country == 'United States of America'
     country = 'UK' if country == 'United Kingdom'
     country
   end
