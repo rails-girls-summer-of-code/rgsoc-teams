@@ -24,7 +24,9 @@ class Rating < ActiveRecord::Base
 
   def value(options = {})
     data = self.data
+    p options
     data = data.except(:bonus) unless options[:bonus_points]
+    p data
     data.values.sum
   end
 end
