@@ -3,4 +3,8 @@ module ApplicationsHelper
     define_method(:"display_#{flag}?") { not session[:"hide_#{flag}"] }
     define_method(:"hide_#{flag}?")    { session[:"hide_#{flag}"] }
   end
+
+  def rating_classes_for(rating)
+    "pick" if rating.pick?
+  end
 end
