@@ -9,6 +9,8 @@ tr class=cycle(:even, :odd)
     = format_application_project(application)
   td.location
     = format_application_location(application)
+  td.coaching_company
+    = application.coaching_company
 
   td = application.total_rating(:mean, bonus: display_bonus_points?)
   td = application.total_rating(:median, bonus: display_bonus_points?)
