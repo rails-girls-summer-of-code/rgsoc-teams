@@ -53,7 +53,7 @@ class Application
 
     def sort(rows)
       rows.sort_by do |row|
-        if options[:order] == :picks
+        if options[:order] == 'picks'
           row.total_picks
         else
           row.total_rating(order, options)
