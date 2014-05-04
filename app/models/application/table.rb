@@ -60,6 +60,24 @@ class Application
         end
       end.reverse
     end
+
+    def sort(rows)
+      if options[:order] == 'picks'
+        sort_by_picks(rows).reverse
+      else
+        rows.sort_by { |row| row.total_rating(order, options) }.reverse
+      end
+    end
+
+    def sort_by_picks(rows)
+      rows.sort do |lft, rgt|
+        if lft.total_picks == rgt.total_picks
+          lft.total_rating(order, options) <=> lft.total_rating(order, options)
+        else
+          lft.total_picks <=> rgt.total_picks
+        end
+      end
+    end
   end
 end
 
