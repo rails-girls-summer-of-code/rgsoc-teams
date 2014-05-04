@@ -47,7 +47,7 @@ class Application
     end
 
     def sort(rows)
-      rows.sort_by { |row| row.total_rating(order, options) }
+      rows.sort_by { |row| row.total_rating(order, options) }.reverse
     end
   end
 end
