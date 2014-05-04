@@ -40,6 +40,7 @@ class Application
 
     def initialize(names, applications, options)
       @names = names
+      @options = options
       @order = options[:order].try(:to_sym) || :id
       @rows = applications.map { |application| Row.new(names, application, options) }
       @rows = rows.select { |row| row.display? }
