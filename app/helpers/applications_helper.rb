@@ -4,8 +4,11 @@ module ApplicationsHelper
     define_method(:"hide_#{flag}?")    { session[:"hide_#{flag}"] }
   end
 
-  def rating_classes_for(rating)
-    "pick" if rating.pick?
+  def rating_classes_for(rating, user)
+    classes = []
+    classes << "pick" if rating.pick?
+    classes << 'own_rating' if rating.user == user
+    classes.join(' ')
   end
 
   def application_classes_for(application)
