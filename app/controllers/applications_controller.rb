@@ -99,14 +99,14 @@ class ApplicationsController < ApplicationController
 
   def applications
     if params[:show_hidden]
-      @applications = Application.hidden.includes(:ratings).sort_by(order)
+      @applications = Application.hidden.includes(:ratings) #.sort_by(order)
     else
-      @applications = Application.visible.includes(:ratings).sort_by(order)
+      @applications = Application.visible.includes(:ratings) #.sort_by(order)
     end
   end
 
   def applications_table
-    options = { exclude: exclude }
+    options = { order: order, exclude: exclude }
     options = [:cs_students, :remote_teams, :in_teams, :duplicates].inject(options) do |options, flag|
       options.merge(:"display_#{flag}" => send(:"display_#{flag}?"))
     end

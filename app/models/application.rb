@@ -9,15 +9,15 @@ class Application < ActiveRecord::Base
   has_many :comments
 
   class << self
-    def sort_by(column)
-      column = column.to_sym
-      sorted = if [:mean, :median, :weighted, :truncated].include?(column)
-        all.to_a.sort_by { |application| application.total_rating(column) }.reverse
-      else
-        column == :id ? order(column) : all.to_a.sort_by(&column)
-      end
-      sorted
-    end
+    # def sort_by(column)
+    #   column = column.to_sym
+    #   sorted = if [:mean, :median, :weighted, :truncated].include?(column)
+    #     all.to_a.sort_by { |application| application.total_rating(column) }.reverse
+    #   else
+    #     column == :id ? order(column) : all.to_a.sort_by(&column)
+    #   end
+    #   sorted
+    # end
 
     def hidden
       where('applications.hidden IS NOT NULL and applications.hidden = ?', true)

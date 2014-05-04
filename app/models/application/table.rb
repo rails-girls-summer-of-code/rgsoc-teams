@@ -9,6 +9,10 @@ class Application
         @options = options
       end
 
+      def total_rating(column, options)
+        application.total_rating(column, options)
+      end
+
       def ratings
         @ratings ||= names.map do |name|
           ratings = application.ratings
@@ -32,12 +36,18 @@ class Application
       end
     end
 
-    attr_reader :names, :rows
+    attr_reader :names, :rows, :order, :options
 
     def initialize(names, applications, options)
       @names = names
+      @order = options[:order].try(:to_sym) || :id
       @rows = applications.map { |application| Row.new(names, application, options) }
       @rows = rows.select { |row| row.display? }
+      @rows = sort(rows)
+    end
+
+    def sort(rows)
+      rows.sort_by { |row| row.total_rating(order, options) }
     end
   end
 end
