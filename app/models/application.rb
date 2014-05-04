@@ -102,7 +102,7 @@ class Application < ActiveRecord::Base
   end
 
   def estimated_support
-    value = application_data[:hours_per_coach]
+    value = application_data['hours_per_coach']
     return unless value =~ /^\d+$/
     value = value.to_i
     case true
@@ -117,11 +117,11 @@ class Application < ActiveRecord::Base
   end
 
   def student_skill_level
-    application_data[:coding_level].try(:to_i)
+    application_data['coding_level'].try(:to_i)
   end
 
   def pair_skill_level
-    application_data[:coding_level_pair].try(:to_i)
+    application_data['coding_level_pair'].try(:to_i)
   end
 
   PRACTICE_TIME = {
@@ -133,10 +133,10 @@ class Application < ActiveRecord::Base
   }
 
   def student_practice_time
-    PRACTICE_TIME[application_data[:learning_since_workshop]]
+    PRACTICE_TIME[application_data['learning_since_workshop']]
   end
 
   def pair_practice_time
-    PRACTICE_TIME[application_data[:learning_since_workshop_pair]]
+    PRACTICE_TIME[application_data['learning_since_workshop_pair']]
   end
 end
