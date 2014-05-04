@@ -40,6 +40,7 @@ table#applications.table.table-striped.table-bordered.table-condensed.table-hove
         th = name.slice(0, 2)
 
       th = link_to_ordered 'Skill', :average_skill_level
+      th = link_to_ordered 'M', :mentor_pick
       - if display_cs_students?
         th = link_to_ordered 'CS', :cs_student
       - if display_in_teams?

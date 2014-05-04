@@ -2,23 +2,14 @@ class Application < ActiveRecord::Base
   belongs_to :user
   validates_presence_of :user_id, :name, :email, :application_data
 
-  PROJECT_VISIBILITY_WEIGHT = 2
-  COACHING_COMPANY_WEIGHT = 2
+  PROJECT_VISIBILITY_WEIGHT = ENV['PROJECT_VISIBILITY_WEIGHT'] || 2
+  COACHING_COMPANY_WEIGHT = ENV['COACHING_COMPANY_WEIGHT'] || 2
+  MENTOR_PICK_WEIGHT = ENV['MENTOR_PICK_WEIGHT'] || 2
 
   has_many :ratings
   has_many :comments
 
   class << self
-    # def sort_by(column)
-    #   column = column.to_sym
-    #   sorted = if [:mean, :median, :weighted, :truncated].include?(column)
-    #     all.to_a.sort_by { |application| application.total_rating(column) }.reverse
-    #   else
-    #     column == :id ? order(column) : all.to_a.sort_by(&column)
-    #   end
-    #   sorted
-    # end
-
     def hidden
       where('applications.hidden IS NOT NULL and applications.hidden = ?', true)
     end
@@ -47,8 +38,8 @@ class Application < ActiveRecord::Base
 
   def total_rating(type, options = {})
     total = calc_rating(type, options)
-    # total += SPONSOR_PICK if sponsor_pick?
     total += COACHING_COMPANY_WEIGHT if coaching_company.present?
+    total += MENTOR_PICK_WEIGHT if mentor_pick?
     total += project_visibility.to_i * PROJECT_VISIBILITY_WEIGHT unless project_visibility.blank?
     total
   end
@@ -72,7 +63,7 @@ class Application < ActiveRecord::Base
     sponsor_pick.present?
   end
 
-  [:cs_student, :remote_team, :in_team, :duplicate].each do |flag|
+  [:mentor_pick, :cs_student, :remote_team, :in_team, :duplicate].each do |flag|
     define_method(flag) { flags.include?(flag.to_s) }
     alias_method :"#{flag}?", flag
 
