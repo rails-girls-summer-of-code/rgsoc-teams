@@ -3,7 +3,6 @@
   = a.input :project_visibility
   = a.input :project_name
   = a.input :hidden
-  = a.input :cs_student, as: :boolean
-  = a.input :remote_team, as: :boolean
-  = a.input :duplicate, as: :boolean
+  - [:cs_student, :remote_team, :duplicate, :in_team].each do |key|
+    = a.input key, as: :boolean
   = a.submit 'Save'

@@ -56,7 +56,7 @@ class ApplicationsController < ApplicationController
   private
 
   def store_filters
-    [:bonus_points, :cs_students, :remote_teams, :duplicates].each do |key|
+    [:bonus_points, :cs_students, :remote_teams, :in_teams, :duplicates].each do |key|
       key = :"hide_#{key}"
       session[key] = params[:filter][key] == 'true' if params[:filter] && params[:filter].key?(key)
     end
@@ -68,7 +68,7 @@ class ApplicationsController < ApplicationController
 
   def application_params
     if params[:action] == "update"
-      flags = [:cs_student, :remote_team, :duplicate]
+      flags = [:cs_student, :remote_team, :in_teams, :duplicate]
       params.require(:application).permit(:misc_info, :project_visibility, :project_name, :hidden, *flags)
     else
       {
@@ -107,7 +107,7 @@ class ApplicationsController < ApplicationController
 
   def applications_table
     options = { exclude: exclude }
-    options = [:cs_students, :remote_teams, :duplicates].inject(options) do |options, flag|
+    options = [:cs_students, :remote_teams, :in_teams, :duplicates].inject(options) do |options, flag|
       options.merge(:"display_#{flag}" => send(:"display_#{flag}?"))
     end
     Application::Table.new(Rating.user_names, applications, options)

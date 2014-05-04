@@ -15,6 +15,10 @@ form id='applications-filter' class='filter' action=request.url
     = hidden_field_tag 'filter[hide_duplicates]', false
     = check_box_tag 'filter[hide_duplicates]', true, hide_duplicates?
     ' Hide duplicates
+  label
+    = hidden_field_tag 'filter[hide_in_teams]', false
+    = check_box_tag 'filter[hide_in_teams]', true, hide_in_teams?
+    ' Hide In
 
 table.table.table-striped.table-bordered.table-condensed.table-hover
   thead
@@ -37,6 +41,8 @@ table.table.table-striped.table-bordered.table-condensed.table-hover
       th = link_to_ordered 'Skill', :average_skill_level
       - if display_cs_students?
         th = link_to_ordered 'CS', :cs_student
+      - if display_in_teams?
+        th = link_to_ordered 'I', :in_teams
       - if display_remote_teams?
         th = link_to_ordered 'R', :remote_team
       - if display_duplicates?

@@ -21,10 +21,11 @@ class Application
       def display?
         (display_cs_students?  || !application.cs_student?) and
         (display_remote_teams? || !application.remote_team?) and
+        (display_in_teams?     || !application.in_team?) and
         (display_duplicates?   || !application.duplicate?)
       end
 
-      [:cs_students, :remote_teams, :duplicates].each do |flag|
+      [:cs_students, :remote_teams, :in_teams, :duplicates].each do |flag|
         define_method(:"display_#{flag}?") do
           options.key?(:"display_#{flag}") && options[:"display_#{flag}"]
         end

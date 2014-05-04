@@ -67,7 +67,7 @@ class Application < ActiveRecord::Base
     sponsor_pick.present?
   end
 
-  [:cs_student, :remote_team, :duplicate].each do |flag|
+  [:cs_student, :remote_team, :in_team, :duplicate].each do |flag|
     define_method(flag) { flags.include?(flag.to_s) }
     alias_method :"#{flag}?", flag
 
