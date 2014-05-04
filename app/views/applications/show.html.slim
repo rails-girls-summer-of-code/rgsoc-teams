@@ -53,6 +53,8 @@
   = simple_form_for [@application, @rating] do |f|
 
     = f.simple_fields_for :data, @data do |d|
+      = f.input :pick, label: "My Pick"
+
       h3 A. Women get priority
 
       .button_group

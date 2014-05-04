@@ -5,8 +5,10 @@ class RatingData
 
   extend ActiveModel::Naming
 
-  FIELDS = [:women_priority, :skill_level, :practice_time,
-            :project_time, :support, :planning, :bonus]
+  FIELDS = [
+    :women_priority, :skill_level, :practice_time,
+    :project_time, :support, :planning, :bonus
+  ]
 
   attr_accessor *FIELDS
 
