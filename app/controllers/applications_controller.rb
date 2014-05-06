@@ -68,7 +68,7 @@ class ApplicationsController < ApplicationController
 
   def application_params
     if params[:action] == "update"
-      flags = [:hidden, :cs_student, :remote_team, :mentor_pick, :volunteering_team, :in_team, :duplicate]
+      flags = [:hidden, :cs_student, :remote_team, :mentor_pick, :volunteering_team, :in_team, :duplicate, :selected]
       params.require(:application).permit(:misc_info, :project_visibility, :project_name, :city, :country, :coaching_company, *flags)
     else
       {
@@ -107,7 +107,8 @@ class ApplicationsController < ApplicationController
 
   def applications_table
     options = { order: order, exclude: exclude }
-    options = [:bonus_points, :cs_students, :remote_teams, :in_teams, :duplicates].inject(options) do |options, flag|
+    flags = [:bonus_points, :cs_students, :remote_teams, :in_teams, :duplicates]
+    options = flags.inject(options) do |options, flag|
       options.merge(flag => send(:"display_#{flag}?"))
     end
     Application::Table.new(Rating.user_names, applications, options)

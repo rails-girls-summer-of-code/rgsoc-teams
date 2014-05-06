@@ -13,6 +13,7 @@ module ApplicationsHelper
 
   def application_classes_for(application)
     classes = [cycle(:even, :odd)]
+    classes << 'selected' if application.selected?
     classes << 'volunteering_team' if application.volunteering_team?
     classes.join(' ')
   end

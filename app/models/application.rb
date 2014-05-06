@@ -52,7 +52,6 @@ class Application < ActiveRecord::Base
     types = { truncated: :mean, weighted: :wma }
     values = ratings.map { |rating| rating.value(options) }.sort
     values.shift && values.pop if type == :truncated
-    p type
     rating = values.size > 0 ? values.send(types[type] || type).round_to(1) : 0
     rating
   rescue
@@ -68,7 +67,7 @@ class Application < ActiveRecord::Base
     sponsor_pick.present?
   end
 
-  [:mentor_pick, :cs_student, :remote_team, :volunteering_team, :in_team, :duplicate].each do |flag|
+  [:mentor_pick, :cs_student, :remote_team, :volunteering_team, :in_team, :duplicate, :selected].each do |flag|
     define_method(flag) { flags.include?(flag.to_s) }
     alias_method :"#{flag}?", flag
 
