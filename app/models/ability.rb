@@ -38,6 +38,11 @@ class Ability
     can :crud, Submission if user.admin?
     can :crud, :comments  if user.admin?
     can :read, :users_info if user.admin?
+
+    can :read, Company
+    can :crud, Company do |company|
+      user.admin? or company.owner == user or signed_in?(user) && company.new_record?
+    end
   end
 
   def signed_in?(user)

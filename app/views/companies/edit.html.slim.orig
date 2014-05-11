@@ -1,0 +1,17 @@
+nav.page
+  ul
+<<<<<<< HEAD
+    li = link_to 'Back', companies_path, class: 'back'
+=======
+    li = link_to 'Back', @companies, class: 'back'
+>>>>>>> 8feec0d... Create companies: remove show action and create views
+
+nav.actions
+  ul
+    li
+      = link_to 'Destroy', @company, data: { confirm: 'Are you sure?' }, method: :delete, class: 'destroy'
+
+h1 Editing company
+
+== render 'form'
+

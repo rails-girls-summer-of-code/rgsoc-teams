@@ -1,0 +1,13 @@
+nav.page
+  ul
+    li = link_to 'Back', companies_path, class: 'back'
+
+nav.actions
+  ul
+    li
+      = link_to 'Destroy', @company, data: { confirm: 'Are you sure?' }, method: :delete, class: 'destroy'
+
+h1 Editing company
+
+== render 'form'
+
