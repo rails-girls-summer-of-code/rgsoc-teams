@@ -9,15 +9,8 @@ class Application < ActiveRecord::Base
   has_many :ratings
   has_many :comments
 
-  class << self
-    def hidden
-      where('applications.hidden IS NOT NULL and applications.hidden = ?', true)
-    end
-
-    def visible
-      where('applications.hidden IS NULL or applications.hidden = ?', false)
-    end
-  end
+  scope :hidden, -> { where('applications.hidden IS NOT NULL and applications.hidden = ?', true) }
+  scope :visible, -> { where('applications.hidden IS NULL or applications.hidden = ?', false) }
 
   def student_name
     application_data['student_name']
