@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe Application do
-  subject { FactoryGirl.create(:application) }
+  subject { FactoryGirl.build_stubbed(:application) }
 
   it { should validate_presence_of(:name) }
   it { should validate_presence_of(:email) }
@@ -9,6 +9,8 @@ describe Application do
 
   its(:average_skill_level) { should be_present }
   its(:total_picks) { should be_present }
+
+  it { should respond_to(:sponsor_pick?) }
 
   describe 'scopes' do
     describe '.hidden' do
@@ -70,6 +72,20 @@ describe Application do
 
     default_methods.each do |key|
       its("estimated_#{key}") { should be_present }
+    end
+
+    describe ".estimated_support" do
+      it 'returns the a estimated value depending on coach-hours' do
+        hours = {
+          5 => 8,
+          3 => 5,
+          1 => 1
+        }
+        hours.each do |key, value|
+          subject.stub(:application_data).and_return({ 'hours_per_coach' => key.to_s })
+          expect(subject.estimated_support).to eq(value)
+        end
+      end
     end
   end
 end
