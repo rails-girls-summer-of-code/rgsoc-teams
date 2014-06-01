@@ -97,11 +97,11 @@ class Application < ActiveRecord::Base
   def estimated_support
     value = application_data['hours_per_coach']
     return unless value =~ /^\d+$/
-    value = value.to_i
-    case true
-      when value >= 5 then 8
-      when value >= 3 then 5
-      when value >= 1 then 1
+
+    case value.to_i
+    when 5 then 8
+    when 3 then 5
+    when 1 then 1
     end
   end
 
