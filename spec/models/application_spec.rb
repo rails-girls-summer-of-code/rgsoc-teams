@@ -30,8 +30,8 @@ describe Application do
     end
   end
 
-  describe "flags" do
-    flags = %w(mentor_pick cs_student remote_team volunteering_team in_team duplicate selected)
+  describe 'flags' do
+    flags = Application::FLAGS
 
     flags.each do |flag|
       it { should respond_to("#{flag}?") }
@@ -39,7 +39,7 @@ describe Application do
     end
 
     it 'adds the flag if the value is > 0' do
-      flag = flags.sample
+      flag = flags.sample.to_sym
       expect(subject.flags).not_to include(flag)
 
       subject.send("#{flag}=", '1')
@@ -47,7 +47,7 @@ describe Application do
     end
 
     it 'removes the flag if the value is 0' do
-      flag = flags.sample
+      flag = flags.sample.to_sym
       subject.flags = [flag]
 
       expect(subject.flags).to include(flag)
@@ -74,7 +74,7 @@ describe Application do
       its("estimated_#{key}") { should be_present }
     end
 
-    describe ".estimated_support" do
+    describe '.estimated_support' do
       it 'returns the a estimated value depending on coach-hours' do
         hours = {
           5 => 8,
@@ -82,7 +82,7 @@ describe Application do
           1 => 1
         }
         hours.each do |key, value|
-          subject.stub(:application_data).and_return({ 'hours_per_coach' => key.to_s })
+          subject.stub(:application_data).and_return('hours_per_coach' => key.to_s)
           expect(subject.estimated_support).to eq(value)
         end
       end
