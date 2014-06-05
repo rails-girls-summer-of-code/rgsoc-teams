@@ -208,12 +208,12 @@ module ApplicationHelper
   end
 
   def time_for_user(user)
-    if user.timezone
-      Time.use_zone(user.timezone) do |time|
-        localize(Time.zone.now, format: "%I:%M %p")
+    if !user.timezone.blank?
+      Time.use_zone(user.timezone) do
+        localize(Time.zone.now, format: '%I:%M %p')
       end
     else
-        "-"
+      '-'
     end
   end
 

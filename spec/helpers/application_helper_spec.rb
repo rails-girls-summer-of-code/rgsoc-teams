@@ -69,4 +69,26 @@ describe ApplicationHelper do
       expect(role_names(@team, @user)).to eql 'Coach, Mentor'
     end
   end
+
+  describe '.time_for_user' do
+    let(:user) { FactoryGirl.create(:user, timezone: "Europe/Rome") }
+
+    before do
+      Timecop.travel(Time.utc(2013, 5, 2, "12:00"))
+    end
+
+    it 'returns the time based on a users timezone' do
+      expect(time_for_user(user)).to eq("02:00 PM")
+    end
+
+    it 'returns a dash when no timezone set' do
+      user.stub(:timezone).and_return(nil)
+      expect(time_for_user(user)).to eq("-")
+    end
+
+    it 'returns a dash when timezone is empty' do
+      user.stub(:timezone).and_return("")
+      expect(time_for_user(user)).to eq("-")
+    end
+  end
 end
