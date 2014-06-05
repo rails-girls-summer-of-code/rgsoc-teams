@@ -1,7 +1,13 @@
 # simplecov on demand coverage spec.
 # run with "COVERAGE=true bundle exec rake spec"
-if ENV["COVERAGE"]
+if ENV["COVERAGE"] || ENV['CI']
   require 'simplecov'
+  require 'coveralls'
+
+  SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter[
+    SimpleCov::Formatter::HTMLFormatter,
+    Coveralls::SimpleCov::Formatter
+  ]
   SimpleCov.start 'rails' do
     add_filter '/spec'
     add_group "Models", "app/models"

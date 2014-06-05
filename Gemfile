@@ -56,7 +56,7 @@ group :test do
   gem 'shoulda'
   gem 'ffaker'
   gem 'webmock'
-  gem 'simplecov', require: false
+  gem 'coveralls', require: false
   gem 'timecop'
 end
 

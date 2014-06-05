@@ -1,5 +1,7 @@
 RgsocTeams::Application.routes.draw do
-  root to: 'users#index'
+  resources :events
+
+  root to: 'activities#index'
 
   devise_for :users, controllers: { omniauth_callbacks: 'omniauth_callbacks' }
 

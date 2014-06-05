@@ -5,19 +5,14 @@ class Application < ActiveRecord::Base
   PROJECT_VISIBILITY_WEIGHT = ENV['PROJECT_VISIBILITY_WEIGHT'] || 2
   COACHING_COMPANY_WEIGHT = ENV['COACHING_COMPANY_WEIGHT'] || 2
   MENTOR_PICK_WEIGHT = ENV['MENTOR_PICK_WEIGHT'] || 2
+  FLAGS = [:hidden, :cs_student, :remote_team, :mentor_pick,
+           :volunteering_team, :in_team, :duplicate, :selected, :remote_team]
 
   has_many :ratings
   has_many :comments
 
-  class << self
-    def hidden
-      where('applications.hidden IS NOT NULL and applications.hidden = ?', true)
-    end
-
-    def visible
-      where('applications.hidden IS NULL or applications.hidden = ?', false)
-    end
-  end
+  scope :hidden, -> { where('applications.hidden IS NOT NULL and applications.hidden = ?', true) }
+  scope :visible, -> { where('applications.hidden IS NULL or applications.hidden = ?', false) }
 
   def student_name
     application_data['student_name']
@@ -67,13 +62,13 @@ class Application < ActiveRecord::Base
     sponsor_pick.present?
   end
 
-  [:mentor_pick, :cs_student, :remote_team, :volunteering_team, :in_team, :duplicate, :selected].each do |flag|
+  FLAGS.each do |flag|
     define_method(flag) { flags.include?(flag.to_s) }
     alias_method :"#{flag}?", flag
 
     define_method :"#{flag}=" do |value|
       flags_will_change!
-      value != '0' ? flags.concat([flag.to_s]).uniq : flags.delete(flag.to_s)
+      value != '0' ? flags.concat([flag.to_sym]).uniq : flags.delete(flag.to_sym)
     end
   end
 
@@ -104,11 +99,11 @@ class Application < ActiveRecord::Base
   def estimated_support
     value = application_data['hours_per_coach']
     return unless value =~ /^\d+$/
-    value = value.to_i
-    case true
-      when value >= 5 then 8
-      when value >= 3 then 5
-      when value >= 1 then 1
+
+    case value.to_i
+    when 5 then 8
+    when 3 then 5
+    when 1 then 1
     end
   end
 
