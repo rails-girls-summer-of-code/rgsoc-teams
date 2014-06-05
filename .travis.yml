@@ -1,4 +1,5 @@
 language: ruby
+cache: bundler
 rvm:
 - 2.1.1
 bundler_args: -j4 --without development production --quiet
