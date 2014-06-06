@@ -1,4 +1,4 @@
-require 'feedzirra'
+require 'feedjira'
 
 class Feed
   autoload :Discovery, 'feed/discovery'
@@ -61,7 +61,7 @@ class Feed
     def parse
       silence_warnings do
         logger.info "Feeds: going to fetch #{source.feed_url}"
-        data = Feedzirra::Feed.fetch_and_parse(source.feed_url)
+        data = Feedjira::Feed.fetch_and_parse(source.feed_url)
         logger.info "this does not look like a valid feed" unless data.respond_to?(:entries)
         data
       end
