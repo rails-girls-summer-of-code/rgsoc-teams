@@ -62,11 +62,3 @@ RSpec.configure do |config|
   config.include Devise::TestHelpers, type: :view
   config.extend ControllerMacros,     type: :controller
 end
-
-def random_name letters=rand(10)+10
-  [*('a'..'z')].sample(letters).join
-end
-
-def random_email
-  "#{random_name}@railsgirls.com"
-end
