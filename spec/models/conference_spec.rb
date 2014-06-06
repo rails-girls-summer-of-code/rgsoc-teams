@@ -20,7 +20,7 @@ describe Conference do
   end
 
   describe '#tickets_left' do
-    subject { FactoryGirl.create(:conference) }
+    subject { FactoryGirl.build_stubbed(:conference) }
 
     it 'subtracts attendances' do
       subject.stub(:attendances).and_return([1])
