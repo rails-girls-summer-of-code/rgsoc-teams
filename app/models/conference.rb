@@ -4,11 +4,7 @@ class Conference < ActiveRecord::Base
 
   accepts_nested_attributes_for :attendances
 
-  class << self
-    def ordered(sort)
-      order([sort[:order] || 'starts_on, name', sort[:direction] || 'asc'].join(' '))
-    end
-  end
+  scope :ordered, ->(sort = {}) { order([sort[:order] || 'starts_on, name', sort[:direction] || 'asc'].join(' ')) }
 
   def tickets_left
     tickets - attendances.size
