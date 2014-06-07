@@ -23,6 +23,7 @@ require 'rspec/rails'
 require 'rspec/autorun'
 require 'webmock/rspec'
 require 'cancan/matchers'
+require 'sucker_punch/testing/inline'
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.

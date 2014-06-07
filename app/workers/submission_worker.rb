@@ -1,6 +1,5 @@
 class SubmissionWorker
-    include SuckerPunch::Job
-
+  include SuckerPunch::Job
 
   def perform(payload)
     puts "dequeued submission: #{payload}"
