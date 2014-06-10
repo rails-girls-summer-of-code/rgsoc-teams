@@ -16,7 +16,7 @@ describe 'users/show' do
     controller.stub(:current_ability) { @ability }
 
     view.stub(:can_see_private_info?).and_return(false)
-   end
+  end
 
   it 'renders attributes in <p>' do
     render
@@ -35,7 +35,8 @@ describe 'users/show' do
       @ability.stub(:can?).with(:edit, @user).and_return(true)
       @ability.stub(:can?).with(:destroy, @user).and_return(true)
     end
-    it "shows Edit and Destroy link if user can manage" do
+
+    it 'shows Edit and Destroy link if user can manage' do
       render
       rendered.should match(/Edit/)
       rendered.should match(/Delete Profile/)
@@ -52,7 +53,7 @@ describe 'users/show' do
     it "hides Edit and Destroy link if user can't manage" do
       render
       render.should_not match(/Edit/)
-      render.should_not match(/Destroy/)
+      render.should_not match(/Delete Profile/)
     end
   end
 end
