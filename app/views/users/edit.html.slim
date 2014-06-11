@@ -51,12 +51,12 @@
 
   / = f.input :bio, label: 'Comments about your interests', hint: 'Short summary. E.g. if you are interested in mentoring, mention your project.'
 
-  / h3 Private information
-  / p.help-block This information will only be visible to yourself and organizers.
+  h3 Private information
+  p.help-block This information will only be visible to yourself and organizers.
 
-  / = f.input :tshirt_size, as: :radio_buttons, collection: User::TSHIRT_SIZES.map { |k| [k, k] }, label: 'T-Shirt size', blank: false, required: false, hint: 'For sponsor T-Shirts, in case they send some.'
-  / = f.input :postal_address, hint: "Please give your postal address so we can send things we've received from our sponsors for you :)"
-  / = f.input :banking_info, label: 'Money transfer information', hint: "Please provide the following information so we can send money to you.<br>For EU: your name, your IBAN and BIC.<br>For US: your name, bank account number, and bank routing number. OR if you cannot receive bank transfers: your address for sending a check (bank transfers are preferred).<br>For all others: name and address, your bank account number, the SWIFT code of your bank and the bank's address."
+  = f.input :tshirt_size, as: :radio_buttons, collection: User::TSHIRT_SIZES.map { |k| [k, k] }, label: 'T-Shirt size', blank: false, required: false, hint: 'For sponsor T-Shirts, in case they send some.'
+  = f.input :postal_address, hint: "Please give your postal address so we can send things we've received from our sponsors for you :)"
+  = f.input :banking_info, label: 'Money transfer information', hint: "Please provide the following information so we can send money to you.<br>For EU: your name, your IBAN and BIC.<br>For US: your name, bank account number, and bank routing number. OR if you cannot receive bank transfers: your address for sending a check (bank transfers are preferred).<br>For all others: name and address, your bank account number, the SWIFT code of your bank and the bank's address.".html_safe
 
   - if admin?
     h3 Conferences
