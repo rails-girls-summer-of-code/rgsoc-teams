@@ -5,14 +5,14 @@ describe User do
     stub_request(:get, /./).to_return(body: File.read('spec/stubs/github/user.json'))
   end
 
-  it { should have_many(:teams) }
-  it { should have_many(:roles) }
-  it { should validate_presence_of(:github_handle) }
-  it { should validate_uniqueness_of(:github_handle) }
-  it { should validate_presence_of(:country).on(:update) }
-  it { should allow_value('http://example.com').for(:homepage) }
-  it { should allow_value('https://example.com').for(:homepage) }
-  it { should_not allow_value('example.com').for(:homepage) }
+  it { expect(subject).to have_many(:teams) }
+  it { expect(subject).to have_many(:roles) }
+  it { expect(subject).to validate_presence_of(:github_handle) }
+  it { expect(subject).to validate_uniqueness_of(:github_handle) }
+
+  it { expect(subject).to allow_value('http://example.com').for(:homepage) }
+  it { expect(subject).to allow_value('https://example.com').for(:homepage) }
+  it { expect(subject).to_not allow_value('example.com').for(:homepage) }
 
   describe 'scopes' do
     before(:all) do
@@ -35,7 +35,7 @@ describe User do
       end
 
       it 'returns true for roles.includes?' do
-        @organizer.roles.includes?('organizer').should eq(true)
+        expect(@organizer.roles.includes?('organizer')).to eql true
       end
 
       after do
@@ -113,19 +113,19 @@ describe User do
   end
 
   describe '#github_url' do
-    it 'should return github url' do
+    it 'returns github url' do
       @user = User.new(github_handle: 'rails-girl')
       expect(@user.github_url).to be == 'https://github.com/rails-girl'
     end
   end
 
   describe '#name_or_handle' do
-    it 'should return name if existed' do
+    it 'returns name if existed' do
       @user = User.new(name: 'trung')
       expect(@user.name_or_handle).to be =='trung'
     end
 
-    it 'should return github_handle if name is not available' do
+    it 'returns github_handle if name is not available' do
       @user = User.new(github_handle: 'rails-girl')
       expect(@user.name_or_handle).to be =='rails-girl'
     end
