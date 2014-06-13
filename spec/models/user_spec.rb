@@ -9,7 +9,6 @@ describe User do
   it { expect(subject).to have_many(:roles) }
   it { expect(subject).to validate_presence_of(:github_handle) }
   it { expect(subject).to validate_uniqueness_of(:github_handle) }
-  it { expect(subject).to validate_presence_of(:country).on(:update) }
 
   it { expect(subject).to allow_value('http://example.com').for(:homepage) }
   it { expect(subject).to allow_value('https://example.com').for(:homepage) }
