@@ -32,6 +32,8 @@ class Team < ActiveRecord::Base
 
   def supervisor
     roles.where(name: 'supervisor').first.user
+  rescue
+    nil
   end
 
   def set_number
