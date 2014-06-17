@@ -1,7 +1,6 @@
 class ApplicationFormMailerWorker
   include SuckerPunch::Job
 
-
   def logger
     Rails.logger
   end

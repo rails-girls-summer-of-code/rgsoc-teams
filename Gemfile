@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 ruby '2.1.1'
 
-gem 'rails', '4.1.0'
+gem 'rails', '~> 4.1.1'
 gem 'pg'
 gem 'devise'
 gem 'omniauth-github'
@@ -11,7 +11,7 @@ gem 'redcarpet'
 gem 'simple_form', '3.1.0.rc1'
 gem 'nested_form'
 gem 'gh'
-gem 'feedzirra', '>= 0.2.0.rc2'
+gem 'feedjira', '1.3.0'
 gem 'kaminari'
 gem 'bootstrap-kaminari-views'
 gem 'sucker_punch'
@@ -26,7 +26,7 @@ gem 'font-awesome-sass-rails'
 
 gem 'sass-rails'
 gem 'coffee-rails'
-gem 'uglifier', '>= 1.0.3'
+gem 'uglifier', '~> 2.5.0'
 gem 'sprockets-rails'
 
 gem 'newrelic_rpm'
@@ -59,5 +59,3 @@ group :test do
   gem 'coveralls', require: false
   gem 'timecop'
 end
-
-gem 'rails4_upgrade'

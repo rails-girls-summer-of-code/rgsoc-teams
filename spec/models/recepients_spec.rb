@@ -5,7 +5,7 @@ describe Recipients do
   let(:recipients) { Recipients.new mailing }
 
   it "should collect all email addresses" do
-    user_email = random_email
+    user_email = Faker::Internet.email
     recipients.stub user_emails: [user_email]
     expect(recipients.emails).to eq([mailing.cc, mailing.bcc, user_email])
   end

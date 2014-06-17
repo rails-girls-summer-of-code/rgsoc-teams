@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe User do
-  before :each do
+  before do
     stub_request(:get, /./).to_return(body: File.read('spec/stubs/github/user.json'))
   end
 
@@ -15,7 +15,7 @@ describe User do
   it { expect(subject).to_not allow_value('example.com').for(:homepage) }
 
   describe 'scopes' do
-    before(:all) do
+    before do
       @user1 = create(:user)
       @user2 = create(:coach)
 

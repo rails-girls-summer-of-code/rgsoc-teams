@@ -1,15 +1,9 @@
 require 'spec_helper'
 
-# Specs in this file have access to a helper object that includes
-# the ApplicationFormHelper. For example:
-#
-# describe ApplicationFormHelper do
-#   describe "string concat" do
-#     it "concats two strings with spaces" do
-#       expect(helper.concat_strings("this","that")).to eq("this that")
-#     end
-#   end
-# end
 describe ApplicationFormHelper do
-  pending "add some examples to (or delete) #{__FILE__}"
+  describe '.time_span_array' do
+    it 'returns an array of timespans' do
+      expect(time_span_array.size).to eq(6)
+    end
+  end
 end
