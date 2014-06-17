@@ -8,7 +8,7 @@ form.filter action=request.url
       = role.capitalize
 
   h5 Type
-  - %w(all sponsored volunteering).each do |kind|
+  - %w(all sponsored voluntary).each do |kind|
     label.radio
       = radio_button_tag :kind, kind == 'all' ? '' : kind, params[:kind] == kind
       = kind.capitalize
