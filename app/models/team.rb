@@ -30,6 +30,10 @@ class Team < ActiveRecord::Base
     end
   end
 
+  def supervisor
+    roles.where(name: 'supervisor').first.user
+  end
+
   def set_number
     self.number = Team.count + 1
   end
