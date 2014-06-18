@@ -5,7 +5,8 @@
 #= require_self
 
 $ ->
-  $('.filter input[type=radio], .filter input[type=checkbox], .filter select').click ->
+  $('.filter input[type=radio], .filter input[type=checkbox], .filter select').change ->
     $(this).closest('form').submit()
+
   $('.comments a').click ->
     $('.comments').hide()
