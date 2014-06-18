@@ -14,7 +14,7 @@ table.table.table-striped.table-bordered.table-condensed
     th Name
     th Students
     - if admin?
-      th Supervisor
+      th Supervisor(s)
     th Conferences
     th Location
     th = sortable 'created_at', 'Last Activity'
@@ -28,11 +28,13 @@ table.table.table-striped.table-bordered.table-condensed
             li.user
               = image_tag(user.avatar_url || 'default_avatar.png', alt: user.name_or_handle)
               = link_to(user.name_or_handle, user)
-      - if admin?
-        - if team.supervisor
-          td = link_to(team.supervisor.name_or_handle, team.supervisor)
-        - else
-          td None
+      td
+        - if admin?
+          ul
+          - team.supervisors.each do |user|
+            li.user
+              = image_tag(user.avatar_url || 'default_avatar.png', alt: user.name_or_handle)
+              = link_to(user.name_or_handle, user)
       td = links_to_conferences(team.members.map(&:conferences).flatten.uniq).join(', ').html_safe
       td = team.students_location
       td = format_date(team.last_activity.try(:created_at))
