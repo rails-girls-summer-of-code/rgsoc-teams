@@ -19,19 +19,31 @@ describe RolesController do
   end
 
   describe "POST create" do
-    let(:team)   { create(:team) }
-    let(:params) { { team_id: team.to_param, role: valid_attributes.merge(github_handle: 'steve') } }
+    let(:team)    { create(:team) }
+    let!(:params) { { team_id: team.to_param, role: valid_attributes.merge(github_handle: 'steve') } }
 
     context "on their own team" do
       let!(:role) { create(:role, name: 'student', team: team, user: user) }
 
-      it "creates a new Role" do
-        expect { post :create, params, valid_session }.to change(Role, :count).by(1)
+      it "creates a new Role and a new User" do
+        expect {
+          expect { post :create, params, valid_session }.to change(Role, :count).by(1)
+        }.to change { User.count }.by(1)
       end
 
       it "redirects to the team view" do
         post :create, params, valid_session
         response.should redirect_to(assigns(:team))
+      end
+
+      it 'create a new Role for existing user' do
+        existing   = create(:user)
+        role_attrs = valid_attributes.merge(github_handle: existing.github_handle)
+
+        expect {
+          expect { post :create, params.merge(role: role_attrs), valid_session }.to change(Role, :count).by(1)
+        }.not_to change { User.count }
+        expect(Role.last.user).to eql existing
       end
     end
 
