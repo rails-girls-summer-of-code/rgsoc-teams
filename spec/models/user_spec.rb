@@ -54,6 +54,11 @@ describe User do
       it 'returns users that have matching role name' do
         expect(User.with_role('coach')).to be ==[@user2]
       end
+
+      it 'allows a list of roles' do
+        organizer = create(:organizer)
+        expect(User.with_role('coach', 'organizer')).to be ==[@user2, organizer]
+      end
     end
 
     describe '.with_team_kind' do

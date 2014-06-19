@@ -19,6 +19,7 @@ RgsocTeams::Application.routes.draw do
   resources :comments, only: :create
   resources :conferences
   resources :attendances
+  resources :contributors, only: :index
 
   resources :applications do
     resources :ratings

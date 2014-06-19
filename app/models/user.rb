@@ -66,8 +66,8 @@ class User < ActiveRecord::Base
       scope
     end
 
-    def with_role(name)
-      joins(:roles).where('roles.name = ?', name)
+    def with_role(*names)
+      joins(:roles).where('roles.name' => names)
     end
 
     def with_assigned_roles
