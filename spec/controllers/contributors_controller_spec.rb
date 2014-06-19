@@ -10,7 +10,7 @@ describe ContributorsController do
 
     it 'returns json representation of user with relevant roles' do
       get :index, format: :json
-      expect(assigns(:contributors)).to eq [coach, organizer]
+      expect(assigns(:contributors).sort).to eq [coach, organizer].sort
     end
   end
 end
