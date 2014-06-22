@@ -12,9 +12,8 @@ h1.header
 table.table.table-striped.table-bordered.table-condensed
   tr
     th Name
-    th Students
-    - if admin?
-      th Supervisor(s)
+    - @display_roles.each do |role|
+      th = role.capitalize
     th Conferences
     th Location
     th = sortable 'created_at', 'Last Activity'
@@ -22,19 +21,13 @@ table.table.table-striped.table-bordered.table-condensed
   - @teams.each do |team|
     tr
       td = link_to team.display_name, team, class: "team #{team.kind}"
-      td
-        ul
-          - team.students.each do |user|
-            li.user
-              = image_tag(user.avatar_url || 'default_avatar.png', alt: user.name_or_handle)
-              = link_to(user.name_or_handle, user)
-      td
-        - if admin?
+      - @display_roles.each do |role|
+        td
           ul
-          - team.supervisors.each do |user|
-            li.user
-              = image_tag(user.avatar_url || 'default_avatar.png', alt: user.name_or_handle)
-              = link_to(user.name_or_handle, user)
+            - team.send(role).each do |user|
+              li.user
+                = image_tag(user.avatar_url || 'default_avatar.png', alt: user.name_or_handle)
+                = link_to(user.name_or_handle, user)
       td = links_to_conferences(team.members.map(&:conferences).flatten.uniq).join(', ').html_safe
       td = team.students_location
       td = format_date(team.last_activity.try(:created_at))

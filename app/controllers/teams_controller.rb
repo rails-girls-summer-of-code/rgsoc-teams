@@ -1,6 +1,7 @@
 class TeamsController < ApplicationController
   before_action :set_team,  only: [:show, :edit, :update, :destroy]
   before_action :set_users, only: [:new, :edit]
+  before_action :set_display_roles, only: :index
 
   load_and_authorize_resource except: [:index, :show]
 
@@ -60,7 +61,6 @@ class TeamsController < ApplicationController
     end
   end
 
-
   private
 
     def set_team
@@ -82,4 +82,13 @@ class TeamsController < ApplicationController
       )
     end
 
+  def set_display_roles
+    if current_user && current_user.admin?
+      @display_roles = Role::TEAM_ROLES + ['supervisor']
+    else
+      @display_roles = ['student']
+    end
+
+    @display_roles.map!(&:pluralize)
+  end
 end
