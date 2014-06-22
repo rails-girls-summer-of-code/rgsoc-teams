@@ -6,6 +6,8 @@ describe 'teams/index' do
 
   before :each do
     assign :teams, teams
+    assign :display_roles, []
+
     view.stub(:can?).and_return(true)
     view.stub(:can?).with(:create, an_instance_of(Team)).and_return(can_add)
     render
