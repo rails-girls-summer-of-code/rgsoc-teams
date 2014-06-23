@@ -10,7 +10,8 @@ class ContributorsController < ApplicationController
 
   def json_params
     {
-      only: [:name, :github_handle, :avatar_url, :location, :country],
+      only: [:github_handle, :avatar_url, :location, :country, :twitter_handle],
+      methods: [:name_or_handle],
       include: [
         roles: {
           only: [:name],
