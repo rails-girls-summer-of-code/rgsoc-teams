@@ -56,5 +56,7 @@ module RgsocTeams
     config.active_record.disable_implicit_join_references = true
 
     config.i18n.enforce_available_locales = true
+
+    config.force_ssl = !!ENV['USE_SSL']
   end
 end
