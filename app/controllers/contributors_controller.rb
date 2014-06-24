@@ -1,4 +1,6 @@
 class ContributorsController < ApplicationController
+  after_action :cors_set_headers, only: :index
+
   respond_to :json
 
   def index
