@@ -6,7 +6,7 @@ module ApplicationHelper
 
   def avatar_url(user, size: 200)
     image = if user_avatar = user.avatar_url.presence
-              "#{user_avatar}?s=#{size}"
+              "#{user_avatar}&s=#{size}"
             else
               'default_avatar.png'
             end

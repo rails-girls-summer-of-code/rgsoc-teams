@@ -9,7 +9,7 @@ describe ApplicationHelper do
 
     context 'with a user avatar' do
       let(:user) do
-        double(avatar_url: 'http://example.com/foo.png', name_or_handle: 'RGSoC user')
+        double(avatar_url: 'http://example.com/foo.png?', name_or_handle: 'RGSoC user')
       end
 
       it 'returns the user avatar' do
@@ -17,7 +17,7 @@ describe ApplicationHelper do
       end
 
       it 'optionally accepts an avatar size' do
-        expected = "#{user.avatar_url}?s=42"
+        expected = "#{user.avatar_url}&amp;s=42"
         expect(avatar_url(user, size: 42)).to include expected
       end
     end
