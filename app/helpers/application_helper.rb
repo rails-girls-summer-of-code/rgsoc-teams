@@ -4,6 +4,15 @@ module ApplicationHelper
 
   TIMEZONES = ActiveSupport::TimeZone.all.map{|t| t.tzinfo.name}.uniq.sort
 
+  def avatar_url(user, size: 200)
+    image = if user_avatar = user.avatar_url.presence
+              "#{user_avatar}?s=#{size}"
+            else
+              'default_avatar.png'
+            end
+    image_tag image, alt: user.name_or_handle
+  end
+
   def with_layout(layout)
     view_flow.set :layout, capture { yield }
     render template: "layouts/#{layout}"
