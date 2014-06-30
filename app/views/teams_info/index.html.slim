@@ -17,7 +17,7 @@ table.table.table-striped.table-bordered.table-condensed
         ul
           - team.students.each do |user|
             li.user
-              = image_tag(user.avatar_url || 'default_avatar.png', alt: user.name_or_handle)
+              = avatar_url(user, size: 20)
               = link_to_user_with_irc_handle(user)
       td = format_date(team.last_activity.try(:created_at))
       - if can? :read, :users_info

@@ -1,6 +1,28 @@
 require 'spec_helper'
 
 describe ApplicationHelper do
+  describe '#avatar_url' do
+    it 'returns a default picture' do
+      user = build_stubbed(:user)
+      expect(avatar_url(user)).to match '/images/default_avatar.png'
+    end
+
+    context 'with a user avatar' do
+      let(:user) do
+        double(avatar_url: 'http://example.com/foo.png?', name_or_handle: 'RGSoC user')
+      end
+
+      it 'returns the user avatar' do
+        expect(avatar_url(user)).to include user.avatar_url
+      end
+
+      it 'optionally accepts an avatar size' do
+        expected = "#{user.avatar_url}&amp;s=42"
+        expect(avatar_url(user, size: 42)).to include expected
+      end
+    end
+  end
+
   describe '.link_to_team_members' do
     before do
       @team  = create(:team)

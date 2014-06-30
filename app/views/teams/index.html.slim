@@ -26,7 +26,7 @@ table.table.table-striped.table-bordered.table-condensed
           ul
             - team.send(role).each do |user|
               li.user
-                = image_tag(user.avatar_url || 'default_avatar.png', alt: user.name_or_handle)
+                = avatar_url(user, size: 20)
                 = link_to(user.name_or_handle, user)
       td = links_to_conferences(team.members.map(&:conferences).flatten.uniq).join(', ').html_safe
       td = team.students_location
