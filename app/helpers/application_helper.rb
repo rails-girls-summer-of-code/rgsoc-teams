@@ -162,7 +162,7 @@ module ApplicationHelper
 
   def link_to_team_member(member)
     content_tag(:li, :class => :user) do
-      image_tag(member.avatar_url || 'default_avatar.png', alt: member.name_or_handle) +
+      avatar_url(member, size: 40) +
         link_to(member.name_or_handle, member)
     end
   end

@@ -50,7 +50,7 @@ describe ApplicationHelper do
     end
 
     it 'should include the avatar image' do
-      link_to_team_member(user).should include("<img alt=\"Trung Le\" src=\"#{user.avatar_url}\" />")
+      link_to_team_member(user).should include("<img alt=\"Trung Le\" src=\"#{user.avatar_url}&amp;s=40\" />")
     end
   end
 
