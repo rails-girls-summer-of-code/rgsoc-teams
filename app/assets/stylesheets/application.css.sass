@@ -57,7 +57,7 @@ header
       width: 210px
       height: 58px
       line-height: 4em
-      background-image: url(<%= asset_path('header_logo.png') %>)
+      background-image: asset-url('header_logo.png')
       background-repeat: no-repeat
       background-position: 0px 7px
 
@@ -84,7 +84,7 @@ header
           display: inline-block
           height: 20px
           width: 40px
-          background: url(<%= asset_path('star.png') %>) 16px 8px no-repeat
+          background: asset-url('star.png') 16px 8px no-repeat
 
         a
           display: inline-block
@@ -94,7 +94,7 @@ header
 
           &.active
             text-decoration: underline
-            background-image: url(<%= asset_path('header_nav_active.png') %>)
+            background-image: asset-url('header_nav_active.png')
             background-repeat: no-repeat
             background-position: center 32px
             text-decoration: none
@@ -285,7 +285,7 @@ nav
       height: 32px
       line-height: 32px
       padding-right: 36px
-      background: url(<%= asset_path('feed.png') %>) no-repeat right
+      background: asset-url('feed.png') no-repeat right
       background-size: 24px 24px
       // @include icon-after($rss)
 
