@@ -20,8 +20,8 @@ p.attention
   = f.input :gender_identification_pair, label: 'Your pair\'s gender self-identification', hint: 'No-one is excluded from applying on the basis of gender, but people who self-identify as female, or have experiences being socialized as female, are given preference during selection.'
   = f.input :location, as: :text, label: 'Where do you plan to live?', input_html: { rows: '5' }
   = f.input :attended_rg_workshop, as: :text, label: 'Did you ever attend a Rails/Ruby workshop?', hint: ' Please give us a little bit of history about yourself and your pair (if any)', input_html: { rows: '5' }
-  = f.input :coding_level, :collection => 1..5, :as => :radio_label, label: 'What level of coding do you see yourself in Ruby/Rails?', hint: 'Please try to verify this with your pair and coach, we are aware this is tricky to estimate.'
-  = f.input :coding_level_pair, :collection => 1..5, :as => :radio_label, label: 'What level of coding does your pair have?', hint: '(Same as above)', :input_html => { class: 'level-radio' }
+  = f.input :coding_level, :collection => 1..5, :as => :select, label: 'What level of coding do you see yourself in Ruby/Rails?', hint: 'Please try to verify this with your pair and coach, we are aware this is tricky to estimate.'
+  = f.input :coding_level_pair, :collection => 1..5, :as => :select, label: 'What level of coding does your pair have?', hint: '(Same as above)', :input_html => { class: 'level-radio' }
   = f.input :skills, as: :text, label: 'Please give us a summary of your skills', hint: 'Please add a summary for your pair if you have one, too.', input_html: { rows: '5' }
   = f.input :learing_summary, as: :text, label: 'Please summarize what you have been doing to learn programming since your first workshop', hint: 'E.g. Study Group, learning rails by doing exercises etc. Please add a summary for your pair if you have one, too.', input_html: { rows: '5' }
   = f.input :learning_since_workshop, collection: time_span_array, label: 'For how many months have you actively been learning after your first workshop?'
