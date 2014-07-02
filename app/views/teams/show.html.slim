@@ -7,17 +7,16 @@ nav.page
     ul
       li = link_to "Join #{@team.name}", new_team_join_path(@team), class: 'btn btn-success'
 
-- if can? :edit, @team
-  nav.actions
-    ul
-      li = link_to 'Edit', edit_team_path(@team), class: 'edit'
-      li = link_to 'Add a source', new_team_source_path(@team)
-      li = link_to 'Add a member', new_team_role_path(@team)
-      - if can? :read, :users_info
-        - team_group_emails(@team).each do |group, emails|
-          li = link_to "Email #{group}", "mailto:#{emails.join(',')}"
-
 = content_tag :h1, @team.display_name, class: "team #{@team.kind}"
+
+- if can? :edit, @team
+  nav.btn-group
+    = link_to 'Edit', edit_team_path(@team), class: 'edit btn btn-default btn-small'
+    = link_to 'Add a source', new_team_source_path(@team), class: 'btn btn-default btn-small'
+    = link_to 'Add a member', new_team_role_path(@team), class: 'btn btn-default btn-small'
+    - if can? :read, :users_info
+      - team_group_emails(@team).each do |group, emails|
+        = link_to "Email #{group}", "mailto:#{emails.join(',')}", class: 'btn btn-default btn-small'
 
 .profile
   dl
