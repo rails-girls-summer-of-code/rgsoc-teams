@@ -28,6 +28,10 @@ class Ability
       user.admin? or on_team?(user, repo.team)
     end
 
+    can :supervise, Team do |team|
+      user.roles.organizer.any? || team.supervisors.include?(user)
+    end
+
     can :crud, Event if user.admin?
     can :crud, Conference if user.admin?
     can :crud, Attendance do |attendance|

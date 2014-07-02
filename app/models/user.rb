@@ -36,6 +36,10 @@ class User < ActiveRecord::Base
     def admin
       where(name: Role::ADMIN_ROLES)
     end
+
+    def organizer
+      where(name: 'organizer')
+    end
   end
   has_many :applications
   has_many :teams, -> { uniq }, through: :roles
