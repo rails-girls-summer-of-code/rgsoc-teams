@@ -73,4 +73,22 @@ describe Team do
       expect(Team.new(twitter_handle: 'https://twitter.com/foo').twitter_handle).to be == '@foo'
     end
   end
+
+  describe 'checking' do
+    let(:user) { FactoryGirl.build_stubbed(:user) }
+
+    it 'calls set_last_checked' do
+      subject.should_receive(:set_last_checked)
+      subject.checked = user
+      subject.save!
+    end
+
+    it 'changes last_checked_*' do
+      expect do
+        subject.checked = user
+        subject.save!
+      end.to change(subject, :last_checked_by) && change(subject, :last_checked_at)
+    end
+
+  end
 end

@@ -9,6 +9,8 @@ class Team < ActiveRecord::Base
   # validate :must_have_members
   # validate :must_have_unique_students
 
+  attr_accessor :checked
+
   has_many :roles, dependent: :destroy
   has_many :members, class_name: 'User', through: :roles, source: :user
   Role::ROLES.each do |role|
@@ -23,6 +25,7 @@ class Team < ActiveRecord::Base
   accepts_nested_attributes_for :roles, :sources, allow_destroy: true
 
   before_create :set_number
+  before_save :set_last_checked, if: :checked
 
   class << self
     def ordered(sort = {})
@@ -68,6 +71,13 @@ class Team < ActiveRecord::Base
 
   def students_location
     students.map(&:location).reject(&:blank?).uniq.to_sentence
+  end
+
+  private
+
+  def set_last_checked
+    self.last_checked_at = Time.now
+    self.last_checked_by = checked.id
   end
 
   # def must_have_unique_students
