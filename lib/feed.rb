@@ -56,14 +56,15 @@ class Feed
         attrs = item.attrs.merge(img_url: record.try(:img_url) || Image.new(item.url, logger: logger).store)
         record ? record.update_attributes!(attrs) : Activity.create!(attrs)
       end
+    rescue => e
+      logger.error "Could not update entries: #{e.message}"
+      nil
     end
 
     def parse
-      silence_warnings do
-        logger.info "Feeds: going to fetch #{source.feed_url}"
-        data = Feedjira::Feed.fetch_and_parse(source.feed_url)
-        logger.info "this does not look like a valid feed" unless data.respond_to?(:entries)
-        data
-      end
+      logger.info "Feeds: going to fetch #{source.feed_url}"
+      data = Feedjira::Feed.fetch_and_parse(source.feed_url)
+      logger.info "this does not look like a valid feed" unless data.respond_to?(:entries)
+      data
     end
 end
