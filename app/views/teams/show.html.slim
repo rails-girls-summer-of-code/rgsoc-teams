@@ -17,13 +17,6 @@ nav.page
         - team_group_emails(@team).each do |group, emails|
           li = link_to "Email #{group}", "mailto:#{emails.join(',')}"
 
-- if can? :crud, :comments
-  .comments
-    a href='#' Hide comments
-    = render partial: 'comments/form', object: @team, as: :team
-    ul
-      = render @team.comments, as: :comment
-
 = content_tag :h1, @team.display_name, class: "team #{@team.kind}"
 
 .profile
@@ -43,6 +36,23 @@ nav.page
 
   - if @team.description
     p = render_markdown(@team.description).html_safe
+
+- if can? :supervise, @team
+  .supervising.well
+    h3 Supervising
+    .comments
+      - if @team.comments.any?
+        ul
+          = render @team.comments, as: :comment
+      - else
+        p class="text-info" No comments yet
+      = render partial: 'comments/form', object: @team, as: :team
+    .checkup_box
+      - if @team.last_checked_by
+        p
+          = @team.last_checked_by.name_or_handle + ' on ' + @team.last_checked_at.to_s
+      p
+        = checkup_link(@team)
 
 - if @team.helpdesk_team?
   - if @team.sources.any?

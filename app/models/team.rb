@@ -73,11 +73,15 @@ class Team < ActiveRecord::Base
     students.map(&:location).reject(&:blank?).uniq.to_sentence
   end
 
+  def last_checked_by
+    User.find(read_attribute(:last_checked_by))
+  end
+
   private
 
   def set_last_checked
     self.last_checked_at = Time.now
-    self.last_checked_by = checked.id
+    self.last_checked_by = checked.is_a?(String) ? checked.to_i : checked.id
   end
 
   # def must_have_unique_students

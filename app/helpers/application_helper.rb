@@ -229,4 +229,8 @@ module ApplicationHelper
   def list_all_timezones
     TIMEZONES
   end
+
+  def checkup_link(team)
+    link_to "Checked up on them.", team_path(team, checked: current_user, format: :json), method: :patch, remote: true, class: 'btn btn-info'
+  end
 end
