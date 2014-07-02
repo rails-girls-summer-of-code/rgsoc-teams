@@ -250,12 +250,13 @@ nav
 
 
   .activities
+    margin: 0 0 1em 0
+    padding: 0
     h4
       margin: 0 0 1em 0
       font-size: 1.1em
     .activity
       @include clearfix
-      clear: left
       padding: 1em
       border: 1px solid #ddd
       border-radius: 4px
@@ -277,20 +278,13 @@ nav
         padding-left: 2em
         font-size: 0.9em
         font-style: italic
-    aside
-      float: right
-      margin-top: 0.5em
-    a.atom
-      display: inline-block
-      height: 32px
-      line-height: 32px
-      padding-right: 36px
-      background: asset-url('feed.png') no-repeat right
-      background-size: 24px 24px
-      // @include icon-after($rss)
-
-  ul.activities
-    margin-left: 0
+  a.atom
+    float: right
+    font-size: .6em
+    color: #000
+    @include icon-after($rss)
+    span
+      display: none
 
   .pagination-info
     color: #999
