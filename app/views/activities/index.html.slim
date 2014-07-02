@@ -1,22 +1,21 @@
-aside
-  = link_to 'Atom Feed', activities_path(format: :atom), class: 'atom'
-
 h1.header
   = icon('comments-alt')
   span Activities
+  = link_to '<span>Atom Feed</span>'.html_safe, activities_path(format: :atom), class: 'atom'
 
-form.filter action=request.url
-  - (['all'] + Activity::KINDS).each do |kind|
-    label.radio
-      = radio_button_tag :kind, kind == 'all' ? '' : kind, params[:kind] == kind
-      = kind == 'feed_entry' ? 'Blog Post' : kind.titleize
-  label.radio
-    ' Team:
-    = select_tag :team_id, options_for_select(['', nil] + teams.map { |t| [t.name.present? ? t.name : t.projects, t.id] }, params[:team_id])
+.well.well-small
+  form.filter.form-inline action=request.url
+    - (['all'] + Activity::KINDS).each do |kind|
+      label.radio
+        = radio_button_tag :kind, kind == 'all' ? '' : kind, params[:kind] == kind
+        = " " + kind == 'feed_entry' ? 'Blog Post' : kind.titleize
+    label.team_filter
+      ' Team:
+      = select_tag :team_id, options_for_select(['', nil] + teams.map { |t| [t.name.present? ? t.name : t.projects, t.id] }, params[:team_id]), class: 'form-control'
 
 p.pagination-info
   = page_entries_info @activities
 
 = render 'activities', object: @activities
 
-= paginate @activities, theme: 'twitter-bootstrap'
+= paginate @activities, theme: 'twitter-bootstrap-3', pagination_class: 'pagination-sm'

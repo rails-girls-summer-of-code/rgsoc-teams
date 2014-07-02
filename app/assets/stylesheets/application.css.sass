@@ -334,28 +334,7 @@ nav
   i
     margin-right: 0.25em
 
-
 form
-  position: relative
-  // hrmmm
-  input, select, textarea
-    margin-bottom: 0 !important
-    font-size: 0.9em !important
-  input
-    height: auto !important
-  input[type=radio], input[type=checkbox]
-    margin-left: 0 !important
-    margin-right: 0.3em !important
-  textarea
-    width: 100%
-    height: 200px
-  label.radio, label.checkbox
-    display: inline-block
-    padding-left: 0
-    padding-right: 1em
-  select.short
-    width: 110px
-
   .help-block
     font-size: 0.8em
 
@@ -380,6 +359,16 @@ form
     input[type="checkbox"]
       width: inherit
 
+.form-inline
+  .radio
+    padding-right: 15px
+    input
+      margin-right: 5px
+
+.filter
+  .team_filter
+    margin-top: -5px
+    float: right
 
 .interested_in
   label
@@ -389,15 +378,6 @@ form
 
 .actions
   margin-top: 1em
-
-form
-  margin-top: 2em
-  padding-left: 0 !important
-.form-group
-  padding-left: 0
-  padding-right: 30px
-input[type=radio].form-control
-  width: auto
 
 // Error message on submit
 #error_explanation

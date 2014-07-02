@@ -1,8 +1,8 @@
-form.filter action=request.url
-  input type='hidden' name='sort' value=params[:sort]
-  input type='hidden' name='direction' value=params[:direction]
-  - (['all'] + Role::ROLES).each do |role|
-    label.radio
-      = radio_button_tag :role, role == 'all' ? '' : role, params[:role] == role
-      = role.capitalize
-
+.well.well-small
+  form.filter.form-inline action=request.url
+    input type='hidden' name='sort' value=params[:sort]
+    input type='hidden' name='direction' value=params[:direction]
+    - (['all'] + Role::ROLES).each do |role|
+      label.radio
+        = radio_button_tag :role, role == 'all' ? '' : role, params[:role] == role
+        = role.capitalize
