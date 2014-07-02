@@ -5,15 +5,8 @@ class UsersController < ApplicationController
   load_and_authorize_resource except: [:index, :show]
 
   def index
-    @filters = {
-      all:        'All',
-      pair:       'Looking for a pair',
-      coaching:   'Coaches',
-      mentoring:  'Mentors',
-      deskspace:  'Offering desk space',
-      organizing: 'Organizers'
-    }
-    @users = User.ordered(params[:sort], params[:direction]).group('users.id').with_all_associations_joined #.with_assigned_roles
+    @users = User.ordered(params[:sort], params[:direction]).group('users.id').with_all_associations_joined
+    @users = @users.with_assigned_roles
     @users = @users.with_role(params[:role]) if params[:role].present? && params[:role] != 'all'
     @users = @users.with_interest(params[:interest]) if params[:interest].present? && params[:interest] != 'all'
   end
