@@ -40,6 +40,10 @@ class User < ActiveRecord::Base
     def organizer
       where(name: 'organizer')
     end
+
+    def supervisor
+      where(name: 'supervisor')
+    end
   end
   has_many :applications
   has_many :teams, -> { uniq }, through: :roles

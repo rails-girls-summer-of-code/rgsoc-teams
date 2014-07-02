@@ -61,15 +61,17 @@ nav.actions
                 li = link_to('No, I cannot attend', attendance_path(a, return_to: request.url), method: :delete, class: 'cancel', data: { confirm: 'Are you sure? Your ticket will go back into the pool of available tickets.' })
 
   - if can_see_private_info?
-    .private-info
+    - fields = ['tshirt_size', 'postal_address', 'banking_info']
+    .well.private-info
       h3 Private info
-      dl
-        - if @user.tshirt_size.present?
-          dt T-Shirt size
-          dd = @user.tshirt_size
-      - if @user.postal_address.present?
-        h5 Postal Address
-        = simple_format @user.postal_address
-      - if @user.banking_info.present?
-        h5 Banking info
-        = simple_format @user.banking_info
+      - fields.each do |field|
+        - if @user.send(field).present?
+          p
+            - if can_only_review_private_info?
+              = field.gsub('_', ' ').capitalize + " filled out"
+            - else
+              strong>= field.gsub('_', ' ').capitalize + ": "
+              = simple_format @user.send(field)
+        - else
+          p
+            = field.gsub('_', ' ').capitalize + " not filled out"

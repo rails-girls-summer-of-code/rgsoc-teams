@@ -27,7 +27,11 @@ module ApplicationHelper
   end
 
   def can_see_private_info?
-    admin? || current_user == @user
+    current_user && (admin? || current_user == @user || current_user.roles.supervisor.any?)
+  end
+
+  def can_only_review_private_info?
+    !admin? && current_user != @user
   end
 
   def accessible_roles
