@@ -8,10 +8,10 @@ describe UsersController do
 
   describe "GET index" do
     it "assigns all users that have any roles assigned as @users" do
-      user  = create(:user)
+      student  = create(:student)
       coach = create(:coach)
       get :index, {}, valid_session
-      expect(assigns(:users).to_a).to include(coach) && include(user)
+      expect(assigns(:users).to_a).to include(coach) && include(student)
     end
 
     it 'will not show email addresses for guests' do
@@ -22,11 +22,11 @@ describe UsersController do
 
     context 'with user logged in' do
       it 'will not show email addresses of those who opted out' do
-        sign_in create(:user)
-        user = FactoryGirl.create(:user, hide_email: false)
+        sign_in create(:student)
+        user = FactoryGirl.create(:student, hide_email: false)
         user_opted_out = FactoryGirl.create(:user, hide_email: true)
         get :index, {}, valid_session
-        expect(response.body).to     include user.email
+        expect(response.body).to include user.email
         expect(response.body).not_to include user_opted_out.email
       end
     end
