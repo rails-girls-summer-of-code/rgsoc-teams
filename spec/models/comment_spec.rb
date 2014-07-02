@@ -24,4 +24,11 @@ describe Comment do
     end
   end
 
+  it 'sets a checked on the team' do
+    @first_comment.team.checked = nil
+
+    expect do
+      @first_comment.save!
+    end.to change(@first_comment.team, :checked)
+  end
 end
