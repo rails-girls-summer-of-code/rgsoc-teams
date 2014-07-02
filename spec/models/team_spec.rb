@@ -75,7 +75,7 @@ describe Team do
   end
 
   describe 'checking' do
-    let(:user) { FactoryGirl.build_stubbed(:user) }
+    let(:user) { FactoryGirl.create(:user) }
 
     it 'calls set_last_checked' do
       subject.should_receive(:set_last_checked)
