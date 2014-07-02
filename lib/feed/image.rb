@@ -21,11 +21,10 @@ class Feed
     end
 
     def fetch
-      open("http://api.snapito.com/web/#{ENV['SNAPITO_KEY']}/mc?url=#{URI::encode(url)}&fast&freshness=0")
+      open("http://api.snapito.com/web/free/mc?url=#{URI.encode(url)}&fast&freshness=0")
     rescue => e
       logger.error "Could not fetch image for #{url}: #{e.message}"
       nil
     end
   end
 end
-
