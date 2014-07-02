@@ -74,7 +74,8 @@ class Team < ActiveRecord::Base
   end
 
   def last_checked_by
-    User.find(read_attribute(:last_checked_by))
+    user_id = self[:last_checked_by]
+    User.find(user_id) if user_id
   end
 
   private
