@@ -20,8 +20,20 @@ class Feed
       end
     end
 
+    def fetch_json(url)
+      resp = Net::HTTP.get_response(URI.parse(url))
+      data = resp.body
+      JSON.parse(data)
+    end
+
     def fetch
-      open("http://api.screenshotmachine.com/?url=#{URI.encode(url)}&size=M&key=0d74af")
+      params = {
+        p2i_url: URI.encode(url),
+        p2i_screen: '640x400',
+        p2i_key: ENV['P2I_KEY']
+      }
+      response = fetch_json("http://api.page2images.com/restfullink?#{params.to_param}")
+      open(response['image_url'])
     rescue => e
       logger.error "Could not fetch image for #{url}: #{e.message}"
       nil

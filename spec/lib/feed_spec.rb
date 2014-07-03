@@ -7,8 +7,7 @@ describe Feed do
   let(:logger) { Logger.new(out) }
 
   before :each do
-    stub_request(:get, %r(api.snapito.com)).to_return(status: 200, body: '', headers: {})
-    stub_request(:get, %r(iam/security-credentials)).to_return(status: 401)
+    stub_request(:get, %r(http://api.page2images.com)).to_return(status: 200, body: '', headers: {})
   end
 
   def source_url(name)
