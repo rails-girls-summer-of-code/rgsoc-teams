@@ -14,7 +14,7 @@ class CommentMailer < ActionMailer::Base
   private
 
     def supervisors
-      Team.where(name: 'Supervisors').first.members
+      Role.where(name: 'supervisor').map(&:user).compact
     end
 
     def subject
@@ -26,5 +26,3 @@ class CommentMailer < ActionMailer::Base
       @comment = comment
     end
 end
-
-
