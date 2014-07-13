@@ -18,6 +18,8 @@ class Comment < ActiveRecord::Base
   private
 
   def set_checked
-    self.team.checked = user if self.team
+    return unless team
+    team.checked = user
+    team.save
   end
 end
