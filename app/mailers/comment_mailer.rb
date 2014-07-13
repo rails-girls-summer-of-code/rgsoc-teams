@@ -14,7 +14,7 @@ class CommentMailer < ActionMailer::Base
   private
 
     def supervisors
-      Role.where(name: 'supervisor').map(&:user).compact
+      Role.where(name: 'supervisor').map(&:user).uniq.compact
     end
 
     def subject
