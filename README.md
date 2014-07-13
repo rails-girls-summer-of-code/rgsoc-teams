@@ -54,6 +54,18 @@ bundle install
 bundle exec rake db:drop db:create db:migrate
 ```
 
+### Mailtrap
+
+To avoid accidentally sending out mails to real addresses we user [Mailtrap](https://mailtrap.io).
+Create an account and inbox there and add the username and password from to your environment.
+Depending on your environment put the following lines in `.zshrc` (if you use ZSH) or `.bash_profile` (if you use BASH):
+
+```
+export MAILTRAP_USER=>>USERNAME<<
+export MAILTRAP_PASSWORD=>>PASSWORD<<
+```
+_**Note:** Replace `>>USERNAME<<` & `>>PASSOWORD<<` according to the Mailtrap-Inbox._
+
 ## Testing
 
 ```bash
@@ -85,4 +97,3 @@ Append `-r staging` or `-r production` to any `heroku` command in order to speci
 ### Cron job set up for activity:update
 
 A scheduler should be set up to rake `activity:update` rake task every 10 min
-
