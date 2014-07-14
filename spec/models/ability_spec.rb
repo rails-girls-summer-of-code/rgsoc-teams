@@ -17,4 +17,12 @@ describe Ability do
       it { ability.should_not be_able_to(:show, other_user) }
     end
   end
+
+  let(:ability) { Ability.new(user.admin) } 
+    context 'when admin is connected'
+    let(:user) { FactoryGirl.create(:user.admin)}
+    describe 'she/he is allowed to update attendance if admin' do
+      it { ability.should be_able_to(:update,attendances)}
+    end
+    
 end
