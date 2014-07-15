@@ -16,5 +16,22 @@ describe Ability do
       let(:other_user) { FactoryGirl.create(:user) }
       it { ability.should_not be_able_to(:show, other_user) }
     end
+
+    context 'permitting activities' do
+      context 'for feed_entries' do
+        it 'allows anyone to read' do
+          expect(Ability.new(nil)).to be_able_to :read, :feed_entry
+        end
+      end
+
+      context 'for mailings' do
+        it 'does not allow anonymous user to read' do
+          expect(Ability.new(nil)).not_to be_able_to :read, :mailing
+        end
+        it 'allows signed in user to read' do
+          expect(subject).to be_able_to :read, :mailing
+        end
+      end
+    end
   end
 end
