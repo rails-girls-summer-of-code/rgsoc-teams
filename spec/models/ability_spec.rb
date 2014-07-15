@@ -16,5 +16,30 @@ describe Ability do
       let(:other_user) { FactoryGirl.create(:user) }
       it { ability.should_not be_able_to(:show, other_user) }
     end
+#
+    describe 'a user should not be able to mark another\'s attendance to a conference' do
+      
+      context 'when same user' do
+        let!(:user) { FactoryGirl.create(:user) }
+        let!(:attendance) { FactoryGirl.create(:attendance, user: user)}
+
+        it 'allows marking of attendance' do
+          ability.should be_able_to(:update, attendance)
+        end
+      end
+      
+      context 'when different users' do
+        let!(:other_user) { FactoryGirl.create(:user)}
+        let!(:attendance) { FactoryGirl.create(:attendance, user: user)}
+        it { ability.should_not be_able_to(:update, other_user.attendances) }
+      end
+
+    end
+
   end
+
 end
+
+
+
+
