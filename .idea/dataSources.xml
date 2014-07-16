@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourceManagerImpl" format="xml" hash="1619163872">
+    <data-source source="LOCAL" name="Rails rgsoc-teams: development" uuid="f5a66d70-335f-41ca-bca2-d2f1478f0157">
+      <driver-ref>postgresql</driver-ref>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://127.0.0.1/rgsocteams_development</jdbc-url>
+      <user-name>postgres</user-name>
+      <libraries />
+    </data-source>
+    <data-source source="LOCAL" name="Rails rgsoc-teams: test" uuid="f733fa92-d9c0-428c-9f3a-cfbea86d57c4">
+      <driver-ref>postgresql</driver-ref>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://127.0.0.1/rgsocteams_test</jdbc-url>
+      <user-name>postgres</user-name>
+      <libraries />
+    </data-source>
+    <data-source source="LOCAL" name="Rails rgsoc-teams: production" uuid="ad1694a9-5200-4df1-b033-78ba6ac750e3">
+      <driver-ref>postgresql</driver-ref>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://127.0.0.1/rgsocteams_production</jdbc-url>
+      <user-name>postgres</user-name>
+      <libraries />
+    </data-source>
+  </component>
+</project>
+
