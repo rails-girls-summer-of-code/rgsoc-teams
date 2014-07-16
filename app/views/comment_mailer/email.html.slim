@@ -10,4 +10,5 @@ html
   body
     h3 = team.display_name
     p = "#{comment.user.name}, #{comment.created_at.to_formatted_s(:short)}"
-    = simple_format comment.text
+    p = simple_format comment.text
+    p = link_to nil, team_url(team)

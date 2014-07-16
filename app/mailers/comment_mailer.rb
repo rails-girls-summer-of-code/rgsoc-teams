@@ -1,7 +1,7 @@
 class CommentMailer < ActionMailer::Base
   include ActionView::Helpers::TextHelper
 
-  default from: ENV['EMAIL_FROM']
+  default from: ENV['EMAIL_FROM'] || 'summer-of-code-team@railsgirls.com'
 
   attr_reader :team, :comment
   helper_method :team, :comment
@@ -14,7 +14,7 @@ class CommentMailer < ActionMailer::Base
   private
 
     def supervisors
-      Team.where(name: 'Supervisors').first.members
+      Role.where(name: 'supervisor').map(&:user).uniq.compact
     end
 
     def subject
@@ -26,5 +26,3 @@ class CommentMailer < ActionMailer::Base
       @comment = comment
     end
 end
-
-

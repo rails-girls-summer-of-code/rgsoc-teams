@@ -1,5 +1,5 @@
 class ApplicationFormMailer < ActionMailer::Base
-  default from: ENV['EMAIL_FROM']
+  default from: ENV['EMAIL_FROM'] || 'summer-of-code-team@railsgirls.com'
 
   default to: 'summer-of-code@railsgirls.com'
 
