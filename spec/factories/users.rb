@@ -31,5 +31,12 @@ FactoryGirl.define do
         FactoryGirl.create(:organizer_role, user: user)
       end
     end
+
+    factory :helpdesk do
+      after(:create) do |user|
+        FactoryGirl.create(:helpdesk_role, user: user)
+      end
+    end
+
   end
 end

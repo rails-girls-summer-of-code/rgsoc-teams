@@ -2,6 +2,7 @@ require 'spec_helper'
 require 'cancan/matchers'
 
 describe Ability do
+  context 'ability takes new user as parameter' do
   subject { ability }
   let(:ability) { Ability.new(user) }
 
@@ -72,9 +73,31 @@ describe Ability do
       end
     end
   end
-
 end
 
+context 'to join helpdesk team' do
+  let(:user) { FactoryGirl.create(:helpdesk) }
+  let(:help) { FactoryGirl.create(:team, :helpdesk) }
+  let(:team) { FactoryGirl.create(:team)}
+
+  subject { ability }
+  let(:ability) { Ability.new(user) }
+
+  it 'should be logged in' do
+    expect(ability.signed_in?(user)).to eql true
+  end
+
+  it 'should not be part of existing team' do
+    expect(ability.on_team?(user, team)).to eql false
+  end
+
+  it 'should be able to join helpdesk team' do
+    ability.should be_able_to(:join, help)
+  end
+end
+
+
+end
 
 
 
