@@ -1,6 +1,8 @@
 require 'spec_helper'
 
 describe User do
+
+
   before do
     stub_request(:get, /./).to_return(body: File.read('spec/stubs/github/user.json'))
   end
@@ -37,6 +39,14 @@ describe User do
         end
       end
 
+
+      context 'organizer check' do
+        it 'checks if organizer' do
+          expect(@organizer.roles.organizer).to eq([@role])
+        end
+      end
+
+
       it 'returns true for roles.includes?' do
         expect(@organizer.roles.includes?('organizer')).to eql true
       end
@@ -46,6 +56,30 @@ describe User do
         @role.destroy
       end
     end
+
+    #
+    #describe 'supervisor check' do
+    #  before do
+    #   @supervisor = create(:supervisor)
+    #    @role = Role.find_by(name: 'supervisor', user_id: @supervisor.id)
+    #  end
+
+    #  context 'supervisor check' do
+    #    it 'expects to be supervisor' do
+    #      expect(@supervisor.roles.supervisor).to eq([@role])
+
+    #    end
+
+    #  end
+
+    #  after do
+    #    @supervisor.destroy
+    #    @role.destroy
+    #  end
+
+    #end
+
+    #
 
     describe '.with_assigned_roles' do
       it 'returns users that have any roles assigned' do
