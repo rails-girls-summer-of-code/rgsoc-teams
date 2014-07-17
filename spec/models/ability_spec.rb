@@ -12,6 +12,13 @@ describe Ability do
       it { ability.should be_able_to(:show, user) }
       it { ability.should_not be_able_to(:create, User.new) } #this only happens through GitHub
     end
+    context 'when a user is admin' do
+      let(:user) { FactoryGirl.create(:user) }
+      let(:organizer_role) { FactoryGirl.create(:organizer_role, user: user) }
+      it "should be able to do anything on anyone's account" do
+        expect(subject).to be_able_to(:crud, organizer_role)
+      end
+    end
 
     describe 'she/he is not allowed to do everything on someone else account' do
       let(:other_user) { FactoryGirl.create(:user) }
@@ -25,16 +32,28 @@ describe Ability do
         let!(:attendance) { FactoryGirl.create(:attendance, user: user)}
 
         it 'allows marking of attendance' do
-          ability.should be_able_to(:update, attendance)
+          ability.should be_able_to(:crud, attendance)
         end
-      end
 
+
+      context 'when user is admin' do
+        let!(:user) { FactoryGirl.create(:user) }
+        let!(:organiser_role) { FactoryGirl.create(:organizer_role, user: user)}
+        it "should be able to crud attendance" do
+         expect(subject).to be_able_to :crud, attendance
+
+
+
+        end
+
+      end
+       end
       context 'when different users' do
         let!(:other_user) { FactoryGirl.create(:user)}
         let!(:attendance) { FactoryGirl.create(:attendance, user: user)}
-        it { ability.should_not be_able_to(:update, other_user.attendances) }
-      end
+        it { ability.should_not be_able_to(:crud, other_user.attendances) }
 
+    end
     end
 
     context 'permitting activities' do
