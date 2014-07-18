@@ -6,6 +6,12 @@ describe Submission do
       expect(submission.errored?).to eql false
     end
   end
+
+  context 'sent' do
+    it 'should have been sent' do
+      expect(Submission.unsent).not_to eql nil
+    end
+  end
 end
 
 
