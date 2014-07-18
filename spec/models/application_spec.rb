@@ -88,4 +88,11 @@ describe Application do
       end
     end
   end
+
+  describe 'sponsor pick' do
+    application = FactoryGirl.build_stubbed(:application)
+    it 'does not have a sponsor' do
+      expect(application.sponsor_pick?).to eql false
+    end
+  end
 end
