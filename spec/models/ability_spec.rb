@@ -13,6 +13,7 @@ describe Ability do
         it { ability.should be_able_to(:show, user) }
         it { ability.should_not be_able_to(:create, User.new) } #this only happens through GitHub
       end
+      
       context 'when a user is admin' do
         let(:user) { FactoryGirl.create(:user) }
         let(:organizer_role) { FactoryGirl.create(:organizer_role, user: user) }
