@@ -12,7 +12,7 @@ describe Rating do
 
       let(:user) { create(:user) }
       it 'should return a user' do
-       expect { Rating.by(user).should == :user }
+       expect { Rating.by('user').should == :user }
 
     end
     end
