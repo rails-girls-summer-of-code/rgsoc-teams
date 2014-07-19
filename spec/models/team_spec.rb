@@ -16,13 +16,6 @@ describe Team do
 
   it { should validate_uniqueness_of(:name) }
 
-  describe 'sponsored' do
-
-    it 'should be sponsored' do
-      expect(subject.sponsored?).to eql true
-    end
-  end
-
   describe 'creating a new team' do
     before do
       Team.destroy_all
@@ -96,15 +89,11 @@ describe Team do
         subject.save!
       end.to change(subject, :last_checked_by) && change(subject, :last_checked_at)
     end
-
   end
 
   describe 'sponsored team' do
-
-    it 'kind should be sponsored' do
-      expect { Team.sponsored.kind.should == 'sponsored' }
-
-
+    it 'should be sponsored' do
+      expect(subject.sponsored?).to eql true
     end
   end
 end
