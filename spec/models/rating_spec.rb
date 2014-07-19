@@ -10,4 +10,15 @@ describe Rating do
     end
   end
 
+  context 'user name' do
+    it 'should be defined' do
+      expect(Rating.user_names).to_not eql nil
+    end
+  end
+
+  context 'done by a user' do
+    it 'should be defined' do
+      expect(Rating.by(user)).to_not eql nil
+    end
+  end
 end
