@@ -92,7 +92,7 @@ describe Team do
 
   end
 
- # describe 'sponsored team' do
+  describe 'sponsored team' do
 
   #  it 'kind should be sponsored' do
    #   expect { Team.sponsored?.kind.should == 'sponsored' }
