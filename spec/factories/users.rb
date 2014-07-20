@@ -43,7 +43,5 @@ FactoryGirl.define do
         FactoryGirl.create(:supervisor_role, user: user)
       end
     end
-
-
   end
 end

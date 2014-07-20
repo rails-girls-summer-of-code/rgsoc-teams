@@ -94,27 +94,5 @@ describe Ability do
       ability.should be_able_to(:join, help)
     end
   end
-  end
-
-  
-
-  #context 'to supervise team' do
-   # let(:user) { FactoryGirl.create(:user) }
-   # let(:team) { FactoryGirl.create(:team) }
-
-   # subject { ability }
-  #  let(:ability) { Ability.new(user) }
-
-    #let!(:organiser_role) { FactoryGirl.create(:organiser_role, user: user ) }
-   # let!(:supervisor) { FactoryGirl.create(supervisor, user: user) }
-
-
-    #it 'should be an supervisor' do
-
-    #expect(subject).to be_able_to(:supervise, team)
- # end
-#end
-#end
-
-
+end
 
