@@ -91,16 +91,6 @@ describe Team do
     end
   end
 
- # describe 'sponsored team' do
-
-  #  it 'kind should be sponsored' do
-   #   expect { Team.sponsored?.kind.should == 'sponsored' }
-
-
-#    end
- # end
-
-
   describe 'sponsored team' do
     it 'should be sponsored' do
       expect(subject.sponsored?).to eql true

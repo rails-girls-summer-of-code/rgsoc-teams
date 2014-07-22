@@ -13,7 +13,7 @@ describe Ability do
         it { ability.should be_able_to(:show, user) }
         it { ability.should_not be_able_to(:create, User.new) } #this only happens through GitHub
       end
-      
+
       context 'when a user is admin' do
         let(:user) { FactoryGirl.create(:user) }
         let(:organizer_role) { FactoryGirl.create(:organizer_role, user: user) }
@@ -36,7 +36,6 @@ describe Ability do
           it 'allows marking of attendance' do
             ability.should be_able_to(:crud, attendance)
           end
-
 
           context 'when user is admin' do
             let!(:user) { FactoryGirl.create(:user) }
@@ -94,5 +93,19 @@ describe Ability do
       ability.should be_able_to(:join, help)
     end
   end
+
+
+  describe 'user role' do
+    it 'should be able to supervise' do
+      user =  FactoryGirl.create(:user)
+      FactoryGirl.create(:organizer_role, user: user )
+      team = FactoryGirl.create(:team)
+      ability = Ability.new(user)
+      expect(ability).to be_able_to(:supervise, team)
+    end
+  end
 end
+
+
+
 
