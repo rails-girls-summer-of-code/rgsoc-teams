@@ -1,7 +1,5 @@
 require 'spec_helper'
 
-
-
 describe Role do
   it { should belong_to(:team) }
   it { should belong_to(:user) }
@@ -12,12 +10,9 @@ describe Role do
 
 
   describe 'application' do
-
-      let(:role_name) { FactoryGirl.create(:role_name) }
-
-
-    it 'should not be blank' do
-      expect(Role.includes?(:role_name)).to eq false
+    it 'includes role name' do
+      FactoryGirl.create(:student_role)
+      expect(Role.includes?('student')).to eq true
     end
   end
 end
