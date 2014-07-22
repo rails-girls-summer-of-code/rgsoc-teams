@@ -8,6 +8,7 @@ FactoryGirl.define do
     bio      { Faker::Lorem.paragraph }
     homepage { Faker::Internet.http_url }
 
+
     factory :coach do
       after(:create) do |user|
         FactoryGirl.create(:coach_role, user: user)
