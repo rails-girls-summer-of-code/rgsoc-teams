@@ -4,11 +4,7 @@
 # or operating system, you probably want to add a global ignore instead:
 #   git config --global core.excludesfile ~/.gitignore_global
 
-/spec/models/user_spec.rb~
 /config/database.yml
-/config/database.yml~
-.idea
-
 .ruby-version
 .ruby-gemset
 
@@ -27,7 +23,3 @@
 conferences_data.rb
 conferences_raffle.txt
 coverage
-
-.idea
-
-

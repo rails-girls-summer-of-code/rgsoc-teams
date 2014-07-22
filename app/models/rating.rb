@@ -18,13 +18,9 @@ class Rating < ActiveRecord::Base
   belongs_to :application
   belongs_to :user
 
-  #scope :by
-  #scope :user_names
-
   def data
     Hashr.new(super)
   end
-
 
   def value(options = {})
     data = self.data

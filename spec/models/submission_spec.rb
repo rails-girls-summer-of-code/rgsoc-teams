@@ -13,6 +13,3 @@ describe Submission do
     end
   end
 end
-
-
-

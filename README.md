@@ -56,7 +56,7 @@ bundle exec rake db:drop db:create db:migrate
 
 ### Mailtrap
 
-    To avoid accidentally sending out mails to real addresses we user [Mailtrap](https://mailtrap.io).
+To avoid accidentally sending out mails to real addresses we user [Mailtrap](https://mailtrap.io).
 Create an account and inbox there and add the username and password from to your environment.
 Depending on your environment put the following lines in `.zshrc` (if you use ZSH) or `.bash_profile` (if you use BASH):
 

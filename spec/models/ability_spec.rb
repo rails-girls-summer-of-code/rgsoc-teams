@@ -77,7 +77,7 @@ describe Ability do
   context 'to join helpdesk team' do
     let(:user) { FactoryGirl.create(:helpdesk) }
     let(:help) { FactoryGirl.create(:team, :helpdesk) }
-    let(:team) { FactoryGirl.create(:team)}
+    let(:team) { FactoryGirl.create(:team) }
 
     subject { ability }
     let(:ability) { Ability.new(user) }

@@ -18,7 +18,6 @@ describe Rating do
       it 'should be defined' do
         user = FactoryGirl.create(:user)
         rating = FactoryGirl.create(:rating, user: user)
-        expect(Rating.user_names.first).to_not eql nil
         expect(Rating.user_names.first).to eql user.name
       end
     end
