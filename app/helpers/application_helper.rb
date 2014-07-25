@@ -100,7 +100,7 @@ module ApplicationHelper
   end
 
   def format_application_flags(application)
-    flags = [:hidden, :mentor_pick, :cs_student, :remote_team, :duplicate, :in_team].select do |flag|
+    flags = [:hidden, :mentor_pick, :cs_student, :remote_team, :duplicate, :in_team, :sponsor_pick].select do |flag|
       application.send(:"#{flag}?")
     end
     flags.map { |flag| flag.to_s.titleize }.join(', ')

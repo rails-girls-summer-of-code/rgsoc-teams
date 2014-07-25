@@ -2,7 +2,7 @@ require 'spec_helper'
 require 'cancan/matchers'
 
 describe Ability do
-  context 'ability takes new user as parameter' do
+  context 'ability' do
     subject {ability}
 
     let(:ability) { Ability.new(user) }
@@ -76,7 +76,6 @@ describe Ability do
 
   context 'to join helpdesk team' do
     let(:user) { FactoryGirl.create(:helpdesk) }
-    let(:help) { FactoryGirl.create(:team, :helpdesk) }
     let(:team) { FactoryGirl.create(:team) }
 
     subject { ability }
@@ -91,7 +90,10 @@ describe Ability do
     end
 
     it 'should be able to join helpdesk team' do
-      ability.should be_able_to(:join, help)
+      helpdesk_team = FactoryGirl.create(:team, :helpdesk)
+      puts helpdesk_team.helpdesk_team?
+      puts "#{helpdesk_team.roles.first.name}"
+      ability.should be_able_to(:join, helpdesk_team)
     end
   end
 end

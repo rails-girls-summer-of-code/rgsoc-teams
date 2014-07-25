@@ -17,6 +17,9 @@ class Ability
     end
 
     can :join, Team do |team|
+      puts team.helpdesk_team?
+      puts signed_in?(user)
+      puts on_team?(user, team)
       team.helpdesk_team? and signed_in?(user) and not on_team?(user, team)
     end
 
