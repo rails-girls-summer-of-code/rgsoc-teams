@@ -6,14 +6,6 @@ describe Rating do
   end
 
   describe 'scopes' do
-    context 'data' do
-      it 'should be defined' do
-        user = FactoryGirl.create(:user)
-        rating = FactoryGirl.create(:rating, user: user)
-        expect(rating.data).not_to eql nil
-      end
-    end
-
     context 'user name' do
       it 'should be defined' do
         user = FactoryGirl.create(:user)
@@ -30,5 +22,4 @@ describe Rating do
       end
     end
   end
-  
 end
