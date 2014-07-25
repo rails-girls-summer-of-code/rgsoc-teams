@@ -91,8 +91,6 @@ describe Ability do
 
     it 'should be able to join helpdesk team' do
       helpdesk_team = FactoryGirl.create(:team, :helpdesk)
-      puts helpdesk_team.helpdesk_team?
-      puts "#{helpdesk_team.roles.first.name}"
       ability.should be_able_to(:join, helpdesk_team)
     end
   end

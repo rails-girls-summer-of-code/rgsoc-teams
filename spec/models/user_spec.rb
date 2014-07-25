@@ -37,7 +37,6 @@ describe User do
         end
       end
 
-
       context 'organizer check' do
         it 'checks if organizer' do
           expect(@organizer.roles.organizer).to eq([@role])
@@ -54,11 +53,9 @@ describe User do
       end
     end
 
-
     describe 'supervisor check' do
       before do
         @supervisor = create(:supervisor)
-
         @role = Role.find_by(name: 'supervisor', user_id: @supervisor.id)
       end
 
@@ -150,7 +147,6 @@ describe User do
       allow_any_instance_of(Github::User).
         to receive(:attrs).and_return({ name: '' })
       expect(user.name).to eql user.github_handle
-
     end
   end
 
