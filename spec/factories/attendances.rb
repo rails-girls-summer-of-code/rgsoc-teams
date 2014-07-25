@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :attendance do
-	user
-	conference
+	  user
+	  conference
   end
 end

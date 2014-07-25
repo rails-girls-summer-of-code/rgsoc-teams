@@ -17,12 +17,12 @@ describe Ability do
       context 'when a user is admin' do
         let(:user) { FactoryGirl.create(:user) }
         let(:organizer_role) { FactoryGirl.create(:organizer_role, user: user) }
-        it "should be able to do anything on anyone's account" do
+        it "should be able to CRUD on anyone's account" do
           expect(subject).to be_able_to(:crud, organizer_role)
         end
       end
 
-      describe 'she/he is not allowed to do everything on someone else account' do
+      describe 'she/he is not allowed to CRUD on someone else account' do
         let(:other_user) { FactoryGirl.create(:user) }
         it { ability.should_not be_able_to(:show, other_user) }
       end
