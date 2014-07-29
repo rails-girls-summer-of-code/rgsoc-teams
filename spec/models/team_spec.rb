@@ -89,6 +89,12 @@ describe Team do
         subject.save!
       end.to change(subject, :last_checked_by) && change(subject, :last_checked_at)
     end
-
   end
+
+  describe 'sponsored team' do
+    it 'should be sponsored' do
+      expect(subject.sponsored?).to eql true
+    end
+  end
+
 end

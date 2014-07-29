@@ -6,6 +6,9 @@ describe User do
   end
 
   it { expect(subject).to have_many(:teams) }
+  it { expect(subject).to have_many(:applications) }
+  it { expect(subject).to have_many(:attendances) }
+  it { expect(subject).to have_many(:conferences) }
   it { expect(subject).to have_many(:roles) }
   it { expect(subject).to validate_presence_of(:github_handle) }
   it { expect(subject).to validate_uniqueness_of(:github_handle) }
@@ -34,6 +37,12 @@ describe User do
         end
       end
 
+      context 'organizer check' do
+        it 'checks if organizer' do
+          expect(@organizer.roles.organizer).to eq([@role])
+        end
+      end
+
       it 'returns true for roles.includes?' do
         expect(@organizer.roles.includes?('organizer')).to eql true
       end
@@ -44,6 +53,26 @@ describe User do
       end
     end
 
+    describe 'supervisor check' do
+      before do
+        @supervisor = create(:supervisor)
+        @role = Role.find_by(name: 'supervisor', user_id: @supervisor.id)
+      end
+
+      context 'supervisor check' do
+        it 'expects to be supervisor' do
+          expect(@supervisor.roles.supervisor).to eq([@role])
+        end
+      end
+
+      after do
+        @supervisor.destroy
+        @role.destroy
+      end
+
+    end
+
+    
     describe '.with_assigned_roles' do
       it 'returns users that have any roles assigned' do
         expect(User.with_assigned_roles).to be ==[@user2]
@@ -104,6 +133,10 @@ describe User do
 
   describe 'after_create' do
     let(:user) { User.create(github_handle: 'octocat') }
+
+    it 'is just created' do
+      expect(user.just_created?).to eql true
+    end
 
     it 'completes attributes from Github' do
       attrs = user.attributes.slice(*%w(github_id email location name))
