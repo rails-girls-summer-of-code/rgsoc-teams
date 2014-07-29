@@ -7,6 +7,7 @@ describe ContributorsController do
     let!(:user)      { create(:user) }
     let!(:coach)     { create(:coach) }
     let!(:organizer) { create(:organizer) }
+    #let!(:supervisor) { create(:supervisor) }
 
     it 'returns json representation of user with relevant roles' do
       get :index, format: :json

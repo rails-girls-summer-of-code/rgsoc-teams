@@ -3,9 +3,9 @@ class Team < ActiveRecord::Base
 
   KINDS = %w(sponsored voluntary)
 
-  validates :kind, presence: true
+  validates :kind, presence: true, unless: :selected_team?
   validates :name, uniqueness: true, allow_blank: true
-  validates :projects, presence: true
+  validates :projects, presence: true, unless: :selected_team?
   # validate :must_have_members
   # validate :must_have_unique_students
 
@@ -83,6 +83,11 @@ class Team < ActiveRecord::Base
   def set_last_checked
     self.last_checked_at = Time.now
     self.last_checked_by = checked.is_a?(String) ? checked.to_i : checked.id
+  end
+
+  def selected_team?
+    Time.now.month > 6 #current implementation, not permanent
+    #if_selected? if_selected would be a boolean column in a team which would be set to false and can be changed only by admin
   end
 
   # def must_have_unique_students

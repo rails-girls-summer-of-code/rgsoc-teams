@@ -1,0 +1,18 @@
+development:
+  adapter: postgresql
+  database: rgsocteams_development
+  host: localhost
+  username: postgres
+
+test:
+  adapter: postgresql
+  database: rgsocteams_test
+  host: localhost
+  min_messages: error
+  username: postgres
+
+production:
+  adapter: postgresql
+  database: rgsocteams_production
+  host: localhost
+  username: postgres
