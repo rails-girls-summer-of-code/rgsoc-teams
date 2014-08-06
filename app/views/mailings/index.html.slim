@@ -19,4 +19,4 @@ p.pagination-info
     tbody
       = render @mailings
 
-  = will_paginate @mailings, theme: 'twitter-bootstrap-3', pagination_class: 'pagination-sm'
+  = paginate @mailings, theme: 'twitter-bootstrap-3', pagination_class: 'pagination-sm'
