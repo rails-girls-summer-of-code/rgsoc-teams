@@ -30,6 +30,14 @@ class User < ActiveRecord::Base
   include Authentication::ActiveRecordHelpers
   include ProfilesHelper
 
+  def self.current
+    Thread.current[:user]
+  end
+
+  def self.current=(user)
+    Thread.current[:user] = user
+  end
+
   devise :omniauthable
 
   has_many :roles do

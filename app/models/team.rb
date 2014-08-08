@@ -3,9 +3,9 @@ class Team < ActiveRecord::Base
 
   KINDS = %w(sponsored voluntary)
 
-  validates :kind, presence: true, if: [:selected_team?, :admin?]   #this should actually be unless: :admin?
+  validates :kind, presence: true, if: :selected_team?, unless: :access?  #this should actually be unless: :admin?
   validates :name, uniqueness: true, allow_blank: true
-  validates :projects, presence: true, if: [:selected_team?, :admin?]  #unless: :admin?
+  validates :projects, presence: true, if: :selected_team?, unless: :access?  #unless: :admin?
 
   # validate :must_have_members
   # validate :must_have_unique_students
@@ -92,10 +92,17 @@ class Team < ActiveRecord::Base
     is_selected
   end
 
-  def admin?
-    @role = Role.name
-    @role == 'organizer'
+  def current_user
+    Thread.current = self.current_user
   end
+
+  def access?
+    User.current.admin?
+  end
+
+
+
+
 
   # def must_have_unique_students
   #   students.each do |user|

@@ -2,6 +2,7 @@ class TeamsController < ApplicationController
   before_action :set_team, only: [:show, :edit, :update, :destroy]
   before_action :set_users, only: [:new, :edit]
   before_action :set_display_roles, only: :index
+
   load_and_authorize_resource except: [:index, :show]
 
   def index
@@ -41,19 +42,7 @@ class TeamsController < ApplicationController
 
   def update
     respond_to do |format|
-
-      if current_user.admin?
-        if @team.update_attributes(admin_params)
-        format.html { redirect_to @team, notice: 'Team was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: :edit }
-        format.json { render json: @team.errors, status: :unprocessable_entity }
-      end
-
-      else
-
-       if @team.update_attributes(team_params)
+      if @team.update_attributes(team_params)
         format.html { redirect_to @team, notice: 'Team was successfully updated.' }
         format.json { head :no_content }
        else
@@ -62,7 +51,7 @@ class TeamsController < ApplicationController
        end
     end
     end
-    end
+
 
   def destroy
     @team.destroy
@@ -86,7 +75,7 @@ class TeamsController < ApplicationController
     params[:team].fetch(:sources_attributes, {}).delete_if { |key, source| source[:url].empty? }
     params.require(:team).permit(
         :name, :projects, :kind, :twitter_handle, :github_handle, :description, :post_info, :event_id,
-        :checked, :'starts_on(1i)', :'starts_on(2i)', :'starts_on(3i)',
+        :checked, :is_selected, :'starts_on(1i)', :'starts_on(2i)', :'starts_on(3i)',
         :'finishes_on(1i)', :'finishes_on(2i)', :'finishes_on(3i)',
         roles_attributes: [:id, :name, :github_handle, :_destroy],
         sources_attributes: [:id, :kind, :url, :_destroy]

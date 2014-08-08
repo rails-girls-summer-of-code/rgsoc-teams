@@ -1,6 +1,12 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
 
+  before_filter :set_current_user
+
+  def set_current_user
+    User.current = current_user
+  end
+
   before_filter do
     redirect_to = params[:redirect_to]
     redirect_to ||= request.env['omniauth.params']['redirect_to'] if request.env['omniauth.params']
@@ -45,4 +51,5 @@ class ApplicationController < ActionController::Base
   def require_role(role_name)
     redirect_to '/' unless current_user.roles.includes?(role_name)
   end
+
 end
