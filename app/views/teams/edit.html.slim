@@ -9,5 +9,8 @@ nav.actions
 
 h1 Editing team
 
-== render 'form'
+-if @team.is_selected || admin?
+  == render 'form'
+-else
+  == render 'newteam'
 

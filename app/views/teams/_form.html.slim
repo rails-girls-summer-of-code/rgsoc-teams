@@ -20,6 +20,8 @@
   - if can? :read, :users_info
     = f.input :post_info, label: 'Blog post info'
 
+  = f.input :is_selected, as: :radio_buttons, label: 'Selected team?', blank: false
+
   h4 Sources
 
   p.help-block

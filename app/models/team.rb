@@ -3,13 +3,16 @@ class Team < ActiveRecord::Base
 
   KINDS = %w(sponsored voluntary)
 
-  validates :kind, presence: true, unless: :selected_team?
+  validates :kind, presence: true, if: [:selected_team?, :admin?]   #this should actually be unless: :admin?
   validates :name, uniqueness: true, allow_blank: true
-  validates :projects, presence: true, unless: :selected_team?
+  validates :projects, presence: true, if: [:selected_team?, :admin?]  #unless: :admin?
+
   # validate :must_have_members
   # validate :must_have_unique_students
 
   attr_accessor :checked
+ # attr_accessible :is_selected
+
 
   has_many :roles, dependent: :destroy
   has_many :members, class_name: 'User', through: :roles, source: :user
@@ -86,8 +89,12 @@ class Team < ActiveRecord::Base
   end
 
   def selected_team?
-    Time.now.month > 6 #current implementation, not permanent
-    #if_selected? if_selected would be a boolean column in a team which would be set to false and can be changed only by admin
+    is_selected
+  end
+
+  def admin?
+    @role = Role.name
+    @role == 'organizer'
   end
 
   # def must_have_unique_students

@@ -3,7 +3,7 @@
 
 class Ability
   include CanCan::Ability
-
+    team ||= Team.new
   def initialize(user)
     user ||= User.new
 
@@ -37,6 +37,8 @@ class Ability
     can :crud, Attendance do |attendance|
       user.admin? || user == attendance.user
     end
+
+    can :crud, @team = Team.new, @team.is_selected if user.admin?
 
     can :read, Mailing
     can :crud, Mailing    if user.admin?
