@@ -42,6 +42,7 @@ class TeamsController < ApplicationController
 
   def update
     respond_to do |format|
+
       if @team.update_attributes(team_params)
         format.html { redirect_to @team, notice: 'Team was successfully updated.' }
         format.json { head :no_content }
@@ -49,6 +50,7 @@ class TeamsController < ApplicationController
         format.html { render action: :edit }
         format.json { render json: @team.errors, status: :unprocessable_entity }
        end
+
     end
     end
 

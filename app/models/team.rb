@@ -3,9 +3,9 @@ class Team < ActiveRecord::Base
 
   KINDS = %w(sponsored voluntary)
 
-  validates :kind, presence: true, if: :selected_team?, unless: :access?  #this should actually be unless: :admin?
+  validates :kind, presence: true, if: :selected_team?, unless: :access?
   validates :name, uniqueness: true, allow_blank: true
-  validates :projects, presence: true, if: :selected_team?, unless: :access?  #unless: :admin?
+  validates :projects, presence: true, if: :selected_team?, unless: :access?
 
   # validate :must_have_members
   # validate :must_have_unique_students
