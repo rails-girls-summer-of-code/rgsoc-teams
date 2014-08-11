@@ -26,6 +26,14 @@ class MailingsController < ApplicationController
     redirect_to mailings_url
   end
 
+  def index
+    authorize! :read, :mailing
+  end
+
+  def show
+    authorize! :read, :mailing
+  end
+
   private
 
     def set_mailings

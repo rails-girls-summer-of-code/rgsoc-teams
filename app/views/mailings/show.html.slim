@@ -13,7 +13,7 @@ h1 class="mailing" = @mailing.subject
 .mailing
   dl
     dt To
-    dd = @mailing.to.map(&:capitalize).join(', ')
+    dd = Array(@mailing.to).map(&:capitalize).join(', ')
     dt From
     dd = @mailing.from
     dt Sent at
