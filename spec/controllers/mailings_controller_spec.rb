@@ -31,4 +31,24 @@ describe MailingsController do
       end
     end
   end
+
+  describe 'GET show' do
+    context 'with user logged in' do
+      include_context 'User logged in'
+
+      it 'renders the show template' do
+        get :show, { id: mailing.to_param }, valid_session
+        expect(response).to render_template 'show'
+      end
+    end
+
+    context 'as guest user' do
+      it 'denies access' do
+        get :show, { id: mailing.to_param }
+        expect(response).to redirect_to root_path
+        expect(flash[:alert]).to match 'not authorized'
+      end
+    end
+  end
+
 end

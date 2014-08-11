@@ -30,6 +30,10 @@ class MailingsController < ApplicationController
     authorize! :read, :mailing
   end
 
+  def show
+    authorize! :read, :mailing
+  end
+
   private
 
     def set_mailings
