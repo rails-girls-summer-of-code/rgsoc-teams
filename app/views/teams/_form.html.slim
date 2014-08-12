@@ -19,8 +19,8 @@
   = f.input :finishes_on, discard_year: true, order: [:day, :month], input_html: { class: 'short' }
   - if can? :read, :users_info
     = f.input :post_info, label: 'Blog post info'
-
-  = f.input :is_selected, as: :radio_buttons, label: 'Selected team?', blank: false
+  - if can? :select, @team
+    = f.input :is_selected, as: :radio_buttons, label: 'Selected team?', blank: false
 
   h4 Sources
 
