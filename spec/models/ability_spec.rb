@@ -111,7 +111,7 @@ describe Ability do
       FactoryGirl.create(:organizer_role, user: user)
       team = FactoryGirl.create(:team)
       ability = Ability.new(user)
-      expect(ability).to be_able_to(:is_selected, team)
+      expect(ability).to be_able_to(:select, team)
     end
     end
   context 'non admin' do
@@ -119,7 +119,7 @@ describe Ability do
     let!(:team) { FactoryGirl.create(:team) }
     let!(:ability) { Ability.new(user)}
     describe 'should not be able to select' do
-      it{ ability.should_not be_able_to(:is_selected, user) }
+      it{ ability.should_not be_able_to(:select, user) }
     end
   end
 end
