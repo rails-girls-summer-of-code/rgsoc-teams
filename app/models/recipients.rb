@@ -20,7 +20,7 @@ class Recipients
   end
 
   def roles
-    to.map do |to|
+    Array(to).map do |to|
       to == 'teams' ? %w(student coach mentor) : [to.singularize]
     end.flatten
   end

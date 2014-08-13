@@ -13,7 +13,7 @@ describe Ability do
         it { ability.should be_able_to(:show, user) }
         it { ability.should_not be_able_to(:create, User.new) } #this only happens through GitHub
       end
-      
+
       context 'when a user is admin' do
         let(:user) { FactoryGirl.create(:user) }
         let(:organizer_role) { FactoryGirl.create(:organizer_role, user: user) }
@@ -52,6 +52,30 @@ describe Ability do
           let!(:attendance) { FactoryGirl.create(:attendance, user: user)}
           it { ability.should_not be_able_to(:crud, other_user.attendances) }
 
+        end
+      end
+
+      describe 'access to mailings' do
+        let!(:mailing) { Mailing.new }
+        let!(:user) { FactoryGirl.create(:student) }
+
+        context 'when user is admin' do
+          let(:user) { FactoryGirl.create(:organizer) }
+
+          it { expect(subject).to be_able_to :crud, mailing }
+        end
+
+        context 'when user is a recipient' do
+          it 'allows to read' do
+            mailing.to = %w(students)
+            expect(subject).to be_able_to :read, mailing
+          end
+        end
+
+        context 'when user has nothing to do with the mailing' do
+          it 'will not allow to read' do
+            expect(subject).not_to be_able_to :read, mailing
+          end
         end
       end
 

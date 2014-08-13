@@ -21,4 +21,18 @@ describe Mailing do
   describe '#recipients' do
     pending 'TODO'
   end
+
+  describe '#recipient?' do
+    let(:user) { FactoryGirl.create(:student) }
+
+    it 'returns false for a an empty recipients list' do
+      expect(subject.recipient? user).to be_false
+    end
+
+    it 'returns true if user has appropriate role' do
+      subject.to = %w(students)
+      expect(subject.recipient? user).to be_true
+    end
+  end
+
 end
