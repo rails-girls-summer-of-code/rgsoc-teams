@@ -10,7 +10,7 @@
   = f.input :from, placeholder: 'From'
   = f.input :cc, placeholder: 'cc'
   = f.input :subject, placeholder: 'Subject'
-  = f.input :body, hint: 'You can use basic <a href="http://en.wikipedia.org/wiki/Markdown">Markdown</a> here.'
+  = f.input :body, hint: 'You can use basic <a href="http://en.wikipedia.org/wiki/Markdown">Markdown</a> here.'.html_safe
 
   .actions
     = f.submit 'Save', class: 'btn btn-success'
