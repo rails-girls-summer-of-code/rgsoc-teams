@@ -24,4 +24,8 @@ class Mailing < ActiveRecord::Base
   def recipients
     @recipients ||= Recipients.new(self)
   end
+
+  def recipient?(user)
+    recipients.users.include? user
+  end
 end
