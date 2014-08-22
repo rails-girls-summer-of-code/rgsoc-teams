@@ -9,8 +9,6 @@ describe CommentsController do
   let(:application) { FactoryGirl.create(:application) }
 
   before do
-    CommentMailer.stub(:email).and_return(double("Mailer", :deliver => true))
-
     user.roles.create(name: 'organizer')
     sign_in user
   end
@@ -42,6 +40,27 @@ describe CommentsController do
           response.should redirect_to(application)
         end
       end
+
+      context 'team comment' do
+        it 'creates a new Comment and redirects to team page' do
+          expect {
+            post :create, { comment: valid_attributes.merge(team_id: team.id) }, valid_session
+          }.to change { Comment.count }.by(1)
+          expect(response).to redirect_to team
+        end
+
+        it 'sends an email to all supervisors' do
+          supervisors = FactoryGirl.create_list(:supervisor, 2)
+
+          expect {
+            post :create, { comment: valid_attributes.merge(team_id: team.id) }, valid_session
+          }.to change { ActionMailer::Base.deliveries.size }.by(1)
+
+          mail = ActionMailer::Base.deliveries.last
+          expect(mail.to).to eq supervisors.map(&:email)
+        end
+      end
     end
+
   end
 end
