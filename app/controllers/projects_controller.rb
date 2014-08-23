@@ -6,6 +6,10 @@ class ProjectsController < ApplicationController
     @project = @team.projects.new(name: params[:name])
   end
 
+  def show
+
+  end
+
   def create
     respond_to do |format|
       if @project.save
