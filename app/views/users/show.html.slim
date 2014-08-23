@@ -1,0 +1,77 @@
+nav.page
+  ul
+    li = link_to 'All participants', users_path, class: 'back'
+
+nav.actions
+  ul.list-inline
+    li = link_to 'Edit', edit_user_path(@user), class: 'btn btn-default btn-sm edit' if can? :edit, @user
+    li = link_to 'Delete Profile', @user, data: { confirm: 'This action cannot be undone. Are you sure?' }, method: :delete, class: 'btn btn-default btn-sm destroy' if can? :destroy, @user
+
+.profile
+  - if @user.avatar_url.present?
+    img src="#{@user.avatar_url}&s=200"
+
+  h1 = @user.name
+
+  - if_present? @user, :github_handle, :twitter_handle, :irc_handle, :location, :homepage
+    dl
+      - each_handle(@user, :github, :twitter, :irc) do |name, handle, url|
+        dt = name.capitalize
+        dd = url ? link_to(handle, url) : handle
+      - if @user.country.present?
+        dt = User.human_attribute_name(:country)
+        dd = @user.country
+      - if @user.location.present?
+        dt = User.human_attribute_name(:location)
+        dd = @user.location
+      - if @user.homepage.present?
+        dt Homepage
+        dd = link_to(@user.homepage, @user.homepage)
+      - if can? :read, :users_info
+        dt E-Mail
+        dd = link_to @user.email, "mailto:#{@user.email}" if @user.email.present?
+        dt Timezone
+        dd = @user.timezone
+
+  - if @user.bio.present?
+    h4 About me
+    p = render_markdown(@user.bio).html_safe
+
+  - if @user.teams.any?
+    h4 Teams
+    ul.teams
+      - @user.teams.each do |team|
+        li #{link_to team.display_name, team} &ndash; #{role_names(team, @user)}
+
+  - if @user.conferences.any?
+    h4 Conferences
+    ul.conferences
+      - @user.attendances.includes(:conference).order('conferences.starts_on').each do |a|
+        li
+          p
+            ' #{link_to a.conference.name, a.conference}
+            ' (#{a.conference.location}, #{format_conference_date(a.conference.starts_on, a.conference.ends_on)})
+          - if can?(:crud, a)
+            ul.actions
+              - if a.confirmed?
+                li Confirmed
+                li = link_to('Revoke', attendance_path(a, attendance: { confirmed: false }, return_to: request.url), method: :put, class: 'confirm')
+              - else
+                li = link_to('Yes, I can attend', attendance_path(a, attendance: { confirmed: true }, return_to: request.url), method: :put, class: 'confirm')
+                li = link_to('No, I cannot attend', attendance_path(a, return_to: request.url), method: :delete, class: 'cancel', data: { confirm: 'Are you sure? Your ticket will go back into the pool of available tickets.' })
+
+  - if can_see_private_info?
+    - fields = ['tshirt_size', 'postal_address', 'banking_info']
+    .well.private-info
+      h3 Private info
+      - fields.each do |field|
+        - if @user.send(field).present?
+          p
+            - if can_only_review_private_info?
+              = field.gsub('_', ' ').capitalize + " filled out"
+            - else
+              strong>= field.gsub('_', ' ').capitalize + ": "
+              = simple_format @user.send(field)
+        - else
+          p
+            = field.gsub('_', ' ').capitalize + " not filled out"

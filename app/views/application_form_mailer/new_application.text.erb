@@ -1,0 +1,14 @@
+Created at: <%= @application.created_at %>
+
+Student Name: <%= @application.name %>
+Student Email: <%= @application.email %>
+
+Application Data:
+================
+----------
+<% ApplicationForm::FIELDS.each do |field| %>
+<%= field.to_s %>:
+
+<%= @application.application_data[field.to_s] %>
+----------
+<% end %>

@@ -1,0 +1,6 @@
+= simple_form_for Comment.new(team_id: team.id) do |f|
+  = f.input :team_id, as: :hidden
+  = f.input :text, as: :text, label: 'Add a comment'
+  .hint Also sets the checkedup
+  .actions
+    = f.submit 'Save', class: 'btn btn-success'

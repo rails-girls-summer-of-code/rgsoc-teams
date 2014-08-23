@@ -1,0 +1,10 @@
+li class="activity #{activity.kind}"
+  = link_to activity.source_url
+    = image_tag(activity.img_url || '/images/screenshot-missing.png')
+  = content_tag :h4, link_to(activity.title, activity.source_url, class: 'title')
+  p.content= format_activity_content(activity, length: 300)
+  p.info
+    span.published_at = "at #{activity.published_at.to_formatted_s(:time)}".html_safe if activity.published_at
+    ' &nbsp;&mdash; by:
+    = link_to activity.team.display_name, activity.team
+

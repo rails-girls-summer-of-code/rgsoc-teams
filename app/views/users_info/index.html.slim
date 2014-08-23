@@ -1,0 +1,38 @@
+h1.header User info
+
+form.filter action=request.url
+  h5 Role
+  - (['all'] + Role::ROLES).each do |role|
+    label.radio
+      = radio_button_tag :role, role == 'all' ? '' : role, params[:role] == role
+      = role.capitalize
+
+  h5 Type
+  - %w(all sponsored voluntary).each do |kind|
+    label.radio
+      = radio_button_tag :kind, kind == 'all' ? '' : kind, params[:kind] == kind
+      = kind.capitalize
+
+table.table.table-striped.table-bordered.table-condensed.table-hover
+  thead
+    tr
+      th Team
+      th Name
+      th E-Mail
+      th T-Shirt size
+      th Banking
+      th Address
+
+  tbody
+    - users.each do |user|
+      tr
+        td
+          ul
+            - links_to_user_teams(user).each do |link|
+              li = link
+        td = link_to user.name_or_handle, user
+        td = user.email
+        td = user.tshirt_size
+        td = simple_format user.banking_info
+        td = simple_format user.postal_address
+

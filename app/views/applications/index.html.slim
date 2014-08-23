@@ -1,0 +1,60 @@
+form id='applications-filter' class='filter' action=request.url
+  label
+    = hidden_field_tag 'filter[hide_bonus_points]', false
+    = check_box_tag 'filter[hide_bonus_points]', true, hide_bonus_points?
+    ' Hide bonus points
+  label
+    = hidden_field_tag 'filter[hide_cs_students]', false
+    = check_box_tag 'filter[hide_cs_students]', true, hide_cs_students?
+    ' Hide CS students
+  label
+    = hidden_field_tag 'filter[hide_remote_teams]', false
+    = check_box_tag 'filter[hide_remote_teams]', true, hide_remote_teams?
+    ' Hide remote teams
+  label
+    = hidden_field_tag 'filter[hide_duplicates]', false
+    = check_box_tag 'filter[hide_duplicates]', true, hide_duplicates?
+    ' Hide duplicates
+  label
+    = hidden_field_tag 'filter[hide_in_teams]', false
+    = check_box_tag 'filter[hide_in_teams]', true, hide_in_teams?
+    ' Hide In
+
+table#applications.table.table-striped.table-bordered.table-condensed.table-hover
+  thead
+    tr
+      th #
+      th = link_to_ordered 'ID', :id
+
+      th = link_to_ordered 'Student', :student_name
+      th = link_to_ordered 'Projects', :project_name
+      th = link_to_ordered 'Locations', :location
+      th = link_to_ordered 'Company', :coaching_company
+
+      th = link_to_ordered 'Picks', :picks
+      th = link_to_ordered 'Mean', :mean
+      th = link_to_ordered 'Median', :median
+      th = link_to_ordered 'Weighted', :weighted
+      th = link_to_ordered "Trunc'ed", :truncated
+
+      - @applications.names.each do |name|
+        th = name.slice(0, 2)
+
+      th = link_to_ordered 'Skill', :average_skill_level
+
+      th = link_to_ordered 'M', :mentor_pick
+      th = link_to_ordered 'V', :volunteering_team?
+
+      - if display_remote_teams?
+        th = link_to_ordered 'R', :remote_team
+      - if display_cs_students?
+        th = link_to_ordered 'CS', :cs_student
+      - if display_in_teams?
+        th = link_to_ordered 'I', :in_teams
+      - if display_duplicates?
+        th = link_to_ordered 'D', :duplicate
+
+  tbody
+    = render partial: 'applications/application', collection: @applications.rows, as: :row
+
+= link_to "Show hidden", "?show_hidden=true"

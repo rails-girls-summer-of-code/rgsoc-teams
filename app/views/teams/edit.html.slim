@@ -1,0 +1,16 @@
+nav.page
+  ul
+    li = link_to 'Back', @team, class: 'back'
+
+nav.actions
+  ul
+    li
+      = link_to 'Destroy', @team, data: { confirm: 'Are you sure?' }, method: :delete, class: 'destroy'
+
+h1 Editing team
+
+-if @team.is_selected || admin?
+  == render 'form'
+-else
+  == render 'newteam'
+

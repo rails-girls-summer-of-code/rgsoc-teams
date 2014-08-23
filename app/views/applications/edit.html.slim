@@ -1,0 +1,11 @@
+= simple_form_for @application do |a|
+  = a.input :misc_info
+  = a.input :project_visibility
+  = a.input :project_name
+  = a.input :coaching_company
+  = a.input :city
+  = a.input :country, as: :country, label: "Country", prompt: ""
+  = a.input :hidden
+  - [:selected, :cs_student, :remote_team, :mentor_pick, :volunteering_team, :duplicate, :in_team].each do |key|
+    = a.input key, as: :boolean
+  = a.submit 'Save'

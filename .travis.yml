@@ -1,0 +1,29 @@
+language: ruby
+cache: bundler
+rvm:
+- 2.1.1
+bundler_args: -j4 --without development production --quiet
+notifications:
+  email:
+  - me@svenfuchs.com
+  - trung.le@ruby-journal.com
+  notifications:
+    webhooks:
+      secure: "AziQTqGNQCCe/673UZy3bW0XB0oGywiEAyxygTWs2Cki0lqNldgELlPg+eC+CgvCJpMXRY6PLS/MXWeu4eR/6iONnBo+So8l9wJSZasxrCwVWqI9UFZYaMXXzFTGlz2JmBJ7JigW5zxL/Y3ukqu+wjA3MytT8N5tuNdR5SYqy40="
+    irc:
+    - irc.freenode.net#rgsoc
+before_script:
+- cp config/database.yml.travis config/database.yml
+- bundle exec rake db:create db:schema:load RAILS_ENV=test
+script:
+- bundle exec rake spec
+deploy:
+  provider: heroku
+  api_key:
+    secure: EuT2CooTTomlmRJJzO8dQAelx7I/lUCsUOKIaYkYey2D/od12bPNwe1yJnaxZS4xDwDKtdCVRHKtMwIbz7EiWloE7xovm+nFb8V/hDvc05h9h0BnckNfJ2wFPcEKmMkl8gJdtgxkgAO39+qpUSzNDjOF0jIwkGimFDFWT4oTTAQ=
+  app: rgsoc-teams-production
+  run:
+    - "rake db:migrate"
+    - restart
+  on:
+    repo: rails-girls-summer-of-code/rgsoc-teams

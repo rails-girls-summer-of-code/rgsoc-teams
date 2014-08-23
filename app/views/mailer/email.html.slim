@@ -1,0 +1,11 @@
+doctype html
+html
+  head
+    meta content="text/html; charset=UTF-8" http-equiv="Content-Type"
+
+    style
+      | html, body {
+      |   font-family: Helvetica, sans-serif;
+      | }
+  body
+    = render_markdown(body).html_safe

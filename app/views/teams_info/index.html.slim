@@ -1,0 +1,27 @@
+h1.header
+  = icon('group')
+  span Teams Info
+
+table.table.table-striped.table-bordered.table-condensed
+  tr
+    th Name
+    th Students (irc)
+    th = sortable "created_at", "Last Activity"
+    - if admin?
+      th Blog post
+
+  - teams.each do |team|
+    tr
+      td = link_to team.display_name, team, class: "team #{team.kind}"
+      td
+        ul
+          - team.students.each do |user|
+            li.user
+              = avatar_url(user, size: 20)
+              = link_to_user_with_irc_handle(user)
+      td = format_date(team.last_activity.try(:created_at))
+      - if can? :read, :users_info
+        td = team.post_info
+
+p.hint
+  | <i class="icon-star"></i> Sponsored team
