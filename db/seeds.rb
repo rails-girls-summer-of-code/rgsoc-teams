@@ -7,5 +7,9 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 role = Role.create!([{name: 'organizer'}])
+<<<<<<< HEAD
 user = User.create!([{name: 'Rita', roles: role, github_handle: 'Adminis28'}])
+=======
+user = User.create!([{name: 'Wolverine', roles: role, github_handle: 'Adminis28'}])
+>>>>>>> 8f8e679e5e160c4baead33812508aaba74e885d4
 

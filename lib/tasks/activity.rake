@@ -7,9 +7,11 @@ namespace :activity do
   end
 end
 
+
 task set: :environment do
 team = Team.find(params[:id])
 project = Project.find(params[:id])
 
   team.id = project.id
 end
+

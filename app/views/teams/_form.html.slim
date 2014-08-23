@@ -10,6 +10,7 @@
     Please see the #{link_to 'Help section', page_path('help')} for information about teams.
 
   = f.input :name, placeholder: 'Any name you like ...'
+
   - if !admin?
     = simple_fields_for :project do |p|
       = p.input :project, placeholder: 'Project name(s)'

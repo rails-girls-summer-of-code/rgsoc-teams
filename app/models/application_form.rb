@@ -1,4 +1,6 @@
+
 class ApplicationForm < ActiveRecord::Base
+
   include ActiveModel::Validations
   include ActiveModel::Conversion
   include ActiveModel::Serialization
@@ -6,6 +8,7 @@ class ApplicationForm < ActiveRecord::Base
   extend ActiveModel::Naming
 
   FIELDS = [:student_name, :student_email,
+
             :about_student, :about_pair, :pair_name,
             :gender_identification_student, :gender_identification_pair,
             :location, :attended_rg_workshop,

@@ -11,7 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 20140822173235) do
+=======
+ActiveRecord::Schema.define(version: 20140731185210) do
+>>>>>>> 8f8e679e5e160c4baead33812508aaba74e885d4
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -49,7 +53,10 @@ ActiveRecord::Schema.define(version: 20140822173235) do
     t.string   "country"
     t.string   "city"
     t.string   "coaching_company"
+<<<<<<< HEAD
     t.string   "status"
+=======
+>>>>>>> 8f8e679e5e160c4baead33812508aaba74e885d4
   end
 
   create_table "attendances", force: true do |t|
@@ -103,6 +110,7 @@ ActiveRecord::Schema.define(version: 20140822173235) do
     t.datetime "updated_at", null: false
   end
 
+<<<<<<< HEAD
   create_table "projects", force: true do |t|
     t.string   "name"
     t.datetime "created_at"
@@ -110,6 +118,8 @@ ActiveRecord::Schema.define(version: 20140822173235) do
     t.integer  "team_id"
   end
 
+=======
+>>>>>>> 8f8e679e5e160c4baead33812508aaba74e885d4
   create_table "ratings", force: true do |t|
     t.integer  "application_id"
     t.text     "data"
@@ -148,12 +158,21 @@ ActiveRecord::Schema.define(version: 20140822173235) do
 
   create_table "teams", force: true do |t|
     t.string   "name"
+<<<<<<< HEAD
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
+=======
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
+>>>>>>> 8f8e679e5e160c4baead33812508aaba74e885d4
     t.string   "log_url"
     t.text     "description"
     t.integer  "number"
     t.string   "kind"
+<<<<<<< HEAD
+=======
+    t.string   "projects"
+>>>>>>> 8f8e679e5e160c4baead33812508aaba74e885d4
     t.string   "twitter_handle"
     t.string   "github_handle"
     t.date     "starts_on"
@@ -162,7 +181,11 @@ ActiveRecord::Schema.define(version: 20140822173235) do
     t.integer  "event_id"
     t.date     "last_checked_at"
     t.integer  "last_checked_by"
+<<<<<<< HEAD
     t.boolean  "is_selected"
+=======
+    t.boolean  "is_selected",     default: false
+>>>>>>> 8f8e679e5e160c4baead33812508aaba74e885d4
   end
 
   create_table "users", force: true do |t|

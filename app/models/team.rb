@@ -12,6 +12,14 @@ class Team < ActiveRecord::Base
 
   attr_accessor :checked
   has_one :project, dependent: :destroy
+
+  validates :projects, presence: true, if: :selected_team?, unless: :access?
+
+  # validate :must_have_members
+  # validate :must_have_unique_students
+
+  attr_accessor :checked
+
   has_many :roles, dependent: :destroy
   has_many :members, class_name: 'User', through: :roles, source: :user
   Role::ROLES.each do |role|
@@ -24,7 +32,9 @@ class Team < ActiveRecord::Base
   has_many :applications
   belongs_to :event
 
+
   accepts_nested_attributes_for :project, :roles, :sources, allow_destroy: true
+
 
   before_create :set_number
   before_save :set_last_checked, if: :checked
@@ -98,7 +108,6 @@ class Team < ActiveRecord::Base
   def access?
     User.current.admin?
   end
-
 
   # def must_have_unique_students
   #   students.each do |user|

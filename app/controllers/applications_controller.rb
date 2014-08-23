@@ -6,6 +6,7 @@ class ApplicationsController < ApplicationController
   #before_filter :checktime, only: [:new, :create]
   before_action :authenticate_user!, except: :new
   #before_filter -> { require_role 'reviewer' }, except: [:new, :create]
+
   respond_to :html
 
   def index
@@ -25,7 +26,6 @@ class ApplicationsController < ApplicationController
       @application = current_user.applications.create!(application_params)
       ApplicationFormMailerWorker.new.async.perform(application_id: @application.id)
       @application
-
     else
       render :new
     end
@@ -45,7 +45,6 @@ class ApplicationsController < ApplicationController
   end
 
   def show
-
     @application = Application.find(params[:id])
     @rating = find_or_initialize_rating
     @data = RatingData.new(@rating.data)
