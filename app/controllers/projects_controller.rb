@@ -3,7 +3,7 @@ class ProjectsController < ApplicationController
   before_filter :set_project
 
   def new
-    @project = @team.project.new(name: params[:name])
+    @project = @team.projects.new(name: params[:name])
   end
 
   def create
@@ -26,10 +26,15 @@ class ProjectsController < ApplicationController
 
   def set_project
     @project = if params[:id]
-        @team.project.find(params[:id])
+        @team.projects.find(params[:id])
     else
-        @team.project.new(project_params)
+        @team.projects.new(project_params)
 
   end
+  end
+
+  def project_params
+    params[:project] ||= {name: params[:name]}
+    params.require(:project).permit(:team_id, :name)
   end
 end

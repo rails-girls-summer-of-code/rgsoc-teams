@@ -24,14 +24,14 @@ class Team < ActiveRecord::Base
   has_many :applications
   belongs_to :event
 
-  accepts_nested_attributes_for :roles, :sources, :project, allow_destroy: true
+  accepts_nested_attributes_for :project, :roles, :sources, allow_destroy: true
 
   before_create :set_number
   before_save :set_last_checked, if: :checked
 
   class << self
     def ordered(sort = {})
-      order([sort[:order] || 'kind, name || Project.project_name', sort[:direction] || 'asc'].join(' '))
+      order([sort[:order] || 'kind, name || Project.name', sort[:direction] || 'asc'].join(' '))
     end
   end
 
