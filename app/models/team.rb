@@ -3,14 +3,15 @@ class Team < ActiveRecord::Base
 
   KINDS = %w(sponsored voluntary)
 
-  validates :kind, presence: true
+  #validates :kind, presence: true, if: :selected?
   validates :name, uniqueness: true, allow_blank: true
-  validates :projects, presence: true
+  #validates :projects, presence: true, if: :selected?
   # validate :must_have_members
   # validate :must_have_unique_students
 
   attr_accessor :checked
 
+  has_one :project, dependent: :destroy
   has_many :roles, dependent: :destroy
   has_many :members, class_name: 'User', through: :roles, source: :user
   Role::ROLES.each do |role|
@@ -22,7 +23,7 @@ class Team < ActiveRecord::Base
   has_many :comments
   belongs_to :event
 
-  accepts_nested_attributes_for :roles, :sources, allow_destroy: true
+  accepts_nested_attributes_for :roles, :sources, :project, allow_destroy: true
 
   before_create :set_number
   before_save :set_last_checked, if: :checked
@@ -43,7 +44,7 @@ class Team < ActiveRecord::Base
 
   def display_name
     chunks = [name]
-    chunks << projects unless admin_team?
+    chunks << Project.name unless admin_team?
     chunks = chunks.select(&:present?)
     chunks[1] = "(#{chunks[1]})" if chunks[1]
     "Team #{chunks.join(' ')}"
@@ -84,6 +85,11 @@ class Team < ActiveRecord::Base
     self.last_checked_at = Time.now
     self.last_checked_by = checked.is_a?(String) ? checked.to_i : checked.id
   end
+
+  def selected?
+    is_selected
+  end
+
 
   # def must_have_unique_students
   #   students.each do |user|

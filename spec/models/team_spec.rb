@@ -1,9 +1,10 @@
 require 'spec_helper'
 
 describe Team do
-  subject { Team.new(kind: 'sponsored', projects: 'Sinatra') }
+  subject { Team.new(kind: 'sponsored') }
 
   it { should have_many(:activities) }
+  it { should have_one(:project) }
   it { should have_many(:sources) }
   it { should have_many(:members) }
   it { should have_many(:students) }

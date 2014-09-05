@@ -1,4 +1,5 @@
 class TeamsController < ApplicationController
+
   before_action :set_team,  only: [:show, :edit, :update, :destroy]
   before_action :set_users, only: [:new, :edit]
   before_action :set_display_roles, only: :index
@@ -21,10 +22,12 @@ class TeamsController < ApplicationController
     @team = Team.new
     @team.roles.build(name: 'student', github_handle: current_user.github_handle)
     @team.sources.build(kind: 'blog')
+
   end
 
   def edit
     @team.sources.build(kind: 'blog') unless @team.sources.any?
+    @team.build_project
   end
 
   def create
@@ -74,11 +77,12 @@ class TeamsController < ApplicationController
     def team_params
       params[:team].fetch(:sources_attributes, {}).delete_if { |key, source| source[:url].empty? }
       params.require(:team).permit(
-        :name, :projects, :kind, :twitter_handle, :github_handle, :description, :post_info, :event_id,
-        :checked, :'starts_on(1i)', :'starts_on(2i)', :'starts_on(3i)',
+        :name, :kind, :twitter_handle, :github_handle, :description, :post_info, :event_id,
+        :checked,:is_selected, :'starts_on(1i)', :'starts_on(2i)', :'starts_on(3i)',
         :'finishes_on(1i)', :'finishes_on(2i)', :'finishes_on(3i)',
         roles_attributes: [:id, :name, :github_handle, :_destroy],
-        sources_attributes: [:id, :kind, :url, :_destroy]
+        sources_attributes: [:id, :kind, :url, :_destroy],
+        project_attributes: [:id, :name],
       )
     end
 

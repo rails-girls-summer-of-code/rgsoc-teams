@@ -1,0 +1,26 @@
+= simple_nested_form_for @team do |f|
+  - if @team.errors.any?
+    #error_explanation
+      h2 = "#{pluralize(@team.errors.count, "error")} prohibited this team from being saved:"
+      ul
+        - @team.errors.full_messages.each do |message|
+          li = message
+
+  p.help-block
+    Please see the #{link_to 'Help section', page_path('help')} for information about teams.
+
+  = f.input :name, placeholder: 'Any name you like ...'
+
+  h4 Members
+  fieldset.members
+    .header
+      label GitHub handle
+      label Role
+    = f.simple_fields_for :roles do |r|
+      = r.input :github_handle, required: false, label: false
+      = r.input :name, as: :radio_buttons, collection: accessible_roles.map { |r| [r.capitalize, r] }, required: false, label: false
+      = r.link_to_remove 'Remove'
+    = f.link_to_add 'Add another member', :roles
+
+  .actions
+    = f.submit 'Save', class: 'btn btn-success'

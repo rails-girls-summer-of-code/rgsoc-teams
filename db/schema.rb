@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140702122659) do
+ActiveRecord::Schema.define(version: 20140903152616) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -102,6 +102,13 @@ ActiveRecord::Schema.define(version: 20140702122659) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "projects", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "team_id"
+  end
+
   create_table "ratings", force: true do |t|
     t.integer  "application_id"
     t.text     "data"
@@ -146,7 +153,6 @@ ActiveRecord::Schema.define(version: 20140702122659) do
     t.text     "description"
     t.integer  "number"
     t.string   "kind"
-    t.string   "projects"
     t.string   "twitter_handle"
     t.string   "github_handle"
     t.date     "starts_on"
@@ -155,6 +161,7 @@ ActiveRecord::Schema.define(version: 20140702122659) do
     t.integer  "event_id"
     t.date     "last_checked_at"
     t.integer  "last_checked_by"
+    t.boolean  "is_selected"
   end
 
   create_table "users", force: true do |t|

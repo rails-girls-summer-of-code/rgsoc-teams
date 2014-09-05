@@ -11,6 +11,7 @@ class Ability
 
     can :crud, User, id: user.id
     can :crud, User if user.admin?
+    can :select, Team if user.admin?
 
     can :crud, Team do |team|
       user.admin? or signed_in?(user) && team.new_record? or on_team?(user, team)
