@@ -87,7 +87,7 @@ describe TeamsController do
           put :update, { id: team.to_param, team: { 'name' => 'Blue' } }, valid_session
         end
 
-        it "creates a project" do
+        it "creates a project when team is selected" do
           put :update, { id: team.to_param, team: { project_attributes: { 'name' => 'Blue' } } }, valid_session
           expect(team.reload.project.name).to eq('Blue')
         end

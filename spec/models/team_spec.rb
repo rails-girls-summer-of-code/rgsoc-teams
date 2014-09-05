@@ -104,13 +104,6 @@ describe Team do
       it { should accept_nested_attributes_for :roles }
       it { should accept_nested_attributes_for :sources }
 
-      it 'creates a project when the nested attributes are passed' do
-        team = Team.create!(github_handle: 'foo')
-        expect(team.project).to be_nil
-        result = team.update_attributes(is_selected: true, project_attributes: { name: 'Foo'})
-        expect(result).to be_true
-        expect(team.reload.project.name).to eq('Foo')
-      end
     end
 
 end
