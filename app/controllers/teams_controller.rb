@@ -1,7 +1,5 @@
 class TeamsController < ApplicationController
 
-  include ProjectsHelper
-
   before_action :set_team,  only: [:show, :edit, :update, :destroy]
   before_action :set_users, only: [:new, :edit]
   before_action :set_display_roles, only: :index

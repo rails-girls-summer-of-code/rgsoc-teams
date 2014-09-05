@@ -1,5 +1,4 @@
 class ApplicationForm
-
   include ActiveModel::Validations
   include ActiveModel::Conversion
   include ActiveModel::Serialization
