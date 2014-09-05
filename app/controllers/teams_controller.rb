@@ -1,5 +1,7 @@
 class TeamsController < ApplicationController
 
+  include ProjectsHelper
+
   before_action :set_team,  only: [:show, :edit, :update, :destroy]
   before_action :set_users, only: [:new, :edit]
   before_action :set_display_roles, only: :index
@@ -27,7 +29,7 @@ class TeamsController < ApplicationController
 
   def edit
     @team.sources.build(kind: 'blog') unless @team.sources.any?
-    @team.build_project
+    @team.build_project unless @team.project
   end
 
   def create
