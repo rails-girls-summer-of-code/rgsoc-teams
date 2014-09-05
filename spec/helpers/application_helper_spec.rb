@@ -64,8 +64,8 @@ describe ApplicationHelper do
 
     it 'should return link_to role based on student' do
       link_to_user_roles(@user1).should ==
-        "<a href=\"/users?role=coach\">Coach</a> at <a href=\"/teams/#{@team.id}\">Team 29-enim (Sinatra)</a>, " +
-        "<a href=\"/users?role=mentor\">Mentor</a> at <a href=\"/teams/#{@team.id}\">Team 29-enim (Sinatra)</a>"
+        "<a href=\"/users?role=coach\">Coach</a> at <a href=\"/teams/#{@team.id}\">Team 29-enim</a>, " +
+        "<a href=\"/users?role=mentor\">Mentor</a> at <a href=\"/teams/#{@team.id}\">Team 29-enim</a>"
     end
   end
 
