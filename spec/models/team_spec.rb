@@ -28,20 +28,21 @@ describe Team do
     end
   end
 
-  #describe '#display_name' do
-    #let(:students) { [User.new(name: 'Nina'), User.new(name: 'Maya')] }
+  describe '#display_name' do
+    let(:students) { [User.new(name: 'Nina'), User.new(name: 'Maya')] }
+    let!(:team) { Team.new }
+    let!(:project) { Project.new(name: 'Sinatra', team: team) }
+    before { subject.save! }
 
-    #before { subject.save! }
+    it 'returns "Team ?" if no name given' do
+      expect(team.display_name).to be == 'Team Sinatra'
+    end
 
-    #it 'returns "Team ?" if no name given' do
-     # expect(subject.display_name).to be == 'Team Sinatra'
-    #end
-
-   # it 'returns "Team Blue" if name given' do
-    #  subject.name = 'Blue'
-     # expect(subject.display_name).to be == 'Team Blue (Sinatra)'
-   # end
- # end
+    it 'returns "Team Blue" if name given' do
+      team.name = 'Blue'
+      expect(team.display_name).to be == 'Team Blue (Sinatra)'
+    end
+  end
 
   describe '#github_handle=' do
     it 'keeps an empty handle' do

@@ -5,7 +5,6 @@ class Team < ActiveRecord::Base
 
   #validates :kind, presence: true, if: :selected?
   validates :name, uniqueness: true, allow_blank: true
-  #validates :projects, presence: true, if: :selected?
   # validate :must_have_members
   # validate :must_have_unique_students
 
@@ -42,13 +41,15 @@ class Team < ActiveRecord::Base
     super || ''
   end
 
+
   def display_name
     chunks = [name]
-    chunks << Project.name unless admin_team?
+    chunks << self.project.name if project
     chunks = chunks.select(&:present?)
     chunks[1] = "(#{chunks[1]})" if chunks[1]
     "Team #{chunks.join(' ')}"
   end
+
 
   def sponsored?
     kind == 'sponsored'
