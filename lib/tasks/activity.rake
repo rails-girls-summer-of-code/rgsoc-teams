@@ -5,4 +5,13 @@ namespace :activity do
   task update: :environment do
     Feed.update_all
   end
-end
+  end
+
+  task set: :environment do
+    team = Team.new(id: rand())
+
+    project = Project.new(id: rand())
+      project.id = team.id
+
+  end
+
