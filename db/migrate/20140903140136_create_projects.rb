@@ -9,8 +9,8 @@ class CreateProjects < ActiveRecord::Migration
   end
 
   Team.all do |team|
-    team.is_selected = "true"
     Project.create(name: team.projects, team: team)
+   puts "#{team.is_selected}"
   end
 
 end
