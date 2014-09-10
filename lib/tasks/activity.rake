@@ -7,12 +7,4 @@ namespace :activity do
   end
   end
 
-  task set: :environment do
-    Team.all do |team|
-      project = Project.create(name: team.projects, id: team_id)
-      puts "#{project.id}"
-      puts "#{team.all.count}"
-    end
-
-  end
 

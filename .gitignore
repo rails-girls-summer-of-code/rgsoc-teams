@@ -19,7 +19,6 @@
 # Ignore all logfiles and tempfiles.
 /log/*.log
 /tmp
-.idea/
 
 conferences_data.rb
 conferences_raffle.txt
