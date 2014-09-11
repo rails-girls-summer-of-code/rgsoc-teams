@@ -7,7 +7,6 @@ class Team < ActiveRecord::Base
   validates :name, uniqueness: true, allow_blank: true
   # validate :must_have_members
   # validate :must_have_unique_students
-
   attr_accessor :checked
 
   has_one :project, dependent: :destroy
