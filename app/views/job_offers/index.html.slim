@@ -1,0 +1,21 @@
+nav.actions
+  ul
+    li = link_to icon('plus', 'New Joboffer'), new_job_offer_path, class: 'btn btn-small' if can? :create, JobOffer.new
+
+h1.header
+  span Internships and Job Offers
+
+table.table.table-striped.table-bordered.table-condensed.job_offers
+  tr
+    th = sortable 'title', 'Job Offer'
+    th = sortable 'location', 'Location'
+    th = sortable 'company_name', 'Company'
+    th = sortable 'paid', 'Paid?'
+
+  - job_offers.each do |job_offer|
+    tr
+      td = link_to job_offer.title, job_offer
+      td = job_offer.location
+      td = job_offer.company_name
+      td = job_offer.paid
+
