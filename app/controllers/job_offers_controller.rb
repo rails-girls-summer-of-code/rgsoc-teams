@@ -1,4 +1,5 @@
 class JobOffersController < ApplicationController
+  load_and_authorize_resource
 
   helper_method :job_offers
 
