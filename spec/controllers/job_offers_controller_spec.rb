@@ -4,9 +4,13 @@ describe JobOffersController do
   render_views
 
   let(:user)          { create(:user) }
-  let(:student)       { create(:student) }
   let(:job_offer)     { create(:job_offer) }
   let(:valid_session) { { "warden.user.user.key" => session["warden.user.user.key"] } }
+
+  shared_context 'Student logged in' do
+    let(:student) { create(:student) }
+    before { sign_in student }
+  end
 
   describe 'GET index' do
     context 'as an anonymous user' do
@@ -26,8 +30,9 @@ describe JobOffersController do
     end
 
     context 'as a student' do
+      include_context 'Student logged in'
+
       before { job_offer }
-      before { sign_in student }
 
       it 'renders the index template' do
         get :index, {}, valid_session
