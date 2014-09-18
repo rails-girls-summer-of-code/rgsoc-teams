@@ -8,8 +8,7 @@ class CreateJobOffers < ActiveRecord::Migration
       t.string :contact_name
       t.string :contact_email
       t.string :contact_phone
-      t.string :city
-      t.string :country
+      t.string :location
       t.string :duration
       t.boolean :paid
       t.boolean :public

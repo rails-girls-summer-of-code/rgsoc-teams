@@ -1,3 +1,3 @@
 class JobOffer < ActiveRecord::Base
-  validates :company_name, :contact_email, :country, :description, :title, presence: true
+  validates :company_name, :contact_email, :description, :location, :title, presence: true
 end
