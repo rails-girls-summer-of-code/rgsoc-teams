@@ -38,6 +38,9 @@ class Ability
       user.admin? || user == attendance.user
     end
 
+    can :crud, JobOffer if user.admin?
+    can :read, JobOffer if user.student?
+
     can :read, Mailing do |mailing|
       mailing.recipient? user
     end
