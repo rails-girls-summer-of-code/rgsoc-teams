@@ -41,4 +41,15 @@ describe JobOffersController do
     end
   end
 
+  describe 'GET show' do
+    context 'as a student' do
+      include_context 'Student logged in'
+
+      it 'renders the show template' do
+        get :show, { id: job_offer.to_param }, valid_session
+        expect(response).to render_template 'show'
+      end
+    end
+  end
+
 end
