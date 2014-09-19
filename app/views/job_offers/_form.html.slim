@@ -7,7 +7,7 @@
           li = message
 
   = f.input :title
-  = f.input :location
+  = f.input :location, placeholder: 'City, Country'
   = f.input :company_name
   = f.input :description
   = f.input :url
@@ -16,8 +16,8 @@
   = f.input :contact_email
   = f.input :contact_phone
   = f.input :paid
-  = f.input :rgsoc_only
-  = f.input :misc_info
+  = f.input :rgsoc_only, hint: 'Leave blank if the job offer is publicly available to others.'
+  = f.input :misc_info, hint: 'Anything else that seems important, e.g. earliest start date.'
 
   .actions
     = f.submit 'Save', class: 'btn btn-success'
