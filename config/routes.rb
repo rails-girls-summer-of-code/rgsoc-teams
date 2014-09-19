@@ -1,4 +1,6 @@
 RgsocTeams::Application.routes.draw do
+  resources :job_offers
+
   resources :events
 
   root to: 'activities#index'

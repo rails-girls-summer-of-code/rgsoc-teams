@@ -9,6 +9,7 @@ header
       li = link_to 'Teams',        teams_path, class: params[:controller] == 'teams' ? 'active' : ''
       li = link_to 'Participants', users_path, class: params[:controller] == 'users' ? 'active' : ''
       li = link_to 'Conferences',  conferences_path,  class: params[:controller] == 'conferences' ? 'active' : ''
+      li = link_to 'Jobs',   job_offers_path,   class: params[:controller] == 'job_offers' ? 'active' : ''
       li = link_to 'Help',         page_path('help'), class: params[:page] == 'help' ? 'active' : ''
       - if signed_in? && current_user.roles.includes?('reviewer')
         li = link_to 'Applications', applications_path

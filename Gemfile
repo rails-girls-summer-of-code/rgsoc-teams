@@ -50,6 +50,8 @@ group :development do
   gem 'binding_of_caller'
   gem 'jazz_hands'
   gem 'pry'
+  gem 'spring'
+  gem 'spring-commands-rspec'
 end
 
 group :test do
