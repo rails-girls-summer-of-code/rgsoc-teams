@@ -31,7 +31,7 @@ h1 class="job_offer" = job_offer.title
     dt Paid Job/Internship?
     dd = job_offer.paid? ? 'Yes' : 'No'
     dt Exclusively for RGSoC Alumni?
-    dd = job_offer.public? ? 'No' : 'Yes'
+    dd = job_offer.rgsoc_only? ? 'Yes' : 'No'
     dt Misc. Info
     dd = simple_format job_offer.misc_info
 

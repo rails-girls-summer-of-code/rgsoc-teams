@@ -11,7 +11,7 @@ class CreateJobOffers < ActiveRecord::Migration
       t.string :location
       t.string :duration
       t.boolean :paid
-      t.boolean :public
+      t.boolean :rgsoc_only
       t.text :misc_info
 
       t.timestamps

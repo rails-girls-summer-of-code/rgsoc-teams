@@ -101,7 +101,7 @@ ActiveRecord::Schema.define(version: 20140918195057) do
     t.string   "location"
     t.string   "duration"
     t.boolean  "paid"
-    t.boolean  "public"
+    t.boolean  "rgsoc_only"
     t.text     "misc_info"
     t.datetime "created_at"
     t.datetime "updated_at"
