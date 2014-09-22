@@ -99,7 +99,7 @@ describe Team do
     end
   end
 
-  describe 'it should accept nested attributes for all three models' do
+  describe 'accept nested attributes for all three models' do
 
       it { should accept_nested_attributes_for :project }
       it { should accept_nested_attributes_for :roles }
