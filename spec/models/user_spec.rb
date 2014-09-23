@@ -72,7 +72,7 @@ describe User do
 
     end
 
-    
+
     describe '.with_assigned_roles' do
       it 'returns users that have any roles assigned' do
         expect(User.with_assigned_roles).to be ==[@user2]
@@ -166,6 +166,17 @@ describe User do
     it 'returns github_handle if name is not available' do
       @user = User.new(github_handle: 'rails-girl')
       expect(@user.name_or_handle).to be =='rails-girl'
+    end
+  end
+
+  describe '#student?' do
+    it 'returns false for users w/o a role' do
+      expect(subject).not_to be_student
+    end
+
+    it 'returns true if user has a student role' do
+      student = FactoryGirl.create(:student)
+      expect(student).to be_student
     end
   end
 

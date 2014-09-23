@@ -8,5 +8,10 @@ en:
 
   activerecord:
     attributes:
+      job_offer:
+        paid: Paid?
+        rgsoc_only: Exclusively for RGSoC Alumni?
+        misc_info: Additional information
       user:
         location: City
+

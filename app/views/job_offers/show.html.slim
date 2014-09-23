@@ -1,0 +1,37 @@
+nav.page
+  ul
+    li = link_to 'All job offers', job_offers_path, class: 'back'
+
+- if can?(:crud, JobOffer)
+  nav.actions
+    ul
+      li = link_to 'Edit', edit_job_offer_path(job_offer), class: 'edit'
+      li = link_to 'Delete', job_offer_path(job_offer), method: :delete, class: 'edit', data: { confirm: 'Are you sure?' }
+
+h1 class="job_offer" = job_offer.title
+
+.job_offer
+  dl
+    dt Location
+    dd = job_offer.location
+    dt Company
+    dd = job_offer.company_name
+    dt Description
+    dd = simple_format job_offer.description
+    dt URL
+    dd = job_offer.url.present? ? link_to(job_offer.url, job_offer.url) : '–'
+    dt Duration
+    dd = job_offer.duration.presence || '–'
+    dt Contact
+    dd = job_offer.contact_name.presence || '–'
+    dt Email
+    dd = mail_to job_offer.contact_email
+    dt Phone
+    dd = job_offer.contact_phone.presence || '–'
+    dt Paid Job/Internship?
+    dd = job_offer.paid? ? 'Yes' : 'No'
+    dt Exclusively for RGSoC Alumni?
+    dd = job_offer.rgsoc_only? ? 'Yes' : 'No'
+    dt Misc. Info
+    dd = simple_format job_offer.misc_info
+

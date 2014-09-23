@@ -44,6 +44,10 @@ class User < ActiveRecord::Base
     def supervisor
       where(name: 'supervisor')
     end
+
+    def student
+      where(name: 'student')
+    end
   end
   has_many :applications
   has_many :teams, -> { uniq }, through: :roles
@@ -108,6 +112,10 @@ class User < ActiveRecord::Base
 
   def admin?
     roles.admin.any?
+  end
+
+  def student?
+    roles.student.any?
   end
 
   private

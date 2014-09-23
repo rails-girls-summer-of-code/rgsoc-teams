@@ -8,14 +8,13 @@ describe Ability do
     let(:ability) { Ability.new(user) }
 
     context 'when a user is connected' do
-      let(:user) { FactoryGirl.create(:user) }
+      let!(:user) { FactoryGirl.create(:user) }
       describe 'she/he is allowed to do everything on her/his account' do
         it { ability.should be_able_to(:show, user) }
         it { ability.should_not be_able_to(:create, User.new) } #this only happens through GitHub
       end
 
       context 'when a user is admin' do
-        let(:user) { FactoryGirl.create(:user) }
         let(:organizer_role) { FactoryGirl.create(:organizer_role, user: user) }
         it "should be able to CRUD on anyone's account" do
           expect(subject).to be_able_to(:crud, organizer_role)
@@ -30,7 +29,6 @@ describe Ability do
       describe 'a user should not be able to mark another\'s attendance to a conference' do
 
         context 'when same user' do
-          let!(:user) { FactoryGirl.create(:user) }
           let!(:attendance) { FactoryGirl.create(:attendance, user: user)}
 
           it 'allows marking of attendance' do
@@ -39,7 +37,6 @@ describe Ability do
 
 
           context 'when user is admin' do
-            let!(:user) { FactoryGirl.create(:user) }
             let!(:organiser_role) { FactoryGirl.create(:organizer_role, user: user)}
             it "should be able to crud attendance" do
               expect(subject).to be_able_to :crud, attendance
@@ -95,6 +92,36 @@ describe Ability do
           end
         end
       end
+
+      context 'accessing job offers' do
+        let(:job_offer) { JobOffer.new }
+
+        context 'when a user is not part of a team' do
+          it 'will not allow to read' do
+            expect(subject).not_to be_able_to :read, job_offer
+          end
+        end
+
+        context 'when a user is admin' do
+          let!(:organizer_role) { FactoryGirl.create(:organizer_role, user: user) }
+          it 'can CRUD job offers' do
+            expect(subject).to be_able_to :crud, job_offer
+          end
+        end
+
+        context 'when a user is a student' do
+          let!(:user) { FactoryGirl.create(:student) }
+
+          it 'can read job offers' do
+            expect(subject).to be_able_to :read, job_offer
+          end
+
+          it 'must not CRUD job offers' do
+            expect(subject).not_to be_able_to :crud, job_offer
+          end
+        end
+      end
+
     end
   end
 
