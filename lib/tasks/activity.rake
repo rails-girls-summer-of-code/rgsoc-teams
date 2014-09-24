@@ -5,6 +5,4 @@ namespace :activity do
   task update: :environment do
     Feed.update_all
   end
-  end
-
-
+end
