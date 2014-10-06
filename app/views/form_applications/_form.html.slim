@@ -1,0 +1,21 @@
+h1 Student Application for Rails Girls Summer of Code 2014
+
+p.attention
+  | Please read our
+    #{link_to "Student Application Guide", "http://railsgirlssummerofcode.org/application-guide"}
+    before you fill out this form. Applications must be submitted before <strong>May 2nd, 2014, 23:59 UTC</strong>.
+
+= simple_nested_form_for @form_application do |f|
+
+  = f.name :name, label: 'Student name'
+  = f.input :email, label: 'Student Email'
+  = f.input :about, as: :text, label: 'About you', input_html: { rows: '5' }, hint: 'Please tell us who you are, provide all contact information you deem useful and tell us a little bit about yourself and your background.'
+  = f.input :location, as: :text, label: 'Where do you plan to live?', input_html: { rows: '5' }
+  = f.input :attended_rg_ws, as: :text, label: 'Did you ever attend a Rails/Ruby workshop?', hint: ' Please give us a little bit of history about yourself and your pair (if any)', input_html: { rows: '5' }
+  = f.input :coding_level, :collection => 1..5, :as => :select, label: 'What level of coding do you see yourself in Ruby/Rails?', hint: 'Please try to verify this with your pair and coach, we are aware this is tricky to estimate.'
+  = f.input :skills, as: :text, label: 'Please give us a summary of your skills', hint: 'Please add a summary for your pair if you have one, too.', input_html: { rows: '5' }
+  = f.input :learning_summary, as: :text, label: 'Please summarize what you have been doing to learn programming since your first workshop', hint: 'E.g. Study Group, learning rails by doing exercises etc. Please add a summary for your pair if you have one, too.', input_html: { rows: '5' }
+
+  .actions
+    = f.button :submit, 'Ok, apply!', class: 'btn btn-success'
+    = f.button :submit, 'Save draft', class: 'btn btn-success'
