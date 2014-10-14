@@ -2,29 +2,20 @@ class FormApplicationsController < ApplicationController
   include ApplicationsHelper
 
   #before_filter :checktime, only: [:new, :create]
+  before_action :set_application,  only: [:show, :edit, :update, :destroy]
   respond_to :html
 
-  def index
-    if signed_in?
-      @form_application  = FormApplication.new(name: current_user.name, email: current_user.email)
-
-    else
-      render 'applications/sign_in'
-    end
-  end
-
-  def show
-  end
 
   def new
     if signed_in?
-      @form_application  = FormApplication.new(name: current_user.name, email: current_user.email)
-
+      @form_application  = FormApplication.new
     else
       render 'applications/sign_in'
     end
   end
+  def show
 
+  end
   def create
     @form_application = FormApplication.new(form_application_params)
 
@@ -40,7 +31,7 @@ class FormApplicationsController < ApplicationController
   end
 
   def edit
-    render :new
+
   end
 
   def update
@@ -56,7 +47,8 @@ class FormApplicationsController < ApplicationController
   end
 
   def submit
-    if @form_application.valid?
+    if params[:commit] == 'Send'
+        if @form_application.valid?
       @application = current_user.applications.create!(form_application_params)
       ApplicationFormMailerWorker.new.async.perform(application_id: @application.id)
       @application
@@ -64,8 +56,13 @@ class FormApplicationsController < ApplicationController
       render :new
     end
   end
+  end
 
   private
+
+  def set_application
+   @form_application = FormApplication.find(params[:id])
+  end
 
   def checktime
     if Time.now.utc >= Time.utc(2014, 5, 2, 23, 59)
