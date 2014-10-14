@@ -30,8 +30,6 @@ describe FormApplicationsController do
       it 'renders the "new" template' do
         get :new
         expect(response).to render_template 'new'
-        expect(assigns(:form_application).name).to eq user.name
-        expect(assigns(:form_application).email).to eq user.email
       end
     end
 
@@ -47,8 +45,7 @@ describe FormApplicationsController do
          post :create, application: valid_attributes
          puts assigns(:form_application).errors.full_messages
        end
-       expect(response).to render_template 'submit'
-     end
+    end
    end
 end
 end

@@ -13,28 +13,41 @@ class FormApplicationsController < ApplicationController
       render 'applications/sign_in'
     end
   end
+
   def show
 
   end
-  def create
-    @form_application = FormApplication.new(form_application_params)
 
-    respond_to do |format|
-      if @form_application.save
-        format.html { redirect_to @form_application, notice: 'Application was successfully created.' }
-        format.json { render action: :show, status: :created, location: @form_application }
-      else
-        format.html { render action: :new }
-        format.json { render json: @form_application.errors, status: :unprocessable_entity }
-      end
-    end
-  end
+  def create
+    if params[:apply_off]
+      @application = current_user.applications.create!(form_application_params)
+      ApplicationFormMailerWorker.new.async.perform(application_id: @application.id)
+      @application
+
+  else
+       @form_application = FormApplication.new(form_application_params)
+
+       respond_to do |format|
+         if @form_application.save
+           format.html { redirect_to @form_application, notice: 'Application was successfully created.' }
+           format.json { render action: :show, status: :created, location: @form_application }
+         else
+           format.html { render action: :new }
+           format.json { render json: @form_application.errors, status: :unprocessable_entity }
+         end
+       end
+
+
+     end
+end
+
 
   def edit
 
   end
 
   def update
+    #add if params[] logic here too!
     respond_to do |format|
       if @form_application.update_attributes(form_application_params)
         format.html { redirect_to @form_application, notice: 'Application was successfully updated.' }
@@ -47,15 +60,13 @@ class FormApplicationsController < ApplicationController
   end
 
   def submit
-    if params[:commit] == 'Send'
-        if @form_application.valid?
+      if @form_application.valid?
       @application = current_user.applications.create!(form_application_params)
       ApplicationFormMailerWorker.new.async.perform(application_id: @application.id)
       @application
     else
       render :new
     end
-  end
   end
 
   private
