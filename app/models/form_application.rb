@@ -1,10 +1,7 @@
 class FormApplication < ActiveRecord::Base
+  belongs_to :application
+  FIELDS = [:name, :email, :project_name, :about_student, :location, :attended_rg_workshop, :coding_level, :skills, :learning_summary]
 
-  FIELDS = [:name, :email, :project, :about, :location, :attended_rg_ws, :coding_level, :skills, :learning_summary]
-
-  def display_name
-     project
-  end
 
   def fields
     FIELDS

@@ -4,7 +4,9 @@ class FormApplicationsController < ApplicationController
   #before_filter :checktime, only: [:new, :create]
   before_action :set_application,  only: [:show, :edit, :update, :destroy]
   respond_to :html
-
+def index
+  @form_applications = FormApplication.all
+end
 
   def new
     if signed_in?
@@ -20,8 +22,8 @@ class FormApplicationsController < ApplicationController
 
   def create
     if params[:apply_off]
-      @application = current_user.applications.create!(form_application_params)
-      ApplicationFormMailerWorker.new.async.perform(application_id: @application.id)
+      @application = current_user.applications.create!(application_params)
+      ApplicationFormMailerWorker.new.async.perform(application_id: @form_application.id)
       @application
 
   else
@@ -47,7 +49,13 @@ end
   end
 
   def update
-    #add if params[] logic here too!
+    if params[:apply_off]
+      @application = current_user.applications.create!(application_params)
+      ApplicationFormMailerWorker.new.async.perform(application_id: @form_application.id)
+      @application
+
+    else
+
     respond_to do |format|
       if @form_application.update_attributes(form_application_params)
         format.html { redirect_to @form_application, notice: 'Application was successfully updated.' }
@@ -57,6 +65,7 @@ end
         format.json { render json: @form_application.errors, status: :unprocessable_entity }
       end
     end
+  end
   end
 
   def submit
@@ -88,5 +97,9 @@ end
 
   def form_application_params
     params.require(:form_application).permit(*FormApplication::FIELDS)
+  end
+
+  def application_params
+    params.require(:form_application).permit(:location, :coding_level)
   end
 end
