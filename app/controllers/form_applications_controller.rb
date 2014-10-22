@@ -3,7 +3,9 @@ class FormApplicationsController < ApplicationController
 
   #before_filter :checktime, only: [:new, :create]
   before_action :set_application,  only: [:show, :edit, :update, :destroy]
+
   respond_to :html
+
 def index
   @form_applications = FormApplication.all
 end
@@ -22,9 +24,11 @@ end
 
   def create
     if params[:apply_off]
+      set_submitted
       @application = current_user.applications.create!(application_params)
-      ApplicationFormMailerWorker.new.async.perform(application_id: @form_application.id)
+      ApplicationFormMailerWorker.new.async.perform(application_id: @application.id)
       @application
+      render 'applications/create'
 
   else
        @form_application = FormApplication.new(form_application_params)
@@ -50,10 +54,10 @@ end
 
   def update
     if params[:apply_off]
+      set_submitted
       @application = current_user.applications.create!(application_params)
-      ApplicationFormMailerWorker.new.async.perform(application_id: @form_application.id)
-      @application
-
+      ApplicationFormMailerWorker.new.async.perform(application_id: @application.id)
+      render 'applications/create'
     else
 
     respond_to do |format|
@@ -68,17 +72,19 @@ end
   end
   end
 
-  def submit
-      if @form_application.valid?
-      @application = current_user.applications.create!(form_application_params)
-      ApplicationFormMailerWorker.new.async.perform(application_id: @application.id)
-      @application
-    else
-      render :new
+  def destroy
+    @form_application.destroy
+    respond_to do |format|
+      format.html { redirect_to form_applications_url }
+      format.json { head :no_content }
     end
   end
 
   private
+
+  def form_application
+    @form_application ||= FormApplication.new(form_application_params)
+  end
 
   def set_application
    @form_application = FormApplication.find(params[:id])
@@ -100,6 +106,23 @@ end
   end
 
   def application_params
-    params.require(:form_application).permit(:location, :coding_level)
+    {
+        name: form_application.name,
+        email: form_application.email,
+        application_data: form_application.serializable_hash
+    }
   end
-end
+
+  def applications
+    if params[:show_hidden]
+      @applications = Application.hidden.includes(:ratings) #.sort_by(order)
+    else
+      @applications = Application.visible.includes(:ratings) #.sort_by(order)
+    end
+  end
+
+  def set_submitted
+    @form_application.submitted = true
+  end
+
+  end

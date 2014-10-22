@@ -2,16 +2,7 @@ nav.actions
   ul
     li = link_to icon('plus', 'New Application'), new_form_application_path, class: 'btn btn-small'
 
-table#applications.table.table-striped.table-bordered.table-condensed.table-hover
-  tr
-  - @form_applications.each do |form_application|
-    tr
-      td = form_application.name
-      td = form_application.email
-      td = form_application.project_name
-      td = form_application.about_student
-      td = form_application.location
-      td = form_application.attended_rg_workshop
-      td = form_application.coding_level
-      td = form_application.skills
-      td = form_application.learning_summary
+- @form_applications.each do |form_application|
+    br
+
+        td = link_to form_application.project_name, form_application unless form_application.submitted
