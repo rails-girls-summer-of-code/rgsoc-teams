@@ -1,6 +1,8 @@
 class Application < ActiveRecord::Base
   belongs_to :user
+  belongs_to :form_application
   validates_presence_of :user_id, :name, :email, :application_data
+
 
   PROJECT_VISIBILITY_WEIGHT = ENV['PROJECT_VISIBILITY_WEIGHT'] || 2
   COACHING_COMPANY_WEIGHT = ENV['COACHING_COMPANY_WEIGHT'] || 2
@@ -134,4 +136,5 @@ class Application < ActiveRecord::Base
   def pair_practice_time
     PRACTICE_TIME[application_data['learning_since_workshop_pair']]
   end
+
 end

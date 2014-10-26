@@ -2,5 +2,9 @@ nav.page
   ul
     li = link_to 'All applications', form_applications_path, class: 'back'
 
-nav.btn-group
-  = link_to 'Edit', edit_form_application_path(@form_application), class: 'edit btn btn-default btn-small'
+- if @form_application.submitted
+  nav.btn-group
+    = link_to 'View', edit_form_application_path(@form_application), class: 'view btn btn-default btn-small'
+- else
+  nav.btn-group
+    = link_to 'Edit', edit_form_application_path(@form_application), class: 'edit btn btn-default btn-small'

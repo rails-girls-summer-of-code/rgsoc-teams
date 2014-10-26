@@ -6,14 +6,12 @@ class Ability
 
   def initialize(user)
     user ||= User.new
-    form ||= FormApplication.new
 
     alias_action :create, :read, :update, :destroy, :to => :crud
 
     can :crud, User, id: user.id
     can :crud, User if user.admin?
     can :select, Team if user.admin?
-    can :view, FormApplication unless form.submitted
 
     can :crud, Team do |team|
       user.admin? or signed_in?(user) && team.new_record? or on_team?(user, team)

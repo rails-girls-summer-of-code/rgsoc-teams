@@ -24,15 +24,13 @@ end
 
   def create
     if params[:apply_off]
-      set_submitted
       @application = current_user.applications.create!(application_params)
+      @form_application.update_attributes({submitted: true})
       ApplicationFormMailerWorker.new.async.perform(application_id: @application.id)
       @application
       render 'applications/create'
-
-  else
-       @form_application = FormApplication.new(form_application_params)
-
+    else
+     @form_application = FormApplication.new(form_application_params)
        respond_to do |format|
          if @form_application.save
            format.html { redirect_to @form_application, notice: 'Application was successfully created.' }
@@ -42,24 +40,27 @@ end
            format.json { render json: @form_application.errors, status: :unprocessable_entity }
          end
        end
-
-
-     end
-end
+   end
+    end
 
 
   def edit
-
+    if @form_application.submitted
+      @form_application = FormApplication.find(params[:id])
+      render 'submit_form'
+    else
+      render 'edit'
+    end
   end
 
   def update
-    if params[:apply_off]
-      set_submitted
-      @application = current_user.applications.create!(application_params)
-      ApplicationFormMailerWorker.new.async.perform(application_id: @application.id)
-      render 'applications/create'
-    else
-
+   if params[:apply_off]
+   @application = current_user.applications.create!(application_params)
+   @form_application.update_attributes({submitted: true})
+   ApplicationFormMailerWorker.new.async.perform(application_id: @application.id)
+   @application
+   render 'applications/create'
+   else
     respond_to do |format|
       if @form_application.update_attributes(form_application_params)
         format.html { redirect_to @form_application, notice: 'Application was successfully updated.' }
@@ -69,8 +70,9 @@ end
         format.json { render json: @form_application.errors, status: :unprocessable_entity }
       end
     end
-  end
-  end
+   end
+   end
+
 
   def destroy
     @form_application.destroy
@@ -120,9 +122,4 @@ end
       @applications = Application.visible.includes(:ratings) #.sort_by(order)
     end
   end
-
-  def set_submitted
-    @form_application.submitted = true
-  end
-
   end
