@@ -49,7 +49,6 @@ ActiveRecord::Schema.define(version: 20141024051654) do
     t.string   "country"
     t.string   "city"
     t.string   "coaching_company"
-    t.boolean  "submitted"
     t.integer  "form_application_id"
   end
 

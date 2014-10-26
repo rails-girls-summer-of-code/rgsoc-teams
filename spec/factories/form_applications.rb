@@ -4,6 +4,5 @@ FactoryGirl.define do
   factory :form_application do
     name { Faker::Name.name }
     email { Faker::Internet.email }
-
   end
 end

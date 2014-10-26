@@ -3,9 +3,9 @@ class ApplicationsController < ApplicationController
 
   before_filter :store_filters, only: :index
   before_filter :persist_order, only: :index
-  #before_filter :checktime, only: [:new, :create]
+  before_filter :checktime, only: [:new, :create]
   before_action :authenticate_user!, except: :new
-  #before_filter -> { require_role 'reviewer' }, except: [:new, :create]
+  before_filter -> { require_role 'reviewer' }, except: [:new, :create]
   respond_to :html
 
   def index

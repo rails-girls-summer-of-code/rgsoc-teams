@@ -26,13 +26,6 @@ describe FormApplicationsController do
       controller.stub(current_user: user)
     end
 
-    describe 'GET new' do
-      it 'renders the "new" template' do
-        get :new
-        expect(response).to render_template 'new'
-      end
-    end
-
    describe 'POST submit' do
      it 'creates a new application' do
        allow_any_instance_of(FormApplication).
