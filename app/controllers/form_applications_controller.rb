@@ -1,7 +1,7 @@
 class FormApplicationsController < ApplicationController
   include ApplicationsHelper
 
-  #before_filter :checktime, only: [:new, :create]
+  before_filter :checktime, only: [:new, :create]
   before_action :set_application,  only: [:show, :edit, :update, :destroy]
 
   respond_to :html
@@ -72,7 +72,6 @@ end
     end
    end
    end
-
 
   def destroy
     @form_application.destroy
