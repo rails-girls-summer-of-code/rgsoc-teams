@@ -15,6 +15,6 @@ describe 'teams/edit' do
       assert_select 'input#team_name[name=?]', 'team[name]'
 
     end
-    end
+  end
 
 end
