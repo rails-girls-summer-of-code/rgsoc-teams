@@ -6,9 +6,9 @@ class FormApplicationsController < ApplicationController
 
   respond_to :html
 
-def index
-  @form_applications = FormApplication.all
-end
+  def index
+    @form_applications = FormApplication.all
+  end
 
   def new
     if signed_in?
@@ -40,8 +40,8 @@ end
            format.json { render json: @form_application.errors, status: :unprocessable_entity }
          end
        end
-   end
     end
+  end
 
 
   def edit
@@ -71,7 +71,7 @@ end
       end
     end
    end
-   end
+  end
 
   def destroy
     @form_application.destroy
@@ -121,4 +121,4 @@ end
       @applications = Application.visible.includes(:ratings) #.sort_by(order)
     end
   end
-  end
+end
