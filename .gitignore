@@ -17,6 +17,8 @@
 /db/*.sqlite3
 .idea/
 
+coverage/
+
 # Ignore all logfiles and tempfiles.
 /log/*.log
 /tmp

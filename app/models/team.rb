@@ -44,7 +44,7 @@ class Team < ActiveRecord::Base
 
   def display_name
     chunks = [name]
-    chunks << self.project.name if project
+    chunks << project.name if project
     chunks = chunks.select(&:present?)
     chunks[1] = "(#{chunks[1]})" if chunks[1]
     "Team #{chunks.join(' ')}"

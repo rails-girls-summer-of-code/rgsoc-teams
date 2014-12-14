@@ -10,4 +10,3 @@ class SetProjectsName < ActiveRecord::Migration
       Project.delete_all
     end
   end
-

@@ -28,7 +28,6 @@ RgsocTeams::Application.routes.draw do
   end
 
   resources :form_applications
-  post 'form_applications', to: 'form_applications/submit'
   get 'application', to: 'applications#new', as: :apply
   get 'application_forms', to: 'applications#new'
   post 'application_forms', to: 'applications#create'

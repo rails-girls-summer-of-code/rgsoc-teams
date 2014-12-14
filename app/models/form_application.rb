@@ -9,10 +9,4 @@ class FormApplication < ActiveRecord::Base
   def fields
     FIELDS
   end
-
-
-  def set_number
-    self.number = FormApplication.count + 1
-  end
 end
-
