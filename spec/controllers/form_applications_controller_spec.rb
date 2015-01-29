@@ -17,7 +17,7 @@ describe FormApplicationsController do
     end
   end
 
-   context 'as an authenticated user' do
+  context 'as an authenticated user' do
     let(:user) { FactoryGirl.build(:user) }
 
     before do
@@ -26,24 +26,19 @@ describe FormApplicationsController do
       controller.stub(current_user: user)
     end
 
-   describe 'POST submit' do
-     it 'creates a new application' do
-       allow_any_instance_of(FormApplication).
-           to receive(:valid?).and_return(true)
-       valid_attributes = FactoryGirl.attributes_for(:form_application).merge(
-           name: user.name,
-           email: user.email
-       )
-       expect do
-         post :create, application: valid_attributes
-         puts assigns(:form_application).errors.full_messages
-       end
+    describe 'POST submit' do
+      it 'creates a new application' do
+        allow_any_instance_of(FormApplication).
+          to receive(:valid?).and_return(true)
+        valid_attributes = FactoryGirl.attributes_for(:form_application).merge(
+          name: user.name,
+          email: user.email
+        )
+        expect do
+          post :create, application: valid_attributes
+          puts assigns(:form_application).errors.full_messages
+        end
+      end
     end
-   end
+  end
 end
-end
-
-
-
-
-

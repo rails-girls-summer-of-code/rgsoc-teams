@@ -100,11 +100,9 @@ describe Team do
   end
 
   describe 'accept nested attributes for all three models' do
-
-      it { should accept_nested_attributes_for :project }
-      it { should accept_nested_attributes_for :roles }
-      it { should accept_nested_attributes_for :sources }
-
-    end
+    it { should accept_nested_attributes_for :project }
+    it { should accept_nested_attributes_for :roles }
+    it { should accept_nested_attributes_for :sources }
+  end
 
 end

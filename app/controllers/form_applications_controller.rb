@@ -30,16 +30,16 @@ class FormApplicationsController < ApplicationController
       @application
       render 'applications/create'
     else
-     @form_application = FormApplication.new(form_application_params)
-       respond_to do |format|
-         if @form_application.save
-           format.html { redirect_to @form_application, notice: 'Application was successfully created.' }
-           format.json { render action: :show, status: :created, location: @form_application }
-         else
-           format.html { render action: :new }
-           format.json { render json: @form_application.errors, status: :unprocessable_entity }
-         end
-       end
+      @form_application = FormApplication.new(form_application_params)
+      respond_to do |format|
+        if @form_application.save
+          format.html { redirect_to @form_application, notice: 'Application was successfully created.' }
+          format.json { render action: :show, status: :created, location: @form_application }
+        else
+          format.html { render action: :new }
+          format.json { render json: @form_application.errors, status: :unprocessable_entity }
+        end
+      end
     end
   end
 
@@ -54,23 +54,23 @@ class FormApplicationsController < ApplicationController
   end
 
   def update
-   if params[:apply_off]
-   @application = current_user.applications.create!(application_params)
-   @form_application.update_attributes({submitted: true})
-   ApplicationFormMailerWorker.new.async.perform(application_id: @application.id)
-   @application
-   render 'applications/create'
-   else
-    respond_to do |format|
-      if @form_application.update_attributes(form_application_params)
-        format.html { redirect_to @form_application, notice: 'Application was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: :edit }
-        format.json { render json: @form_application.errors, status: :unprocessable_entity }
+    if params[:apply_off]
+      @application = current_user.applications.create!(application_params)
+      @form_application.update_attributes({submitted: true})
+      ApplicationFormMailerWorker.new.async.perform(application_id: @application.id)
+      @application
+      render 'applications/create'
+    else
+      respond_to do |format|
+        if @form_application.update_attributes(form_application_params)
+          format.html { redirect_to @form_application, notice: 'Application was successfully updated.' }
+          format.json { head :no_content }
+        else
+          format.html { render action: :edit }
+          format.json { render json: @form_application.errors, status: :unprocessable_entity }
+        end
       end
     end
-   end
   end
 
   def destroy
@@ -88,7 +88,7 @@ class FormApplicationsController < ApplicationController
   end
 
   def set_application
-   @form_application = FormApplication.find(params[:id])
+    @form_application = FormApplication.find(params[:id])
   end
 
   def checktime
@@ -108,9 +108,9 @@ class FormApplicationsController < ApplicationController
 
   def application_params
     {
-        name: form_application.name,
-        email: form_application.email,
-        application_data: form_application.serializable_hash
+      name: form_application.name,
+      email: form_application.email,
+      application_data: form_application.serializable_hash
     }
   end
 

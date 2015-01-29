@@ -41,7 +41,6 @@ class Team < ActiveRecord::Base
     super || ''
   end
 
-
   def display_name
     chunks = [name]
     chunks << project.name if project
@@ -49,7 +48,6 @@ class Team < ActiveRecord::Base
     chunks[1] = "(#{chunks[1]})" if chunks[1]
     "Team #{chunks.join(' ')}"
   end
-
 
   def sponsored?
     kind == 'sponsored'

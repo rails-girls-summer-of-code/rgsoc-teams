@@ -3,5 +3,5 @@
 FactoryGirl.define do
   factory :project do
     team
- end
+  end
 end
