@@ -3,7 +3,7 @@ class Team < ActiveRecord::Base
 
   KINDS = %w(sponsored voluntary)
 
-  #validates :kind, presence: true, if: :selected?    this validation kicks in when admin sets is_selected to true. to avoid this has been commented
+  validates :kind, presence: true
   validates :name, uniqueness: true, allow_blank: true
   # validate :must_have_members
   # validate :must_have_unique_students

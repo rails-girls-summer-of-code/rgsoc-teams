@@ -195,7 +195,6 @@ ActiveRecord::Schema.define(version: 20141024051654) do
     t.integer  "event_id"
     t.date     "last_checked_at"
     t.integer  "last_checked_by"
-    t.boolean  "is_selected"
   end
 
   create_table "users", force: true do |t|

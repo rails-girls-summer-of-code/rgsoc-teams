@@ -141,14 +141,4 @@ describe Ability do
       ability.should be_able_to(:join, helpdesk_team)
     end
   end
-
-  context 'user when admin' do
-    let!(:team) { FactoryGirl.create(:team) }
-    let!(:user) { FactoryGirl.create(:user) }
-    let!(:organizer_role) { FactoryGirl.create(:organizer_role, user: user) }
-
-    it "should be able to select teams" do
-      expect(subject).to be_able_to :select, team
-    end
-  end
 end

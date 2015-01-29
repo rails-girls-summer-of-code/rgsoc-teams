@@ -8,8 +8,4 @@ nav.actions
       = link_to 'Destroy', @team, data: { confirm: 'Are you sure?' }, method: :delete, class: 'destroy'
 
 h1 Editing team
-- if @team.is_selected || admin?
-  == render 'form'
-- else
-  == render 'teamform'
-
+== render 'form'
