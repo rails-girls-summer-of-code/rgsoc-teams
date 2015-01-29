@@ -2,11 +2,10 @@ require 'spec_helper'
 require 'cancan/matchers'
 
 describe Ability do
+  subject { ability }
+  let(:ability) { Ability.new(user) }
+
   context 'ability' do
-    subject {ability}
-
-    let(:ability) { Ability.new(user) }
-
     context 'when a user is connected' do
       let!(:user) { FactoryGirl.create(:user) }
       describe 'she/he is allowed to do everything on her/his account' do
@@ -129,9 +128,6 @@ describe Ability do
     let(:user) { FactoryGirl.create(:helpdesk) }
     let(:team) { FactoryGirl.create(:team) }
 
-    subject { ability }
-    let(:ability) { Ability.new(user) }
-
     it 'should be logged in' do
       expect(ability.signed_in?(user)).to eql true
     end
@@ -146,13 +142,11 @@ describe Ability do
     end
   end
 
-  subject { ability }
-  let(:ability) { Ability.new(user) }
-
   context 'user when admin' do
     let!(:team) { FactoryGirl.create(:team) }
     let!(:user) { FactoryGirl.create(:user) }
     let!(:organizer_role) { FactoryGirl.create(:organizer_role, user: user) }
+
     it "should be able to select teams" do
       expect(subject).to be_able_to :select, team
     end
