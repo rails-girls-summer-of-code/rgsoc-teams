@@ -56,7 +56,7 @@ describe ApplicationHelper do
 
   describe '.link_to_user_roles' do
     before do
-      @team  = create(:team, name: '29-enim')
+      @team  = create(:team, name: '29-enim', project_attributes: { name: 'Sinatra' })
       @user1 = create(:user, name: 'Trung Le')
       @role2 = create(:coach_role,  user: @user1, team: @team)
       @role3 = create(:mentor_role, user: @user1, team: @team)
@@ -64,8 +64,8 @@ describe ApplicationHelper do
 
     it 'should return link_to role based on student' do
       link_to_user_roles(@user1).should ==
-        "<a href=\"/users?role=coach\">Coach</a> at <a href=\"/teams/#{@team.id}\">Team 29-enim</a>, " +
-        "<a href=\"/users?role=mentor\">Mentor</a> at <a href=\"/teams/#{@team.id}\">Team 29-enim</a>"
+        "<a href=\"/users?role=coach\">Coach</a> at <a href=\"/teams/#{@team.id}\">Team 29-enim (Sinatra)</a>, " +
+        "<a href=\"/users?role=mentor\">Mentor</a> at <a href=\"/teams/#{@team.id}\">Team 29-enim (Sinatra)</a>"
     end
   end
 
