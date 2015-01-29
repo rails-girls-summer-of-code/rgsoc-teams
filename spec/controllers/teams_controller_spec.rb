@@ -6,7 +6,7 @@ describe TeamsController do
   let(:user) { FactoryGirl.create(:user) }
   let(:team) { FactoryGirl.create(:team) }
 
-  let(:valid_attributes) { build(:team).attributes.merge(roles_attributes: [{ name: 'coach', github_handle: 'tobias' }]) }
+  let(:valid_attributes) { build(:team).attributes.merge(roles_attributes: [{ name: 'coach', github_handle: 'tobias' }], project_attributes: {name: 'project'}) }
   let(:valid_session)    { { "warden.user.user.key" => session["warden.user.user.key"] } }
 
   before :each do
@@ -38,10 +38,12 @@ describe TeamsController do
   describe "GET edit" do
     context "their own team" do
       let(:team) { FactoryGirl.create(:team) }
+      let!(:project) { FactoryGirl.create(:project, name: 'Blue', team: team) }
 
       it "assigns the requested team as @team" do
         get :edit, { id: team.to_param }, valid_session
         assigns(:team).should eq(team)
+        assigns(:team).project.should eq(project)
       end
     end
 
@@ -83,6 +85,11 @@ describe TeamsController do
         it "updates the requested team" do
           Team.any_instance.should_receive(:update_attributes).with({ 'name' => 'Blue' })
           put :update, { id: team.to_param, team: { 'name' => 'Blue' } }, valid_session
+        end
+
+        it "creates a project when team is selected" do
+          put :update, { id: team.to_param, team: { project_attributes: { 'name' => 'Blue' } } }, valid_session
+          expect(team.reload.project.name).to eq('Blue')
         end
 
         it "assigns the requested team as @team" do

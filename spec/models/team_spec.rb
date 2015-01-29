@@ -1,9 +1,10 @@
 require 'spec_helper'
 
 describe Team do
-  subject { Team.new(kind: 'sponsored', projects: 'Sinatra') }
+  subject { Team.new(kind: 'sponsored') }
 
   it { should have_many(:activities) }
+  it { should have_one(:project) }
   it { should have_many(:sources) }
   it { should have_many(:members) }
   it { should have_many(:students) }
@@ -29,16 +30,17 @@ describe Team do
 
   describe '#display_name' do
     let(:students) { [User.new(name: 'Nina'), User.new(name: 'Maya')] }
-
+    let!(:team) { Team.new }
+    let!(:project) { Project.new(name: 'Sinatra', team: team) }
     before { subject.save! }
 
     it 'returns "Team ?" if no name given' do
-      expect(subject.display_name).to be == 'Team Sinatra'
+      expect(team.display_name).to be == 'Team Sinatra'
     end
 
     it 'returns "Team Blue" if name given' do
-      subject.name = 'Blue'
-      expect(subject.display_name).to be == 'Team Blue (Sinatra)'
+      team.name = 'Blue'
+      expect(team.display_name).to be == 'Team Blue (Sinatra)'
     end
   end
 
@@ -95,6 +97,12 @@ describe Team do
     it 'should be sponsored' do
       expect(subject.sponsored?).to eql true
     end
+  end
+
+  describe 'accept nested attributes for all three models' do
+    it { should accept_nested_attributes_for :project }
+    it { should accept_nested_attributes_for :roles }
+    it { should accept_nested_attributes_for :sources }
   end
 
 end

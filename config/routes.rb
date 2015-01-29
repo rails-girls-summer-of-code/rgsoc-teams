@@ -26,6 +26,8 @@ RgsocTeams::Application.routes.draw do
   resources :applications do
     resources :ratings
   end
+
+  resources :form_applications
   get 'application', to: 'applications#new', as: :apply
   get 'application_forms', to: 'applications#new'
   post 'application_forms', to: 'applications#create'

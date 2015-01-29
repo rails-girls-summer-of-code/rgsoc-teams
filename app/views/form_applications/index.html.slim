@@ -1,0 +1,7 @@
+nav.actions
+  ul
+    li = link_to icon('plus', 'New Application'), new_form_application_path, class: 'btn btn-small'
+
+- @form_applications.each do |form_application|
+    br
+     td = link_to form_application.project_name, form_application

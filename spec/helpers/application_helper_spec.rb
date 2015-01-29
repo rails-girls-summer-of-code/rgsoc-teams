@@ -56,7 +56,7 @@ describe ApplicationHelper do
 
   describe '.link_to_user_roles' do
     before do
-      @team  = create(:team, name: '29-enim')
+      @team  = create(:team, name: '29-enim', project_attributes: { name: 'Sinatra' })
       @user1 = create(:user, name: 'Trung Le')
       @role2 = create(:coach_role,  user: @user1, team: @team)
       @role3 = create(:mentor_role, user: @user1, team: @team)

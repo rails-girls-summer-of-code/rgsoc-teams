@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140918195057) do
+ActiveRecord::Schema.define(version: 20141024051654) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -49,6 +49,7 @@ ActiveRecord::Schema.define(version: 20140918195057) do
     t.string   "country"
     t.string   "city"
     t.string   "coaching_company"
+    t.integer  "form_application_id"
   end
 
   create_table "attendances", force: true do |t|
@@ -90,6 +91,22 @@ ActiveRecord::Schema.define(version: 20140918195057) do
     t.datetime "updated_at"
   end
 
+  create_table "form_applications", force: true do |t|
+    t.string   "name"
+    t.string   "email"
+    t.text     "about_student"
+    t.text     "location"
+    t.text     "attended_rg_workshop"
+    t.text     "coding_level"
+    t.text     "skills"
+    t.text     "learning_summary"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "project_name"
+    t.hstore   "application_data"
+    t.boolean  "submitted"
+  end
+
   create_table "job_offers", force: true do |t|
     t.string   "title"
     t.text     "description"
@@ -117,6 +134,13 @@ ActiveRecord::Schema.define(version: 20140918195057) do
     t.datetime "sent_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "projects", force: true do |t|
+    t.string   "name"
+    t.integer  "team_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "ratings", force: true do |t|
@@ -163,7 +187,6 @@ ActiveRecord::Schema.define(version: 20140918195057) do
     t.text     "description"
     t.integer  "number"
     t.string   "kind"
-    t.string   "projects"
     t.string   "twitter_handle"
     t.string   "github_handle"
     t.date     "starts_on"
