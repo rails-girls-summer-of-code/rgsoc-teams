@@ -27,3 +27,6 @@ deploy:
     - restart
   on:
     repo: rails-girls-summer-of-code/rgsoc-teams
+env:
+  secure: "rgRcSmadJezpc50uGn+O2hEseNj33SKC9q3MjPGV+rx/ukxToCAb0S4OCYpoLIHyPkjH/Zhcz2NI47nGe13HgMRYyCon6sooTgagk2NjbIyaE1KbTQkHX8ijVejkZxJHoPVSrYBnzo3k6HmV72kIglgfs+vvfqBK++mSBs6TTl8="
+
