@@ -2,14 +2,14 @@ language: ruby
 cache: bundler
 rvm:
 - 2.1.5
-bundler_args: -j4 --without development production --quiet
+bundler_args: "-j4 --without development production --quiet"
 notifications:
   email:
   - me@svenfuchs.com
   - trung.le@ruby-journal.com
   notifications:
     webhooks:
-      secure: "AziQTqGNQCCe/673UZy3bW0XB0oGywiEAyxygTWs2Cki0lqNldgELlPg+eC+CgvCJpMXRY6PLS/MXWeu4eR/6iONnBo+So8l9wJSZasxrCwVWqI9UFZYaMXXzFTGlz2JmBJ7JigW5zxL/Y3ukqu+wjA3MytT8N5tuNdR5SYqy40="
+      secure: AziQTqGNQCCe/673UZy3bW0XB0oGywiEAyxygTWs2Cki0lqNldgELlPg+eC+CgvCJpMXRY6PLS/MXWeu4eR/6iONnBo+So8l9wJSZasxrCwVWqI9UFZYaMXXzFTGlz2JmBJ7JigW5zxL/Y3ukqu+wjA3MytT8N5tuNdR5SYqy40=
     irc:
     - irc.freenode.net#rgsoc
 before_script:
@@ -20,13 +20,12 @@ script:
 deploy:
   provider: heroku
   api_key:
-    secure: EuT2CooTTomlmRJJzO8dQAelx7I/lUCsUOKIaYkYey2D/od12bPNwe1yJnaxZS4xDwDKtdCVRHKtMwIbz7EiWloE7xovm+nFb8V/hDvc05h9h0BnckNfJ2wFPcEKmMkl8gJdtgxkgAO39+qpUSzNDjOF0jIwkGimFDFWT4oTTAQ=
+    secure: pYiwd56UVWKPYDO1057KBIfZYfKKpPZ69kHIbDG1s1C/GY6mrfGRvchYGobguNw0fvhYdGkIlgZrpmwerC/EPkamKBxLjbKoL851ps+Ng7iREEPwT+t9HB1kV8yvjTsQVYHfXHtR12qi4NO3sqYTwxvkW/0cNXYgj//5+osc6/k=
   app: rgsoc-teams-production
   run:
-    - "rake db:migrate"
-    - restart
+  - rake db:migrate
+  - restart
   on:
     repo: rails-girls-summer-of-code/rgsoc-teams
 env:
-  secure: "rgRcSmadJezpc50uGn+O2hEseNj33SKC9q3MjPGV+rx/ukxToCAb0S4OCYpoLIHyPkjH/Zhcz2NI47nGe13HgMRYyCon6sooTgagk2NjbIyaE1KbTQkHX8ijVejkZxJHoPVSrYBnzo3k6HmV72kIglgfs+vvfqBK++mSBs6TTl8="
-
+  secure: rgRcSmadJezpc50uGn+O2hEseNj33SKC9q3MjPGV+rx/ukxToCAb0S4OCYpoLIHyPkjH/Zhcz2NI47nGe13HgMRYyCon6sooTgagk2NjbIyaE1KbTQkHX8ijVejkZxJHoPVSrYBnzo3k6HmV72kIglgfs+vvfqBK++mSBs6TTl8=
