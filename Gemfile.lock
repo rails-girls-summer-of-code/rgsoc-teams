@@ -50,6 +50,8 @@ GEM
     cancan (1.6.10)
     celluloid (0.15.2)
       timers (~> 1.1.0)
+    codeclimate-test-reporter (0.4.6)
+      simplecov (>= 0.7.1, < 1.0.0)
     coderay (1.1.0)
     coffee-rails (4.0.1)
       coffee-script (>= 2.2.0)
@@ -291,6 +293,7 @@ DEPENDENCIES
   bootstrap-sass
   byebug
   cancan
+  codeclimate-test-reporter
   coffee-rails
   country_select
   coveralls

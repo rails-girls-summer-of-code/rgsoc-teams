@@ -1,3 +1,8 @@
+if ENV["CODECLIMATE_REPO_TOKEN"] # code coverage is set on CI-Server
+  require "codeclimate-test-reporter"
+  CodeClimate::TestReporter.start
+end
+
 # simplecov on demand coverage spec.
 # run with "COVERAGE=true bundle exec rake spec"
 if ENV['COVERAGE'] || ENV['CI']

@@ -60,4 +60,5 @@ group :test do
   gem 'webmock'
   gem 'coveralls', require: false
   gem 'timecop'
+  gem "codeclimate-test-reporter", require: false
 end
