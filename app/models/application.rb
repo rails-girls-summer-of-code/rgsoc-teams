@@ -1,5 +1,6 @@
 class Application < ActiveRecord::Base
-  belongs_to :season
+  include HasSeason
+
   belongs_to :team
   belongs_to :user
   belongs_to :form_application

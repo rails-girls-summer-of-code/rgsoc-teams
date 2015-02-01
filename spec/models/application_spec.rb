@@ -8,7 +8,6 @@ describe Application do
   it { is_expected.to validate_presence_of(:application_data) }
 
   it { should belong_to(:team) }
-  it { should belong_to(:season) }
 
   describe '#average_skill_level' do
     subject { super().average_skill_level }
@@ -21,6 +20,8 @@ describe Application do
   end
 
   it { is_expected.to respond_to(:sponsor_pick?) }
+
+  it_behaves_like 'HasSeason'
 
   describe 'scopes' do
     describe '.hidden' do
