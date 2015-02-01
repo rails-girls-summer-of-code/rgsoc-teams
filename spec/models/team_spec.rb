@@ -21,6 +21,7 @@ describe Team do
     let!(:existing_team) { role.team }
     let(:role)   { FactoryGirl.create "#{role_name}_role" }
     let(:member) { role.user }
+    let(:user) { create(:user) }
     let(:team) { FactoryGirl.create(:team) }
     let(:roles_attributes) { [{ name: role_name, team_id: team.id, user_id: member.id }] }
 
@@ -29,17 +30,23 @@ describe Team do
 
       it 'allows no more than one team as a student' do
         team.attributes = { roles_attributes: roles_attributes }
-        expect { team.save }.to_not change { team.members.count }
-      end
-
-      it 'allows no more than one team as a student' do
-        team.attributes = { roles_attributes: roles_attributes }
-        team.valid?
+        expect { team.save }.not_to change { team.members.count }
         expect(team.errors[:roles].first).to eql "#{member.name} already is a student on another team."
       end
 
+      it 'allows adding a student who is not yet part of a team' do
+        team.attributes = { roles_attributes: [{ name: role_name, user_id: user.id }] }
+        expect { team.save }.to change { team.members.count }.by(1)
+      end
+
+      it 'allows updating a team' do
+        expect {
+          team.update roles_attributes: [{ name: role_name, user_id: user.id }]
+        }.to change { team.members.count }.by(1)
+      end
+
       it 'allows team membership in different seasons' do
-        pending
+        skip
       end
     end
 
