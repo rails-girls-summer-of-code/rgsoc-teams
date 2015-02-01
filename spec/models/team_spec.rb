@@ -18,20 +18,27 @@ describe Team do
   it { should validate_uniqueness_of(:name) }
 
   context 'multiple team memberships' do
+    let!(:existing_team) { role.team }
     let(:role)   { FactoryGirl.create "#{role_name}_role" }
     let(:member) { role.user }
-    let!(:team)   { role.team }
+    let(:team) { FactoryGirl.create(:team) }
+    let(:roles_attributes) { [{ name: role_name, team_id: team.id, user_id: member.id }] }
 
     context 'for students' do
       let(:role_name) { 'student' }
 
       it 'allows no more than one team as a student' do
-        team2 = FactoryGirl.create(:team)
-        expect { team2.roles << role }.not_to \
-          change { team2.members.count }
+        team.attributes = { roles_attributes: roles_attributes }
+        expect { team.save }.to_not change { team.members.count }
       end
 
-      it 'allows team membership in differnt seasons' do
+      it 'allows no more than one team as a student' do
+        team.attributes = { roles_attributes: roles_attributes }
+        team.valid?
+        expect(team.errors[:roles].first).to eql "#{member.name} already is a student on another team."
+      end
+
+      it 'allows team membership in different seasons' do
         pending
       end
     end
@@ -40,9 +47,8 @@ describe Team do
       let(:role_name) { %w(coach mentor supervisor).sample }
 
       it 'allows multiple memberships' do
-        team2 = FactoryGirl.create(:team)
-        expect { team2.roles << role }.to \
-          change { team2.members.count }.by(1)
+        team.attributes = { roles_attributes: roles_attributes }
+        expect { team.save }.to change { team.members.count }.by(1)
       end
     end
   end

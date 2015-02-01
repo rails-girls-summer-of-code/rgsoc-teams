@@ -86,9 +86,16 @@ class Team < ActiveRecord::Base
     self.last_checked_by = checked.is_a?(String) ? checked.to_i : checked.id
   end
 
+  MSGS = {
+    duplicate_student_roles_singular: '%s already is a student on another team.',
+    duplicate_student_roles_plural: '%s already are students on another team.'
+  }
+
   def disallow_multiple_student_roles
-    _students = User.where(id: roles.map(&:user_id)).any?(&:student?)
-    # errors.add :roles, 'FEHLER' if _students.present? # FIXME
+    students = User.where(id: roles.map(&:user_id)).select(&:student?)
+    return if students.empty?
+    msg = MSGS[:"duplicate_student_roles_#{students.size == 1 ? 'singular' : 'plural'}"]
+    errors.add :roles, msg % students.map(&:name).join(', ')
   end
 
   # def must_have_unique_students
