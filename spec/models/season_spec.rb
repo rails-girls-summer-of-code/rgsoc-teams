@@ -25,4 +25,17 @@ describe Season do
       end
     end
   end
+
+  describe '.current' do
+    it 'creates a season record' do
+      create :season, name: '2000'
+      expect { Season.current }.to \
+        change { Season.count }.by(1)
+    end
+
+    it 'returns the existing season' do
+      season = create :season, name: Date.today.year
+      expect(Season.current).to eql season
+    end
+  end
 end

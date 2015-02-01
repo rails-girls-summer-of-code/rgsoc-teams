@@ -45,7 +45,7 @@ class ApplicationController < ActionController::Base
   end
 
   def current_season
-    @season ||= Season.find_or_create_by(name: Date.today.year.to_s)
+    @season ||= Season.current
   end
 
   def require_role(role_name)
