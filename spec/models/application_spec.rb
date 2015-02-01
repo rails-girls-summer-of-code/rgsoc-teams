@@ -7,6 +7,9 @@ describe Application do
   it { is_expected.to validate_presence_of(:email) }
   it { is_expected.to validate_presence_of(:application_data) }
 
+  it { should belong_to(:team) }
+  it { should belong_to(:season) }
+
   describe '#average_skill_level' do
     subject { super().average_skill_level }
     it { is_expected.to be_present }

@@ -16,5 +16,22 @@ RSpec.describe ApplicationForm do
       expect(subject.team).to eql team
     end
 
+    context 'settings the application' do
+      it 'finds a team\'s existing application' do
+        team.application = build_stubbed(:application)
+        subject = described_class.new team: team
+        expect(subject.application).to team.application
+      end
+
+      it 'leaves application blank' do
+        subject = described_class.new team: team
+        expect(subject.application).to be_nil
+      end
+    end
+  end
+
+  describe '#students' do
+    it 'finds all two students in a team' do
+    end
   end
 end
