@@ -47,6 +47,10 @@ RgsocTeams::Application.routes.draw do
     resources :submissions
   end
 
+  namespace :orga do
+    resources :seasons
+  end
+
   # get 'activities(.:format)', to: 'activities#index', as: :activities
   get 'activities(/page/:page)(.:format)', to: 'activities#index', as: :activities
 end
