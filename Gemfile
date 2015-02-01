@@ -39,6 +39,7 @@ end
 
 group :development, :test do
   gem 'rspec-rails', '~> 2.99'
+  gem 'rspec-activemodel-mocks'
   gem 'factory_girl_rails'
   gem 'database_cleaner'
   gem 'byebug'
