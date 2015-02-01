@@ -3,19 +3,19 @@ require 'spec_helper'
 describe UrlHelper do
   describe 'normalize_url' do
     it 'keeps a nil value' do
-      Source.new(url: nil).url.should be_nil
+      expect(Source.new(url: nil).url).to be_nil
     end
 
     it 'keeps an empty string value' do
-      Source.new(url: '').url.should == ''
+      expect(Source.new(url: '').url).to eq('')
     end
 
     it 'keeps a proper url' do
-      Source.new(url: 'http://github.com').url.should == 'http://github.com'
+      expect(Source.new(url: 'http://github.com').url).to eq('http://github.com')
     end
 
     it 'prepends http://' do
-      Source.new(url: 'github.com').url.should == 'http://github.com'
+      expect(Source.new(url: 'github.com').url).to eq('http://github.com')
     end
   end
 end

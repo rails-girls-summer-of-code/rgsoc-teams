@@ -118,7 +118,7 @@ describe Team do
     let(:user) { FactoryGirl.create(:user) }
 
     it 'calls set_last_checked' do
-      subject.should_receive(:set_last_checked)
+      expect(subject).to receive(:set_last_checked)
       subject.checked = user
       subject.save!
     end

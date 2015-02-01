@@ -31,7 +31,7 @@ describe TeamsController do
   describe "GET new" do
     it "assigns a new team as @team" do
       get :new, {}, valid_session
-      assigns(:team).should be_a_new(Team)
+      expect(assigns(:team)).to be_a_new(Team)
     end
   end
 
@@ -42,8 +42,8 @@ describe TeamsController do
 
       it "assigns the requested team as @team" do
         get :edit, { id: team.to_param }, valid_session
-        assigns(:team).should eq(team)
-        assigns(:team).project.should eq(project)
+        expect(assigns(:team)).to eq(team)
+        expect(assigns(:team).project).to eq(project)
       end
     end
 
@@ -52,7 +52,7 @@ describe TeamsController do
 
       it "redirects to the homepage" do
         get :edit, { id: another_team.to_param }, valid_session
-        response.should redirect_to(root_url)
+        expect(response).to redirect_to(root_url)
       end
     end
   end
@@ -66,13 +66,13 @@ describe TeamsController do
 
       it "assigns a newly created team as @team" do
         post :create, { team_id: team.to_param, team: valid_attributes }, valid_session
-        assigns(:team).should be_a(Team)
-        assigns(:team).should be_persisted
+        expect(assigns(:team)).to be_a(Team)
+        expect(assigns(:team)).to be_persisted
       end
 
       it "redirects to the created team" do
         post :create, { team_id: team.to_param, team: valid_attributes }, valid_session
-        response.should redirect_to(assigns(:team))
+        expect(response).to redirect_to(assigns(:team))
       end
 
       it 'sets the current season' do
@@ -88,7 +88,7 @@ describe TeamsController do
 
       describe "with valid params" do
         it "updates the requested team" do
-          Team.any_instance.should_receive(:update_attributes).with({ 'name' => 'Blue' })
+          expect_any_instance_of(Team).to receive(:update_attributes).with({ 'name' => 'Blue' })
           put :update, { id: team.to_param, team: { 'name' => 'Blue' } }, valid_session
         end
 
@@ -99,26 +99,26 @@ describe TeamsController do
 
         it "assigns the requested team as @team" do
           put :update, { id: team.to_param, team: valid_attributes }, valid_session
-          assigns(:team).should eq(team)
+          expect(assigns(:team)).to eq(team)
         end
 
         it "redirects to the team" do
           put :update, { id: team.to_param, team: valid_attributes }, valid_session
-          response.should redirect_to(team)
+          expect(response).to redirect_to(team)
         end
       end
 
       describe "with invalid params" do
         it "assigns the team as @team" do
-          Team.any_instance.stub(:save).and_return(false)
+          allow_any_instance_of(Team).to receive(:save).and_return(false)
           put :update, { id: team.to_param, team: { 'name' => 'invalid value' } }, valid_session
-          assigns(:team).should eq(team)
+          expect(assigns(:team)).to eq(team)
         end
 
         it "re-renders the 'edit' template" do
-          Team.any_instance.stub(:save).and_return(false)
+          allow_any_instance_of(Team).to receive(:save).and_return(false)
           put :update, { id: team.to_param, team: { 'name' => 'invalid value' } }, valid_session
-          response.should render_template("edit")
+          expect(response).to render_template("edit")
         end
       end
 
@@ -126,13 +126,13 @@ describe TeamsController do
         let(:another_team) { FactoryGirl.create(:team) }
 
         it "does not update the requested team" do
-          Team.any_instance.should_not_receive(:update_attributes)
+          expect_any_instance_of(Team).not_to receive(:update_attributes)
           put :update, { id: another_team.to_param, team: { 'name' => 'Blue' } }, valid_session
         end
 
         it "redirects the team to the homepage" do
           put :update, { id: another_team.to_param, team: valid_attributes }, valid_session
-          response.should redirect_to(root_url)
+          expect(response).to redirect_to(root_url)
         end
       end
     end
@@ -148,7 +148,7 @@ describe TeamsController do
 
       it "redirects to the team list" do
         delete :destroy, params, valid_session
-        response.should redirect_to(teams_url)
+        expect(response).to redirect_to(teams_url)
       end
     end
 
@@ -162,7 +162,7 @@ describe TeamsController do
 
       it "redirects to the homepage" do
         delete :destroy, params, valid_session
-        response.should redirect_to(root_url)
+        expect(response).to redirect_to(root_url)
       end
     end
   end

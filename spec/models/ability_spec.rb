@@ -9,8 +9,8 @@ describe Ability do
     context 'when a user is connected' do
       let!(:user) { FactoryGirl.create(:user) }
       describe 'she/he is allowed to do everything on her/his account' do
-        it { ability.should be_able_to(:show, user) }
-        it { ability.should_not be_able_to(:create, User.new) } #this only happens through GitHub
+        it { expect(ability).to be_able_to(:show, user) }
+        it { expect(ability).not_to be_able_to(:create, User.new) } #this only happens through GitHub
       end
 
       context 'when a user is admin' do
@@ -22,7 +22,7 @@ describe Ability do
 
       describe 'she/he is not allowed to CRUD on someone else account' do
         let(:other_user) { FactoryGirl.create(:user) }
-        it { ability.should_not be_able_to(:show, other_user) }
+        it { expect(ability).not_to be_able_to(:show, other_user) }
       end
 
       describe 'a user should not be able to mark another\'s attendance to a conference' do
@@ -31,7 +31,7 @@ describe Ability do
           let!(:attendance) { FactoryGirl.create(:attendance, user: user)}
 
           it 'allows marking of attendance' do
-            ability.should be_able_to(:crud, attendance)
+            expect(ability).to be_able_to(:crud, attendance)
           end
 
 
@@ -46,7 +46,7 @@ describe Ability do
         context 'when different users' do
           let!(:other_user) { FactoryGirl.create(:user)}
           let!(:attendance) { FactoryGirl.create(:attendance, user: user)}
-          it { ability.should_not be_able_to(:crud, other_user.attendances) }
+          it { expect(ability).not_to be_able_to(:crud, other_user.attendances) }
 
         end
       end
@@ -138,7 +138,7 @@ describe Ability do
 
     it 'should be able to join helpdesk team' do
       helpdesk_team = FactoryGirl.create(:team, :helpdesk)
-      ability.should be_able_to(:join, helpdesk_team)
+      expect(ability).to be_able_to(:join, helpdesk_team)
     end
   end
 end

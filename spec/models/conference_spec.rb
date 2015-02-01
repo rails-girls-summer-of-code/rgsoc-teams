@@ -23,7 +23,7 @@ describe Conference do
     subject { FactoryGirl.build_stubbed(:conference) }
 
     it 'subtracts attendances' do
-      subject.stub(:attendances).and_return([1])
+      allow(subject).to receive(:attendances).and_return([1])
       left_tickets = subject.tickets - subject.attendances.size
       expect(subject.tickets_left).to eq(left_tickets)
     end

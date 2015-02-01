@@ -7,8 +7,15 @@ describe Application do
   it { should validate_presence_of(:email) }
   it { should validate_presence_of(:application_data) }
 
-  its(:average_skill_level) { should be_present }
-  its(:total_picks) { should be_present }
+  describe '#average_skill_level' do
+    subject { super().average_skill_level }
+    it { should be_present }
+  end
+
+  describe '#total_picks' do
+    subject { super().total_picks }
+    it { should be_present }
+  end
 
   it { should respond_to(:sponsor_pick?) }
 
@@ -60,18 +67,31 @@ describe Application do
     proxy_methods = %w(student_name location minimum_money)
 
     proxy_methods.each do |key|
-      its(key) { should be_present }
-      its(key) { should eq(subject.application_data[key]) }
+      describe key do
+        subject { super().send(key) }
+        it { should be_present }
+      end
+
+      describe key do
+        subject { super().send(key) }
+        it { should eq(subject.application_data[key]) }
+      end
     end
   end
 
   describe 'rating defaults' do
-    its(:rating_defaults) { should be_present }
+    describe '#rating_defaults' do
+      subject { super().rating_defaults }
+      it { should be_present }
+    end
 
     default_methods = %w(women_priority skill_level practice_time project_time support)
 
     default_methods.each do |key|
-      its("estimated_#{key}") { should be_present }
+      describe "estimated_#{key}" do
+        subject { super().send("estimated_#{key}") }
+        it { should be_present }
+      end
     end
 
     describe '.estimated_support' do
@@ -82,7 +102,7 @@ describe Application do
           1 => 1
         }
         hours.each do |key, value|
-          subject.stub(:application_data).and_return('hours_per_coach' => key.to_s)
+          allow(subject).to receive(:application_data).and_return('hours_per_coach' => key.to_s)
           expect(subject.estimated_support).to eq(value)
         end
       end
