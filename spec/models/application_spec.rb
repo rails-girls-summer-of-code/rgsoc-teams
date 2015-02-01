@@ -68,13 +68,8 @@ describe Application do
 
     proxy_methods.each do |key|
       describe key do
-        subject { super().send(key) }
-        it { should be_present }
-      end
-
-      describe key do
-        subject { super().send(key) }
-        it { should eq(subject.application_data[key]) }
+        it { expect(subject.send(key)).to be_present }
+        it { expect(subject.send(key)).to eq subject.application_data[key] }
       end
     end
   end
