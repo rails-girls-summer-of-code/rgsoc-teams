@@ -27,7 +27,6 @@ ENV['EMAIL_FROM'] ||= 'test@rg.com'
 
 require File.expand_path('../../config/environment', __FILE__)
 require 'rspec/rails'
-require 'rspec/autorun'
 require 'webmock/rspec'
 require 'cancan/matchers'
 require 'sucker_punch/testing/inline'
