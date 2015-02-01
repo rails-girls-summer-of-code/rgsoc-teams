@@ -18,9 +18,9 @@ RSpec.describe ApplicationForm do
 
     context 'settings the application' do
       it 'finds a team\'s existing application' do
-        team.application = build_stubbed(:application)
+        allow(team).to receive(:application).and_return Application.new
         subject = described_class.new team: team
-        expect(subject.application).to team.application
+        expect(subject.application).to eql team.application
       end
 
       it 'leaves application blank' do
