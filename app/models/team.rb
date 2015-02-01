@@ -1,5 +1,5 @@
 class Team < ActiveRecord::Base
-  include ProfilesHelper, ColorHelper
+  include ProfilesHelper, ColorHelper, HasSeason
 
   KINDS = %w(sponsored voluntary)
 

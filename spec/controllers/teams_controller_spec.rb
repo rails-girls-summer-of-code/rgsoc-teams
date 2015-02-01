@@ -74,6 +74,11 @@ describe TeamsController do
         post :create, { team_id: team.to_param, team: valid_attributes }, valid_session
         response.should redirect_to(assigns(:team))
       end
+
+      it 'sets the current season' do
+        post :create, { team_id: team.to_param, team: valid_attributes }, valid_session
+        expect(assigns(:team).season.name).to eql Date.today.year.to_s
+      end
     end
   end
 

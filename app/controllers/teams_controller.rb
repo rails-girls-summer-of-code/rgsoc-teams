@@ -30,6 +30,7 @@ class TeamsController < ApplicationController
 
   def create
     @team = Team.new(team_params)
+    @team.season = current_season
 
     respond_to do |format|
       if @team.save
