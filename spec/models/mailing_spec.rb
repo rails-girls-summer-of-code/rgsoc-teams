@@ -4,7 +4,7 @@ describe Mailing do
   let(:mailing) { Mailing.new(from: 'from@email.com', to: Role::ROLES,
     cc: 'cc@email.com', bcc: 'bcc@email.com', subject: 'subject', body: '# body') }
 
-  it { should have_many(:submissions).dependent(:destroy) }
+  it { is_expected.to have_many(:submissions).dependent(:destroy) }
 
   describe '#sent?' do
     skip 'TODO'

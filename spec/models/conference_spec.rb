@@ -1,8 +1,8 @@
 require 'spec_helper'
 
 describe Conference do
-  it { should have_many(:attendances) }
-  it { should have_many(:attendees) }
+  it { is_expected.to have_many(:attendances) }
+  it { is_expected.to have_many(:attendees) }
 
   describe 'scopes' do
     subject { Conference }

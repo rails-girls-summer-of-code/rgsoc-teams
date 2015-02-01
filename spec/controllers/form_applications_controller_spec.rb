@@ -21,9 +21,9 @@ describe FormApplicationsController do
     let(:user) { FactoryGirl.build(:user) }
 
     before do
-      controller.stub(authenticate_user!: true)
-      controller.stub(signed_in?: true)
-      controller.stub(current_user: user)
+      allow(controller).to receive_messages(authenticate_user!: true)
+      allow(controller).to receive_messages(signed_in?: true)
+      allow(controller).to receive_messages(current_user: user)
     end
 
     describe 'POST submit' do

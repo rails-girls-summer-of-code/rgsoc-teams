@@ -3,19 +3,19 @@ require 'spec_helper'
 describe Team do
   subject { Team.new(kind: 'sponsored') }
 
-  it { should have_many(:activities) }
-  it { should have_one(:project) }
-  it { should have_many(:sources) }
-  it { should have_many(:members) }
-  it { should have_many(:students) }
-  it { should have_many(:coaches) }
-  it { should have_many(:mentors) }
-  it { should have_many(:helpdesks) }
-  it { should have_many(:organizers) }
-  it { should have_many(:supervisors) }
-  it { should have_many(:roles) }
+  it { is_expected.to have_many(:activities) }
+  it { is_expected.to have_one(:project) }
+  it { is_expected.to have_many(:sources) }
+  it { is_expected.to have_many(:members) }
+  it { is_expected.to have_many(:students) }
+  it { is_expected.to have_many(:coaches) }
+  it { is_expected.to have_many(:mentors) }
+  it { is_expected.to have_many(:helpdesks) }
+  it { is_expected.to have_many(:organizers) }
+  it { is_expected.to have_many(:supervisors) }
+  it { is_expected.to have_many(:roles) }
 
-  it { should validate_uniqueness_of(:name) }
+  it { is_expected.to validate_uniqueness_of(:name) }
 
   context 'multiple team memberships' do
     let!(:existing_team) { role.team }
@@ -145,9 +145,9 @@ describe Team do
   end
 
   describe 'accept nested attributes for all three models' do
-    it { should accept_nested_attributes_for :project }
-    it { should accept_nested_attributes_for :roles }
-    it { should accept_nested_attributes_for :sources }
+    it { is_expected.to accept_nested_attributes_for :project }
+    it { is_expected.to accept_nested_attributes_for :roles }
+    it { is_expected.to accept_nested_attributes_for :sources }
   end
 
 end

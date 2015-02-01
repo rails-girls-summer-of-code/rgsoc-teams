@@ -3,21 +3,21 @@ require 'spec_helper'
 describe Application do
   subject { FactoryGirl.build_stubbed(:application) }
 
-  it { should validate_presence_of(:name) }
-  it { should validate_presence_of(:email) }
-  it { should validate_presence_of(:application_data) }
+  it { is_expected.to validate_presence_of(:name) }
+  it { is_expected.to validate_presence_of(:email) }
+  it { is_expected.to validate_presence_of(:application_data) }
 
   describe '#average_skill_level' do
     subject { super().average_skill_level }
-    it { should be_present }
+    it { is_expected.to be_present }
   end
 
   describe '#total_picks' do
     subject { super().total_picks }
-    it { should be_present }
+    it { is_expected.to be_present }
   end
 
-  it { should respond_to(:sponsor_pick?) }
+  it { is_expected.to respond_to(:sponsor_pick?) }
 
   describe 'scopes' do
     describe '.hidden' do
@@ -41,8 +41,8 @@ describe Application do
     flags = Application::FLAGS
 
     flags.each do |flag|
-      it { should respond_to("#{flag}?") }
-      it { should respond_to("#{flag}=") }
+      it { is_expected.to respond_to("#{flag}?") }
+      it { is_expected.to respond_to("#{flag}=") }
     end
 
     it 'adds the flag if the value is > 0' do
@@ -77,7 +77,7 @@ describe Application do
   describe 'rating defaults' do
     describe '#rating_defaults' do
       subject { super().rating_defaults }
-      it { should be_present }
+      it { is_expected.to be_present }
     end
 
     default_methods = %w(women_priority skill_level practice_time project_time support)
@@ -85,7 +85,7 @@ describe Application do
     default_methods.each do |key|
       describe "estimated_#{key}" do
         subject { super().send("estimated_#{key}") }
-        it { should be_present }
+        it { is_expected.to be_present }
       end
     end
 

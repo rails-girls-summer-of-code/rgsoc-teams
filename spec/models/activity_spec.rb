@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe Activity do
-  it { should belong_to(:team) }
+  it { is_expected.to belong_to(:team) }
 
   describe 'scopes' do
     describe '.with_kind' do
