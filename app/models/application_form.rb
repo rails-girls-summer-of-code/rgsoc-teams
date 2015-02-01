@@ -18,12 +18,18 @@ class ApplicationForm
 
   attr_accessor *FIELDS
 
+  attr_reader :current_user, :team
+
   validates_presence_of *MUST_FIELDS
 
-  def initialize(attributes = {})
-    attributes.each do |name, value|
-      send("#{name}=", value)
-    end
+  # def initialize(attributes = {})
+  #   attributes.each do |name, value|
+  #     send("#{name}=", value)
+  #   end
+  # end
+
+  def initialize(team: Team.new, current_user: User.new)
+    @team, @current_user = team, current_user
   end
 
   def persisted?
