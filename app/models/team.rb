@@ -7,6 +7,7 @@ class Team < ActiveRecord::Base
   validates :name, uniqueness: true, allow_blank: true
   # validate :must_have_members
   # validate :must_have_unique_students
+  validate :disallow_multiple_student_roles
 
   attr_accessor :checked
 
@@ -83,6 +84,11 @@ class Team < ActiveRecord::Base
   def set_last_checked
     self.last_checked_at = Time.now
     self.last_checked_by = checked.is_a?(String) ? checked.to_i : checked.id
+  end
+
+  def disallow_multiple_student_roles
+    _students = User.where(id: roles.map(&:user_id)).any?(&:student?)
+    # errors.add :roles, 'FEHLER' if _students.present? # FIXME
   end
 
   # def must_have_unique_students
