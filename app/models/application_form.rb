@@ -5,6 +5,8 @@ class ApplicationForm
 
   extend ActiveModel::Naming
 
+  delegate :application, to: :team
+
   FIELDS = [:student_name, :student_email,
             :about_student, :about_pair,
             :gender_identification_student, :gender_identification_pair,
@@ -33,7 +35,7 @@ class ApplicationForm
   end
 
   def persisted?
-    false
+    application.present?
   end
 
   def fields
