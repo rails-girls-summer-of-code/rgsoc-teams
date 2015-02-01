@@ -1,6 +1,8 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
 
+  helper_method :current_season
+
   before_filter do
     redirect_to = params[:redirect_to]
     redirect_to ||= request.env['omniauth.params']['redirect_to'] if request.env['omniauth.params']
@@ -40,6 +42,10 @@ class ApplicationController < ActionController::Base
     headers['Access-Control-Allow-Origin'] = '*'
     headers['Access-Control-Allow-Methods'] = 'POST, GET, OPTIONS'
     headers['Access-Control-Max-Age'] = "1728000"
+  end
+
+  def current_season
+    @season ||= Season.find_or_create_by(name: Date.today.year.to_s)
   end
 
   def require_role(role_name)
