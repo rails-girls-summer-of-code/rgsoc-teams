@@ -17,6 +17,8 @@ describe Team do
 
   it { should validate_uniqueness_of(:name) }
 
+  it_behaves_like 'HasSeason'
+
   describe 'creating a new team' do
     before do
       Team.destroy_all

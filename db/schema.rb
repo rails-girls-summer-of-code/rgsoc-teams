@@ -203,7 +203,10 @@ ActiveRecord::Schema.define(version: 20150201115659) do
     t.integer  "event_id"
     t.date     "last_checked_at"
     t.integer  "last_checked_by"
+    t.integer  "season_id"
   end
+
+  add_index "teams", ["season_id"], name: "index_teams_on_season_id", using: :btree
 
   create_table "users", force: true do |t|
     t.integer  "github_id"
