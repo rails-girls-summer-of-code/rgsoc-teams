@@ -7,7 +7,7 @@ describe 'users/index' do
       stub_model(User, name: 'Name', email: 'Email', location: 'Location', bio: 'Bio', homepage: 'Homepage', role: 'coach'),
       stub_model(User, name: 'Name', email: 'Email', location: 'Location', bio: 'Bio', homepage: 'Homepage', role: 'coach')
     ])
-    controller.stub(:current_user).as_null_object
+    allow(controller).to receive(:current_user).and_return(double.as_null_object)
   end
 
   it 'renders a list of users' do

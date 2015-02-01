@@ -4,10 +4,10 @@ describe Mailing do
   let(:mailing) { Mailing.new(from: 'from@email.com', to: Role::ROLES,
     cc: 'cc@email.com', bcc: 'bcc@email.com', subject: 'subject', body: '# body') }
 
-  it { should have_many(:submissions).dependent(:destroy) }
+  it { is_expected.to have_many(:submissions).dependent(:destroy) }
 
   describe '#sent?' do
-    pending 'TODO'
+    skip 'TODO'
   end
 
   describe '#submit' do
@@ -19,19 +19,19 @@ describe Mailing do
   end
 
   describe '#recipients' do
-    pending 'TODO'
+    skip 'TODO'
   end
 
   describe '#recipient?' do
     let(:user) { FactoryGirl.create(:student) }
 
     it 'returns false for a an empty recipients list' do
-      expect(subject.recipient? user).to be_false
+      expect(subject.recipient? user).to be_falsey
     end
 
     it 'returns true if user has appropriate role' do
       subject.to = %w(students)
-      expect(subject.recipient? user).to be_true
+      expect(subject.recipient? user).to be_truthy
     end
   end
 

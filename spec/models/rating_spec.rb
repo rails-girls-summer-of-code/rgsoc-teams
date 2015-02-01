@@ -1,8 +1,8 @@
 require 'spec_helper'
 describe Rating do
   describe 'associations' do
-    it { should belong_to(:user) }
-    it { should belong_to(:application) }
+    it { is_expected.to belong_to(:user) }
+    it { is_expected.to belong_to(:application) }
   end
 
   describe 'scopes' do

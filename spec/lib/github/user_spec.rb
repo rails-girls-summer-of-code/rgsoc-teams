@@ -7,7 +7,7 @@ describe Github::User do
   end
 
   it 'fetches the user from GitHub and normalizes attributes' do
-    Github::User.new('octocat').attrs.should == {
+    expect(Github::User.new('octocat').attrs).to eq({
       github_id:  1,
       name:       'monalisa octocat',
       email:      'octocat@github.com',
@@ -15,6 +15,6 @@ describe Github::User do
       bio:        'There once was...',
       avatar_url: 'https://github.com/images/error/octocat_happy.gif',
       homepage:   'https://github.com/blog'
-    }
+    })
   end
 end

@@ -6,16 +6,16 @@ describe 'teams/show' do
 
   before(:each) do
     assign(:team, team)
-    view.stub(:can?).and_return(true)
-    view.stub(:can?).with(:read, :users_info).and_return(true)
-    view.stub(:can?).with(:crud, :comments).and_return(true)
-    view.stub(:can?).with(:join, team).and_return(true)
-    view.stub(:can?).with(:edit, team).and_return(can_edit)
+    allow(view).to receive(:can?).and_return(true)
+    allow(view).to receive(:can?).with(:read, :users_info).and_return(true)
+    allow(view).to receive(:can?).with(:crud, :comments).and_return(true)
+    allow(view).to receive(:can?).with(:join, team).and_return(true)
+    allow(view).to receive(:can?).with(:edit, team).and_return(can_edit)
     render
   end
 
   it 'renders attributes in <p>' do
-    rendered.should match(/Name/)
+    expect(rendered).to match(/Name/)
   end
 
   describe 'can edit teams' do

@@ -25,7 +25,7 @@ describe CommentsController do
 
         it "redirects to the team page" do
           post :create, {:comment => valid_attributes.merge(team_id: team.id)}, valid_session
-          response.should redirect_to(team)
+          expect(response).to redirect_to(team)
         end
       end
 
@@ -38,7 +38,7 @@ describe CommentsController do
 
         it "redirects to the team page" do
           post :create, {:comment => valid_attributes.merge(application_id: application.id)}, valid_session
-          response.should redirect_to(application)
+          expect(response).to redirect_to(application)
         end
       end
 

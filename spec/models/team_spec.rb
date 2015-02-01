@@ -3,24 +3,25 @@ require 'spec_helper'
 describe Team do
   subject { Team.new(kind: 'sponsored') }
 
-  it { should have_many(:activities) }
-  it { should have_one(:project) }
-  it { should have_many(:sources) }
-  it { should have_many(:members) }
-  it { should have_many(:students) }
-  it { should have_many(:coaches) }
-  it { should have_many(:mentors) }
-  it { should have_many(:helpdesks) }
-  it { should have_many(:organizers) }
-  it { should have_many(:supervisors) }
-  it { should have_many(:roles) }
+  it { is_expected.to have_many(:activities) }
+  it { is_expected.to have_one(:project) }
+  it { is_expected.to have_many(:sources) }
+  it { is_expected.to have_many(:members) }
+  it { is_expected.to have_many(:students) }
+  it { is_expected.to have_many(:coaches) }
+  it { is_expected.to have_many(:mentors) }
+  it { is_expected.to have_many(:helpdesks) }
+  it { is_expected.to have_many(:organizers) }
+  it { is_expected.to have_many(:supervisors) }
+  it { is_expected.to have_many(:roles) }
 
-  it { should validate_uniqueness_of(:name) }
+  it { is_expected.to validate_uniqueness_of(:name) }
 
   context 'multiple team memberships' do
     let!(:existing_team) { role.team }
     let(:role)   { FactoryGirl.create "#{role_name}_role" }
     let(:member) { role.user }
+    let(:user) { create(:user) }
     let(:team) { FactoryGirl.create(:team) }
     let(:roles_attributes) { [{ name: role_name, team_id: team.id, user_id: member.id }] }
 
@@ -29,17 +30,23 @@ describe Team do
 
       it 'allows no more than one team as a student' do
         team.attributes = { roles_attributes: roles_attributes }
-        expect { team.save }.to_not change { team.members.count }
-      end
-
-      it 'allows no more than one team as a student' do
-        team.attributes = { roles_attributes: roles_attributes }
-        team.valid?
+        expect { team.save }.not_to change { team.members.count }
         expect(team.errors[:roles].first).to eql "#{member.name} already is a student on another team."
       end
 
+      it 'allows adding a student who is not yet part of a team' do
+        team.attributes = { roles_attributes: [{ name: role_name, user_id: user.id }] }
+        expect { team.save }.to change { team.members.count }.by(1)
+      end
+
+      it 'allows updating a team' do
+        expect {
+          team.update roles_attributes: [{ name: role_name, user_id: user.id }]
+        }.to change { team.members.count }.by(1)
+      end
+
       it 'allows team membership in different seasons' do
-        pending
+        skip
       end
     end
 
@@ -118,7 +125,7 @@ describe Team do
     let(:user) { FactoryGirl.create(:user) }
 
     it 'calls set_last_checked' do
-      subject.should_receive(:set_last_checked)
+      expect(subject).to receive(:set_last_checked)
       subject.checked = user
       subject.save!
     end
@@ -138,9 +145,9 @@ describe Team do
   end
 
   describe 'accept nested attributes for all three models' do
-    it { should accept_nested_attributes_for :project }
-    it { should accept_nested_attributes_for :roles }
-    it { should accept_nested_attributes_for :sources }
+    it { is_expected.to accept_nested_attributes_for :project }
+    it { is_expected.to accept_nested_attributes_for :roles }
+    it { is_expected.to accept_nested_attributes_for :sources }
   end
 
 end

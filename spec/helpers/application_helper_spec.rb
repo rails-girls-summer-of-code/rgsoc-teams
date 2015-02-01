@@ -35,10 +35,10 @@ describe ApplicationHelper do
     end
 
     it 'should return link_to student based on role type' do
-      link_to_team_members(@team).should           == link_to_team_member(@user2) + link_to_team_member(@user3) + link_to_team_member(@user1)
-      link_to_team_members(@team, :student).should == link_to_team_member(@user1)
-      link_to_team_members(@team, :coach).should   == link_to_team_member(@user2)
-      link_to_team_members(@team, :mentor).should  == link_to_team_member(@user3)
+      expect(link_to_team_members(@team)).to           eq(link_to_team_member(@user2) + link_to_team_member(@user3) + link_to_team_member(@user1))
+      expect(link_to_team_members(@team, :student)).to eq(link_to_team_member(@user1))
+      expect(link_to_team_members(@team, :coach)).to   eq(link_to_team_member(@user2))
+      expect(link_to_team_members(@team, :mentor)).to  eq(link_to_team_member(@user3))
     end
   end
 
@@ -46,11 +46,11 @@ describe ApplicationHelper do
     let(:user) { create(:user, name: 'Trung Le', avatar_url: 'http://example.com/avatar.png') }
 
     it 'should include a link to the member' do
-      link_to_team_member(user).should include("<a href=\"/users/#{user.id}\">Trung Le</a>")
+      expect(link_to_team_member(user)).to include("<a href=\"/users/#{user.id}\">Trung Le</a>")
     end
 
     it 'should include the avatar image' do
-      link_to_team_member(user).should include("<img alt=\"Trung Le\" src=\"#{user.avatar_url}&amp;s=40\" />")
+      expect(link_to_team_member(user)).to include("<img alt=\"Trung Le\" src=\"#{user.avatar_url}&amp;s=40\" />")
     end
   end
 
@@ -63,19 +63,20 @@ describe ApplicationHelper do
     end
 
     it 'should return link_to role based on student' do
-      link_to_user_roles(@user1).should ==
+      expect(link_to_user_roles(@user1)).to eq(
         "<a href=\"/users?role=coach\">Coach</a> at <a href=\"/teams/#{@team.id}\">Team 29-enim (Sinatra)</a>, " +
         "<a href=\"/users?role=mentor\">Mentor</a> at <a href=\"/teams/#{@team.id}\">Team 29-enim (Sinatra)</a>"
+      )
     end
   end
 
   describe '.icon' do
     it 'should generate empty icons' do
-      icon('edit').should == '<i class="icon-edit"></i>'
+      expect(icon('edit')).to eq('<i class="icon-edit"></i>')
     end
 
     it 'should generate icons with text' do
-      icon('edit', 'Edit').should == '<i class="icon-edit"></i> Edit'
+      expect(icon('edit', 'Edit')).to eq('<i class="icon-edit"></i> Edit')
     end
   end
 
@@ -104,12 +105,12 @@ describe ApplicationHelper do
     end
 
     it 'returns a dash when no timezone set' do
-      user.stub(:timezone).and_return(nil)
+      allow(user).to receive(:timezone).and_return(nil)
       expect(time_for_user(user)).to eq("-")
     end
 
     it 'returns a dash when timezone is empty' do
-      user.stub(:timezone).and_return("")
+      allow(user).to receive(:timezone).and_return("")
       expect(time_for_user(user)).to eq("-")
     end
   end

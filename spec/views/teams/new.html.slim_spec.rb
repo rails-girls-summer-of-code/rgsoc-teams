@@ -3,11 +3,11 @@ require 'spec_helper'
 describe 'teams/new' do
   before(:each) do
     assign(:team, stub_model(Team, name: 'Team A+', description: 'The best',).as_new_record)
-    view.stub(:can?).and_return(true)
+    allow(view).to receive(:can?).and_return(true)
   end
 
   it 'renders new team form' do
-    view.stub(:accessible_roles).and_return(Role::TEAM_ROLES) # what.
+    allow(view).to receive(:accessible_roles).and_return(Role::TEAM_ROLES) # what.
     render
 
     # Run the generator again with the --webrat flag if you want to use webrat matchers

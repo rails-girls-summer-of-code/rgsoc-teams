@@ -1,9 +1,9 @@
 require 'spec_helper'
 
 describe Comment do
-  it { should belong_to(:team) }
-  it { should belong_to(:user) }
-  it { should belong_to(:application) }
+  it { is_expected.to belong_to(:team) }
+  it { is_expected.to belong_to(:user) }
+  it { is_expected.to belong_to(:application) }
 
   before do
     @first_comment = FactoryGirl.create(:team_comment)

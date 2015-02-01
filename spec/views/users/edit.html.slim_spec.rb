@@ -18,7 +18,7 @@ describe 'users/edit' do
 
   before(:each) do
     @user = assign(:user, user)
-    controller.stub(:current_user).as_null_object
+    allow(controller).to receive(:current_user).and_return(user)
   end
 
   it 'renders the edit user form' do

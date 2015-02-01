@@ -14,7 +14,7 @@ describe RolesController do
 
     it "assigns a new role as @role" do
       get :new, { team_id: team.to_param }, valid_session
-      assigns(:role).should be_a_new(Role)
+      expect(assigns(:role)).to be_a_new(Role)
     end
   end
 
@@ -33,7 +33,7 @@ describe RolesController do
 
       it "redirects to the team view" do
         post :create, params, valid_session
-        response.should redirect_to(assigns(:team))
+        expect(response).to redirect_to(assigns(:team))
       end
 
       it 'create a new Role for existing user' do
@@ -57,7 +57,7 @@ describe RolesController do
 
       it "redirects to the root_url" do
         post :create, params, valid_session
-        response.should redirect_to(root_url)
+        expect(response).to redirect_to(root_url)
       end
     end
   end
@@ -75,7 +75,7 @@ describe RolesController do
 
       it "redirects to the team view" do
         delete :destroy, params, valid_session
-        response.should redirect_to(assigns(:team))
+        expect(response).to redirect_to(assigns(:team))
       end
     end
 
@@ -89,7 +89,7 @@ describe RolesController do
 
       it "redirects to the root_url" do
         delete :destroy, params, valid_session
-        response.should redirect_to(root_url)
+        expect(response).to redirect_to(root_url)
       end
     end
   end

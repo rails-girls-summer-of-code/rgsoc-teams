@@ -58,7 +58,7 @@ describe UsersController do
 
       it "redirects to the homepage" do
         get :edit, { id: another_user.to_param }, valid_session
-        response.should redirect_to(root_url)
+        expect(response).to redirect_to(root_url)
       end
     end
   end
@@ -72,7 +72,7 @@ describe UsersController do
     context "its own profile" do
       describe "with valid params" do
         it "updates the requested user" do
-          User.any_instance.should_receive(:update_attributes).with({ 'name' => 'Trung Le' })
+          expect_any_instance_of(User).to receive(:update_attributes).with({ 'name' => 'Trung Le' })
           put :update, { id: user.to_param, user: { 'name' => 'Trung Le' } }, valid_session
         end
 
@@ -83,21 +83,21 @@ describe UsersController do
 
         it "redirects to the user" do
           put :update, { id: user.to_param, user: valid_attributes }, valid_session
-          response.should redirect_to(user)
+          expect(response).to redirect_to(user)
         end
       end
 
       describe "with invalid params" do
         it "assigns the user as @user" do
-          User.any_instance.stub(:save).and_return(false)
+          allow_any_instance_of(User).to receive(:save).and_return(false)
           put :update, { id: user.to_param, user: { 'name' => 'invalid value' } }, valid_session
           expect(assigns(:user)).to eq(user)
         end
 
         it "re-renders the 'edit' template" do
-          User.any_instance.stub(:save).and_return(false)
+          allow_any_instance_of(User).to receive(:save).and_return(false)
           put :update, { id: user.to_param, user: { 'name' => 'invalid value' } }, valid_session
-          response.should render_template("edit")
+          expect(response).to render_template("edit")
         end
       end
 
@@ -105,13 +105,13 @@ describe UsersController do
         let!(:another_user) { FactoryGirl.create(:user) }
 
         it "does not update the requested user" do
-          User.any_instance.should_not_receive(:update_attributes)
+          expect_any_instance_of(User).not_to receive(:update_attributes)
           put :update, { id: another_user.to_param, user: { 'name' => 'Trung Le' } }, valid_session
         end
 
         it "redirects the user to the homepage" do
           put :update, { id: another_user.to_param, user: valid_attributes }, valid_session
-          response.should redirect_to(root_url)
+          expect(response).to redirect_to(root_url)
         end
       end
     end
@@ -132,7 +132,7 @@ describe UsersController do
 
       it "redirects to the users list" do
         delete :destroy, { id: user.to_param }, valid_session
-        response.should redirect_to(users_url)
+        expect(response).to redirect_to(users_url)
       end
     end
 
@@ -147,7 +147,7 @@ describe UsersController do
 
       it "redirects to the homepage" do
         delete :destroy, { id: another_user.to_param }, valid_session
-        response.should redirect_to(root_url)
+        expect(response).to redirect_to(root_url)
       end
     end
   end

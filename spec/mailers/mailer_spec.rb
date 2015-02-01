@@ -12,39 +12,39 @@ describe Mailer do
   let(:text_body)  { message_part(mail, :plain) }
 
   it 'renders the subject' do
-    mail.subject.should == 'subject'
+    expect(mail.subject).to eq('subject')
   end
 
   it 'renders the from' do
-    mail.from.should == ['from@email.com']
+    expect(mail.from).to eq(['from@email.com'])
   end
 
   it 'renders the to' do
-    mail.to.should == ['to@email.com']
+    expect(mail.to).to eq(['to@email.com'])
   end
 
   it 'renders the cc' do
-    mail.cc.should be_nil
+    expect(mail.cc).to be_nil
   end
 
   it 'renders the bcc' do
-    mail.bcc.should be_nil
+    expect(mail.bcc).to be_nil
   end
 
   it 'renders the subject' do
-    mail.subject.should == 'subject'
+    expect(mail.subject).to eq('subject')
   end
 
   it 'renders two body parts' do
-    mail.body.parts.length.should == 2
+    expect(mail.body.parts.length).to eq(2)
   end
 
   it 'renders the body (html)' do
-    html_body.should match('<h1>body</h1>')
+    expect(html_body).to match('<h1>body</h1>')
   end
 
   it 'renders the body (text)' do
-    text_body.should match('# body')
+    expect(text_body).to match('# body')
   end
 end
 

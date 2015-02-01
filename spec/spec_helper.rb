@@ -27,7 +27,6 @@ ENV['EMAIL_FROM'] ||= 'test@rg.com'
 
 require File.expand_path('../../config/environment', __FILE__)
 require 'rspec/rails'
-require 'rspec/autorun'
 require 'webmock/rspec'
 require 'cancan/matchers'
 require 'sucker_punch/testing/inline'
@@ -47,4 +46,6 @@ RSpec.configure do |config|
   config.include Devise::TestHelpers, type: :controller
   config.include Devise::TestHelpers, type: :view
   config.extend ControllerMacros,     type: :controller
+
+  config.infer_spec_type_from_file_location!
 end

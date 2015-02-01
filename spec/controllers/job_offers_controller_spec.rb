@@ -106,7 +106,7 @@ describe JobOffersController do
       it 'denies access' do
         expect {
           post :create, valid_attributes, valid_session
-        }.not_to change { JobOffer.count }.by 1
+        }.not_to change { JobOffer.count }
         expect(response).to redirect_to root_path
       end
     end
@@ -157,7 +157,7 @@ describe JobOffersController do
       it 'denies access' do
         expect {
           delete :destroy, { id: job_offer.to_param }, valid_session
-        }.not_to change { JobOffer.count }.by(-1)
+        }.not_to change { JobOffer.count }
         expect(response).to redirect_to root_path
       end
     end
