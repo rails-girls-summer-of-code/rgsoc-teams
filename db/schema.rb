@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150201151117) do
+ActiveRecord::Schema.define(version: 20150202182113) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -161,8 +161,8 @@ ActiveRecord::Schema.define(version: 20150201151117) do
   end
 
   create_table "seasons", force: true do |t|
-    t.datetime "starts_at"
-    t.datetime "ends_at"
+    t.date     "starts_at"
+    t.date     "ends_at"
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
