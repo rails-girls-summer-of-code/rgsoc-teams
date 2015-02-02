@@ -48,4 +48,8 @@ RSpec.configure do |config|
   config.extend ControllerMacros,     type: :controller
 
   config.infer_spec_type_from_file_location!
+
+  config.before(:suite) do
+    WebMock.disable_net_connect! allow: 'codeclimate.com'
+  end
 end
