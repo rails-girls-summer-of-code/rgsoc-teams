@@ -22,10 +22,7 @@ RSpec.shared_examples 'redirects for non-admins' do |method: 'get', action: 'ind
     end
 
     context 'logged in as admin' do
-      before do
-        user = mock_model('User', :admin? => true)
-        allow(controller).to receive(:current_user).and_return(user)
-      end
+      include_context 'with admin logged in'
 
       it 'allows the controller action' do
         send(method, action, *args)
