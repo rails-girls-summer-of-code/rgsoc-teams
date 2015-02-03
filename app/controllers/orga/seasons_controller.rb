@@ -1,13 +1,13 @@
 class Orga::SeasonsController < Orga::BaseController
+  before_action :find_resource, only: [:show, :edit, :destroy]
 
   def new
-    starts_at = Time.utc(Date.today.year, 7, 1)
-    ends_at   = Time.utc(Date.today.year, 9, 30)
-    @season   = Season.new(starts_at: starts_at, ends_at: ends_at)
+    season_params = { starts_at: starts_at, ends_at: ends_at }
+    build_resource
   end
 
   def create
-    @season = Season.new(season_params)
+    build_resource
     if @season.save
       redirect_to [:orga, @season], notice: "Season #{@season.name} created."
     else
@@ -16,7 +16,6 @@ class Orga::SeasonsController < Orga::BaseController
   end
 
   def show
-    @season = Season.find params[:id]
   end
 
   def index
@@ -24,11 +23,9 @@ class Orga::SeasonsController < Orga::BaseController
   end
 
   def edit
-    @season = Season.find params[:id]
   end
 
   def update
-    @season = Season.find params[:id]
     if @season.update season_params
       redirect_to orga_seasons_path, notice: "Season #{@season.name} updated."
     else
@@ -37,12 +34,19 @@ class Orga::SeasonsController < Orga::BaseController
   end
 
   def destroy
-    @season = Season.find params[:id]
     @season.destroy
     redirect_to orga_seasons_path, notice: "Season #{@season.name} has been deleted."
   end
 
   private
+
+  def build_resource
+    @season = Season.new season_params
+  end
+
+  def find_resource
+    @season = Season.find params[:id]
+  end
 
   def season_params
     params.require(:season).permit(:name, :starts_at, :ends_at)
