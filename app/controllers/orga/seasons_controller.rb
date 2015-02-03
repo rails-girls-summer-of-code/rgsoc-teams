@@ -19,7 +19,7 @@ class Orga::SeasonsController < Orga::BaseController
   end
 
   def index
-    @seasons = Season.all
+    @seasons = Season.order('name DESC')
   end
 
   def edit
