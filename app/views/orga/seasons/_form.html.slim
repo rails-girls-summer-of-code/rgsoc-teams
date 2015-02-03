@@ -1,0 +1,10 @@
+= simple_form_for([:orga, @season]) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :name, label: 'Year'
+    = f.input :starts_at
+    = f.input :ends_at
+
+  .form-actions
+    = f.button :submit

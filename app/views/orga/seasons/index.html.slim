@@ -1,0 +1,25 @@
+h1 Listing Seasons
+
+table.table.table-striped.table-bordered.table-condensed
+  thead
+    tr
+      th Year
+      th Start Date
+      th End Date
+      th
+      th
+      th
+
+  tbody
+    - @seasons.each do |season|
+      tr
+        td = season.name
+        td = season.starts_at
+        td = season.ends_at
+        td = link_to 'Show', [:orga, season]
+        td = link_to 'Edit', [:edit, :orga, season]
+        td = link_to 'Destroy', [:orga, season], data: { confirm: 'Are you sure?'}, method: :delete
+
+br
+
+= link_to 'New Season', [:new, :orga, :season], class: 'btn btn-default'

@@ -1,0 +1,13 @@
+h1 Season #{@season.name}
+
+.conference
+  dl
+    dt Year
+    dd = @season.name
+    dt Start Date
+    dd = @season.starts_at
+    dt End Date
+    dd = @season.ends_at
+
+= link_to 'Edit', [:edit, :orga, @season], class: 'btn btn-default'
+= link_to 'Back', orga_seasons_path, class: 'btn btn-default'
