@@ -29,6 +29,9 @@ GEM
       tzinfo (~> 1.1)
     addressable (2.3.6)
     arel (5.0.1.20140414130214)
+    autoprefixer-rails (5.1.7)
+      execjs
+      json
     aws-sdk (1.38.0)
       json (~> 1.4)
       nokogiri (>= 1.4.4)
@@ -41,8 +44,9 @@ GEM
     bootstrap-kaminari-views (0.0.3)
       kaminari (>= 0.13)
       rails (>= 3.1)
-    bootstrap-sass (3.2.0.0)
-      sass (~> 3.2)
+    bootstrap-sass (3.3.3)
+      autoprefixer-rails (>= 5.0.0.1)
+      sass (>= 3.2.19)
     builder (3.2.2)
     byebug (3.0.0)
       columnize (~> 0.3)
@@ -231,7 +235,7 @@ GEM
     shoulda-context (1.2.1)
     shoulda-matchers (2.6.0)
       activesupport (>= 3.0.0)
-    simple_form (3.1.0.rc1)
+    simple_form (3.1.0)
       actionpack (~> 4.0)
       activemodel (~> 4.0)
     simple_statistics (0.12)
@@ -329,7 +333,7 @@ DEPENDENCIES
   rspec-rails (~> 3.0)
   sass-rails
   shoulda
-  simple_form (= 3.1.0.rc1)
+  simple_form
   simple_statistics
   slim-rails
   spring
