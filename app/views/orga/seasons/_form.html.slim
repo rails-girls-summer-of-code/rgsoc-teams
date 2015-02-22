@@ -1,10 +1,10 @@
 = simple_form_for([:orga, @season]) do |f|
   = f.error_notification
 
-  .form-inputs
+  .form-inputs.clearfix
     = f.input :name, label: 'Year'
-    = f.input :starts_at
-    = f.input :ends_at
+    = f.input :starts_at, wrapper_html: { class: 'col-sm-2' }
+    = f.input :ends_at, wrapper_html: { class: 'col-sm-2' }
 
   .form-actions
     = f.button :submit
