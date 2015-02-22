@@ -16,8 +16,8 @@ class Season < ActiveRecord::Base
   private
 
   def set_application_dates
-    self.applications_open_at  ||= DateTime.parse("03-01")
-    self.applications_close_at ||= DateTime.parse("03-31")
+    self.applications_open_at  ||= Time.utc(Date.today.year, 3, 1)
+    self.applications_close_at ||= Time.utc(Date.today.year, 3, 31)
     self.applications_open_at  = applications_open_at.utc.beginning_of_day
     self.applications_close_at = applications_close_at.utc.end_of_day
   end
