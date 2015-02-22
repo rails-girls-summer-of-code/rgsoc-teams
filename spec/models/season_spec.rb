@@ -26,6 +26,26 @@ describe Season do
     end
   end
 
+  describe '#application_period?' do
+    it 'returns true if today is between open and close date' do
+      subject.applications_open_at = 1.week.ago
+      subject.applications_close_at = 1.week.from_now
+      expect(subject).to be_application_period
+    end
+
+    it 'returns false if today is before open date' do
+      subject.applications_open_at = 1.day.from_now
+      subject.applications_close_at = 1.week.from_now
+      expect(subject).not_to be_application_period
+    end
+
+    it 'returns false if today is after close date' do
+      subject.applications_open_at = 1.week.ago
+      subject.applications_close_at = 1.day.ago
+      expect(subject).not_to be_application_period
+    end
+  end
+
   describe '.current' do
     it 'creates a season record' do
       create :season, name: '2000'
@@ -38,4 +58,5 @@ describe Season do
       expect(Season.current).to eql season
     end
   end
+
 end
