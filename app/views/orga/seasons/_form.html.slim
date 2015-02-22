@@ -5,6 +5,8 @@
     = f.input :name, label: 'Year'
     = f.input :starts_at, wrapper_html: { class: 'col-sm-2' }
     = f.input :ends_at, wrapper_html: { class: 'col-sm-2' }
+    = f.input :applications_open_at, as: :date, wrapper_html: { class: 'col-sm-2' }
+    = f.input :applications_close_at, as: :date, wrapper_html: { class: 'col-sm-2' }
 
   .form-actions
     = f.button :submit

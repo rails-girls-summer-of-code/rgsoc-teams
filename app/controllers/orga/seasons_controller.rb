@@ -2,8 +2,13 @@ class Orga::SeasonsController < Orga::BaseController
   before_action :find_resource, only: [:show, :edit, :update, :destroy]
 
   def new
-    season_params = { starts_at: starts_at, ends_at: ends_at }
-    build_resource
+    @season = Season.new({
+      name: Date.today.year,
+      starts_at: DateTime.parse("#{Date.today.year}-07-01"),
+      ends_at: DateTime.parse("#{Date.today.year}-09-30"),
+      applications_open_at: DateTime.parse("#{Date.today.year}-03-01"),
+      applications_close_at: DateTime.parse("#{Date.today.year}-03-31")
+    })
   end
 
   def create
