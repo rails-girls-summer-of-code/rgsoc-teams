@@ -1,5 +1,5 @@
 class Orga::SeasonsController < Orga::BaseController
-  before_action :find_resource, only: [:show, :edit, :destroy]
+  before_action :find_resource, only: [:show, :edit, :update, :destroy]
 
   def new
     season_params = { starts_at: starts_at, ends_at: ends_at }

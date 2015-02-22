@@ -41,5 +41,24 @@ RSpec.describe Orga::SeasonsController do
         expect(response).to render_template 'show'
       end
     end
+
+    describe 'PATCH update' do
+      it 'updates and redirects' do
+        patch :update, id: season.to_param, season: { name: '2525' }
+        expect(response).to redirect_to orga_seasons_path
+      end
+
+      context 'with invalid data' do
+        before do
+          season
+          allow_any_instance_of(Season).to receive(:valid?).and_return(false)
+        end
+
+        it 'fails updates and renders the edit template' do
+          patch :update, id: season.to_param, season: { name: '' }
+          expect(response).to render_template 'edit'
+        end
+      end
+    end
   end
 end
