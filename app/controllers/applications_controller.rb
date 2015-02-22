@@ -135,8 +135,6 @@ class ApplicationsController < ApplicationController
   end
 
   def checktime
-    if Time.now.utc >= Time.utc(2014, 5, 2, 23, 59)
-      render :ended
-    end
+    render :ended unless current_season.application_period?
   end
 end

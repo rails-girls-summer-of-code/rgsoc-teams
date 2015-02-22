@@ -4,7 +4,7 @@ describe ApplicationsController do
   render_views
 
   before do
-    Timecop.travel(Time.utc(2013, 5, 2))
+    Timecop.travel(Time.utc(2013, 3, 15))
   end
 
   context 'as an anonymous user' do
