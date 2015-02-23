@@ -3,6 +3,8 @@ h1.header
   span Community
 
 = render partial: 'users/roles'
+- if Time.now.utc < current_season.starts_at
+  = render partial: 'users/interests'
 
 - if admin?
   p.organizers = link_to 'Users organizers info &rarr;'.html_safe, users_info_path
@@ -12,6 +14,7 @@ table.users.table.table-striped.table-bordered.table-condensed.table-hover
     tr
       th
       th = sortable :name
+      th = sortable :interested_in
       - if signed_in?
         th Email
       th = sortable :github
@@ -19,13 +22,14 @@ table.users.table.table-striped.table-bordered.table-condensed.table-hover
       th = sortable :country
       th = sortable :location, User.human_attribute_name(:location)
       th Time now
-      th Conferences
+      / th Conferences
 
   tbody
     - @users.each do |user|
       tr
         td.image = avatar_url(user, size: 40)
         td = link_to user.name_or_handle, user
+        td = user.interested_in.map { |key| User::INTERESTS[key].presence }.compact.join(', ')
         - if signed_in?
           td = mail_to user.email unless user.hide_email?
         td = link_to user.github_handle, "http://github.com/#{user.github_handle}"
@@ -33,4 +37,4 @@ table.users.table.table-striped.table-bordered.table-condensed.table-hover
         td = user.country
         td = user.location
         td = time_for_user(user)
-        td = links_to_conferences(user.conferences).join(', ').html_safe
+        / td = links_to_conferences(user.conferences).join(', ').html_safe
