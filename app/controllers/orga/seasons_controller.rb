@@ -54,7 +54,7 @@ class Orga::SeasonsController < Orga::BaseController
   end
 
   def season_params
-    params.require(:season).permit(:name, :starts_at, :ends_at)
+    params.require(:season).permit(:name, :starts_at, :ends_at, :applications_open_at, :applications_close_at)
   end
 
 end
