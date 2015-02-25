@@ -6,6 +6,8 @@ table.table.table-striped.table-bordered.table-condensed
       th Year
       th Start Date
       th End Date
+      th Application Start
+      th Application End
       th
       th
       th
@@ -16,6 +18,8 @@ table.table.table-striped.table-bordered.table-condensed
         td = season.name
         td = season.starts_at
         td = season.ends_at
+        td = season.applications_open_at
+        td = season.applications_close_at
         td = link_to 'Show', [:orga, season]
         td = link_to 'Edit', [:edit, :orga, season]
         td = link_to 'Destroy', [:orga, season], data: { confirm: 'Are you sure?'}, method: :delete
