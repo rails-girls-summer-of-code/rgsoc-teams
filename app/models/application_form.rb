@@ -38,6 +38,12 @@ class ApplicationForm
     application.present?
   end
 
+  Role::TEAM_ROLES.each do |role|
+    define_method "as_#{role}?" do                       # def as_student?
+      team.send(role.pluralize).include? current_user    #   team.students.include? current_user
+    end                                                  # end
+  end
+
   def fields
     FIELDS
   end
