@@ -140,6 +140,6 @@ class ApplicationsController < ApplicationController
   end
 
   def must_be_part_of_a_team_as_student
-    redirect_to new_team_path, alert: 'You need to be in a team as a student' unless current_user.student?
+    redirect_to new_team_path, alert: 'You need to be in a team as a student' unless current_user.try(:student?)
   end
 end
