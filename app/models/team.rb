@@ -3,7 +3,6 @@ class Team < ActiveRecord::Base
 
   KINDS = %w(sponsored voluntary)
 
-  validates :kind, presence: true
   validates :name, uniqueness: true, allow_blank: true
   # validate :must_have_members
   validate :disallow_multiple_student_roles
