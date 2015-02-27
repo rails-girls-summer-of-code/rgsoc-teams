@@ -12,7 +12,7 @@ h1.header
           = " " + kind == 'feed_entry' ? 'Blog Post' : kind.titleize
     label.team_filter
       ' Team:
-      = select_tag :team_id, options_for_select(['', nil] + teams.map { |t| [t.name.present? ? t.name : t.projects, t.id] }, params[:team_id]), class: 'form-control'
+      = select_tag :team_id, options_for_select(['', nil] + teams.map { |t| [t.name.present? ? t.name : t.project, t.id] }, params[:team_id]), class: 'form-control'
 
 p.pagination-info
   = page_entries_info @activities
