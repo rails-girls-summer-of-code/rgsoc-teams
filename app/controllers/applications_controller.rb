@@ -1,7 +1,6 @@
 class ApplicationsController < ApplicationController
   include ApplicationsHelper
 
-  before_filter :must_be_part_of_a_team_as_student, only: :new
   before_filter :store_filters, only: :index
   before_filter :persist_order, only: :index
   before_filter :checktime, only: [:new, :create]
@@ -15,7 +14,11 @@ class ApplicationsController < ApplicationController
 
   def new
     if signed_in?
-      @application_form = ApplicationForm.new(student_name: current_user.name, student_email: current_user.email)
+      if current_user.student?
+        @application_form = ApplicationForm.new(team: current_user.roles.student.first.team, current_user: current_user)
+      else
+        redirect_to new_team_path, alert: 'You need to be in a team as a student'
+      end
     else
       render 'sign_in'
     end
@@ -137,9 +140,5 @@ class ApplicationsController < ApplicationController
 
   def checktime
     render :ended unless current_season.application_period?
-  end
-
-  def must_be_part_of_a_team_as_student
-    redirect_to new_team_path, alert: 'You need to be in a team as a student' unless current_user.try(:student?)
   end
 end

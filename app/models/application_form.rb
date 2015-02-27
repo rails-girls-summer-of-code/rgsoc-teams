@@ -25,14 +25,12 @@ class ApplicationForm
 
   validates_presence_of *MUST_FIELDS
 
-  # def initialize(attributes = {})
-  #   attributes.each do |name, value|
-  #     send("#{name}=", value)
-  #   end
-  # end
-
-  def initialize(team: Team.new, current_user: User.new)
+  def initialize(team: Team.new, current_user: User.new, **attributes)
     @team, @current_user = team, current_user
+
+    attributes.each do |name, value|
+      send("#{name}=", value) if respond_to("#{name}=")
+    end
   end
 
   def persisted?
