@@ -10,7 +10,6 @@ class UsersController < ApplicationController
       pair:       'Looking for a pair',
       coaching:   'Helping as a Coach',
       mentoring:  'Helping as a Mentor',
-      deskspace:  'Offering desk space',
       organizing: 'Helping as an Organizer'
     }
     @users = User.ordered(params[:sort], params[:direction]).group('users.id').with_all_associations_joined

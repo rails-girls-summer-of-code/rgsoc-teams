@@ -22,7 +22,6 @@ class User < ActiveRecord::Base
     'mentoring'       => 'Helping as a mentor for a project that I am part of',
     'helpdesk'        => 'Helping as a remote coach (helpdesk)',
     'organizing'      => 'Helping as an organizer',
-    'deskspace'       => 'Providing office/desk space',
     'coachingcompany' => 'Providing a coaching team from our company',
   }
 
