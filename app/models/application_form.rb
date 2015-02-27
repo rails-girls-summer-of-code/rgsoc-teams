@@ -6,7 +6,7 @@ class ApplicationForm
   extend ActiveModel::Naming
 
   delegate :application, to: :team
-  delegate :students, :coaches, :mentors, to: :team
+  delegate :coaches, :mentors, to: :team
 
   FIELDS = [:student_name, :student_email,
             :about_student, :about_pair,
@@ -41,6 +41,14 @@ class ApplicationForm
     define_method "as_#{role}?" do                       # def as_student?
       team.send(role.pluralize).include? current_user    #   team.students.include? current_user
     end                                                  # end
+  end
+
+  def students
+    team.students.order(:id)
+  end
+
+  def student_index
+    students.index(current_user) if as_student?
   end
 
   def fields
