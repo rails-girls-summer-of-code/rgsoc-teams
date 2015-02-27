@@ -6,6 +6,7 @@ class ApplicationForm
   extend ActiveModel::Naming
 
   delegate :application, to: :team
+  delegate :students, :coaches, :mentors, to: :team
 
   FIELDS = [:student_name, :student_email,
             :about_student, :about_pair,

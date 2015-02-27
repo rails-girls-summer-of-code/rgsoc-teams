@@ -12,28 +12,47 @@ p.attention
       ul
         - @application_form.errors.full_messages.each do |message|
           li = message
-  = f.input :student_name, label: 'Student Name', hint: 'Please provide your first name and surname'
-  = f.input :student_email, label: 'Student Email'
-  = f.input :about_student, as: :text, label: 'About you', input_html: { rows: '5' }, hint: 'Please tell us who you are, provide all contact information you deem useful and tell us a little bit about yourself and your background.'
-  = f.input :gender_identification_student, label: 'Your gender self-identification', hint: 'No-one is excluded from applying on the basis of gender, but people who self-identify as female, or have experiences being socialized as female, are given preference during selection.'
-  = f.input :about_pair, as: :text, label: 'About your pair', input_html: { rows: '5' }, hint: 'If you have a pair (a partner student you plan to work and pair-program with) please tell us who she is, provide contact information and tell us about herself and her background.'
-  = f.input :gender_identification_pair, label: 'Your pair\'s gender self-identification', hint: 'No-one is excluded from applying on the basis of gender, but people who self-identify as female, or have experiences being socialized as female, are given preference during selection.'
-  = f.input :location, as: :text, label: 'Where do you plan to live?', input_html: { rows: '5' }
-  = f.input :attended_rg_workshop, as: :text, label: 'Did you ever attend a Rails/Ruby workshop?', hint: ' Please give us a little bit of history about yourself and your pair (if any)', input_html: { rows: '5' }
-  = f.input :coding_level, :collection => 1..5, :as => :select, label: 'What level of coding do you see yourself in Ruby/Rails?', hint: 'Please try to verify this with your pair and coach, we are aware this is tricky to estimate.'
-  = f.input :coding_level_pair, :collection => 1..5, :as => :select, label: 'What level of coding does your pair have?', hint: '(Same as above)', :input_html => { class: 'level-radio' }
-  = f.input :skills, as: :text, label: 'Please give us a summary of your skills', hint: 'Please add a summary for your pair if you have one, too.', input_html: { rows: '5' }
-  = f.input :learing_summary, as: :text, label: 'Please summarize what you have been doing to learn programming since your first workshop', hint: 'E.g. Study Group, learning rails by doing exercises etc. Please add a summary for your pair if you have one, too.', input_html: { rows: '5' }
-  = f.input :learning_since_workshop, collection: time_span_array, label: 'For how many months have you actively been learning after your first workshop?'
-  = f.input :learning_since_workshop_pair, collection: time_span_array, label: 'For how many months has your pair actively been learning after her first workshop?'
-  = f.input :code_samples, as: :text, label: 'Do you have a Github Account or examples of your coding?', input_html: { rows: '5' }
-  = f.input :coaches, as: :text, label: 'Coach(es): Who is going to coach you?', hint: 'Please provide contact information. If you have a team of coaches please describe how they are going to team up/split work.', input_html: { rows: '5' }
-  = f.input :hours_per_coach, label: 'Coach(es): How much time can your coaches put into (being available for) support, in total?', hint: 'Rough estimate, e.g. x hours per day'
-  = f.input :why_team_successful, label: 'Coach(es): Why do you think this team is going to be successfully working on their projects?'
-  = f.input :projects, as: :text, label: 'What project(s) are you planning to work on?', hint: "What project(s) are you planning to work on? If you don't know yet, you'll have time to still sort this out. The earlier you know your project the better :)", input_html: { rows: '5' }
-  = f.input :project_period, as: :text, label: 'When do you plan to work on this?', hint: 'We are aiming at July 1st to September 30th for most students, but you can be flexible. Please discuss this with your team.', input_html: { rows: '5' }
-  = f.input :minimum_money, label: 'Where you live, how much money do you need at the very minimum per month to sustain yourself while working fulltime on an Open Source project?', hint: 'This question is optional'
-  = f.input :misc_info, as: :text, label: 'Please use the space below to address anything that you feel is relevant to your application and was not covered previously.', input_html: { rows: 4 }, hint: 'This question is optional'
+  fieldset
+    - if @application_form.as_student?
+      legend About yourself
+    - else
+      legend Student 1
+    = f.input :student_name, label: 'Student Name', hint: 'Please provide your first name and surname'
+    = f.input :student_email, label: 'Student Email'
+    = f.input :about_student, as: :text, label: 'About you', input_html: { rows: '5' }, hint: 'Please tell us who you are, provide all contact information you deem useful and tell us a little bit about yourself and your background.'
+    = f.input :gender_identification_student, label: 'Your gender self-identification', hint: 'No-one is excluded from applying on the basis of gender, but people who self-identify as female, or have experiences being socialized as female, are given preference during selection.'
+    = f.input :coding_level, :collection => 1..5, :as => :select, label: 'What level of coding do you see yourself in Ruby/Rails?', hint: 'Please try to verify this with your pair and coach, we are aware this is tricky to estimate.'
+    = f.input :learning_since_workshop, collection: time_span_array, label: 'For how many months have you actively been learning after your first workshop?'
+  fieldset
+    - if @application_form.as_student?
+      legend About your pair
+    - else
+      legend Student 2
+    = f.input :about_pair, as: :text, label: 'About your pair', input_html: { rows: '5' }, hint: 'If you have a pair (a partner student you plan to work and pair-program with) please tell us who she is, provide contact information and tell us about herself and her background.'
+    = f.input :gender_identification_pair, label: 'Your pair\'s gender self-identification', hint: 'No-one is excluded from applying on the basis of gender, but people who self-identify as female, or have experiences being socialized as female, are given preference during selection.'
+    = f.input :coding_level_pair, :collection => 1..5, :as => :select, label: 'What level of coding does your pair have?', hint: '(Same as above)', :input_html => { class: 'level-radio' }
+    = f.input :learning_since_workshop_pair, collection: time_span_array, label: 'For how many months has your pair actively been learning after her first workshop?'
+
+  fieldset
+    legend About the team
+    = f.input :location, as: :text, label: 'Where do you plan to live?', input_html: { rows: '5' }
+    -# = f.input :attended_rg_workshop, as: :text, label: 'Did you ever attend a Rails/Ruby workshop?', hint: ' Please give us a little bit of history about yourself and your pair (if any)', input_html: { rows: '5' }
+    = f.input :skills, as: :text, label: 'Please give us a summary of your skills', hint: 'Please add a summary for your pair if you have one, too.', input_html: { rows: '5' }
+    = f.input :learing_summary, as: :text, label: 'Please summarize what you have been doing to learn programming since your first workshop', hint: 'E.g. Study Group, learning rails by doing exercises etc. Please add a summary for your pair if you have one, too.', input_html: { rows: '5' }
+    = f.input :code_samples, as: :text, label: 'Do you have a Github Account or examples of your coding?', input_html: { rows: '5' }
+    = f.input :projects, as: :text, label: 'What project are you planning to work on?', hint: "What project are you planning to work on? If you don't know yet, you'll have time to still sort this out. The earlier you know your project the better :)", input_html: { rows: '5' }
+
+  fieldset
+    legend Filled in by coach(es)
+    = f.input :coaches, as: :text, label: 'Coach(es): Who is going to coach you?', hint: 'Please provide contact information. If you have a team of coaches please describe how they are going to team up/split work.', input_html: { rows: '5', disabled: !@application_form.as_coach? }
+    = f.input :hours_per_coach, label: 'Coach(es): How much time can your coaches put into (being available for) support, in total?', hint: 'Rough estimate, e.g. x hours per day', input_html: { disabled: !@application_form.as_coach? }
+    = f.input :why_team_successful, label: 'Coach(es): Why do you think this team is going to be successfully working on their projects?', input_html: { disabled: !@application_form.as_coach? }
+
+  fieldset
+    legend Miscellaneous
+    -# = f.input :project_period, as: :text, label: 'When do you plan to work on this?', hint: 'We are aiming at July 1st to September 30th for most students, but you can be flexible. Please discuss this with your team.', input_html: { rows: '5' }
+    = f.input :minimum_money, label: 'Where you live, how much money do you need at the very minimum per month to sustain yourself while working fulltime on an Open Source project?', hint: 'This question is optional'
+    = f.input :misc_info, as: :text, label: 'Please use the space below to address anything that you feel is relevant to your application and was not covered previously.', input_html: { rows: 4 }, hint: 'This question is optional'
 
   .actions
     = f.button :submit, 'Ok, apply!', class: 'btn btn-success'
