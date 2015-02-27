@@ -7,6 +7,8 @@ describe ApplicationsController do
     Timecop.travel(Time.utc(2013, 3, 15))
   end
 
+  let(:team) { create :team }
+
   context 'as an anonymous user' do
     describe 'GET new' do
       it 'renders the "sign_in" template' do
@@ -37,6 +39,8 @@ describe ApplicationsController do
       end
 
       it 'renders the "new" template' do
+        create :student_role, user: user
+
         allow(user).to receive(:student?).and_return true
         get :new
         expect(response).to render_template 'new'
@@ -77,7 +81,7 @@ describe ApplicationsController do
     describe 'application period' do
       context 'period is over' do
         before do
-          Timecop.travel(Time.utc(2014, 5, 2, 23, 59))
+          create(:season, applications_close_at: 2.weeks.ago)
         end
 
         it 'new renders applications_end template when over' do
