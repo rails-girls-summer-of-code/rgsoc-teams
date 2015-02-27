@@ -6,7 +6,6 @@ class Team < ActiveRecord::Base
   validates :kind, presence: true
   validates :name, uniqueness: true, allow_blank: true
   # validate :must_have_members
-  # validate :must_have_unique_students
   validate :disallow_multiple_student_roles
 
   attr_accessor :checked
@@ -97,12 +96,6 @@ class Team < ActiveRecord::Base
     msg = MSGS[:"duplicate_student_roles_#{students.size == 1 ? 'singular' : 'plural'}"]
     errors.add :roles, msg % students.map(&:name).join(', ')
   end
-
-  # def must_have_unique_students
-  #   students.each do |user|
-  #     errors.add(:base, "#{user.github_handle} is already member of another team") if (user.teams - [self]).present?
-  #   end
-  # end
 
   # def must_have_members
   #   errors.add(:team, 'must have at least one member') if members_empty?
