@@ -1,15 +1,12 @@
 class ApplicationDraftsController < ApplicationController
-  before_action :checktime, only: [:new, :create]
+  before_action :checktime
+  before_action :sign_in_required
   before_action :continue_draft, only: :new
 
   helper_method :application_draft
 
   def new
-    if signed_in?
-      redirect_to new_team_path, alert: 'You need to be in a team as a student' unless current_user.student?
-    else
-      render 'sign_in'
-    end
+    redirect_to new_team_path, alert: 'You need to be in a team as a student' unless current_user.student?
   end
 
   def create
@@ -21,13 +18,27 @@ class ApplicationDraftsController < ApplicationController
     end
   end
 
+  def edit
+    redirect_to root_path, alert: 'Not part of a team' and return unless current_team
+    application_draft
+    render :new
+  end
+
+  def update
+    if application_draft.update(application_draft_params)
+      redirect_to [:edit, application_draft], notice: 'Your application draft was saved.'
+    else
+      render :new
+    end
+  end
+
   protected
 
   def application_draft
     @application_draft ||= if params[:id]
-                             ApplicationDraft.find(params[:id])
+                             current_team.application_drafts.find(params[:id])
                            else
-                             ApplicationDraft.new(team: current_team)
+                             current_team.application_drafts.new(team: current_team)
                            end.tap { |draft| draft.current_user = current_user }
   end
 
@@ -46,16 +57,20 @@ class ApplicationDraftsController < ApplicationController
   end
 
   def continue_draft
-    redirect_to open_draft if open_draft
+    redirect_to [:edit, open_draft] if open_draft
   end
 
   def current_team
-    current_user.roles.student.first.team
+    current_user.roles.student.first.try :team
   end
 
   def open_draft
     current_team.application_drafts.
-      where(season_id: current_season.id).first if signed_in?
+      where(season_id: current_season.id).first if signed_in? && current_team
+  end
+
+  def sign_in_required
+    render 'sign_in' unless signed_in?
   end
 
 end

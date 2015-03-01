@@ -26,7 +26,7 @@ p.attention
       legend About your pair
     - else
       legend Student 2
-    - if application_draft.students.count < 2
+    - if application_draft.students.count == 1
       .alert.alert-warning You haven't got a second student on your team.
     - else
       = render 'student_fields', f: f, student: application_draft.students[1]

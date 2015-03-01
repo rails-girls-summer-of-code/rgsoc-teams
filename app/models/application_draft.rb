@@ -18,7 +18,7 @@ class ApplicationDraft < ActiveRecord::Base
 
   def students
     if as_student?
-      [ current_student, current_pair ]
+      [ current_student, current_pair ].compact
     else
       team.students.order(:id)
     end.map { |user| Student.new(user) }
