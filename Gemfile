@@ -32,6 +32,8 @@ gem 'sprockets-rails'
 gem 'newrelic_rpm'
 gem 'aws-sdk'
 
+gem 'rollbar', '~> 1.4.4'
+
 group :production do
   gem 'unicorn'
   gem 'rails_12factor'
