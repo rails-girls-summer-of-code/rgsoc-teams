@@ -53,6 +53,8 @@ describe ApplicationsController do
       before { user.save}
 
       it 'fails to create invalid record' do
+        pending 'This is not how we do applications anymore'
+
         expect do
           post :create, application: { student_name: nil }
         end.not_to change { user.applications.count }
@@ -63,6 +65,8 @@ describe ApplicationsController do
       end
 
       it 'creates a new application' do
+        pending 'This is not how we do applications anymore'
+
         allow_any_instance_of(ApplicationForm).
           to receive(:valid?).and_return(true)
         valid_attributes = FactoryGirl.attributes_for(:application).merge(

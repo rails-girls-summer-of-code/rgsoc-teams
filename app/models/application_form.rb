@@ -29,7 +29,7 @@ class ApplicationForm
     @team, @current_user = team, current_user
 
     attributes.each do |name, value|
-      send("#{name}=", value) if respond_to("#{name}=")
+      send("#{name}=", value) if respond_to?("#{name}=")
     end
   end
 

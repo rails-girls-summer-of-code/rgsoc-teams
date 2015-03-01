@@ -15,7 +15,7 @@ class ApplicationsController < ApplicationController
   def new
     if signed_in?
       if current_user.student?
-        @application_form = ApplicationForm.new(team: current_user.roles.student.first.team, current_user: current_user)
+        @application_form = ApplicationForm.new(student_name: current_user.name, student_email: current_user.email)
       else
         redirect_to new_team_path, alert: 'You need to be in a team as a student'
       end
