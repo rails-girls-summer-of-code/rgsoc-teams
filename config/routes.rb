@@ -27,7 +27,7 @@ RgsocTeams::Application.routes.draw do
     resources :ratings
   end
 
-  resources :application_drafts do
+  resources :application_drafts, except: [:show, :destroy] do
     put :apply, on: :member
   end
 
