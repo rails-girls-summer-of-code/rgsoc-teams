@@ -5,7 +5,7 @@ p.attention
     #{link_to "Student Application Guide", "http://railsgirlssummerofcode.org/application-guide"}
     before you fill out this form. Applications must be submitted before <strong>#{current_season.applications_close_at}</strong>.
 
-= simple_nested_form_for application_draft, as: :application do |f|
+= simple_nested_form_for application_draft do |f|
   - if application_draft.errors.any?
     #error_explanation
       h2 = "#{pluralize(application_draft.errors.count, "error")} prohibited this application from being saved:"
