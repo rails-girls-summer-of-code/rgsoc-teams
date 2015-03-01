@@ -28,24 +28,13 @@ describe ApplicationsController do
     end
 
     describe 'GET new' do
-      it 'redirects if not part of a students team' do
-        get :new
-        expect(response).to redirect_to new_team_path
-        expect(flash[:alert]).to be_present
-      end
-
       it 'fails if part of two student teams' do
         skip "See https://github.com/rails-girls-summer-of-code/rgsoc-teams/issues/138"
       end
 
-      it 'renders the "new" template' do
-        create :student_role, user: user
-
-        allow(user).to receive(:student?).and_return true
+      it 'redirects to application_drafts#new' do
         get :new
-        expect(response).to render_template 'new'
-        expect(assigns(:application_form).student_name).to eq user.name
-        expect(assigns(:application_form).student_email).to eq user.email
+        expect(response).to redirect_to apply_path
       end
     end
 
