@@ -42,13 +42,16 @@ p.attention
   fieldset
     legend Filled in by coach(es)
     -# = f.input :coaches, as: :text, label: 'Coach(es): Who is going to coach you?', hint: 'Please provide contact information. If you have a team of coaches please describe how they are going to team up/split work.', input_html: { rows: '5', disabled: !application_draft.as_coach? }
-    = f.input :coaches_hours_per_coach, label: 'Coach(es): How much time can your coaches put into (being available for) support, in total?', hint: 'Rough estimate, e.g. x hours per day', input_html: { disabled: !application_draft.as_coach? }
+    = f.input :coaches_hours_per_week, label: 'Coach(es): How much time can your coaches put into (being available for) support, in total?', hint: 'Rough estimate, e.g. x hours per day', input_html: { disabled: !application_draft.as_coach? }
     = f.input :coaches_why_team_successful, label: 'Coach(es): Why do you think this team is going to be successfully working on their projects?', input_html: { disabled: !application_draft.as_coach? }
 
   fieldset
     legend Miscellaneous
     -# = f.input :project_period, as: :text, label: 'When do you plan to work on this?', hint: 'We are aiming at July 1st to September 30th for most students, but you can be flexible. Please discuss this with your team.', input_html: { rows: '5' }
-    = f.input :misc_info, as: :text, label: 'Please use the space below to address anything that you feel is relevant to your application and was not covered previously.', input_html: { rows: 4 }, hint: 'This question is optional'
+    = f.input :voluntary, as: :boolean, label: 'We could join the RGSoC as a voluntary team'
+    = f.input :voluntary_hours_per_week, as: :integer, label: 'As a voluntary team, how many hours per week would you be able to work in the project?'
+    = f.input :misc_info, as: :text, label: 'Anything else to add?', input_html: { rows: 4 }, hint: 'Address anything that you feel is relevant to your application and was not covered previously.'
+    = f.input :heard_about_it, as: :text, label: 'How have you heard about the program?', input_html: { rows: 3 }
 
   .actions
     = f.button :submit, 'Save as draft', class: 'btn'

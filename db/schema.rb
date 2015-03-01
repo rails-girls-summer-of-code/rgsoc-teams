@@ -33,14 +33,18 @@ ActiveRecord::Schema.define(version: 20150301112823) do
 
   create_table "application_drafts", force: true do |t|
     t.text     "coaches_contact_info"
-    t.text     "coaches_hours_per_coach"
+    t.text     "coaches_hours_per_week"
     t.text     "coaches_why_team_successful"
-    t.text     "projects"
+    t.text     "project_name"
+    t.text     "project_url"
     t.text     "misc_info"
+    t.text     "heard_about_it"
     t.string   "signed_off_by"
     t.datetime "signed_off_at"
     t.integer  "team_id"
     t.integer  "season_id"
+    t.boolean  "voluntary"
+    t.integer  "voluntary_hours_per_week"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
