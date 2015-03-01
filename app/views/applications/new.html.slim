@@ -17,25 +17,26 @@ p.attention
       legend About yourself
     - else
       legend Student 1
-    = f.input :student_name, label: 'Student Name', hint: 'Please provide your first name and surname'
-    = f.input :student_email, label: 'Student Email'
-    = f.input :about_student, as: :text, label: 'About you', input_html: { rows: '5' }, hint: 'Please tell us who you are, provide all contact information you deem useful and tell us a little bit about yourself and your background.'
-    = f.input :gender_identification_student, label: 'Your gender self-identification', hint: 'No-one is excluded from applying on the basis of gender, but people who self-identify as female, or have experiences being socialized as female, are given preference during selection.'
-    = f.input :coding_level, :collection => 1..5, :as => :select, label: 'What level of coding do you see yourself in Ruby/Rails?', hint: 'Please try to verify this with your pair and coach, we are aware this is tricky to estimate.'
-    = f.input :learning_since_workshop, collection: time_span_array, label: 'For how many months have you actively been learning after your first workshop?'
+    = f.input :student0_name, label: 'Student Name', hint: 'Please provide your first name and surname', input_html: { disabled: @application_form.current_user != @application_form.students[0] }
+    = f.input :student0_about, as: :text, label: 'About you', input_html: { rows: '5' }, hint: 'Please tell us who you are, provide all contact information you deem useful and tell us a little bit about yourself and your background.', input_html: { disabled: @application_form.current_user != @application_form.students[0] }
+    = f.input :student0_gender_identification, label: 'Your gender self-identification', hint: 'No-one is excluded from applying on the basis of gender, but people who self-identify as female, or have experiences being socialized as female, are given preference during selection.', input_html: { disabled: @application_form.current_user != @application_form.students[0] }
+    = f.input :student0_coding_level, :collection => 1..5, :as => :select, label: 'What level of coding do you see yourself in Ruby/Rails?', hint: 'Please try to verify this with your pair and coach, we are aware this is tricky to estimate.', input_html: { disabled: @application_form.current_user != @application_form.students[0] }
+    -# = f.input :learning_since_workshop, collection: time_span_array, label: 'For how many months have you actively been learning after your first workshop?', input_html: { disabled: @application_form.current_user != @application_form.students[0] }
+    = f.input :student0_location, as: :string, label: 'Where do you plan to live?', input_html: { disabled: @application_form.current_user != @application_form.students[0] }
   fieldset
     - if @application_form.as_student?
       legend About your pair
     - else
       legend Student 2
-    = f.input :about_pair, as: :text, label: 'About your pair', input_html: { rows: '5' }, hint: 'If you have a pair (a partner student you plan to work and pair-program with) please tell us who she is, provide contact information and tell us about herself and her background.'
-    = f.input :gender_identification_pair, label: 'Your pair\'s gender self-identification', hint: 'No-one is excluded from applying on the basis of gender, but people who self-identify as female, or have experiences being socialized as female, are given preference during selection.'
-    = f.input :coding_level_pair, :collection => 1..5, :as => :select, label: 'What level of coding does your pair have?', hint: '(Same as above)', :input_html => { class: 'level-radio' }
-    = f.input :learning_since_workshop_pair, collection: time_span_array, label: 'For how many months has your pair actively been learning after her first workshop?'
+    = f.input :student1_name, label: 'Your pair\'s name', input_html: { disabled: @application_form.current_user != @application_form.students[1] }
+    = f.input :student1_about, as: :text, label: 'About your pair', input_html: { rows: '5' }, hint: 'If you have a pair (a partner student you plan to work and pair-program with) please tell us who she is, provide contact information and tell us about herself and her background.', input_html: { disabled: @application_form.current_user != @application_form.students[1] }
+    = f.input :student1_gender_identification, label: 'Your pair\'s gender self-identification', hint: 'No-one is excluded from applying on the basis of gender, but people who self-identify as female, or have experiences being socialized as female, are given preference during selection.', input_html: { disabled: @application_form.current_user != @application_form.students[1] }
+    = f.input :student1_coding_level, :collection => 1..5, :as => :select, label: 'What level of coding does your pair have?', hint: '(Same as above)', input_html: { disabled: @application_form.current_user != @application_form.students[1] }
+    -# = f.input :learning_since_workshop_pair, collection: time_span_array, label: 'For how many months has your pair actively been learning after her first workshop?', input_html: { disabled: @application_form.current_user != @application_form.students[1] }
+    = f.input :student1_location, as: :string, label: 'Where do you plan to live?', input_html: { disabled: @application_form.current_user != @application_form.students[1] }
 
   fieldset
     legend About the team
-    = f.input :location, as: :text, label: 'Where do you plan to live?', input_html: { rows: '5' }
     -# = f.input :attended_rg_workshop, as: :text, label: 'Did you ever attend a Rails/Ruby workshop?', hint: ' Please give us a little bit of history about yourself and your pair (if any)', input_html: { rows: '5' }
     = f.input :skills, as: :text, label: 'Please give us a summary of your skills', hint: 'Please add a summary for your pair if you have one, too.', input_html: { rows: '5' }
     = f.input :learing_summary, as: :text, label: 'Please summarize what you have been doing to learn programming since your first workshop', hint: 'E.g. Study Group, learning rails by doing exercises etc. Please add a summary for your pair if you have one, too.', input_html: { rows: '5' }

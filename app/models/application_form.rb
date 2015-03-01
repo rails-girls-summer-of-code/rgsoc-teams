@@ -51,6 +51,46 @@ class ApplicationForm
     students.index(current_user) if as_student?
   end
 
+  def student0_name
+    students[0].name if students[0]
+  end
+
+  def student1_name
+    students[1].name if students[1]
+  end
+
+  def student0_about
+    students[0].application_about if students[0]
+  end
+
+  def student1_about
+    students[1].application_about if students[1]
+  end
+
+  def student0_gender_identification
+    students[0].application_gender if students[0]
+  end
+
+  def student1_gender_identification
+    students[1].application_gender if students[1]
+  end
+
+  def student0_coding_level
+    students[0].application_coding_level if students[0]
+  end
+
+  def student1_coding_level
+    students[1].application_coding_level if students[1]
+  end
+
+  def student0_location
+    students[0].application_location if students[0]
+  end
+
+  def student1_location
+    students[1].application_location if students[1]
+  end
+
   def fields
     FIELDS
   end
