@@ -1,4 +1,4 @@
-= simple_nested_form_for @team do |f|
+= simple_nested_form_for @team, wrapper: :horizontal_form, html:{class:'form-horizontal'} do |f|
   - if @team.errors.any?
     #error_explanation
       h2 = "#{pluralize(@team.errors.count, "error")} prohibited this team from being saved:"
@@ -15,6 +15,14 @@
   = f.input :github_handle, placeholder: '', hint: 'Should your team have an organization ...'
   = f.input :twitter_handle, placeholder: '@', hint: 'Should your team have one ...'
   = f.input :description, placeholder: 'Summary of your project(s) ...', input_html: { rows: 10 }, hint: 'You can use basic <a href="http://en.wikipedia.org/wiki/Markdown">Markdown</a> here.'
+  .form-group
+    label.control-label.col-sm-3 Team Type
+    .col-sm-9
+      - Team::KINDS.each do |kind|
+        .radio
+          label
+            = f.radio_button :kind, kind, required: true
+            = kind.capitalize
   = f.input :starts_on,   discard_year: true, order: [:day, :month], input_html: { class: 'short' }
   = f.input :finishes_on, discard_year: true, order: [:day, :month], input_html: { class: 'short' }
   - if can? :read, :users_info
@@ -28,28 +36,35 @@
       Please make sure to add at least your team log feed and repositories that
       you are working on:
 
-  fieldset.sources
-    .header
-      label
-        | URL
-        = required_helper
-
+  fieldset
     = f.simple_fields_for :sources do |s|
-      label Type
-      = s.input :url, required: false, label: false
-      = s.input :kind, as: :radio_buttons, collection: Source::KINDS.map { |k| [k.capitalize, k] }, required: false, label: false
-      = s.link_to_remove 'Remove'
+      = s.input :url, required: true, label: 'URL'
+      / = s.input :kind, as: :radio_buttons, collection: Source::KINDS.map { |k| [k.capitalize, k] }, required: false, label: false
+      .form-group
+        label.control-label.col-sm-3 Type
+        .col-sm-9
+          - Source::KINDS.each do |kind|
+            .radio
+              label
+                = s.radio_button :kind, kind, required: true
+                = kind.capitalize
+          = s.link_to_remove 'Remove'
     = f.link_to_add 'Add another source', :sources
 
   h4 Members
-  fieldset.members
-    .header
-      label GitHub handle
+  fieldset
     = f.simple_fields_for :roles do |r|
-      label Role
-      = r.input :github_handle, required: false, label: false
-      = r.input :name, as: :radio_buttons, collection: accessible_roles.map { |r| [r.capitalize, r] }, required: false, label: false
-      = r.link_to_remove 'Remove'
+      = r.input :github_handle, required: false
+      / = r.input :name, as: :radio_buttons, collection: accessible_roles.map { |r| [r.capitalize, r] }, required: false, label: false
+      .form-group
+        label.control-label.col-sm-3 Team Member Role
+        .col-sm-9
+          - accessible_roles.each do |role|
+            .radio
+              label
+                = r.radio_button :name, role, required: true
+                = role.capitalize
+          = r.link_to_remove 'Remove'
     = f.link_to_add 'Add another member', :roles
 
   - if admin?
