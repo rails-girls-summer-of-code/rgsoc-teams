@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150202182113) do
+ActiveRecord::Schema.define(version: 20150301112823) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -30,6 +30,27 @@ ActiveRecord::Schema.define(version: 20150202182113) do
     t.datetime "updated_at",   null: false
     t.string   "img_url"
   end
+
+  create_table "application_drafts", force: true do |t|
+    t.text     "coaches_contact_info"
+    t.text     "coaches_hours_per_week"
+    t.text     "coaches_why_team_successful"
+    t.text     "project_name"
+    t.text     "project_url"
+    t.text     "misc_info"
+    t.text     "heard_about_it"
+    t.string   "signed_off_by"
+    t.datetime "signed_off_at"
+    t.integer  "team_id"
+    t.integer  "season_id"
+    t.boolean  "voluntary"
+    t.integer  "voluntary_hours_per_week"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "application_drafts", ["season_id"], name: "index_application_drafts_on_season_id", using: :btree
+  add_index "application_drafts", ["team_id"], name: "index_application_drafts_on_team_id", using: :btree
 
   create_table "applications", force: true do |t|
     t.string   "name"
@@ -50,7 +71,12 @@ ActiveRecord::Schema.define(version: 20150202182113) do
     t.string   "city"
     t.string   "coaching_company"
     t.integer  "form_application_id"
+    t.integer  "season_id"
+    t.integer  "team_id"
   end
+
+  add_index "applications", ["season_id"], name: "index_applications_on_season_id", using: :btree
+  add_index "applications", ["team_id"], name: "index_applications_on_team_id", using: :btree
 
   create_table "attendances", force: true do |t|
     t.integer  "conference_id"
@@ -219,8 +245,8 @@ ActiveRecord::Schema.define(version: 20150202182113) do
     t.text     "bio"
     t.string   "homepage"
     t.string   "avatar_url"
-    t.datetime "created_at",                     null: false
-    t.datetime "updated_at",                     null: false
+    t.datetime "created_at",                                       null: false
+    t.datetime "updated_at",                                       null: false
     t.integer  "team_id"
     t.string   "twitter_handle"
     t.string   "irc_handle"
@@ -228,9 +254,9 @@ ActiveRecord::Schema.define(version: 20150202182113) do
     t.text     "banking_info"
     t.text     "postal_address"
     t.string   "timezone"
-    t.string   "interested_in",  default: [],                 array: true
+    t.string   "interested_in",                    default: [],                 array: true
     t.boolean  "hide_email"
-    t.boolean  "is_company",     default: false
+    t.boolean  "is_company",                       default: false
     t.string   "company_name"
     t.text     "company_info"
     t.string   "country"

@@ -1,4 +1,7 @@
 class Application < ActiveRecord::Base
+  include HasSeason
+
+  belongs_to :team
   belongs_to :user
   belongs_to :form_application
   validates_presence_of :user_id, :name, :email, :application_data

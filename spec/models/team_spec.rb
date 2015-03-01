@@ -150,4 +150,14 @@ describe Team do
     it { is_expected.to accept_nested_attributes_for :sources }
   end
 
+  describe '#application' do
+    it 'returns the current season\'s application' do
+      season1 = create :season, name: '2013'
+      team = create :team
+      create(:application, season: season1, team: team)
+      application = create(:application, season: Season.current, team: team)
+      expect(team.application).to eql application
+    end
+  end
+
 end

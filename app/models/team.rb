@@ -10,6 +10,8 @@ class Team < ActiveRecord::Base
   attr_accessor :checked
 
   has_one :project, dependent: :destroy
+  has_many :applications, dependent: :nullify
+  has_many :application_drafts, dependent: :nullify
   has_many :roles, dependent: :destroy
   has_many :members, class_name: 'User', through: :roles, source: :user
   Role::ROLES.each do |role|
@@ -30,6 +32,10 @@ class Team < ActiveRecord::Base
     def ordered(sort = {})
       order([sort[:order] || 'kind, name || projects', sort[:direction] || 'asc'].join(' '))
     end
+  end
+
+  def application
+    @application ||= applications.where(season_id: Season.current.id).first
   end
 
   def set_number
