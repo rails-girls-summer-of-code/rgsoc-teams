@@ -1,0 +1,8 @@
+= f.simple_fields_for (student || Student.new) do |s|
+  = s.input :name, label: 'Student Name', hint: 'Please provide your first name and surname', input_html: { disabled: true }
+  = s.input :application_about, as: :text, label: 'About you', input_html: { rows: '5' }, hint: 'Please tell us who you are, provide all contact information you deem useful and tell us a little bit about yourself and your background.', input_html: { disabled: true }
+  = s.input :application_gender_identification, label: 'Your gender self-identification', hint: 'No-one is excluded from applying on the basis of gender, but people who self-identify as female, or have experiences being socialized as female, are given preference during selection.', input_html: { disabled: true }
+  = s.input :application_coding_level, :collection => 1..5, :as => :select, label: 'What level of coding do you see yourself in Ruby/Rails?', hint: 'Please try to verify this with your pair and coach, we are aware this is tricky to estimate.', input_html: { disabled: true }
+  -# = f.input :learning_since_workshop, collection: time_span_array, label: 'For how many months have you actively been learning after your first workshop?', input_html: { disabled: true }
+  = s.input :application_location, as: :string, label: 'Where do you plan to live?', input_html: { disabled: true }
+  = s.input :application_minimum_money, label: 'Where you live, how much money do you need at the very minimum per month to sustain yourself while working fulltime on an Open Source project?', hint: 'This question is optional', input_html: { disabled: true }
