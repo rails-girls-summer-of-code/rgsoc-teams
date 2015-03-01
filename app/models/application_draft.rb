@@ -4,6 +4,8 @@ class ApplicationDraft < ActiveRecord::Base
 
   belongs_to :team
 
+  validates :team, presence: true
+
   before_validation :set_current_season
 
   attr_accessor :current_user
