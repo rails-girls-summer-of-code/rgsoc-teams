@@ -1,5 +1,5 @@
 class ApplicationDraft < ActiveRecord::Base
-  belongs_to :season
+  include HasSeason
 
   before_validation :set_current_season
 

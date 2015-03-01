@@ -1,6 +1,7 @@
 require 'spec_helper'
 
 RSpec.describe ApplicationDraft do
+  it_behaves_like 'HasSeason'
 
   context 'with callbacks' do
     it 'sets the current season if left blank' do
