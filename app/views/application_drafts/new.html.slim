@@ -37,7 +37,8 @@ p.attention
     -# = f.input :skills, as: :text, label: 'Please give us a summary of your skills', hint: 'Please add a summary for your pair if you have one, too.', input_html: { rows: '5' }
     -# = f.input :learing_summary, as: :text, label: 'Please summarize what you have been doing to learn programming since your first workshop', hint: 'E.g. Study Group, learning rails by doing exercises etc. Please add a summary for your pair if you have one, too.', input_html: { rows: '5' }
     -# = f.input :code_samples, as: :text, label: 'Do you have a Github Account or examples of your coding?', input_html: { rows: '5' }
-    -# = f.input :projects, as: :text, label: 'What project are you planning to work on?', hint: "What project are you planning to work on? If you don't know yet, you'll have time to still sort this out. The earlier you know your project the better :)", input_html: { rows: '5' }
+    = f.input :project_name, as: :string, label: 'What project are you planning to work on?'
+    = f.input :project_url, as: :url, label: 'What project are you planning to work on?', placeholder: 'https://github.com/rails-girls-summer-of-code/projects/issues/NN', hint: "If the project you want to work on is not listed in #{link_to 'our repository', 'https://github.com/rails-girls-summer-of-code/projects/issues/', target: :blank} yet, ping the mentor to submit it.".html_safe
 
   fieldset
     legend Filled in by coach(es)
