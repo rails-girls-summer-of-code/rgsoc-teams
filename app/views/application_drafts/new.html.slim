@@ -5,31 +5,31 @@ p.attention
     #{link_to "Student Application Guide", "http://railsgirlssummerofcode.org/application-guide"}
     before you fill out this form. Applications must be submitted before <strong>#{current_season.applications_close_at}</strong>.
 
-= simple_nested_form_for @application_form, as: :application do |f|
-  - if @application_form.errors.any?
+= simple_nested_form_for application_draft, as: :application do |f|
+  - if application_draft.errors.any?
     #error_explanation
-      h2 = "#{pluralize(@application_form.errors.count, "error")} prohibited this application from being saved:"
+      h2 = "#{pluralize(application_draft.errors.count, "error")} prohibited this application from being saved:"
       ul
-        - @application_form.errors.full_messages.each do |message|
+        - application_draft.errors.full_messages.each do |message|
           li = message
   fieldset
-    - if @application_form.as_student?
+    - if application_draft.as_student?
       legend About yourself
       .alert.alert-info 
         strong Info:
         |  You can edit these fields in #{link_to 'your user profile', edit_user_path(current_user, anchor: 'application_specific')}.
     - else
       legend Student 1
-    = render 'student_fields', f: f, student: @application_form.students[0]
+    = render 'student_fields', f: f, student: application_draft.students[0]
   fieldset
-    - if @application_form.as_student?
+    - if application_draft.as_student?
       legend About your pair
     - else
       legend Student 2
-    - if @application_form.students.count < 2
+    - if application_draft.students.count < 2
       .alert.alert-warning You haven't got a second student on your team.
     - else
-      = render 'student_fields', f: f, student: @application_form.students[1]
+      = render 'student_fields', f: f, student: application_draft.students[1]
 
   fieldset
     legend About the team
@@ -41,9 +41,9 @@ p.attention
 
   fieldset
     legend Filled in by coach(es)
-    -# = f.input :coaches, as: :text, label: 'Coach(es): Who is going to coach you?', hint: 'Please provide contact information. If you have a team of coaches please describe how they are going to team up/split work.', input_html: { rows: '5', disabled: !@application_form.as_coach? }
-    = f.input :coaches_hours_per_coach, label: 'Coach(es): How much time can your coaches put into (being available for) support, in total?', hint: 'Rough estimate, e.g. x hours per day', input_html: { disabled: !@application_form.as_coach? }
-    = f.input :coaches_why_team_successful, label: 'Coach(es): Why do you think this team is going to be successfully working on their projects?', input_html: { disabled: !@application_form.as_coach? }
+    -# = f.input :coaches, as: :text, label: 'Coach(es): Who is going to coach you?', hint: 'Please provide contact information. If you have a team of coaches please describe how they are going to team up/split work.', input_html: { rows: '5', disabled: !application_draft.as_coach? }
+    = f.input :coaches_hours_per_coach, label: 'Coach(es): How much time can your coaches put into (being available for) support, in total?', hint: 'Rough estimate, e.g. x hours per day', input_html: { disabled: !application_draft.as_coach? }
+    = f.input :coaches_why_team_successful, label: 'Coach(es): Why do you think this team is going to be successfully working on their projects?', input_html: { disabled: !application_draft.as_coach? }
 
   fieldset
     legend Miscellaneous
@@ -52,10 +52,10 @@ p.attention
 
   .actions
     = f.button :submit, 'Save as draft', class: 'btn'
-    - unless @application_form.ready?
+    - unless application_draft.ready?
       .help-block Your application is not yet ready for submission
 
-- if @application_form.ready?
-  = simple_form_for @application_form, url: apply_application_path(@application_form.application), method: :put do |f|
+- if application_draft.ready?
+  = simple_form_for application_draft, url: apply_application_path(application_draft.application), method: :put do |f|
     .actions
       = f.button :submit, 'Apply', class: 'btn btn-success'
