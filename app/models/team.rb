@@ -11,6 +11,7 @@ class Team < ActiveRecord::Base
 
   has_one :project, dependent: :destroy
   has_many :applications, dependent: :nullify
+  has_many :application_drafts, dependent: :nullify
   has_many :roles, dependent: :destroy
   has_many :members, class_name: 'User', through: :roles, source: :user
   Role::ROLES.each do |role|
