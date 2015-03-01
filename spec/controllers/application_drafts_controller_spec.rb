@@ -74,5 +74,16 @@ RSpec.describe ApplicationDraftsController do
       end
     end
 
+    describe 'POST create' do
+      it 'creates a draft and redirects to edit' do
+        create :student_role, user: user
+        expect { post :create, application_draft: { misc_info: 'Foo!' } }.to \
+          change { ApplicationDraft.count }.by 1
+        expect(flash[:notice]).not_to be_nil
+        expect(response).to redirect_to [:edit, assigns[:application_draft]]
+      end
+
+    end
+
   end
 end

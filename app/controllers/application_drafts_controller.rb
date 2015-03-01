@@ -12,9 +12,9 @@ class ApplicationDraftsController < ApplicationController
   def create
     application_draft.assign_attributes(application_draft_params)
     if application_draft.save
-      render text: application_draft.id
+      redirect_to [:edit, application_draft], notice: 'Your application draft was saved.'
     else
-      render text: application_draft.errors.full_messages
+      render :new
     end
   end
 
