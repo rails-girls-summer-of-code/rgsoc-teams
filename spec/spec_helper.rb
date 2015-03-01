@@ -52,4 +52,8 @@ RSpec.configure do |config|
   config.before(:suite) do
     WebMock.disable_net_connect! allow: 'codeclimate.com'
   end
+
+  config.after(:each) do
+    Timecop.return
+  end
 end
