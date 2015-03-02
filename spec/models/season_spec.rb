@@ -57,6 +57,17 @@ describe Season do
     end
   end
 
+  describe '#started?' do
+    it 'returns true if today is past starts_at' do
+      subject.starts_at = 1.week.ago
+      expect(subject).to be_started
+    end
+
+    it 'returns false' do
+      expect(subject).not_to be_started
+    end
+  end
+
   describe '.current' do
     it 'creates a season record' do
       create :season, name: '2000'
