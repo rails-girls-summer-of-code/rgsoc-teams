@@ -61,12 +61,11 @@ class ApplicationDraftsController < ApplicationController
   end
 
   def current_team
-    current_user.roles.student.first.try :team
+    current_student.current_team
   end
 
   def open_draft
-    current_team.application_drafts.
-      where(season_id: current_season.id).first if signed_in? && current_team
+    current_student.current_draft if signed_in?
   end
 
   def sign_in_required
