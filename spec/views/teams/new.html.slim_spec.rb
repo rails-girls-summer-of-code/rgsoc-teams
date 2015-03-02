@@ -4,6 +4,7 @@ describe 'teams/new' do
   before(:each) do
     assign(:team, stub_model(Team, name: 'Team A+', description: 'The best',).as_new_record)
     allow(view).to receive(:can?).and_return(true)
+    allow(view).to receive(:current_season).and_return build_stubbed(:season)
   end
 
   it 'renders new team form' do
