@@ -5,7 +5,10 @@ header
   nav.top
     ul
       - if current_season.application_period?
-        li = link_to 'Apply now',    apply_path
+        - if current_student.current_draft
+          li = link_to 'My application',    apply_path, class: 'team voluntar'
+        - else
+          li = link_to 'Apply now',    apply_path
       li = link_to 'Activity',     root_path,  class: params[:controller] == 'activities' ? 'active' : ''
       li = link_to 'Teams',        teams_path, class: params[:controller] == 'teams' ? 'active' : ''
       li = link_to 'Community', users_path, class: params[:controller] == 'users' ? 'active' : ''
