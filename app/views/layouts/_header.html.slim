@@ -9,7 +9,8 @@ header
           li = link_to 'My application',    apply_path, class: 'team voluntar'
         - else
           li = link_to 'Apply now',    apply_path
-      li = link_to 'Activity',     root_path,  class: params[:controller] == 'activities' ? 'active' : ''
+      - if current_season.started?
+        li = link_to 'Activity',     root_path,  class: params[:controller] == 'activities' ? 'active' : ''
       li = link_to 'Teams',        teams_path, class: params[:controller] == 'teams' ? 'active' : ''
       li = link_to 'Community', users_path, class: params[:controller] == 'users' ? 'active' : ''
       - if current_season.applications_open?

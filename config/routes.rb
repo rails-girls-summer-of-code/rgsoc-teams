@@ -3,7 +3,11 @@ RgsocTeams::Application.routes.draw do
 
   resources :events
 
-  root to: 'activities#index'
+  if Season.current.started?
+    root to: 'activities#index'
+  else
+    root to: 'users#index'
+  end
 
   devise_for :users, controllers: { omniauth_callbacks: 'omniauth_callbacks' }
 
