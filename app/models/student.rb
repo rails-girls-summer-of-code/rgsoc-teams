@@ -8,7 +8,7 @@ class Student < SimpleDelegator
   attr_reader :user
 
   def initialize(user = User.new)
-    @user = user
+    @user = user || User.new
     super
   end
 
