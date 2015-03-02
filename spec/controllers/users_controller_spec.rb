@@ -20,6 +20,13 @@ describe UsersController do
       expect(response.body).not_to include user.email
     end
 
+    context 'with sorting' do
+      it 'sorts by team' do
+        get :index, sort: 'team'
+        expect(response).to render_template 'index'
+      end
+    end
+
     context 'with user logged in' do
       it 'will not show email addresses of those who opted out' do
         sign_in create(:student)

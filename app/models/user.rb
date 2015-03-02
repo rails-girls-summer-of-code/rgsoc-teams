@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
 
   ORDERS = {
     name:           "LOWER(users.name)",
-    team:           "COALESCE(teams.name, teams.projects)",
+    team:           "teams.name",
     github:         "users.github_handle",
     irc:            "COALESCE(users.irc_handle, '')",
     location:       "users.location",
