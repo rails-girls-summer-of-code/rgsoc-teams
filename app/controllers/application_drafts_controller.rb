@@ -52,6 +52,20 @@ class ApplicationDraftsController < ApplicationController
     end
   end
 
+  def student_params
+    # TODO make sure we are the student set to be updated
+    if application_draft.as_student?
+      # TODO: Do we need an index? Maybe just compare id with current_student.id
+      params.require(:application_draft).require(:student).
+        permit(
+          :name, :application_about, :application_gender, :application_coding_level,
+          :application_code_samples, :application_location, :banking_info
+        )
+    else
+      {}
+    end
+  end
+
   def checktime
     render :ended unless current_season.application_period?
   end
