@@ -68,7 +68,7 @@
     = f.link_to_add 'Add another member', :roles
 
   - if admin?
-    = f.input :event_id, as: :select, collection: Event.all { |e| [e.name, e.id] }
+    = f.input :season_id, as: :select, collection: Season.order('name DESC') { |e| [s.name, s.id] }
 
   .actions
     = f.submit 'Save', class: 'btn btn-success'
