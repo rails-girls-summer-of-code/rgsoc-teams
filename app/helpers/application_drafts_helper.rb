@@ -1,7 +1,7 @@
 module ApplicationDraftsHelper
 
   def may_edit?(student)
-    false # WIP
+    current_student && current_student.id == student.try(:id)
   end
 
 end
