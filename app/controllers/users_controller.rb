@@ -88,6 +88,7 @@ class UsersController < ApplicationController
         :is_company, :company_name, :company_info,
         :application_about, :application_gender, :application_coding_level,
         :application_code_samples, :application_location,
+        :application_minimum_money,
         interested_in: [],
         attendances_attributes: [:id, :conference_id, :_destroy],
         roles_attributes: [:id, :name, :team_id]
