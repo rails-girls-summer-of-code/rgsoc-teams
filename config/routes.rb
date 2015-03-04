@@ -3,11 +3,12 @@ RgsocTeams::Application.routes.draw do
 
   resources :events
 
-  if Season.current.started?
+  # FIXME Accessing season this early breaks `rake db:create RAILS_ENV=test` on CI
+  # if Season.current.started?
     root to: 'activities#index'
-  else
-    root to: 'users#index'
-  end
+  # else
+  #   root to: 'users#index'
+  # end
 
   devise_for :users, controllers: { omniauth_callbacks: 'omniauth_callbacks' }
 
