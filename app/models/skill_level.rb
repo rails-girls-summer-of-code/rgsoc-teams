@@ -25,5 +25,9 @@ class SkillLevel
     def each(&block)
       MATRIX.each(&block)
     end
+
+    def map(&block)
+      MATRIX.map(&block)
+    end
   end
 end
