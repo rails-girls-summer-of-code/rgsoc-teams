@@ -53,6 +53,7 @@
 
   h3 Private information
   p.help-block This information will only be visible to yourself and organizers.
+
   = f.input :tshirt_size, as: :select, collection: User::TSHIRT_SIZES.map { |k| [k, k] }, label: 'T-Shirt size', blank: false, required: false, hint: 'For sponsor T-Shirts, in case they send some.'
   = f.input :postal_address, hint: "Please give your postal address so we can send things we've received from our sponsors for you :)"
 
@@ -60,44 +61,11 @@
     | Show application specific information
 
   .collapse#collapseApplicationSpecificInfo
-  .col-md-12
-    = f.input :hide_email, label: 'Never show my email address',  hint: 'Only signed-in users will see your email address anyway. People will have trouble contacting you.'
-
-    = f.input :is_company, label: "I represent a company"
-
-    = f.input :company_name, label: 'Company name'
-    = f.input :company_info, label: 'Company info', hint: 'Where is the office, how much space can you provide, etc.'
-
-    = f.input :bio, label: 'About you', hint: 'You can use basic <a href="http://en.wikipedia.org/wiki/Markdown" target="_blank">Markdown</a> here.'.html_safe
-
-    h3 I am interested in:
-
-    = f.collection_check_boxes :interested_in, User::INTERESTS.to_a, :first, :last, item_wrapper_tag: 'div', item_wrapper_class: 'interested_in'
-
-    / = f.input :bio, label: 'Comments about your interests', hint: 'Short summary. E.g. if you are interested in mentoring, mention your project.'
-
-    h3 Private information
-    p.help-block This information will only be visible to yourself and organizers.
-
-    = f.input :tshirt_size, as: :select, collection: User::TSHIRT_SIZES.map { |k| [k, k] }, label: 'T-Shirt size', blank: false, required: false, hint: 'For sponsor T-Shirts, in case they send some.'
-    = f.input :postal_address, hint: "Please give your postal address so we can send things we've received from our sponsors for you :)"
-
     h3#application_specific Application-specific information
     p.help-block This information will be included in your #{link_to 'application', apply_path, target: :blank} and is visible to your team and to organizers.
     = f.input :application_about, as: :text, label: 'About you', input_html: { rows: '5' }, hint: 'Please tell us who you are, provide all contact information you deem useful and tell us a little bit about yourself and your background.'
     = f.input :application_gender, label: 'Your gender self-identification', hint: 'No-one is excluded from applying on the basis of gender, but people who self-identify as female, or have experiences being socialized as female, are given preference during selection.'
-    h4 Please rate your level of programming experience (1 being the 'lowest' and 5 the 'highest').
-    p.help-block Some of our skill level guidelines are specific to ruby, but most are language-agnostic. For each level, assume that the guidelines of the level(s) below it are also true, meaning that if you see yourself as a Level 2, you should be able to do most of Level 1, too.
-    .form-inline
-      - User::SKILL_LEVEL.each do |x|
-        .radio
-          = f.radio_button :application_coding_level, x.first
-        label
-          | Skill Level #{x.first}
-        ul
-         - x.last.each do |l|
-          li #{l}
-
+    = f.input :application_coding_level, :collection => 1..5, :as => :select, label: 'What level of coding do you see yourself in Ruby/Rails?', hint: 'Please try to verify this with your pair and coach, we are aware this is tricky to estimate.'
     -# = f.input :learning_since_workshop, collection: time_span_array, label: 'For how many months have you actively been learning after your first workshop?', input_html: { disabled: @application_form.current_user != @application_form.students[0] }
     = f.input :application_code_samples, as: :text, label: 'Do you have a Github Account or examples of your coding?', input_html: { rows: '5' }
     = f.input :application_location, as: :string, label: 'Where do you plan to live?'
