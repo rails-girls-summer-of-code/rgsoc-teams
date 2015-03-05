@@ -43,7 +43,7 @@ class Team < ActiveRecord::Base
   end
 
   def kind
-    super || ''
+    super.to_s.inquiry
   end
 
   def display_name
@@ -54,8 +54,16 @@ class Team < ActiveRecord::Base
     "Team #{chunks.join(' ')}"
   end
 
+  def accepted?
+    sponsored? || voluntary?
+  end
+
   def sponsored?
-    kind == 'sponsored'
+    kind.sponsored?
+  end
+
+  def voluntary?
+    kind.voluntary?
   end
 
   def admin_team?

@@ -138,9 +138,44 @@ describe Team do
     end
   end
 
-  describe 'sponsored team' do
-    it 'should be sponsored' do
-      expect(subject.sponsored?).to eql true
+  describe '#accepted?' do
+    it 'returns false' do
+      subject.kind = nil
+      expect(subject).not_to be_accepted
+    end
+
+    it 'returns false for a voluntary team' do
+      subject.kind = 'voluntary'
+      expect(subject).to be_accepted
+    end
+
+    it 'returns true for a sponsored team' do
+      subject.kind = 'sponsored'
+      expect(subject).to be_accepted
+    end
+  end
+
+  describe '#sponsored?' do
+    it 'returns false' do
+      subject.kind = 'voluntary'
+      expect(subject).not_to be_sponsored
+    end
+
+    it 'returns true' do
+      subject.kind = 'sponsored'
+      expect(subject).to be_sponsored
+    end
+  end
+
+  describe '#voluntary?' do
+    it 'returns false' do
+      subject.kind = nil
+      expect(subject).not_to be_voluntary
+    end
+
+    it 'returns true' do
+      subject.kind = 'voluntary'
+      expect(subject).to be_voluntary
     end
   end
 
