@@ -17,7 +17,7 @@ p.attention
       legend About yourself
       .alert.alert-info 
         strong Info:
-        |  You can edit the fields about you in #{link_to 'your user profile', edit_user_path(current_user, anchor: 'application_specific')}.
+        |  You can edit the fields about you in #{link_to 'your user profile', edit_user_path(current_user, anchor: 'application_specific')}, too.
     - else
       legend Student 1
     = render 'student_fields', f: f, student: application_draft.students[0]

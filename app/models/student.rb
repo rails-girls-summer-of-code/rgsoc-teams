@@ -16,10 +16,6 @@ class Student < SimpleDelegator
     user.name_or_handle
   end
 
-  def application_gender_identification
-    user.application_gender
-  end
-
   def current_team
     @current_team ||= user.roles.student.first.try :team
   end

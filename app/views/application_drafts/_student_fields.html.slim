@@ -1,4 +1,4 @@
-= f.simple_fields_for (student || Student.new) do |s|
+= simple_fields_for (student || Student.new) do |s|
   = s.input :name, label: 'Student Name', hint: 'Please provide your first name and surname', input_html: { disabled: !may_edit?(s.object) }
   = s.input :application_about, as: :text, label: 'About you', hint: 'Please tell us who you are, provide all contact information you deem useful and tell us a little bit about yourself and your background.', input_html: { rows: 5, disabled: !may_edit?(s.object) }
   = s.input :application_gender_identification, label: 'Your gender self-identification', hint: 'No-one is excluded from applying on the basis of gender, but people who self-identify as female, or have experiences being socialized as female, are given preference during selection.', input_html: { disabled: !may_edit?(s.object) }
