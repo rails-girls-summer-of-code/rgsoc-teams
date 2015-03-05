@@ -1,4 +1,5 @@
 class ApplicationDraftsController < ApplicationController
+
   before_action :checktime
   before_action :sign_in_required
   before_action :continue_draft, only: :new
@@ -12,6 +13,7 @@ class ApplicationDraftsController < ApplicationController
   def create
     application_draft.assign_attributes(application_draft_params)
     if application_draft.save
+      update_student!
       notice = "Your application draft was saved. You can access it under »#{view_context.link_to "My application", apply_path}«".html_safe
       redirect_to [:edit, application_draft], notice: notice
     else
@@ -27,6 +29,7 @@ class ApplicationDraftsController < ApplicationController
 
   def update
     if application_draft.update(application_draft_params)
+      update_student!
       redirect_to [:edit, application_draft], notice: 'Your application draft was saved.'
     else
       render :new
@@ -55,16 +58,20 @@ class ApplicationDraftsController < ApplicationController
 
   def student_params
     # TODO make sure we are the student set to be updated
-    if application_draft.as_student?
+    if application_draft.as_student? and params[:student]
       # TODO: Do we need an index? Maybe just compare id with current_student.id
-      params.require(:application_draft).require(:student).
+      params[:student].
         permit(
-          :name, :application_about, :application_gender, :application_coding_level,
-          :application_code_samples, :application_location, :banking_info
-        )
+          :name, :application_about, :application_gender_identification, :application_coding_level,
+          :application_code_samples, :application_location, :banking_info, :application_minimum_money
+      )
     else
       {}
     end
+  end
+
+  def update_student!
+    current_student.update!(student_params) if application_draft.as_student?
   end
 
   def checktime
