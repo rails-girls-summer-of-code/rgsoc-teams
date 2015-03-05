@@ -1,6 +1,8 @@
 class Team < ActiveRecord::Base
   include ProfilesHelper, ColorHelper, HasSeason
 
+  delegate :sponsored?, :voluntary?, to: :kind
+
   KINDS = %w(sponsored voluntary)
 
   validates :name, uniqueness: true, allow_blank: true
@@ -56,14 +58,6 @@ class Team < ActiveRecord::Base
 
   def accepted?
     sponsored? || voluntary?
-  end
-
-  def sponsored?
-    kind.sponsored?
-  end
-
-  def voluntary?
-    kind.voluntary?
   end
 
   def admin_team?
