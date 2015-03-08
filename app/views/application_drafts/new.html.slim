@@ -50,8 +50,8 @@ p.attention
     -# = f.input :project_period, as: :text, label: 'When do you plan to work on this?', hint: 'We are aiming at July 1st to September 30th for most students, but you can be flexible. Please discuss this with your team.', input_html: { rows: '5' }
     = f.input :voluntary, as: :boolean, label: 'We could join the RGSoC as a voluntary team'
     = f.input :voluntary_hours_per_week, as: :integer, label: 'As a voluntary team, how many hours per week would you be able to work in the project?'
-    = f.input :misc_info, as: :text, label: 'Anything else to add?', input_html: { rows: 4 }, hint: 'Address anything that you feel is relevant to your application and was not covered previously.'
     = f.input :heard_about_it, as: :text, label: 'How have you heard about the program?', input_html: { rows: 3 }
+    = f.input :misc_info, as: :text, label: 'Anything else to add?', input_html: { rows: 4 }, hint: 'Address anything that you feel is relevant to your application and was not covered previously.'
 
   .actions
     = f.button :submit, 'Save as draft', class: 'btn'
