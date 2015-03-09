@@ -72,6 +72,14 @@ RSpec.describe ApplicationDraftsController do
           get :edit, id: draft.to_param
         }.to raise_error ActiveRecord::RecordNotFound
       end
+
+      context 'as a student of the team' do
+        it 'renders the new template' do
+          create :student_role, user: user, team: draft.team
+          get :edit, id: draft.to_param
+          expect(response).to render_template 'new'
+        end
+      end
     end
 
     describe 'POST create' do
