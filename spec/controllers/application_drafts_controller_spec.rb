@@ -80,6 +80,14 @@ RSpec.describe ApplicationDraftsController do
           expect(response).to render_template 'new'
         end
       end
+
+      context 'as a coach of the team' do
+        it 'renders the new template' do
+          create :coach_role, user: user, team: draft.team
+          get :edit, id: draft.to_param
+          expect(response).to render_template 'new'
+        end
+      end
     end
 
     describe 'POST create' do
