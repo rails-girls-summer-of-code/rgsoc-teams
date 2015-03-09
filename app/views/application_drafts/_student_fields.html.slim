@@ -7,7 +7,7 @@
   .form-inline
     - SkillLevel.each do |level, explanations|
       .radio
-        = s.radio_button :application_coding_level, level
+        = s.radio_button :application_coding_level, level, disabled: !may_edit?(s.object)
       label
         | Skill Level #{level}
       ul
