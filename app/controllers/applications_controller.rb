@@ -23,7 +23,7 @@ class ApplicationsController < ApplicationController
   def create
     if application_form.valid?
       @application = current_user.applications.create!(application_params)
-      ApplicationFormMailerWorker.new.async.perform(application_id: @application.id)
+      ApplicationFormMailer.new_application(@application).deliver_later
       @application
     else
       render :new

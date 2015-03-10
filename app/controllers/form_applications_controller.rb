@@ -26,7 +26,7 @@ class FormApplicationsController < ApplicationController
     if params[:apply_off]
       @application = current_user.applications.create!(application_params)
       @form_application.update_attributes({submitted: true})
-      ApplicationFormMailerWorker.new.async.perform(application_id: @application.id)
+      ApplicationFormMailer.new_application(@application).deliver_later
       @application
       render 'applications/create'
     else
@@ -57,7 +57,7 @@ class FormApplicationsController < ApplicationController
     if params[:apply_off]
       @application = current_user.applications.create!(application_params)
       @form_application.update_attributes({submitted: true})
-      ApplicationFormMailerWorker.new.async.perform(application_id: @application.id)
+      ApplicationFormMailer.new_application(@application).deliver_later
       @application
       render 'applications/create'
     else

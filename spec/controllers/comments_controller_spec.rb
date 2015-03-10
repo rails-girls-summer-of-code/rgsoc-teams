@@ -43,25 +43,38 @@ describe CommentsController do
       end
 
       context 'team comment' do
+        after do
+          clear_enqueued_jobs
+        end
+
+        let(:comment) { team.comments.last }
+        let(:mailer_jobs) do
+          enqueued_jobs.select do |job|
+            job[:job] == ActionMailer::DeliveryJob &&
+            job[:args][0] == 'CommentMailer' &&
+            job[:args][1] == 'email' &&
+            job[:args][3] == comment
+          end
+        end
+        subject do
+          post :create,
+                { comment: valid_attributes.merge(team_id: team.id) },
+                valid_session
+        end
+
+        before do
+          subject
+        end
+
         it 'creates a new Comment and redirects to team page' do
-          expect {
-            post :create, { comment: valid_attributes.merge(team_id: team.id) }, valid_session
-          }.to change { Comment.count }.by(1)
+          expect(comment.present?).to eq(true)
           expect(response).to redirect_to team
         end
 
-        it 'sends an email to all supervisors' do
-          supervisors = FactoryGirl.create_list(:supervisor, 2)
-
-          expect {
-            post :create, { comment: valid_attributes.merge(team_id: team.id) }, valid_session
-          }.to change { ActionMailer::Base.deliveries.size }.by(1)
-
-          mail = ActionMailer::Base.deliveries.last
-          expect(mail.to).to eq supervisors.map(&:email)
+        it 'enqueues a CommentMailer' do
+          expect(mailer_jobs.size).to eq(1)
         end
       end
     end
-
   end
 end
