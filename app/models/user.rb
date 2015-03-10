@@ -78,7 +78,7 @@ class User < ActiveRecord::Base
     end
 
     def with_role(*names)
-      joins(:roles).where('roles.name' => names)
+      joins(:roles).where('roles.name' => names.flatten)
     end
 
     def with_assigned_roles
