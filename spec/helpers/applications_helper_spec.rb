@@ -48,4 +48,44 @@ describe ApplicationsHelper do
       expect(application_classes_for(application)).to match('volunteering_team')
     end
   end
+
+  describe '#application_disambiguation_link' do
+    let(:draft) { create :application_draft }
+    let(:user)  { create :user }
+
+    subject { helper.application_disambiguation_link }
+
+    it 'returns an "Apply now" link for an anonymous user' do
+      allow(helper).to receive(:current_student).and_return(Student.new)
+      allow(helper).to receive(:current_user)
+
+      expect(subject).to match 'Apply now'
+      expect(subject).to match apply_path
+    end
+
+    it 'returns a link to the current draft' do
+      create :student_role, user: user, team: draft.team
+      allow(helper).to receive(:current_student).and_return(Student.new user)
+
+      expect(subject).to match 'My application'
+      expect(subject).to match apply_path
+    end
+
+    context 'as a guide' do
+      let(:guide_role) { %w(coach mentor).sample }
+
+      before do
+        allow(helper).to receive(:current_student).and_return(Student.new user)
+      end
+
+      it 'returns a link to the drafts list' do
+        create "#{guide_role}_role", user: user, team: draft.team
+        allow(helper).to receive(:current_user).and_return(user)
+        expect(subject).to match 'Applications'
+        expect(subject).to match application_drafts_path
+      end
+
+    end
+
+  end
 end

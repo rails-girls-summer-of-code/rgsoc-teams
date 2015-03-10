@@ -14,4 +14,22 @@ RSpec.describe ApplicationDraft do
     end
   end
 
+  describe '#role_for' do
+    let(:user) { create :user }
+    let(:team) { create :team }
+
+    subject { described_class.new team: team }
+
+    shared_examples_for 'checks for role' do |role|
+      it "returns '#{role.titleize}'" do
+        create "#{role}_role", user: user, team: team
+        expect(subject.role_for(user)).to eql role.titleize
+      end
+    end
+
+    it_behaves_like 'checks for role', 'student'
+    it_behaves_like 'checks for role', 'coach'
+    it_behaves_like 'checks for role', 'mentor'
+  end
+
 end
