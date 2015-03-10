@@ -33,6 +33,7 @@ RgsocTeams::Application.configure do
     authentication: :cram_md5,
     enable_starttls_auto: true
   }
+  config.action_mailer.preview_path = "#{Rails.root}/lib/mailer_previews"
 
   config.eager_load = false
 end
