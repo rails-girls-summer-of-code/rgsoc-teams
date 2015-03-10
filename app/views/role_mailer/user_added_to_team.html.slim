@@ -9,6 +9,6 @@ html
       | }
   body
     p
-      | You have been added to the
-      a[href=team_url(@role.team)] @role.team.name
+      ' You have been added to the
+      a>[href=team_url(@role.team)]= @role.team.name
       | as a #{@role.name}.
