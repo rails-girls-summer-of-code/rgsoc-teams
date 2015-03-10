@@ -28,12 +28,11 @@ ENV['RAILS_ENV'] ||= 'test'
 require File.expand_path('../../config/environment', __FILE__)
 require 'rspec/rails'
 require 'webmock/rspec'
-require 'cancan/matchers'
 require 'factory_girl_rails'
 
 ENV['EMAIL_FROM'] = Faker::Internet.email
 
-include ActiveJob::TestHelper
+
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
@@ -45,6 +44,7 @@ RSpec.configure do |config|
 
   config.order = 'random'
 
+  config.include ActiveJob::TestHelper
   config.include Devise::TestHelpers, type: :controller
   config.include Devise::TestHelpers, type: :view
   config.extend ControllerMacros,     type: :controller
