@@ -32,6 +32,17 @@ class ApplicationDraft < ActiveRecord::Base
     @current_pair ||= (team.students - [current_student]).first
   end
 
+  def role_for(user)
+    draft = dup.tap { |d| d.current_user = user }
+    if draft.as_student?
+      'Student'
+    elsif draft.as_coach?
+      'Coach'
+    elsif draft.as_mentor?
+      'Mentor'
+    end
+  end
+
   def ready?
     false
   end

@@ -14,4 +14,26 @@ RSpec.describe ApplicationDraft do
     end
   end
 
+  describe '#role_for' do
+    let(:user) { create :user }
+    let(:team) { create :team }
+
+    subject { described_class.new team: team }
+
+    it 'returns "Student"' do
+      create :student_role, user: user, team: team
+      expect(subject.role_for(user)).to eql 'Student'
+    end
+
+    it 'returns "Coach"' do
+      create :coach_role, user: user, team: team
+      expect(subject.role_for(user)).to eql 'Coach'
+    end
+
+    it 'returns "Mentor"' do
+      create :mentor_role, user: user, team: team
+      expect(subject.role_for(user)).to eql 'Mentor'
+    end
+  end
+
 end
