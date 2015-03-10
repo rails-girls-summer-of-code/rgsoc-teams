@@ -1,7 +1,5 @@
 require "spec_helper"
 
-ENV['EMAIL_FROM'] = Faker::Internet.email
-
 describe ApplicationFormMailer do
   let(:application) { FactoryGirl.build_stubbed(:application) }
   subject { ApplicationFormMailer.new_application(application) }

@@ -14,4 +14,47 @@ describe Role do
       expect(Role.includes?('student')).to eq true
     end
   end
+
+  describe 'create' do
+    let(:user) { FactoryGirl.create(:user) }
+    let(:team) { FactoryGirl.create(:team) }
+    let(:mailer) { double('RoleMailer') }
+
+    before do
+      allow(RoleMailer).to receive(:user_added_to_team).and_return(mailer)
+      allow(mailer).to receive(:deliver_later)
+      subject
+    end
+
+    shared_examples 'a guide role' do
+      it 'sends a noticiation to the user' do
+        expect(RoleMailer).to have_received(:user_added_to_team).with(subject)
+        expect(mailer).to have_received(:deliver_later)
+      end
+    end
+
+    subject do
+      user.roles.create team: team, name: role_name
+    end
+
+    context 'when the user is added as a student' do
+      let(:role_name) { 'student' }
+
+      it 'does not send a noticiation' do
+        expect(RoleMailer).to_not have_received(:user_added_to_team).with(subject)
+      end
+    end
+
+    context 'when the user is added as a coach' do
+      let(:role_name) { 'coach' }
+
+      it_behaves_like 'a guide role'
+    end
+
+    context 'when the user is added as a coach' do
+      let(:role_name) { 'mentor' }
+
+      it_behaves_like 'a guide role'
+    end
+  end
 end

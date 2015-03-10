@@ -7,7 +7,7 @@
 /config/database.yml
 .ruby-version
 .ruby-gemset
-
+.env
 .DS_Store
 
 # Ignore bundler config

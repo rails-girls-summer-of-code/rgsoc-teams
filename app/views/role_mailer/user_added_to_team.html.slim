@@ -1,0 +1,14 @@
+doctype html
+html
+  head
+    meta content="text/html; charset=UTF-8" http-equiv="Content-Type"
+
+    style
+      | html, body {
+      |   font-family: Helvetica, sans-serif;
+      | }
+  body
+    p
+      ' You have been added to the
+      a>[href=team_url(@role.team)]= @role.team.name
+      | as a #{@role.name}.

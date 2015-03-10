@@ -55,6 +55,7 @@ group :development do
   gem 'pry'
   gem 'spring'
   gem 'spring-commands-rspec'
+  gem 'foreman'
 end
 
 group :test do
