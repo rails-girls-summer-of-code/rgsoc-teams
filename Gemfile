@@ -60,6 +60,7 @@ end
 
 group :test do
   gem 'shoulda'
+  gem 'shoulda-matchers'
   gem 'ffaker'
   gem 'webmock'
   gem 'coveralls', require: false
