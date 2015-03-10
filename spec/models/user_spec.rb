@@ -6,6 +6,7 @@ describe User do
   end
 
   it { expect(subject).to have_many(:teams) }
+  it { expect(subject).to have_many(:application_drafts) }
   it { expect(subject).to have_many(:applications) }
   it { expect(subject).to have_many(:attendances) }
   it { expect(subject).to have_many(:conferences) }
