@@ -6,6 +6,10 @@ class ApplicationDraftsController < ApplicationController
 
   helper_method :application_draft
 
+  def index
+    @application_drafts = current_user.application_drafts.order('created_at DESC')
+  end
+
   def new
     redirect_to new_team_path, alert: 'You need to be in a team as a student' unless current_user.student?
   end
