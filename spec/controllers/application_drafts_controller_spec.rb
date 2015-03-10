@@ -26,6 +26,31 @@ RSpec.describe ApplicationDraftsController do
       allow(controller).to receive_messages(current_user: user)
     end
 
+    describe 'GET index' do
+      let!(:student_role) { FactoryGirl.create :student_role, user: user, team: team }
+      let!(:drafts) { FactoryGirl.create_list(:application_draft, 2, team: team) }
+
+      subject do
+        get :index
+      end
+
+      before do
+        subject
+      end
+
+      it 'assigns @application_drafts' do
+        expect(assigns(:application_drafts)).to match_array(drafts)
+      end
+
+      it 'renders index' do
+        expect(response).to render_template(:index)
+      end
+
+      it 'responds with 200' do
+        expect(response).to have_http_status(200)
+      end
+    end
+
     describe 'GET new' do
       it 'redirects if not part of a students team' do
         get :new
