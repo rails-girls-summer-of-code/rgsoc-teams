@@ -1,0 +1,16 @@
+h1.header
+  = icon('inbox')
+  span Application drafts
+
+table.table.table-striped.table-bordered.table-condensed
+  thead
+    tr
+      th Project Name
+      th Team
+      th Created
+  tbody
+    - @application_drafts.each do |draft|
+      tr
+        td= link_to draft.project_name, edit_application_draft_path(draft)
+        td= link_to draft.team.display_name, team_path(draft.team), class: "team #{draft.team.kind}"
+        td= draft.created_at
