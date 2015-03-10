@@ -56,15 +56,19 @@ bundle exec rake db:drop db:create db:migrate
 
 ### Mailtrap
 
-To avoid accidentally sending out mails to real addresses we user [Mailtrap](https://mailtrap.io).
-Create an account and inbox there and add the username and password from to your environment.
-Depending on your environment put the following lines in `.zshrc` (if you use ZSH) or `.bash_profile` (if you use BASH):
+To avoid accidentally sending out mails to real addresses we suggest
+[Mailtrap](https://mailtrap.io).
+You can create a free account there with an inbox to 'trap' emails sent from
+your development environment.
 
-```
-export MAILTRAP_USER=>>USERNAME<<
-export MAILTRAP_PASSWORD=>>PASSWORD<<
-```
-_**Note:** Replace `>>USERNAME<<` & `>>PASSOWORD<<` according to the Mailtrap-Inbox._
+Copy the `.env-example` to `.env` and replace `InboxUsername` and
+`InboxPassword` with your own username and password from your mailtrap
+inbox.
+
+Now when running the command `foreman` *before* any command in this project
+directory the variables from `.env` will be loaded into the environment.
+
+E.g. `foreman run rails server` or `foreman run rails console`.
 
 ## Testing
 
