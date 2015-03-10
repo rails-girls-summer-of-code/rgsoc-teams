@@ -83,7 +83,14 @@ class ApplicationDraftsController < ApplicationController
   end
 
   def current_team
-    current_student.current_team
+    current_student.current_team || coaches_team
+  end
+
+  def coaches_team
+    @coaches_team ||= begin
+                        team = ApplicationDraft.find(params[:id]).team
+                        team if team.coaches.include? current_user
+                      end
   end
 
   def open_draft
