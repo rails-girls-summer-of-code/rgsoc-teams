@@ -13,16 +13,16 @@ Rails.application.configure do
   # Don't care if the mailer can't send.
   config.action_mailer.raise_delivery_errors = false
 
-  # Print deprecation notices to the Rails logger
+  # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
 
   # Raise an error on page load if there are pending migrations.
   config.active_record.migration_error = :page_load
 
-  # Only use best-standards-support built into browsers
+  # Only use best-standards-support built into browsers.
   config.action_dispatch.best_standards_support = :builtin
 
-  # Do not compress assets
+  # Do not compress assets.
   config.assets.compress = false
 
   # Debug mode disables concatenation and preprocessing of assets.
@@ -39,7 +39,7 @@ Rails.application.configure do
   # Raises helpful error messages.
   config.assets.raise_runtime_errors = true
 
-  # Raises error for missing translations
+  # Raises error for missing translations.
   # config.action_view.raise_on_missing_translations = true
 
   config.action_mailer.default_url_options = { host: 'localhost:3000' }
