@@ -78,4 +78,14 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
 
   config.eager_load = true
+
+  config.action_mailer.smtp_settings = {
+    address:              'smtp.gmail.com',
+    port:                 587,
+    domain:               'railsgirls.com',
+    user_name:            ENV['EMAIL_FROM'],
+    password:             ENV['EMAIL_PASSWORD'],
+    authentication:       'plain',
+    enable_starttls_auto: true
+  }
 end
