@@ -59,6 +59,7 @@ class User < ActiveRecord::Base
   end
   has_many :applications
   has_many :teams, -> { uniq }, through: :roles
+  has_many :application_drafts, through: :teams
   has_many :attendances
   has_many :conferences, through: :attendances
 

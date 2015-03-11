@@ -6,6 +6,10 @@ class ApplicationDraftsController < ApplicationController
 
   helper_method :application_draft
 
+  def index
+    @application_drafts = current_user.application_drafts.order('created_at DESC')
+  end
+
   def new
     redirect_to new_team_path, alert: 'You need to be in a team as a student' unless current_user.student?
   end
@@ -83,7 +87,14 @@ class ApplicationDraftsController < ApplicationController
   end
 
   def current_team
-    current_student.current_team
+    current_student.current_team || coaches_team
+  end
+
+  def coaches_team
+    @coaches_team ||= begin
+                        team = ApplicationDraft.find(params[:id]).team
+                        team if team.coaches.include? current_user
+                      end
   end
 
   def open_draft
