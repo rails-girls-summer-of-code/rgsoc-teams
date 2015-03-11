@@ -26,12 +26,12 @@ class User < ActiveRecord::Base
   }
 
   MONTHS_LEARNING = [
-    "1-3 ",
-    "4-6 ",
-    "7-9 ",
-    "10-12 ",
-    "12-24 ",
-    "24 + ",
+    "1-3",
+    "4-6",
+    "7-9",
+    "10-12",
+    "12-24",
+    "24+",
   ]
 
   include ActiveModel::ForbiddenAttributesProtection
