@@ -42,8 +42,6 @@ module RgsocTeams
 
     config.i18n.enforce_available_locales = true
 
-    config.force_ssl = !!ENV['USE_SSL']
-
     config.action_mailer.default_url_options = { host: 'teams.railsgirlssummerofcode.org' }
 
     config.active_job.queue_adapter = :sucker_punch
