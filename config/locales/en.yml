@@ -5,6 +5,7 @@ en:
   time:
     formats:
       time: '%H:%M'
+      precise: '%A, %B %d %Y at %H:%M:%S %Z'
 
   activerecord:
     attributes:
