@@ -10,7 +10,8 @@
     Please see the #{link_to 'Help section', page_path('help')} for information about teams.
   = f.input :name, placeholder: 'Any name you like ...', label: 'Team Name'
 
-  h4 Members
+  .page-header
+    h2 Members
   fieldset
     = f.simple_fields_for :roles do |r|
       = r.input :github_handle, required: false
@@ -23,8 +24,10 @@
               label
                 = r.radio_button :name, role, required: true
                 = role.capitalize
-          = r.link_to_remove 'Remove team member'
-    = f.link_to_add 'Add another member', :roles
+          .form-btn-group
+            = r.link_to_remove 'Remove team member', class: 'btn btn-default'
+  .form-group.form-btn-group
+    = f.link_to_add 'Add another member', :roles, class: 'btn btn-primary col-sm-offset-3'
 
   - if !admin?
     = f.simple_fields_for :project do |p|
@@ -47,7 +50,8 @@
     - if can? :read, :users_info
       = f.input :post_info, label: 'Blog post info'
 
-  h4 Sources
+  .page-header
+    h2 Sources
 
   p.help-block
     | We will aggregate activities for all teams on the Activity page. Sources
@@ -67,8 +71,10 @@
               label
                 = s.radio_button :kind, kind, required: true
                 = kind.capitalize
-          = s.link_to_remove 'Remove'
-    = f.link_to_add 'Add another source', :sources
+          .form-btn-group
+            = s.link_to_remove 'Remove', class: 'btn btn-default'
+    .form-group.form-btn-group
+      = f.link_to_add 'Add another source', :sources, class: 'btn btn-primary col-sm-offset-3'
 
   - if admin?
     = f.input :season_id, as: :select, collection: Season.order('name DESC') { |e| [s.name, s.id] }
