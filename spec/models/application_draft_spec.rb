@@ -32,4 +32,10 @@ RSpec.describe ApplicationDraft do
     it_behaves_like 'checks for role', 'mentor'
   end
 
+  describe '#ready?' do
+    it 'returns false' do
+      expect(subject).not_to be_ready
+    end
+  end
+
 end

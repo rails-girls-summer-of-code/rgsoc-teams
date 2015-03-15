@@ -44,7 +44,7 @@ class ApplicationDraft < ActiveRecord::Base
   end
 
   def ready?
-    false
+    false # valid?(:apply)
   end
 
   private
