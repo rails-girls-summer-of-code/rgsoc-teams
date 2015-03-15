@@ -5,6 +5,7 @@ class ApplicationDraft < ActiveRecord::Base
   belongs_to :team
 
   validates :team, presence: true
+  validates :coaches_hours_per_week, :coaches_why_team_successful, presence: true, on: :apply
 
   before_validation :set_current_season
 
