@@ -6,7 +6,55 @@ RSpec.describe ApplicationDraft do
   context 'with validations' do
     it { is_expected.to validate_presence_of :team }
 
+    context 'for student attributes' do
+      let(:failing_student) { double.as_null_object }
+
+      context 'with just one student' do
+        before do
+          allow(subject).to receive(:students).and_return([failing_student])
+        end
+
+        Student::REQUIRED_DRAFT_FIELDS.each do |attribute|
+          it "requires student0_#{attribute} for 'apply' context" do
+            expect { subject.valid? :apply }.to \
+              change { subject.errors["student0_#{attribute}"] }.to include "can't be blank"
+          end
+
+          context 'with proper values' do
+            let(:ace_student)     { double(attribute => value).as_null_object }
+            let(:value)           { SecureRandom.hex(12) }
+
+            before do
+              allow(subject).to receive(:students).and_return([ace_student])
+            end
+
+            it 'is satisfied when the corresponding student method is set' do
+              expect { subject.valid? :apply }.not_to \
+                change { subject.errors["student0_#{attribute}"] }
+            end
+          end
+        end
+
+      end
+
+      context 'with two students' do
+        before do
+          allow(subject).to receive(:students).and_return([failing_student])
+        end
+
+        context 'one being invalid' do
+          skip
+        end
+
+        context 'both being valid' do
+          skip
+        end
+      end
+    end
+
     context 'for coaches\' attributes' do
+      before { allow(subject).to receive(:students).and_return [] }
+
       it { is_expected.not_to validate_presence_of :coaches_hours_per_week }
       it { is_expected.not_to validate_presence_of :coaches_why_team_successful }
 
