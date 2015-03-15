@@ -28,12 +28,7 @@ RSpec.describe ApplicationDraft do
     let(:student0) { Student.new }
     let(:student1) { Student.new }
 
-    [
-      :name, :application_about, :application_motivation, :application_gender_identification,
-      :application_coding_level, :application_community_engagement, :application_learning_period,
-      :application_learning_history, :application_skills,
-      :application_code_samples, :application_location, :banking_info, :application_minimum_money
-    ].each do |attribute|
+    Student::REQUIRED_DRAFT_FIELDS.each do |attribute|
 
       context 'with one student' do
         before { allow(subject).to receive(:students).and_return([student0]) }
