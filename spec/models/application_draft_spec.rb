@@ -28,18 +28,22 @@ RSpec.describe ApplicationDraft do
     let(:student0) { Student.new }
     let(:student1) { Student.new }
 
+    shared_examples_for 'proxies user method' do |student, attr|
+      describe "##{student}_#{attr}" do
+        it "returns student##{attr}" do
+          value = SecureRandom.hex(16)
+          expect(send(student)).to receive(attr).and_return(value)
+          expect(subject.send("#{student}_#{attr}")).to eql value
+        end
+      end
+    end
+
     Student::REQUIRED_DRAFT_FIELDS.each do |attribute|
 
       context 'with one student' do
         before { allow(subject).to receive(:students).and_return([student0]) }
 
-        describe "#student0_#{attribute}" do
-          it "returns student##{attribute}" do
-            value = SecureRandom.hex(16)
-            expect(student0).to receive(attribute).and_return(value)
-            expect(subject.send("student0_#{attribute}")).to eql value
-          end
-        end
+        it_behaves_like 'proxies user method', :student0, attribute
 
         describe "#student1_#{attribute}" do
           it "returns student##{attribute}" do
@@ -51,21 +55,8 @@ RSpec.describe ApplicationDraft do
       context 'with two students' do
         before { allow(subject).to receive(:students).and_return([student0, student1]) }
 
-        describe "#student0_#{attribute}" do
-          it "returns student##{attribute}" do
-            value = SecureRandom.hex(16)
-            expect(student0).to receive(attribute).and_return(value)
-            expect(subject.send("student0_#{attribute}")).to eql value
-          end
-        end
-
-        describe "#student1_#{attribute}" do
-          it "returns student##{attribute}" do
-            value = SecureRandom.hex(16)
-            expect(student1).to receive(attribute).and_return(value)
-            expect(subject.send("student1_#{attribute}")).to eql value
-          end
-        end
+        it_behaves_like 'proxies user method', :student0, attribute
+        it_behaves_like 'proxies user method', :student1, attribute
       end
 
     end
