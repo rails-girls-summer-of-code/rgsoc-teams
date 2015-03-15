@@ -17,6 +17,14 @@ class ApplicationDraft < ActiveRecord::Base
     end                                                  # end
   end
 
+  def method_missing(method, *args, &block)
+    if match = /^student([01])_(.*)/.match(method.to_s) and index = match[1].to_i and field = match[2]
+      students[index].send(field) if students[index]
+    else
+      super
+    end
+  end
+
   def students
     if as_student?
       [ current_student, current_pair ].compact
