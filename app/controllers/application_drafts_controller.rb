@@ -47,7 +47,7 @@ class ApplicationDraftsController < ApplicationController
                              current_team.application_drafts.find(params[:id])
                            else
                              current_team.application_drafts.new(team: current_team)
-                           end.tap { |draft| draft.current_user = current_user }
+                           end.tap { |draft| draft.assign_attributes(current_user: current_user, updater: current_user) }
   end
 
   def application_draft_params
