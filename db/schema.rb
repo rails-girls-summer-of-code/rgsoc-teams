@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150309200747) do
+ActiveRecord::Schema.define(version: 20150316230740) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -47,6 +47,8 @@ ActiveRecord::Schema.define(version: 20150309200747) do
     t.integer  "voluntary_hours_per_week"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.datetime "applied_at"
+    t.integer  "updater_id"
   end
 
   add_index "application_drafts", ["season_id"], name: "index_application_drafts_on_season_id", using: :btree
