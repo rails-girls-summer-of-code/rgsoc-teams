@@ -14,6 +14,7 @@ table.table.table-striped.table-bordered.table-condensed
       th Created
       th Updated
       th Your Role
+      th Status
   tbody
     - @application_drafts.each do |draft|
       tr
@@ -25,3 +26,4 @@ table.table.table-striped.table-bordered.table-condensed
           - if draft.updater
            |  by #{link_to draft.updater.github_handle, draft.updater}
         td= draft.role_for(current_user)
+        td= draft_state(draft)
