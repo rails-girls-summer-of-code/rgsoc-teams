@@ -66,4 +66,15 @@ RSpec.describe ApplicationDraft do
     it_behaves_like 'checks for role', 'mentor'
   end
 
+  describe '#state' do
+    it 'returns "draft" when applied_at is blank' do
+      expect(subject.state).to eql 'draft'
+    end
+
+    it 'returns "applied" when applied_at is set' do
+      subject.applied_at = 1.day.ago
+      expect(subject.state).to eql 'applied'
+    end
+  end
+
 end

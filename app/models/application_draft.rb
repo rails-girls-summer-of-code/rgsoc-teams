@@ -51,6 +51,10 @@ class ApplicationDraft < ActiveRecord::Base
     false
   end
 
+  def state
+    applied_at? ? 'applied' : 'draft'
+  end
+
   private
 
   def only_two_application_drafts_allowed
