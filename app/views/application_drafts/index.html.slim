@@ -1,6 +1,10 @@
+nav.actions
+  ul
+    li = link_to 'New Application Draft', new_application_draft_path, class: 'btn btn-primary btn-small', disabled: !can?(:create, :application_draft), title: ("You cannot lodge another application" unless can?(:create, :application))
+
 h1.header
   = icon('inbox')
-  span Application drafts
+  span Application Drafts
 
 table.table.table-striped.table-bordered.table-condensed
   thead
