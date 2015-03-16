@@ -2,7 +2,7 @@ class ApplicationDraftsController < ApplicationController
 
   before_action :checktime
   before_action :sign_in_required
-  before_action :continue_draft, only: :new
+  before_action :ensure_max_applications, only: :new
 
   helper_method :application_draft
 
@@ -84,8 +84,10 @@ class ApplicationDraftsController < ApplicationController
     render :ended unless current_season.application_period?
   end
 
-  def continue_draft
-    redirect_to [:edit, open_draft] if open_draft
+  def ensure_max_applications
+    if current_student.current_drafts.size > 1
+      redirect_to application_drafts_path, alert: 'You cannot lodge more than two applications'
+    end
   end
 
   def current_team
