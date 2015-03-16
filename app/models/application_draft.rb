@@ -5,6 +5,7 @@ class ApplicationDraft < ActiveRecord::Base
   belongs_to :team
 
   validates :team, presence: true
+  validate :only_two_application_drafts_allowed, if: :team, on: :create
 
   before_validation :set_current_season
 
@@ -48,6 +49,12 @@ class ApplicationDraft < ActiveRecord::Base
   end
 
   private
+
+  def only_two_application_drafts_allowed
+    unless team.application_drafts.where(season: season).count < 2
+      errors.add(:base, 'Only two applications may be lodged')
+    end
+  end
 
   def set_current_season
     self.season ||= Season.current
