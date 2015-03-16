@@ -22,8 +22,7 @@ class Student < SimpleDelegator
 
   def current_drafts
     @current_drafts ||= if current_team
-                         current_team.application_drafts.
-                           where(season_id: Season.current.id)
+                         current_team.application_drafts.current
                        else
                          []
                        end

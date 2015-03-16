@@ -4,6 +4,8 @@ class ApplicationDraft < ActiveRecord::Base
 
   belongs_to :team
 
+  scope :current, -> { where(season: Season.current) }
+
   validates :team, presence: true
   validate :only_two_application_drafts_allowed, if: :team, on: :create
 
