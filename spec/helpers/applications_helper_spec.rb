@@ -63,14 +63,6 @@ describe ApplicationsHelper do
       expect(subject).to match apply_path
     end
 
-    it 'returns a link to the current draft' do
-      create :student_role, user: user, team: draft.team
-      allow(helper).to receive(:current_student).and_return(Student.new user)
-
-      expect(subject).to match 'My application'
-      expect(subject).to match apply_path
-    end
-
     context 'as a guide' do
       let(:guide_role) { %w(coach mentor).sample }
 
