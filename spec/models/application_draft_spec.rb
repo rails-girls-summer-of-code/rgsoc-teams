@@ -68,12 +68,12 @@ RSpec.describe ApplicationDraft do
 
   describe '#state' do
     it 'returns "draft" when applied_at is blank' do
-      expect(subject.state).to eql 'draft'
+      expect(subject.state).to be_draft
     end
 
     it 'returns "applied" when applied_at is set' do
       subject.applied_at = 1.day.ago
-      expect(subject.state).to eql 'applied'
+      expect(subject.state).to be_applied
     end
   end
 

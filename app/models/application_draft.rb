@@ -52,7 +52,7 @@ class ApplicationDraft < ActiveRecord::Base
   end
 
   def state
-    applied_at? ? 'applied' : 'draft'
+    (applied_at? ? 'applied' : 'draft').inquiry
   end
 
   private
