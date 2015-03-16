@@ -52,6 +52,9 @@ class Ability
     # activities
     can :read, :feed_entry
     can :read, :mailing if signed_in?(user)
+
+    # applications
+    can :create, :application_draft if user.student? && user.application_drafts.size < 2
   end
 
   def signed_in?(user)
@@ -61,4 +64,5 @@ class Ability
   def on_team?(user, team)
     user.teams.include?(team)
   end
+
 end
