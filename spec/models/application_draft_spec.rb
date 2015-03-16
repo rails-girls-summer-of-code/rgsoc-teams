@@ -3,6 +3,10 @@ require 'spec_helper'
 RSpec.describe ApplicationDraft do
   it_behaves_like 'HasSeason'
 
+  context 'with associations' do
+    it { is_expected.to belong_to(:updater).class_name('User') }
+  end
+
   context 'with validations' do
     it { is_expected.to validate_presence_of :team }
 

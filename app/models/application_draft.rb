@@ -3,6 +3,7 @@ class ApplicationDraft < ActiveRecord::Base
   include HasSeason
 
   belongs_to :team
+  belongs_to :updater, class_name: 'User'
 
   scope :current, -> { where(season: Season.current) }
 
