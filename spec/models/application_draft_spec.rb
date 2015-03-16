@@ -5,6 +5,36 @@ RSpec.describe ApplicationDraft do
 
   context 'with validations' do
     it { is_expected.to validate_presence_of :team }
+
+    context 'with more than one application' do
+      let(:team) { create :team }
+      let!(:draft) { team.application_drafts.create }
+
+      def build_draft
+        team.application_drafts.build
+      end
+
+      it 'allows the creation of a second application draft' do
+        expect { build_draft.save }.to \
+          change { team.application_drafts.count }.by(1)
+      end
+
+      context 'with an existing draft' do
+        before { build_draft.save }
+
+        let!(:third_draft) { build_draft }
+
+        it 'prohibits the creation of a third application draft' do
+          expect { third_draft.save }.not_to change { team.application_drafts.count }
+          expect(third_draft.errors[:base]).to eql ['Only two applications may be lodged']
+        end
+
+        it 'allows drafts in different seasons' do
+          third_draft.season = create(:season, name: 2000)
+          expect { third_draft.save }.to change { team.application_drafts.count }.by(1)
+        end
+      end
+    end
   end
 
   context 'with callbacks' do

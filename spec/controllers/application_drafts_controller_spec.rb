@@ -73,12 +73,13 @@ RSpec.describe ApplicationDraftsController do
         expect(response).to render_template 'new'
       end
 
-      it 'redirects to edit if draft is already persisted' do
-        create :student_role, user: user
-        draft = user.teams.last.application_drafts.create
+      it 'redirects to the index action if there are already more than two application drafts' do
+        create :student_role, user: user, team: team
+        2.times { team.application_drafts.create }
 
         get :new
-        expect(response).to redirect_to [:edit, draft]
+        expect(response).to redirect_to application_drafts_path
+        expect(flash[:alert]).to be_present
       end
     end
 
