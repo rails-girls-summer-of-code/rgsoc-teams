@@ -3,6 +3,10 @@ require 'spec_helper'
 RSpec.describe ApplicationDraft do
   it_behaves_like 'HasSeason'
 
+  context 'with associations' do
+    it { is_expected.to belong_to(:updater).class_name('User') }
+  end
+
   context 'with validations' do
     it { is_expected.to validate_presence_of :team }
 
@@ -60,6 +64,17 @@ RSpec.describe ApplicationDraft do
     it_behaves_like 'checks for role', 'student'
     it_behaves_like 'checks for role', 'coach'
     it_behaves_like 'checks for role', 'mentor'
+  end
+
+  describe '#state' do
+    it 'returns "draft" when applied_at is blank' do
+      expect(subject.state).to be_draft
+    end
+
+    it 'returns "applied" when applied_at is set' do
+      subject.applied_at = 1.day.ago
+      expect(subject.state).to be_applied
+    end
   end
 
 end

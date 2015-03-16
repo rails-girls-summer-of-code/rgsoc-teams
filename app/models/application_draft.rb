@@ -3,6 +3,7 @@ class ApplicationDraft < ActiveRecord::Base
   include HasSeason
 
   belongs_to :team
+  belongs_to :updater, class_name: 'User'
 
   scope :current, -> { where(season: Season.current) }
 
@@ -48,6 +49,10 @@ class ApplicationDraft < ActiveRecord::Base
 
   def ready?
     false
+  end
+
+  def state
+    (applied_at? ? 'applied' : 'draft').inquiry
   end
 
   private

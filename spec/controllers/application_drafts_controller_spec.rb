@@ -127,5 +127,17 @@ RSpec.describe ApplicationDraftsController do
 
     end
 
+    describe 'PATCH update' do
+      let(:draft) { create :application_draft }
+
+      it 'sets the updated_by attibute' do
+        create :student_role, user: user, team: draft.team
+        expect {
+          patch :update, id: draft.to_param, application_draft: { misc_info: 'Foo!' }
+        }.to change { draft.reload.updater }.from(nil).to user
+        expect(response).to redirect_to [:edit, assigns[:application_draft]]
+      end
+    end
+
   end
 end
