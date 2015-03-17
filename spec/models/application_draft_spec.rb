@@ -85,12 +85,8 @@ RSpec.describe ApplicationDraft do
         end
 
         context 'both being valid' do
-          let(:ace_student_2)   { double.as_null_object }
-          let(:value_2)         { SecureRandom.hex(12)  }
-
           before do
-            allow(subject).to receive(:students).and_return([ace_student, ace_student_2])
-            allow(ace_student_2).to receive(attribute).and_return(value_2)
+            allow(subject).to receive(:students).and_return([ace_student, ace_student])
           end
 
           it "is satisfied when the students' #{attribute} is set" do
