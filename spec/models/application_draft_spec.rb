@@ -6,6 +6,24 @@ RSpec.describe ApplicationDraft do
   context 'with validations' do
     it { is_expected.to validate_presence_of :team }
 
+    context 'apply validations' do
+      before do
+        allow(subject).to receive(:students).and_return([])
+      end
+
+      shared_examples_for 'proxies :apply validation' do |attribute|
+        it { is_expected.not_to validate_presence_of attribute }
+        it { is_expected.to validate_presence_of(attribute).on(:apply) }
+      end
+
+      it_behaves_like 'proxies :apply validation', :project_name
+      it_behaves_like 'proxies :apply validation', :project_url
+      it_behaves_like 'proxies :apply validation', :misc_info
+      it_behaves_like 'proxies :apply validation', :heard_about_it
+      it_behaves_like 'proxies :apply validation', :voluntary
+      it_behaves_like 'proxies :apply validation', :voluntary_hours_per_week
+    end
+
     context 'for student attributes' do
       let(:failing_student) { double.as_null_object }
 
@@ -37,17 +55,44 @@ RSpec.describe ApplicationDraft do
 
       end
 
-      context 'with two students' do
+      Student::REQUIRED_DRAFT_FIELDS.each do |attribute|
+        let(:ace_student)     { double.as_null_object }
+        let(:value)           { SecureRandom.hex(12) }
+
         before do
-          allow(subject).to receive(:students).and_return([failing_student])
+          allow(ace_student).to receive(attribute).and_return(value)
         end
 
-        context 'one being invalid' do
-          skip
+        context 'with two students' do
+          context 'one being invalid' do
+            before do
+              allow(subject).to receive(:students).and_return([failing_student, ace_student])
+            end
+
+            it "is satisfied when the corresponding student #{attribute} is set" do
+              expect { subject.valid? :apply }.not_to \
+                change { subject.errors["student1_#{attribute}"] }
+            end
+
+            it "requires student0_#{attribute} for 'apply' context" do
+              expect { subject.valid? :apply }.to \
+                change { subject.errors["student0_#{attribute}"] }.to include "can't be blank"
+            end
+
+          end
         end
 
         context 'both being valid' do
-          skip
+          before do
+            allow(subject).to receive(:students).and_return([ace_student, ace_student])
+          end
+
+          it "is satisfied when the students' #{attribute} is set" do
+            expect { subject.valid? :apply }.not_to \
+              change { subject.errors["student0_#{attribute}"] }
+            expect { subject.valid? :apply }.not_to \
+              change { subject.errors["student1_#{attribute}"] }
+          end
         end
       end
     end
