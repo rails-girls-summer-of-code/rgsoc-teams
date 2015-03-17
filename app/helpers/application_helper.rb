@@ -5,12 +5,10 @@ module ApplicationHelper
   TIMEZONES = ActiveSupport::TimeZone.all.map{|t| t.tzinfo.name}.uniq.sort
 
   def application_disambiguation_link
-    if current_student.current_draft
-      link_to 'My application', apply_path, class: 'team'
-    elsif current_user && current_user.application_drafts.any?
+    if current_user && current_user.application_drafts.any?
       link_to  application_drafts_path, class: 'team' do
-         concat 'Applications '
-         concat content_tag(:span, current_user.application_drafts.count, class: 'badge')
+        concat 'My Applications '
+        concat content_tag(:span, current_user.application_drafts.count, class: 'badge')
       end
     else
       link_to 'Apply now', apply_path

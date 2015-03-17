@@ -124,6 +124,21 @@ describe UsersController do
     end
   end
 
+  describe 'PATCH update' do
+
+    let(:valid_attributes) { { application_about: "lorem ipsum" } }
+
+    let(:user) { FactoryGirl.create(:user) }
+    before { sign_in user }
+
+    context 'their own profile' do
+      it 'updates the profile and redirects' do
+        patch :update, id: user.id, user: valid_attributes
+        expect(response).to redirect_to user
+      end
+    end
+  end
+
   describe "DELETE destroy" do
     let(:user) { FactoryGirl.create(:user) }
     before :each do

@@ -7,10 +7,14 @@ class ApplicationDraft < ActiveRecord::Base
   STUDENT1_REQUIRED_FIELDS = Student::REQUIRED_DRAFT_FIELDS.map { |m| "student1_#{m}" }
 
   belongs_to :team
+  belongs_to :updater, class_name: 'User'
+
+  scope :current, -> { where(season: Season.current) }
 
   validates :team, presence: true
   validates :coaches_hours_per_week, :coaches_why_team_successful, :project_name, :project_url, presence: true, on: :apply
   validates :misc_info, :heard_about_it, :voluntary, :voluntary_hours_per_week, presence: true, on: :apply
+  validate :only_two_application_drafts_allowed, if: :team, on: :create
 
   validates *STUDENT0_REQUIRED_FIELDS, presence: true, on: :apply
   validates *STUDENT1_REQUIRED_FIELDS, presence: true, on: :apply
@@ -64,7 +68,17 @@ class ApplicationDraft < ActiveRecord::Base
     false # valid?(:apply)
   end
 
+  def state
+    (applied_at? ? 'applied' : 'draft').inquiry
+  end
+
   private
+
+  def only_two_application_drafts_allowed
+    unless team.application_drafts.where(season: season).count < 2
+      errors.add(:base, 'Only two applications may be lodged')
+    end
+  end
 
   def set_current_season
     self.season ||= Season.current

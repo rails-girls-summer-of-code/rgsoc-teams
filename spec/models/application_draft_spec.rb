@@ -3,8 +3,42 @@ require 'spec_helper'
 RSpec.describe ApplicationDraft do
   it_behaves_like 'HasSeason'
 
+  context 'with associations' do
+    it { is_expected.to belong_to(:updater).class_name('User') }
+  end
+
   context 'with validations' do
     it { is_expected.to validate_presence_of :team }
+
+    context 'with more than one application' do
+      let(:team) { create :team }
+      let!(:draft) { team.application_drafts.create }
+
+      def build_draft
+        team.application_drafts.build
+      end
+
+      it 'allows the creation of a second application draft' do
+        expect { build_draft.save }.to \
+          change { team.application_drafts.count }.by(1)
+      end
+
+      context 'with an existing draft' do
+        before { build_draft.save }
+
+        let!(:third_draft) { build_draft }
+
+        it 'prohibits the creation of a third application draft' do
+          expect { third_draft.save }.not_to change { team.application_drafts.count }
+          expect(third_draft.errors[:base]).to eql ['Only two applications may be lodged']
+        end
+
+        it 'allows drafts in different seasons' do
+          third_draft.season = create(:season, name: 2000)
+          expect { third_draft.save }.to change { team.application_drafts.count }.by(1)
+        end
+      end
+    end
 
     context 'apply validations' do
       before do
@@ -177,6 +211,17 @@ RSpec.describe ApplicationDraft do
   describe '#ready?' do
     it 'returns false' do
       expect(subject).not_to be_ready
+    end
+  end
+
+  describe '#state' do
+    it 'returns "draft" when applied_at is blank' do
+      expect(subject.state).to be_draft
+    end
+
+    it 'returns "applied" when applied_at is set' do
+      subject.applied_at = 1.day.ago
+      expect(subject.state).to be_applied
     end
   end
 

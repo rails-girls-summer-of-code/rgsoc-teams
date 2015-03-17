@@ -73,12 +73,13 @@ RSpec.describe ApplicationDraftsController do
         expect(response).to render_template 'new'
       end
 
-      it 'redirects to edit if draft is already persisted' do
-        create :student_role, user: user
-        draft = user.teams.last.application_drafts.create
+      it 'redirects to the index action if there are already more than two application drafts' do
+        create :student_role, user: user, team: team
+        2.times { team.application_drafts.create }
 
         get :new
-        expect(response).to redirect_to [:edit, draft]
+        expect(response).to redirect_to application_drafts_path
+        expect(flash[:alert]).to be_present
       end
     end
 
@@ -124,6 +125,18 @@ RSpec.describe ApplicationDraftsController do
         expect(response).to redirect_to [:edit, assigns[:application_draft]]
       end
 
+    end
+
+    describe 'PATCH update' do
+      let(:draft) { create :application_draft }
+
+      it 'sets the updated_by attibute' do
+        create :student_role, user: user, team: draft.team
+        expect {
+          patch :update, id: draft.to_param, application_draft: { misc_info: 'Foo!' }
+        }.to change { draft.reload.updater }.from(nil).to user
+        expect(response).to redirect_to [:edit, assigns[:application_draft]]
+      end
     end
 
   end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150309200747) do
+ActiveRecord::Schema.define(version: 20150317173730) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -47,6 +47,8 @@ ActiveRecord::Schema.define(version: 20150309200747) do
     t.integer  "voluntary_hours_per_week"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.datetime "applied_at"
+    t.integer  "updater_id"
   end
 
   add_index "application_drafts", ["season_id"], name: "index_application_drafts_on_season_id", using: :btree
@@ -115,22 +117,6 @@ ActiveRecord::Schema.define(version: 20150309200747) do
     t.date     "end_date"
     t.datetime "created_at"
     t.datetime "updated_at"
-  end
-
-  create_table "form_applications", force: true do |t|
-    t.string   "name"
-    t.string   "email"
-    t.text     "about_student"
-    t.text     "location"
-    t.text     "attended_rg_workshop"
-    t.text     "coding_level"
-    t.text     "skills"
-    t.text     "learning_summary"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "project_name"
-    t.hstore   "application_data"
-    t.boolean  "submitted"
   end
 
   create_table "job_offers", force: true do |t|
@@ -264,7 +250,7 @@ ActiveRecord::Schema.define(version: 20150309200747) do
     t.integer  "application_coding_level"
     t.string   "application_gender_identification"
     t.string   "application_learning_period"
-    t.string   "application_minimum_money"
+    t.text     "application_minimum_money"
     t.text     "application_about"
     t.text     "application_code_samples"
     t.text     "application_community_engagement"
