@@ -4,6 +4,7 @@ class ApplicationDraft < ActiveRecord::Base
 
   # FIXME
   STUDENT0_REQUIRED_FIELDS = Student::REQUIRED_DRAFT_FIELDS.map { |m| "student0_#{m}" }
+  STUDENT1_REQUIRED_FIELDS = Student::REQUIRED_DRAFT_FIELDS.map { |m| "student1_#{m}" }
 
   belongs_to :team
 
@@ -11,6 +12,7 @@ class ApplicationDraft < ActiveRecord::Base
   validates :coaches_hours_per_week, :coaches_why_team_successful, presence: true, on: :apply
 
   validates *STUDENT0_REQUIRED_FIELDS, presence: true, on: :apply
+  validates *STUDENT1_REQUIRED_FIELDS, presence: true, on: :apply
 
   before_validation :set_current_season
 
