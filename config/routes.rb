@@ -36,7 +36,6 @@ RgsocTeams::Application.routes.draw do
     put :apply, on: :member
   end
 
-  resources :form_applications
   get 'application', to: 'applications#new'
   get 'application_forms', to: 'applications#new'
   post 'application_forms', to: 'applications#create'
