@@ -6,6 +6,26 @@ RSpec.describe ApplicationDraft do
   context 'with validations' do
     it { is_expected.to validate_presence_of :team }
 
+    context 'apply validations' do
+      let(:student0) { Student.new }
+
+      before do
+        allow(subject).to receive(:students).and_return([student0])
+      end
+
+      shared_examples_for 'proxies :apply validation' do |attribute|
+        it { is_expected.not_to validate_presence_of attribute }
+        it { is_expected.to validate_presence_of(attribute).on(:apply) }
+      end
+
+      it_behaves_like 'proxies :apply validation', :project_name
+      it_behaves_like 'proxies :apply validation', :project_url
+      it_behaves_like 'proxies :apply validation', :misc_info
+      it_behaves_like 'proxies :apply validation', :heard_about_it
+      it_behaves_like 'proxies :apply validation', :voluntary
+      it_behaves_like 'proxies :apply validation', :voluntary_hours_per_week
+    end
+
     context 'for student attributes' do
       let(:failing_student) { double.as_null_object }
 
