@@ -7,10 +7,8 @@ RSpec.describe ApplicationDraft do
     it { is_expected.to validate_presence_of :team }
 
     context 'apply validations' do
-      let(:student0) { Student.new }
-
       before do
-        allow(subject).to receive(:students).and_return([student0])
+        allow(subject).to receive(:students).and_return([])
       end
 
       shared_examples_for 'proxies :apply validation' do |attribute|
