@@ -65,4 +65,5 @@ group :test do
   gem 'coveralls', require: false
   gem 'timecop'
   gem "codeclimate-test-reporter", require: false
+  gem 'rspec-collection_matchers'
 end
