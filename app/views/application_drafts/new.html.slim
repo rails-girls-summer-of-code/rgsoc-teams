@@ -8,7 +8,7 @@ p.attention
 = simple_nested_form_for application_draft do |f|
   - if application_draft.errors.any?
     #error_explanation
-      h2 = "#{pluralize(application_draft.errors.count, "error")} prohibited this application from being saved:"
+      h2 = "#{pluralize(application_draft.errors.count, "error")} to go before you can apply:"
       ul
         - application_draft.errors.full_messages.each do |message|
           li = message
