@@ -10,6 +10,9 @@ en:
   activerecord:
     attributes:
       application_draft:
+        project_url: Project URL
+        coaches_hours_per_week: "Coaches' Hours-per-Week"
+        coaches_why_team_successful: "Coaches' Success-Statement"
         student0_application_about: Background (1st student)
         student0_application_motivation: Motivation (1st student)
         student0_application_gender_identification: Gender Self-Identification (1st student)
