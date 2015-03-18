@@ -8,7 +8,7 @@ p.attention
 = simple_nested_form_for application_draft do |f|
   - if application_draft.errors.any?
     #error_explanation
-      h2 = "#{pluralize(application_draft.errors.count, "error")} prohibited this application from being saved:"
+      h2 = "#{pluralize(application_draft.errors.count, "error")} to go before you can apply:"
       ul
         - application_draft.errors.full_messages.each do |message|
           li = message
@@ -62,3 +62,7 @@ p.attention
   = simple_form_for application_draft, url: apply_application_path(application_draft.application), method: :put do |f|
     .actions
       = f.button :submit, 'Apply', class: 'btn btn-success'
+- elsif application_draft.persisted?
+  = simple_form_for application_draft, url: [:check, application_draft], method: :get do |f|
+    .actions
+      = f.button :submit, 'Check Validity', class: 'btn btn-info'
