@@ -40,6 +40,15 @@ class ApplicationDraftsController < ApplicationController
     end
   end
 
+  def check
+    if application_draft.valid?(:apply)
+      flash[:notice] = "You're ready to apply \o/"
+    else
+      flash[:alert]  = 'There are still some fields missing'
+    end
+    render :new
+  end
+
   protected
 
   def application_draft

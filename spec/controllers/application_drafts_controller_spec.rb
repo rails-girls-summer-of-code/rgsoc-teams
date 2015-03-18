@@ -139,5 +139,34 @@ RSpec.describe ApplicationDraftsController do
       end
     end
 
+    describe 'GET check' do
+      let(:draft) { create :application_draft }
+
+      before do
+        create :student_role, user: user, team: draft.team
+      end
+
+      context 'for an invalid draft' do
+        it 'displays errors' do
+          get :check, id: draft.to_param
+          expect(response).to render_template 'new'
+          expect(flash[:alert]).to be_present
+          expect(response.body).to match 'prohibited this application from being saved'
+        end
+      end
+
+      context 'for a valid draft' do
+        before do
+          allow_any_instance_of(ApplicationDraft).to receive(:valid?).with(:apply).and_return(true)
+        end
+
+        it 'is go' do
+          get :check, id: draft.to_param
+          expect(response).to render_template 'new'
+          expect(flash[:notice]).to be_present
+        end
+      end
+    end
+
   end
 end
