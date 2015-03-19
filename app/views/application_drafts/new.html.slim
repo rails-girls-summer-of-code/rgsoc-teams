@@ -36,8 +36,8 @@ p.attention
     -# = f.input :attended_rg_workshop, as: :text, label: 'Did you ever attend a Rails/Ruby workshop?', hint: ' Please give us a little bit of history about yourself and your pair (if any)', input_html: { rows: '5' }
     -# = f.input :skills, as: :text, label: 'Please give us a summary of your skills', hint: 'Please add a summary for your pair if you have one, too.', input_html: { rows: '5' }
     -# = f.input :learing_summary, as: :text, label: 'Please summarize what you have been doing to learn programming since your first workshop', hint: 'E.g. Study Group, learning rails by doing exercises etc. Please add a summary for your pair if you have one, too.', input_html: { rows: '5' }
-    = f.input :project_name, as: :string, label: 'What project are you planning to work on?', placeholder: 'Project Name', input_html: { disabled: !application_draft.as_student? }
-    = f.input :project_url, as: :url, label: 'What project are you planning to work on?', placeholder: 'https://github.com/rails-girls-summer-of-code/projects/issues/NN', hint: "If the project you want to work on is not listed in #{link_to 'our repository', 'https://github.com/rails-girls-summer-of-code/projects/issues/', target: :blank} yet, ping the mentor to submit it.".html_safe, input_html: { disabled: !application_draft.as_student? }
+    = f.input :project_name, as: :string, label: 'What project are you planning to work on?', placeholder: 'Project Name', input_html: { disabled: !application_draft.as_student? || application_draft.state.applied? }
+    = f.input :project_url, as: :url, label: 'What project are you planning to work on?', placeholder: 'https://github.com/rails-girls-summer-of-code/projects/issues/NN', hint: "If the project you want to work on is not listed in #{link_to 'our repository', 'https://github.com/rails-girls-summer-of-code/projects/issues/', target: :blank} yet, ping the mentor to submit it.".html_safe, input_html: { disabled: !application_draft.as_student? || application_draft.state.applied? }
 
   fieldset
     legend Filled in by coach(es)
@@ -48,21 +48,23 @@ p.attention
   fieldset
     legend Miscellaneous
     -# = f.input :project_period, as: :text, label: 'When do you plan to work on this?', hint: 'We are aiming at July 1st to September 30th for most students, but you can be flexible. Please discuss this with your team.', input_html: { rows: '5' }
-    = f.input :voluntary, as: :boolean, label: 'We could join the RGSoC as a voluntary team', input_html: { disabled: !application_draft.as_student? }
-    = f.input :voluntary_hours_per_week, as: :integer, label: 'As a voluntary team, how many hours per week would you be able to work in the project?', input_html: { disabled: !application_draft.as_student? }
-    = f.input :heard_about_it, as: :text, label: 'How have you heard about the program?', input_html: { rows: 3, disabled: !application_draft.as_student? }
-    = f.input :misc_info, as: :text, label: 'Anything else to add?', input_html: { rows: 4 }, hint: 'Address anything that you feel is relevant to your application and was not covered previously.', input_html: { disabled: !application_draft.as_student? }
+    = f.input :voluntary, as: :boolean, label: 'We could join the RGSoC as a voluntary team', input_html: { disabled: !application_draft.as_student? || application_draft.state.applied? }
+    = f.input :voluntary_hours_per_week, as: :integer, label: 'As a voluntary team, how many hours per week would you be able to work in the project?', input_html: { disabled: !application_draft.as_student? || application_draft.state.applied? }
+    = f.input :heard_about_it, as: :text, label: 'How have you heard about the program?', input_html: { rows: 3, disabled: !application_draft.as_student? || application_draft.state.applied? }
+    = f.input :misc_info, as: :text, label: 'Anything else to add?', input_html: { rows: 4 }, hint: 'Address anything that you feel is relevant to your application and was not covered previously.', input_html: { disabled: !application_draft.as_student? || application_draft.state.applied? }
 
-  .actions
-    = f.button :submit, 'Save as draft', class: 'btn'
-    - unless application_draft.ready?
-      .help-block Your application is not yet ready for submission
+  - if application_draft.state.draft?
+    .actions
+      = f.button :submit, 'Save as draft', class: 'btn'
+      - unless application_draft.ready?
+        .help-block Your application is not yet ready for submission
 
-- if application_draft.ready?
-  = simple_form_for application_draft, url: apply_application_path(application_draft.application), method: :put do |f|
-    .actions
-      = f.button :submit, 'Apply', class: 'btn btn-success'
-- elsif application_draft.persisted?
-  = simple_form_for application_draft, url: [:check, application_draft], method: :get do |f|
-    .actions
-      = f.button :submit, 'Check Validity', class: 'btn btn-info'
+- if application_draft.state.draft?
+  - if application_draft.ready?
+    = simple_form_for application_draft, url: apply_application_path(application_draft.application), method: :put do |f|
+      .actions
+        = f.button :submit, 'Apply', class: 'btn btn-success'
+  - elsif application_draft.persisted?
+    = simple_form_for application_draft, url: [:check, application_draft], method: :get do |f|
+      .actions
+        = f.button :submit, 'Check Validity', class: 'btn btn-info'

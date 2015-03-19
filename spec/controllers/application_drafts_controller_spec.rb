@@ -130,12 +130,23 @@ RSpec.describe ApplicationDraftsController do
     describe 'PATCH update' do
       let(:draft) { create :application_draft }
 
-      it 'sets the updated_by attibute' do
+      before do
         create :student_role, user: user, team: draft.team
+      end
+
+      it 'sets the updated_by attibute' do
         expect {
           patch :update, id: draft.to_param, application_draft: { misc_info: 'Foo!' }
         }.to change { draft.reload.updater }.from(nil).to user
         expect(response).to redirect_to [:edit, assigns[:application_draft]]
+      end
+
+      it 'will not update an application draft that has already been submitted' do
+        draft.update applied_at: 1.hour.ago
+        expect {
+          patch :update, id: draft.to_param, application_draft: { misc_info: 'Foo!' }
+        }.not_to change { draft.reload.misc_info }
+        expect(response).to redirect_to application_drafts_path
       end
     end
 
