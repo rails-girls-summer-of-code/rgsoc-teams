@@ -3,6 +3,7 @@ class ApplicationDraftsController < ApplicationController
   before_action :checktime
   before_action :sign_in_required
   before_action :ensure_max_applications, only: :new
+  before_action :disallow_modifications_after_submission, only: :update
 
   helper_method :application_draft
 
@@ -91,6 +92,12 @@ class ApplicationDraftsController < ApplicationController
 
   def checktime
     render :ended unless current_season.application_period?
+  end
+
+  def disallow_modifications_after_submission
+    if application_draft.state.applied?
+      redirect_to application_drafts_path, alert: 'You cannot modify this application anymore'
+    end
   end
 
   def ensure_max_applications
