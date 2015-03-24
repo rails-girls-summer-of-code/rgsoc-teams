@@ -34,6 +34,8 @@ gem 'aws-sdk'
 
 gem 'rollbar', '~> 1.4.4'
 
+gem 'aasm'
+
 group :production do
   gem 'unicorn'
   gem 'rails_12factor'
