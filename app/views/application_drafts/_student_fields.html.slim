@@ -19,7 +19,7 @@
   .form-inline
     - User::MONTHS_LEARNING.each do |months|
       .radio
-        = s.radio_button :application_learning_period, months
+        = s.radio_button :application_learning_period, months, disabled: !may_edit?(s.object)
         | #{months} months
       <br>
     <br>
