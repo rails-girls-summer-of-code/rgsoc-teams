@@ -36,7 +36,7 @@ class Team < ActiveRecord::Base
     end
 
     def visible
-      where("invisible IS NOT TRUE OR kind IN (?)", KINDS)
+      where("teams.invisible IS NOT TRUE OR teams.kind IN (?)", KINDS)
     end
   end
 
