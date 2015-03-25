@@ -34,6 +34,10 @@ class Team < ActiveRecord::Base
     def ordered(sort = {})
       order([sort[:order] || 'kind, name || projects', sort[:direction] || 'asc'].join(' '))
     end
+
+    def visible
+      where("teams.invisible IS NOT TRUE OR teams.kind IN (?)", KINDS)
+    end
   end
 
   def application
