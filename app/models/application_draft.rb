@@ -66,7 +66,7 @@ class ApplicationDraft < ActiveRecord::Base
   end
 
   def ready?
-    false # valid?(:apply)
+    valid?(:apply)
   end
 
   def state
