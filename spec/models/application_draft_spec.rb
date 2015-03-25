@@ -209,6 +209,10 @@ RSpec.describe ApplicationDraft do
   end
 
   describe '#ready?' do
+    before do
+      allow(subject).to receive(:students).and_return([])
+    end
+
     it 'returns false' do
       expect(subject).not_to be_ready
     end
