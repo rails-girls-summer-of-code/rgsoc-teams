@@ -78,7 +78,7 @@ class TeamsController < ApplicationController
       params.require(:team).permit(
         :name, :twitter_handle, :github_handle, :description, :post_info, :event_id,
         :checked, :'starts_on(1i)', :'starts_on(2i)', :'starts_on(3i)',
-        :'finishes_on(1i)', :'finishes_on(2i)', :'finishes_on(3i)',
+        :'finishes_on(1i)', :'finishes_on(2i)', :'finishes_on(3i)', :invisible,
         roles_attributes: [:id, :name, :github_handle, :_destroy],
         sources_attributes: [:id, :kind, :url, :_destroy],
         project_attributes: [:id, :name],

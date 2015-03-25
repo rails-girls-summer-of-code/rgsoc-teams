@@ -9,6 +9,13 @@
   p.help-block
     Please see the #{link_to 'Help section', page_path('help')} for information about teams.
   = f.input :name, placeholder: 'Any name you like ...', label: 'Team Name'
+  .form-group
+    label.control-label.col-sm-3 Remain hidden
+    .col-sm-9
+      .checkbox
+        label
+          = f.check_box :invisible
+          |  Your team will not be listed in the teams overview until it is accepted for the Rails Girls Summer of Code.
 
   .page-header
     h2 Members
