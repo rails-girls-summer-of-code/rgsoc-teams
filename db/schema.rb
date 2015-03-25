@@ -49,7 +49,7 @@ ActiveRecord::Schema.define(version: 20150324110320) do
     t.datetime "updated_at"
     t.datetime "applied_at"
     t.integer  "updater_id"
-    t.text     "aasm_state",                  default: "draft", null: false
+    t.text     "state",                       default: "draft", null: false
   end
 
   add_index "application_drafts", ["season_id"], name: "index_application_drafts_on_season_id", using: :btree

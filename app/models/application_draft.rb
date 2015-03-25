@@ -71,11 +71,7 @@ class ApplicationDraft < ActiveRecord::Base
     false # valid?(:apply)
   end
 
-  def state
-    aasm_state
-  end
-
-  aasm :no_direct_assignment => true do
+  aasm :column => :state, :no_direct_assignment => true do
     state :draft, :initial => true
     state :applied
 
