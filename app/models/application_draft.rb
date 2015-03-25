@@ -84,9 +84,7 @@ class ApplicationDraft < ActiveRecord::Base
         self.applied_at = applied_at_time || Time.now
       end
 
-      # If the transition should only happen if the object is `ready?`,
-      # add a :guard => :ready? here
-      transitions :from => :draft, :to => :applied
+      transitions :from => :draft, :to => :applied, :guard => :ready?
     end
   end
 
