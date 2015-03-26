@@ -220,6 +220,7 @@ RSpec.describe ApplicationDraft do
     end
 
     it 'returns "applied" when applied_at is set' do
+      allow(subject).to receive(:ready?).and_return(true)
       subject.submit_application(1.day.ago)
       expect(subject).to be_applied
     end

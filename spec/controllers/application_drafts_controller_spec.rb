@@ -142,6 +142,7 @@ RSpec.describe ApplicationDraftsController do
       end
 
       it 'will not update an application draft that has already been submitted' do
+        allow(draft).to receive(:ready?).and_return(true)
         draft.submit_application(1.hour.ago)
         draft.save
 

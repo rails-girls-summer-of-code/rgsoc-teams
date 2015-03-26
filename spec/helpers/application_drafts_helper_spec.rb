@@ -62,7 +62,12 @@ RSpec.describe ApplicationDraftsHelper do
         end
 
         context 'when the draft has been submitted' do
-          let(:application_draft) { ApplicationDraft.new.tap { |ad| ad.submit_application(1.hour.ago) } }
+          let(:application_draft) do
+            ApplicationDraft.new.tap do |ad|
+              allow(ad).to receive(:ready?).and_return(true)
+              ad.submit_application(1.hour.ago)
+            end
+          end
 
           it 'returns false' do
             expect(may_edit? student).to be_falsey
