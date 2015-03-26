@@ -12,7 +12,7 @@
       li = link_to 'Cancel', @user, class: 'btn btn-default btn-sm'
       li = link_to 'Delete Profile', @user, data: { confirm: 'This action cannot be undone. Are you sure?' }, method: :delete, class: 'btn btn-default btn-sm destroy'
 
-  h1 Edit your profile
+  h1.page-header Edit your profile
 
 = simple_nested_form_for @user do |f|
   - if @user.errors.any?
@@ -42,16 +42,12 @@
 
   = f.input :company_name, label: 'Company name'
   = f.input :company_info, label: 'Company info', hint: 'Where is the office, how much space can you provide, etc.'
-
   = f.input :bio, label: 'About you', hint: 'You can use basic <a href="http://en.wikipedia.org/wiki/Markdown" target="_blank">Markdown</a> here.'.html_safe
-
-  h3 I am interested in:
+  h3.page-header I am interested in:
 
   = f.collection_check_boxes :interested_in, User::INTERESTS.to_a, :first, :last, item_wrapper_tag: 'div', item_wrapper_class: 'interested_in'
 
-  / = f.input :bio, label: 'Comments about your interests', hint: 'Short summary. E.g. if you are interested in mentoring, mention your project.'
-
-  h3 Private information
+  h3.page-header Private information
   p.help-block This information will only be visible to yourself and organizers.
   = f.input :tshirt_size, as: :select, collection: User::TSHIRT_SIZES.map { |k| [k, k] }, label: 'T-Shirt size', blank: false, required: false, hint: 'For sponsor T-Shirts, in case they send some.'
   = f.input :postal_address, hint: "Please give your postal address so we can send things we've received from our sponsors for you :)"
@@ -60,9 +56,10 @@
     | Show application specific information
 
   .collapse#collapseApplicationSpecificInfo
-    h3#application_specific Application-specific information
+    h3#application_specific.page-header Application-specific information
     p.help-block This information will be included in your #{link_to 'application', apply_path, target: :blank} and is visible to your team and to organizers.
     = f.input :application_about, as: :text, label: 'About you', input_html: { rows: '5' }, hint: 'Please tell us a little bit about yourself and your background.'
+    = f.input :application_motivation, label: 'Tell us a little about why you are applying for Rails Girls Summer of Code'
     = f.input :application_gender_identification, label: 'Your gender self-identification', hint: 'No-one is excluded from applying on the basis of gender, but people who self-identify as female, or have experiences being socialized as female, are given preference during selection.'
     h4 Please rate your level of programming experience (1 being the 'lowest' and 5 the 'highest').
     p.help-block Some of our skill level guidelines are specific to ruby, but most are language-agnostic. For each level, assume that the guidelines of the level(s) below it are also true, meaning that if you see yourself as a Level 2, you should be able to do most of Level 1, too.
@@ -76,28 +73,39 @@
          - explanations.each do |l|
           li #{l}
 
-    -# = f.input :learning_since_workshop, collection: time_span_array, label: 'For how many months have you actively been learning after your first workshop?', input_html: { disabled: @application_form.current_user != @application_form.students[0] }
-    = f.input :application_code_samples, as: :text, label: 'Do you have a Github Account or examples of your coding?', input_html: { rows: '5' }
-    = f.input :application_location, as: :string, label: 'Where do you plan to live?'
+    = f.input :application_community_engagement, label: 'Tell us about your Rails Girls involvement!', hint: 'When did you attend your first Rails Girls (or similar) workshop. Have you been involved in organization/coaching/study groups since then? Tell us all about it!'
+    label For how many months have you actively been learning after your first workshop?
+    .form-inline
+      - User::MONTHS_LEARNING.each do |months|
+        .radio
+          = f.radio_button :application_learning_period, months
+          | #{months} months
+        <br>
+      <br>
+
+    = f.input :application_learning_history, label: 'Please summarize what you have been doing to learn programming since your first workshop', hint: '.g. entered a study Group, learning Rails by doing exercises etc.'
+    = f.input :application_skills, label: 'Please give us a short summary of your programming skills', hint: 'What languages, frameworks, and tech tools did you learn? What did you build?'
+    = f.input :application_code_samples, as: :text, label: 'Please link to pull requests you have done or other examples of your coding on GitHub or elsewhere.', input_html: { rows: '5' }
+    = f.input :application_location, as: :string, label: 'Where do you plan to live July-September? (Please write as "City, Country")'
     = f.input :banking_info, label: 'Money transfer information', hint: "Please provide the following information so we can send money to you.<br>For EU: your name, your IBAN and BIC.<br>For US: your name, bank account number, and bank routing number. OR if you cannot receive bank transfers: your address for sending a check (bank transfers are preferred).<br>For all others: name and address, your bank account number, the SWIFT code of your bank and the bank's address.".html_safe
     = f.input :application_minimum_money, as: :text, label: 'How much money do you need at the very minimum per month to sustain yourself while working fulltime on an Open Source project? Please give a short summary of your costs including rent, living costs, special circumstances.', hint: 'The total of the stipend will be decided on case-by-case basis, taking into consideration data from the world bank plus individual living situations.', input_html: { rows: 4 }
 
   - if admin?
-    h3 Conferences
+    h3.page-header Conferences
     fieldset.conferences
       .header
         label Conference
       = f.simple_fields_for :attendances do |s|
         = s.input :conference_id, as: :select, collection: conferences, required: false, label: false
         = s.link_to_remove 'Remove'
-      = f.link_to_add 'Add another conference', :attendances
+      = f.link_to_add 'Add another conference', :attendances, class: 'btn btn-primary form-btn-group'
 
-    h3 Roles
+    h3.page-header Roles
     = f.simple_fields_for :roles do |r|
         = r.input :team_id, as: :select, collection: @teams, required: false
         = r.input :name, as: :select, collection: Role::ROLES
-        = r.link_to_remove 'Remove'
-    = f.link_to_add 'Add another role', :roles
+        = r.link_to_remove 'Remove', class: 'btn btn-default'
+    = f.link_to_add 'Add another role', :roles, class: 'btn btn-primary form-btn-group'
 
   .actions
     ul.list-inline

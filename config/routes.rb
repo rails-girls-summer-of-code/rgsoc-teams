@@ -33,10 +33,12 @@ RgsocTeams::Application.routes.draw do
   end
 
   resources :application_drafts, except: [:show, :destroy] do
-    put :apply, on: :member
+    member do
+      put :apply
+      get :check
+    end
   end
 
-  resources :form_applications
   get 'application', to: 'applications#new'
   get 'application_forms', to: 'applications#new'
   post 'application_forms', to: 'applications#create'

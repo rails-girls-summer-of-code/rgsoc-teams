@@ -25,6 +25,15 @@ class User < ActiveRecord::Base
     'coachingcompany' => 'Providing a coaching team from our company',
   }
 
+  MONTHS_LEARNING = [
+    "1-3",
+    "4-6",
+    "7-9",
+    "10-12",
+    "12-24",
+    "24+",
+  ]
+
   include ActiveModel::ForbiddenAttributesProtection
   include Authentication::ActiveRecordHelpers
   include ProfilesHelper
@@ -50,6 +59,7 @@ class User < ActiveRecord::Base
   end
   has_many :applications
   has_many :teams, -> { uniq }, through: :roles
+  has_many :application_drafts, through: :teams
   has_many :attendances
   has_many :conferences, through: :attendances
 

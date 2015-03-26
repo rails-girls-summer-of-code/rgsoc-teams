@@ -2,9 +2,14 @@ class ApplicationDraftsController < ApplicationController
 
   before_action :checktime
   before_action :sign_in_required
-  before_action :continue_draft, only: :new
+  before_action :ensure_max_applications, only: :new
+  before_action :disallow_modifications_after_submission, only: :update
 
   helper_method :application_draft
+
+  def index
+    @application_drafts = current_user.application_drafts.order('created_at DESC')
+  end
 
   def new
     redirect_to new_team_path, alert: 'You need to be in a team as a student' unless current_user.student?
@@ -14,7 +19,7 @@ class ApplicationDraftsController < ApplicationController
     application_draft.assign_attributes(application_draft_params)
     if application_draft.save
       update_student!
-      notice = "Your application draft was saved. You can access it under »#{view_context.link_to "My application", apply_path}«".html_safe
+      notice = "Your application draft was saved. You can access it under »#{view_context.link_to "My applications", apply_path}«".html_safe
       redirect_to [:edit, application_draft], notice: notice
     else
       render :new
@@ -36,6 +41,15 @@ class ApplicationDraftsController < ApplicationController
     end
   end
 
+  def check
+    if application_draft.valid?(:apply)
+      flash[:notice] = "You're ready to apply \o/"
+    else
+      flash[:alert]  = 'There are still some fields missing'
+    end
+    render :new
+  end
+
   protected
 
   def application_draft
@@ -43,7 +57,7 @@ class ApplicationDraftsController < ApplicationController
                              current_team.application_drafts.find(params[:id])
                            else
                              current_team.application_drafts.new(team: current_team)
-                           end.tap { |draft| draft.current_user = current_user }
+                           end.tap { |draft| draft.assign_attributes(current_user: current_user, updater: current_user) }
   end
 
   def application_draft_params
@@ -62,7 +76,9 @@ class ApplicationDraftsController < ApplicationController
       # TODO: Do we need an index? Maybe just compare id with current_student.id
       params[:student].
         permit(
-          :name, :application_about, :application_gender_identification, :application_coding_level,
+          :name, :application_about, :application_motivation, :application_gender_identification,
+          :application_coding_level, :application_community_engagement, :application_learning_period,
+          :application_learning_history, :application_skills,
           :application_code_samples, :application_location, :banking_info, :application_minimum_money
       )
     else
@@ -78,8 +94,16 @@ class ApplicationDraftsController < ApplicationController
     render :ended unless current_season.application_period?
   end
 
-  def continue_draft
-    redirect_to [:edit, open_draft] if open_draft
+  def disallow_modifications_after_submission
+    if application_draft.state.applied?
+      redirect_to application_drafts_path, alert: 'You cannot modify this application anymore'
+    end
+  end
+
+  def ensure_max_applications
+    if current_student.current_drafts.size > 1
+      redirect_to application_drafts_path, alert: 'You cannot lodge more than two applications'
+    end
   end
 
   def current_team

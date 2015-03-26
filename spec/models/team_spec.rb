@@ -62,6 +62,31 @@ describe Team do
 
   it_behaves_like 'HasSeason'
 
+  context 'with scopes' do
+    let!(:team) { create :team, kind: nil }
+
+    describe '.visible' do
+
+      it 'returns teams that are not marked invisible' do
+        expect(described_class.visible).to eq [team]
+      end
+
+      it 'will not return an invisible team' do
+        team.update(invisible: true)
+        expect(described_class.visible).to eq []
+      end
+
+      context 'with accepted teams' do
+        let(:kind) { described_class::KINDS.sample }
+        before { team.update kind: kind, invisible: true }
+
+        it 'will always return accepted teams' do
+          expect(described_class.visible).to eq [team]
+        end
+      end
+    end
+  end
+
   describe 'creating a new team' do
     before do
       Team.destroy_all

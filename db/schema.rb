@@ -11,27 +11,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150305071531) do
+ActiveRecord::Schema.define(version: 20150325192031) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "hstore"
 
-  create_table "activities", force: true do |t|
+  create_table "activities", force: :cascade do |t|
     t.integer  "team_id"
-    t.string   "kind"
-    t.string   "guid"
-    t.string   "author"
-    t.string   "title"
+    t.string   "kind",         limit: 255
+    t.string   "guid",         limit: 255
+    t.string   "author",       limit: 255
+    t.string   "title",        limit: 255
     t.text     "content"
-    t.string   "source_url"
+    t.string   "source_url",   limit: 255
     t.datetime "published_at"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
-    t.string   "img_url"
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+    t.string   "img_url",      limit: 255
   end
 
-  create_table "application_drafts", force: true do |t|
+  create_table "application_drafts", force: :cascade do |t|
     t.text     "coaches_contact_info"
     t.text     "coaches_hours_per_week"
     t.text     "coaches_why_team_successful"
@@ -39,7 +39,7 @@ ActiveRecord::Schema.define(version: 20150305071531) do
     t.text     "project_url"
     t.text     "misc_info"
     t.text     "heard_about_it"
-    t.string   "signed_off_by"
+    t.string   "signed_off_by",               limit: 255
     t.datetime "signed_off_at"
     t.integer  "team_id"
     t.integer  "season_id"
@@ -47,29 +47,31 @@ ActiveRecord::Schema.define(version: 20150305071531) do
     t.integer  "voluntary_hours_per_week"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.datetime "applied_at"
+    t.integer  "updater_id"
   end
 
   add_index "application_drafts", ["season_id"], name: "index_application_drafts_on_season_id", using: :btree
   add_index "application_drafts", ["team_id"], name: "index_application_drafts_on_team_id", using: :btree
 
-  create_table "applications", force: true do |t|
-    t.string   "name"
-    t.string   "email"
+  create_table "applications", force: :cascade do |t|
+    t.string   "name",                          limit: 255
+    t.string   "email",                         limit: 255
     t.hstore   "application_data"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_id"
-    t.string   "gender_identification_student"
-    t.string   "gender_identification_pair"
+    t.string   "gender_identification_student", limit: 255
+    t.string   "gender_identification_pair",    limit: 255
     t.text     "misc_info"
-    t.string   "sponsor_pick"
+    t.string   "sponsor_pick",                  limit: 255
     t.integer  "project_visibility"
-    t.string   "project_name"
+    t.string   "project_name",                  limit: 255
     t.boolean  "hidden"
-    t.text     "flags",                         default: [], array: true
-    t.string   "country"
-    t.string   "city"
-    t.string   "coaching_company"
+    t.text     "flags",                                     default: [], array: true
+    t.string   "country",                       limit: 255
+    t.string   "city",                          limit: 255
+    t.string   "coaching_company",              limit: 255
     t.integer  "form_application_id"
     t.integer  "season_id"
     t.integer  "team_id"
@@ -78,7 +80,7 @@ ActiveRecord::Schema.define(version: 20150305071531) do
   add_index "applications", ["season_id"], name: "index_applications_on_season_id", using: :btree
   add_index "applications", ["team_id"], name: "index_applications_on_team_id", using: :btree
 
-  create_table "attendances", force: true do |t|
+  create_table "attendances", force: :cascade do |t|
     t.integer  "conference_id"
     t.integer  "user_id"
     t.boolean  "confirmed"
@@ -86,7 +88,7 @@ ActiveRecord::Schema.define(version: 20150305071531) do
     t.datetime "updated_at",    null: false
   end
 
-  create_table "comments", force: true do |t|
+  create_table "comments", force: :cascade do |t|
     t.integer  "team_id"
     t.integer  "user_id"
     t.text     "text"
@@ -95,54 +97,38 @@ ActiveRecord::Schema.define(version: 20150305071531) do
     t.integer  "application_id"
   end
 
-  create_table "conferences", force: true do |t|
-    t.string   "name"
-    t.string   "location"
-    t.string   "twitter"
-    t.string   "url"
+  create_table "conferences", force: :cascade do |t|
+    t.string   "name",         limit: 255
+    t.string   "location",     limit: 255
+    t.string   "twitter",      limit: 255
+    t.string   "url",          limit: 255
     t.date     "starts_on"
     t.date     "ends_on"
     t.integer  "tickets"
     t.integer  "accomodation"
     t.integer  "flights"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
   end
 
-  create_table "events", force: true do |t|
-    t.string   "name"
+  create_table "events", force: :cascade do |t|
+    t.string   "name",       limit: 255
     t.date     "start_date"
     t.date     "end_date"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "form_applications", force: true do |t|
-    t.string   "name"
-    t.string   "email"
-    t.text     "about_student"
-    t.text     "location"
-    t.text     "attended_rg_workshop"
-    t.text     "coding_level"
-    t.text     "skills"
-    t.text     "learning_summary"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "project_name"
-    t.hstore   "application_data"
-    t.boolean  "submitted"
-  end
-
-  create_table "job_offers", force: true do |t|
-    t.string   "title"
+  create_table "job_offers", force: :cascade do |t|
+    t.string   "title",         limit: 255
     t.text     "description"
-    t.string   "url"
-    t.string   "company_name"
-    t.string   "contact_name"
-    t.string   "contact_email"
-    t.string   "contact_phone"
-    t.string   "location"
-    t.string   "duration"
+    t.string   "url",           limit: 255
+    t.string   "company_name",  limit: 255
+    t.string   "contact_name",  limit: 255
+    t.string   "contact_email", limit: 255
+    t.string   "contact_phone", limit: 255
+    t.string   "location",      limit: 255
+    t.string   "duration",      limit: 255
     t.boolean  "paid"
     t.boolean  "rgsoc_only"
     t.text     "misc_info"
@@ -150,26 +136,26 @@ ActiveRecord::Schema.define(version: 20150305071531) do
     t.datetime "updated_at"
   end
 
-  create_table "mailings", force: true do |t|
-    t.string   "from"
-    t.string   "to"
-    t.string   "cc"
-    t.string   "bcc"
-    t.string   "subject"
+  create_table "mailings", force: :cascade do |t|
+    t.string   "from",       limit: 255
+    t.string   "to",         limit: 255
+    t.string   "cc",         limit: 255
+    t.string   "bcc",        limit: 255
+    t.string   "subject",    limit: 255
     t.text     "body"
     t.datetime "sent_at"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
   end
 
-  create_table "projects", force: true do |t|
-    t.string   "name"
+  create_table "projects", force: :cascade do |t|
+    t.string   "name",       limit: 255
     t.integer  "team_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "ratings", force: true do |t|
+  create_table "ratings", force: :cascade do |t|
     t.integer  "application_id"
     t.text     "data"
     t.datetime "created_at"
@@ -178,99 +164,101 @@ ActiveRecord::Schema.define(version: 20150305071531) do
     t.boolean  "pick"
   end
 
-  create_table "roles", force: true do |t|
+  create_table "roles", force: :cascade do |t|
     t.integer  "team_id"
     t.integer  "user_id"
-    t.string   "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string   "name",       limit: 255
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
   end
 
-  create_table "seasons", force: true do |t|
+  create_table "seasons", force: :cascade do |t|
     t.date     "starts_at"
     t.date     "ends_at"
-    t.string   "name"
+    t.string   "name",                  limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "applications_open_at"
     t.datetime "applications_close_at"
   end
 
-  create_table "sources", force: true do |t|
-    t.string   "url"
+  create_table "sources", force: :cascade do |t|
+    t.string   "url",        limit: 255
     t.integer  "team_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string   "kind"
-    t.string   "feed_url"
-    t.string   "title"
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+    t.string   "kind",       limit: 255
+    t.string   "feed_url",   limit: 255
+    t.string   "title",      limit: 255
   end
 
-  create_table "submissions", force: true do |t|
+  create_table "submissions", force: :cascade do |t|
     t.integer  "mailing_id"
-    t.string   "to"
+    t.string   "to",         limit: 255
     t.text     "error"
     t.datetime "sent_at"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
   end
 
-  create_table "teams", force: true do |t|
-    t.string   "name"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
-    t.string   "log_url"
+  create_table "teams", force: :cascade do |t|
+    t.string   "name",            limit: 255
+    t.datetime "created_at",                                  null: false
+    t.datetime "updated_at",                                  null: false
+    t.string   "log_url",         limit: 255
     t.text     "description"
     t.integer  "number"
-    t.string   "kind"
-    t.string   "twitter_handle"
-    t.string   "github_handle"
+    t.string   "kind",            limit: 255
+    t.string   "twitter_handle",  limit: 255
+    t.string   "github_handle",   limit: 255
     t.date     "starts_on"
     t.date     "finishes_on"
-    t.string   "post_info"
+    t.string   "post_info",       limit: 255
     t.integer  "event_id"
     t.date     "last_checked_at"
     t.integer  "last_checked_by"
     t.integer  "season_id"
+    t.boolean  "invisible",                   default: false
   end
 
   add_index "teams", ["season_id"], name: "index_teams_on_season_id", using: :btree
 
-  create_table "users", force: true do |t|
+  create_table "users", force: :cascade do |t|
     t.integer  "github_id"
-    t.string   "github_handle"
-    t.string   "name"
-    t.string   "email"
-    t.string   "location"
+    t.string   "github_handle",                     limit: 255
+    t.string   "name",                              limit: 255
+    t.string   "email",                             limit: 255
+    t.string   "location",                          limit: 255
     t.text     "bio"
-    t.string   "homepage"
-    t.string   "avatar_url"
-    t.datetime "created_at",                                       null: false
-    t.datetime "updated_at",                                       null: false
+    t.string   "homepage",                          limit: 255
+    t.string   "avatar_url",                        limit: 255
+    t.datetime "created_at",                                                    null: false
+    t.datetime "updated_at",                                                    null: false
     t.integer  "team_id"
-    t.string   "twitter_handle"
-    t.string   "irc_handle"
-    t.string   "tshirt_size"
+    t.string   "twitter_handle",                    limit: 255
+    t.string   "irc_handle",                        limit: 255
+    t.string   "tshirt_size",                       limit: 255
     t.text     "banking_info"
     t.text     "postal_address"
-    t.string   "timezone"
-    t.string   "interested_in",                    default: [],                 array: true
+    t.string   "timezone",                          limit: 255
+    t.string   "interested_in",                                 default: [],                 array: true
     t.boolean  "hide_email"
-    t.boolean  "is_company",                       default: false
-    t.string   "company_name"
+    t.boolean  "is_company",                                    default: false
+    t.string   "company_name",                      limit: 255
     t.text     "company_info"
-    t.string   "country"
+    t.string   "country",                           limit: 255
     t.boolean  "application_voluntary"
     t.integer  "application_coding_level"
-    t.string   "application_gender_identification"
-    t.string   "application_learning_period"
-    t.string   "application_minimum_money"
+    t.string   "application_gender_identification", limit: 255
+    t.string   "application_learning_period",       limit: 255
+    t.text     "application_minimum_money"
     t.text     "application_about"
     t.text     "application_code_samples"
     t.text     "application_community_engagement"
     t.text     "application_learning_history"
     t.text     "application_location"
     t.text     "application_skills"
+    t.text     "application_motivation"
   end
 
 end

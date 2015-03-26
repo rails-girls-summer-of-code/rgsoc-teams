@@ -1,0 +1,29 @@
+nav.actions
+  ul
+    li = link_to 'New Application Draft', new_application_draft_path, class: 'btn btn-primary btn-small', disabled: !can?(:create, :application_draft), title: ("You cannot lodge another application" unless can?(:create, :application))
+
+h1.header
+  = icon('inbox')
+  span Application Drafts
+
+table.table.table-striped.table-bordered.table-condensed
+  thead
+    tr
+      th Project Name
+      th Team
+      th Created
+      th Updated
+      th Your Role
+      th Status
+  tbody
+    - @application_drafts.each do |draft|
+      tr
+        td= link_to (draft.project_name.presence || '<Pending>'), edit_application_draft_path(draft)
+        td= link_to draft.team.display_name, team_path(draft.team), class: "team #{draft.team.kind}"
+        td= draft.created_at
+        td
+          = draft.updated_at
+          - if draft.updater
+           |  by #{link_to draft.updater.github_handle, draft.updater}
+        td= draft.role_for(current_user)
+        td= draft_state(draft)

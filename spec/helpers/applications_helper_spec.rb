@@ -48,4 +48,5 @@ describe ApplicationsHelper do
       expect(application_classes_for(application)).to match('volunteering_team')
     end
   end
+
 end

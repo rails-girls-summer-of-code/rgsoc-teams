@@ -5,14 +5,15 @@ RSpec.describe ApplicationDraftsHelper do
   describe '#may_edit?' do
     let(:student_role) { create :student_role }
     let(:student) { student_role.user }
+    let(:stranger) { build_stubbed(:user) }
+    let(:application_draft) { double.as_null_object }
 
     before do
       allow(self).to receive(:current_student).and_return(stranger)
+      allow(self).to receive(:application_draft).and_return(application_draft)
     end
 
     context 'when not logged in' do
-      let(:stranger) { build_stubbed(:user) }
-
       it 'returns false for nil' do
         expect(may_edit?(nil)).to be_falsey
       end
@@ -52,11 +53,23 @@ RSpec.describe ApplicationDraftsHelper do
       end
 
       context 'as the student herself' do
-        it 'returns true' do
+        before do
           allow(self).to receive(:current_student).and_return(student)
+        end
+
+        it 'returns true' do
           expect(may_edit? student).to be_truthy
+        end
+
+        context 'when the draft has been submitted' do
+          let(:application_draft) { ApplicationDraft.new(applied_at: 1.hour.ago) }
+
+          it 'returns false' do
+            expect(may_edit? student).to be_falsey
+          end
         end
       end
     end
+
   end
 end

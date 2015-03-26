@@ -14,7 +14,7 @@ nav.page
   p.attention
     | Please also read our
       #{link_to "Student Application Guide", "http://railsgirlssummerofcode.org/students/application/"}
-      if you haven't already. Applications must be submitted before <strong>#{current_season.applications_close_at.strftime('%A, %d %B %Y')}</strong>.
+      if you haven't already. Applications must be submitted before <strong>#{l current_season.applications_close_at, format: :precise}</strong>.
 
 h1 New team
 

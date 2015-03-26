@@ -61,9 +61,10 @@ end
 group :test do
   gem 'shoulda'
   gem 'shoulda-matchers'
-  gem 'ffaker'
+  gem 'ffaker', '~> 1.24'
   gem 'webmock'
   gem 'coveralls', require: false
   gem 'timecop'
   gem "codeclimate-test-reporter", require: false
+  gem 'rspec-collection_matchers'
 end
