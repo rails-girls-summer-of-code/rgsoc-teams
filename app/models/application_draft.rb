@@ -2,6 +2,8 @@ class ApplicationDraft < ActiveRecord::Base
 
   include HasSeason
 
+  include AASM
+
   # FIXME
   STUDENT0_REQUIRED_FIELDS = Student::REQUIRED_DRAFT_FIELDS.map { |m| "student0_#{m}" }
   STUDENT1_REQUIRED_FIELDS = Student::REQUIRED_DRAFT_FIELDS.map { |m| "student1_#{m}" }
@@ -69,8 +71,17 @@ class ApplicationDraft < ActiveRecord::Base
     false # valid?(:apply)
   end
 
-  def state
-    (applied_at? ? 'applied' : 'draft').inquiry
+  aasm :column => :state, :no_direct_assignment => true do
+    state :draft, :initial => true
+    state :applied
+
+    event :submit_application do
+      after do |applied_at_time = nil|
+        self.applied_at = applied_at_time || Time.now
+      end
+
+      transitions :from => :draft, :to => :applied, :guard => :ready?
+    end
   end
 
   private
