@@ -53,7 +53,8 @@ module RgsocTeams
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
 
-    config.active_record.disable_implicit_join_references = true
+    # REMOVED IN RAILS 4.1. 
+    #config.active_record.disable_implicit_join_references = true
 
     config.i18n.enforce_available_locales = true
 
