@@ -204,8 +204,8 @@ ActiveRecord::Schema.define(version: 20150325192031) do
 
   create_table "teams", force: true do |t|
     t.string   "name"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
     t.string   "log_url"
     t.text     "description"
     t.integer  "number"
