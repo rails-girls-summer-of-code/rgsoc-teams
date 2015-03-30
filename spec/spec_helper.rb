@@ -17,7 +17,7 @@ if ENV['COVERAGE']
     add_filter '/spec'
     add_group 'Models', 'app/models'
     add_group 'Controllers', 'app/controllers'
-    coverage_dir File.join('coverage', Time.now.strftime('%Y%m%d-%H%M%S'))
+    coverage_dir File.join('coverage', Time.zone.now.strftime('%Y%m%d-%H%M%S'))
   end
 end
 

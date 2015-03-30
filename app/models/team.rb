@@ -92,7 +92,7 @@ class Team < ActiveRecord::Base
   private
 
   def set_last_checked
-    self.last_checked_at = Time.now
+    self.last_checked_at = Time.zone.now
     self.last_checked_by = checked.is_a?(String) ? checked.to_i : checked.id
   end
 
