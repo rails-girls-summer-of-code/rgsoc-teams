@@ -8,7 +8,7 @@ describe Recipients do
 
   describe '#emails' do
     it 'collects all email addresses' do
-      user_email = Faker::Internet.email
+      user_email = FFaker::Internet.email
       allow(recipients).to receive_messages user_emails: [user_email]
       expect(recipients.emails).to eq([mailing.cc, mailing.bcc, user_email])
     end

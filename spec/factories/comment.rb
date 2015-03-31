@@ -1,7 +1,7 @@
 FactoryGirl.define do
   factory :comment do
     user
-    text { Faker::Lorem.paragraph }
+    text { FFaker::Lorem.paragraph }
 
     factory :team_comment do
       team
