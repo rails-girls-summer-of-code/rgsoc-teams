@@ -22,7 +22,7 @@ class SubmissionWorker
     logger.info e.message
     submission.error = e.message
   ensure
-    submission.sent_at = Time.zone.now
+    submission.sent_at = Time.now
     submission.save!
   end
 end

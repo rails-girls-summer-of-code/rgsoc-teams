@@ -10,15 +10,15 @@ class Season < ActiveRecord::Base
   end
 
   def application_period?
-   Time.zone.now.utc.between? applications_open_at, applications_close_at
+   Time.now.utc.between? applications_open_at, applications_close_at
   end
 
   def applications_open?
-    Time.zone.now.utc >= (applications_open_at || 1.week.from_now)
+    Time.now.utc >= (applications_open_at || 1.week.from_now)
   end
 
   def started?
-    Time.zone.now.utc >= (starts_at || 1.week.from_now)
+    Time.now.utc >= (starts_at || 1.week.from_now)
   end
 
   private

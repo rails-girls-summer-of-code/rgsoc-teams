@@ -3,7 +3,7 @@ h1.header
   span Community
 
 = render partial: 'users/roles'
-- if Time.zone.now.utc < (current_season.starts_at || Date.new)
+- if Time.now.utc < (current_season.starts_at || Date.new)
   = render partial: 'users/interests'
 
 - if admin?

@@ -77,7 +77,7 @@ class ApplicationDraft < ActiveRecord::Base
 
     event :submit_application do
       after do |applied_at_time = nil|
-        self.applied_at = applied_at_time || Time.zone.now
+        self.applied_at = applied_at_time || Time.now
       end
 
       transitions :from => :draft, :to => :applied, :guard => :ready?
