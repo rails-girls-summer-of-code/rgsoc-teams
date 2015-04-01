@@ -52,10 +52,10 @@ describe CommentsController do
           enqueued_jobs.select do |job|
             job[:job] == ActionMailer::DeliveryJob &&
             job[:args][0] == 'CommentMailer' &&
-            job[:args][1] == 'email' &&
-            job[:args][3] == comment
+            job[:args][1] == 'email'
           end
         end
+
         subject do
           post :create,
                 { comment: valid_attributes.merge(team_id: team.id) },
@@ -67,7 +67,7 @@ describe CommentsController do
         end
 
         it 'creates a new Comment and redirects to team page' do
-          expect(comment.present?).to eq(true)
+          expect(comment.persisted?).to eq(true)
           expect(response).to redirect_to team
         end
 
