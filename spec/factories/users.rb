@@ -1,12 +1,12 @@
 FactoryGirl.define do
   factory :user, aliases: [:member] do
-    github_handle { Faker::Name.name.underscore }
-    name     { Faker::Name.name }
-    email    { Faker::Internet.email }
-    location { Faker::Address.city }
-    country  { Faker::Address.country }
-    bio      { Faker::Lorem.paragraph }
-    homepage { Faker::Internet.http_url }
+    github_handle { FFaker::Name.name.underscore }
+    name     { FFaker::Name.name }
+    email    { FFaker::Internet.email }
+    location { FFaker::Address.city }
+    country  { FFaker::Address.country }
+    bio      { FFaker::Lorem.paragraph }
+    homepage { FFaker::Internet.http_url }
 
     factory :coach do
       after(:create) do |user|

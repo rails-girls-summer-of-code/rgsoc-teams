@@ -204,7 +204,7 @@ h2 'CONFERENCES RAFFLE'
 msg 'Available tickets:', *table(:confs, confs.map(&:to_row))
 pause :long
 
-start = Time.now
+start = Time.zone.now
 round = 0
 
 begin
@@ -279,5 +279,5 @@ LOG.close
 sleep 1000
 puts
 puts
-puts "\n\nTime taken: #{Time.now - start}"
+puts "\n\nTime taken: #{Time.zone.now - start}"
 puts

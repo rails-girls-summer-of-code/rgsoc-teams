@@ -17,7 +17,7 @@ if ENV['COVERAGE']
     add_filter '/spec'
     add_group 'Models', 'app/models'
     add_group 'Controllers', 'app/controllers'
-    coverage_dir File.join('coverage', Time.now.strftime('%Y%m%d-%H%M%S'))
+    coverage_dir File.join('coverage', Time.zone.now.strftime('%Y%m%d-%H%M%S'))
   end
 end
 
@@ -32,7 +32,7 @@ require 'cancan/matchers'
 require 'sucker_punch/testing/inline'
 require 'factory_girl_rails'
 
-ENV['EMAIL_FROM'] = Faker::Internet.email
+ENV['EMAIL_FROM'] = FFaker::Internet.email
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.

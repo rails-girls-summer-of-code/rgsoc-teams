@@ -3,7 +3,7 @@ require 'spec_helper'
 describe CommentsController do
   render_views
 
-  let(:valid_attributes) { { "text" => Faker::Lorem.paragraph } }
+  let(:valid_attributes) { { "text" => FFaker::Lorem.paragraph } }
   let(:valid_session) { {} }
   let(:user) { FactoryGirl.create(:user) }
   let(:team) { FactoryGirl.create(:team) }

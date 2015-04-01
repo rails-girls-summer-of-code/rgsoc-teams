@@ -12,7 +12,7 @@ describe Comment do
 
   describe '.ordered' do
     it 'returns comments orderd DESC by created_at' do
-      @first_comment.update_attribute(:created_at, Time.now - 2.days)
+      @first_comment.update_attribute(:created_at, Time.zone.now - 2.days)
       expect(Comment.ordered.count).to eq(2)
       expect(Comment.ordered.first).to eq(@second_comment)
     end
