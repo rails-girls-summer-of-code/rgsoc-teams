@@ -142,7 +142,10 @@ RSpec.describe ApplicationDraftsController do
       end
 
       it 'will not update an application draft that has already been submitted' do
-        draft.update applied_at: 1.hour.ago
+        allow(draft).to receive(:ready?).and_return(true)
+        draft.submit_application(1.hour.ago)
+        draft.save
+
         expect {
           patch :update, id: draft.to_param, application_draft: { misc_info: 'Foo!' }
         }.not_to change { draft.reload.misc_info }

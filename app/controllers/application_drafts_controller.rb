@@ -95,7 +95,7 @@ class ApplicationDraftsController < ApplicationController
   end
 
   def disallow_modifications_after_submission
-    if application_draft.state.applied?
+    if application_draft.applied?
       redirect_to application_drafts_path, alert: 'You cannot modify this application anymore'
     end
   end
