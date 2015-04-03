@@ -1,7 +1,7 @@
 class CommentsController < ApplicationController
   def create
     comment = Comment.create(comment_params)
-    CommentMailer.email(comment).deliver unless comment.for_application?
+    CommentMailer.email(comment).deliver_later unless comment.for_application?
     redirect_to comment.team || comment.application
   end
 
