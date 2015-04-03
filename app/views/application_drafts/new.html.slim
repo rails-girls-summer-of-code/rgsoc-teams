@@ -51,7 +51,7 @@ p.attention
     = f.input :voluntary, as: :boolean, label: 'We could join the RGSoC as a voluntary team', input_html: { disabled: !application_draft.as_student? || application_draft.applied? }
     = f.input :voluntary_hours_per_week, as: :integer, label: 'As a voluntary team, how many hours per week would you be able to work in the project?', input_html: { disabled: !application_draft.as_student? || application_draft.applied? }
     = f.input :heard_about_it, as: :text, label: 'How have you heard about the program?', input_html: { rows: 3, disabled: !application_draft.as_student? || application_draft.applied? }
-    = f.input :misc_info, as: :text, label: 'Anything else to add?', input_html: { rows: 4 }, hint: 'Address anything that you feel is relevant to your application and was not covered previously.', input_html: { disabled: !application_draft.as_student? || application_draft.applied? }
+    = f.input :misc_info, as: :text, label: 'Anything else to add?', hint: 'Address anything that you feel is relevant to your application and was not covered previously.', input_html: { rows: 4, disabled: !application_draft.as_student? || application_draft.applied? }
 
   - if application_draft.draft?
     .actions
