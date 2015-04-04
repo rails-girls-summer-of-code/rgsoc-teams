@@ -13,7 +13,7 @@ RSpec.describe CreatesApplicationFromDraft do
   end
 
   describe '#save' do
-    let(:application_draft) { create :application_draft, :appliable, team: team }
+    let(:application_draft) { create :application_draft, :appliable }
     let(:team)              { create :team, :applying_team }
 
     context 'with a draft that is not ready yet' do
