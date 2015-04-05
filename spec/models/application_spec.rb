@@ -41,7 +41,7 @@ describe Application do
 
   describe 'scopes' do
     describe '.hidden' do
-      it 'retruns only hidden applications' do
+      it 'returns only hidden applications' do
         expect(Application.hidden.where_values).to eq(
           ["applications.hidden IS NOT NULL and applications.hidden = 't'"]
         )
@@ -49,7 +49,7 @@ describe Application do
     end
 
     describe '.visible' do
-      it 'retruns only visible applications' do
+      it 'returns only visible applications' do
         expect(Application.visible.where_values).to eq(
           ["applications.hidden IS NULL or applications.hidden = 'f'"]
         )
