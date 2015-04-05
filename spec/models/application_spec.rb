@@ -6,7 +6,10 @@ describe Application do
   it { is_expected.to validate_presence_of(:application_data) }
   it { is_expected.to validate_presence_of(:team) }
 
-  it { should belong_to(:team) }
+  context 'with associations' do
+    it { is_expected.to belong_to(:team) }
+    it { is_expected.to belong_to(:application_draft) }
+  end
 
   describe '#average_skill_level' do
     subject { super().average_skill_level }

@@ -1,7 +1,9 @@
 class Application < ActiveRecord::Base
   include HasSeason
 
+  belongs_to :application_draft
   belongs_to :team
+
   validates :team, :application_data, presence: true
 
   PROJECT_VISIBILITY_WEIGHT = ENV['PROJECT_VISIBILITY_WEIGHT'] || 2
