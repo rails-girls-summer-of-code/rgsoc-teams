@@ -40,7 +40,7 @@ Requirements:
 ## System Requirements
 
 * PostgreSQL 9.2 or newer
-* Ruby 2.1.1
+* Ruby 2.2.1
 
 ## Bootstrap
 

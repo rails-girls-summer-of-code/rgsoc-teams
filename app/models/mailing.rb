@@ -16,7 +16,7 @@ class Mailing < ActiveRecord::Base
       submissions.unsent.each { |submission| submission.enqueue }
     else
       emails.each { |email| submissions.create!(to: email) }
-      update_attributes! sent_at: Time.now
+      update_attributes! sent_at: Time.now.utc
       Activity.create!(kind: 'mailing', guid: id, author: from, title: subject, content: body, published_at: sent_at)
     end
   end
