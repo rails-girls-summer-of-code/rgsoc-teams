@@ -2,8 +2,7 @@ class Application < ActiveRecord::Base
   include HasSeason
 
   belongs_to :team
-  belongs_to :user
-  validates :team, :name, :email, :application_data, presence: true
+  validates :team, :application_data, presence: true
 
   PROJECT_VISIBILITY_WEIGHT = ENV['PROJECT_VISIBILITY_WEIGHT'] || 2
   COACHING_COMPANY_WEIGHT = ENV['COACHING_COMPANY_WEIGHT'] || 2

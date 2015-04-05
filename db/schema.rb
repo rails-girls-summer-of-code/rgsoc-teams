@@ -58,12 +58,9 @@ ActiveRecord::Schema.define(version: 20150406123511) do
   add_index "application_drafts", ["team_id"], name: "index_application_drafts_on_team_id", using: :btree
 
   create_table "applications", force: true do |t|
-    t.string   "name"
-    t.string   "email"
     t.hstore   "application_data"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "user_id"
     t.string   "gender_identification_student"
     t.string   "gender_identification_pair"
     t.text     "misc_info"

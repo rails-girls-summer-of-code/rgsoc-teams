@@ -3,8 +3,6 @@ require 'spec_helper'
 describe Application do
   subject { FactoryGirl.build_stubbed(:application) }
 
-  it { is_expected.to validate_presence_of(:name) }
-  it { is_expected.to validate_presence_of(:email) }
   it { is_expected.to validate_presence_of(:application_data) }
   it { is_expected.to validate_presence_of(:team) }
 

@@ -57,7 +57,6 @@ class User < ActiveRecord::Base
       where(name: 'student')
     end
   end
-  has_many :applications
   has_many :teams, -> { uniq }, through: :roles
   has_many :application_drafts, through: :teams
   has_many :attendances
