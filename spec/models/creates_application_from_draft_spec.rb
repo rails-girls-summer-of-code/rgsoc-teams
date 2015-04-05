@@ -44,7 +44,8 @@ RSpec.describe CreatesApplicationFromDraft do
       end
 
       it 'sets the saison' do
-        skip
+        expect(subject.season).to be_present
+        expect(subject.season).to eql application_draft.season
       end
 
       it 'adds a database reference to itself' do

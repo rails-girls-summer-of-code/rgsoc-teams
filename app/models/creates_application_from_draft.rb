@@ -20,6 +20,7 @@ class CreatesApplicationFromDraft
       team: team,
       application_draft: application_draft,
       application_data: application_data,
+      season: application_draft.season,
     }
   end
 
