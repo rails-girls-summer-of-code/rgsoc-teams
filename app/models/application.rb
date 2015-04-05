@@ -3,7 +3,7 @@ class Application < ActiveRecord::Base
 
   belongs_to :team
   belongs_to :user
-  validates_presence_of :user_id, :name, :email, :application_data
+  validates :team, :name, :email, :application_data, presence: true
 
   PROJECT_VISIBILITY_WEIGHT = ENV['PROJECT_VISIBILITY_WEIGHT'] || 2
   COACHING_COMPANY_WEIGHT = ENV['COACHING_COMPANY_WEIGHT'] || 2

@@ -6,6 +6,7 @@ describe Application do
   it { is_expected.to validate_presence_of(:name) }
   it { is_expected.to validate_presence_of(:email) }
   it { is_expected.to validate_presence_of(:application_data) }
+  it { is_expected.to validate_presence_of(:team) }
 
   it { should belong_to(:team) }
 
