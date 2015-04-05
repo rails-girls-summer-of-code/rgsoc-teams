@@ -34,6 +34,10 @@ class ApplicationDraft < ActiveRecord::Base
     end                                                  # end
   end
 
+  def respond_to_missing?(method, *)
+    StudentAttributeProxy.new(method, self).matches? || super
+  end
+
   def method_missing(method, *args, &block)
     student_proxy = StudentAttributeProxy.new(method, self)
     if student_proxy.matches?
