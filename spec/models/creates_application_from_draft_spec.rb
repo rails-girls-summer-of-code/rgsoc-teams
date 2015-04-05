@@ -35,10 +35,6 @@ RSpec.describe CreatesApplicationFromDraft do
 
       subject { Application.last }
 
-      it 'marks the draft as applied' do
-        skip
-      end
-
       it 'pings the mentors' do
         skip
       end
