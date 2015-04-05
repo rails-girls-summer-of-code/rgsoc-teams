@@ -40,5 +40,13 @@ RSpec.describe CreatesApplicationFromDraft do
       skip
     end
 
+    it 'sets the saison' do
+      skip
+    end
+
+    it 'adds a database reference to itself' do
+      skip
+    end
+
   end
 end
