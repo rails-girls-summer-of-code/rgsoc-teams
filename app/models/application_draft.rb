@@ -29,9 +29,9 @@ class ApplicationDraft < ActiveRecord::Base
   attr_accessor :current_user
 
   Role::TEAM_ROLES.each do |role|
-    define_method "as_#{role}?" do                       # def as_student?
-      team.send(role.pluralize).include? current_user    #   team.students.include? current_user
-    end                                                  # end
+    define_method "as_#{role}?" do                                     # def as_student?
+      (team || Team.new).send(role.pluralize).include? current_user    #   team.students.include? current_user
+    end                                                                # end
   end
 
   def respond_to_missing?(method, *)
@@ -51,7 +51,7 @@ class ApplicationDraft < ActiveRecord::Base
     if as_student?
       [ current_student, current_pair ].compact
     else
-      team.students.order(:id)
+      (team || Team.new).students.order(:id)
     end.map { |user| Student.new(user) }
   end
 
