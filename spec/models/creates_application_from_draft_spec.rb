@@ -24,29 +24,36 @@ RSpec.describe CreatesApplicationFromDraft do
       end
 
       it 'returns nil' do
-        expect(subject.save).to be_nil
+        expect(subject.save).to be_falsey
       end
     end
 
-    context 'carrying over the user attributes' do
-      skip
-    end
+    context 'with application created' do
+      before do
+        described_class.new(application_draft).save
+      end
 
-    it 'marks the draft as applied' do
-      skip
-    end
+      subject { Application.last }
 
-    it 'pings the mentors' do
-      skip
-    end
+      it 'marks the draft as applied' do
+        skip
+      end
 
-    it 'sets the saison' do
-      skip
-    end
+      it 'pings the mentors' do
+        skip
+      end
 
-    it 'adds a database reference to itself' do
-      skip
-    end
+      it 'sets the saison' do
+        skip
+      end
 
+      it 'adds a database reference to itself' do
+        expect(subject.application_draft).to eql application_draft
+      end
+
+      context 'carrying over the user attributes' do
+        skip
+      end
+    end
   end
 end
