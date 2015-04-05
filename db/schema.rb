@@ -75,8 +75,10 @@ ActiveRecord::Schema.define(version: 20150406123511) do
     t.integer  "form_application_id"
     t.integer  "season_id"
     t.integer  "team_id"
+    t.integer  "application_draft_id"
   end
 
+  add_index "applications", ["application_draft_id"], name: "index_applications_on_application_draft_id", using: :btree
   add_index "applications", ["season_id"], name: "index_applications_on_season_id", using: :btree
   add_index "applications", ["team_id"], name: "index_applications_on_team_id", using: :btree
 
