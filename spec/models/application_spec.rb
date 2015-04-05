@@ -18,6 +18,20 @@ describe Application do
     it { is_expected.to be_present }
   end
 
+  describe '#name' do
+    it 'returns an empty string' do
+      subject.team = nil
+      expect(subject.name).to eql ''
+    end
+
+    it 'derives its name from its team and project name' do
+      subject.team = build_stubbed(:team, name: 'Foobar')
+      subject.project_name = 'Hello World'
+
+      expect(subject.name).to eql 'Foobar - Hello World'
+    end
+  end
+
   it { is_expected.to respond_to(:sponsor_pick?) }
 
   it_behaves_like 'HasSeason'

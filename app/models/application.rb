@@ -16,6 +16,10 @@ class Application < ActiveRecord::Base
   scope :hidden, -> { where('applications.hidden IS NOT NULL and applications.hidden = ?', true) }
   scope :visible, -> { where('applications.hidden IS NULL or applications.hidden = ?', false) }
 
+  def name
+    [team.try(:name), project_name].reject(&:blank?).join ' - '
+  end
+
   def student_name
     application_data['student_name']
   end
