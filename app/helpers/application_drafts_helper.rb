@@ -4,7 +4,6 @@ module ApplicationDraftsHelper
     application_draft.draft? &&
       current_student &&
       current_student.id == student.try(:id)
-
   end
 
   def draft_state(draft)
