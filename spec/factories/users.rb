@@ -30,8 +30,8 @@ FactoryGirl.define do
         application_skills{ FFaker::Lorem.paragraph }
         application_code_samples{ FFaker::Lorem.paragraph }
         application_location{ FFaker::Address.city }
-        # banking_info { FFaker::Lorem.paragraph } # TODO not avail. in _student_fields partial
         application_minimum_money { FFaker::Lorem.paragraph }
+        banking_info { FFaker::Lorem.paragraph }
       end
     end
 
