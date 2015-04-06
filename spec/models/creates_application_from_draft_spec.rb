@@ -49,7 +49,21 @@ RSpec.describe CreatesApplicationFromDraft do
       end
 
       context 'carrying over the user attributes' do
-        skip
+        shared_examples_for 'matches corresponding user attribute' do |attribute|
+          it "will not leave application.#{attribute} blank" do
+            expect(subject.application_data[attribute]).to be_present
+          end
+
+          it "sets application.#{attribute} to its corresponding draft attribute" do
+            draft_attribute = application_draft.send(attribute)
+            expect(subject.application_data[attribute]).to eql draft_attribute.to_s
+          end
+        end
+
+        described_class::STUDENT_FIELDS.each do |student_attribute|
+          it_behaves_like 'matches corresponding user attribute', student_attribute
+        end
+
       end
     end
   end

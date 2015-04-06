@@ -1,4 +1,6 @@
 class CreatesApplicationFromDraft
+  STUDENT_FIELDS = ApplicationDraft::STUDENT0_REQUIRED_FIELDS + ApplicationDraft::STUDENT1_REQUIRED_FIELDS
+
   delegate :team, to: :application_draft
 
   attr_reader :application_draft
@@ -29,6 +31,12 @@ class CreatesApplicationFromDraft
   def application_data
     {
       hours_per_coach: application_draft.coaches_hours_per_week
-    }
+    }.merge(student_attributes)
+  end
+
+  def student_attributes
+    STUDENT_FIELDS.each_with_object({}) do |attribute, hash|
+      hash[attribute] = application_draft.send(attribute)
+    end
   end
 end
