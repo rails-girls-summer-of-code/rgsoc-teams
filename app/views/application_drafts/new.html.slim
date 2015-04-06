@@ -33,22 +33,18 @@ p.attention
 
   fieldset
     legend About the team
-    -# = f.input :attended_rg_workshop, as: :text, label: 'Did you ever attend a Rails/Ruby workshop?', hint: ' Please give us a little bit of history about yourself and your pair (if any)', input_html: { rows: '5' }
-    -# = f.input :skills, as: :text, label: 'Please give us a summary of your skills', hint: 'Please add a summary for your pair if you have one, too.', input_html: { rows: '5' }
-    -# = f.input :learing_summary, as: :text, label: 'Please summarize what you have been doing to learn programming since your first workshop', hint: 'E.g. Study Group, learning rails by doing exercises etc. Please add a summary for your pair if you have one, too.', input_html: { rows: '5' }
     = f.input :project_name, as: :string, label: 'What project are you planning to work on?', placeholder: 'Project Name', input_html: { disabled: !application_draft.as_student? || application_draft.applied? }
-    = f.input :project_url, as: :url, label: 'What project are you planning to work on?', placeholder: 'https://github.com/rails-girls-summer-of-code/projects/issues/NN', hint: "If the project you want to work on is not listed in #{link_to 'our repository', 'https://github.com/rails-girls-summer-of-code/projects/issues/', target: :blank} yet, ping the mentor to submit it.".html_safe, input_html: { disabled: !application_draft.as_student? || application_draft.applied? }
+    = f.input :project_url, as: :url, label: 'Provide a link to the issue of your chosen project', placeholder: 'https://github.com/rails-girls-summer-of-code/projects/issues/NN', hint: "If the project you want to work on is not listed in #{link_to 'our repository', 'https://github.com/rails-girls-summer-of-code/projects/issues/', target: :blank} yet, ping the mentor to submit it.".html_safe, input_html: { disabled: !application_draft.as_student? || application_draft.applied? }
+    = f.input :project_plan, label: 'Your project plan', hint: "Please describe issues and features that you want to work on this summer, as discussed with your project mentor(s). See #{link_to 'Project Plan Section in Application Guide', 'http://railsgirlssummerofcode.org/students/application/#projectplan', target: :blank} for details.".html_safe, input_html: { rows: 6, disabled: !application_draft.as_student? || application_draft.applied? }
 
   fieldset
     legend Filled in by coach(es)
-    -# = f.input :coaches, as: :text, label: 'Coach(es): Who is going to coach you?', hint: 'Please provide contact information. If you have a team of coaches please describe how they are going to team up/split work.', input_html: { rows: '5', disabled: !application_draft.as_coach? }
     = f.input :coaches_hours_per_week, label: 'Coach(es): How much time can your coaches put into (being available for) support, in total?', hint: 'Rough estimate, e.g. x hours per day', input_html: { disabled: !application_draft.as_coach? }
     = f.input :coaches_why_team_successful, label: 'Coach(es): Why do you think this team will be successful with their project?', input_html: { disabled: !application_draft.as_coach? }
 
   fieldset
     legend Miscellaneous
-    -# = f.input :project_period, as: :text, label: 'When do you plan to work on this?', hint: 'We are aiming at July 1st to September 30th for most students, but you can be flexible. Please discuss this with your team.', input_html: { rows: '5' }
-    = f.input :voluntary, as: :boolean, label: 'We could join the RGSoC as a voluntary team', input_html: { disabled: !application_draft.as_student? || application_draft.applied? }
+    = f.input :voluntary, as: :boolean, hint: 'This will not exclude you from being in the running for a sponsored seat.', label: 'We could join the RGSoC as a voluntary team', input_html: { disabled: !application_draft.as_student? || application_draft.applied? }
     = f.input :voluntary_hours_per_week, as: :integer, label: 'As a voluntary team, how many hours per week would you be able to work in the project?', input_html: { disabled: !application_draft.as_student? || application_draft.applied? }
     = f.input :heard_about_it, as: :text, label: 'How have you heard about the program?', input_html: { rows: 3, disabled: !application_draft.as_student? || application_draft.applied? }
     = f.input :misc_info, as: :text, label: 'Anything else to add?', hint: 'Address anything that you feel is relevant to your application and was not covered previously.', input_html: { rows: 4, disabled: !application_draft.as_student? || application_draft.applied? }
