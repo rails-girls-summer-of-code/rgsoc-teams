@@ -37,7 +37,7 @@ p.attention
     -# = f.input :skills, as: :text, label: 'Please give us a summary of your skills', hint: 'Please add a summary for your pair if you have one, too.', input_html: { rows: '5' }
     -# = f.input :learing_summary, as: :text, label: 'Please summarize what you have been doing to learn programming since your first workshop', hint: 'E.g. Study Group, learning rails by doing exercises etc. Please add a summary for your pair if you have one, too.', input_html: { rows: '5' }
     = f.input :project_name, as: :string, label: 'What project are you planning to work on?', placeholder: 'Project Name', input_html: { disabled: !application_draft.as_student? || application_draft.applied? }
-    = f.input :project_url, as: :url, label: 'What project are you planning to work on?', placeholder: 'https://github.com/rails-girls-summer-of-code/projects/issues/NN', hint: "If the project you want to work on is not listed in #{link_to 'our repository', 'https://github.com/rails-girls-summer-of-code/projects/issues/', target: :blank} yet, ping the mentor to submit it.".html_safe, input_html: { disabled: !application_draft.as_student? || application_draft.applied? }
+    = f.input :project_url, as: :url, label: 'Provide a link to the issue of your chosen project', placeholder: 'https://github.com/rails-girls-summer-of-code/projects/issues/NN', hint: "If the project you want to work on is not listed in #{link_to 'our repository', 'https://github.com/rails-girls-summer-of-code/projects/issues/', target: :blank} yet, ping the mentor to submit it.".html_safe, input_html: { disabled: !application_draft.as_student? || application_draft.applied? }
 
   fieldset
     legend Filled in by coach(es)
