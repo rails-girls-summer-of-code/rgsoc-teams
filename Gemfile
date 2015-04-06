@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 ruby '2.2.1'
 
-gem 'rails', '~> 4.1.1'
+gem 'rails', '~> 4.2.0'
 gem 'pg'
 gem 'devise'
 gem 'omniauth-github'
@@ -30,7 +30,7 @@ gem 'uglifier', '~> 2.5.0'
 gem 'sprockets-rails'
 
 gem 'newrelic_rpm'
-gem 'aws-sdk'
+gem 'aws-sdk', '~> 1.38.0'
 
 gem 'rollbar', '~> 1.4.4'
 
@@ -62,7 +62,8 @@ end
 
 group :test do
   gem 'shoulda'
-  gem 'ffaker'
+  gem 'shoulda-matchers'
+  gem 'ffaker', '~> 1.24'
   gem 'webmock'
   gem 'coveralls', require: false
   gem 'timecop'

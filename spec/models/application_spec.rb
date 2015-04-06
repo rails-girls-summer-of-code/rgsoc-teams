@@ -59,10 +59,9 @@ describe Application do
 
     it 'removes the flag if the value is 0' do
       flag = flags.sample.to_sym
-      subject.flags = [flag]
-
+      subject.send("#{flag}=".to_sym, '1')
       expect(subject.flags).to include(flag)
-      subject.send("#{flag}=", '0')
+      subject.send("#{flag}=".to_sym, '0')
       expect(subject.flags).not_to include(flag)
     end
   end
