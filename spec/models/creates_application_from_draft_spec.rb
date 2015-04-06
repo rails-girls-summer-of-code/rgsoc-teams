@@ -65,6 +65,12 @@ RSpec.describe CreatesApplicationFromDraft do
           it_behaves_like 'matches corresponding attribute', student_attribute
         end
       end
+
+      context 'carrying over the coaches\' statements' do
+        %w(coaches_hours_per_week coaches_why_team_successful).each do |coaches_attribute|
+          it_behaves_like 'matches corresponding attribute', coaches_attribute
+        end
+      end
     end
   end
 end

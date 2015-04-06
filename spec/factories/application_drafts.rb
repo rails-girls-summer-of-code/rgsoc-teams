@@ -5,6 +5,7 @@ FactoryGirl.define do
     trait :appliable do
       team { create :team, :applying_team }
 
+      coaches_hours_per_week '15'
       coaches_why_team_successful { FFaker::Lorem.paragraph }
       project_name { FFaker::Movie.title }
       project_url { FFaker::Internet.http_url }
