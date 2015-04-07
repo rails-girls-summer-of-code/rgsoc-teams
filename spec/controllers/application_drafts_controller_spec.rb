@@ -182,7 +182,6 @@ RSpec.describe ApplicationDraftsController do
       end
     end
 
-
     describe 'PUT #prioritize' do
       let!(:student_role) do
         FactoryGirl.create(:student_role, user: user, team: team)
@@ -202,5 +201,35 @@ RSpec.describe ApplicationDraftsController do
         expect(team.application_drafts.order('position ASC').map(&:id)).to eq [2, 1]
       end
     end
+
+    describe 'PUT apply' do
+      let(:team)  { create(:team, :applying_team) }
+      let(:draft) { create :application_draft, :appliable, team: team }
+      let(:application) { Application.last }
+
+      context 'as a student' do
+        let!(:student_role) { create(:student_role, user: user, team: team) }
+
+        it 'creates a new application' do
+          expect { put :apply, id: draft.id }.to change { Application.count }.by(1)
+          expect(flash[:notice]).to be_present
+          expect(response).to redirect_to application_drafts_path
+          expect(application.application_draft).to eql draft
+        end
+      end
+
+      shared_examples_for 'fails to apply for role' do |role|
+        let!(:role) { create("#{role}_role", user: user, team: team) }
+
+        it "fails to apply as a #{role}" do
+          expect { put :apply, id: draft.id }.not_to change { Application.count }
+          expect(flash[:alert]).to be_present
+          expect(response).to redirect_to application_drafts_path
+        end
+      end
+
+      it_behaves_like 'fails to apply for role', :coach
+    end
+
   end
 end

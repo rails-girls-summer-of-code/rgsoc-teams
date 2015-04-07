@@ -4,6 +4,7 @@ class ApplicationDraftsController < ApplicationController
   before_action :sign_in_required
   before_action :ensure_max_applications, only: :new
   before_action :disallow_modifications_after_submission, only: :update
+  before_action :require_student, only: [:prioritize, :apply]
 
   helper_method :application_draft
 
@@ -53,6 +54,15 @@ class ApplicationDraftsController < ApplicationController
   def prioritize
     application_draft.insert_at(1)
     redirect_to application_drafts_url
+  end
+
+  def apply
+    if application_draft.ready? && application_draft.submit_application
+      flash[:notice] = 'Your application has been submitted!'
+    else
+      flash[:alert]  = 'An error has occured. Please contact us.'
+    end
+    redirect_to application_drafts_path
   end
 
   protected
@@ -108,6 +118,12 @@ class ApplicationDraftsController < ApplicationController
   def ensure_max_applications
     if current_student.current_drafts.size > 1
       redirect_to application_drafts_path, alert: 'You cannot lodge more than two applications'
+    end
+  end
+
+  def require_student
+    unless application_draft.as_student?
+      redirect_to application_drafts_path, alert: 'You must be listed as a student on your team'
     end
   end
 
