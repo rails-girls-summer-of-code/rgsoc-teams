@@ -216,6 +216,11 @@ RSpec.describe ApplicationDraftsController do
           expect(response).to redirect_to application_drafts_path
           expect(application.application_draft).to eql draft
         end
+
+        it 'sends a mail' do
+          expect { put :apply, id: draft.id }.to \
+            change { ActionMailer::Base.deliveries.count }.by(1)
+        end
       end
 
       shared_examples_for 'fails to apply for role' do |role|

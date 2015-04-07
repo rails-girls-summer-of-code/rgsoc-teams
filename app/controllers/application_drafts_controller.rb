@@ -59,6 +59,7 @@ class ApplicationDraftsController < ApplicationController
   def apply
     if application_draft.ready? && application_draft.submit_application
       flash[:notice] = 'Your application has been submitted!'
+      ApplicationFormMailer.new_application(application_draft.application).deliver
     else
       flash[:alert]  = 'An error has occured. Please contact us.'
     end
