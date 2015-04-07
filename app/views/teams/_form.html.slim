@@ -41,7 +41,7 @@
       = p.input :name, placeholder: 'Name of your project', label: 'Project Name'
   = f.input :github_handle, placeholder: '', hint: 'Should your team have an organization'
   = f.input :twitter_handle, placeholder: '@', hint: 'Should your team have one'
-  = f.input :description, placeholder: 'Tell us about your project(s)', input_html: { rows: 10 }, hint: "You can use basic #{link_to 'Markdown', "https://en.wikipedia.org/wiki/Markdown", target: :blank} here.".html_safe
+  = f.input :description, label: 'Introduction', placeholder: 'Tell the world about your team (eg. about the project you will be working on)', input_html: { rows: 10 }, hint: "This is just for your public team profile. You can use basic #{link_to 'Markdown', "https://en.wikipedia.org/wiki/Markdown", target: :blank} here.".html_safe
 
   - if admin?
     .form-group
