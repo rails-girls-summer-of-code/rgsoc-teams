@@ -9,6 +9,7 @@ FactoryGirl.define do
       coaches_why_team_successful { FFaker::Lorem.paragraph }
       project_name { FFaker::Movie.title }
       project_url { FFaker::Internet.http_url }
+      project_plan { FFaker::Lorem.paragraph }
       heard_about_it { FFaker::Lorem.paragraph }
       # voluntary_hours_per_week 20 # TODO marked as required, but only needed for voluntary == true
 
