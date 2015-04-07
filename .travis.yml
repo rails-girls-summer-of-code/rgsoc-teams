@@ -28,3 +28,5 @@ deploy:
   - restart
   on:
     repo: rails-girls-summer-of-code/rgsoc-teams
+addons:
+  postgresql: '9.3'
