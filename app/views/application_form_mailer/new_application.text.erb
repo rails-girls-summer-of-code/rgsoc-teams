@@ -1,7 +1,7 @@
 Created at: <%= @application.created_at %>
 
-Student Name: <%= @application.name %>
-Student Email: <%= @application.email %>
+Students: <%= @application.team.students.map(&:name).join(', ') %>
+Students' Emails: <%= @application.team.students.map(&:email).join(', ') %>
 
 Application Data:
 ================
