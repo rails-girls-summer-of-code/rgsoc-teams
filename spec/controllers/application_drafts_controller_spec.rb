@@ -114,6 +114,14 @@ RSpec.describe ApplicationDraftsController do
           expect(response).to render_template 'new'
         end
       end
+
+      context 'as a mentor of the team' do
+        it 'renders the new template' do
+          create :mentor_role, user: user, team: draft.team
+          get :edit, id: draft.to_param
+          expect(response).to render_template 'new'
+        end
+      end
     end
 
     describe 'POST create' do
@@ -238,6 +246,7 @@ RSpec.describe ApplicationDraftsController do
       end
 
       it_behaves_like 'fails to apply for role', :coach
+      it_behaves_like 'fails to apply for role', :mentor
     end
 
   end
