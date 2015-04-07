@@ -235,6 +235,11 @@ RSpec.describe ApplicationDraft do
     it 'returns false' do
       expect(subject).not_to be_ready
     end
+
+    it 'returns true for a nicely filled out draft' do
+      subject = create(:application_draft, :appliable)
+      expect(subject).to be_ready
+    end
   end
 
   describe '#state' do
@@ -246,6 +251,18 @@ RSpec.describe ApplicationDraft do
       allow(subject).to receive(:ready?).and_return(true)
       subject.submit_application(1.day.ago)
       expect(subject).to be_applied
+    end
+  end
+
+  describe '#submit_application' do
+    it 'will not create an application if not valid enough' do
+      expect { subject.submit_application }.to raise_error AASM::InvalidTransition
+    end
+
+    it 'creates a new application' do
+      subject = create(:application_draft, :appliable)
+      expect { subject.submit_application }.to \
+        change { Application.count }.by(1)
     end
   end
 
