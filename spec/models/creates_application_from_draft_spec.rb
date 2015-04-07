@@ -77,6 +77,14 @@ RSpec.describe CreatesApplicationFromDraft do
           it_behaves_like 'matches corresponding attribute', project_attribute
         end
       end
+
+      context 'carrying over the voluntary team information' do
+        let(:application_draft) { build_stubbed(:application_draft, :appliable, :voluntary) }
+
+        %w(voluntary voluntary_hours_per_week).each do |voluntary_attribute|
+          it_behaves_like 'matches corresponding attribute', voluntary_attribute
+        end
+      end
     end
   end
 end
