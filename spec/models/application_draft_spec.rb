@@ -55,8 +55,17 @@ RSpec.describe ApplicationDraft do
       it_behaves_like 'proxies :apply validation', :project_plan
       it_behaves_like 'proxies :apply validation', :misc_info
       it_behaves_like 'proxies :apply validation', :heard_about_it
-      it_behaves_like 'proxies :apply validation', :voluntary
-      it_behaves_like 'proxies :apply validation', :voluntary_hours_per_week
+
+      context 'required fields for voluntary mode' do
+        it { is_expected.not_to validate_presence_of :voluntary_hours_per_week }
+        it { is_expected.not_to validate_presence_of(:voluntary_hours_per_week).on(:apply) }
+
+        context 'with voluntary set to true' do
+          before { subject.voluntary = true }
+          it { is_expected.not_to validate_presence_of :voluntary_hours_per_week }
+          it { is_expected.to validate_presence_of(:voluntary_hours_per_week).on(:apply) }
+        end
+      end
 
       context 'requiring a mentor' do
         it 'complains about a missing role' do

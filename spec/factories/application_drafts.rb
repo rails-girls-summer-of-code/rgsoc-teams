@@ -11,14 +11,18 @@ FactoryGirl.define do
       project_url { FFaker::Internet.http_url }
       project_plan { FFaker::Lorem.paragraph }
       heard_about_it { FFaker::Lorem.paragraph }
-      # voluntary_hours_per_week 20 # TODO marked as required, but only needed for voluntary == true
 
       after(:create) do |draft|
         draft.students.each do |student|
           student.update(attributes_for :student, :applicant)
         end
       end
-
     end
+
+    trait :voluntary do
+      voluntary true
+      voluntary_hours_per_week 20
+    end
+
   end
 end
