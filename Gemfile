@@ -35,6 +35,7 @@ gem 'aws-sdk'
 gem 'rollbar', '~> 1.4.4'
 
 gem 'aasm'
+gem 'acts_as_list'
 
 group :production do
   gem 'unicorn'
