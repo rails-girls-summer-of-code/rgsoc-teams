@@ -50,6 +50,11 @@ class ApplicationDraftsController < ApplicationController
     render :new
   end
 
+  def prioritize
+    application_draft.insert_at(1)
+    redirect_to application_drafts_url
+  end
+
   protected
 
   def application_draft

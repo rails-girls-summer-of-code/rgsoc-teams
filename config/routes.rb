@@ -36,6 +36,7 @@ RgsocTeams::Application.routes.draw do
     member do
       put :apply
       get :check
+      put :prioritize
     end
   end
 

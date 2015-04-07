@@ -182,5 +182,25 @@ RSpec.describe ApplicationDraftsController do
       end
     end
 
+
+    describe 'PUT #prioritize' do
+      let!(:student_role) do
+        FactoryGirl.create(:student_role, user: user, team: team)
+      end
+      let!(:drafts) { FactoryGirl.create_list(:application_draft, 2, team: team) }
+
+      subject do
+        put :prioritize,
+            id: drafts.last.id
+      end
+
+      before do
+        subject
+      end
+
+      it 'sets the positions' do
+        expect(team.application_drafts.order('position ASC').map(&:id)).to eq [2, 1]
+      end
+    end
   end
 end
