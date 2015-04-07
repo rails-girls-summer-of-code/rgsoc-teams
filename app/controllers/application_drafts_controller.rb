@@ -8,7 +8,7 @@ class ApplicationDraftsController < ApplicationController
   helper_method :application_draft
 
   def index
-    @application_drafts = current_user.application_drafts.order('created_at DESC')
+    @application_drafts = current_user.application_drafts.order('position ASC')
   end
 
   def new
