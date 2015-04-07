@@ -57,6 +57,20 @@ RSpec.describe ApplicationDraft do
       it_behaves_like 'proxies :apply validation', :heard_about_it
       it_behaves_like 'proxies :apply validation', :voluntary
       it_behaves_like 'proxies :apply validation', :voluntary_hours_per_week
+
+      context 'requiring a mentor' do
+        it 'complains about a missing role' do
+          error_msg = 'You need at least one mentor on your team'
+          expect { subject.valid?(:apply) }.to \
+            change { subject.errors[:base] }.to match_array error_msg
+        end
+
+        it 'requires a mentor' do
+          subject.team = create(:mentor_role).team
+          expect { subject.valid?(:apply) }.not_to change { subject.errors[:base] }
+        end
+      end
+
     end
 
     context 'for student attributes' do
