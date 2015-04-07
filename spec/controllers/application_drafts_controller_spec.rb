@@ -233,6 +233,10 @@ RSpec.describe ApplicationDraftsController do
         end
       end
 
+      it_behaves_like 'fails to apply for role', :student do
+        let(:draft) { create :application_draft, team: team }
+      end
+
       it_behaves_like 'fails to apply for role', :coach
     end
 
