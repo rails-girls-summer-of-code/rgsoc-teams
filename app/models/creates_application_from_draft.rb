@@ -31,7 +31,9 @@ class CreatesApplicationFromDraft
   def application_data
     {
       voluntary: application_draft.voluntary?,
-      voluntary_hours_per_week: application_draft.voluntary_hours_per_week
+      voluntary_hours_per_week: application_draft.voluntary_hours_per_week,
+      heard_about_it: application_draft.heard_about_it,
+      misc_info: application_draft.misc_info,
     }.merge(student_attributes).merge(coaches_attributes).merge(project_attributes)
   end
 

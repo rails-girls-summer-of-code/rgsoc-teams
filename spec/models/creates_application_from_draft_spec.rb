@@ -85,6 +85,12 @@ RSpec.describe CreatesApplicationFromDraft do
           it_behaves_like 'matches corresponding attribute', voluntary_attribute
         end
       end
+
+      context 'carrying over misc information' do
+        %w(heard_about_it misc_info).each do |misc_attribute|
+          it_behaves_like 'matches corresponding attribute', misc_attribute
+        end
+      end
     end
   end
 end

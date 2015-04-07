@@ -11,6 +11,7 @@ FactoryGirl.define do
       project_url { FFaker::Internet.http_url }
       project_plan { FFaker::Lorem.paragraph }
       heard_about_it { FFaker::Lorem.paragraph }
+      misc_info { FFaker::Lorem.paragraph } # NOTE not a required field
 
       after(:create) do |draft|
         draft.students.each do |student|
