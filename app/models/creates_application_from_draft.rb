@@ -56,11 +56,15 @@ class CreatesApplicationFromDraft
     end
   end
 
+  class TeamSnapshot < Struct.new(:team)
+    def to_hash
+      %w(students coaches mentors).each_with_object({}) do |list, hash|
+        hash[list] = team.send(list).map { |u| [u.name, u.email] }
+      end
+    end
+  end
+
   def team_snapshot
-    {
-      'students' => team.students.map { |s| [s.name, s.email] },
-      'coaches'  => team.coaches.map { |s| [s.name, s.email] },
-      'mentors'  => team.mentors.map { |s| [s.name, s.email] }
-    }
+    TeamSnapshot.new(team || Team.new).to_hash
   end
 end
