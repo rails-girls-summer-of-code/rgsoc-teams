@@ -93,23 +93,18 @@ RSpec.describe CreatesApplicationFromDraft do
       end
 
       context 'taking snapshots of the team state at creation time' do
-        it 'saves the students' do
-          expected = subject.team.students.map { |u| [u.name, u.email] }
-          expect(subject.team_snapshot['students']).to be_present
-          expect(subject.team_snapshot['students']).to eql expected
+
+        shared_examples_for 'takes a team member snapshot by role' do |members|
+          it "saves the #{members}" do
+            expected = subject.team.send(members).map { |u| [u.name, u.email] }
+            expect(subject.team_snapshot[members.to_s.freeze]).to be_present
+            expect(subject.team_snapshot[members.to_s.freeze]).to eql expected
+          end
         end
 
-        it 'saves the coaches' do
-          expected = subject.team.coaches.map { |u| [u.name, u.email] }
-          expect(subject.team_snapshot['coaches']).to be_present
-          expect(subject.team_snapshot['coaches']).to eql expected
-        end
-
-        it 'saves the mentors' do
-          expected = subject.team.mentors.map { |u| [u.name, u.email] }
-          expect(subject.team_snapshot['mentors']).to be_present
-          expect(subject.team_snapshot['mentors']).to eql expected
-        end
+        it_behaves_like 'takes a team member snapshot by role', :students
+        it_behaves_like 'takes a team member snapshot by role', :coaches
+        it_behaves_like 'takes a team member snapshot by role', :mentors
       end
     end
   end
