@@ -259,10 +259,18 @@ RSpec.describe ApplicationDraft do
       expect { subject.submit_application }.to raise_error AASM::InvalidTransition
     end
 
-    it 'creates a new application' do
-      subject = create(:application_draft, :appliable)
-      expect { subject.submit_application }.to \
-        change { Application.count }.by(1)
+    context 'with an appliable draft' do
+      subject { create(:application_draft, :appliable) }
+
+      it 'creates a new application' do
+        expect { subject.submit_application }.to \
+          change { Application.count }.by(1)
+      end
+
+      it 'sets the application reference on the draft' do
+        expect { subject.submit_application }.to \
+          change { subject.application }
+      end
     end
   end
 

@@ -10,6 +10,7 @@ class ApplicationDraft < ActiveRecord::Base
 
   belongs_to :team
   belongs_to :updater, class_name: 'User'
+  has_one    :application
 
   acts_as_list scope: :team
 
