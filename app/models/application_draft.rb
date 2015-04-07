@@ -11,6 +11,8 @@ class ApplicationDraft < ActiveRecord::Base
   belongs_to :team
   belongs_to :updater, class_name: 'User'
 
+  acts_as_list scope: :team
+
   scope :current, -> { where(season: Season.current) }
 
   validates :team, presence: true

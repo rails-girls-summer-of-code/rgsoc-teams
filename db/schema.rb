@@ -50,6 +50,7 @@ ActiveRecord::Schema.define(version: 20150406123511) do
     t.datetime "applied_at"
     t.integer  "updater_id"
     t.text     "state",                       default: "draft", null: false
+    t.integer  "position"
     t.text     "project_plan"
   end
 

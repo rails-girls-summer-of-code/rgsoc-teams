@@ -8,7 +8,7 @@ class ApplicationDraftsController < ApplicationController
   helper_method :application_draft
 
   def index
-    @application_drafts = current_user.application_drafts.order('created_at DESC')
+    @application_drafts = current_user.application_drafts.order('position ASC')
   end
 
   def new
@@ -48,6 +48,11 @@ class ApplicationDraftsController < ApplicationController
       flash[:alert]  = 'There are still some fields missing'
     end
     render :new
+  end
+
+  def prioritize
+    application_draft.insert_at(1)
+    redirect_to application_drafts_url
   end
 
   protected
