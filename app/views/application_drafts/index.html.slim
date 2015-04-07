@@ -20,7 +20,7 @@ table.table.table-striped.table-bordered.table-condensed
     - @application_drafts.each do |draft|
       tr
         td
-          - if draft.position == 1
+          - if draft.first?
             i.icon-star title='Preferred application'
           - else
             a href=prioritize_application_draft_path(draft) title='Make preferred' data-method='put'
