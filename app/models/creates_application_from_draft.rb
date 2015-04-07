@@ -20,6 +20,7 @@ class CreatesApplicationFromDraft
   def application_attributes
     {
       team: team,
+      team_snapshot: team_snapshot,
       application_draft: application_draft,
       application_data: application_data,
       season: application_draft.season,
@@ -47,12 +48,19 @@ class CreatesApplicationFromDraft
     %w(project_name project_url project_plan).each_with_object({}) do |attribute, hash|
       hash[attribute] = application_draft.send(attribute)
     end
-
   end
 
   def student_attributes
     STUDENT_FIELDS.each_with_object({}) do |attribute, hash|
       hash[attribute] = application_draft.send(attribute)
     end
+  end
+
+  def team_snapshot
+    {
+      'students' => team.students.map { |s| [s.name, s.email] },
+      'coaches'  => team.coaches.map { |s| [s.name, s.email] },
+      'mentors'  => team.mentors.map { |s| [s.name, s.email] }
+    }
   end
 end

@@ -91,6 +91,26 @@ RSpec.describe CreatesApplicationFromDraft do
           it_behaves_like 'matches corresponding attribute', misc_attribute
         end
       end
+
+      context 'taking snapshots of the team state at creation time' do
+        it 'saves the students' do
+          expected = subject.team.students.map { |u| [u.name, u.email] }
+          expect(subject.team_snapshot['students']).to be_present
+          expect(subject.team_snapshot['students']).to eql expected
+        end
+
+        it 'saves the coaches' do
+          expected = subject.team.coaches.map { |u| [u.name, u.email] }
+          expect(subject.team_snapshot['coaches']).to be_present
+          expect(subject.team_snapshot['coaches']).to eql expected
+        end
+
+        it 'saves the mentors' do
+          expected = subject.team.mentors.map { |u| [u.name, u.email] }
+          expect(subject.team_snapshot['mentors']).to be_present
+          expect(subject.team_snapshot['mentors']).to eql expected
+        end
+      end
     end
   end
 end
