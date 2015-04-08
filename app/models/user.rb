@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
 
   ORDERS = {
     name:           "LOWER(users.name)",
-    team:           "COALESCE(teams.name, teams.projects)",
+    team:           "teams.name",
     github:         "users.github_handle",
     irc:            "COALESCE(users.irc_handle, '')",
     location:       "users.location",
@@ -24,6 +24,15 @@ class User < ActiveRecord::Base
     'organizing'      => 'Helping as an organizer',
     'coachingcompany' => 'Providing a coaching team from our company',
   }
+
+  MONTHS_LEARNING = [
+    "1-3",
+    "4-6",
+    "7-9",
+    "10-12",
+    "12-24",
+    "24+",
+  ]
 
   include ActiveModel::ForbiddenAttributesProtection
   include Authentication::ActiveRecordHelpers
@@ -50,6 +59,7 @@ class User < ActiveRecord::Base
   end
   has_many :applications
   has_many :teams, -> { uniq }, through: :roles
+  has_many :application_drafts, through: :teams
   has_many :attendances
   has_many :conferences, through: :attendances
 

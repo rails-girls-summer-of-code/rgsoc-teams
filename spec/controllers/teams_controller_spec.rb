@@ -1,7 +1,8 @@
 require 'spec_helper'
 require 'cancan/matchers'
 
-describe TeamsController do
+RSpec.describe TeamsController do
+  render_views
 
   let(:user) { FactoryGirl.create(:user) }
   let(:team) { FactoryGirl.create(:team) }
@@ -18,6 +19,13 @@ describe TeamsController do
     it "assigns all teams as @teams" do
       get :index, {}, valid_session
       expect(assigns(:teams).to_a).to be == [team]
+    end
+
+    context 'with sorting' do
+      it 'sorts by created_at' do
+        get :index, sort: 'created_at'
+        expect(response).to render_template 'index'
+      end
     end
   end
 

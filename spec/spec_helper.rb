@@ -23,7 +23,7 @@ end
 
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 ENV['RAILS_ENV'] ||= 'test'
-ENV['EMAIL_FROM'] ||= 'test@rg.com'
+
 
 require File.expand_path('../../config/environment', __FILE__)
 require 'rspec/rails'
@@ -32,6 +32,7 @@ require 'cancan/matchers'
 require 'sucker_punch/testing/inline'
 require 'factory_girl_rails'
 
+ENV['EMAIL_FROM'] = FFaker::Internet.email
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
@@ -51,5 +52,9 @@ RSpec.configure do |config|
 
   config.before(:suite) do
     WebMock.disable_net_connect! allow: 'codeclimate.com'
+  end
+
+  config.after(:each) do
+    Timecop.return
   end
 end

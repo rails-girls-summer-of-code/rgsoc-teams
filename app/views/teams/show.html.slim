@@ -91,7 +91,7 @@ nav.page
   p = @team.mentors.any? ? link_to_team_members(@team, :mentor) : '-'
 
   h3 Supervisors
-  p = @team.supervisors.any? ? link_to_team_members(@team, :supervisor) : '-'
+  p = @team.supervisors.any? ? link_to_team_members(@team, :supervisor) : content_tag(:em, 'Will be added by RGSoC Organizers')
 
 - if @team.members.any? { |user| user.conferences.any? }
   h4 Conferences

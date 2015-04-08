@@ -1,0 +1,66 @@
+h1 Student Application for Rails Girls Summer of Code #{Season.current.name}
+
+p.attention
+  | Please read our
+    #{link_to "Student Application Guide", "http://railsgirlssummerofcode.org/students/application/"}
+    before you fill out this form. Applications must be submitted before <strong>#{l current_season.applications_close_at, format: :precise}</strong>.
+
+= simple_nested_form_for application_draft do |f|
+  - if application_draft.errors.any?
+    #error_explanation
+      h2 = "#{pluralize(application_draft.errors.count, "error")} to go before you can apply:"
+      ul
+        - application_draft.errors.full_messages.each do |message|
+          li = message
+  fieldset
+    - if application_draft.as_student?
+      legend About yourself
+      .alert.alert-info 
+        strong Info:
+        |  You can edit the fields about you in #{link_to 'your user profile', edit_user_path(current_user, anchor: 'application_specific')}, too.
+    - else
+      legend Student 1
+    = render 'student_fields', f: f, student: application_draft.students[0]
+  fieldset
+    - if application_draft.as_student?
+      legend About your pair
+    - else
+      legend Student 2
+    - if application_draft.students.count == 1
+      .alert.alert-warning You haven't got a second student on your team.
+    - else
+      = render 'student_fields', f: f, student: application_draft.students[1]
+
+  fieldset
+    legend About the team
+    = f.input :project_name, as: :string, label: 'What project are you planning to work on?', placeholder: 'Project Name', input_html: { disabled: !application_draft.as_student? || application_draft.applied? }
+    = f.input :project_url, as: :url, label: 'Provide a link to the issue of your chosen project', placeholder: 'https://github.com/rails-girls-summer-of-code/projects/issues/NN', hint: "If the project you want to work on is not listed in #{link_to 'our repository', 'https://github.com/rails-girls-summer-of-code/projects/issues/', target: :blank} yet, ping the mentor to submit it.".html_safe, input_html: { disabled: !application_draft.as_student? || application_draft.applied? }
+    = f.input :project_plan, label: 'Your project plan', hint: "Please describe issues and features that you want to work on this summer, as discussed with your project mentor(s). See #{link_to 'Project Plan Section in Application Guide', 'http://railsgirlssummerofcode.org/students/application/#projectplan', target: :blank} for details.".html_safe, input_html: { rows: 6, disabled: !application_draft.as_student? || application_draft.applied? }
+
+  fieldset
+    legend Filled in by coach(es)
+    = f.input :coaches_hours_per_week, label: 'Coach(es): How much time can your coaches put into (being available for) support, in total?', hint: 'Rough estimate, e.g. x hours per day', input_html: { disabled: !application_draft.as_coach? }
+    = f.input :coaches_why_team_successful, label: 'Coach(es): Why do you think this team will be successful with their project?', input_html: { disabled: !application_draft.as_coach? }
+
+  fieldset
+    legend Miscellaneous
+    = f.input :voluntary, as: :boolean, hint: 'This will not exclude you from being in the running for a sponsored seat.', label: 'We could join the RGSoC as a voluntary team', input_html: { disabled: !application_draft.as_student? || application_draft.applied? }
+    = f.input :voluntary_hours_per_week, as: :integer, label: 'As a voluntary team, how many hours per week would you be able to work in the project?', input_html: { disabled: !application_draft.as_student? || application_draft.applied? }
+    = f.input :heard_about_it, as: :text, label: 'How have you heard about the program?', input_html: { rows: 3, disabled: !application_draft.as_student? || application_draft.applied? }
+    = f.input :misc_info, as: :text, label: 'Anything else to add?', hint: 'Address anything that you feel is relevant to your application and was not covered previously.', input_html: { rows: 4, disabled: !application_draft.as_student? || application_draft.applied? }
+
+  - if application_draft.draft?
+    .actions
+      = f.button :submit, 'Save as draft', class: 'btn'
+      - unless application_draft.ready?
+        .help-block Your application is not yet ready for submission
+
+- if application_draft.draft?
+  - if application_draft.ready?
+    = simple_form_for application_draft, url: apply_application_path(application_draft.application), method: :put do |f|
+      .actions
+        = f.button :submit, 'Apply', class: 'btn btn-success'
+  - elsif application_draft.persisted?
+    = simple_form_for application_draft, url: [:check, application_draft], method: :get do |f|
+      .actions
+        = f.button :submit, 'Check Validity', class: 'btn btn-info'

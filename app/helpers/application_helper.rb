@@ -4,6 +4,17 @@ module ApplicationHelper
 
   TIMEZONES = ActiveSupport::TimeZone.all.map{|t| t.tzinfo.name}.uniq.sort
 
+  def application_disambiguation_link
+    if current_user && current_user.application_drafts.any?
+      link_to  application_drafts_path, class: 'team' do
+        concat 'My Applications '
+        concat content_tag(:span, current_user.application_drafts.count, class: 'badge')
+      end
+    else
+      link_to 'Apply now', apply_path
+    end
+  end
+
   def avatar_url(user, size: 200)
     image = if user_avatar = user.avatar_url.presence
               "#{user_avatar}&s=#{size}"

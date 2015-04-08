@@ -1,12 +1,16 @@
 source 'https://rubygems.org'
 
+<<<<<<< HEAD
 #ruby '2.1.5'
+=======
+ruby '2.2.1'
+>>>>>>> 3d750ad34adbc8ef40229388d9d358c651c995fb
 
 gem 'rails', '~> 4.1.1'
 gem 'pg'
 gem 'devise'
 gem 'omniauth-github'
-gem 'cancan'
+gem 'cancancan'
 gem 'redcarpet'
 gem 'simple_form'
 gem 'nested_form'
@@ -32,6 +36,11 @@ gem 'sprockets-rails'
 gem 'newrelic_rpm'
 gem 'aws-sdk'
 
+gem 'rollbar', '~> 1.4.4'
+
+gem 'aasm'
+gem 'acts_as_list'
+
 group :production do
   gem 'unicorn'
   gem 'rails_12factor'
@@ -53,6 +62,7 @@ group :development do
   gem 'pry'
   gem 'spring'
   gem 'spring-commands-rspec'
+  gem 'foreman'
 end
 
 group :test do
@@ -62,4 +72,5 @@ group :test do
   gem 'coveralls', require: false
   gem 'timecop'
   gem "codeclimate-test-reporter", require: false
+  gem 'rspec-collection_matchers'
 end

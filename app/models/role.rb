@@ -6,7 +6,8 @@ class Role < ActiveRecord::Base
   ADMIN_ROLES = %w(organizer developer)
   ROLES = TEAM_ROLES + OTHER_ROLES + ADMIN_ROLES
 
-  CONTRIBUTOR_ROLES = ADMIN_ROLES + %w(coach mentor)
+  GUIDE_ROLES = %w(coach mentor)
+  CONTRIBUTOR_ROLES = ADMIN_ROLES + GUIDE_ROLES
 
   belongs_to :user
   belongs_to :team
@@ -15,9 +16,17 @@ class Role < ActiveRecord::Base
   validates :name, inclusion: { in: ROLES }, presence: true
   validates :user_id, uniqueness: { scope: [:name, :team_id] }
 
+  after_create :send_notification, if: Proc.new { GUIDE_ROLES.include?(self.name) }
+
   class << self
     def includes?(role_name)
       !where(name: role_name).empty?
     end
+  end
+
+  private
+
+  def send_notification
+    RoleMailer.user_added_to_team(self).deliver_later
   end
 end

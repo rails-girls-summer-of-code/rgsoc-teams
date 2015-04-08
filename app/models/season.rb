@@ -13,6 +13,14 @@ class Season < ActiveRecord::Base
    Time.now.utc.between? applications_open_at, applications_close_at
   end
 
+  def applications_open?
+    Time.now.utc >= (applications_open_at || 1.week.from_now)
+  end
+
+  def started?
+    Time.now.utc >= (starts_at || 1.week.from_now)
+  end
+
   private
 
   def set_application_dates

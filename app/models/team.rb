@@ -1,6 +1,8 @@
 class Team < ActiveRecord::Base
   include ProfilesHelper, ColorHelper, HasSeason
 
+  delegate :sponsored?, :voluntary?, to: :kind
+
   KINDS = %w(sponsored voluntary)
 
   validates :name, uniqueness: true, allow_blank: true
@@ -10,6 +12,8 @@ class Team < ActiveRecord::Base
   attr_accessor :checked
 
   has_one :project, dependent: :destroy
+  has_many :applications, dependent: :nullify
+  has_many :application_drafts, dependent: :nullify
   has_many :roles, dependent: :destroy
   has_many :members, class_name: 'User', through: :roles, source: :user
   Role::ROLES.each do |role|
@@ -30,6 +34,14 @@ class Team < ActiveRecord::Base
     def ordered(sort = {})
       order([sort[:order] || 'kind, name || projects', sort[:direction] || 'asc'].join(' '))
     end
+
+    def visible
+      where("teams.invisible IS NOT TRUE OR teams.kind IN (?)", KINDS)
+    end
+  end
+
+  def application
+    @application ||= applications.where(season_id: Season.current.id).first
   end
 
   def set_number
@@ -37,7 +49,7 @@ class Team < ActiveRecord::Base
   end
 
   def kind
-    super || ''
+    super.to_s.inquiry
   end
 
   def display_name
@@ -48,8 +60,8 @@ class Team < ActiveRecord::Base
     "Team #{chunks.join(' ')}"
   end
 
-  def sponsored?
-    kind == 'sponsored'
+  def accepted?
+    sponsored? || voluntary?
   end
 
   def admin_team?
@@ -80,7 +92,7 @@ class Team < ActiveRecord::Base
   private
 
   def set_last_checked
-    self.last_checked_at = Time.now
+    self.last_checked_at = Time.now.utc
     self.last_checked_by = checked.is_a?(String) ? checked.to_i : checked.id
   end
 

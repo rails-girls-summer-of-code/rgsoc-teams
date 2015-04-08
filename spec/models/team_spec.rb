@@ -62,6 +62,31 @@ describe Team do
 
   it_behaves_like 'HasSeason'
 
+  context 'with scopes' do
+    let!(:team) { create :team, kind: nil }
+
+    describe '.visible' do
+
+      it 'returns teams that are not marked invisible' do
+        expect(described_class.visible).to eq [team]
+      end
+
+      it 'will not return an invisible team' do
+        team.update(invisible: true)
+        expect(described_class.visible).to eq []
+      end
+
+      context 'with accepted teams' do
+        let(:kind) { described_class::KINDS.sample }
+        before { team.update kind: kind, invisible: true }
+
+        it 'will always return accepted teams' do
+          expect(described_class.visible).to eq [team]
+        end
+      end
+    end
+  end
+
   describe 'creating a new team' do
     before do
       Team.destroy_all
@@ -138,9 +163,44 @@ describe Team do
     end
   end
 
-  describe 'sponsored team' do
-    it 'should be sponsored' do
-      expect(subject.sponsored?).to eql true
+  describe '#accepted?' do
+    it 'returns false' do
+      subject.kind = nil
+      expect(subject).not_to be_accepted
+    end
+
+    it 'returns false for a voluntary team' do
+      subject.kind = 'voluntary'
+      expect(subject).to be_accepted
+    end
+
+    it 'returns true for a sponsored team' do
+      subject.kind = 'sponsored'
+      expect(subject).to be_accepted
+    end
+  end
+
+  describe '#sponsored?' do
+    it 'returns false' do
+      subject.kind = 'voluntary'
+      expect(subject).not_to be_sponsored
+    end
+
+    it 'returns true' do
+      subject.kind = 'sponsored'
+      expect(subject).to be_sponsored
+    end
+  end
+
+  describe '#voluntary?' do
+    it 'returns false' do
+      subject.kind = nil
+      expect(subject).not_to be_voluntary
+    end
+
+    it 'returns true' do
+      subject.kind = 'voluntary'
+      expect(subject).to be_voluntary
     end
   end
 
@@ -148,6 +208,16 @@ describe Team do
     it { is_expected.to accept_nested_attributes_for :project }
     it { is_expected.to accept_nested_attributes_for :roles }
     it { is_expected.to accept_nested_attributes_for :sources }
+  end
+
+  describe '#application' do
+    it 'returns the current season\'s application' do
+      season1 = create :season, name: '2013'
+      team = create :team
+      create(:application, season: season1, team: team)
+      application = create(:application, season: Season.current, team: team)
+      expect(team.application).to eql application
+    end
   end
 
 end

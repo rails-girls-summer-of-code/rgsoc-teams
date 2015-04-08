@@ -3,7 +3,12 @@ RgsocTeams::Application.routes.draw do
 
   resources :events
 
-  root to: 'activities#index'
+  # FIXME Accessing season this early breaks `rake db:create RAILS_ENV=test` on CI
+  # if Season.current.started?
+    root to: 'activities#index'
+  # else
+  #   root to: 'users#index'
+  # end
 
   devise_for :users, controllers: { omniauth_callbacks: 'omniauth_callbacks' }
 
@@ -27,10 +32,19 @@ RgsocTeams::Application.routes.draw do
     resources :ratings
   end
 
-  resources :form_applications
-  get 'application', to: 'applications#new', as: :apply
+  resources :application_drafts, except: [:show, :destroy] do
+    member do
+      put :apply
+      get :check
+      put :prioritize
+    end
+  end
+
+  get 'application', to: 'applications#new'
   get 'application_forms', to: 'applications#new'
   post 'application_forms', to: 'applications#create'
+
+  get 'apply', to: 'application_drafts#new', as: :apply
 
   get 'teams/info', to: 'teams_info#index'
   resources :teams, concerns: :has_roles do

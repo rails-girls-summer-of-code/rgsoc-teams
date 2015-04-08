@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
 
-  helper_method :current_season
+  helper_method :current_season, :current_student
 
   before_filter do
     redirect_to = params[:redirect_to]
@@ -46,6 +46,10 @@ class ApplicationController < ActionController::Base
 
   def current_season
     @season ||= Season.current
+  end
+
+  def current_student
+    @current_student ||= Student.new(current_user)
   end
 
   def require_role(role_name)

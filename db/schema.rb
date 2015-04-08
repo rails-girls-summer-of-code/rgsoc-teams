@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150202182113) do
+ActiveRecord::Schema.define(version: 20150406123511) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -30,6 +30,32 @@ ActiveRecord::Schema.define(version: 20150202182113) do
     t.datetime "updated_at",   null: false
     t.string   "img_url"
   end
+
+  create_table "application_drafts", force: true do |t|
+    t.text     "coaches_contact_info"
+    t.text     "coaches_hours_per_week"
+    t.text     "coaches_why_team_successful"
+    t.text     "project_name"
+    t.text     "project_url"
+    t.text     "misc_info"
+    t.text     "heard_about_it"
+    t.string   "signed_off_by"
+    t.datetime "signed_off_at"
+    t.integer  "team_id"
+    t.integer  "season_id"
+    t.boolean  "voluntary"
+    t.integer  "voluntary_hours_per_week"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.datetime "applied_at"
+    t.integer  "updater_id"
+    t.text     "state",                       default: "draft", null: false
+    t.integer  "position"
+    t.text     "project_plan"
+  end
+
+  add_index "application_drafts", ["season_id"], name: "index_application_drafts_on_season_id", using: :btree
+  add_index "application_drafts", ["team_id"], name: "index_application_drafts_on_team_id", using: :btree
 
   create_table "applications", force: true do |t|
     t.string   "name"
@@ -50,7 +76,12 @@ ActiveRecord::Schema.define(version: 20150202182113) do
     t.string   "city"
     t.string   "coaching_company"
     t.integer  "form_application_id"
+    t.integer  "season_id"
+    t.integer  "team_id"
   end
+
+  add_index "applications", ["season_id"], name: "index_applications_on_season_id", using: :btree
+  add_index "applications", ["team_id"], name: "index_applications_on_team_id", using: :btree
 
   create_table "attendances", force: true do |t|
     t.integer  "conference_id"
@@ -89,22 +120,6 @@ ActiveRecord::Schema.define(version: 20150202182113) do
     t.date     "end_date"
     t.datetime "created_at"
     t.datetime "updated_at"
-  end
-
-  create_table "form_applications", force: true do |t|
-    t.string   "name"
-    t.string   "email"
-    t.text     "about_student"
-    t.text     "location"
-    t.text     "attended_rg_workshop"
-    t.text     "coding_level"
-    t.text     "skills"
-    t.text     "learning_summary"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "project_name"
-    t.hstore   "application_data"
-    t.boolean  "submitted"
   end
 
   create_table "job_offers", force: true do |t|
@@ -191,8 +206,8 @@ ActiveRecord::Schema.define(version: 20150202182113) do
 
   create_table "teams", force: true do |t|
     t.string   "name"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
     t.string   "log_url"
     t.text     "description"
     t.integer  "number"
@@ -206,6 +221,7 @@ ActiveRecord::Schema.define(version: 20150202182113) do
     t.date     "last_checked_at"
     t.integer  "last_checked_by"
     t.integer  "season_id"
+    t.boolean  "invisible",       default: false
   end
 
   add_index "teams", ["season_id"], name: "index_teams_on_season_id", using: :btree
@@ -219,8 +235,8 @@ ActiveRecord::Schema.define(version: 20150202182113) do
     t.text     "bio"
     t.string   "homepage"
     t.string   "avatar_url"
-    t.datetime "created_at",                     null: false
-    t.datetime "updated_at",                     null: false
+    t.datetime "created_at",                                        null: false
+    t.datetime "updated_at",                                        null: false
     t.integer  "team_id"
     t.string   "twitter_handle"
     t.string   "irc_handle"
@@ -228,23 +244,24 @@ ActiveRecord::Schema.define(version: 20150202182113) do
     t.text     "banking_info"
     t.text     "postal_address"
     t.string   "timezone"
-    t.string   "interested_in",  default: [],                 array: true
+    t.string   "interested_in",                     default: [],                 array: true
     t.boolean  "hide_email"
-    t.boolean  "is_company",     default: false
+    t.boolean  "is_company",                        default: false
     t.string   "company_name"
     t.text     "company_info"
     t.string   "country"
     t.boolean  "application_voluntary"
     t.integer  "application_coding_level"
-    t.string   "application_gender"
+    t.string   "application_gender_identification"
     t.string   "application_learning_period"
-    t.string   "application_minimum_money"
+    t.text     "application_minimum_money"
     t.text     "application_about"
     t.text     "application_code_samples"
     t.text     "application_community_engagement"
     t.text     "application_learning_history"
     t.text     "application_location"
     t.text     "application_skills"
+    t.text     "application_motivation"
   end
 
 end

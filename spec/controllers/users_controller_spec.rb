@@ -20,6 +20,13 @@ describe UsersController do
       expect(response.body).not_to include user.email
     end
 
+    context 'with sorting' do
+      it 'sorts by team' do
+        get :index, sort: 'team'
+        expect(response).to render_template 'index'
+      end
+    end
+
     context 'with user logged in' do
       it 'will not show email addresses of those who opted out' do
         sign_in create(:student)
@@ -113,6 +120,21 @@ describe UsersController do
           put :update, { id: another_user.to_param, user: valid_attributes }, valid_session
           expect(response).to redirect_to(root_url)
         end
+      end
+    end
+  end
+
+  describe 'PATCH update' do
+
+    let(:valid_attributes) { { application_about: "lorem ipsum" } }
+
+    let(:user) { FactoryGirl.create(:user) }
+    before { sign_in user }
+
+    context 'their own profile' do
+      it 'updates the profile and redirects' do
+        patch :update, id: user.id, user: valid_attributes
+        expect(response).to redirect_to user
       end
     end
   end
