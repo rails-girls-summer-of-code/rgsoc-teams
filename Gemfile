@@ -1,10 +1,6 @@
 source 'https://rubygems.org'
 
-<<<<<<< HEAD
-#ruby '2.1.5'
-=======
 ruby '2.2.1'
->>>>>>> 3d750ad34adbc8ef40229388d9d358c651c995fb
 
 gem 'rails', '~> 4.1.1'
 gem 'pg'
