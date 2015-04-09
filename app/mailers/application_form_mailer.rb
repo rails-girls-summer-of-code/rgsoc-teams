@@ -5,6 +5,6 @@ class ApplicationFormMailer < ActionMailer::Base
 
   def new_application(application)
     @application = application
-    mail(subject: "[RGSoC 2014] New Application: #{@application.name}")
+    mail(subject: "[RGSoC #{Season.current.year}] New Application: #{@application.name}")
   end
 end
