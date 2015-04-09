@@ -229,6 +229,11 @@ RSpec.describe ApplicationDraftsController do
           expect { put :apply, id: draft.id }.to \
             change { ActionMailer::Base.deliveries.count }.by(1)
         end
+
+        it 'flags the draft as applied' do
+          expect { put :apply, id: draft.id }.to \
+            change { draft.reload.state }.to('applied')
+        end
       end
 
       shared_examples_for 'fails to apply for role' do |role|

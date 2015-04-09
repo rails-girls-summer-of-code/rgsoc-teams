@@ -57,7 +57,7 @@ class ApplicationDraftsController < ApplicationController
   end
 
   def apply
-    if application_draft.ready? && application_draft.submit_application
+    if application_draft.ready? && application_draft.submit_application!
       flash[:notice] = 'Your application has been submitted!'
       ApplicationFormMailer.new_application(application_draft.application).deliver_later
     else
