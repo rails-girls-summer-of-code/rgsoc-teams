@@ -99,29 +99,20 @@ RSpec.describe ApplicationDraftsController do
         }.to raise_error ActiveRecord::RecordNotFound
       end
 
-      context 'as a student of the team' do
-        it 'renders the new template' do
-          create :student_role, user: user, team: draft.team
-          get :edit, id: draft.to_param
-          expect(response).to render_template 'new'
+      shared_examples_for 'reading the application draft form as' do |role|
+        before { create "#{role}_role", user: user, team: draft.team }
+
+        context "as a #{role} of the team" do
+          it 'renders the new template' do
+            get :edit, id: draft.to_param
+            expect(response).to render_template 'new'
+          end
         end
       end
 
-      context 'as a coach of the team' do
-        it 'renders the new template' do
-          create :coach_role, user: user, team: draft.team
-          get :edit, id: draft.to_param
-          expect(response).to render_template 'new'
-        end
-      end
-
-      context 'as a mentor of the team' do
-        it 'renders the new template' do
-          create :mentor_role, user: user, team: draft.team
-          get :edit, id: draft.to_param
-          expect(response).to render_template 'new'
-        end
-      end
+      it_behaves_like 'reading the application draft form as', :student
+      it_behaves_like 'reading the application draft form as', :coach
+      it_behaves_like 'reading the application draft form as', :mentor
     end
 
     describe 'POST create' do
