@@ -60,7 +60,7 @@
     p.help-block This information will be included in your #{link_to 'application', apply_path, target: :blank} and is visible to your team and to organizers.
     = f.input :application_about, as: :text, label: 'About you', input_html: { rows: '5' }, hint: 'Please tell us a little bit about yourself and your background.'
     = f.input :application_motivation, label: 'Tell us a little about why you are applying for Rails Girls Summer of Code'
-    = f.input :application_gender_identification, label: 'Your gender self-identification', hint: 'No-one is excluded from applying on the basis of gender, but people who self-identify as female, or have experiences being socialized as female, are given preference during selection.'
+    = f.input :application_gender_identification, as: :string, label: 'Your gender self-identification', hint: 'No-one is excluded from applying on the basis of gender, but people who self-identify as female, or have experiences being socialized as female, are given preference during selection.'
     h4 Please rate your level of programming experience (1 being the 'lowest' and 5 the 'highest').
     p.help-block Some of our skill level guidelines are specific to ruby, but most are language-agnostic. For each level, assume that the guidelines of the level(s) below it are also true, meaning that if you see yourself as a Level 2, you should be able to do most of Level 1, too.
     .form-inline
