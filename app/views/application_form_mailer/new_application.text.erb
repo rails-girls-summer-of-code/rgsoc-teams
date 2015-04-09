@@ -6,9 +6,9 @@ Students' Emails: <%= @application.team.students.map(&:email).join(', ') %>
 Application Data:
 ================
 ----------
-<% ApplicationForm::FIELDS.each do |field| %>
-<%= field.to_s %>:
+<% @application.application_data.each do |field, value| %>
+<%= field %>:
 
-<%= @application.application_data[field.to_s] %>
+<%= value %>
 ----------
 <% end %>
