@@ -13,6 +13,6 @@ describe ApplicationFormMailer do
   end
 
   it 'has a subject' do
-    expect(subject.subject).to eq("[RGSoC 2014] New Application: #{application.name}")
+    expect(subject.subject).to eq("[RGSoC #{Season.current.year}] New Application: #{application.name}")
   end
 end
