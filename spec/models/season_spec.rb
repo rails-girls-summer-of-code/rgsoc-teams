@@ -68,6 +68,13 @@ describe Season do
     end
   end
 
+  describe '#year' do
+    it 'returns the name' do
+      subject.name = 'foobarbaz'
+      expect(subject.year).to eql 'foobarbaz'
+    end
+  end
+
   describe '.current' do
     it 'creates a season record' do
       create :season, name: '2000'

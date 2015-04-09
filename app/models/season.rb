@@ -21,6 +21,8 @@ class Season < ActiveRecord::Base
     Time.now.utc >= (starts_at || 1.week.from_now)
   end
 
+  def year; name end
+
   private
 
   def set_application_dates
