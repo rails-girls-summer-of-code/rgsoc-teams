@@ -53,10 +53,18 @@ RSpec.describe ApplicationDraft do
       it_behaves_like 'proxies :apply validation', :project_name
       it_behaves_like 'proxies :apply validation', :project_url
       it_behaves_like 'proxies :apply validation', :project_plan
-      it_behaves_like 'proxies :apply validation', :misc_info
       it_behaves_like 'proxies :apply validation', :heard_about_it
-      it_behaves_like 'proxies :apply validation', :voluntary
-      it_behaves_like 'proxies :apply validation', :voluntary_hours_per_week
+
+      context 'required fields for voluntary mode' do
+        it { is_expected.not_to validate_presence_of :voluntary_hours_per_week }
+        it { is_expected.not_to validate_presence_of(:voluntary_hours_per_week).on(:apply) }
+
+        context 'with voluntary set to true' do
+          before { subject.voluntary = true }
+          it { is_expected.not_to validate_presence_of :voluntary_hours_per_week }
+          it { is_expected.to validate_presence_of(:voluntary_hours_per_week).on(:apply) }
+        end
+      end
 
       context 'requiring a mentor' do
         it 'complains about a missing role' do
@@ -227,6 +235,11 @@ RSpec.describe ApplicationDraft do
     it 'returns false' do
       expect(subject).not_to be_ready
     end
+
+    it 'returns true for a nicely filled out draft' do
+      subject = create(:application_draft, :appliable)
+      expect(subject).to be_ready
+    end
   end
 
   describe '#state' do
@@ -238,6 +251,26 @@ RSpec.describe ApplicationDraft do
       allow(subject).to receive(:ready?).and_return(true)
       subject.submit_application(1.day.ago)
       expect(subject).to be_applied
+    end
+  end
+
+  describe '#submit_application' do
+    it 'will not create an application if not valid enough' do
+      expect { subject.submit_application }.to raise_error AASM::InvalidTransition
+    end
+
+    context 'with an appliable draft' do
+      subject { create(:application_draft, :appliable) }
+
+      it 'creates a new application' do
+        expect { subject.submit_application }.to \
+          change { Application.count }.by(1)
+      end
+
+      it 'sets the application reference on the draft' do
+        expect { subject.submit_application }.to \
+          change { subject.application }
+      end
     end
   end
 

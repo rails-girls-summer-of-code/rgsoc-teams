@@ -1,9 +1,10 @@
 class Application < ActiveRecord::Base
   include HasSeason
 
+  belongs_to :application_draft
   belongs_to :team
-  belongs_to :user
-  validates_presence_of :user_id, :name, :email, :application_data
+
+  validates :team, :application_data, presence: true
 
   PROJECT_VISIBILITY_WEIGHT = ENV['PROJECT_VISIBILITY_WEIGHT'] || 2
   COACHING_COMPANY_WEIGHT = ENV['COACHING_COMPANY_WEIGHT'] || 2
@@ -16,6 +17,10 @@ class Application < ActiveRecord::Base
 
   scope :hidden, -> { where('applications.hidden IS NOT NULL and applications.hidden = ?', true) }
   scope :visible, -> { where('applications.hidden IS NULL or applications.hidden = ?', false) }
+
+  def name
+    [team.try(:name), project_name].reject(&:blank?).join ' - '
+  end
 
   def student_name
     application_data['student_name']

@@ -10,6 +10,7 @@ class ApplicationDraft < ActiveRecord::Base
 
   belongs_to :team
   belongs_to :updater, class_name: 'User'
+  has_one    :application
 
   acts_as_list scope: :team
 
@@ -17,7 +18,8 @@ class ApplicationDraft < ActiveRecord::Base
 
   validates :team, presence: true
   validates :coaches_hours_per_week, :coaches_why_team_successful, :project_name, :project_url, :project_plan, presence: true, on: :apply
-  validates :misc_info, :heard_about_it, :voluntary, :voluntary_hours_per_week, presence: true, on: :apply
+  validates :heard_about_it, presence: true, on: :apply
+  validates :voluntary_hours_per_week, presence: true, on: :apply, if: :voluntary?
   validate :only_two_application_drafts_allowed, if: :team, on: :create
   validate :mentor_required, on: :apply
 
@@ -29,9 +31,13 @@ class ApplicationDraft < ActiveRecord::Base
   attr_accessor :current_user
 
   Role::TEAM_ROLES.each do |role|
-    define_method "as_#{role}?" do                       # def as_student?
-      team.send(role.pluralize).include? current_user    #   team.students.include? current_user
-    end                                                  # end
+    define_method "as_#{role}?" do                                     # def as_student?
+      (team || Team.new).send(role.pluralize).include? current_user    #   team.students.include? current_user
+    end                                                                # end
+  end
+
+  def respond_to_missing?(method, *)
+    StudentAttributeProxy.new(method, self).matches? || super
   end
 
   def method_missing(method, *args, &block)
@@ -47,7 +53,7 @@ class ApplicationDraft < ActiveRecord::Base
     if as_student?
       [ current_student, current_pair ].compact
     else
-      team.students.order(:id)
+      (team || Team.new).students.order(:id)
     end.map { |user| Student.new(user) }
   end
 
@@ -71,7 +77,7 @@ class ApplicationDraft < ActiveRecord::Base
   end
 
   def ready?
-    false # valid?(:apply)
+    valid?(:apply)
   end
 
   aasm :column => :state, :no_direct_assignment => true do
@@ -81,6 +87,7 @@ class ApplicationDraft < ActiveRecord::Base
     event :submit_application do
       after do |applied_at_time = nil|
         self.applied_at = applied_at_time || Time.now
+        CreatesApplicationFromDraft.new(self).save
       end
 
       transitions :from => :draft, :to => :applied, :guard => :ready?

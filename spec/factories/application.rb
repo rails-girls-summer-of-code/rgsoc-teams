@@ -1,8 +1,6 @@
 FactoryGirl.define do
   factory :application do
-    user
-    name     { FFaker::Name.name }
-    email    { FFaker::Internet.email }
+    team
     application_data {{
       coding_level: 2,
       student_name: FFaker::Name.name,

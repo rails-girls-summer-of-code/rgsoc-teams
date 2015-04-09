@@ -3,11 +3,13 @@ require 'spec_helper'
 describe Application do
   subject { FactoryGirl.build_stubbed(:application) }
 
-  it { is_expected.to validate_presence_of(:name) }
-  it { is_expected.to validate_presence_of(:email) }
   it { is_expected.to validate_presence_of(:application_data) }
+  it { is_expected.to validate_presence_of(:team) }
 
-  it { should belong_to(:team) }
+  context 'with associations' do
+    it { is_expected.to belong_to(:team) }
+    it { is_expected.to belong_to(:application_draft) }
+  end
 
   describe '#average_skill_level' do
     subject { super().average_skill_level }
@@ -19,13 +21,27 @@ describe Application do
     it { is_expected.to be_present }
   end
 
+  describe '#name' do
+    it 'returns an empty string' do
+      subject.team = nil
+      expect(subject.name).to eql ''
+    end
+
+    it 'derives its name from its team and project name' do
+      subject.team = build_stubbed(:team, name: 'Foobar')
+      subject.project_name = 'Hello World'
+
+      expect(subject.name).to eql 'Foobar - Hello World'
+    end
+  end
+
   it { is_expected.to respond_to(:sponsor_pick?) }
 
   it_behaves_like 'HasSeason'
 
   describe 'scopes' do
     describe '.hidden' do
-      it 'retruns only hidden applications' do
+      it 'returns only hidden applications' do
         expect(Application.hidden.where_values).to eq(
           ["applications.hidden IS NOT NULL and applications.hidden = 't'"]
         )
@@ -33,7 +49,7 @@ describe Application do
     end
 
     describe '.visible' do
-      it 'retruns only visible applications' do
+      it 'returns only visible applications' do
         expect(Application.visible.where_values).to eq(
           ["applications.hidden IS NULL or applications.hidden = 'f'"]
         )

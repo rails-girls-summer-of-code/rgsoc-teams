@@ -18,6 +18,21 @@ FactoryGirl.define do
       after(:create) do |user|
         FactoryGirl.create(:student_role, user: user)
       end
+
+      trait :applicant do
+        application_about { FFaker::Lorem.paragraph }
+        application_motivation { FFaker::Lorem.paragraph }
+        application_gender_identification 'female'
+        application_coding_level { (1..5).to_a.sample }
+        application_community_engagement { FFaker::Lorem.paragraph }
+        application_learning_period { User::MONTHS_LEARNING.sample }
+        application_learning_history { FFaker::Lorem.paragraph }
+        application_skills{ FFaker::Lorem.paragraph }
+        application_code_samples{ FFaker::Lorem.paragraph }
+        application_location{ FFaker::Address.city }
+        application_minimum_money { FFaker::Lorem.paragraph }
+        banking_info { FFaker::Lorem.paragraph }
+      end
     end
 
     factory :mentor do

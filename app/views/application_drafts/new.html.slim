@@ -56,8 +56,8 @@ p.attention
         .help-block Your application is not yet ready for submission
 
 - if application_draft.draft?
-  - if application_draft.ready?
-    = simple_form_for application_draft, url: apply_application_path(application_draft.application), method: :put do |f|
+  - if application_draft.ready? && application_draft.as_student?
+    = simple_form_for application_draft, url: apply_application_draft_path(application_draft), method: :put do |f|
       .actions
         = f.button :submit, 'Apply', class: 'btn btn-success'
   - elsif application_draft.persisted?
