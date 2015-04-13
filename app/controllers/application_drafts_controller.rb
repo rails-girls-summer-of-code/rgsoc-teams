@@ -116,7 +116,7 @@ class ApplicationDraftsController < ApplicationController
   end
 
   def checktime
-    # render :ended unless current_season.application_period?
+    render :ended unless current_season.application_period?
   end
 
   def disallow_modifications_after_submission
