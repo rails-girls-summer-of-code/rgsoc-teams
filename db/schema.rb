@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150409231057) do
+ActiveRecord::Schema.define(version: 20150413192627) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -39,7 +39,6 @@ ActiveRecord::Schema.define(version: 20150409231057) do
     t.text     "project_url"
     t.text     "misc_info"
     t.text     "heard_about_it"
-    t.string   "signed_off_by"
     t.datetime "signed_off_at"
     t.integer  "team_id"
     t.integer  "season_id"
@@ -52,9 +51,11 @@ ActiveRecord::Schema.define(version: 20150409231057) do
     t.text     "state",                       default: "draft", null: false
     t.integer  "position"
     t.text     "project_plan"
+    t.integer  "signed_off_by"
   end
 
   add_index "application_drafts", ["season_id"], name: "index_application_drafts_on_season_id", using: :btree
+  add_index "application_drafts", ["signed_off_by"], name: "index_application_drafts_on_signed_off_by", using: :btree
   add_index "application_drafts", ["team_id"], name: "index_application_drafts_on_team_id", using: :btree
 
   create_table "applications", force: true do |t|
