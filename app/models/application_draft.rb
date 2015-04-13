@@ -1,4 +1,5 @@
 class ApplicationDraft < ActiveRecord::Base
+  class CurrentUserNotProvided < StandardError; end
 
   include HasSeason
 
@@ -11,6 +12,7 @@ class ApplicationDraft < ActiveRecord::Base
   belongs_to :team
   belongs_to :updater, class_name: 'User'
   has_one    :application
+  belongs_to :signatory, class_name: 'User', foreign_key: :signed_off_by
 
   acts_as_list scope: :team
 
@@ -91,6 +93,27 @@ class ApplicationDraft < ActiveRecord::Base
       end
 
       transitions :from => :draft, :to => :applied, :guard => :ready?
+    end
+  end
+
+  def signed_off?
+    signed_off_by.present? && signed_off_at.present?
+  end
+
+  def sign_off!
+    raise CurrentUserNotProvided unless current_user.present?
+    if !as_mentor?
+      errors.add :base, 'You need to be a mentor of this application to sign it off.'
+      false
+    elsif signed_off?
+      errors.add :base, 'Application has already been signed off.'
+      false
+    else
+      update(
+        signed_off_by: current_user.id,
+        signed_off_at: Time.now.utc
+      )
+      true
     end
   end
 
