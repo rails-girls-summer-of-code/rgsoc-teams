@@ -66,6 +66,15 @@ class ApplicationDraftsController < ApplicationController
     redirect_to application_drafts_path
   end
 
+  def sign_off
+    if application_draft.sign_off!
+      flash[:notice] = 'Application draft has been signed off.'
+    elsif application_draft.errors.any?
+      flash[:alert] = application_draft.errors.full_messages.join(' ')
+    end
+    redirect_to application_drafts_url
+  end
+
   protected
 
   def application_draft
@@ -107,7 +116,7 @@ class ApplicationDraftsController < ApplicationController
   end
 
   def checktime
-    render :ended unless current_season.application_period?
+    # render :ended unless current_season.application_period?
   end
 
   def disallow_modifications_after_submission

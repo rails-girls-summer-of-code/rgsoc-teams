@@ -14,6 +14,7 @@ table.table.table-striped.table-bordered.table-condensed
       th Team
       th Created
       th Updated
+      th Signed off
       th Your Role
       th Status
   tbody
@@ -32,5 +33,13 @@ table.table.table-striped.table-bordered.table-condensed
           = draft.updated_at
           - if draft.updater
            |  by #{link_to draft.updater.github_handle, draft.updater}
+        td
+          - if draft.signed_off?
+            = draft.signed_off_at
+            |  by #{link_to draft.signatory.github_handle, draft.signatory}
+          - elsif draft.role_for(current_user) == 'Mentor'
+            = link_to 'Sign off', sign_off_application_draft_path(draft), method: :put
+          - else
+            | No
         td= draft.role_for(current_user)
         td= draft_state(draft)
