@@ -100,14 +100,14 @@ module ApplicationHelper
   end
 
   def country_for_application(application)
-    country = application.country.present? ? application.country : application.user.try(:country)
+    country = application.country.present? ? application.country : application.team.students.map(&:country).reject(&:blank?).join(', ')
     country = 'US' if country == 'United States of America'
     country = 'UK' if country == 'United Kingdom'
     country
   end
 
   def location_for_application(application)
-    application.city.present? ? application.city : application.user.try(:location)
+    application.city.present? ? application.city : application.team.students.map(&:location).reject(&:blank?).join(', ')
   end
 
   def format_application_flags(application)

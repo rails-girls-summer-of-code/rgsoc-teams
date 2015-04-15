@@ -27,6 +27,10 @@ FactoryGirl.define do
     factory :supervisor_role do
       name 'supervisor'
     end
-    
+
+    factory :reviewer_role do
+      name 'reviewer'
+    end
+
   end
 end
