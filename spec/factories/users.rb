@@ -58,5 +58,11 @@ FactoryGirl.define do
         FactoryGirl.create(:supervisor_role, user: user)
       end
     end
+
+    factory :reviewer do
+      after(:create) do |user|
+        FactoryGirl.create(:reviewer_role, user: user)
+      end
+    end
   end
 end
