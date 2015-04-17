@@ -37,6 +37,7 @@ RgsocTeams::Application.routes.draw do
       put :apply
       get :check
       put :prioritize
+      put :sign_off
     end
   end
 

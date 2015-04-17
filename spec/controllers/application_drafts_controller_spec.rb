@@ -245,5 +245,25 @@ RSpec.describe ApplicationDraftsController do
       it_behaves_like 'fails to apply for role', :mentor
     end
 
+    describe 'PUT sign_off' do
+      let(:team)  { create(:team, :applying_team) }
+      let(:draft) { create :application_draft, :appliable, team: team }
+      let!(:role) { create(:mentor_role, user: user, team: team) }
+
+      subject { put :sign_off, id: draft.id }
+
+      before do
+        draft.submit_application!
+        subject
+        draft.reload
+      end
+
+      it 'signs off the draft' do
+        expect(draft.signed_off_by).to eq(user.id)
+        expect(draft.signed_off_at.to_s).to eq(Time.now.utc.to_s)
+        expect(flash[:notice]).to eq('Application draft has been signed off.')
+        expect(response).to redirect_to application_drafts_path
+      end
+    end
   end
 end

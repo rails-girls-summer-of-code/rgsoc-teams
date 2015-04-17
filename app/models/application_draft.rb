@@ -1,5 +1,4 @@
 class ApplicationDraft < ActiveRecord::Base
-
   include HasSeason
 
   include AASM
@@ -11,6 +10,7 @@ class ApplicationDraft < ActiveRecord::Base
   belongs_to :team
   belongs_to :updater, class_name: 'User'
   has_one    :application
+  belongs_to :signatory, class_name: 'User', foreign_key: :signed_off_by
 
   acts_as_list scope: :team
 
@@ -83,6 +83,7 @@ class ApplicationDraft < ActiveRecord::Base
   aasm :column => :state, :no_direct_assignment => true do
     state :draft, :initial => true
     state :applied
+    state :signed_off
 
     event :submit_application do
       after do |applied_at_time = nil|
@@ -92,9 +93,24 @@ class ApplicationDraft < ActiveRecord::Base
 
       transitions :from => :draft, :to => :applied, :guard => :ready?
     end
+
+    event :sign_off, :guard => :can_sign_off? do
+      after do
+        update(
+          signed_off_by: current_user.id,
+          signed_off_at: Time.now.utc
+        )
+      end
+
+      transitions :from => :applied, :to => :signed_off
+    end
   end
 
   private
+
+  def can_sign_off?
+    current_user.present? and as_mentor?
+  end
 
   def mentor_required
     unless (team || Team.new).mentors.any?
