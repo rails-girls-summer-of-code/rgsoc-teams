@@ -70,7 +70,7 @@ class ApplicationDraftsController < ApplicationController
     if application_draft.sign_off!
       flash[:notice] = 'Application draft has been signed off.'
     elsif application_draft.errors.any?
-      flash[:alert] = application_draft.errors.full_messages.join(' ')
+      flash[:alert] = 'An error has occured. Please contact us.'
     end
     redirect_to application_drafts_url
   end

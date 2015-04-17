@@ -37,9 +37,9 @@ table.table.table-striped.table-bordered.table-condensed
           - if draft.signed_off?
             = draft.signed_off_at
             |  by #{link_to draft.signatory.github_handle, draft.signatory}
-          - elsif draft.role_for(current_user) == 'Mentor'
+          - elsif draft.role_for(current_user) == 'Mentor' && draft.applied?
             = link_to 'Sign off', sign_off_application_draft_path(draft), method: :put
           - else
-            | No
+            | &nbsp;
         td= draft.role_for(current_user)
         td= draft_state(draft)

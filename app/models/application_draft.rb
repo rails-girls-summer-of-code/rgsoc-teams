@@ -1,6 +1,4 @@
 class ApplicationDraft < ActiveRecord::Base
-  class CurrentUserNotProvided < StandardError; end
-
   include HasSeason
 
   include AASM
@@ -85,6 +83,7 @@ class ApplicationDraft < ActiveRecord::Base
   aasm :column => :state, :no_direct_assignment => true do
     state :draft, :initial => true
     state :applied
+    state :signed_off
 
     event :submit_application do
       after do |applied_at_time = nil|
@@ -94,30 +93,24 @@ class ApplicationDraft < ActiveRecord::Base
 
       transitions :from => :draft, :to => :applied, :guard => :ready?
     end
-  end
 
-  def signed_off?
-    signed_off_by.present? && signed_off_at.present?
-  end
+    event :sign_off, :guard => :can_sign_off? do
+      after do
+        update(
+          signed_off_by: current_user.id,
+          signed_off_at: Time.now.utc
+        )
+      end
 
-  def sign_off!
-    raise CurrentUserNotProvided unless current_user.present?
-    if !as_mentor?
-      errors.add :base, 'You need to be a mentor of this application to sign it off.'
-      false
-    elsif signed_off?
-      errors.add :base, 'Application has already been signed off.'
-      false
-    else
-      update(
-        signed_off_by: current_user.id,
-        signed_off_at: Time.now.utc
-      )
-      true
+      transitions :from => :applied, :to => :signed_off
     end
   end
 
   private
+
+  def can_sign_off?
+    current_user.present? and as_mentor?
+  end
 
   def mentor_required
     unless (team || Team.new).mentors.any?
