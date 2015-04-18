@@ -99,10 +99,6 @@ RSpec.describe ApplicationDraftsController do
     describe 'GET edit' do
       let(:draft) { create :application_draft }
 
-      it_behaves_like 'application period is over' do
-        subject { get :edit, id: draft.to_param }
-      end
-
       it 'redirects if not part of a team' do
         get :edit, id: draft.to_param
         expect(response).to redirect_to root_path

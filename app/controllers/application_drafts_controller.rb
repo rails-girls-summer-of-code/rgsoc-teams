@@ -1,6 +1,6 @@
 class ApplicationDraftsController < ApplicationController
 
-  before_action :checktime, only: [:new, :create, :update, :edit]
+  before_action :checktime, only: [:new, :create, :update]
   before_action :sign_in_required
   before_action :ensure_max_applications, only: :new
   before_action :disallow_modifications_after_submission, only: :update
