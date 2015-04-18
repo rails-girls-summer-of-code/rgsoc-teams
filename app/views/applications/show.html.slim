@@ -35,7 +35,7 @@
 
   h2 Submitted Application
   - @application.application_data.each do |title, value|
-    h4 = title
+    h4 = Application.data_label(title)
     p  = auto_link(simple_format(value || 'n/a'))
 
   #comments

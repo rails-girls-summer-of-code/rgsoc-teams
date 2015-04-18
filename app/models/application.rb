@@ -18,6 +18,44 @@ class Application < ActiveRecord::Base
   scope :hidden, -> { where('applications.hidden IS NOT NULL and applications.hidden = ?', true) }
   scope :visible, -> { where('applications.hidden IS NULL or applications.hidden = ?', false) }
 
+  APPLICATION_DATA_LABELS = {
+        project_url: 'Project URL',
+        coaches_hours_per_week: "Coaches' Hours-per-Week",
+        coaches_why_team_successful: "Coaches' Success-Statement",
+        student0_application_about: 'Background (1st student)',
+        student0_application_motivation: 'Motivation (1st student)',
+        student0_application_gender_identification: 'Gender Self-Identification (1st student)',
+        student0_application_coding_level: 'Skill Level (1st student)',
+        student0_application_community_engagement: 'Rails Girls / Community Involvement (1st student)',
+        student0_application_learning_period: 'Learning Period (1st student)',
+        student0_application_learning_history: 'Learning Summary (1st student)',
+        student0_application_skills: 'Programming Skills Summary (1st student)',
+        student0_application_code_samples: 'Code Samples (1st student)',
+        student0_application_location: 'Location during the summer (1st student)',
+        student0_banking_info: 'Banking Information (1st student)',
+        student0_application_minimum_money: 'Minimum Money (1st student)',
+        student1_application_about: 'Background (2nd student)',
+        student1_application_motivation: 'Motivation (2nd student)',
+        student1_application_gender_identification: 'Gender Self-Identification (2nd student)',
+        student1_application_coding_level: 'Skill Level (2nd student)',
+        student1_application_community_engagement: 'Rails Girls / Community Involvement (2nd student)',
+        student1_application_learning_period: 'Learning Period (2nd student)',
+        student1_application_learning_history: 'Learning Summary (2nd student)',
+        student1_application_skills: 'Programming Skills Summary (2nd student)',
+        student1_application_code_samples: 'Code Samples (2nd student)',
+        student1_application_location: 'Location during the summer (2nd student)',
+        student1_banking_info: 'Banking Information (2nd student)',
+        student1_application_minimum_money: 'Minimum Money (2nd student)',
+        paid: 'Paid?',
+        rgsoc_only: 'Exclusively for RGSoC Alumni?',
+        misc_info: 'Additional information',
+        location: 'City'
+  }
+
+  def self.data_label(key)
+    APPLICATION_DATA_LABELS[key] ? APPLICATION_DATA_LABELS[key] : human_attribute_name(key)
+  end
+
   def name
     [team.try(:name), project_name].reject(&:blank?).join ' - '
   end
