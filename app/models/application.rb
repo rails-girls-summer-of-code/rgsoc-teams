@@ -52,6 +52,10 @@ class Application < ActiveRecord::Base
         location: 'City'
   }
 
+  def self.data_label(key)
+    APPLICATION_DATA_LABELS[key] ? APPLICATION_DATA_LABELS[key] : human_attribute_name(key)
+  end
+
   def name
     [team.try(:name), project_name].reject(&:blank?).join ' - '
   end
