@@ -18,6 +18,10 @@ class Application < ActiveRecord::Base
   scope :hidden, -> { where('applications.hidden IS NOT NULL and applications.hidden = ?', true) }
   scope :visible, -> { where('applications.hidden IS NULL or applications.hidden = ?', false) }
 
+  def self.data_label(key)
+    ApplicationDraft.human_attribute_name(key)
+  end
+
   def name
     [team.try(:name), project_name].reject(&:blank?).join ' - '
   end
