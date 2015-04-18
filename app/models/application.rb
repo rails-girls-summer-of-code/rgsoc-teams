@@ -3,6 +3,7 @@ class Application < ActiveRecord::Base
 
   belongs_to :application_draft
   belongs_to :team
+  belongs_to :signatory, class_name: 'User', foreign_key: :signed_off_by
 
   validates :team, :application_data, presence: true
 
@@ -121,6 +122,16 @@ class Application < ActiveRecord::Base
 
   def seems_to_have_pair?
     !!pair_skill_level
+  end
+
+  def signed_off?
+    !!signed_off_at
+  end
+
+  def sign_off!(as: nil)
+    self.signatory = as
+    self.signed_off_at = Time.now.utc
+    save!
   end
 
   def student_skill_level

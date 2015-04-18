@@ -274,6 +274,7 @@ RSpec.describe ApplicationDraftsController do
       let(:team)  { create(:team, :applying_team) }
       let(:draft) { create :application_draft, :appliable, team: team }
       let!(:role) { create(:mentor_role, user: user, team: team) }
+      let(:application) { draft.reload.application }
 
       subject { put :sign_off, id: draft.id }
 
@@ -288,6 +289,12 @@ RSpec.describe ApplicationDraftsController do
         expect(draft.signed_off_at.to_s).to eq(Time.now.utc.to_s)
         expect(flash[:notice]).to eq('Application draft has been signed off.')
         expect(response).to redirect_to application_drafts_path
+      end
+
+      it 'marks the associated application as signed off' do
+        expect(application).to be_signed_off
+        expect(application.signed_off_by).to eq(user.id)
+        expect(application.signed_off_at.to_s).to eq(Time.now.utc.to_s)
       end
     end
   end

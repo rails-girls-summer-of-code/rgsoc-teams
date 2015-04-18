@@ -38,7 +38,7 @@ table.table.table-striped.table-bordered.table-condensed
             = draft.signed_off_at
             |  by #{link_to draft.signatory.github_handle, draft.signatory}
           - elsif draft.role_for(current_user) == 'Mentor' && draft.applied?
-            = link_to 'Sign off', sign_off_application_draft_path(draft), method: :put
+            = link_to 'Sign off', sign_off_application_draft_path(draft), method: :put, data: { confirm: 'Has the team contacted you to discuss a project plan? Sign it off now?' }, class: 'btn btn-sm btn-success'
           - else
             | &nbsp;
         td= draft.role_for(current_user)
