@@ -30,24 +30,22 @@ RSpec.describe ApplicationDraftsController do
       let!(:student_role) { FactoryGirl.create :student_role, user: user, team: team }
       let!(:drafts) { FactoryGirl.create_list(:application_draft, 2, team: team) }
 
-      subject do
+      it 'lists the application drafts' do
         get :index
-      end
-
-      before do
-        subject
-      end
-
-      it 'assigns @application_drafts' do
+        expect(response).to have_http_status(200)
         expect(assigns(:application_drafts)).to match_array(drafts)
-      end
-
-      it 'renders index' do
         expect(response).to render_template(:index)
       end
 
-      it 'responds with 200' do
-        expect(response).to have_http_status(200)
+      context 'after application deadline but before acceptance letters were sent out' do
+        it 'lists the application drafts' do
+          Timecop.travel(Season.current.acceptance_notification_at - 2.days) do
+            get :index
+            expect(response).to have_http_status(200)
+            expect(assigns(:application_drafts)).to match_array(drafts)
+            expect(response).to render_template(:index)
+          end
+        end
       end
     end
 
