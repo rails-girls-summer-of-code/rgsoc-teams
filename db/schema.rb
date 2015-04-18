@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150415065331) do
+ActiveRecord::Schema.define(version: 20150418134622) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -78,10 +78,13 @@ ActiveRecord::Schema.define(version: 20150415065331) do
     t.integer  "team_id"
     t.integer  "application_draft_id"
     t.json     "team_snapshot"
+    t.integer  "signed_off_by"
+    t.datetime "signed_off_at"
   end
 
   add_index "applications", ["application_draft_id"], name: "index_applications_on_application_draft_id", using: :btree
   add_index "applications", ["season_id"], name: "index_applications_on_season_id", using: :btree
+  add_index "applications", ["signed_off_by"], name: "index_applications_on_signed_off_by", using: :btree
   add_index "applications", ["team_id"], name: "index_applications_on_team_id", using: :btree
 
   create_table "attendances", force: true do |t|
