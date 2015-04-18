@@ -24,6 +24,7 @@ class Team < ActiveRecord::Base
   has_one :last_activity, -> { order('id DESC') }, class_name: 'Activity'
   has_many :comments
   belongs_to :event
+  has_many :ratings, as: :rateable
 
   accepts_nested_attributes_for :roles, :sources, :project, allow_destroy: true
 
@@ -42,6 +43,21 @@ class Team < ActiveRecord::Base
 
   def application
     @application ||= applications.where(season_id: Season.current.id).first
+  end
+
+  # def rating
+  #   values = students.map { |student| student.rating }.flatten
+  #   rating = values.empty? ? 0 : values.inject(&:+) / values.size
+  #   values = [rating] + ratings.map(&:value)
+  #   values.empty? ? 0 : values.sum.to_f / values.size
+  # end
+
+  def rating(type = :mean, options = { bonus_points: true })
+    Rating::Calc.new(self, type, options).calc
+  end
+
+  def combined_ratings
+    ratings.to_a + students.map { |student| student.ratings }.flatten
   end
 
   def set_number

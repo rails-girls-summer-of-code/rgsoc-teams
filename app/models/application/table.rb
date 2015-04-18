@@ -9,6 +9,14 @@ class Application
         @options = options
       end
 
+      def id
+        application.id
+      end
+
+      def location
+        application.country
+      end
+
       def total_picks
         application.total_picks
       end
@@ -52,19 +60,12 @@ class Application
     end
 
     def sort(rows)
-      rows.sort_by do |row|
-        if options[:order] == 'picks'
-          row.total_picks
-        else
-          row.total_rating(order, options)
-        end
-      end.reverse
-    end
-
-    def sort(rows)
-      if options[:order] == 'picks'
+      case order = options[:order].to_sym
+      when :id, :location
+        rows.sort_by(&order)
+      when :picks
         sort_by_picks(rows).reverse
-      else
+      when
         rows.sort_by { |row| row.total_rating(order, options) }.reverse
       end
     end

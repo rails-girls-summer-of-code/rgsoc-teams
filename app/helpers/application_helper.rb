@@ -100,7 +100,7 @@ module ApplicationHelper
   end
 
   def country_for_application(application)
-    country = application.country.present? ? application.country : application.team.students.map(&:country).reject(&:blank?).join(', ')
+    country = application.country
     country = 'US' if country == 'United States of America'
     country = 'UK' if country == 'United Kingdom'
     country
@@ -179,6 +179,19 @@ module ApplicationHelper
     content_tag(:li, :class => :user) do
       avatar_url(member, size: 40) +
         link_to(member.name_or_handle, member)
+    end
+  end
+
+  def link_to_application_team_members(team, role = :member)
+    team.send(role.to_s.pluralize).sort_by(&:name_or_handle).map do |student|
+      link_to_application_team_member(student)
+    end.join.html_safe
+  end
+
+  def link_to_application_team_member(member)
+    content_tag(:li, :class => :user) do
+      avatar_url(member, size: 40) +
+        link_to(member.name_or_handle, applications_student_path(member))
     end
   end
 

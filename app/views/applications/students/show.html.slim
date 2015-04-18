@@ -1,0 +1,50 @@
+// .nav
+//   - if @prev
+//     = link_to @prev ? '&larr; Previous'.html_safe : '', @prev, class: 'left'
+//   = link_to 'Overview', applications_path
+//   - if @next
+//     = link_to @next ? 'Next &rarr;'.html_safe : '', @next, class: 'right'
+
+#student
+  h1 = "Student: #{@student.name}"
+
+  ul
+    - @student.applications.each do |application|
+      = link_to "Application: #{application.team.name}/#{application.project_name} (#{application.total_rating(:mean)})", application
+
+  ul
+    - @student.teams.each do |team|
+       li = link_to "Team: #{team.name} (#{team.rating})", applications_team_path(team)
+
+  - @applications.each do |application|
+    h2 = "Submitted Application (#{application.project_name})"
+    - application.data_for(:student, @student).each do |title, value|
+      h4 = Application.data_label(title)
+      p  = auto_link(simple_format(value || 'n/a'))
+
+
+#rating
+  = simple_form_for @rating do |f|
+    = hidden_field_tag :return_to, request.url
+
+    = f.simple_fields_for :data, @data do |d|
+      = f.input :rateable_type, :as => :hidden, input_html: { value: @rating.rateable_type }
+      = f.input :rateable_id,   :as => :hidden, input_html: { value: @rating.rateable_id }
+
+      h3 A. Women get priority
+      p
+        = d.input :is_woman, checked: @data.is_woman, as: :boolean
+
+      h3 B. Experience/skill level
+      .button_group
+        = d.collection_radio_buttons :skill_level, SKILL_LEVELS, :first, :last, checked: @data.skill_level
+
+      h3 C. Minimum money
+      p
+        = d.input :min_money, as: :string, required: false, label: false, input_html: { value: @data.min_money }
+
+      h3 D. Practice time
+      .button_group
+        = d.collection_radio_buttons :practice_time, PRACTICE_TIME, :first, :last, checked: @data.practice_time
+
+    = f.submit 'Save'

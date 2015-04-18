@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150413192627) do
+ActiveRecord::Schema.define(version: 20150418105037) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -49,8 +49,8 @@ ActiveRecord::Schema.define(version: 20150413192627) do
     t.datetime "applied_at"
     t.integer  "updater_id"
     t.text     "state",                       default: "draft", null: false
-    t.integer  "position"
     t.text     "project_plan"
+    t.integer  "position"
     t.integer  "signed_off_by"
   end
 
@@ -160,13 +160,17 @@ ActiveRecord::Schema.define(version: 20150413192627) do
   end
 
   create_table "ratings", force: true do |t|
-    t.integer  "application_id"
     t.text     "data"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_id"
     t.boolean  "pick"
+    t.integer  "application_id"
+    t.integer  "rateable_id"
+    t.string   "rateable_type"
   end
+
+  add_index "ratings", ["rateable_id", "rateable_type"], name: "index_ratings_on_rateable_id_and_rateable_type", using: :btree
 
   create_table "roles", force: true do |t|
     t.integer  "team_id"

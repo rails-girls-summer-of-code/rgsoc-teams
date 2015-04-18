@@ -1,4 +1,54 @@
 class Application < ActiveRecord::Base
+  class Data < Struct.new(:data, :role, :subject)
+    ORDER = [
+      nil,
+
+      :student0_name, :student1_name,
+      :student0_application_location, :student1_application_location,
+      :student0_application_gender_identification, :student1_application_gender_identification,
+      :student0_application_minimum_money, :student1_application_minimum_money,
+      :student0_application_coding_level, :student1_application_coding_level,
+      :student0_application_skills, :student1_application_skills,
+      :student0_application_learning_period, :student1_application_learning_period,
+      :student0_application_learning_history, :student1_application_learning_history,
+      :student0_application_code_samples, :student1_application_code_samples,
+      :student0_application_about, :student1_application_about,
+      :student0_application_community_engagement, :student1_application_community_engagement,
+
+      :coaches_hours_per_week, :coaches_why_team_successful, :voluntary, :voluntary_hours_per_week, :heard_about_it,
+
+      :project_name, :project_url, :project_plan,
+    ]
+
+    def extract
+      sort(data.slice(*keys))
+    end
+
+    def keys
+      case role
+      when :student     then data.keys.grep(/^#{role}#{student_ix}/)
+      when :team        then data.keys.grep(/(voluntary|heard_about|coaches_hours|team)/)
+      when :application then data.keys.grep(/(project)/)
+      else raise("Unknown role for Application::Data: #{role}")
+      end
+    end
+
+    def student_ix
+      handle = subject.github_handle.downcase.gsub(/\d/, '')
+      name = subject.name.downcase.gsub(/\d/, '')
+      key = ['student0_name', 'student1_name'].detect do |key|
+        value = data[key].downcase
+        handle.include?(value) || name.include?(value) || value.include?(handle) || value.include?(name)
+      end
+      key.gsub(/\D/, '') if key
+    end
+
+    def sort(data)
+      keys = data.keys.map(&:to_sym).sort { |lft, rgt| (ORDER.index(lft) || 99) <=> (ORDER.index(rgt) || 99) }
+      keys.map(&:to_s).inject({}) { |result, key| result.merge(key => data[key]) }
+    end
+  end
+
   include HasSeason
 
   belongs_to :application_draft
@@ -12,7 +62,7 @@ class Application < ActiveRecord::Base
   FLAGS = [:hidden, :cs_student, :remote_team, :mentor_pick,
            :volunteering_team, :in_team, :duplicate, :selected, :remote_team]
 
-  has_many :ratings
+  has_many :ratings, as: :rateable
   has_many :comments
 
   scope :hidden, -> { where('applications.hidden IS NOT NULL and applications.hidden = ?', true) }
@@ -30,12 +80,20 @@ class Application < ActiveRecord::Base
     application_data['student_name']
   end
 
+  def country
+    @country ||= super.present? ? super : team.students.map(&:country).reject(&:blank?).join(', ')
+  end
+
   def location
     application_data['location']
   end
 
   def minimum_money
     application_data['minimum_money']
+  end
+
+  def data_for(role, subject)
+    Data.new(application_data, role, subject).extract
   end
 
   def average_skill_level
@@ -47,6 +105,10 @@ class Application < ActiveRecord::Base
     ratings.where(pick: true).count
   end
 
+  def rating
+    total_rating(:mean)
+  end
+
   def total_rating(type, options = {})
     total = calc_rating(type, options)
     total += COACHING_COMPANY_WEIGHT if coaching_company.present?
@@ -56,18 +118,11 @@ class Application < ActiveRecord::Base
   end
 
   def calc_rating(type, options)
-    types = { truncated: :mean, weighted: :wma }
-    values = ratings.map { |rating| rating.value(options) }.sort
-    values.shift && values.pop if type == :truncated
-    rating = values.size > 0 ? values.send(types[type] || type).round_to(1) : 0
-    rating
-  rescue
-    -1 # wma seems to have issues with less than 2 values
+    Rating::Calc.new(self, type, options).calc
   end
 
-  def rating_defaults
-    keys = [:women_priority, :skill_level, :practice_time, :project_time, :support]
-    keys.inject({}) { |defaults, key| defaults.merge(key => send("estimated_#{key}")) }
+  def combined_ratings
+    ratings.to_a + team.combined_ratings
   end
 
   def sponsor_pick?
@@ -82,68 +137,5 @@ class Application < ActiveRecord::Base
       flags_will_change!
       value != '0' ? flags.concat([flag.to_sym]).uniq : flags.delete(flag.to_sym)
     end
-  end
-
-  def estimated_women_priority
-    5 + (seems_to_have_pair? ? 5 : 0)
-  end
-
-  def estimated_skill_level
-    if seems_to_have_pair?
-      values = [student_skill_level, pair_skill_level].sort
-      ((values.first.to_f + values.last.to_f * 2) / 3).round
-    else
-    end
-  end
-
-  def estimated_practice_time
-    if seems_to_have_pair?
-      [student_practice_time.to_i, pair_practice_time.to_i].max
-    else
-      student_practice_time
-    end
-  end
-
-  def estimated_project_time
-    10
-  end
-
-  def estimated_support
-    value = application_data['hours_per_coach']
-    return unless value =~ /^\d+$/
-
-    case value.to_i
-    when 5 then 8
-    when 3 then 5
-    when 1 then 1
-    end
-  end
-
-  def seems_to_have_pair?
-    !!pair_skill_level
-  end
-
-  def student_skill_level
-    application_data['coding_level'].try(:to_i)
-  end
-
-  def pair_skill_level
-    application_data['coding_level_pair'].try(:to_i)
-  end
-
-  PRACTICE_TIME = {
-    'Between 1 and 3 months'  => 2,
-    'Between 3 and 6 months'  => 4,
-    'Between 6 and 9 months'  => 6,
-    'Between 9 and 12 months' => 8,
-    'More that 12 months'     => 10
-  }
-
-  def student_practice_time
-    PRACTICE_TIME[application_data['learning_since_workshop']]
-  end
-
-  def pair_practice_time
-    PRACTICE_TIME[application_data['learning_since_workshop_pair']]
   end
 end

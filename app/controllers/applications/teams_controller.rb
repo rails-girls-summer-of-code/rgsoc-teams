@@ -1,0 +1,23 @@
+class Applications::TeamsController < ApplicationController
+  before_action :authenticate_user!
+  before_filter -> { require_role 'reviewer' }, except: [:new, :create]
+  respond_to :html
+
+  def show
+    @team = Team.find(params[:id])
+    @applications = @team.applications
+    @rating = find_or_initialize_rating(@team)
+    @data = RatingData.new(@rating.data)
+
+    # unless @application.hidden
+    #   @prev = prev_application
+    #   @next = next_application
+    # end
+  end
+
+  private
+
+  def find_or_initialize_rating(rateable)
+    @team.ratings.find_or_initialize_by(user: current_user)
+  end
+end
