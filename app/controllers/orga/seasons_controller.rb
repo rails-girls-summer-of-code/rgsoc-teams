@@ -7,7 +7,8 @@ class Orga::SeasonsController < Orga::BaseController
       starts_at: Time.utc(Date.today.year, 7, 1),
       ends_at: Time.utc(Date.today.year, 9, 30),
       applications_open_at: Time.utc(Date.today.year, 3, 1),
-      applications_close_at: Time.utc(Date.today.year, 3, 31)
+      applications_close_at: Time.utc(Date.today.year, 3, 31),
+      acceptance_notification_at: Time.utc(Date.today.year, 5, 1)
     })
   end
 
@@ -54,7 +55,11 @@ class Orga::SeasonsController < Orga::BaseController
   end
 
   def season_params
-    params.require(:season).permit(:name, :starts_at, :ends_at, :applications_open_at, :applications_close_at)
+    params.require(:season).permit(
+      :name, :starts_at, :ends_at,
+      :applications_open_at, :applications_close_at,
+      :acceptance_notification_at
+    )
   end
 
 end

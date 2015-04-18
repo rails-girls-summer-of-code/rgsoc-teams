@@ -23,6 +23,14 @@ describe Season do
           change { subject.applications_close_at }.to \
           DateTime.parse('2015-02-22 23:59:59 GMT')
       end
+
+      it 'sets acceptance_notification_at to the end of day' do
+        date = DateTime.parse('2015-02-22 14:00 GMT+1')
+        subject.acceptance_notification_at = date
+        expect { subject.valid? }.to \
+          change { subject.acceptance_notification_at }.to \
+          DateTime.parse('2015-02-22 23:59:59 GMT')
+      end
     end
   end
 

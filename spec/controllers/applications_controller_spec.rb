@@ -92,27 +92,6 @@ describe ApplicationsController do
       end
     end
 
-    describe 'application period' do
-      context 'period is over' do
-        before do
-          create(:season, applications_close_at: 2.weeks.ago)
-        end
-
-        it 'new renders applications_end template when over' do
-          get :new
-          expect(response).to render_template 'ended'
-        end
-
-        it 'create renders applications_end template when over' do
-          post :create
-          expect(response).to render_template 'ended'
-        end
-
-        after do
-          Timecop.return
-        end
-      end
-    end
   end
 
 end
