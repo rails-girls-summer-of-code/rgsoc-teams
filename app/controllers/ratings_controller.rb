@@ -5,7 +5,7 @@ class RatingsController < ApplicationController
   def create
     rating = find_or_initialize_rating
     rating.update_attributes(rating_params)
-    redirect_to params[:return_to]
+    redirect_to next_path(rating.rateable)
   end
 
   def update
@@ -34,4 +34,18 @@ class RatingsController < ApplicationController
     rating = rating.first_or_initialize
     rating
   end
+
+  def next_path(current)
+    if subject = Application::Todo.new(current_user, current).next
+      send(PATHS[subject.class.name.underscore.to_sym], subject)
+    else
+      Application
+    end
+  end
+
+  PATHS = {
+    user: 'applications_student_path',
+    team: 'applications_team_path',
+    application: 'application_path'
+  }
 end

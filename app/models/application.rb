@@ -93,6 +93,7 @@ class Application < ActiveRecord::Base
   end
 
   def data_for(role, subject)
+    p application_data
     Data.new(application_data, role, subject).extract
   end
 

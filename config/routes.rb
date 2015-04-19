@@ -28,9 +28,12 @@ RgsocTeams::Application.routes.draw do
   resources :attendances
   resources :contributors, only: :index
 
+  namespace :applications do
+    get 'students/:id', to: 'students#show', as: 'student'
+    get 'teams/:id', to: 'teams#show', as: 'team'
+    get 'todos', to: 'todos#index', as: 'todos'
+  end
   resources :applications
-  get 'applications/students/:id', to: 'applications/students#show', as: 'applications_student'
-  get 'applications/teams/:id', to: 'applications/teams#show', as: 'applications_team'
   resources :ratings
 
   resources :application_drafts, except: [:show, :destroy] do
