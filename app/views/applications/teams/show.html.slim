@@ -1,9 +1,9 @@
-// .nav
-//   - if @prev
-//     = link_to @prev ? '&larr; Previous'.html_safe : '', @prev, class: 'left'
-//   = link_to 'Overview', applications_path
-//   - if @next
-//     = link_to @next ? 'Next &rarr;'.html_safe : '', @next, class: 'right'
+.nav
+  - if @prev
+    = link_to @prev ? '&larr; Previous'.html_safe : '', @prev, class: 'left'
+  = link_to 'Overview', applications_path
+  - if @next
+    = link_to @next ? 'Next &rarr;'.html_safe : '', @next, class: 'right'
 
 #team
   h1 = "Team: #{@team.name} (#{@team.rating})"

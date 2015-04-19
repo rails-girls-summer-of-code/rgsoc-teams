@@ -1,6 +1,14 @@
+require 'forwardable'
+
 class Application
   class Table
     class Row
+      extend Forwardable
+
+      def_delegators :application, :id, :location, :team_name, :project_name, :student_name,
+        :total_picks, :coaching_company, :average_skill_level, :mentor_pick, :volunteering_team?,
+        :remote_team, :cs_student, :in_team
+
       attr_reader :names, :application, :options
 
       def initialize(names, application, options)
@@ -9,20 +17,9 @@ class Application
         @options = options
       end
 
-      def id
-        application.id
-      end
-
-      def location
-        application.country
-      end
-
-      def total_picks
-        application.total_picks
-      end
-
       def total_rating(column, options)
-        application.total_rating(column, options)
+        rating = application.total_rating(column, options).to_f
+        rating.nan? ? 0.0 : rating
       end
 
       def ratings
@@ -61,12 +58,12 @@ class Application
 
     def sort(rows)
       case order = options[:order].to_sym
-      when :id, :location
-        rows.sort_by(&order)
       when :picks
         sort_by_picks(rows).reverse
-      when
+      when :mean, :median, :weighted, :truncated
         rows.sort_by { |row| row.total_rating(order, options) }.reverse
+      else
+        rows.sort_by(&order)
       end
     end
 

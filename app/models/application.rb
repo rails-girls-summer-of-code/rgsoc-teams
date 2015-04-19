@@ -76,12 +76,16 @@ class Application < ActiveRecord::Base
     [team.try(:name), project_name].reject(&:blank?).join(' - ')
   end
 
+  def team_name
+    team.name
+  end
+
   def project_name
     application_data['project_name']
   end
 
   def student_name
-    application_data['student_name']
+    team.students.first.name
   end
 
   def country
