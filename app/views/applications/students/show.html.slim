@@ -10,7 +10,7 @@
 
   ul
     - @student.applications.each do |application|
-      li = link_to "Application: #{application.team.name}/#{application.project_name} (#{application.total_rating(:mean)})", application
+      li = link_to "Application: #{application.name} (#{application.total_rating(:mean)})", application
 
   ul
     - @student.teams.each do |team|

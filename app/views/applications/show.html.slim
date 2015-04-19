@@ -6,7 +6,7 @@
     = link_to @next ? 'Next &rarr;'.html_safe : '', @next, class: 'right'
 
 #application
-  h1 = "Application: #{@application.team.name}/#{@application.project_name} (#{@application.total_rating(:mean)})"
+  h1 = "Application: #{@application.name} (#{@application.total_rating(:mean)})"
 
   ul
     li = link_to "Team: #{@application.team.name} (#{@application.team.rating})", applications_team_path(@application.team)

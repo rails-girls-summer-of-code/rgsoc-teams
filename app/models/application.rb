@@ -73,7 +73,11 @@ class Application < ActiveRecord::Base
   end
 
   def name
-    [team.try(:name), project_name].reject(&:blank?).join ' - '
+    [team.try(:name), project_name].reject(&:blank?).join(' - ')
+  end
+
+  def project_name
+    application_data['project_name']
   end
 
   def student_name
@@ -93,7 +97,6 @@ class Application < ActiveRecord::Base
   end
 
   def data_for(role, subject)
-    p application_data
     Data.new(application_data, role, subject).extract
   end
 

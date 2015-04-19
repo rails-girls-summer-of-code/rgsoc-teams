@@ -10,7 +10,7 @@
 
   ul
     - @team.applications.each do |application|
-      = link_to "Application: #{@team.name}/#{application.project_name} (#{application.rating})", application
+      = link_to "Application: #{application.name} (#{application.rating})", application
 
   ul
     - @team.students.each do |student|
