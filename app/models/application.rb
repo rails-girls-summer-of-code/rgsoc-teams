@@ -85,7 +85,7 @@ class Application < ActiveRecord::Base
   end
 
   def student_name
-    team.students.first.name
+    team.students.first.try(:name)
   end
 
   def country

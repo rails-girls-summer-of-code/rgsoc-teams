@@ -29,7 +29,7 @@ describe Application do
 
     it 'derives its name from its team and project name' do
       subject.team = build_stubbed(:team, name: 'Foobar')
-      subject.project_name = 'Hello World'
+      subject.application_data['project_name'] = 'Hello World'
 
       expect(subject.name).to eql 'Foobar - Hello World'
     end
@@ -83,8 +83,17 @@ describe Application do
     end
   end
 
+  describe 'student_name' do
+    let(:team)    { FactoryGirl.build(:team, students: [student]) }
+    let(:student) { FactoryGirl.build(:student) }
+
+    before { allow(subject).to receive(:team).and_return(team) }
+
+    it { expect(subject.student_name).to eq student.name }
+  end
+
   describe 'proxy methods' do
-    proxy_methods = %w(student_name location minimum_money)
+    proxy_methods = %w(location minimum_money)
 
     proxy_methods.each do |key|
       describe key do
