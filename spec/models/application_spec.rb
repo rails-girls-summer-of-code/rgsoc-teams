@@ -117,7 +117,7 @@ describe Application do
           1 => 1
         }
         hours.each do |key, value|
-          allow(subject).to receive(:application_data).and_return('hours_per_coach' => key.to_s)
+          allow(subject).to receive(:application_data).and_return('coaches_hours_per_week' => key.to_s)
           expect(subject.estimated_support).to eq(value)
         end
       end

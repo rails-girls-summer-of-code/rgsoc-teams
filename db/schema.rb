@@ -49,8 +49,8 @@ ActiveRecord::Schema.define(version: 20150418105037) do
     t.datetime "applied_at"
     t.integer  "updater_id"
     t.text     "state",                       default: "draft", null: false
-    t.text     "project_plan"
     t.integer  "position"
+    t.text     "project_plan"
     t.integer  "signed_off_by"
   end
 
@@ -160,12 +160,12 @@ ActiveRecord::Schema.define(version: 20150418105037) do
   end
 
   create_table "ratings", force: true do |t|
+    t.integer  "application_id"
     t.text     "data"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_id"
     t.boolean  "pick"
-    t.integer  "application_id"
     t.integer  "rateable_id"
     t.string   "rateable_type"
   end

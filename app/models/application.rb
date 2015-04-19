@@ -125,6 +125,11 @@ class Application < ActiveRecord::Base
     ratings.to_a + team.combined_ratings
   end
 
+  def rating_defaults
+    keys = [:women_priority, :skill_level, :practice_time, :project_time, :support]
+    keys.inject({}) { |defaults, key| defaults.merge(key => send("estimated_#{key}")) }
+  end
+
   def sponsor_pick?
     sponsor_pick.present?
   end
@@ -137,5 +142,69 @@ class Application < ActiveRecord::Base
       flags_will_change!
       value != '0' ? flags.concat([flag.to_sym]).uniq : flags.delete(flag.to_sym)
     end
+  end
+
+  def estimated_women_priority
+    5 + (seems_to_have_pair? ? 5 : 0)
+  end
+
+  def estimated_skill_level
+    if seems_to_have_pair?
+      values = [student_skill_level, pair_skill_level].sort
+      ((values.first.to_f + values.last.to_f * 2) / 3).round
+    else
+      student_skill_level
+    end
+  end
+
+  def estimated_practice_time
+    if seems_to_have_pair?
+      [student_practice_time.to_i, pair_practice_time.to_i].max
+    else
+      student_practice_time
+    end
+  end
+
+  def estimated_project_time
+    10
+  end
+
+  def estimated_support
+    value = application_data['coaches_hours_per_week']
+    return unless value =~ /^\d+$/
+
+    case value.to_i
+    when 5 then 8
+    when 3 then 5
+    when 1 then 1
+    end
+  end
+
+  def seems_to_have_pair?
+    !!pair_skill_level
+  end
+
+  def student_skill_level
+    application_data['student0_application_coding_level'].try(:to_i)
+  end
+
+  def pair_skill_level
+    application_data['student1_application_coding_level'].try(:to_i)
+  end
+
+  PRACTICE_TIME = {
+    'Between 1 and 3 months'  => 2,
+    'Between 3 and 6 months'  => 4,
+    'Between 6 and 9 months'  => 6,
+    'Between 9 and 12 months' => 8,
+    'More that 12 months'     => 10
+  }
+
+  def student_practice_time
+    PRACTICE_TIME[application_data['learning_since_workshop']]
+  end
+
+  def pair_practice_time
+    PRACTICE_TIME[application_data['learning_since_workshop_pair']]
   end
 end
