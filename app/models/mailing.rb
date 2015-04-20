@@ -1,5 +1,5 @@
 class Mailing < ActiveRecord::Base
-  TO = %w(teams students coaches helpdesk organizers supervisors developers)
+  TO = %w(teams students coaches helpdesk organizers supervisors developers mentors)
 
   serialize :to
 
