@@ -21,6 +21,16 @@ RSpec.describe ApplicationDraftsController do
   context 'as an authenticated user' do
     let(:user) { create(:user) }
 
+    shared_examples_for 'application period is over' do
+      it 'new renders applications_end template when over' do
+        Timecop.travel(Season.current.applications_close_at + 2.days) do
+          text = "Applications for Rails Girls Summer of Code #{Season.current.year} are closed."
+          subject
+          expect(response.body).to match text
+        end
+      end
+    end
+
     before do
       allow(controller).to receive_messages(signed_in?: true)
       allow(controller).to receive_messages(current_user: user)
@@ -30,28 +40,31 @@ RSpec.describe ApplicationDraftsController do
       let!(:student_role) { FactoryGirl.create :student_role, user: user, team: team }
       let!(:drafts) { FactoryGirl.create_list(:application_draft, 2, team: team) }
 
-      subject do
+      it 'lists the application drafts' do
         get :index
-      end
-
-      before do
-        subject
-      end
-
-      it 'assigns @application_drafts' do
+        expect(response).to have_http_status(200)
         expect(assigns(:application_drafts)).to match_array(drafts)
-      end
-
-      it 'renders index' do
         expect(response).to render_template(:index)
       end
 
-      it 'responds with 200' do
-        expect(response).to have_http_status(200)
+      context 'after application deadline but before acceptance letters were sent out' do
+        it 'lists the application drafts' do
+          Timecop.travel(Season.current.acceptance_notification_at - 2.days) do
+            get :index
+            expect(response).to have_http_status(200)
+            expect(assigns(:application_drafts)).to match_array(drafts)
+            expect(response).to render_template(:index)
+          end
+        end
       end
+
     end
 
     describe 'GET new' do
+      it_behaves_like 'application period is over' do
+        subject { get :new }
+      end
+
       it 'redirects if not part of a students team' do
         get :new
         expect(response).to redirect_to new_team_path
@@ -124,6 +137,10 @@ RSpec.describe ApplicationDraftsController do
         expect(response).to redirect_to [:edit, assigns[:application_draft]]
       end
 
+      it_behaves_like 'application period is over' do
+        subject { post :create }
+      end
+
     end
 
     describe 'PATCH update' do
@@ -131,6 +148,10 @@ RSpec.describe ApplicationDraftsController do
 
       before do
         create :student_role, user: user, team: draft.team
+      end
+
+      it_behaves_like 'application period is over' do
+        subject { patch :update, id: draft.to_param }
       end
 
       it 'sets the updated_by attibute' do
@@ -249,6 +270,7 @@ RSpec.describe ApplicationDraftsController do
       let(:team)  { create(:team, :applying_team) }
       let(:draft) { create :application_draft, :appliable, team: team }
       let!(:role) { create(:mentor_role, user: user, team: team) }
+      let(:application) { draft.reload.application }
 
       subject { put :sign_off, id: draft.id }
 
@@ -263,6 +285,12 @@ RSpec.describe ApplicationDraftsController do
         expect(draft.signed_off_at.to_s).to eq(Time.now.utc.to_s)
         expect(flash[:notice]).to eq('Application draft has been signed off.')
         expect(response).to redirect_to application_drafts_path
+      end
+
+      it 'marks the associated application as signed off' do
+        expect(application).to be_signed_off
+        expect(application.signed_off_by).to eq(user.id)
+        expect(application.signed_off_at.to_s).to eq(Time.now.utc.to_s)
       end
     end
   end

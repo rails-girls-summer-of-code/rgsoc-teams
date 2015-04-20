@@ -100,6 +100,7 @@ class ApplicationDraft < ActiveRecord::Base
           signed_off_by: current_user.id,
           signed_off_at: Time.now.utc
         )
+        application.sign_off! as: current_user
       end
 
       transitions :from => :applied, :to => :signed_off
