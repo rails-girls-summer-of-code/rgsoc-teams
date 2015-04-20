@@ -45,12 +45,9 @@ class ApplicationsController < ApplicationController
 
   def show
     @application = Application.find(params[:id])
+    @application_data = @application.data_for(:application, @application)
     @rating = find_or_initialize_rating
     @data = RatingData.new(@rating.data)
-    unless @application.hidden
-      @prev = prev_application
-      @next = next_application
-    end
   end
 
   private
@@ -115,7 +112,7 @@ class ApplicationsController < ApplicationController
   end
 
   def find_or_initialize_rating
-    @application.ratings.find_or_initialize_by(user: current_user) do |rating|
+    Rating.where(user: current_user, rateable: @application).first_or_initialize do |rating|
       rating.data = Hashr.new(@application.rating_defaults)
     end
   end

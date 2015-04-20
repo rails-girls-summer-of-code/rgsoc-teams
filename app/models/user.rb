@@ -59,8 +59,10 @@ class User < ActiveRecord::Base
   end
   has_many :teams, -> { uniq }, through: :roles
   has_many :application_drafts, through: :teams
+  has_many :applications, through: :teams
   has_many :attendances
   has_many :conferences, through: :attendances
+  has_many :ratings, as: :rateable
 
   validates :github_handle, presence: true, uniqueness: true
   validates :homepage, format: { with: URL_PREFIX_PATTERN }, allow_blank: true
@@ -107,7 +109,10 @@ class User < ActiveRecord::Base
     def with_interest(interest)
       where(":interest = ANY(interested_in)", interest: interest)
     end
+  end
 
+  def rating(type = :mean, options = {})
+    Rating::Calc.new(self, type, options).calc
   end
 
   def just_created?

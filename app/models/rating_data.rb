@@ -7,7 +7,8 @@ class RatingData
 
   FIELDS = [
     :women_priority, :skill_level, :practice_time,
-    :project_time, :support, :planning, :bonus
+    :project_time, :support, :planning, :bonus,
+    :is_woman, :min_money
   ]
 
   attr_accessor *FIELDS

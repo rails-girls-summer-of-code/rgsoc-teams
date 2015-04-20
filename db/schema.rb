@@ -169,7 +169,11 @@ ActiveRecord::Schema.define(version: 20150418134622) do
     t.datetime "updated_at"
     t.integer  "user_id"
     t.boolean  "pick"
+    t.integer  "rateable_id"
+    t.string   "rateable_type"
   end
+
+  add_index "ratings", ["rateable_id", "rateable_type"], name: "index_ratings_on_rateable_id_and_rateable_type", using: :btree
 
   create_table "roles", force: true do |t|
     t.integer  "team_id"

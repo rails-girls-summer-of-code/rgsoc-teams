@@ -6,7 +6,14 @@
     = link_to @next ? 'Next &rarr;'.html_safe : '', @next, class: 'right'
 
 #application
-  h1 = @application.student_name
+  h1 = "Application: #{@application.name} (#{@application.total_rating(:mean)})"
+
+  ul
+    li = link_to "Team: #{@application.team.name} (#{@application.team.rating})", applications_team_path(@application.team)
+
+  ul
+    - @application.team.students.each do |student|
+      li = link_to "Student: #{student.name} (#{student.rating})", applications_student_path(student)
 
   h2 Additional Info
 
@@ -14,6 +21,7 @@
 
   p = @application.misc_info
 
+  = @application.coaching_company
   table.misc_info
     tbody
       tr
@@ -34,7 +42,7 @@
         td = format_application_flags(@application)
 
   h2 Submitted Application
-  - @application.application_data.each do |title, value|
+  - @application_data.each do |title, value|
     h4 = Application.data_label(title)
     p  = auto_link(simple_format(value || 'n/a'))
 
@@ -50,45 +58,17 @@
 
 
 #rating
-  = simple_form_for [@application, @rating] do |f|
+  = simple_form_for @rating do |f|
+    = hidden_field_tag :return_to, request.url
 
     = f.simple_fields_for :data, @data do |d|
+      = f.input :rateable_type, :as => :hidden, input_html: { value: @rating.rateable_type }
+      = f.input :rateable_id,   :as => :hidden, input_html: { value: @rating.rateable_id }
       = f.input :pick, label: "My Pick"
 
-      h3 A. Women get priority
-
-      .button_group
-        = d.collection_radio_buttons :women_priority, WOMEN_PRIORITY, :first, :last, checked: @data.women_priority
-
-      h3 B. Experience/skill level
-
-      = d.input :skill_level, as: :string, required: false, label: false, input_html: { value: @data.skill_level }
-      p.hint round([higher value] * 2 + [lower value]) / 3)
-
-      h3 C. Practice time
-
-      .button_group
-        = d.collection_radio_buttons :practice_time, PRACTICE_TIME, :first, :last, checked: @data.practice_time
-
-      h3 D. Project time
-
-      .button_group
-        = d.collection_radio_buttons :project_time, PROJECT_TIME, :first, :last, checked: @data.project_time
-
-      h3 E. Planning quality
-
+      h3 A. Planning quality
       .button_group
         = d.collection_radio_buttons :planning, PLANNING, :first, :last, checked: @data.planning
-
-      h3 F. Support
-
-      .button_group
-        = d.collection_radio_buttons :support, SUPPORT, :first, :last, checked: @data.support
-
-      h3 G. Extra points
-
-      = d.input :bonus, as: :string, required: false, label: false, input_html: { value: @data.bonus }
-      p.hint up to 10: great overall impression, women who have been discriminated against, have a difficult background etc.
 
     = f.submit 'Save'
 

@@ -1,0 +1,20 @@
+h1 Students
+
+ul
+  - students.each do |student|
+    li
+      = link_to student.name, applications_student_path(student)
+
+h1 Teams
+
+ul
+  - teams.each do |team|
+    li
+      = link_to team.name, applications_team_path(team)
+
+h1 Applications
+
+ul
+  - applications.each do |application|
+    li
+      = link_to application.name, application_path(application)
