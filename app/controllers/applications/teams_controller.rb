@@ -8,11 +8,6 @@ class Applications::TeamsController < ApplicationController
     @applications = @team.applications
     @rating = find_or_initialize_rating(@team)
     @data = RatingData.new(@rating.data)
-
-    # unless @application.hidden
-    #   @prev = prev_application
-    #   @next = next_application
-    # end
   end
 
   private

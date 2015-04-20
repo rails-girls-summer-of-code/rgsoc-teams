@@ -48,10 +48,6 @@ class ApplicationsController < ApplicationController
     @application_data = @application.data_for(:application, @application)
     @rating = find_or_initialize_rating
     @data = RatingData.new(@rating.data)
-    # unless @application.hidden
-    #   @prev = prev_application
-    #   @next = next_application
-    # end
   end
 
   private
