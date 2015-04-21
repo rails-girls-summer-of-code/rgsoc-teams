@@ -22,7 +22,8 @@ class Application
 
     def teams
       rated_ids = Rating.where(user: user, rateable_type: 'Team').pluck(:rateable_id)
-      teams = Team.order(:id)
+      team_ids = Application.joins(:team).pluck(:team_id)
+      teams = Team.where(id: team_ids)
       teams = teams.where('id NOT IN (?)', rated_ids) unless rated_ids.empty?
       teams
     end
@@ -52,13 +53,14 @@ class Application
       end
 
       def first_student
-        ids = Role.where(name: :student).pluck(:id)
+        ids = Application.joins(team: :roles).where('roles.name' => :student).pluck(:user_id)
         User.where(id: ids).order(:id).first
       end
 
       def next_teams_first_student
-        ids = Rating.where(user: user, rateable_type: 'Team').pluck(:id)
-        team = Team.where('id > ? AND id NOT IN (?)', subject.team.id, ids).order(:id).first
+        rated_ids = Rating.where(user: user, rateable_type: 'Team').pluck(:id)
+        team_ids = Application.joins(:team).pluck(:team_id)
+        teams = Team.where(id: team_ids).where('id > ? AND id NOT IN (?)', subject.team.id, rated_ids).order(:id).first
         team.students.first
       end
 
