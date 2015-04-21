@@ -60,7 +60,7 @@ class Application
       def next_teams_first_student
         rated_ids = Rating.where(user: user, rateable_type: 'Team').pluck(:id)
         team_ids = Application.joins(:team).pluck(:team_id)
-        teams = Team.where(id: team_ids).where('id > ? AND id NOT IN (?)', subject.team.id, rated_ids).order(:id).first
+        team = Team.where(id: team_ids).where('id > ? AND id NOT IN (?)', subject.team.id, rated_ids).order(:id).first
         team.students.first
       end
 
