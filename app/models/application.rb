@@ -102,7 +102,7 @@ class Application < ActiveRecord::Base
   end
 
   def data_for(role, subject)
-    Data.new(application_data, role, subject).extract
+    Data.new(application_data, role, subject).extract || {}
   end
 
   def average_skill_level

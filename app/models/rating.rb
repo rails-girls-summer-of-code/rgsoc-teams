@@ -81,6 +81,6 @@ class Rating < ActiveRecord::Base
 
   def weight_for(key, value)
     return value unless WEIGHTS[key]
-    WEIGHTS[key][value] or raise("Unknown weight for #{key.inspect}/#{value.inspect}")
+    WEIGHTS[key][value.to_i] or raise("Unknown weight for #{key.inspect}/#{value.inspect}")
   end
 end

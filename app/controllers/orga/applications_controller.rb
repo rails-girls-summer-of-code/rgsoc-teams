@@ -1,4 +1,4 @@
-class ApplicationsController < ApplicationController
+class Orga::ApplicationsController < ApplicationController
   include ApplicationsHelper
 
   before_filter :store_filters, only: :index
