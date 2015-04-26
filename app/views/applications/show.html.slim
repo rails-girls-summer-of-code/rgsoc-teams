@@ -2,6 +2,8 @@
   - if @prev
     = link_to @prev ? '&larr; Previous'.html_safe : '', @prev, class: 'left'
   = link_to 'Overview', applications_path
+  br
+  = link_to 'Rating To-Dos', applications_todos_path
   - if @next
     = link_to @next ? 'Next &rarr;'.html_safe : '', @next, class: 'right'
 
