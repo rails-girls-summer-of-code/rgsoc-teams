@@ -1,6 +1,8 @@
 require 'spec_helper'
 
 describe Applications::StudentsController, type: :controller do
+  render_views
+
   describe "GET show" do
     let(:current_user) { FactoryGirl.create(:reviewer) }
     let(:user) { FactoryGirl.create(:user) }
@@ -15,15 +17,41 @@ describe Applications::StudentsController, type: :controller do
     before do
       allow(controller).to receive(:authenticate_user!)
       allow(controller).to receive(:current_user).and_return(current_user)
-      subject
     end
 
-    it "assigns @student to the User" do
-      expect(assigns(:student)).to eq(user)
+    context "when a rating doesn't exist" do
+      before do
+        subject
+      end
+
+      it "assigns @student to the User" do
+        expect(assigns(:student)).to eq(user)
+      end
+
+      it "assigns @applications to user.applications" do
+        expect(assigns(:applications)).to match_array(applications)
+      end
+
+      it "assigns @rating to a new rating" do
+        expect(assigns(:rating)).to be_a(Rating)
+        expect(assigns(:rating).persisted?).to eq(false)
+      end
     end
 
-    it "assigns @applications to user.applications" do
-      expect(assigns(:applications)).to match_array(applications)
+    context "when a rating exists" do
+      let!(:rating) do
+        FactoryGirl.create(:rating, user: current_user, rateable: user)
+      end
+
+      before do
+        subject
+      end
+
+      it "assigns @rating to existing rating" do
+        expect(assigns(:rating)).to be_a(Rating)
+        expect(assigns(:rating).persisted?).to eq(true)
+      end
     end
+
   end
 end

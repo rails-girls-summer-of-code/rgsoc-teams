@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :rating do
     user
-    application
+    association :rateable
   end
 end
