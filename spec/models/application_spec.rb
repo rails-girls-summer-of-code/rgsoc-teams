@@ -24,6 +24,7 @@ describe Application do
   describe '#name' do
     it 'returns an empty string' do
       subject.team = nil
+      subject.application_data['project_name'] = nil
       expect(subject.name).to eql ''
     end
 
