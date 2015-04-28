@@ -1,20 +1,35 @@
-h1 Students
-
-ul
-  - students.each do |student|
-    li
-      = link_to student.name, applications_student_path(student)
-
-h1 Teams
-
-ul
-  - teams.each do |team|
-    li
-      = link_to team.name, applications_team_path(team)
-
-h1 Applications
-
-ul
-  - applications.each do |application|
-    li
-      = link_to application.name, application_path(application)
+h1 Todo
+table.table
+  thead
+    tr
+      th scope="col" Team
+      th scope="col" Rated at
+      th scope="col" Students
+      th scope="col" Applications
+  tbody
+    - @teams.each do |team|
+      tr class="team-#{team.id}"
+        td= link_to team.name, applications_team_path(team)
+        td= rating(team).try(:updated_at) || 'Never'
+        td
+          table.table
+            thead
+              tr
+                th scope="col" Name
+                th scope="col" Rated at
+            tbody
+              - team.students.each do |student|
+                tr class="student-#{student.id}"
+                  td= link_to student.name, applications_student_path(student)
+                  td= rating(student).try(:updated_at) || 'Never'
+        td
+          table.table
+            thead
+              tr
+                th scope="col" Name
+                th scope="col" Rated at
+            tbody
+              - team.applications.each do |application|
+                tr class="application-#{application.id}"
+                  td= link_to application.project_name, application_path(application)
+                  td= rating(application).try(:updated_at) || 'Never'
