@@ -69,4 +69,5 @@ group :test do
   gem 'timecop'
   gem "codeclimate-test-reporter", require: false
   gem 'rspec-collection_matchers'
+  gem 'rspec-html-matchers'
 end
