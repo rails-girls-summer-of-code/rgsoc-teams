@@ -59,9 +59,9 @@ SUPPORT = [
 ]
 
 PLANNING = [
-  [0,  'has a proper is a plan'],
-  [1,  'project named or weak plan'],
-  [2,  'project undecided']
+  [0,  'has a proper project plan'],
+  [1,  'weak plan, project only vaguely mentioned'],
+  [2,  'project undecided, no plan']
 ]
 
 WEIGHTS = {
