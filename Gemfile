@@ -48,6 +48,7 @@ group :development, :test do
   gem 'factory_girl_rails'
   gem 'database_cleaner'
   gem 'byebug'
+  gem 'ffaker'
 end
 
 group :development do
@@ -63,10 +64,10 @@ end
 
 group :test do
   gem 'shoulda'
-  gem 'ffaker'
   gem 'webmock'
   gem 'coveralls', require: false
   gem 'timecop'
   gem "codeclimate-test-reporter", require: false
   gem 'rspec-collection_matchers'
+  gem 'rspec-html-matchers'
 end

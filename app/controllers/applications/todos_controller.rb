@@ -3,24 +3,9 @@ class Applications::TodosController < ApplicationController
   before_filter -> { require_role 'reviewer' }, except: [:new, :create]
   respond_to :html
 
-  private
+  include TodoHelper
 
-    def students
-      @students ||= todo.students
-    end
-    helper_method :students
-
-    def teams
-      @teams ||= todo.teams
-    end
-    helper_method :teams
-
-    def applications
-      @applications ||= todo.applications
-    end
-    helper_method :applications
-
-    def todo
-      Application::Todo.new(current_user)
-    end
+  def index
+    @teams = Team.includes(:students, :applications)
+  end
 end
