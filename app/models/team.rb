@@ -12,7 +12,7 @@ class Team < ActiveRecord::Base
   attr_accessor :checked
 
   has_one :project, dependent: :destroy
-  has_many :applications, dependent: :nullify
+  has_many :applications, dependent: :nullify, inverse_of: :team
   has_many :application_drafts, dependent: :nullify
   has_many :roles, dependent: :destroy
   has_many :members, class_name: 'User', through: :roles, source: :user

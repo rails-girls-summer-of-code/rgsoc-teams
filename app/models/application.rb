@@ -52,7 +52,7 @@ class Application < ActiveRecord::Base
   include HasSeason
 
   belongs_to :application_draft
-  belongs_to :team
+  belongs_to :team, inverse_of: :applications, counter_cache: true
   belongs_to :signatory, class_name: 'User', foreign_key: :signed_off_by
 
   validates :team, :application_data, presence: true
