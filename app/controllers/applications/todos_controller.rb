@@ -6,6 +6,8 @@ class Applications::TodosController < ApplicationController
   include TodoHelper
 
   def index
-    @teams = Team.includes(:students, :applications)
+    @teams = Team.joins(:applications)
+                 .where('"applications_count" > 0')
+                 .includes(:students, :applications)
   end
 end
