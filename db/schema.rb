@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150418134622) do
+ActiveRecord::Schema.define(version: 20150430091437) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -49,8 +49,8 @@ ActiveRecord::Schema.define(version: 20150418134622) do
     t.datetime "applied_at"
     t.integer  "updater_id"
     t.text     "state",                       default: "draft", null: false
-    t.text     "project_plan"
     t.integer  "position"
+    t.text     "project_plan"
     t.integer  "signed_off_by"
   end
 
@@ -215,8 +215,8 @@ ActiveRecord::Schema.define(version: 20150418134622) do
 
   create_table "teams", force: true do |t|
     t.string   "name"
-    t.datetime "created_at",                      null: false
-    t.datetime "updated_at",                      null: false
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
     t.string   "log_url"
     t.text     "description"
     t.integer  "number"
@@ -230,9 +230,11 @@ ActiveRecord::Schema.define(version: 20150418134622) do
     t.date     "last_checked_at"
     t.integer  "last_checked_by"
     t.integer  "season_id"
-    t.boolean  "invisible",       default: false
+    t.boolean  "invisible",          default: false
+    t.integer  "applications_count", default: 0,     null: false
   end
 
+  add_index "teams", ["applications_count"], name: "index_teams_on_applications_count", using: :btree
   add_index "teams", ["season_id"], name: "index_teams_on_season_id", using: :btree
 
   create_table "users", force: true do |t|

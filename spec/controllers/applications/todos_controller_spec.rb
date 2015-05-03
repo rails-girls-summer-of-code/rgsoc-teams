@@ -7,6 +7,7 @@ describe Applications::TodosController, type: :controller do
     let(:role) { FactoryGirl.create(:reviewer_role, team: nil) }
     let(:current_user) { role.user }
     let!(:teams) { FactoryGirl.create_list(:team, 2, :applying_team, :with_applications) }
+    let!(:team_without_application) { FactoryGirl.create(:team) }
     let!(:team_rating) { teams.sample.ratings.create(user: current_user) }
     let!(:student_rating) { teams.sample.students.sample.ratings.create(user: current_user) }
     let!(:application_rating) { teams.sample.applications.sample.ratings.create(user: current_user) }
@@ -20,7 +21,11 @@ describe Applications::TodosController, type: :controller do
     end
 
     it 'assigns @teams' do
-      expect(assigns(:teams)).to eq(Team.all)
+      expect(assigns(:teams)).to match_array(teams)
+    end
+
+    it '@teams does not include teams without applications' do
+      expect(assigns(:teams)).to_not include(team_without_application)
     end
 
     it 'renders the tables' do
