@@ -11,7 +11,7 @@ class RatingsController < ApplicationController
   def update
     rating = Rating.find(params[:id])
     rating.update_attributes(rating_params)
-    redirect_to params[:return_to]
+    redirect_to next_path(rating.rateable)
   end
 
   private
