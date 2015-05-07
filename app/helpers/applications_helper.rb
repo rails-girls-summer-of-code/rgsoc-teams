@@ -26,6 +26,6 @@ module ApplicationsHelper
                 else
                   auto_link simple_format(value)
                 end
-    content_tag :p, formatted
+    content_tag :p, formatted.html_safe
   end
 end
