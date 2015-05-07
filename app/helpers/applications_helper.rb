@@ -17,4 +17,15 @@ module ApplicationsHelper
     classes << 'volunteering_team' if application.volunteering_team?
     classes.join(' ')
   end
+
+  def formatted_application_data_value(key, value)
+    markdown_fields = %w(project_plan)
+    value = value.presence || 'n/a'
+    formatted = if markdown_fields.include? key.to_s
+                  render_markdown value
+                else
+                  auto_link simple_format(value)
+                end
+    content_tag :p, formatted
+  end
 end
