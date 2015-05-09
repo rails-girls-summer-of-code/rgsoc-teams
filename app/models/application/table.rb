@@ -22,6 +22,13 @@ class Application
         rating.nan? ? 0.0 : rating
       end
 
+      def monies_needed
+        monies = application.team.students.map do |s|
+          s.ratings.map { |r| r.data[:min_money] || 0 }
+        end.flatten.select {|m| m > 0 }
+        monies.join(', ')
+      end
+
       def ratings
         @ratings ||= names.map do |name|
           ratings = application.ratings
@@ -79,4 +86,3 @@ class Application
     end
   end
 end
-

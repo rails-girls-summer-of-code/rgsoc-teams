@@ -12,8 +12,8 @@ tr class=application_classes_for(application)
     = format_application_project(application)
   td.location
     = format_application_location(application)
-  td.coaching_company
-    = application.coaching_company
+  td.monies_needed
+    = row.monies_needed
 
   td = application.total_picks
   td = application.total_rating(:mean, bonus_points: display_bonus_points?)
