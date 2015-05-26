@@ -33,7 +33,7 @@ RgsocTeams::Application.routes.draw do
     get 'teams/:id', to: 'teams#show', as: 'team'
     get 'todos', to: 'todos#index', as: 'todos'
   end
-  resources :applications
+  resources :applications, only: [:index, :show, :edit, :update]
   resources :ratings
 
   resources :application_drafts, except: [:show, :destroy] do
