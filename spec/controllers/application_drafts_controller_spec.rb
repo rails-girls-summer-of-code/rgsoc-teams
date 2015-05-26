@@ -239,7 +239,7 @@ RSpec.describe ApplicationDraftsController do
 
         it 'sends a mail' do
           expect { put :apply, id: draft.id }.to \
-            change { ActionMailer::Base.deliveries.count }.by(1)
+            change { enqueued_jobs.size }.by(1)
         end
 
         it 'flags the draft as applied' do
