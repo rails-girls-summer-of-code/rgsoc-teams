@@ -11,7 +11,7 @@ describe User do
   it { expect(subject).to have_many(:conferences) }
   it { expect(subject).to have_many(:roles) }
   it { expect(subject).to validate_presence_of(:github_handle) }
-  it { expect(subject).to validate_uniqueness_of(:github_handle) }
+  it { is_expected.to validate_uniqueness_of(:github_handle).case_insensitive }
 
   it { expect(subject).to allow_value('http://example.com').for(:homepage) }
   it { expect(subject).to allow_value('https://example.com').for(:homepage) }

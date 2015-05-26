@@ -64,7 +64,7 @@ class User < ActiveRecord::Base
   has_many :conferences, through: :attendances
   has_many :ratings, as: :rateable
 
-  validates :github_handle, presence: true, uniqueness: true
+  validates :github_handle, presence: true, uniqueness: { case_sensitive: false }
   validates :homepage, format: { with: URL_PREFIX_PATTERN }, allow_blank: true
 
   accepts_nested_attributes_for :attendances, allow_destroy: true
