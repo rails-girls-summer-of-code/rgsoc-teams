@@ -11,7 +11,7 @@ class Submission < ActiveRecord::Base
 
   def enqueue
     logger.info "Enqueueing submission: #{id}"
-    SubmissionWorker.new.async.perform(submission_id: id)
+    Mailer.email(self).deliver_later
   end
 
   def errored?

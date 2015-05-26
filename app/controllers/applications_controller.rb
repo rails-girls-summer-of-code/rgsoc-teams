@@ -3,31 +3,12 @@ class ApplicationsController < ApplicationController
 
   before_filter :store_filters, only: :index
   before_filter :persist_order, only: :index
-  before_filter :checktime, only: [:new, :create]
   before_action :authenticate_user!, except: :new
-  before_filter -> { require_role 'reviewer' }, except: [:new, :create]
+  before_filter -> { require_role 'reviewer' }
   respond_to :html
 
   def index
     @applications = applications_table
-  end
-
-  def new
-    if signed_in?
-      redirect_to apply_path
-    else
-      render 'sign_in'
-    end
-  end
-
-  def create
-    if application_form.valid?
-      @application = current_user.applications.create!(application_params)
-      ApplicationFormMailerWorker.new.async.perform(application_id: @application.id)
-      @application
-    else
-      render :new
-    end
   end
 
   def edit
@@ -131,7 +112,4 @@ class ApplicationsController < ApplicationController
     all[ix + 1]
   end
 
-  def checktime
-    render :ended unless current_season.application_period?
-  end
 end

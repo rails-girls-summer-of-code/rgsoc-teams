@@ -149,7 +149,7 @@ class Application < ActiveRecord::Base
 
     define_method :"#{flag}=" do |value|
       flags_will_change!
-      value != '0' ? flags.concat([flag.to_sym]).uniq : flags.delete(flag.to_sym)
+      value.to_s != '0' ? flags.concat([flag.to_sym]).uniq : flags.delete(flag.to_sym)
     end
   end
 
