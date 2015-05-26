@@ -72,6 +72,19 @@ describe User do
 
     end
 
+    describe '.find_for_github_oauth' do
+      context 'with github_handle' do
+        let(:handle) { "Foobar_#{SecureRandom.hex(8)}" }
+        let!(:user) { create :user, github_handle: handle }
+
+        it 'finds user case-insensitively' do
+          auth = double('Fake auth', uid: 1234)
+          allow(auth).to receive_message_chain('extra.raw_info.login').and_return(handle.upcase)
+
+          expect(User.find_for_github_oauth(auth)).to eql user
+        end
+      end
+    end
 
     describe '.with_assigned_roles' do
       it 'returns users that have any roles assigned' do
