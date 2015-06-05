@@ -86,12 +86,7 @@ class TeamsController < ApplicationController
     end
 
   def set_display_roles
-    if current_user && current_user.admin?
-      @display_roles = Role::TEAM_ROLES + ['supervisor']
-    else
-      @display_roles = ['student']
-    end
-
+    @display_roles = ['student']
     @display_roles.map!(&:pluralize)
   end
 end

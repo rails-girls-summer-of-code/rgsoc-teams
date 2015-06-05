@@ -9,6 +9,7 @@ h1.header
 
 - if admin?
   p.organizers = link_to 'Teams organizers info &rarr;'.html_safe, teams_info_path
+  p.organizers = link_to 'Teams management for organizers &rarr;'.html_safe, orga_teams_path
 
 table.table.table-striped.table-bordered.table-condensed
   tr
@@ -17,7 +18,6 @@ table.table.table-striped.table-bordered.table-condensed
       th = role.capitalize
     th Conferences
     th Location
-    th Last checked
     th = sortable 'created_at', 'Last Activity'
 
   - @teams.each do |team|
@@ -32,7 +32,6 @@ table.table.table-striped.table-bordered.table-condensed
                 = link_to(user.name_or_handle, user)
       td = links_to_conferences(team.members.map(&:conferences).flatten.uniq).join(', ').html_safe
       td = team.students_location
-      td = format_date(team.last_checked_at)
       td = format_date(team.last_activity.try(:created_at))
 
 p.hint
