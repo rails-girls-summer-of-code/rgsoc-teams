@@ -61,7 +61,7 @@ RSpec.describe Orga::TeamsController do
 
         it "redirects to the created team" do
           post :create, { team_id: team.to_param, team: valid_attributes }
-          expect(response).to redirect_to(assigns(:team))
+          expect(response).to redirect_to [:orga, assigns(:team)]
         end
 
         it 'sets the current season' do
@@ -90,7 +90,7 @@ RSpec.describe Orga::TeamsController do
 
         it "redirects to the team" do
           put :update, { id: team.to_param, team: valid_attributes }
-          expect(response).to redirect_to(team)
+          expect(response).to redirect_to [:orga, team]
         end
       end
 
@@ -119,7 +119,7 @@ RSpec.describe Orga::TeamsController do
 
         it "redirects to the team list" do
           delete :destroy, params
-          expect(response).to redirect_to(teams_url)
+          expect(response).to redirect_to orga_teams_url
         end
       end
 
