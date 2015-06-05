@@ -1,16 +1,14 @@
 class Orga::TeamsController < Orga::BaseController
-  before_action :set_team,  only: [:show, :edit, :update, :destroy]
-  before_action :set_users, only: [:new, :edit]
-  before_action :set_display_roles, only: :index
-
-  load_and_authorize_resource except: [:index, :show]
+  before_action :find_resource, only: [:show, :edit, :update, :destroy]
 
   def index
+    @display_roles = (Role::TEAM_ROLES + ['supervisor']).map(&:pluralize)
+
     if params[:sort]
       direction = params[:direction] == 'asc' ? 'ASC' : 'DESC'
-      @teams = Team.visible.includes(:activities).order("teams.kind, activities.created_at #{direction}").references(:activities)
+      @teams = Team.includes(:activities).order("teams.kind, activities.created_at #{direction}").references(:activities)
     else
-      @teams = Team.visible.order(:kind, :name)
+      @teams = Team.order(:kind, :name)
     end
   end
 
@@ -19,13 +17,11 @@ class Orga::TeamsController < Orga::BaseController
 
   def new
     @team = Team.new
-    @team.roles.build(name: 'student', github_handle: current_user.github_handle)
     @team.sources.build(kind: 'blog')
   end
 
   def edit
     @team.sources.build(kind: 'blog') unless @team.sources.any?
-    @team.build_project unless @team.project
   end
 
   def create
@@ -65,33 +61,20 @@ class Orga::TeamsController < Orga::BaseController
 
   private
 
-    def set_team
-      @team = Team.find(params[:id])
-    end
-
-    def set_users
-      @users = User.order(:github_handle)
-    end
-
-    def team_params
-      params[:team].fetch(:sources_attributes, {}).delete_if { |key, source| source[:url].empty? }
-      params.require(:team).permit(
-        :name, :twitter_handle, :github_handle, :description, :post_info, :event_id,
-        :checked, :'starts_on(1i)', :'starts_on(2i)', :'starts_on(3i)',
-        :'finishes_on(1i)', :'finishes_on(2i)', :'finishes_on(3i)', :invisible,
-        roles_attributes: [:id, :name, :github_handle, :_destroy],
-        sources_attributes: [:id, :kind, :url, :_destroy],
-        project_attributes: [:id, :name],
-      )
-    end
-
-  def set_display_roles
-    if current_user && current_user.admin?
-      @display_roles = Role::TEAM_ROLES + ['supervisor']
-    else
-      @display_roles = ['student']
-    end
-
-    @display_roles.map!(&:pluralize)
+  def find_resource
+    @team = Team.find(params[:id])
   end
+
+  def team_params
+    params[:team].fetch(:sources_attributes, {}).delete_if { |key, source| source[:url].empty? }
+    params.require(:team).permit(
+      :name, :twitter_handle, :github_handle, :description, :post_info, :event_id,
+      :checked, :'starts_on(1i)', :'starts_on(2i)', :'starts_on(3i)',
+      :'finishes_on(1i)', :'finishes_on(2i)', :'finishes_on(3i)', :invisible,
+      roles_attributes: [:id, :name, :github_handle, :_destroy],
+      sources_attributes: [:id, :kind, :url, :_destroy],
+      project_attributes: [:id, :name],
+    )
+  end
+
 end
