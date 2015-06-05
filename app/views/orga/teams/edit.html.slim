@@ -1,0 +1,11 @@
+nav.page
+  ul
+    li = link_to 'Back', [:orga, @team], class: 'back'
+
+nav.actions
+  ul
+    li
+      = link_to 'Destroy', [:orga, @team], data: { confirm: 'Are you sure?' }, method: :delete, class: 'destroy'
+
+h1 Editing team
+== render 'form'

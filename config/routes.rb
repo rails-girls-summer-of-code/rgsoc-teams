@@ -67,6 +67,7 @@ RgsocTeams::Application.routes.draw do
   end
 
   namespace :orga do
+    resources :teams
     resources :seasons
   end
 
