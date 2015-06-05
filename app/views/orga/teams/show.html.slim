@@ -1,0 +1,105 @@
+nav.page
+  ul
+    li = link_to 'All teams', teams_path, class: 'back'
+
+- if can? :join, @team
+  nav.actions
+    ul
+      li = link_to "Join #{@team.name}", new_team_join_path(@team), class: 'btn btn-success'
+
+= content_tag :h1, @team.display_name, class: "team #{@team.kind}"
+
+- if can? :edit, @team
+  nav.btn-group
+    = link_to 'Edit', edit_team_path(@team), class: 'edit btn btn-default btn-small'
+    = link_to 'Add a source', new_team_source_path(@team), class: 'btn btn-default btn-small'
+    = link_to 'Add a member', new_team_role_path(@team), class: 'btn btn-default btn-small'
+    - if can? :read, :users_info
+      - team_group_emails(@team).each do |group, emails|
+        = link_to "Email #{group}", "mailto:#{emails.join(',')}", class: 'btn btn-default btn-small'
+
+.profile
+  dl
+    - each_handle(@team, :github, :twitter) do |name, handle, url|
+      dt = name.capitalize
+      dd = url ? link_to(handle, url) : handle
+    dt Starts On
+    dd = format_date(@team.starts_on)
+    dt Finishes On
+    dd = format_date(@team.finishes_on)
+    dt Last Activity
+    dd = format_date(@team.last_activity.try(:created_at))
+    - if can? :read, :users_info
+      dt Blog post
+      dd = @team.post_info
+
+  - if @team.description
+    p = render_markdown(@team.description).html_safe
+
+- if can? :supervise, @team
+  .supervising.well
+    h3 Supervising
+    .comments
+      - if @team.comments.any?
+        ul
+          = render @team.comments, as: :comment
+      - else
+        p class="text-info" No comments yet
+      = render partial: 'comments/form', object: @team, as: :team
+    .checkup_box
+      - if @team.last_checked_by
+        p
+          = @team.last_checked_by.name_or_handle + ' on ' + @team.last_checked_at.to_s
+      p
+        = checkup_link(@team)
+
+- if @team.helpdesk_team?
+  - if @team.sources.any?
+    h3 Sources
+    = list_sources(@team)
+
+  h3 Members
+  = link_to_team_members(@team, :helpdesk)
+
+- elsif @team.organizers_team?
+  - if @team.sources.any?
+    h3 Sources
+    = list_sources(@team)
+
+  h3 Members
+  = link_to_team_members(@team, :organizer)
+
+- elsif @team.supervisors_team?
+  - if @team.sources.any?
+    h3 Sources
+    = list_sources(@team)
+
+  h3 Members
+  = link_to_team_members(@team, :supervisor)
+
+- else
+  h3 Sources
+  = @team.sources.any? ? list_sources(@team) : '-'
+
+  h3 Students
+  p = @team.students.any? ? link_to_team_members(@team, :student) : '-'
+
+  h3 Coaches
+  p = @team.coaches.any? ? link_to_team_members(@team, :coach) : '-'
+
+  h3 Mentors
+  p = @team.mentors.any? ? link_to_team_members(@team, :mentor) : '-'
+
+  h3 Supervisors
+  p = @team.supervisors.any? ? link_to_team_members(@team, :supervisor) : content_tag(:em, 'Will be added by RGSoC Organizers')
+
+- if @team.members.any? { |user| user.conferences.any? }
+  h4 Conferences
+  ul.conferences
+    - @team.members.each do |user|
+      - if user.conferences.any?
+        li = "#{link_to user.name, user}: #{links_to_conferences(user.conferences, true).join(', ')}".html_safe
+
+- if @team.activities.any?
+  h3 Activities
+  = render 'activities/activities', object: @team.activities.ordered
