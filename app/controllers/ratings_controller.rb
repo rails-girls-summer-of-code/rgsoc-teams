@@ -1,6 +1,6 @@
 class RatingsController < ApplicationController
   before_action :authenticate_user!
-  before_filter :normalize_data
+  before_action :normalize_data
 
   def create
     rating = find_or_initialize_rating

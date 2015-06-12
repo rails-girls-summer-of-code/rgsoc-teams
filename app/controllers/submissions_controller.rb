@@ -1,6 +1,6 @@
 class SubmissionsController < ApplicationController
-  before_filter :set_mailing
-  before_filter :set_submission, only: :update
+  before_action :set_mailing
+  before_action :set_submission, only: :update
 
   load_and_authorize_resource
 

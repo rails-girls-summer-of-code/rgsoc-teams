@@ -1,6 +1,6 @@
 class Applications::StudentsController < ApplicationController
   before_action :authenticate_user!
-  before_filter -> { require_role 'reviewer' }, except: [:new, :create]
+  before_action -> { require_role 'reviewer' }, except: [:new, :create]
   respond_to :html
 
   def show

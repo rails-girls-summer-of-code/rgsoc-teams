@@ -1,6 +1,6 @@
 class RolesController < ApplicationController
-  before_filter :set_team
-  before_filter :set_role, except: [:index, :show]
+  before_action :set_team
+  before_action :set_role, except: [:index, :show]
 
   load_and_authorize_resource except: [:index, :show]
 

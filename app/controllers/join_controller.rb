@@ -1,6 +1,6 @@
 class JoinController < ApplicationController
-  before_filter :set_team
-  before_filter :allow_helpdesk
+  before_action :set_team
+  before_action :allow_helpdesk
 
   def create
     @team.roles.create!(user: current_user, name: 'helpdesk')

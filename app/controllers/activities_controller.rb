@@ -1,9 +1,9 @@
 class ActivitiesController < ApplicationController
-  before_filter :normalize_params, only: :index
-  before_filter :cors_preflight, only: :index
-  after_filter  :cors_set_headers, only: :index
+  before_action :normalize_params, only: :index
+  before_action :cors_preflight, only: :index
+  after_action  :cors_set_headers, only: :index
 
-  before_filter :set_activities
+  before_action :set_activities
 
   def index
     respond_to do |format|

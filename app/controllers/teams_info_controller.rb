@@ -1,6 +1,6 @@
 class TeamsInfoController < ApplicationController
-  # before_filter :normalize_params, only: :index
-  before_filter { authorize!(:read, :teams_info) unless current_user.try(:admin?) }
+  # before_action :normalize_params, only: :index
+  before_action { authorize!(:read, :teams_info) unless current_user.try(:admin?) }
 
   private
 

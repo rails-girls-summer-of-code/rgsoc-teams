@@ -1,6 +1,6 @@
 class UsersInfoController < ApplicationController
-  before_filter :normalize_params, only: :index
-  before_filter { authorize!(:read, :users_info) if cannot?(:read, :users_info) }
+  before_action :normalize_params, only: :index
+  before_action { authorize!(:read, :users_info) if cannot?(:read, :users_info) }
 
   private
 

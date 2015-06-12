@@ -1,11 +1,11 @@
 class Orga::ApplicationsController < ApplicationController
   include ApplicationsHelper
 
-  before_filter :store_filters, only: :index
-  before_filter :persist_order, only: :index
-  before_filter :checktime, only: [:new, :create]
+  before_action :store_filters, only: :index
+  before_action :persist_order, only: :index
+  before_action :checktime, only: [:new, :create]
   before_action :authenticate_user!, except: :new
-  before_filter -> { require_role 'reviewer' }, except: [:new, :create]
+  before_action -> { require_role 'reviewer' }, except: [:new, :create]
   respond_to :html
 
   def index

@@ -1,7 +1,7 @@
 class MailingsController < ApplicationController
-  before_filter :normalize_params, only: [:create, :update]
-  before_filter :set_mailings, only: :index
-  before_filter :set_mailing, except: :index
+  before_action :normalize_params, only: [:create, :update]
+  before_action :set_mailings, only: :index
+  before_action :set_mailing, except: :index
 
   load_and_authorize_resource
 

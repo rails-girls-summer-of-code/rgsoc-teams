@@ -1,10 +1,10 @@
 class SourcesController < ApplicationController
-  before_filter :cors_preflight, only: :index
-  after_filter  :cors_set_headers, only: :index
+  before_action :cors_preflight, only: :index
+  after_action  :cors_set_headers, only: :index
 
-  before_filter :set_team
-  before_filter :set_sources, only: :index
-  before_filter :set_source, except: :index
+  before_action :set_team
+  before_action :set_sources, only: :index
+  before_action :set_source, except: :index
 
   load_and_authorize_resource except: [:index, :show]
 

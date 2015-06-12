@@ -3,14 +3,14 @@ class ApplicationController < ActionController::Base
 
   helper_method :current_season, :current_student
 
-  before_filter do
+  before_action do
     redirect_to = params[:redirect_to]
     redirect_to ||= request.env['omniauth.params']['redirect_to'] if request.env['omniauth.params']
     session[:redirect_to] = redirect_to if redirect_to.present?
   end
 
   # workaround fix for cancan on rails4 - https://github.com/ryanb/cancan/issues/835
-  before_filter do
+  before_action do
     resource = controller_path.singularize.gsub('/', '_').to_sym
     method = "#{resource}_params"
     params[resource] &&= send(method) if respond_to?(method, true)

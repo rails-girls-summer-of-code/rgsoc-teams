@@ -1,10 +1,10 @@
 class ApplicationsController < ApplicationController
   include ApplicationsHelper
 
-  before_filter :store_filters, only: :index
-  before_filter :persist_order, only: :index
+  before_action :store_filters, only: :index
+  before_action :persist_order, only: :index
   before_action :authenticate_user!, except: :new
-  before_filter -> { require_role 'reviewer' }
+  before_action -> { require_role 'reviewer' }
   respond_to :html
 
   def index
