@@ -16,8 +16,7 @@ class ActivitiesController < ApplicationController
   private
 
     def set_activities
-      @activities = Activity.includes(:team).ordered.page(params[:page])
-      @activities = @activities.with_kind(params[:kind]) if params[:kind].present? && params[:kind] != 'all'
+      @activities = Activity.includes(:team).with_kind(whitelisted_kind).ordered.page(params[:page])
       @activities = @activities.by_team(params[:team_id]) if params[:team_id].present?
     end
 
@@ -27,7 +26,16 @@ class ActivitiesController < ApplicationController
     helper_method :teams
 
     def normalize_params
-      params[:kind] = 'all' if params[:kind].blank?
+      params[:kind] = '' if params[:kind] == 'all'
     end
+
+    def whitelisted_kind
+      @whitelisted_kind ||= Array(params[:kind]).detect { |kind| public_activities.include? kind } || 'feed_entry'
+    end
+
+    def public_activities
+      @public_activities ||= %w(all feed_entry)
+    end
+    helper_method :public_activities
 end
 
