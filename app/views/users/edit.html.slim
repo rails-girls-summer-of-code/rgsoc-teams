@@ -46,6 +46,17 @@
   h3.page-header I am interested in:
 
   = f.collection_check_boxes :interested_in, User::INTERESTS.to_a, :first, :last, item_wrapper_tag: 'div', item_wrapper_class: 'interested_in'
+      
+  - if Conference.any?
+    h3.page-header Conferences
+    fieldset.conferences
+      .header
+        label Conference
+      = f.simple_fields_for :attendances do |s|
+        = s.input :conference_id, as: :select, collection: conferences, required: false, label: false
+        
+        = s.link_to_remove 'Remove'
+      = f.link_to_add 'I want to attend a conference!', :attendances, class: 'btn btn-primary form-btn-group'
 
   h3.page-header Private information
   p.help-block This information will only be visible to yourself and organizers.
