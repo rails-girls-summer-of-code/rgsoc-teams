@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150430091437) do
+ActiveRecord::Schema.define(version: 20150617131812) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -203,6 +203,16 @@ ActiveRecord::Schema.define(version: 20150430091437) do
     t.string   "feed_url",   limit: 255
     t.string   "title",      limit: 255
   end
+
+  create_table "status_updates", force: :cascade do |t|
+    t.integer  "team_id"
+    t.string   "subject"
+    t.string   "body"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "status_updates", ["team_id"], name: "index_status_updates_on_team_id", using: :btree
 
   create_table "submissions", force: :cascade do |t|
     t.integer  "mailing_id"
