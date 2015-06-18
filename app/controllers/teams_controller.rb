@@ -8,9 +8,9 @@ class TeamsController < ApplicationController
   def index
     if params[:sort]
       direction = params[:direction] == 'asc' ? 'ASC' : 'DESC'
-      @teams = Team.visible.includes(:activities).order("teams.kind, activities.created_at #{direction}").references(:activities)
+      @teams = Team.by_season_phase.includes(:activities).order("teams.kind, activities.created_at #{direction}").references(:activities)
     else
-      @teams = Team.visible.order(:kind, :name)
+      @teams = Team.by_season_phase.order(:kind, :name)
     end
   end
 
