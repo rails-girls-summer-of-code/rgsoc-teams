@@ -10,7 +10,7 @@ class TeamsController < ApplicationController
     base_scope = if Time.now.utc > Season.current.acceptance_notification_at
                    Team.where season: Season.current, kind: %w(sponsored voluntary)
                  else
-                   Team.visible
+                   Team.visible.where season: Season.current
                  end
     if params[:sort]
       direction = params[:direction] == 'asc' ? 'ASC' : 'DESC'

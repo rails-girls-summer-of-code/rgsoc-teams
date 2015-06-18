@@ -16,10 +16,21 @@ RSpec.describe TeamsController do
   end
 
   describe "GET index" do
-    it "assigns all teams as @teams" do
-      Season.current.update acceptance_notification_at: 1.day.from_now
-      get :index, {}, valid_session
-      expect(assigns(:teams).to_a).to be == [team]
+    context 'before acceptance letters are sent' do
+      let(:last_season)      { Season.create name: Date.today.year-1 }
+      let!(:invisble_team)   { create :team, :current_season, kind: nil, invisible: true }
+      let!(:unaccepted_team) { create :team, :current_season, kind: nil}
+      let!(:last_years_team) { create :team, kind: 'sponsored', season: last_season }
+
+      before do
+        Season.current.update acceptance_notification_at: 1.day.from_now
+      end
+
+      it 'displays all of this season\'s team except the invisible ones' do
+        get :index
+        expect(assigns(:teams)).to match_array [unaccepted_team]
+      end
+
     end
 
     context 'with sorting' do
