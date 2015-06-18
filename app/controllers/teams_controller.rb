@@ -5,12 +5,18 @@ class TeamsController < ApplicationController
 
   load_and_authorize_resource except: [:index, :show]
 
+
   def index
+    base_scope = if Time.now.utc > Season.current.acceptance_notification_at
+                   Team.where season: Season.current, kind: %w(sponsored voluntary)
+                 else
+                   Team.visible
+                 end
     if params[:sort]
       direction = params[:direction] == 'asc' ? 'ASC' : 'DESC'
-      @teams = Team.visible.includes(:activities).order("teams.kind, activities.created_at #{direction}").references(:activities)
+      @teams = base_scope.includes(:activities).order("teams.kind, activities.created_at #{direction}").references(:activities)
     else
-      @teams = Team.visible.order(:kind, :name)
+      @teams = base_scope.order(:kind, :name)
     end
   end
 
