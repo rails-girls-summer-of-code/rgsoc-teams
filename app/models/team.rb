@@ -39,6 +39,16 @@ class Team < ActiveRecord::Base
     def visible
       where("teams.invisible IS NOT TRUE OR teams.kind IN (?)", KINDS)
     end
+
+    # Returns a base scope reflecting the relevant teams depending on what
+    # phase of the running season we're currently in.
+    def by_season_phase
+      if Time.now.utc > Season.current.acceptance_notification_at
+        Team.where season: Season.current, kind: %w(sponsored voluntary)
+      else
+        Team.visible.where season: Season.current
+      end
+    end
   end
 
   def application
