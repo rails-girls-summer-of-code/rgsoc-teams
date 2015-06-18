@@ -5,9 +5,8 @@ class Source < ActiveRecord::Base
 
   belongs_to :team
 
-  # COMMENTING OUT VALIDATIONS BECAUSE NO ACCESS TO PROD DB
-  #validates :url, presence: true
-  #validates :kind, presence: true
+  validates :url, presence: true
+  validates :kind, presence: true
 
   def url=(url)
     super(normalize_url(url))
