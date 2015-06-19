@@ -3,7 +3,7 @@
 
   .form-inputs.clearfix
     = f.input :subject, label: 'Title', placeholder: 'Headline of your update'
-    = f.input :body, label: 'Text', input_html: { rows: "7" }, placeholder: 'Brief summary of your day'
+    = f.input :body, label: 'Text', input_html: { rows: "7" }, placeholder: 'Brief summary of your day', hint: "This is just for your public team profile. You can use basic #{link_to 'Markdown', "https://en.wikipedia.org/wiki/Markdown", target: :blank} here.".html_safe
 
   .form-actions
     = f.button :submit

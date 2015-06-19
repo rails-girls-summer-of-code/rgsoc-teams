@@ -57,7 +57,9 @@ RSpec.describe Students::StatusUpdatesController do
       end
 
       it 'renders markdown' do
-        skip
+        status_update.update body: "I am **bold**"
+        get :show, id: status_update.to_param
+        expect(response.body).to have_tag('strong') { with_text "bold" }
       end
     end
 

@@ -15,7 +15,7 @@ table.table.table-striped.table-bordered.table-condensed
       tr
         td = l status_update.created_at
         td = status_update.subject
-        td = status_update.body
+        td = render_markdown(status_update.body).html_safe
         td = link_to 'Show', [:students, status_update]
         td = link_to 'Edit', [:edit, :students, status_update]
         td = link_to 'Destroy', [:students, status_update], data: { confirm: 'Are you sure?'}, method: :delete
