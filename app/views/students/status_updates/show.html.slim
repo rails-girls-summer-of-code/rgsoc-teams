@@ -1,0 +1,13 @@
+h1 Status Update for Team #{@status_update.team.name}
+
+.conference
+  dl
+    dt Date
+    dd = l @status_update.created_at
+    dt Title
+    dd = @status_update.subject
+    dt Text
+    dd = @status_update.body
+
+= link_to 'Edit', [:edit, :students, @status_update], class: 'btn btn-default'
+= link_to 'Back', students_status_updates_path, class: 'btn btn-default'

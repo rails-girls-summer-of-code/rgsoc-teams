@@ -1,0 +1,9 @@
+= simple_form_for([:students, @status_update]) do |f|
+  = f.error_notification
+
+  .form-inputs.clearfix
+    = f.input :subject, label: 'Title'
+    = f.input :body, label: 'Text'
+
+  .form-actions
+    = f.button :submit

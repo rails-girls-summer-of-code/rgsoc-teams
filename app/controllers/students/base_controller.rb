@@ -7,5 +7,9 @@ class Students::BaseController < ApplicationController
     # redirect_to root_path, alert: 'You must be listed as a student for the current RGSoC season' unless current_user.try(:student?)
   end
 
+  def current_team
+    @current_team ||= current_user.teams.first
+  end
+
 end
 
