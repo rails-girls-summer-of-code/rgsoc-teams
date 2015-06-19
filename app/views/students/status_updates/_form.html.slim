@@ -2,8 +2,8 @@
   = f.error_notification
 
   .form-inputs.clearfix
-    = f.input :subject, label: 'Title'
-    = f.input :body, label: 'Text'
+    = f.input :subject, label: 'Title', placeholder: 'Headline of your update'
+    = f.input :body, label: 'Text', input_html: { rows: "7" }, placeholder: 'Brief summary of your day'
 
   .form-actions
     = f.button :submit
