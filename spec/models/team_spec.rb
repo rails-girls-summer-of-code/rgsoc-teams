@@ -13,6 +13,7 @@ describe Team do
   it { is_expected.to have_many(:helpdesks) }
   it { is_expected.to have_many(:organizers) }
   it { is_expected.to have_many(:supervisors) }
+  it { is_expected.to have_many(:status_updates) }
   it { is_expected.to have_many(:roles) }
 
   it { is_expected.to validate_uniqueness_of(:name) }

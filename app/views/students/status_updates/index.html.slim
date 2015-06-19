@@ -1,0 +1,25 @@
+h1 Listing Status Updates
+
+table.table.table-striped.table-bordered.table-condensed
+  thead
+    tr
+      th Date
+      th Title
+      th Text
+      th
+      th
+      th
+
+  tbody
+    - @status_updates.each do |status_update|
+      tr
+        td = l status_update.created_at
+        td = status_update.subject
+        td = render_markdown(status_update.body).html_safe
+        td = link_to 'Show', [:students, status_update]
+        td = link_to 'Edit', [:edit, :students, status_update]
+        td = link_to 'Destroy', [:students, status_update], data: { confirm: 'Are you sure?'}, method: :delete
+
+br
+
+= link_to 'New Status Update', [:new, :students, :status_update], class: 'btn btn-default'

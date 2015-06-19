@@ -71,6 +71,10 @@ RgsocTeams::Application.routes.draw do
     resources :seasons
   end
 
+  namespace :students do
+    resources :status_updates
+  end
+
   # get 'activities(.:format)', to: 'activities#index', as: :activities
   get 'activities(/page/:page)(.:format)', to: 'activities#index', as: :activities
 end

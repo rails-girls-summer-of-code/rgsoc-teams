@@ -24,6 +24,7 @@ class Team < ActiveRecord::Base
   has_one :last_activity, -> { order('id DESC') }, class_name: 'Activity'
   has_many :comments
   belongs_to :event
+  has_many :status_updates
   has_many :ratings, as: :rateable
 
   accepts_nested_attributes_for :roles, :sources, :project, allow_destroy: true
