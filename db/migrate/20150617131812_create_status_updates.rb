@@ -3,7 +3,7 @@ class CreateStatusUpdates < ActiveRecord::Migration
     create_table :status_updates do |t|
       t.integer :team_id
       t.string :subject
-      t.string :body
+      t.text :body
 
       t.timestamps null: false
     end

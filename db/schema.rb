@@ -207,7 +207,7 @@ ActiveRecord::Schema.define(version: 20150617131812) do
   create_table "status_updates", force: :cascade do |t|
     t.integer  "team_id"
     t.string   "subject"
-    t.string   "body"
+    t.text     "body"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
