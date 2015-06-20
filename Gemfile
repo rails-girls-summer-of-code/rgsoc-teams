@@ -32,7 +32,7 @@ gem 'sprockets-rails'
 gem 'newrelic_rpm'
 gem 'aws-sdk', '~> 1.38.0'
 
-gem 'rollbar', '~> 1.4.4'
+gem 'rollbar', '~> 1.5.3'
 
 gem 'aasm'
 gem 'acts_as_list'
