@@ -3,6 +3,16 @@ require 'spec_helper'
 describe Activity do
   it { is_expected.to belong_to(:team) }
 
+  context 'with validations' do
+    context 'for kind "status_update"' do
+      subject { described_class.new kind: 'status_update' }
+
+      it { is_expected.to validate_presence_of :team }
+      it { is_expected.to validate_presence_of :title }
+      it { is_expected.to validate_presence_of :content }
+    end
+  end
+
   describe 'scopes' do
     describe '.with_kind' do
       it 'queries for activities with a kind' do

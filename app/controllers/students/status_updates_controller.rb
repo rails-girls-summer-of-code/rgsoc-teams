@@ -10,7 +10,9 @@ class Students::StatusUpdatesController < Students::BaseController
   end
 
   def create
-    @status_update = current_team.status_updates.build(status_update_params)
+    @status_update = current_team.status_updates.build(
+      status_update_params.merge(published_at: Time.now.utc)
+    )
     if @status_update.save
       flash[:notice] = "Status Update created"
       redirect_to action: :index
@@ -50,7 +52,7 @@ class Students::StatusUpdatesController < Students::BaseController
   end
 
   def status_update_params
-    params.require(:status_update).permit(:subject, :body)
+    params.require(:activity).permit(:title, :content)
   end
 
 end
