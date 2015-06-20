@@ -44,6 +44,13 @@ RSpec.describe Students::StatusUpdatesController do
         expect(response).to redirect_to [:students, :status_updates]
       end
 
+      it 'immediately marks the activity as published' do
+        post :create, activity: attributes
+
+        activity = team.status_updates.last
+        expect(activity.published_at).to be_present
+      end
+
       it 'fails to create status update and renders new' do
         expect {
           post :create, activity: { title: '' }
