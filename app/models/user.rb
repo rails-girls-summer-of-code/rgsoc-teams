@@ -131,6 +131,12 @@ class User < ActiveRecord::Base
     roles.student.any?
   end
 
+  def current_student?
+    roles.joins(:team).
+      where("teams.season_id" => Season.current.id, "teams.kind" => %w(sponsored voluntary)).
+      student.any?
+  end
+
   private
 
   # Ensures that the location column either contains non-whitespace text, or is NULL
