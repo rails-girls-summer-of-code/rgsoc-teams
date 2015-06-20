@@ -1,7 +1,7 @@
 li class="activity #{activity.kind}"
   = image_tag(activity.img_url || '/images/screenshot-missing.png')
   = content_tag :h4, activity.title, class: 'title'
-  p.content= format_activity_content(activity, length: 300)
+  p.content= render_markdown(activity.content).html_safe
   p.info
     span.published_at = "at #{activity.published_at.to_formatted_s(:time)}".html_safe if activity.published_at
     ' &nbsp;&mdash; by:
