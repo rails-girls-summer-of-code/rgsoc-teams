@@ -1,5 +1,5 @@
 class Activity < ActiveRecord::Base
-  KINDS = %w(feed_entry mailing)
+  KINDS = %w(feed_entry mailing status_update)
 
   paginates_per 50
 

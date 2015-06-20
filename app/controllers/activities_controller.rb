@@ -30,11 +30,11 @@ class ActivitiesController < ApplicationController
     end
 
     def whitelisted_kind
-      @whitelisted_kind ||= Array(params[:kind]).detect { |kind| public_activities.include? kind } || 'feed_entry'
+      @whitelisted_kind ||= Array(params[:kind]).detect { |kind| public_activities.include? kind } || public_activities
     end
 
     def public_activities
-      @public_activities ||= %w(all feed_entry)
+      @public_activities ||= %w(feed_entry status_update)
     end
     helper_method :public_activities
 end
