@@ -15,6 +15,13 @@ FactoryGirl.define do
       published_at { 1.day.ago }
       guid { SecureRandom.uuid }
     end
+
+    factory :status_update do
+      kind 'status_update'
+      title { FFaker::Lorem.sentence(5) }
+      content { FFaker::Lorem.paragraph }
+    end
+
   end
 
 end
