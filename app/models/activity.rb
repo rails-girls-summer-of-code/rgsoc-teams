@@ -5,6 +5,8 @@ class Activity < ActiveRecord::Base
 
   belongs_to :team
 
+  validates :content, :title, :team, presence: { if: ->(act) { act.kind == 'status_update' } }
+
   class << self
     def with_kind(kind)
       where(kind: kind)
