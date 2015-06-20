@@ -193,6 +193,29 @@ describe User do
     end
   end
 
+  describe '#current_student?' do
+    it 'returns false for users w/o a role' do
+      expect(subject).not_to be_current_student
+    end
+
+    it 'returns false if user has a random student role' do
+      student = FactoryGirl.create(:student)
+      expect(student).not_to be_current_student
+    end
+
+    it 'returns false if user\'s team has not been accepted' do
+      team    = create(:team, :current_season, kind: nil)
+      student = create(:student_role, team: team).user
+      expect(student).not_to be_current_student
+    end
+
+    it 'returns true if user is among this season\'s accepted students' do
+      team    = create(:team, :current_season, kind: 'sponsored')
+      student = create(:student_role, team: team).user
+      expect(student).to be_current_student
+    end
+  end
+
   context 'with roles' do
     before do
       coach_role = FactoryGirl.create(:coach_role)
