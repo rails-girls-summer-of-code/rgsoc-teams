@@ -1,7 +1,8 @@
 h1 Edit Status Update
 
-== render 'form'
+= simple_form_for(@status_update, url: students_status_update_path(@status_update)) do |f|
+  == render 'form', f: f
 
 br
 
-= link_to 'Back', [:students, @status_update], class: 'btn btn-default'
+= link_to 'Back', students_status_update_path(@status_update), class: 'btn btn-default'

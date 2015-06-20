@@ -50,7 +50,7 @@ class Students::StatusUpdatesController < Students::BaseController
   end
 
   def status_update_params
-    params.require(:status_update).permit(:subject, :body)
+    params.require(:activity).permit(:title, :content)
   end
 
 end
