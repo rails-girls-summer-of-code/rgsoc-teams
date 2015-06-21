@@ -3,7 +3,7 @@ require 'spec_helper'
 RSpec.describe StatusUpdatesController, type: :controller do
   render_views
 
-  let(:status_update) { create :status_update }
+  let(:status_update) { create :status_update, :published }
 
   describe "GET show" do
     it "returns http success" do
