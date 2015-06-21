@@ -19,6 +19,7 @@ atom_feed language: 'en-US' do |feed|
     when 'status_update'
       url = status_update_url(activity)
       author_name = activity.team.display_name
+      content = render_markdown(activity.content)
     end
 
     feed.entry(activity, url: url) do |entry|
