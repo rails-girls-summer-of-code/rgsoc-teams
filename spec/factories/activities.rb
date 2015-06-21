@@ -5,6 +5,7 @@ FactoryGirl.define do
 
     trait :feed_entry do
       kind 'feed_entry'
+      source_url { FFaker::Internet.http_url }
     end
 
     trait :mailing do
