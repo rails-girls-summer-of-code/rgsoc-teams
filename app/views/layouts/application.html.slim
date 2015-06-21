@@ -1,7 +1,10 @@
 doctype html
 html
   head
-    title Rails Girls Summer of Code - Teams
+    - if content_for? :title
+      title #{yield :title} | Rails Girls Summer of Code - Teams App
+    - else
+      title Rails Girls Summer of Code - Teams App
     = stylesheet_link_tag    'application', media: 'all'
     = favicon_link_tag 'favicon.png'
     = csrf_meta_tags
