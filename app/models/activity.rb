@@ -20,4 +20,8 @@ class Activity < ActiveRecord::Base
       order('published_at DESC, id DESC')
     end
   end
+
+  def to_param
+    "#{id}-#{title.to_s.parameterize}"
+  end
 end

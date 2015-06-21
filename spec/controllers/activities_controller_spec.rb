@@ -13,6 +13,23 @@ describe ActivitiesController do
       expect(response).to render_template 'index'
     end
 
+    context 'as feed' do
+      it 'renders json' do
+        get :index, format: :json
+        expect(response).to be_success
+      end
+
+      it 'renders atom' do
+        get :index, format: :atom
+        expect(response).to be_success
+      end
+
+      it 'will not display mailings' do
+        get :index, format: %w(json atom).sample
+        expect(assigns(:activities)).to match_array feed_entries + status_updates
+      end
+    end
+
     it 'will not display mailings' do
       get :index
       expect(assigns(:activities)).to match_array feed_entries + status_updates

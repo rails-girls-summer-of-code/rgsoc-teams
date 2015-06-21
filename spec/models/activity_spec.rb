@@ -13,6 +13,14 @@ describe Activity do
     end
   end
 
+  describe '#to_param' do
+    it 'appends the parameterized title' do
+      subject.id    = 42
+      subject.title = 'Foo Bar - With dashes _ and underscores!'
+      expect(subject.to_param).to eql "42-foo-bar-with-dashes-_-and-underscores"
+    end
+  end
+
   describe 'scopes' do
     describe '.with_kind' do
       it 'queries for activities with a kind' do
