@@ -19,3 +19,6 @@ p.pagination-info
 = render 'activities', object: @activities
 
 = paginate @activities, theme: 'twitter-bootstrap-3', pagination_class: 'pagination-sm'
+
+- content_for :head do
+  = auto_discovery_link_tag(:atom, {action: "index", format: "atom" }, {title: "Atom Feed"})
