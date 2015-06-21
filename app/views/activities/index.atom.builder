@@ -16,6 +16,9 @@ atom_feed language: 'en-US' do |feed|
     when 'mailing'
       url = mailing_url(activity.guid)
       author_name = activity.author
+    when 'status_update'
+      url = status_update_url(activity)
+      author_name = activity.team.display_name
     end
 
     feed.entry(activity, url: url) do |entry|
