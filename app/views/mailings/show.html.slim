@@ -12,6 +12,8 @@ h1 class="mailing" = @mailing.subject
 
 .mailing
   dl
+    dt Group
+    dd = @mailing.group.humanize
     dt To
     dd = Array(@mailing.to).map(&:capitalize).join(', ')
     dt From

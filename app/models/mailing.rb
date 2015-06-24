@@ -5,6 +5,12 @@ class Mailing < ActiveRecord::Base
 
   has_many :submissions, dependent: :destroy
 
+  enum group: {
+    everyone: 0,
+    selected_teams: 1,
+    unselected_teams: 2
+  }
+
   delegate :emails, to: :recipients
 
   def sent?

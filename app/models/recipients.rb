@@ -1,5 +1,5 @@
 class Recipients
-  delegate :to, :cc, :bcc, to: :mailing
+  delegate :group, :to, :cc, :bcc, to: :mailing
 
   attr_reader :mailing
 
@@ -16,7 +16,16 @@ class Recipients
   end
 
   def users
-    User.joins(:roles).where( roles: {name: roles}).uniq
+    case group.to_sym
+    when :selected_teams
+      User.joins(:teams, :roles)
+        .where(teams: { kind: Team::KINDS }, roles: { name: roles }).uniq
+    when :unselected_teams
+      User.joins(:teams, :roles)
+        .where(teams: { kind: nil }, roles: { name: roles }).uniq
+    else
+      User.joins(:roles).where(roles: { name: roles }).uniq
+    end
   end
 
   def roles

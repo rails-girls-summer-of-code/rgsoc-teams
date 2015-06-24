@@ -50,7 +50,7 @@ class MailingsController < ApplicationController
 
     def mailing_params
       if params[:mailing]
-        self.params.require(:mailing).permit(:from, :cc, :bcc, :subject, :body, to: [])
+        self.params.require(:mailing).permit(:group, :from, :cc, :bcc, :subject, :body, to: [])
       else
         { from: ENV['EMAIL_FROM'], to: 'teams' }
       end
