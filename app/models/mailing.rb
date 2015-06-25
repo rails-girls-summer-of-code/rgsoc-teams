@@ -34,4 +34,9 @@ class Mailing < ActiveRecord::Base
   def recipient?(user)
     recipients.users.include? user
   end
+
+  def seasons=(value)
+    options = Season.pluck(:name)
+    self[:seasons] = value.select {|s| options.include?(s) }
+  end
 end

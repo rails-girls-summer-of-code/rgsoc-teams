@@ -1,6 +1,7 @@
 tr
   td = mailing.sent_at ? mailing.sent_at.to_formatted_s(:short) : '-'
   td = can?(:read, mailing) ? link_to(mailing.subject, mailing) : mailing.subject
+  td = mailing.seasons.join(', ')
   td = mailing.group.humanize
   td = Array(mailing.to).map(&:capitalize).join(', ')
   td = mailing.from
