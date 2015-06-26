@@ -39,38 +39,37 @@
   - if !admin?
     = f.simple_fields_for :project do |p|
       = p.input :name, placeholder: 'Name of your project', label: 'Project Name'
-  = f.input :github_handle, placeholder: '', hint: 'Should your team have an organization'
-  = f.input :twitter_handle, placeholder: '@', hint: 'Should your team have one'
-  = f.input :description, label: 'Introduction', placeholder: 'Tell the world about your team (eg. about the project you will be working on)', input_html: { rows: 10 }, hint: "This is just for your public team profile. You can use basic #{link_to 'Markdown', "https://en.wikipedia.org/wiki/Markdown", target: :blank} here.".html_safe
 
-  - if can? :read, :users_info
-    = f.input :post_info, label: 'Blog post info'
+  - if f.object.accepted?
+    = f.input :github_handle, placeholder: '', hint: 'Should your team have an organization'
+    = f.input :twitter_handle, placeholder: '@', hint: 'Should your team have one'
+    = f.input :description, label: 'Introduction', placeholder: 'Tell the world about your team (eg. about the project you will be working on)', input_html: { rows: 10 }, hint: "This is just for your public team profile. You can use basic #{link_to 'Markdown', "https://en.wikipedia.org/wiki/Markdown", target: :blank} here.".html_safe
 
-  .page-header
-    h2 Sources
+    .page-header
+      h2 Sources
 
-  p.help-block
-    | We will aggregate activities for all teams on the Activity page. Sources
-      are where these activities are coming from. Blogs must have an RSS/Atom feed (discoverable through an alternate link tag).
-      Please make sure to add at least your team log feed and repositories that
-      you are working on:
+    p.help-block
+      | We will aggregate activities for all teams on the Activity page. Sources
+        are where these activities are coming from. Blogs must have an RSS/Atom feed (discoverable through an alternate link tag).
+        Please make sure to add at least your team log feed and repositories that
+        you are working on:
 
-  fieldset
-    = f.simple_fields_for :sources do |s|
-      = s.input :url, required: true, label: 'URL'
-      / = s.input :kind, as: :radio_buttons, collection: Source::KINDS.map { |k| [k.capitalize, k] }, required: false, label: false
-      .form-group
-        label.control-label.col-sm-3 Type
-        .col-sm-9
-          - Source::KINDS.each do |kind|
-            .radio
-              label
-                = s.radio_button :kind, kind, required: true
-                = kind.capitalize
-          .form-btn-group
-            = s.link_to_remove 'Remove', class: 'btn btn-default'
-    .form-group.form-btn-group
-      = f.link_to_add 'Add another source', :sources, class: 'btn btn-primary col-sm-offset-3'
+    fieldset
+      = f.simple_fields_for :sources do |s|
+        = s.input :url, required: true, label: 'URL'
+        / = s.input :kind, as: :radio_buttons, collection: Source::KINDS.map { |k| [k.capitalize, k] }, required: false, label: false
+        .form-group
+          label.control-label.col-sm-3 Type
+          .col-sm-9
+            - Source::KINDS.each do |kind|
+              .radio
+                label
+                  = s.radio_button :kind, kind, required: true
+                  = kind.capitalize
+            .form-btn-group
+              = s.link_to_remove 'Remove', class: 'btn btn-default'
+      .form-group.form-btn-group
+        = f.link_to_add 'Add another source', :sources, class: 'btn btn-primary col-sm-offset-3'
 
   .actions
     = f.submit 'Save', class: 'btn btn-success'
