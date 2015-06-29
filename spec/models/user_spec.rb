@@ -46,11 +46,6 @@ describe User do
       it 'returns true for roles.includes?' do
         expect(@organizer.roles.includes?('organizer')).to eql true
       end
-
-      after do
-        @organizer.destroy
-        @role.destroy
-      end
     end
 
     describe 'supervisor check' do
@@ -64,12 +59,6 @@ describe User do
           expect(@supervisor.roles.supervisor).to eq([@role])
         end
       end
-
-      after do
-        @supervisor.destroy
-        @role.destroy
-      end
-
     end
 
     describe '.find_for_github_oauth' do
@@ -81,31 +70,31 @@ describe User do
           auth = double('Fake auth', uid: 1234)
           allow(auth).to receive_message_chain('extra.raw_info.login').and_return(handle.upcase)
 
-          expect(User.find_for_github_oauth(auth)).to eql user
+          expect(described_class.find_for_github_oauth(auth)).to eql user
         end
       end
     end
 
     describe '.with_assigned_roles' do
       it 'returns users that have any roles assigned' do
-        expect(User.with_assigned_roles).to be ==[@user2]
+        expect(described_class.with_assigned_roles).to be ==[@user2]
       end
     end
 
     describe '.with_role' do
       it 'returns users that have matching role name' do
-        expect(User.with_role('coach')).to be ==[@user2]
+        expect(described_class.with_role('coach')).to be ==[@user2]
       end
 
       it 'allows a list of roles' do
         organizer = create(:organizer)
-        expect(User.with_role('coach', 'organizer')).to be ==[@user2, organizer]
+        expect(described_class.with_role('coach', 'organizer')).to be ==[@user2, organizer]
       end
     end
 
     describe '.with_team_kind' do
       it 'returns users that have matching team kind' do
-        expect(User.with_team_kind('Charity')).to be ==[@user2]
+        expect(described_class.with_team_kind('Charity')).to be ==[@user2]
       end
     end
 
@@ -165,19 +154,19 @@ describe User do
 
   describe '#github_url' do
     it 'returns github url' do
-      @user = User.new(github_handle: 'rails-girl')
+      @user = described_class.new(github_handle: 'rails-girl')
       expect(@user.github_url).to be == 'https://github.com/rails-girl'
     end
   end
 
   describe '#name_or_handle' do
     it 'returns name if existed' do
-      @user = User.new(name: 'trung')
+      @user = described_class.new(name: 'trung')
       expect(@user.name_or_handle).to be =='trung'
     end
 
     it 'returns github_handle if name is not available' do
-      @user = User.new(github_handle: 'rails-girl')
+      @user = described_class.new(github_handle: 'rails-girl')
       expect(@user.name_or_handle).to be =='rails-girl'
     end
   end
@@ -204,27 +193,26 @@ describe User do
     end
 
     it 'returns false if user\'s team has not been accepted' do
-      team    = create(:team, :current_season, kind: nil)
-      student = create(:student_role, team: team).user
+      team    = FactoryGirl.create(:team, :current_season, kind: nil)
+      student = FactoryGirl.create(:student, team: team)
       expect(student).not_to be_current_student
     end
 
     it 'returns true if user is among this season\'s accepted students' do
-      team    = create(:team, :current_season, kind: 'sponsored')
-      student = create(:student_role, team: team).user
+      team    = FactoryGirl.create(:team, :current_season, kind: 'sponsored')
+      student = FactoryGirl.create(:student, team: team)
       expect(student).to be_current_student
     end
   end
 
   context 'with roles' do
-    before do
-      coach_role = FactoryGirl.create(:coach_role)
-      @user, team = coach_role.user, coach_role.team
-      FactoryGirl.create(:mentor_role, user: @user, team: team)
-    end
+    let!(:user) { FactoryGirl.create(:user) }
+    let!(:team) { FactoryGirl.create(:team) }
+    let!(:coach) { FactoryGirl.create(:coach_role, team: team, user: user) }
+    let!(:mentor) { FactoryGirl.create(:mentor_role, team: team, user: user) }
 
     it 'lists unique teams even with different roles' do
-      expect(@user.teams.count).to eql 1
+      expect(user.teams.count).to eql 1
     end
   end
 end
