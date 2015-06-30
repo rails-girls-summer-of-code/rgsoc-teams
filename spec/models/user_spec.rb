@@ -182,6 +182,18 @@ describe User do
     end
   end
 
+  describe '#supervisor?' do
+    it 'returns false for users w/o a role' do
+      expect(subject).not_to be_supervisor
+    end
+
+    it 'returns true if user has a supervisor role' do
+      supervisor = FactoryGirl.create(:supervisor)
+      expect(supervisor).to be_supervisor
+    end
+  end
+
+
   describe '#current_student?' do
     it 'returns false for users w/o a role' do
       expect(subject).not_to be_current_student

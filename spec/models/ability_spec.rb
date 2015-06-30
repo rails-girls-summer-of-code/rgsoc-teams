@@ -51,6 +51,36 @@ describe Ability do
         end
       end
 
+      describe 'to read user info' do
+        context 'if not an admin or supervisor' do
+          before do
+            allow(user).to receive(:admin?).and_return(false)
+            allow(user).to receive(:supervisor?).and_return(false)
+          end
+
+          it { expect(ability).not_to be_able_to(:read, :users_info) }
+        end
+
+        context 'if an admin' do
+          before do
+            allow(user).to receive(:admin?).and_return(true)
+            allow(user).to receive(:supervisor?).and_return(false)
+          end
+
+          it { expect(ability).to be_able_to(:read, :users_info) }
+        end
+
+        context 'if a supervisor' do
+          before do
+            allow(user).to receive(:admin?).and_return(false)
+            allow(user).to receive(:supervisor?).and_return(true)
+          end
+
+          it { expect(ability).to be_able_to(:read, :users_info) }
+        end
+
+      end
+
       describe 'access to mailings' do
         let!(:mailing) { Mailing.new }
         let!(:user) { FactoryGirl.create(:student) }
