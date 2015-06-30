@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150620094945) do
+ActiveRecord::Schema.define(version: 20150625085615) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -49,8 +49,8 @@ ActiveRecord::Schema.define(version: 20150620094945) do
     t.datetime "applied_at"
     t.integer  "updater_id"
     t.text     "state",                       default: "draft", null: false
-    t.integer  "position"
     t.text     "project_plan"
+    t.integer  "position"
     t.integer  "signed_off_by"
   end
 
@@ -151,8 +151,10 @@ ActiveRecord::Schema.define(version: 20150620094945) do
     t.string   "subject",    limit: 255
     t.text     "body"
     t.datetime "sent_at"
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
+    t.integer  "group",                  default: 0
+    t.text     "seasons",                default: [],              array: true
   end
 
   create_table "projects", force: :cascade do |t|
@@ -170,7 +172,7 @@ ActiveRecord::Schema.define(version: 20150620094945) do
     t.integer  "user_id"
     t.boolean  "pick"
     t.integer  "rateable_id"
-    t.string   "rateable_type"
+    t.string   "rateable_type",  limit: 255
   end
 
   add_index "ratings", ["rateable_id", "rateable_type"], name: "index_ratings_on_rateable_id_and_rateable_type", using: :btree
@@ -186,7 +188,7 @@ ActiveRecord::Schema.define(version: 20150620094945) do
   create_table "seasons", force: :cascade do |t|
     t.date     "starts_at"
     t.date     "ends_at"
-    t.string   "name",                  limit: 255
+    t.string   "name",                       limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "applications_open_at"
@@ -214,24 +216,24 @@ ActiveRecord::Schema.define(version: 20150620094945) do
   end
 
   create_table "teams", force: :cascade do |t|
-    t.string   "name",            limit: 255
-    t.datetime "created_at",                                  null: false
-    t.datetime "updated_at",                                  null: false
-    t.string   "log_url",         limit: 255
+    t.string   "name",               limit: 255
+    t.datetime "created_at",                                     null: false
+    t.datetime "updated_at",                                     null: false
+    t.string   "log_url",            limit: 255
     t.text     "description"
     t.integer  "number"
-    t.string   "kind",            limit: 255
-    t.string   "twitter_handle",  limit: 255
-    t.string   "github_handle",   limit: 255
+    t.string   "kind",               limit: 255
+    t.string   "twitter_handle",     limit: 255
+    t.string   "github_handle",      limit: 255
     t.date     "starts_on"
     t.date     "finishes_on"
-    t.string   "post_info",       limit: 255
+    t.string   "post_info",          limit: 255
     t.integer  "event_id"
     t.date     "last_checked_at"
     t.integer  "last_checked_by"
     t.integer  "season_id"
-    t.boolean  "invisible",          default: false
-    t.integer  "applications_count", default: 0,     null: false
+    t.boolean  "invisible",                      default: false
+    t.integer  "applications_count",             default: 0,     null: false
   end
 
   add_index "teams", ["applications_count"], name: "index_teams_on_applications_count", using: :btree

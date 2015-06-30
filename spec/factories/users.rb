@@ -9,14 +9,18 @@ FactoryGirl.define do
     homepage { FFaker::Internet.http_url }
 
     factory :coach do
-      after(:create) do |user|
-        FactoryGirl.create(:coach_role, user: user)
+      transient { team { FactoryGirl.create(:team) } }
+
+      after(:create) do |user, evaluator|
+        FactoryGirl.create(:coach_role, user: user, team: evaluator.team)
       end
     end
 
     factory :student do
-      after(:create) do |user|
-        FactoryGirl.create(:student_role, user: user)
+      transient { team { FactoryGirl.create(:team) } }
+
+      after(:create) do |user, evaluator|
+        FactoryGirl.create(:student_role, user: user, team: evaluator.team)
       end
 
       trait :applicant do
@@ -36,8 +40,10 @@ FactoryGirl.define do
     end
 
     factory :mentor do
-      after(:create) do |user|
-        FactoryGirl.create(:mentor_role, user: user)
+      transient { team { FactoryGirl.create(:team) } }
+
+      after(:create) do |user, evaluator|
+        FactoryGirl.create(:mentor_role, user: user, team: evaluator.team)
       end
     end
 

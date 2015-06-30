@@ -1,7 +1,17 @@
 require 'spec_helper'
 
 describe Recipients do
-  let(:mailing) { build :mailing, cc: 'cc@email.com', bcc: 'bcc@email.com' }
+  let(:mailing) do
+    build :mailing,
+          cc: 'cc@email.com',
+          bcc: 'bcc@email.com',
+          to: to,
+          group: group,
+          seasons: seasons
+  end
+  let(:to) { %w(students) }
+  let(:group) { 'everyone' }
+  let(:seasons) { [] }
   let(:recipients) { Recipients.new mailing }
 
   subject { described_class.new mailing }
@@ -43,13 +53,51 @@ describe Recipients do
   end
 
   describe '#users' do
-    let(:coach) { FactoryGirl.create(:coach) }
-    let(:student) { FactoryGirl.create(:student) }
+    context 'when grouped' do
+      let(:to) { %w(students) }
+      let!(:selected_team) { FactoryGirl.create(:team, kind: Team::KINDS.sample) }
+      let!(:selected_students) { FactoryGirl.create_list(:student, 2, team: selected_team) }
 
-    it 'only returns user that matches role' do
-      allow(mailing).to receive_messages(to: %w(students))
-      expect(subject.users).to include student
-      expect(subject.users).not_to include coach
+      let!(:unselected_team) { FactoryGirl.create(:team, kind: nil) }
+      let!(:unselected_students) { FactoryGirl.create_list(:student, 2, team: unselected_team) }
+
+      context 'when group is selected_teams' do
+        let(:group) { 'selected_teams'}
+
+        it 'only returns students that belong to a selected team' do
+          expect(subject.users).to match_array(selected_students)
+        end
+      end
+
+      context 'when group is unselected_teams' do
+        let(:group) { 'unselected_teams'}
+
+        it 'only returns students that belong to an unselected team' do
+          expect(subject.users).to match_array(unselected_students)
+        end
+      end
+
+      context 'when group is everyone' do
+        let(:group) { 'everyone' }
+      end
+
+      it 'returns students that belong to either selected or unselected teams' do
+        expect(subject.users).to match_array(selected_students + unselected_students)
+      end
+    end
+
+    context 'when seasons are selected' do
+      let(:to) { %w(students) }
+      let(:seasons) { %w(2015) }
+      let(:season_2015) { FactoryGirl.create(:season, name: '2015') }
+      let(:team) { FactoryGirl.create(:team, season: season_2015) }
+      let!(:students) { FactoryGirl.create_list(:student, 2, team: team) }
+      let!(:coaches) { FactoryGirl.create_list(:coach, 2, team: team) }
+      let!(:other_students) { FactoryGirl.create_list(:student, 2) }
+
+      it 'only returns students that belong to the 2015 season' do
+        expect(subject.users).to match_array(students)
+      end
     end
   end
 end
