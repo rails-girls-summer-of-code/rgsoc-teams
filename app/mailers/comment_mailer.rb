@@ -8,14 +8,21 @@ class CommentMailer < ActionMailer::Base
 
   def email(comment)
     set comment
-    recipients = supervisors.map(&:email).compact
     mail subject: subject, to: recipients.join(',') if recipients.any?
   end
 
   private
 
+    def recipients
+      @recipients ||= (supervisors.map(&:email) + organizers.map(&:email)).reject(&:blank?).uniq
+    end
+
     def supervisors
       Role.where(name: 'supervisor').map(&:user).uniq.compact
+    end
+
+    def organizers
+      Role.where(name: 'organizer').map(&:user).uniq.compact
     end
 
     def subject
