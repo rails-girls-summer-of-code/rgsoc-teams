@@ -127,6 +127,10 @@ class User < ActiveRecord::Base
     roles.admin.any?
   end
 
+  def supervisor?
+    roles.supervisor.any?
+  end
+
   def student?
     roles.student.any?
   end
