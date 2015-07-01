@@ -1,5 +1,6 @@
 
 require 'cgi'
+require 'uri'
 module ApplicationHelper
 
   TIMEZONES = ActiveSupport::TimeZone.all.map{|t| t.tzinfo.name}.uniq.sort
@@ -18,6 +19,11 @@ module ApplicationHelper
     else
       link_to 'Apply now', apply_path
     end
+  end
+
+  def conference_tweet_link(conference)
+    tweet = "I really want to go to #{conference.name} this year! #{conference.twitter} @Railsgirlssoc"
+    "https://twitter.com/intent/tweet?text=#{URI.escape(tweet)}"
   end
 
   def avatar_url(user, size: 200)
