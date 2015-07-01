@@ -41,6 +41,37 @@ body>header,
   width: 1026px
   margin: 0 auto
 
+#footer
+  footer
+    border-top: 1px solid lightgray
+    position: relative
+    top: 3em
+    width: 1026px
+    margin: 0 auto
+
+  ul
+    padding-left: 0.5em
+
+  li
+    display: inline-block
+    margin: 1em 0 0 0
+
+    &:last-child:after
+      content: none
+
+    &:after
+      content: ''
+      display: inline-block
+      width: 1em
+      font-family: FontAwesome
+      line-height: 1em
+      color: lightgray
+
+    a
+      display: inline-block
+      height: 48px
+      text-decoration: none
+
 li
   list-style-type: none
 

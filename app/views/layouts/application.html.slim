@@ -30,3 +30,10 @@ html
       ' })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
       ' ga('create', 'UA-41237864-1', 'railsgirlssummerofcode.org');
       ' ga('send', 'pageview');
+
+    section#footer
+      footer
+        ul
+          li &copy; #{ Season.current.name } Rails Girls Summer of Code
+          li = link_to 'Imprint', "http://railsgirlssummerofcode.org/about/imprint/"
+          li = link_to 'Help', page_path('help')
