@@ -1,7 +1,7 @@
 class CommentMailer < ActionMailer::Base
   include ActionView::Helpers::TextHelper
 
-  default from: ENV['EMAIL_FROM'] || 'summer-of-code-team@railsgirls.com'
+  default from: ENV['EMAIL_FROM'] || 'summer-of-code@railsgirls.com'
 
   attr_reader :team, :comment
   helper_method :team, :comment
