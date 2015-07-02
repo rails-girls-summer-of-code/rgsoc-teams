@@ -13,18 +13,6 @@ class CommentMailer < ActionMailer::Base
 
   private
 
-    def recipients
-      @recipients ||= (supervisors.map(&:email) + organizers.map(&:email)).reject(&:blank?).uniq
-    end
-
-    def supervisors
-      Role.where(name: 'supervisor').map(&:user).uniq.compact
-    end
-
-    def organizers
-      Role.where(name: 'organizer').map(&:user).uniq.compact
-    end
-
     def subject
       "[rgsoc-teams] New comment: #{team.name} - #{truncate(comment.text)}"
     end
