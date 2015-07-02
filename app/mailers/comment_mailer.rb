@@ -8,7 +8,7 @@ class CommentMailer < ActionMailer::Base
 
   def email(comment)
     set comment
-    mail subject: subject, to: recipients.join(',') if recipients.any?
+    mail subject: subject, to: "summer-of-code@railsgirls.com"
   end
 
   private
