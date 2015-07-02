@@ -8,13 +8,11 @@ class Recipients
   end
 
   def emails
-    [cc, bcc].select(&:present?) + user_emails
+    ([cc, bcc] + user_emails).flatten.select(&:present?).map(&:downcase).uniq
   end
 
   def user_emails
-    users.map do |user|
-      user.name.present? ? "#{user.name} <#{user.email}>" : user.email
-    end
+    users.map(&:email)
   end
 
   def users

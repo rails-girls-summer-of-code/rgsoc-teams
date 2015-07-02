@@ -22,6 +22,18 @@ describe Recipients do
       allow(recipients).to receive_messages user_emails: [user_email]
       expect(recipients.emails).to eq([mailing.cc, mailing.bcc, user_email])
     end
+
+    it 'returns unique email addresses' do
+      cc  = FFaker::Internet.email
+      bcc = FFaker::Internet.email
+      user_emails = [cc.upcase, bcc, FFaker::Internet.email]
+
+      allow(subject).to receive(:cc).and_return  [cc]
+      allow(subject).to receive(:bcc).and_return [bcc]
+      allow(subject).to receive(:user_emails).and_return user_emails
+
+      expect(subject.emails).to match_array [cc, bcc, user_emails.last]
+    end
   end
 
   describe '#roles' do
@@ -40,15 +52,9 @@ describe Recipients do
   describe '#user_emails' do
     let(:user) { mock_model('User', email: 'rgsoc@example.com') }
 
-    it 'returns a list of emails when names are not present' do
+    it 'returns a list of emails' do
       allow(subject).to receive_messages(users: [user])
       expect(subject.user_emails).to eql [user.email]
-    end
-
-    it 'returns a list formatted recipients when names are present' do
-      allow(user).to receive_messages(name: 'Pocahontas')
-      allow(subject).to receive_messages(users: [user])
-      expect(subject.user_emails).to eql ["Pocahontas <#{user.email}>"]
     end
   end
 
