@@ -8,7 +8,7 @@ class Feed
 
   class << self
     def update_all
-      Source.where(kind: 'blog').each do |source|
+      Source.for_accepted_teams.where(kind: 'blog').each do |source|
         new(source).update
       end
     end
