@@ -3,7 +3,7 @@
 p Published #{l @status_update.published_at, format: :long} 
   by #{link_to @status_update.team.display_name, @status_update.team}
 
-.well
+.well.status_update
   = render_markdown(@status_update.content).html_safe
 
 nav.page
