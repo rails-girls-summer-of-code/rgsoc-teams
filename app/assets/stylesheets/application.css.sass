@@ -198,7 +198,15 @@ nav
     dt
       width: 120px
 
-  .sources, .teams, .profiles, .attendees, .conferences
+  .status_update
+    dl
+      @include clearfix
+    dt
+      float: left
+      width: 120px
+      font-weight: bold
+
+  .sources, .teams, .profiles, .attendees, .conferences, .status_update
     li
       list-style-type: disc
       p, ul
