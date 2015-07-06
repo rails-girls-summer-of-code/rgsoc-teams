@@ -1,9 +1,8 @@
 li class="activity #{activity.kind}"
-  = image_tag(activity.img_url || '/images/screenshot-missing.png')
+  = image_tag(activity.img_url || '/images/happyface.png')
   = content_tag :h4, link_to(activity.title, status_update_path(activity)), class: 'title'
   p.content= render_markdown(activity.content).html_safe
   p.info
     span.published_at = "at #{activity.published_at.to_formatted_s(:time)}".html_safe if activity.published_at
     ' &nbsp;&mdash; by:
     = link_to activity.team.display_name, activity.team
-
