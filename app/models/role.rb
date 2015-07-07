@@ -6,7 +6,7 @@ class Role < ActiveRecord::Base
   ADMIN_ROLES = %w(organizer developer)
   ROLES = TEAM_ROLES + OTHER_ROLES + ADMIN_ROLES
 
-  GUIDE_ROLES = %w(coach mentor)
+  GUIDE_ROLES = %w(coach mentor supervisor)
   CONTRIBUTOR_ROLES = ADMIN_ROLES + GUIDE_ROLES
 
   belongs_to :user
