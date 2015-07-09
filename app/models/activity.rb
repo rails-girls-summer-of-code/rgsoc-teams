@@ -7,6 +7,8 @@ class Activity < ActiveRecord::Base
 
   validates :content, :title, :team, presence: { if: ->(act) { act.kind == 'status_update' } }
 
+  delegate :students, to: :team
+
   class << self
     def with_kind(kind)
       where(kind: kind)
