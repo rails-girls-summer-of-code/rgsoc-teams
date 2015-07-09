@@ -34,7 +34,7 @@ class Team < ActiveRecord::Base
 
   class << self
     def ordered(sort = {})
-      order([sort[:order] || 'kind, name || projects', sort[:direction] || 'asc'].join(' '))
+      order([sort[:order] || 'kind, name', sort[:direction] || 'asc'].join(' '))
     end
 
     def visible
