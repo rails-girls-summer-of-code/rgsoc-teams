@@ -1,9 +1,1 @@
-#
-# role = Role.create!([{name: 'organizer'}])
-# user = User.create!([{name: 'Wolverine', roles: role, github_handle: 'Adminis28'}])
-
-
-5.times do
-  FactoryGirl.create(:job_offer, :with_details)
-end
-
+FactoryGirl.create_list(:job_offer, 5, :with_details)
