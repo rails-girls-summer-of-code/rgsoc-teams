@@ -1,9 +1,13 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
 #
-# Examples:
-#
-#   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
-#   Mayor.create(name: 'Emanuel', city: cities.first)
-role = Role.create!([{name: 'organizer'}])
-user = User.create!([{name: 'Wolverine', roles: role, github_handle: 'Adminis28'}])
+# role = Role.create!([{name: 'organizer'}])
+# user = User.create!([{name: 'Wolverine', roles: role, github_handle: 'Adminis28'}])
+
+FactoryGirl.define do
+  factory :job_offer do
+    title         { FFaker::Lorem.sentence(5) }
+    description   { FFaker::Lorem.paragraph }
+    company_name  { FFaker::Company.name }
+    contact_email { FFaker::Internet.email }
+    location      { [ FFaker::Address.city, FFaker::Address.country ].join(', ') }
+  end
+end
