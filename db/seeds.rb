@@ -4,6 +4,6 @@
 
 
 5.times do
-  FactoryGirl.create(:job_offer_details)
+  FactoryGirl.create(:job_offer, :with_details)
 end
 
