@@ -26,6 +26,8 @@ body
   position: relative
   margin: 0 auto
   padding-bottom: 5em
+  a
+    color: #DE390C
   &:before
     z-index: -1
     position: absolute
@@ -33,7 +35,8 @@ body
     right: 0
     top: 0
     height: 66px
-    background-color: rgb(222, 57, 12)
+    //background-color: rgb(222, 57, 12)
+    background-color: #DE390C
     content: ' '
 
 body>header,
@@ -283,28 +286,31 @@ nav
     p
       font-size: 0.9rem
 
+  .activity-selection
+    background-color: #ddd
+    padding: 2rem
+
+  .form-control
+    border-radius: none !important
 
   .activities
     margin: 0 0 1rem 0
     padding: 0
     h4
-      margin: 0 0 1rem 0
-      font-size: 1.5rem
+      margin: 0 0 0.5rem 0
+      font-size: 2rem
     .activity
       @include clearfix
       padding: 1.5rem
       border: 1px solid #ddd
-      border-radius: 4px
       img
         margin-right: 1rem
-        border: 1px solid #ddd
-        border-radius: 4px
-        max-width: 214+214px
-        // hier nog naar plaatsing kijken
+        max-width: 214px
+        float: left
       &.mailing img
         height: 100px
         border-width: 0
-      .feedentry
+      .content
         margin-top: 1rem
       .images
         display: inline-block
@@ -318,10 +324,9 @@ nav
           height: auto
       .text
         display: inline-block
-        width: 74.1%
+        width: 75.6%
       .info
         margin-bottom: 0
-        font-size: 0.9rem
         font-style: italic
 
   a.atom

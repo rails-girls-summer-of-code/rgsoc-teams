@@ -7,10 +7,11 @@ li class="activity #{activity.kind}"
         - activity.students.each do |student| 
           = image_tag(student.avatar_url, class: "avatar")
   div.text
-    h4.title= link_to(activity.title, activity.source_url)
+    h4.title
+      = link_to(activity.title, activity.source_url)
     p.info
-      span.published_at = "at #{activity.published_at.to_formatted_s(:time)}".html_safe if activity.published_at
-      ' &nbsp;&mdash; by:
       = link_to activity.team.display_name, activity.team
-    p.feedentry
+      ' &nbsp;&mdash;
+      span.published_at = "at #{activity.published_at.to_formatted_s(:time)}".html_safe if activity.published_at
+    p.content
       = format_activity_content(activity, length: 300)
