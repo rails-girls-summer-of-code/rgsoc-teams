@@ -1,14 +1,16 @@
 li class="activity #{activity.kind}"
-  = link_to activity.source_url
-    - if activity.img_url.present?
-      = image_tag(activity.img_url, class: "source")
-    - else
-      - activity.students.each do |student| 
-        = image_tag(student.avatar_url, class: "avatar")
-
-  h4.title= link_to(activity.title, activity.source_url)
-  p.content= format_activity_content(activity, length: 300)
-  p.info
-    span.published_at = "at #{activity.published_at.to_formatted_s(:time)}".html_safe if activity.published_at
-    ' &nbsp;&mdash; by:
-    = link_to activity.team.display_name, activity.team
+  div.images
+    = link_to activity.source_url
+      - if activity.img_url.present?
+        = image_tag(activity.img_url, class: "source")
+      - else
+        - activity.students.each do |student| 
+          = image_tag(student.avatar_url, class: "avatar")
+  div.text
+    h4.title= link_to(activity.title, activity.source_url)
+    p.info
+      span.published_at = "at #{activity.published_at.to_formatted_s(:time)}".html_safe if activity.published_at
+      ' &nbsp;&mdash; by:
+      = link_to activity.team.display_name, activity.team
+    p.feedentry
+      = format_activity_content(activity, length: 300)
