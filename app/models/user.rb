@@ -40,6 +40,8 @@ class User < ActiveRecord::Base
 
   devise :omniauthable
 
+  paginates_per 10 #MAUD
+
   has_many :roles do
     def admin
       where(name: Role::ADMIN_ROLES)
