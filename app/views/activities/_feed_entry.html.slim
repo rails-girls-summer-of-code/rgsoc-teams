@@ -2,7 +2,7 @@ li class="activity #{activity.kind}"
   div.images
     = link_to activity.source_url
       - if activity.img_url.present?
-        = image_tag(activity.img_url, class: "source")
+        = image_tag(activity.img_url)
       - else
         - activity.students.each do |student| 
           = image_tag(student.avatar_url, class: "avatar")

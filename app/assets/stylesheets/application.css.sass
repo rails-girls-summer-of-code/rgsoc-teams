@@ -17,6 +17,7 @@
 @import "bootstrap"
 @import "bootstrap/theme"
 @import "font-awesome"
+@import "colors"
 
 *
   box-sizing: border-box
@@ -180,6 +181,10 @@ nav
   p
     margin-bottom: 1em
 
+  .selection-box
+    background-color: #eee
+    padding: 2rem
+
   .profile
     margin-top: 2em
     img
@@ -286,48 +291,43 @@ nav
     p
       font-size: 0.9rem
 
-  .activity-selection
-    background-color: #ddd
-    padding: 2rem
+.status_updates, .activities
+  img
+    max-width: 214px
+    float: left
+    margin-right: 1rem
 
-  .form-control
-    border-radius: none !important
-
-  .activities
-    margin: 0 0 1rem 0
-    padding: 0
-    h4
-      margin: 0 0 0.5rem 0
-      font-size: 2rem
-    .activity
-      @include clearfix
-      padding: 1.5rem
-      border: 1px solid #ddd
-      img
-        margin-right: 1rem
-        max-width: 214px
-        float: left
-      &.mailing img
+.activities
+  margin: 0 0 1rem 0
+  padding: 0
+  .activity
+    @include clearfix
+    padding: 1.5rem
+    border: 1px solid #eee
+    &.mailing img
+      height: 100px
+      border-width: 0
+    .images
+      float: left
+      width: 214+14+14px
+      .avatar
+        width: 100px
         height: 100px
-        border-width: 0
-      .content
-        margin-top: 1rem
-      .images
-        display: inline-block
-        float: left
-        width: 214+14+14px
-        .avatar
-          width: 100px
-          height: 100px
-        .source
-          width: 214px
-          height: auto
-      .text
-        display: inline-block
-        width: 75.6%
+    .text
+      display: inline-block
+      width: 75.5%
+      margin-top: -0.45rem
+      h4
+        margin: 0 0 0.5rem 0
+        font-size: 2rem
       .info
         margin-bottom: 0
         font-style: italic
+      .content
+        margin-top: 1rem
+      //fixes bullet points indentation
+      ul
+        padding-left: 1.5rem
 
   a.atom
     float: right
