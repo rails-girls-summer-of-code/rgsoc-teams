@@ -181,6 +181,8 @@ nav
 
   p
     margin-bottom: 1em
+  p:last-child
+    margin-bottom: 0
 
   .selection-box
     background-color: #eee
@@ -294,7 +296,7 @@ nav
 
 .status_updates, .activities
   img
-    max-width: 214px
+    max-width: 75+75+10px
     float: left
     margin-right: 1rem
 
@@ -303,21 +305,24 @@ nav
   padding: 0
   .activity
     @include clearfix
-    padding: 1.5rem
+    padding: 3rem
     border: 1px solid #eee
     &.mailing img
       height: 100px
       border-width: 0
     .images
       float: left
-      width: 214+14+14px
+      width: 75+75+10+10+10px
       .avatar
-        width: 100px
-        height: 100px
+        width: 75px
+        height: 75px
+      .avatar:nth-child(3)
+        margin-top: 1rem
     .text
       display: inline-block
-      width: 75.5%
-      margin-top: -0.45rem
+      p
+        //for readability
+        max-width: 75rem
       h4
         margin: 0 0 0.5rem 0
         font-size: 2rem
