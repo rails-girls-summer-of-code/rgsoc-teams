@@ -1,10 +1,14 @@
 li class="activity #{activity.kind}"
-  - activity.students.each do |student|
-    = image_tag(student.avatar_url, class: "avatar")
-
-  h4.title= link_to(activity.title, status_update_path(activity))
-  p.content= render_markdown(activity.content).html_safe
-  p.info
-    span.published_at = "at #{activity.published_at.to_formatted_s(:time)}".html_safe if activity.published_at
-    ' &nbsp;&mdash; by:
-    = link_to activity.team.display_name, activity.team
+  div.images
+    - activity.students.each do |student|
+      = image_tag(student.avatar_url, class: "avatar")
+  
+  div.text
+    h4.title
+      = link_to(activity.title, status_update_path(activity))
+    p.info
+      = link_to activity.team.display_name, activity.team
+      ' &nbsp;&mdash; 
+      span.published_at = "at #{activity.published_at.to_formatted_s(:time)}".html_safe if activity.published_at
+    p
+      = render_markdown(activity.content).html_safe

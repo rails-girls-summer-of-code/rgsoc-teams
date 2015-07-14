@@ -17,6 +17,7 @@
 @import "bootstrap"
 @import "bootstrap/theme"
 @import "font-awesome"
+@import "colors"
 
 *
   box-sizing: border-box
@@ -26,6 +27,10 @@ body
   position: relative
   margin: 0 auto
   padding-bottom: 5em
+  a
+    color: #DE390C
+  a:hover
+    color: #B52E0A
   &:before
     z-index: -1
     position: absolute
@@ -33,7 +38,7 @@ body
     right: 0
     top: 0
     height: 66px
-    background-color: rgb(222, 57, 12)
+    background-color: #DE390C
     content: ' '
 
 body>header,
@@ -177,6 +182,10 @@ nav
   p
     margin-bottom: 1em
 
+  .selection-box
+    background-color: #eee
+    padding: 2rem
+
   .profile
     margin-top: 2em
     img
@@ -283,43 +292,43 @@ nav
     p
       font-size: 0.9rem
 
+.status_updates, .activities
+  img
+    max-width: 214px
+    float: left
+    margin-right: 1rem
 
-  .activities
-    margin: 0 0 1em 0
-    padding: 0
-    h4
-      margin: 0 0 1em 0
-      font-size: 1.1em
-    .activity
-      @include clearfix
-      padding: 1em
-      border: 1px solid #ddd
-      border-radius: 4px
-      img
-        float: left
-        margin-right: 1em
-        border: 1px solid #ddd
-        border-radius: 4px
-      &.mailing img
+.activities
+  margin: 0 0 1rem 0
+  padding: 0
+  .activity
+    @include clearfix
+    padding: 1.5rem
+    border: 1px solid #eee
+    &.mailing img
+      height: 100px
+      border-width: 0
+    .images
+      float: left
+      width: 214+14+14px
+      .avatar
+        width: 100px
         height: 100px
-        border-width: 0
-
-      .content
-        padding-left: 2em
-        font-size: 0.9em
+    .text
+      display: inline-block
+      width: 75.5%
+      margin-top: -0.45rem
+      h4
+        margin: 0 0 0.5rem 0
+        font-size: 2rem
       .info
         margin-bottom: 0
-        padding-left: 2em
-        font-size: 0.9em
         font-style: italic
-
-    .avatar
-      width: 100px
-      height: 100px
-
-    .source
-      width: 214px
-      height: auto
+      .content
+        margin-top: 1rem
+      //fixes bullet points indentation
+      ul
+        padding-left: 1.5rem
 
   a.atom
     float: right
