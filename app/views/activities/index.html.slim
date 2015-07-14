@@ -3,7 +3,7 @@ h1.header
   span Activities
   = link_to '<span>Atom Feed</span>'.html_safe, activities_path(format: :atom), class: 'atom'
 
-.well.well-small
+div.selection-box
   form.filter.form-inline action=request.url
     - public_activities.each do |kind|
       label.radio
