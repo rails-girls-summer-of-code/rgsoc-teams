@@ -70,6 +70,28 @@ directory the variables from `.env` will be loaded into the environment.
 
 E.g. `foreman run rails server` or `foreman run rails console`.
 
+## Quick Start  
+####Beginner Friendly Tips for New Contributors  
+- After forking the repo, follow the steps above (Bootstrap & Mailtrap)
+- (Install and) connect to Postgres server  
+- With everything properly installed, open the browser (in development environment)
+- The app should be available, with the database loaded with (fake) data.
+- To access all the functionality of the teams app, add yourself as an organizer. 
+    * In the browser: log in with your github account 
+    * In Console:  
+    ```$ user = User.last``` #or ```user = User.find_by(github_handle: "yourgithubhandle") ```  
+    ```$ user.roles.create(name: "Organizer") ```  
+    You can assign yourself other roles in the same way. If however you assign yourself a student role AND another 
+    role, that may lead to unexpected behavior in the app. In that case, remove the student role.    
+    - Refresh the browser to effectuate. You should see links for organizers. 
+- The default setting is "out-of-season". The menu options in the NavBar are only fully available "in season". 
+You  can set the season to open mode in Console:    
+    ```$ @season = Season.first ```  
+  ```$ @season.starts_at = Date.today-14```  
+  ```$ @season.save ```  
+    The navbar shows the Activity menu item now. 
+- You are good to go now. Happy coding!
+
 ## Testing
 
 ```bash
