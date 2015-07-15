@@ -38,3 +38,7 @@ table.users.table.table-striped.table-bordered.table-condensed.table-hover
         td = user.location
         td = time_for_user(user)
         / td = links_to_conferences(user.conferences).join(', ').html_safe
+
+p.pagination-info
+  = page_entries_info @users
+  = paginate @users, theme: 'twitter-bootstrap-3', pagination_class: 'pagination-sm'
