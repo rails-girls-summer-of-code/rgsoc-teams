@@ -12,13 +12,21 @@
  *= require_tree .
  */
 
-@import "mixins"
-@import "vars-font_awesome"
+// Partials
+@import "partials/mixins"
+@import "partials/colors"
+@import "partials/fonts"
+
+// Third-party
 @import "bootstrap"
 @import "bootstrap/theme"
+@import "vendor/bootstrap/callouts"
+@import "vendor/vars-font_awesome"
 @import "font-awesome"
-@import "colors"
-@import "fonts"
+
+// Controllers
+@import "controllers/calendar"
+@import "controllers/applications"
 
 *
   box-sizing: border-box
