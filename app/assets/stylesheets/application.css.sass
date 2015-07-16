@@ -27,10 +27,11 @@ body
   position: relative
   margin: 0 auto
   padding-bottom: 5em
+  color: $main
   a
-    color: #DE390C
+    color: $railsred
   a:hover
-    color: #B52E0A
+    color: $railsred
   &:before
     z-index: -1
     position: absolute
@@ -38,7 +39,7 @@ body
     right: 0
     top: 0
     height: 66px
-    background-color: #DE390C
+    background-color: $railsred
     content: ' '
 
 body>header,
@@ -48,7 +49,7 @@ body>header,
 
 #footer
   footer
-    border-top: 1px solid lightgray
+    border-top: 1px solid $lightgray
     position: relative
     top: 3em
     width: 1026px
@@ -70,7 +71,7 @@ body>header,
       width: 1em
       font-family: FontAwesome
       line-height: 1em
-      color: lightgray
+      color: $lightgray
 
     a
       display: inline-block
@@ -125,7 +126,7 @@ header
         a
           display: inline-block
           height: 48px
-          color: white
+          color: $white
           text-decoration: none
 
           &.active
@@ -137,7 +138,7 @@ header
 
     &.user
       font-size: 0.9em
-      color: $gray
+      color: $darkgray
 
 nav
   .back:before
@@ -185,7 +186,7 @@ nav
     margin-bottom: 0
 
   .selection-box
-    background-color: #eee
+    background-color: $lightgray
     padding: 2rem
 
   .profile
@@ -263,7 +264,7 @@ nav
         a:not(.confirmed)
           @include icon-after($question-sign)
           &:after
-            color: #ccc
+            color: $darkgray
             font-size: 0.9em
             text-decoration: none !important
 
@@ -271,11 +272,11 @@ nav
     dt
       width: 70px
     dt, dd
-      color: #999
+      color: $darkgray
     .body
       margin-bottom: 1em
       padding: 2em
-      border: 1px solid #ddd
+      border: 1px solid $lightgray
       border-radius: 5px
       li
         list-style-type: disc
@@ -306,7 +307,7 @@ nav
   .activity
     @include clearfix
     padding: 3rem
-    border: 1px solid #eee
+    border: 1px solid $lightgray
     &.mailing img
       height: 100px
       border-width: 0
@@ -337,13 +338,13 @@ nav
   a.atom
     float: right
     font-size: .6em
-    color: #000
+    color: $main
     @include icon-after($rss)
     span
       display: none
 
   .pagination-info
-    color: #999
+    color: $darkgray
 
   .pages
     #content
@@ -385,7 +386,7 @@ nav
 
 .hint
   font-size: 0.9em
-  color: #666
+  color: $darkgray
   i
     margin-right: 0.25em
 
@@ -436,10 +437,10 @@ form
 
 // Error message on submit
 #error_explanation
-  border: 1px solid #ccc
+  border: 1px solid $lightgray
   padding: 10px 20px
-  background-color: red
-  color: #fff
+  background-color: $railsred
+  color: $main
   margin-bottom: 30px
   font-size: 0.9em
 
@@ -447,7 +448,7 @@ form
     font-size: 1em
 
 .field_with_errors input
-  border-color: red
+  border-color: $railsred
 
 // page-header
 
@@ -469,7 +470,7 @@ h1.header
 
 #rating
   position: fixed
-  background: #DDD
+  background: $lightgray
   width: 400px
   padding: 10px
   right: 0
