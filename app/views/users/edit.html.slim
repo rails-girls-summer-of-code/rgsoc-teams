@@ -49,6 +49,7 @@
       
   - if Conference.any?
     h3.page-header Conferences
+    p.help-block Here you can select your preferred conferences (max. 3) for the conference raffle. Watch out: Your participation will only be valid if you tweet about it!
     fieldset.conferences
       .header
         label Conference
@@ -56,7 +57,7 @@
         = s.input :conference_id, as: :select, collection: conferences, required: false, label: false
         
         = s.link_to_remove 'Remove'
-      = f.link_to_add 'I want to attend a conference!', :attendances, class: 'btn btn-primary form-btn-group'
+      = f.link_to_add 'I want to add another conference!', :attendances, class: 'btn btn-primary form-btn-group'
 
   h3.page-header Private information
   p.help-block This information will only be visible to yourself and organizers.
