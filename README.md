@@ -72,7 +72,7 @@ E.g. `foreman run rails server` or `foreman run rails console`.
 
 ## Quick Start  
 ###Beginner Friendly Tips for New Contributors  
-- After forking the repo, follow the steps above (Bootstrap (& optionally Mailtrap))
+- After forking the repo, follow the steps described above under 'Bootstrap'. Mailtrap is optional.
 - (Install and) connect to Postgres server  
 - With everything properly installed, open the browser in development environment
 - The app should be available, with the database loaded with fake data.
