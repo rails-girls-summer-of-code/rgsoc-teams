@@ -47,7 +47,7 @@ group :development, :test do
   gem 'rspec-activemodel-mocks'
   gem 'factory_girl_rails'
   gem 'database_cleaner'
-  gem 'byebug'
+  gem 'byebug', require: !ENV['RM_INFO'] #require parameter is workaround for RubyMine with Rails ~> 4.1
   gem 'ffaker'
 end
 
