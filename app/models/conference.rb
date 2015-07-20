@@ -7,6 +7,7 @@ class Conference < ActiveRecord::Base
   scope :ordered, ->(sort = {}) { order([sort[:order] || 'starts_on, name', sort[:direction] || 'asc'].join(' ')) }
 
   def tickets_left
-    tickets - attendances.size
+    confirmed_attendances = attendances.select { |attendance| attendance.confirmed }
+    tickets - confirmed_attendances.size
   end
 end

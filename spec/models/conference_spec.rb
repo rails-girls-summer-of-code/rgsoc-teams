@@ -21,9 +21,11 @@ describe Conference do
 
   describe '#tickets_left' do
     subject { FactoryGirl.build_stubbed(:conference) }
+    let(:attendance)    { FactoryGirl.build(:attendance, confirmed: true) }
+
 
     it 'subtracts attendances' do
-      allow(subject).to receive(:attendances).and_return([1])
+      allow(subject).to receive(:attendances).and_return([attendance])
       left_tickets = subject.tickets - subject.attendances.size
       expect(subject.tickets_left).to eq(left_tickets)
     end
