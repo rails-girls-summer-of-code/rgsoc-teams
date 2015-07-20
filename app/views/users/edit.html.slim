@@ -54,7 +54,7 @@
       .header
         label Conference
       = f.simple_fields_for :attendances do |s|
-        = s.input :conference_id, as: :select, collection: conferences, required: false, label: false
+        = s.input :conference_id, as: :select, collection: conferences, required: false, label: false, default: 1
         
         = s.link_to_remove 'Remove'
       = f.link_to_add 'I want to add another conference!', :attendances, class: 'btn btn-primary form-btn-group'
@@ -103,15 +103,6 @@
     = f.input :application_minimum_money, as: :text, label: 'How much money do you need at the very minimum per month to sustain yourself while working fulltime on an Open Source project? Please give a short summary of your costs including rent, living costs, special circumstances.', hint: 'The total of the stipend will be decided on case-by-case basis, taking into consideration data from the world bank plus individual living situations.', input_html: { rows: 4 }
 
   - if admin?
-    h3.page-header Conferences
-    fieldset.conferences
-      .header
-        label Conference
-      = f.simple_fields_for :attendances do |s|
-        = s.input :conference_id, as: :select, collection: conferences, required: false, label: false
-        = s.link_to_remove 'Remove'
-      = f.link_to_add 'Add another conference', :attendances, class: 'btn btn-primary form-btn-group'
-
     h3.page-header Roles
     = f.simple_fields_for :roles do |r|
         = r.input :team_id, as: :select, collection: @teams, required: false
