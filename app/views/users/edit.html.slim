@@ -54,7 +54,7 @@
       .header
         label Conference
       = f.simple_fields_for :attendances do |s|
-        = s.input :conference_id, as: :select, collection: conferences, required: false, label: false
+        = s.input :conference_id, as: :select, collection: conferences, required: false, label: false, selected: 1
         
         = s.link_to_remove 'Remove'
       = f.link_to_add 'I want to add another conference!', :attendances, class: 'btn btn-primary form-btn-group'
