@@ -54,7 +54,7 @@ bundle install
 bundle exec rake db:drop db:create db:migrate
 ```
 
-### Mailtrap
+### Mailtrap (optional)
 
 To avoid accidentally sending out mails to real addresses we suggest
 [Mailtrap](https://mailtrap.io).
@@ -69,6 +69,23 @@ Now when running the command `foreman` *before* any command in this project
 directory the variables from `.env` will be loaded into the environment.
 
 E.g. `foreman run rails server` or `foreman run rails console`.
+
+## Quick Start  
+###Beginner Friendly Tips for New Contributors  
+- After forking the repo, follow the steps described above under 'Bootstrap'. Mailtrap is optional.
+- (Install and) connect to Postgres server  
+- With everything properly installed, open the browser in development environment
+- The app should be available, with the database loaded with fake data.
+- To access all the functionality of the teams app, add yourself as an organizer. 
+    * In the browser: log in with your github account 
+    * In Rails Console:  
+    ``` user = User.last``` #or ```user = User.find_by(github_handle: "yourgithubhandle") ```  
+    ``` user.roles.create(name: "organizer") ```  
+    You can assign yourself other roles in the same way. If however you assign 
+    yourself a student role AND another role, that may lead to unexpected behavior in the app. In that case, remove the student role.    
+    - Refresh the browser to effectuate. You should see links for organizers. 
+- Once you are an `organizer`, you can change the season from open to close and vice versa at http://localhost:3000/orga/seasons in your browser. 
+- You are good to go now. Happy coding!
 
 ## Testing
 
