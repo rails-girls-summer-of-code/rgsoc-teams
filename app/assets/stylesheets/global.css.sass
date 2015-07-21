@@ -1,0 +1,459 @@
+// Global styles
+// 
+// Site-wide used styles.
+
+*
+  box-sizing: border-box
+
+body
+  z-index: 0
+  position: relative
+  margin: 0 auto
+  padding-bottom: 5em
+  color: $main
+  font-family: Lato, sans-serif
+  font-size: 15px
+  a
+    color: $railsred
+  a:hover
+    color: $railsred
+  &:before
+    z-index: -1
+    position: absolute
+    left: 0
+    right: 0
+    top: 0
+    height: 66px
+    background-color: $railsred
+    content: ' '
+
+body>header,
+#content
+  width: 1026px
+  margin: 0 auto
+
+#footer
+  footer
+    border-top: 1px solid $lightgray
+    position: relative
+    top: 3em
+    width: 1026px
+    margin: 0 auto
+
+  ul
+    padding-left: 0.5em
+
+  li
+    display: inline-block
+    margin: 1em 0 0 0
+
+    &:last-child:after
+      content: none
+
+    &:after
+      content: ''
+      display: inline-block
+      width: 1em
+      font-family: FontAwesome
+      line-height: 1em
+      color: $lightgray
+
+    a
+      display: inline-block
+      height: 48px
+      text-decoration: none
+
+li
+  list-style-type: none
+
+
+header
+  h1
+    display: inline-block
+    margin: 0
+    width: 210px
+    height: 58px
+    a
+      display: block
+      height: 100%
+      width: 100%
+      background-image: asset-url('logo_subnavi.png')
+      background-repeat: no-repeat
+      background-size: cover
+      background-position: -15px -1px
+      text-indent: 999%
+      white-space: nowrap
+
+  nav
+    clear: right
+    float: right
+    @include clearfix
+
+    &.top
+      ul
+        text-align: center
+        position: relative
+        top: 5px
+
+      li
+        display: inline-block
+        margin: 1em 0 0 0
+
+        &:last-child:after
+          content: none
+
+        &:after
+          content: ''
+          display: inline-block
+          height: 20px
+          width: 40px
+          background: asset-url('star.png') 16px 8px no-repeat
+
+        a
+          display: inline-block
+          height: 48px
+          color: $white
+          text-decoration: none
+
+          &.active
+            text-decoration: underline
+            background-image: asset-url('header_nav_active.png')
+            background-repeat: no-repeat
+            background-position: center 32px
+            text-decoration: none
+
+    &.user
+      font-size: 0.9em
+      color: $darkgray
+
+nav
+  .back:before
+    content: '\2190'
+    display: inline-block
+    position: absolute
+    margin-left: -1.5em
+    margin-top: -1px
+
+  &.page
+    font-size: 0.9em
+
+  &.actions
+    clear: right
+    float: right
+    min-width: 120px
+    margin-top: 1em
+    font-size: 0.9em
+
+.btn
+  white-space: nowrap
+
+#content
+  position: relative
+  margin-top: 3em
+
+  h1
+    font-size: 2em
+    margin: 2em 0 1em 0
+
+  h2
+    font-size: 1.5em
+
+  h3
+    font-size: 1.25em
+    margin-bottom: 1em
+    // margin-bottom: 0
+
+  h4
+    font-size: 1.15em
+
+  p
+    margin-bottom: 1em
+  p:last-child
+    margin-bottom: 0
+
+  .selection-box
+    background-color: $lightgray
+    padding: 2rem
+    margin-bottom: 3rem
+
+  .profile
+    margin-top: 2em
+    img
+      float: left
+      width: 180px
+      height: 180px
+      margin-right: 2em
+
+  .profile, .mailing, .conference
+    dl
+      // margin-bottom: 1em
+      @include clearfix
+    dt
+      float: left
+      width: 100px
+      font-weight: normal
+  .conference
+    dt
+      width: 120px
+
+  .status_update
+    dl
+      @include clearfix
+    dt
+      float: left
+      width: 120px
+      font-weight: bold
+
+  .sources, .teams, .profiles, .attendees, .conferences, .status_update
+    li
+      list-style-type: disc
+      p, ul
+        margin: 0
+      .actions
+        li
+          display: inline-block
+          font-size: 0.8em
+          list-style-type: none
+          &:first-child:after
+            content: ' · '
+            padding-right: 0.3em
+
+  table
+    th
+      white-space: nowrap
+
+    td
+      vertical-align: top
+      ul
+        margin: 0
+
+    td.image
+      width: 40px
+      img
+        width: 40px
+        height: 40px
+
+    .user
+      display: block
+      img
+        width: 20px
+        height: 20px
+
+    &.conferences
+      td
+        white-space: nowrap
+      td:nth-child(4)
+        white-space: normal
+        a
+          white-space: nowrap
+        a:not(.confirmed)
+          @include icon-after($question-sign)
+          &:after
+            color: $darkgray
+            font-size: 0.9em
+            text-decoration: none !important
+
+  .mailing
+    dt
+      width: 70px
+    dt, dd
+      color: $darkgray
+    .body
+      margin-bottom: 1em
+      padding: 2em
+      border: 1px solid $lightgray
+      li
+        list-style-type: disc
+      *:last-child
+        margin-bottom: 0
+
+  .comments
+    top: 180px
+    width: 300px
+    ul
+      margin-left: 0
+
+  .comment
+    h3
+      font-size: 0.9rem
+    p
+      font-size: 0.9rem
+
+.status_updates, .activities
+  img
+    max-width: 75+75+10px
+    float: left
+    margin-right: 1rem
+
+  a.atom
+    float: right
+    font-size: .6em
+    color: $main
+    @include icon-after($rss)
+    span
+      display: none
+
+  .pagination-info
+    color: $darkgray
+
+  .pages
+    #content
+      width: 100%
+      padding-right: 300px
+
+    aside
+      position: absolute
+      right: 0
+      width: 220px
+      ul
+        margin-left: 0
+.users
+  td:nth-child(2)
+    white-space: nowrap
+
+.teams
+  td:first-child
+    padding-left: 2em
+  .team:before
+    margin-left: -1.5em
+  .user
+    white-space: nowrap
+
+.organizers
+  font-size: 0.9em
+  text-align: right
+
+.github
+  @include icon-after($github-alt)
+
+.twitter
+  @include icon-after($twitter)
+
+.team
+  @include icon-before($star-empty)
+  &.sponsored
+    @include icon-before($star)
+
+.hint
+  font-size: 0.9em
+  color: $darkgray
+  i
+    margin-right: 0.25em
+
+form
+  .help-block
+    font-size: 0.9em
+
+  h4
+    margin-top: 2em
+
+  .members, .sources, .conferences, .attendees
+    display: table
+    margin-bottom: 1em
+    .header, & > .fields
+      display: table-row
+    label, .control-group
+      display: table-cell
+      padding: 0 1em 0.5em 0
+  .members
+    & > .fields:nth-of-type(2) a.remove_nested_fields
+      display: none
+    a
+      font-size: 0.9em
+
+  &.edit_user
+    input[type="checkbox"]
+      width: inherit
+
+.form-inline
+  .radio
+    padding-right: 15px
+    input
+      margin-right: 5px
+
+.filter
+  .team_filter
+    margin-top: -5px
+    float: right
+
+.interested_in
+  label
+    font-weight: normal
+  input[type=checkbox]
+    margin-right: 10px !important
+
+.actions
+  margin-top: 1em
+
+// Error message on submit
+#error_explanation
+  border: 1px solid $lightgray
+  padding: 10px 20px
+  background-color: $railsred
+  color: $main
+  margin-bottom: 30px
+  font-size: 0.9em
+
+  h2
+    font-size: 1em
+
+.field_with_errors input
+  border-color: $railsred
+
+// page-header
+
+h1.header
+  i, span
+    display: inline-block
+  span
+    margin-left: 10px
+
+.user
+  margin: 0 10px 10px 0
+  display: inline-block
+
+  img
+    width: 40px
+    margin-right: 5px
+    vertical-align: middle
+
+#rating
+  position: fixed
+  background: $lightgray
+  width: 400px
+  padding: 10px
+  right: 0
+  top: 100px
+  bottom: 0
+  overflow: scroll
+  .button_group span
+    display: block
+
+#application
+  margin-right: 420px
+  .comment h3
+    font-size: 1em
+    font-weight: bold
+  .comment p
+    font-size: 1em
+
+#team
+  margin-right: 420px
+
+#student
+  margin-right: 420px
+
+#content .well h3
+  padding: 0
+  margin-top: 0
+
+.supervising
+  position: relative
+  .information
+    position: absolute
+    top: 20px
+    right: 20px
+    text-align: right
+
+.form-btn-group
+  margin: 1em 0 2em
