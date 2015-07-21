@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe ConferencesController do
+RSpec.describe ConferencesController do
   render_views
 
   describe 'GET index' do
@@ -11,4 +11,21 @@ describe ConferencesController do
       expect(response).to render_template('conferences/index')
     end
   end
+
+  context 'with admin logged in' do
+    include_context 'with admin logged in'
+
+    describe 'DELETE destroy' do
+      let!(:conference) { create :conference }
+
+      it 'destroys the resource' do
+        expect {
+          delete :destroy, id: conference
+        }.to change { Conference.count }.by(-1)
+        expect(response).to redirect_to conferences_path
+      end
+
+    end
+  end
+
 end

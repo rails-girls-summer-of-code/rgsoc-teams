@@ -11,6 +11,11 @@ class ConferencesController < ApplicationController
     redirect_to conference
   end
 
+  def destroy
+    conference.destroy!
+    redirect_to conferences_path, notice: 'The conference has been deleted.'
+  end
+
   private
 
     def conferences
