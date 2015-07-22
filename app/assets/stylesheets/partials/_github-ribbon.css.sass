@@ -1,0 +1,48 @@
+// Responsive GitHub Ribbon
+
+.wrapper
+  position: absolute
+  top: 0px
+  right: 0px
+  width: 150px
+  height: 150px
+  overflow: hidden
+
+.ribbon
+  // positioning
+  position: absolute
+  top: 25px
+  right: -50px
+  // styling
+  background-color: #7d7d7d
+  white-space: nowrap
+  -webkit-box-shadow: 0 0 5px #444
+  -moz-box-shadow: 0 0 5px #444
+  box-shadow: 0 0 5px #444
+  -webkit-transform: rotate(40deg)
+  -moz-transform: rotate(40deg)
+  -ms-transform: rotate(40deg)
+  -o-transform: rotate(40deg)
+  transform: rotate(40deg)
+
+.ribbon 
+  a
+    display: block
+    margin: 1px
+    padding: 10px 50px
+    border: 1px solid #ddd
+    color: #fff
+    font: bold 1.1rem 'Helvetica Neue', Helvetica, Arial, sans-serif
+    text-align: center
+    text-decoration: none
+    text-shadow: 0 0 5px #444
+  a:hover
+    color: #fff
+
+.ribbon:hover
+  background-color: #999
+
+@media (max-width:1231px)
+  .wrapper
+    display: none
+    
