@@ -24,6 +24,12 @@
   -ms-transform: rotate(40deg)
   -o-transform: rotate(40deg)
   transform: rotate(40deg)
+  // animation
+  -webkit-transition: background-color .3s ease
+  -moz-transition: background-color .3s ease
+  -ms-transition: background-color .3s ease
+  -o-transition: background-color .3s ease
+  transition: background-color .3s ease
 
 .ribbon 
   a
@@ -44,5 +50,10 @@
 
 @media (max-width:1231px)
   .wrapper
-    display: none
+    opacity: 0
+    -webkit-transition: opacity .1s ease-in
+    -moz-transition: opacity .1s ease-in
+    -ms-transition: opacity .1s ease-in
+    -o-transition: opacity .1s ease-in
+    transition: opacity .1s ease-in
     
