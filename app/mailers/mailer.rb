@@ -11,6 +11,11 @@ class Mailer < ActionMailer::Base
   def email(submission)
     set submission
     mail subject: subject, from: from, to: to
+  rescue => e
+    submission.error = e.message
+  ensure
+    submission.sent_at = Time.now.utc
+    submission.save!
   end
 
   private
@@ -20,4 +25,3 @@ class Mailer < ActionMailer::Base
       @mailing = submission.mailing
     end
 end
-
