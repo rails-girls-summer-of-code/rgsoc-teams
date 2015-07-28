@@ -22,7 +22,7 @@ class Team < ActiveRecord::Base
   has_many :sources, dependent: :destroy
   has_many :activities, dependent: :destroy
   has_one :last_activity, -> { order('id DESC') }, class_name: 'Activity'
-  has_many :comments
+  has_many :comments, -> { order('created_at DESC') }
   belongs_to :event
   has_many :status_updates, -> { where(kind: 'status_update') }, class_name: 'Activity'
   has_many :ratings, as: :rateable
