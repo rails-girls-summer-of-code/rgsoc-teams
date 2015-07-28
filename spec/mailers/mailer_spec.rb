@@ -11,6 +11,10 @@ describe Mailer do
   let(:html_body)  { message_part(mail, :html) }
   let(:text_body)  { message_part(mail, :plain) }
 
+  subject do
+    described_class.email(submission).deliver_now
+  end
+
   it 'renders the subject' do
     expect(mail.subject).to eq('subject')
   end
@@ -46,5 +50,24 @@ describe Mailer do
   it 'renders the body (text)' do
     expect(text_body).to match('# body')
   end
-end
 
+  it 'sets the sent_at on the submission' do
+    subject
+    expect(submission.sent_at).to_not be_nil
+  end
+
+  context 'when mail raises an exception' do
+    before do
+      allow_any_instance_of(described_class).to receive(:mail).and_raise("i'm an error")
+      subject
+    end
+
+    it 'saves the error to the submisssion' do
+      expect(submission.error).to eq("i'm an error")
+    end
+
+    it 'sets the sent_at on the submission' do
+      expect(submission.sent_at).to_not be_nil
+    end
+  end
+end
