@@ -59,6 +59,12 @@ FactoryGirl.define do
       end
     end
 
+    factory :developer do
+      after(:create) do |user|
+        FactoryGirl.create(:developer_role, user: user)
+      end
+    end
+
     factory :supervisor do
       after(:create) do |user|
         FactoryGirl.create(:supervisor_role, user: user)
