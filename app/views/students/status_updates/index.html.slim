@@ -1,5 +1,9 @@
 h1 Listing Status Updates
 
+= link_to 'New Status Update', [:new, :students, :status_update], class: 'btn btn-default'
+
+p
+
 table.table.table-striped.table-bordered.table-condensed
   thead
     tr
@@ -20,6 +24,4 @@ table.table.table-striped.table-bordered.table-condensed
         td = link_to 'Edit', edit_students_status_update_path(status_update)
         td = link_to 'Destroy', students_status_update_path(status_update), data: { confirm: 'Are you sure?'}, method: :delete
 
-br
 
-= link_to 'New Status Update', [:new, :students, :status_update], class: 'btn btn-default'
