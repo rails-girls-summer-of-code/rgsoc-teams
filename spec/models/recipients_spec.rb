@@ -68,7 +68,7 @@ describe Recipients do
       let!(:unselected_students) { FactoryGirl.create_list(:student, 2, team: unselected_team) }
 
       context 'when group is selected_teams' do
-        let(:group) { 'selected_teams'}
+        let(:group) { 'selected_teams' }
 
         it 'only returns students that belong to a selected team' do
           expect(subject.users).to match_array(selected_students)
@@ -76,7 +76,7 @@ describe Recipients do
       end
 
       context 'when group is unselected_teams' do
-        let(:group) { 'unselected_teams'}
+        let(:group) { 'unselected_teams' }
 
         it 'only returns students that belong to an unselected team' do
           expect(subject.users).to match_array(unselected_students)
@@ -85,10 +85,20 @@ describe Recipients do
 
       context 'when group is everyone' do
         let(:group) { 'everyone' }
+
+        it 'returns students that belong to either selected or unselected teams' do
+          expect(subject.users).to match_array(selected_students + unselected_students)
+        end
       end
 
-      it 'returns students that belong to either selected or unselected teams' do
-        expect(subject.users).to match_array(selected_students + unselected_students)
+      context 'when to is just organizers' do
+        let(:to) { %w(organizers) }
+        let!(:helpdesks) { FactoryGirl.create_list(:helpdesk, 2) }
+        let!(:organizers) { FactoryGirl.create_list(:organizer, 2 ) }
+
+        it 'returns all organizers' do
+          expect(subject.users).to match_array(organizers)
+        end
       end
     end
 
@@ -100,9 +110,18 @@ describe Recipients do
       let!(:students) { FactoryGirl.create_list(:student, 2, team: team) }
       let!(:coaches) { FactoryGirl.create_list(:coach, 2, team: team) }
       let!(:other_students) { FactoryGirl.create_list(:student, 2) }
+      let!(:organizers) { FactoryGirl.create_list(:organizer, 2 ) }
 
       it 'only returns students that belong to the 2015 season' do
         expect(subject.users).to match_array(students)
+      end
+
+      context 'when to includes organizers and students' do
+        let(:to) { %w(students organizers developers helpdesk) }
+
+        it 'returns students and organizers' do
+          expect(subject.users).to match_array(students + organizers)
+        end
       end
     end
   end

@@ -17,23 +17,32 @@ class Recipients
 
   def users
     return @users if @users
-    @users = User.joins(:teams, :roles).where(roles: { name: roles })
-    if group.to_sym == :selected_teams
-      @users = @users.where(teams: { kind: Team::KINDS })
-    elsif group.to_sym == :unselected_teams
-      @users = @users.where(teams: { kind: nil })
-    end
-    if seasons.any?
-      @users = @users.where(teams: {
-        season: Season.where(name: seasons).pluck(:id)
-      })
-    end
-    @users.uniq
+    @users = User.joins(:roles).where(roles: { name: roles })
+    @users = @users.where('roles.team_id IN (?) OR roles.name IN (?)', teams, teamless_roles) if filter_by_teams?
+    @users = @users.uniq
+    @users
+  end
+
+  def filter_by_teams?
+    group.to_sym != :everyone || seasons.any?
+  end
+
+  def teams
+    return @teams if @teams
+    @teams = Team
+    @teams = @teams.where(kind: group.to_sym == :selected_teams ? Team::KINDS : nil) if group.to_sym != :everyone
+    @teams = @teams.where(season: Season.where(name: seasons)) if seasons.any?
+    @teams = @teams.select(:id).pluck(:id)
+    @teams
   end
 
   def roles
     Array(to).map do |to|
       to == 'teams' ? %w(student coach mentor) : [to.singularize]
     end.flatten
+  end
+
+  def teamless_roles
+    (roles & %w{organizer developer helpdesk})
   end
 end
