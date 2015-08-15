@@ -3,10 +3,11 @@ class Students::StatusUpdatesController < Students::BaseController
 
   def index
     @status_updates = current_team.status_updates.order('created_at DESC')
+    @status_update = current_team.status_updates.build
   end
 
   def new
-    @status_update = current_team.status_updates.build
+#    @status_update = current_team.status_updates.build
   end
 
   def create

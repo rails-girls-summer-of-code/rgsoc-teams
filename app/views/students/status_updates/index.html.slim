@@ -1,8 +1,9 @@
-h1 Listing Status Updates
+h1 New Status Update
 
-= link_to 'New Status Update', new_students_status_update_path, class: 'btn btn-default'
+= simple_form_for(@status_update, url: students_status_updates_path) do |f|
+  == render 'form', f: f
 
-p
+h2 Previous updates
 
 table.table.table-striped.table-bordered.table-condensed
   thead
