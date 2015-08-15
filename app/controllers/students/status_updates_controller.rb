@@ -18,7 +18,7 @@ class Students::StatusUpdatesController < Students::BaseController
       flash[:notice] = "Status Update created"
       redirect_to action: :index
     else
-      render :new
+      redirect_to action: :index
     end
   end
 
