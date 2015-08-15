@@ -75,7 +75,7 @@ RgsocTeams::Application.routes.draw do
   end
 
   namespace :students do
-    resources :status_updates
+    resources :status_updates, :except => [:new]
   end
 
   # get 'activities(.:format)', to: 'activities#index', as: :activities
