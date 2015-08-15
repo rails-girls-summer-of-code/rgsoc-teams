@@ -3,7 +3,8 @@ h1 Status Update for Team #{@status_update.team.name}
 .status_update
   dl
     dt Date
-    dd = l @status_update.created_at
+    /date format is Weekday, MM dd, hh:mm
+    dd = l @status_update.created_at, :format => ('%A, %B %e, %H:%M (utc)')
     dt Title
     dd = @status_update.title
 

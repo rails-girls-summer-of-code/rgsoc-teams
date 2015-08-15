@@ -12,10 +12,10 @@ class Students::StatusUpdatesController < Students::BaseController
       status_update_params.merge(published_at: Time.now.utc)
     )
     if @status_update.save
-      flash[:notice] = "Status Update created"
+      flash[:notice] = 'Status Update created'
       redirect_to action: :index
     else
-      flash[:danger] = "Fill in the blank fields"
+      flash[:danger] = 'Fill in the blank fields'
       redirect_to action: :index
     end
   end
@@ -28,7 +28,7 @@ class Students::StatusUpdatesController < Students::BaseController
 
   def update
     if @status_update.update(status_update_params)
-      flash[:notice] = "Status Update updated"
+      flash[:notice] = 'Status Update updated'
       redirect_to action: :index
     else
       render :edit
@@ -37,9 +37,9 @@ class Students::StatusUpdatesController < Students::BaseController
 
   def destroy
     if @status_update.destroy
-      flash[:notice] = "Status Update has been deleted"
+      flash[:notice] = 'Status Update has been deleted'
     else
-      flash[:alert]  = "An error occured while deleting your status update"
+      flash[:alert]  = 'An error occurred while deleting your status update'
     end
     redirect_to action: :index
   end

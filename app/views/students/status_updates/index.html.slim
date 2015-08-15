@@ -18,11 +18,10 @@ table.table.table-striped.table-bordered.table-condensed
   tbody
     - @status_updates.each do |status_update|
       tr
-        td = l status_update.created_at
+        /date format is Weekday, MM dd, hh:mm
+        td = l status_update.created_at, :format => ('%A, %B %e, %H:%M (utc)')
         td = status_update.title
         td = render_markdown(status_update.content).html_safe
         td = link_to 'Show', students_status_update_path(status_update)
         td = link_to 'Edit', edit_students_status_update_path(status_update)
         td = link_to 'Destroy', students_status_update_path(status_update), data: { confirm: 'Are you sure?'}, method: :delete
-
-
