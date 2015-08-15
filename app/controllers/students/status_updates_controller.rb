@@ -14,7 +14,7 @@ class Students::StatusUpdatesController < Students::BaseController
     if @status_update.save
       flash[:notice] = 'Status Update created'
     else
-      flash[:danger] = 'Fill in the blank fields'
+      flash[:alert] = 'Fill in the blank fields'
     end
     redirect_to action: :index
   end
