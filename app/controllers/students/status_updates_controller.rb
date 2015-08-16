@@ -2,7 +2,7 @@ class Students::StatusUpdatesController < Students::BaseController
   before_action :find_resource, only: [:show, :edit, :update, :destroy]
 
   def index
-     #order = DESC; set in model
+    #order = DESC; set in model
     @status_updates = current_team.status_updates.ordered
     @status_update = current_team.status_updates.build
   end

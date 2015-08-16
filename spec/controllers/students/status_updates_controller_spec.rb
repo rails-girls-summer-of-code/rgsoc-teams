@@ -24,12 +24,13 @@ RSpec.describe Students::StatusUpdatesController do
       end
     end
 
-    describe 'GET new' do
-      it 'renders the new template' do
-        get :new
+    describe 'GET index' do
+      it 'renders the index template' do
+        get :index
         expect(assigns(:status_update)).to be_a_new Activity
         expect(assigns(:status_update).kind).to eql 'status_update'
-        expect(response).to render_template 'new'
+        expect(response).to render_template 'index'
+        expect(response).to render_template(partial: '_form')
       end
     end
 
@@ -51,11 +52,11 @@ RSpec.describe Students::StatusUpdatesController do
         expect(activity.published_at).to be_present
       end
 
-      it 'fails to create status update and renders new' do
+      it 'fails to create status update and renders index' do
         expect {
           post :create, activity: { title: '' }
         }.not_to change { team.status_updates.count }
-        expect(response).to render_template :new
+        expect(response).to redirect_to action: :index
       end
     end
 
