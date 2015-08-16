@@ -1,9 +1,8 @@
 class Students::StatusUpdatesController < Students::BaseController
   before_action :find_resource, only: [:show, :edit, :update, :destroy]
+  helper_method :status_updates
 
   def index
-    #order = DESC; set in model
-    @status_updates = current_team.status_updates.ordered
     @status_update = current_team.status_updates.build
   end
 
@@ -13,10 +12,10 @@ class Students::StatusUpdatesController < Students::BaseController
     )
     if @status_update.save
       flash[:notice] = 'Status Update created'
+      redirect_to action: :index
     else
-      flash[:alert] = 'Fill in the blank fields'
+      render :index
     end
-    redirect_to action: :index
   end
 
   def show
@@ -43,6 +42,7 @@ class Students::StatusUpdatesController < Students::BaseController
     redirect_to action: :index
   end
 
+
   protected
 
   def find_resource
@@ -51,6 +51,14 @@ class Students::StatusUpdatesController < Students::BaseController
 
   def status_update_params
     params.require(:activity).permit(:title, :content)
+  end
+
+
+  private
+
+  def status_updates
+    #order = DESC; set in model
+    @status_updates = current_team.status_updates.ordered
   end
 
 end

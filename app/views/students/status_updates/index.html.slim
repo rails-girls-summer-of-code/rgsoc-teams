@@ -16,7 +16,7 @@ table.table.table-striped.table-bordered.table-condensed
       th
 
   tbody
-    - @status_updates.each do |status_update|
+    - status_updates.each do |status_update|
       tr
         /date format is Weekday, MM dd, hh:mm
         td = l status_update.created_at, :format => ('%A, %B %e, %H:%M (utc)')

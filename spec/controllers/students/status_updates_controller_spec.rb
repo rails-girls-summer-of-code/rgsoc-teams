@@ -56,7 +56,7 @@ RSpec.describe Students::StatusUpdatesController do
         expect {
           post :create, activity: { title: '' }
         }.not_to change { team.status_updates.count }
-        expect(response).to redirect_to action: :index
+        expect(response).to render_template 'index'
       end
     end
 
