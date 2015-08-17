@@ -18,7 +18,6 @@ table.table.table-striped.table-bordered.table-condensed
   tbody
     - status_updates.each do |status_update|
       tr
-        /date format is Weekday, MM dd, hh:mm
         td = l status_update.created_at, format: :short
         td = status_update.title
         td = render_markdown(status_update.content).html_safe
