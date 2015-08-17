@@ -3,7 +3,7 @@ h1 Status Update for Team #{@status_update.team.name}
 .status_update
   dl
     dt Date
-    dd = l @status_update.created_at
+    dd = l @status_update.created_at, format: :short
     dt Title
     dd = @status_update.title
 

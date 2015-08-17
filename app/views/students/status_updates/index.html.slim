@@ -1,8 +1,9 @@
-h1 Listing Status Updates
+h1 New Status Update
 
-= link_to 'New Status Update', new_students_status_update_path, class: 'btn btn-default'
+= simple_form_for(@status_update, url: students_status_updates_path) do |f|
+  == render 'form', f: f
 
-p
+h2 Previous updates
 
 table.table.table-striped.table-bordered.table-condensed
   thead
@@ -15,13 +16,11 @@ table.table.table-striped.table-bordered.table-condensed
       th
 
   tbody
-    - @status_updates.each do |status_update|
+    - status_updates.each do |status_update|
       tr
-        td = l status_update.created_at
+        td = l status_update.created_at, format: :short
         td = status_update.title
         td = render_markdown(status_update.content).html_safe
         td = link_to 'Show', students_status_update_path(status_update)
         td = link_to 'Edit', edit_students_status_update_path(status_update)
         td = link_to 'Destroy', students_status_update_path(status_update), data: { confirm: 'Are you sure?'}, method: :delete
-
-

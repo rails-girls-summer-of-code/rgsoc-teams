@@ -1,11 +1,8 @@
 class Students::StatusUpdatesController < Students::BaseController
   before_action :find_resource, only: [:show, :edit, :update, :destroy]
+  helper_method :status_updates
 
   def index
-    @status_updates = current_team.status_updates.order('created_at DESC')
-  end
-
-  def new
     @status_update = current_team.status_updates.build
   end
 
@@ -14,10 +11,10 @@ class Students::StatusUpdatesController < Students::BaseController
       status_update_params.merge(published_at: Time.now.utc)
     )
     if @status_update.save
-      flash[:notice] = "Status Update created"
+      flash[:notice] = 'Status Update created'
       redirect_to action: :index
     else
-      render :new
+      render :index
     end
   end
 
@@ -29,7 +26,7 @@ class Students::StatusUpdatesController < Students::BaseController
 
   def update
     if @status_update.update(status_update_params)
-      flash[:notice] = "Status Update updated"
+      flash[:notice] = 'Status Update updated'
       redirect_to action: :index
     else
       render :edit
@@ -38,12 +35,13 @@ class Students::StatusUpdatesController < Students::BaseController
 
   def destroy
     if @status_update.destroy
-      flash[:notice] = "Status Update has been deleted"
+      flash[:notice] = 'Status Update has been deleted'
     else
-      flash[:alert]  = "An error occured while deleting your status update"
+      flash[:alert]  = 'An error occurred while deleting your status update'
     end
     redirect_to action: :index
   end
+
 
   protected
 
@@ -53,6 +51,14 @@ class Students::StatusUpdatesController < Students::BaseController
 
   def status_update_params
     params.require(:activity).permit(:title, :content)
+  end
+
+
+  private
+
+  def status_updates
+    #order = DESC; set in model
+    @status_updates ||= current_team.status_updates.ordered
   end
 
 end
