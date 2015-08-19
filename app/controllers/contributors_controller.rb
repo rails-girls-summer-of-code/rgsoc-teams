@@ -4,7 +4,8 @@ class ContributorsController < ApplicationController
   respond_to :json
 
   def index
-    @contributors = User.with_role(Role::CONTRIBUTOR_ROLES).uniq
+    @contributors = User.with_role(Role::CONTRIBUTOR_ROLES).joins(:teams)
+                    .where(teams: { kind: Team::KINDS, season_id: Season.current.id }).uniq
     respond_with @contributors.as_json(json_params)
   end
 
