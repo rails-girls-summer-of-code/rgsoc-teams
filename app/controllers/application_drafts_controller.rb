@@ -142,10 +142,10 @@ class ApplicationDraftsController < ApplicationController
   end
 
   def extended_team
-    @extended_team ||= begin
-                        team = ApplicationDraft.find(params[:id]).team
-                        team if (team.coaches + team.mentors).include? current_user
-                      end
+    # @extended_team ||= begin
+    #                     team = ApplicationDraft.find(params[:id]).team
+    #                     team if (team.coaches + team.mentors).include? current_user
+    #                   end
   end
 
   def open_draft
