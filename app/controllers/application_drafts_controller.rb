@@ -37,7 +37,8 @@ class ApplicationDraftsController < ApplicationController
     if application_draft.update(application_draft_params)
       update_student!
       redirect_to [:edit, application_draft], notice: 'Your application draft was saved.'
-      #add case:
+      #if button value = save do this, if button value = final check set state: final
+
     else
       render :new
     end

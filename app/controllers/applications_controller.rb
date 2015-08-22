@@ -17,9 +17,6 @@ class ApplicationsController < ApplicationController
 
   def update
     @application = Application.find(params[:id])
-    #if button value = save do this, if button value = final check set state: final
-    #BUT there is an :update in application_drafts_controller as well
-
     if @application.update_attributes(application_params)
       redirect_to action: :index
     else
