@@ -66,6 +66,7 @@ class ApplicationDraft < ActiveRecord::Base
   end
 
   def role_for(user)
+    #todo ?? also for state :final ? (see as_mentor in can_sign_off?)
     draft = dup.tap { |d| d.current_user = user }
     if draft.as_student?
       'Student'
@@ -78,21 +79,28 @@ class ApplicationDraft < ActiveRecord::Base
 
   def ready?
     valid?(:apply)
+    #add notice: 'Check your application here; this will not submit your application'
   end
 
   aasm :column => :state, :no_direct_assignment => true do
-    state :draft, :initial => true
+    state :draft, :initial => true    #started by students, drafting by students & coaches
+    state :final
     state :applied
     state :signed_off
 
-    event :submit_application do
-      after do |applied_at_time = nil|
-        self.applied_at = applied_at_time || Time.now
-        CreatesApplicationFromDraft.new(self).save
-      end
-
-      transitions :from => :draft, :to => :applied, :guard => :ready?
+    event :finalize do #students only
+      transitions :from => :draft, :to => :final, :guard => :ready?
+      #add notice: 'Check your application here; this will not submit your application'
     end
+
+    event :apply do
+    after do |applied_at_time = nil|
+      self.applied_at = applied_at_time || Time.now
+      CreatesApplicationFromDraft.new(self).save
+    end
+      transitions :from => :final, :to => :applied, :guard => :can_submit?
+    end
+
 
     event :sign_off, :guard => :can_sign_off? do
       after do
@@ -108,6 +116,10 @@ class ApplicationDraft < ActiveRecord::Base
   end
 
   private
+
+  def can_submit?
+    current_user.present? and as_student?
+  end
 
   def can_sign_off?
     current_user.present? and as_mentor?

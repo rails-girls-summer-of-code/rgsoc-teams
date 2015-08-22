@@ -37,6 +37,8 @@ class ApplicationDraftsController < ApplicationController
     if application_draft.update(application_draft_params)
       update_student!
       redirect_to [:edit, application_draft], notice: 'Your application draft was saved.'
+      #if button value = save do this, if button value = final check set state: final
+
     else
       render :new
     end
@@ -142,10 +144,10 @@ class ApplicationDraftsController < ApplicationController
   end
 
   def extended_team
-    @extended_team ||= begin
-                        team = ApplicationDraft.find(params[:id]).team
-                        team if (team.coaches + team.mentors).include? current_user
-                      end
+    # @extended_team ||= begin
+    #                     team = ApplicationDraft.find(params[:id]).team
+    #                     team if (team.coaches + team.mentors).include? current_user
+    #                   end
   end
 
   def open_draft

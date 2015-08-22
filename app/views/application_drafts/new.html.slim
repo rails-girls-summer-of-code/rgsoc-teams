@@ -51,12 +51,17 @@ p.attention
 
   - if application_draft.draft?
     .actions
-      = f.button :submit, 'Save as draft', class: 'btn'
-      - unless application_draft.ready?
+      = f.button :submit, 'Save as draft', value: 'Draft', class: 'btn'
+      /- unless application_draft.ready?
         .help-block Your application is not yet ready for submission
 
-- if application_draft.draft?
-  - if application_draft.ready? && application_draft.as_student?
+      /This should go trigger the transition to :final
+      = f.button :submit, 'Ready to submit? ...', value: 'Final', class: 'btn'
+
+- if application_draft.final?
+  /as_student? is checked in state machine; here needed again? Or redundant?
+  /- if application_draft.ready? && application_draft.as_student?
+  - if application_draft.ready?
     = simple_form_for application_draft, url: apply_application_draft_path(application_draft), method: :put do |f|
       .actions
         = f.button :submit, 'Apply', class: 'btn btn-success'

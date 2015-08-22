@@ -45,7 +45,9 @@ class ApplicationController < ActionController::Base
   end
 
   def current_season
-    @season ||= Season.current
+    #TEMP solution to find the application form
+    #@season ||= Season.current
+    @season = Season.find(2)
   end
 
   def current_student
