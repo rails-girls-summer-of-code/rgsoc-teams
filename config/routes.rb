@@ -71,9 +71,12 @@ RgsocTeams::Application.routes.draw do
 
   namespace :orga do
     resources :teams
-    resources :seasons
+    resources :seasons do
+      member do
+        get 'shift_seasons'
+      end
   end
-
+end
   namespace :students do
     resources :status_updates, :except => [:new]
   end

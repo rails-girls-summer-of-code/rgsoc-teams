@@ -45,7 +45,10 @@ class ApplicationController < ActionController::Base
   end
 
   def current_season
+    #TEMP out, to find all the season setters
     @season ||= Season.current
+    #@season =  Season.find(2)
+    #@season = $dev_season ||= Season.current
   end
 
   def current_student

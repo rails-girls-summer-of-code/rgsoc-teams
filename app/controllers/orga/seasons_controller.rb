@@ -1,5 +1,12 @@
 class Orga::SeasonsController < Orga::BaseController
-  before_action :find_resource, only: [:show, :edit, :update, :destroy]
+  before_action :find_resource, only: [:show, :edit, :update, :destroy, :switch_seasons]
+  helper_method :switch_seasons
+
+  def switch_seasons
+    @season = Season.find_by(name: '2016')
+    #temporarily hardcoded to check if I can pass this to ApplController
+  end
+
 
   def new
     @season = Season.new({
