@@ -73,7 +73,7 @@ RgsocTeams::Application.routes.draw do
     resources :teams
     resources :seasons do
       member do
-        get 'shift_seasons'
+        get :switch_seasons
       end
   end
 end
