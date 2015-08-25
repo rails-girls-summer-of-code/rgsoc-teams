@@ -75,8 +75,9 @@ RgsocTeams::Application.routes.draw do
       member do
         get :switch_seasons
       end
+    end
   end
-end
+  
   namespace :students do
     resources :status_updates, :except => [:new]
   end
