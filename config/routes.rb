@@ -1,4 +1,10 @@
 RgsocTeams::Application.routes.draw do
+
+
+  namespace :supervisor do
+  get 'dashboard/index'
+  end
+
   get 'status_updates/show'
 
   resources :job_offers
