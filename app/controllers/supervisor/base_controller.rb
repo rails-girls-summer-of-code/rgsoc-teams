@@ -11,7 +11,7 @@ class Supervisor::BaseController < ApplicationController
   end
 
   def supervisee_teams
-    supervisee_teams = current_user.teams
+    @supervisee_teams = current_user.teams
   end
 
 end
