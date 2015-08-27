@@ -1,2 +1,16 @@
-h1 Supervisor::Dashboard#index
-p Find me in app/views/supervisor/dashboard/index.html.slim
+h1 Hi Supervisor!
+h2 This is your brandnew Dashboard - with love from Team Cheesy
+p
+
+hr
+
+- for t in current_user.teams.each do
+h3 = t.display_name
+    p = link_to t.name, current_user_teams_url(t)
+/
+/= current_user.teams.each do |t|
+/  li
+/  strong Name:
+/  = t.name
+/= supervisee_teams.each do |t|
+ /  link_to t.name

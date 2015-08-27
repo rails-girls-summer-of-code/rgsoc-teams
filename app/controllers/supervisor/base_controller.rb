@@ -10,4 +10,8 @@ class Supervisor::BaseController < ApplicationController
     end
   end
 
+  def supervisee_teams
+    supervisee_teams = current_user.teams
+  end
+
 end
