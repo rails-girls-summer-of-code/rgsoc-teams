@@ -4,13 +4,28 @@ class Orga::SeasonsController < Orga::BaseController
   helper_method :switch_seasons
 
   def switch_seasons
+    @fakeseason = current_season
     if params[:option] == 'Application'
-      @fakeseason = 'Application Phase'
+      @fakephase = 'Application Phase'
+      fake_application_phase
     elsif params[:option] == 'SummerCoding'
-      @fakeseason = 'Coding Phase'
+      @fakephase = 'Coding Phase'
     else
-      @fakeseason = 'Nothing set but sunset'
+      @fakephase = 'Nothing set but sunset _⍜_'
     end
+  end
+
+  def fake_application_phase
+    @fakeseason= @season
+    @fakeseason.starts_at = Date.today+2.months
+    @fakeseason.ends_at = @fakeseason.starts_at+3.months
+    @fakeseason.applications_open_at = Date.today-2.weeks
+    @fakeseason.applications_close_at = Date.today+2.weeks
+    @fakeseason.acceptance_notification_at = @fakeseason.applications_close_at+1.month
+    puts "#{@fakeseason.applications_open?}, #{ @fakeseason.ends_at}"
+    @fakephase
+    @fakeseason.save
+    #current_season = @fakeseason
   end
 
   def new
