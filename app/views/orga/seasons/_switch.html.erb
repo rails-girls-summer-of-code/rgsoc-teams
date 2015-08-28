@@ -1,23 +1,15 @@
 <br/>
 <!-- NEXT STEP TODO: This should only show in dev mode; add that to ... (controller?)  -->
 <hr>
-<h3> For development: select season </h3>
+<h3> For development only: select season phase </h3>
+<p>to adjusts all the date dependent settings for <i>current_season</i> .
 
-<p>1) Adjust the dates in the table above manually.
-<p>E.g. to work in the Application Form, set the application dates for 2016 to the current month. That will open all
-  options re: the application phase, in the menu, the applicationsControllers etc.
-<p>2) Select season in the list below.
-</p>
-<hr>
-
-<h3> Switch season</h3>
-
-<!-- TODO change hard_coded seasons into dynamics -->
 <%= form_tag orga_seasons_path, action: switch_seasons, method: :get do %>
-    <%= radio_button_tag :option, "2015" %>
-     <%= label_tag(:option1, "2015") %> 
-    <%= radio_button_tag :option, "2016" %> 
-    <%= label_tag(:option2, "2016") %> 
-      <%= submit_tag("Switch", ) %>
+    <%= radio_button_tag :option, "Application" %>
+     <%= label_tag("Application Phase") %> 
+    <%= radio_button_tag :option, "SummerCoding" %> 
+    <%= label_tag("Coding Phase") %> 
+      <%= submit_tag("Switch phase") %>
 <% end %>
 
+<p><%= " current_season #{current_season.name} set to #{params[:option]}"%></p>

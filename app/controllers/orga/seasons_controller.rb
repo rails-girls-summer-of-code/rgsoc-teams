@@ -4,9 +4,13 @@ class Orga::SeasonsController < Orga::BaseController
   helper_method :switch_seasons
 
   def switch_seasons
-    if params[:option]
-      @season = Season.find_by_name(params[:option])
-     end
+    if params[:option] == 'Application'
+      @fakeseason = 'Application Phase'
+    elsif params[:option] == 'SummerCoding'
+      @fakeseason = 'Coding Phase'
+    else
+      @fakeseason = 'Nothing set but sunset'
+    end
   end
 
   def new
