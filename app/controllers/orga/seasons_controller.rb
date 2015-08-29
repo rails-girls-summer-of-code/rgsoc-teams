@@ -5,27 +5,47 @@ class Orga::SeasonsController < Orga::BaseController
 
   def switch_seasons
     @fakeseason = current_season
-    if params[:option] == 'Application'
-      @fakephase = 'Application Phase'
+    if params[:option_Application]
       fake_application_phase
-    elsif params[:option] == 'SummerCoding'
-      @fakephase = 'Coding Phase'
-    else
-      @fakephase = 'Nothing set but sunset _⍜_'
+    elsif params[:option_CodingSummer]
+      fake_coding_phase
+    elsif params[:option_RealTime]
+      back_to_reality
     end
   end
 
   def fake_application_phase
-    @fakeseason= @season
-    @fakeseason.starts_at = Date.today+2.months
-    @fakeseason.ends_at = @fakeseason.starts_at+3.months
-    @fakeseason.applications_open_at = Date.today-2.weeks
-    @fakeseason.applications_close_at = Date.today+2.weeks
-    @fakeseason.acceptance_notification_at = @fakeseason.applications_close_at+1.month
-    puts "#{@fakeseason.applications_open?}, #{ @fakeseason.ends_at}"
-    @fakephase
+    @fakeseason.attributes = {
+        starts_at: Date.today+2.months,
+        ends_at: Date.today+5.months,
+        applications_open_at: Date.today-2.weeks,
+        applications_close_at: Date.today+2.weeks,
+        acceptance_notification_at: @fakeseason.applications_close_at+1.month
+        }
     @fakeseason.save
-    #current_season = @fakeseason
+  end
+
+  def fake_coding_phase
+    @fakeseason.attributes = {
+      starts_at: Date.today-6.weeks,
+      ends_at: Date.today+6.weeks,
+      applications_open_at: Date.today-4.months,
+      applications_close_at: Date.today-3.months,
+      acceptance_notification_at: Date.today-2.months
+      }
+    @fakeseason.save
+  end
+
+  def back_to_reality
+    @season.attributes = {
+       name: Date.today.year,
+       starts_at: Time.utc(Date.today.year, 7, 15),
+       ends_at: Time.utc(Date.today.year, 9, 30),
+       applications_open_at: Time.utc(Date.today.year, 3, 1),
+       applications_close_at: Time.utc(Date.today.year, 3, 31),
+       acceptance_notification_at: Time.utc(Date.today.year, 5, 1)
+      }
+    @season.save
   end
 
   def new

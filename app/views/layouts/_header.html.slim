@@ -14,6 +14,7 @@ header
       li = link_to 'Community', users_path, class: params[:controller] == 'users' ? 'active' : ''
       - if current_season.applications_open?
         li = link_to 'Conferences',  conferences_path,  class: params[:controller] == 'conferences' ? 'active' : ''
+      - if current_season.started?
         li = link_to 'Jobs',   job_offers_path,   class: params[:controller] == 'job_offers' ? 'active' : ''
       /- if signed_in? && current_user.roles.includes?('reviewer')  # TODO bring this into a reviewer dashboard
       /  li = link_to 'Applications', applications_path

@@ -1,15 +1,18 @@
 <br/>
 <!-- NEXT STEP TODO: This should only show in dev mode; add that to ... (controller?)  -->
 <hr>
-<h3> For development only: select season phase </h3>
-<p>to adjusts all the date dependent settings for <i>current_season</i> .
+<h3> For development only: select season phase… </h3>
+<p>… to adjusts all the date dependent settings for <i>current_season</i> .
 
 <%= form_tag orga_seasons_path, action: switch_seasons, method: :get do %>
     <%= radio_button_tag :option, "Application" %>
-     <%= label_tag("Application Phase") %> 
-    <%= radio_button_tag :option, "SummerCoding" %> 
-    <%= label_tag("Coding Phase") %> 
-      <%= submit_tag("Switch phase") %>
-<% end %>
+     <%= label_tag :option_Application, "Application Phase" %> 
+    <%= radio_button_tag :option, "CodingSummer" %> 
+    <%= label_tag :option_CodingSummer, "Coding Summer" %> 
+    <%= radio_button_tag :option, "RealTime" %>
+    <%= label_tag :option_RealTime, "Back to Real Time" %>
+      <%= submit_tag("Switch phase") %>
+  <% end %>
 
-<p><%= " current_season #{@fakephase} set to #{params[:option]}"%></p>
+<p><%= " current_season set to #{params[:option]} " %><br>
+<%=  current_season.inspect %></p>
