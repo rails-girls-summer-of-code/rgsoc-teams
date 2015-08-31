@@ -1,7 +1,7 @@
 class Supervisor::BaseController < ApplicationController
 
   before_action :must_be_supervisor
-  helper_method :superteams
+  helper_method :supervised_teams
 
   protected
 
@@ -11,8 +11,8 @@ class Supervisor::BaseController < ApplicationController
     end
   end
 
-  def superteams
-    @superteams = current_user.teams
+  def supervised_teams
+    @supervised_teams = current_user.teams
   end
 
 end
