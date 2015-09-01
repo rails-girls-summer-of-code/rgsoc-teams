@@ -5,6 +5,5 @@ hr
 
 - for t in supervised_teams.each do
   h4 = link_to t.name, t
-  h4 Last checked at:
-  p = t.last_checked_at
+  p = "Your latest check was #{ time_ago_in_words(t.last_checked_at) } ago."
 
