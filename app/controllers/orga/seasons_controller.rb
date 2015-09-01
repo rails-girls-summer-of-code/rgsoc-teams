@@ -5,19 +5,14 @@ class Orga::SeasonsController < Orga::BaseController
 
   def switch_seasons
     @fakeseason = current_season
-    if params[:option_Application]
-      puts "<<<<<<<<<<<<<<<<< Appl <<<<<<<<<<<<<<<<"
+    if params[:option] == 'Application'
       fake_application_phase
-    elsif params[:option_CodingSummer]
-      puts " <<<<<<<<<<<<<<<<<<< SOC >>>>>>>>>>>>>>>>>>>"
+    elsif params[:option] == 'CodingSummer'
       fake_coding_phase
-    elsif params[:option_RealTime]
-      puts " <<<<<<<<<<<<<<<< IRL >>>>>>>>>>>>>>>>>>>>>>>"
+    elsif params[:option] == 'RealTime'
       back_to_reality
     end
   end
-
-
 
   def fake_application_phase
     @fakeseason.attributes = {
