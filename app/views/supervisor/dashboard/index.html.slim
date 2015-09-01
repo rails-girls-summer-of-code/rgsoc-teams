@@ -5,5 +5,9 @@ hr
 
 - for t in supervised_teams.each do
   h4 = link_to t.name, t
-  p = "Your latest check was #{ time_ago_in_words(t.last_checked_at) } ago."
-
+  - if t.last_checked_at?
+    p = "Your latest check was #{ time_ago_in_words(t.last_checked_at) } ago "
+  - if t.activities.any?
+    p = "Their latest update is from #{ time_ago_in_words(t.last_activity.try(:created_at)) } ago"
+    p = t.last_activity.title
+    p = render_markdown(t.last_activity.content).html_safe
