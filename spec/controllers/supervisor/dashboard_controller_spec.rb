@@ -1,12 +1,8 @@
-require 'rails_helper'
+require 'spec_helper'
 
-RSpec.describe Supervisor::DashboardController, type: :controller do
 
-  describe "GET #index" do
-    it "returns http success" do
-      get :index
-      expect(response).to have_http_status(:success)
-    end
+describe 'routes for dashboard', type: :routing do
+  it 'routes /dashboard to the dashboard controller' do
+    expect(get('/supervisor/dashboard')).to route_to('supervisor/dashboard#index')
   end
-
 end
