@@ -6,13 +6,18 @@ class Orga::SeasonsController < Orga::BaseController
   def switch_seasons
     @fakeseason = current_season
     if params[:option_Application]
+      puts "<<<<<<<<<<<<<<<<< Appl <<<<<<<<<<<<<<<<"
       fake_application_phase
     elsif params[:option_CodingSummer]
+      puts " <<<<<<<<<<<<<<<<<<< SOC >>>>>>>>>>>>>>>>>>>"
       fake_coding_phase
     elsif params[:option_RealTime]
+      puts " <<<<<<<<<<<<<<<< IRL >>>>>>>>>>>>>>>>>>>>>>>"
       back_to_reality
     end
   end
+
+
 
   def fake_application_phase
     @fakeseason.attributes = {
@@ -21,32 +26,34 @@ class Orga::SeasonsController < Orga::BaseController
         applications_open_at: Date.today-2.weeks,
         applications_close_at: Date.today+2.weeks,
         acceptance_notification_at: @fakeseason.applications_close_at+1.month
-        }
+    }
     @fakeseason.save
   end
 
   def fake_coding_phase
     @fakeseason.attributes = {
-      starts_at: Date.today-6.weeks,
-      ends_at: Date.today+6.weeks,
-      applications_open_at: Date.today-4.months,
-      applications_close_at: Date.today-3.months,
-      acceptance_notification_at: Date.today-2.months
-      }
+        starts_at: Date.today-6.weeks,
+        ends_at: Date.today+6.weeks,
+        applications_open_at: Date.today-4.months,
+        applications_close_at: Date.today-3.months,
+        acceptance_notification_at: Date.today-2.months
+    }
     @fakeseason.save
   end
 
   def back_to_reality
     @season.attributes = {
-       name: Date.today.year,
-       starts_at: Time.utc(Date.today.year, 7, 15),
-       ends_at: Time.utc(Date.today.year, 9, 30),
-       applications_open_at: Time.utc(Date.today.year, 3, 1),
-       applications_close_at: Time.utc(Date.today.year, 3, 31),
-       acceptance_notification_at: Time.utc(Date.today.year, 5, 1)
-      }
+        name: Date.today.year,
+        starts_at: Time.utc(Date.today.year, 7, 15),
+        ends_at: Time.utc(Date.today.year, 9, 30),
+        applications_open_at: Time.utc(Date.today.year, 3, 1),
+        applications_close_at: Time.utc(Date.today.year, 3, 31),
+        acceptance_notification_at: Time.utc(Date.today.year, 5, 1)
+    }
     @season.save
   end
+
+
 
   def new
     @season = Season.new({

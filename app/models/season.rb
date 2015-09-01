@@ -3,6 +3,7 @@ class Season < ActiveRecord::Base
 
   before_validation :set_application_dates
 
+
   class << self
     def current
       find_or_create_by(name: Date.today.year.to_s)
@@ -33,5 +34,9 @@ class Season < ActiveRecord::Base
     self.applications_close_at = applications_close_at.utc.end_of_day
     self.acceptance_notification_at = acceptance_notification_at.utc.end_of_day
   end
+
+
+  # switch_seasons, in dev env only: enables developers to easily switch between time dependent settings
+
 
 end
