@@ -6,4 +6,6 @@ p =current_user.name
 hr
 
 - for t in supervised_teams.each do
- h4 = link_to t.name, t
+  h4 = link_to t.name, t
+  p = t.last_checked_at
+
