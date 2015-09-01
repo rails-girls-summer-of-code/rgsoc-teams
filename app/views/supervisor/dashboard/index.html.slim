@@ -1,11 +1,10 @@
-h1 Hi Supervisor!
-h2 This is your brandnew Dashboard - with love from Team Cheesy
-p =current_user.name
-
+h1 = "Hi #{current_user.name}!"
+h2 This is your brandnew Supervisor Dashboard - with love from Team Cheesy
 
 hr
 
 - for t in supervised_teams.each do
   h4 = link_to t.name, t
+  h4 Last checked at:
   p = t.last_checked_at
 
