@@ -3,53 +3,6 @@ class Orga::SeasonsController < Orga::BaseController
 
   helper_method :switch_seasons
 
-  def switch_seasons
-    @fakeseason = current_season
-    if params[:option] == 'Application'
-      fake_application_phase
-    elsif params[:option] == 'CodingSummer'
-      fake_coding_phase
-    elsif params[:option] == 'RealTime'
-      back_to_reality
-    end
-  end
-
-  def fake_application_phase
-    @fakeseason.attributes = {
-        starts_at: Date.today+2.months,
-        ends_at: Date.today+5.months,
-        applications_open_at: Date.today-2.weeks,
-        applications_close_at: Date.today+2.weeks,
-        acceptance_notification_at: @fakeseason.applications_close_at+1.month
-    }
-    @fakeseason.save
-  end
-
-  def fake_coding_phase
-    @fakeseason.attributes = {
-        starts_at: Date.today-6.weeks,
-        ends_at: Date.today+6.weeks,
-        applications_open_at: Date.today-4.months,
-        applications_close_at: Date.today-3.months,
-        acceptance_notification_at: Date.today-2.months
-    }
-    @fakeseason.save
-  end
-
-  def back_to_reality
-    @season.attributes = {
-        name: Date.today.year,
-        starts_at: Time.utc(Date.today.year, 7, 15),
-        ends_at: Time.utc(Date.today.year, 9, 30),
-        applications_open_at: Time.utc(Date.today.year, 3, 1),
-        applications_close_at: Time.utc(Date.today.year, 3, 31),
-        acceptance_notification_at: Time.utc(Date.today.year, 5, 1)
-    }
-    @season.save
-  end
-
-
-
   def new
     @season = Season.new({
       name: Date.today.year,
@@ -92,6 +45,21 @@ class Orga::SeasonsController < Orga::BaseController
     @season.destroy
     redirect_to orga_seasons_path, notice: "Season #{@season.name} has been deleted."
   end
+
+  #In dev env: setting to switch parts of season to open / close
+  # Application: for application form; CodingSummer for students/status_updates
+  def switch_seasons
+    return if Rails.env.development?
+    @season = current_season
+    if params[:option] == 'Application'
+      @season.fake_application_phase
+    elsif params[:option] == 'CodingSummer'
+      @season.fake_coding_phase
+    elsif params[:option] == 'RealTime'
+      @season.back_to_reality
+    end
+  end
+
 
   private
 
