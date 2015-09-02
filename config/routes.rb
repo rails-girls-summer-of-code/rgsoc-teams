@@ -69,11 +69,13 @@ RgsocTeams::Application.routes.draw do
     resources :submissions
   end
 
-
-  patch '/orga/seasons/switch_seasons', to: "orga/seasons#switch_seasons"
   namespace :orga do
     resources :teams
-    resources :seasons
+    resources :seasons do
+      member do
+      get :switch_seasons
+        end
+    end
   end
   
   namespace :students do

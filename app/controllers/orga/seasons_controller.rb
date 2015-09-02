@@ -49,7 +49,7 @@ class Orga::SeasonsController < Orga::BaseController
   #In dev env: setting to switch parts of season to open / close
   # Application: for application form; CodingSummer for students/status_updates
   def switch_seasons
-    return if Rails.env.development?
+    return unless Rails.env.development?
     @season = current_season
     if params[:option] == 'Application'
       @season.fake_application_phase
