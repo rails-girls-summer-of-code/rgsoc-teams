@@ -11,6 +11,6 @@ div.clearfix
         - if t.last_checked_at?
           p = "Your latest check was #{ time_ago_in_words(t.last_checked_at) } ago"
         - if t.activities.any?
-          p = "Their latest update is from #{ time_ago_in_words(t.last_activity.try(:created_at)) } ago"
+          p = "Their latest update is from #{ time_ago_in_words(t.last_activity.created_at) } ago"
           h3 = t.last_activity.title
           p = render_markdown(t.last_activity.content).html_safe
