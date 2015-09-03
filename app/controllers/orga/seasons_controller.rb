@@ -1,7 +1,7 @@
 class Orga::SeasonsController < Orga::BaseController
   before_action :find_resource, only: [:show, :edit, :update, :destroy]
 
-  helper_method :switch_seasons
+  helper_method :switch_phase
 
   def new
     @season = Season.new({
@@ -46,16 +46,17 @@ class Orga::SeasonsController < Orga::BaseController
     redirect_to orga_seasons_path, notice: "Season #{@season.name} has been deleted."
   end
 
-  #In dev env: setting to switch parts of season to open / close
-  # Application: for application form; CodingSummer for students/status_updates
-  def switch_seasons
+  # In dev env only, this offers a setting to switch parts of season to open / close
+  # Application opens the link to the application form; CodingSummer opens the link to students/status_updates
+  def switch_phase
     return unless Rails.env.development?
     @season = current_season
-    if params[:option] == 'Application'
+    case params[:option]
+    when 'Application'
       @season.fake_application_phase
-    elsif params[:option] == 'CodingSummer'
+    when 'CodingSummer'
       @season.fake_coding_phase
-    elsif params[:option] == 'RealTime'
+    when 'RealTime'
       @season.back_to_reality
     end
   end

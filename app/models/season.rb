@@ -24,7 +24,7 @@ class Season < ActiveRecord::Base
 
   def year; name end
 
-  # switch_seasons, in dev env only: enables developers to easily switch
+  # switch_phase, in dev env only: enables developers to easily switch
   # between time dependent settings in views
   def fake_application_phase
     update({
