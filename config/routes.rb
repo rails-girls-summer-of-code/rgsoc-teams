@@ -74,7 +74,7 @@ RgsocTeams::Application.routes.draw do
     resources :seasons do
       member do
       get :switch_phase
-        end
+      end
     end
   end
   
