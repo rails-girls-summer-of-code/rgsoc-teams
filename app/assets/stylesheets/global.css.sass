@@ -23,32 +23,22 @@ body
 #footer
   footer
     border-top: 1px solid $lightgray
-    position: relative
-    top: 3em
-    margin: 0 auto
-
-  ul
-    padding-left: 0.5em
-
-  li
-    display: inline-block
-    margin: 1em 0 0 0
-
-    &:last-child:after
-      content: none
-
-    &:after
-      content: ''
+    text-align: center
+    ul
       display: inline-block
-      width: 1em
-      font-family: FontAwesome
-      line-height: 1em
-      color: $lightgray
-
-    a
+      padding: 0
+    li
       display: inline-block
-      height: 48px
-      text-decoration: none
+      margin: 1rem 0 0 0
+      &:after
+        content: ''
+        display: inline-block
+        width: 2rem
+        font-family: FontAwesome
+        line-height: 2rem
+        color: $lightgray
+      &:last-child:after
+        content: none
 
 header
   h1
