@@ -1,27 +1,28 @@
-header
-  h1
-    = link_to ' ', root_path
+section.container#header  
+  header
+    h1
+      = link_to ' ', root_path
 
-  nav.top
-    ul
-      - if show_application_link?
-        li = application_disambiguation_link
-      - if current_user.try :current_student?
-        li = link_to 'Status Updates', [:students, :status_updates], class: params[:controller] == 'students/status_updates' ? 'active' : ''
-      - if current_season.started?
-        li = link_to 'Activity',     root_path,  class: params[:controller] == 'activities' ? 'active' : ''
-      li = link_to 'Teams',        teams_path, class: params[:controller] == 'teams' ? 'active' : ''
-      li = link_to 'Community', users_path, class: params[:controller] == 'users' ? 'active' : ''
-      - if current_season.applications_open?
-        li = link_to 'Conferences',  conferences_path,  class: params[:controller] == 'conferences' ? 'active' : ''
-        li = link_to 'Jobs',   job_offers_path,   class: params[:controller] == 'job_offers' ? 'active' : ''
-      /- if signed_in? && current_user.roles.includes?('reviewer')  # TODO bring this into a reviewer dashboard
-      /  li = link_to 'Applications', applications_path
-      li = link_to 'Home &rarr;'.html_safe, 'http://railsgirlssummerofcode.org'
+    nav.top
+      ul
+        - if show_application_link?
+          li = application_disambiguation_link
+        - if current_user.try :current_student?
+          li = link_to 'Status Updates', [:students, :status_updates], class: params[:controller] == 'students/status_updates' ? 'active' : ''
+        - if current_season.started?
+          li = link_to 'Activity',     root_path,  class: params[:controller] == 'activities' ? 'active' : ''
+        li = link_to 'Teams',        teams_path, class: params[:controller] == 'teams' ? 'active' : ''
+        li = link_to 'Community', users_path, class: params[:controller] == 'users' ? 'active' : ''
+        - if current_season.applications_open?
+          li = link_to 'Conferences',  conferences_path,  class: params[:controller] == 'conferences' ? 'active' : ''
+          li = link_to 'Jobs',   job_offers_path,   class: params[:controller] == 'job_offers' ? 'active' : ''
+        /- if signed_in? && current_user.roles.includes?('reviewer')  # TODO bring this into a reviewer dashboard
+        /  li = link_to 'Applications', applications_path
+        li = link_to 'Home &rarr;'.html_safe, 'http://railsgirlssummerofcode.org'
 
-  nav.user
-    - if signed_in?
-      = "Signed in as #{link_to h(current_user.name), current_user} &middot; ".html_safe
-      = link_to "Sign out", sign_out_path, method: :delete
-    - else
-      = link_to icon('github', 'Sign in with GitHub'), user_omniauth_authorize_path(:github)
+    nav.user
+      - if signed_in?
+        = "Signed in as #{link_to h(current_user.name), current_user} &middot; ".html_safe
+        = link_to "Sign out", sign_out_path, method: :delete
+      - else
+        = link_to icon('github', 'Sign in with GitHub'), user_omniauth_authorize_path(:github)

@@ -21,7 +21,7 @@ html
       div.ribbon
         a href="//github.com/rails-girls-summer-of-code/rgsoc-teams" Fork me on GitHub
 
-    section#content
+    section.container#content
       - if notice
         p.alert.alert-success = notice
       - if alert
@@ -36,7 +36,7 @@ html
       ' ga('create', 'UA-41237864-1', 'railsgirlssummerofcode.org');
       ' ga('send', 'pageview');
 
-    section#footer
+    section.container#footer
       footer
         ul
           li &copy; #{ Season.current.name } Rails Girls Summer of Code
