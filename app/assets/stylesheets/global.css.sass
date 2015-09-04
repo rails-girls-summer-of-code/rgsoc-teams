@@ -6,19 +6,26 @@ body
   color: $main
   font-family: Lato, sans-serif
   font-size: 15px
+
   a, a:hover
     color: $railsred
     color: $railsred
+  li
+    list-style-type: none
   // for header
-  &:before
-    z-index: -1
-    position: absolute
-    left: 0
-    right: 0
-    top: 0
-    height: 66px
-    background-color: $railsred
-    content: ' '
+  // &:before
+  //   z-index: -1
+  //   position: absolute
+  //   left: 0
+  //   right: 0
+  //   top: 0
+  //   height: 66px
+  //   background-color: $railsred
+  //   content: ' '
+
+#header
+  height: 60px
+  background-color: $railsred
 
 #footer
   footer
@@ -40,85 +47,85 @@ body
       &:last-child:after
         content: none
 
-header
-  h1
-    display: inline-block
-    margin: 0
-    width: 210px
-    height: 58px
-    a
-      display: block
-      height: 100%
-      width: 100%
-      background-image: asset-url('logo_subnavi.png')
-      background-repeat: no-repeat
-      background-size: cover
-      background-position: -15px -1px
-      text-indent: 999%
-      white-space: nowrap
+// header
+//   h1
+//     display: inline-block
+//     margin: 0
+//     width: 210px
+//     height: 58px
+//     a
+//       display: block
+//       height: 100%
+//       width: 100%
+//       background-image: asset-url('logo_subnavi.png')
+//       background-repeat: no-repeat
+//       background-size: cover
+//       background-position: -15px -1px
+//       text-indent: 999%
+//       white-space: nowrap
 
-  nav
-    clear: right
-    float: right
-    @include clearfix
+//   nav
+//     clear: right
+//     float: right
+//     @include clearfix
 
-    &.top
-      ul
-        text-align: center
-        position: relative
-        top: 5px
+//     &.top
+//       ul
+//         text-align: center
+//         position: relative
+//         top: 5px
 
-      li
-        display: inline-block
-        margin: 1em 0 0 0
+//       li
+//         display: inline-block
+//         margin: 1em 0 0 0
 
-        &:last-child:after
-          content: none
+//         &:last-child:after
+//           content: none
 
-        &:after
-          content: ''
-          display: inline-block
-          height: 20px
-          width: 40px
-          background: asset-url('star.png') 16px 8px no-repeat
+//         &:after
+//           content: ''
+//           display: inline-block
+//           height: 20px
+//           width: 40px
+//           background: asset-url('star.png') 16px 8px no-repeat
 
-        a
-          display: inline-block
-          height: 48px
-          color: $white
-          text-decoration: none
+//         a
+//           display: inline-block
+//           height: 48px
+//           color: $white
+//           text-decoration: none
 
-          &.active
-            text-decoration: underline
-            background-image: asset-url('header_nav_active.png')
-            background-repeat: no-repeat
-            background-position: center 32px
-            text-decoration: none
+//           &.active
+//             text-decoration: underline
+//             background-image: asset-url('header_nav_active.png')
+//             background-repeat: no-repeat
+//             background-position: center 32px
+//             text-decoration: none
 
-    &.user
-      font-size: 0.9em
-      color: $gray
+//     &.user
+//       font-size: 0.9em
+//       color: $gray
 
-nav
-  .back:before
-    content: '\2190'
-    display: inline-block
-    position: absolute
-    margin-left: -1.5em
-    margin-top: -1px
+// nav
+//   .back:before
+//     content: '\2190'
+//     display: inline-block
+//     position: absolute
+//     margin-left: -1.5em
+//     margin-top: -1px
 
-  &.page
-    font-size: 0.9em
+//   &.page
+//     font-size: 0.9em
 
-  &.actions
-    clear: right
-    float: right
-    min-width: 120px
-    margin-top: 1em
-    font-size: 0.9em
+//   &.actions
+//     clear: right
+//     float: right
+//     min-width: 120px
+//     margin-top: 1em
+//     font-size: 0.9em
 
-.btn
-  white-space: nowrap
+// .btn
+//   white-space: nowrap
 
 #content
   position: relative
