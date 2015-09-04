@@ -12,7 +12,7 @@ class Supervisor::BaseController < ApplicationController
   end
 
   def supervised_teams
-    @supervised_teams = current_user.teams
+    @supervised_teams = current_user.teams.select { |t| t.supervisors.where(name: current_user.name).count > 0 }
   end
 
 end
