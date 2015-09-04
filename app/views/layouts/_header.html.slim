@@ -4,6 +4,9 @@ section#header
 
     nav.top
       ul
+        li
+          a href="#" class="button-burger"
+            = icon('bars')
         - if show_application_link?
           li = application_disambiguation_link
         - if current_user.try :current_student?
