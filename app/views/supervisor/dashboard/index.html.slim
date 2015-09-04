@@ -6,7 +6,7 @@ hr
 
 div.clearfix
   - for t in supervised_teams.each do
-      div.dashboard-box.
+      div.dashboard-box
         h3 = link_to t.name, t
         - if t.last_checked_at?
           p = "Your latest check was #{ time_ago_in_words(t.last_checked_at) } ago"
