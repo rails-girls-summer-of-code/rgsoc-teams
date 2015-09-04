@@ -49,7 +49,7 @@ class Season < ActiveRecord::Base
   def back_to_reality
     update({
         name: Date.today.year,
-        starts_at: Time.utc(Date.today.year, 7, 15),
+        starts_at: Time.utc(Date.today.year, 7, 1),
         ends_at: Time.utc(Date.today.year, 9, 30),
         applications_open_at: Time.utc(Date.today.year, 3, 1),
         applications_close_at: Time.utc(Date.today.year, 3, 31),
