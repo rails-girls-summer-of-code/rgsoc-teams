@@ -3,7 +3,7 @@
 <h3> For development only: select season phase… </h3>
 <p>… to adjusts all the date dependent settings for <i>current_season</i>.
 
-<%= form_tag switch_phase_path, :method => :put do %>
+<%= form_tag switch_phase_path, :method => :patch do %>
     <%= radio_button_tag :option, "Application" %>
      <%= label_tag :option_Application, "Application Phase" %> 
     <%= radio_button_tag :option, "CodingSummer" %> 
@@ -12,5 +12,5 @@
     <%= label_tag :option_RealTime, "Back to Real Time" %>
       <%= submit_tag("Switch phase") %>
   <% end %>
-
+<br>
 <p><%=  current_season.inspect %></p>
