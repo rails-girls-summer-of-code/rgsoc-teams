@@ -3,7 +3,7 @@
 <h3> For development only: select season phase… </h3>
 <p>… to adjusts all the date dependent settings for <i>current_season</i>.
 
-<%= form_tag orga_seasons_path, action: switch_phase, method: :get do %>
+<%= form_tag switch_phase_path, :method => :put do %>
     <%= radio_button_tag :option, "Application" %>
      <%= label_tag :option_Application, "Application Phase" %> 
     <%= radio_button_tag :option, "CodingSummer" %> 

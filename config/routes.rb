@@ -69,11 +69,12 @@ RgsocTeams::Application.routes.draw do
     resources :submissions
   end
 
+  put 'orga/seasons/switch_phase', to: 'orga/seasons#switch_phase', as: :switch_phase
   namespace :orga do
     resources :teams
     resources :seasons do
       member do
-      get :switch_phase
+
       end
     end
   end
