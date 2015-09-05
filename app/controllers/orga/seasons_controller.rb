@@ -1,7 +1,7 @@
 class Orga::SeasonsController < Orga::BaseController
   before_action :find_resource, only: [:show, :edit, :update, :destroy]
 
-  helper_method :switch_phase
+  #helper_method :switch_phase
 
   def new
     @season = Season.new({
@@ -54,11 +54,13 @@ class Orga::SeasonsController < Orga::BaseController
     case params[:option]
     when 'Application'
       @season.fake_application_phase
+      #redirect_to orga_seasons_path
     when 'CodingSummer'
       @season.fake_coding_phase
     when 'RealTime'
       @season.back_to_reality
     end
+    redirect_to orga_seasons_path, notice: "We time travelled into #{params[:option]} Phase"
   end
 
 
