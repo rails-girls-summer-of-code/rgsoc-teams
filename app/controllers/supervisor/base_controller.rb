@@ -13,9 +13,9 @@ class Supervisor::BaseController < ApplicationController
 
   def supervised_teams
     if current_user.teams.any?
-    @supervised_teams = current_user.teams.select { |t| t.supervisors.where(name: current_user.name).count > 0 }
+      @supervised_teams = current_user.teams.where("roles.name = 'supervisor'")
     else
-      redirect_to supervisor_dashboard_path , alert: 'O no! You have no teams assigned.'
+      redirect_to supervisor_dashboard_path , alert: 'O no! No teams for you to supervise.'
     end
   end
 
