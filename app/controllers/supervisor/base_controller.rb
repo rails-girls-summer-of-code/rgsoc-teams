@@ -12,11 +12,7 @@ class Supervisor::BaseController < ApplicationController
   end
 
   def supervised_teams
-    if current_user.teams.any?
       @supervised_teams = current_user.teams.where("roles.name = 'supervisor'")
-    else
-      redirect_to supervisor_dashboard_path , alert: 'O no! No teams for you to supervise.'
-    end
   end
 
 end
