@@ -2,6 +2,9 @@
 //
 // Site-wide used styles.
 
+*
+  border: 1px solid blue
+
 body
   color: $main
   font-family: Lato, sans-serif
@@ -26,25 +29,26 @@ body
 #header
   height: 60px
   background-color: $railsred
+  a
+    text-decoration: none
   img
     width: 205px
     margin-top: -3px
+  nav.top
+    text-align: right
   a.button-burger
-    position: absolute
+    // position: absolute
+    @include icon($reorder)
     width: 3.5rem
     height: 3.5rem
-    padding: 0
     font-size: 24px
     text-align: center
-    background: #fff
+    background: $white
     border-radius: 50%
     overflow: hidden
-    color: #D82222
-    outline: none
-    text-decoration: none
-    top: 10px
-    right: 20px
-    @include icon-after($reorder)
+    // top: 12px
+    // right: 12px
+    
 
 #footer
   footer
