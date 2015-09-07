@@ -4,9 +4,20 @@ section#header
       div.col-xs-7
         = link_to image_tag("logo_subnavi.png"), root_path
       div.col-xs-5
-        nav.top
+        div.text-right
           a href="#" class="button-burger" id="nav-toggle" data-toggle="collapse" data-target="#myNavbar"
-            = icon('reorder')
+              = icon('reorder')
+
+    div.row
+      div.col-xs-7
+        nav.user
+          - if signed_in?
+            = "Signed in as #{link_to h(current_user.name), current_user} &middot; ".html_safe
+            = link_to "Sign out", sign_out_path, method: :delete
+          - else
+            = link_to icon('github', 'Sign in with GitHub'), user_omniauth_authorize_path(:github)
+      div.col-xs-5
+        nav.top
           ul class="collapse navbar-collapse" id="myNavbar"
             li
             - if show_application_link?
@@ -23,10 +34,3 @@ section#header
             /- if signed_in? && current_user.roles.includes?('reviewer')  # TODO bring this into a reviewer dashboard
             /  li = link_to 'Applications', applications_path
             li = link_to 'Home &rarr;'.html_safe, 'http://railsgirlssummerofcode.org'
-
-    nav.user
-      - if signed_in?
-        = "Signed in as #{link_to h(current_user.name), current_user} &middot; ".html_safe
-        = link_to "Sign out", sign_out_path, method: :delete
-      - else
-        = link_to icon('github', 'Sign in with GitHub'), user_omniauth_authorize_path(:github)

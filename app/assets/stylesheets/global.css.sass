@@ -25,15 +25,15 @@ body
   //   height: 66px
   //   background-color: $railsred
   //   content: ' '
+  .text-right
+    text-align: right
 
 #header
   height: 60px
   background-color: $railsred 
   img
     width: 205px
-    margin-top: -3px
-  nav.top
-    text-align: right
+    margin: -3px 0 0 -15px
   a.button-burger
     @include icon($reorder)
     width: 35px
@@ -51,9 +51,12 @@ body
       right: 7px
   ul
     padding: 0
-    margin-top: 15px
+    margin-top: -15px
+    text-align: right
     li
       margin-bottom: 0.5rem
+
+
 
 #footer
   footer
@@ -156,7 +159,6 @@ body
 //   white-space: nowrap
 
 #content
-  position: relative
   margin-top: 3em
 
   h1
