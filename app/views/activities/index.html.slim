@@ -4,7 +4,7 @@ h1.header
   = link_to '<span>Atom Feed</span>'.html_safe, activities_path(format: :atom), class: 'atom'
 
 
-- if current_user.roles.includes?('supervisor')
+- if current_user.try :supervisor?
 .alert.alert-success
   'Hey Supervisor! See the dashboard link in the menu ^ ? That's your new dashboard!
 
