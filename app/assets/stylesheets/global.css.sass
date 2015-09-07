@@ -2,8 +2,8 @@
 //
 // Site-wide used styles.
 
-// *
-//   border: 1px solid blue
+*
+  border: 1px solid blue
 
 body
   color: $main
@@ -15,16 +15,6 @@ body
     color: $railsred
   li
     list-style-type: none
-  // for header
-  // &:before
-  //   z-index: -1
-  //   position: absolute
-  //   left: 0
-  //   right: 0
-  //   top: 0
-  //   height: 66px
-  //   background-color: $railsred
-  //   content: ' '
   .text-right
     text-align: right
 
@@ -34,6 +24,7 @@ body
   img
     width: 205px
     margin: -3px 0 0 -15px
+
   a.button-burger
     @include icon($reorder)
     width: 35px
@@ -45,6 +36,8 @@ body
     border-radius: 50%
     overflow: hidden
     margin-top: 12px
+    @media screen and (min-width: 992px)
+      display: none
     i
       position: relative
       top: 5px
@@ -53,10 +46,17 @@ body
     padding: 0
     margin-top: -15px
     text-align: right
+    @media screen and (min-width: 992px)
+      margin-top: -60px
     li
       margin-bottom: 0.5rem
+      @media screen and (min-width: 992px)
+        display: inline-block
 
-
+  nav.top
+    @media screen and (min-width: 992px)
+      color: white
+      text-decoration: none
 
 #footer
   footer

@@ -5,20 +5,20 @@ section#header
         = link_to image_tag("logo_subnavi.png"), root_path
       div.col-xs-5
         div.text-right
-          a href="#" class="button-burger" id="nav-toggle" data-toggle="collapse" data-target="#myNavbar"
+          a href="#" class="button-burger" id="nav-toggle" data-toggle="collapse" data-target="#menu"
               = icon('reorder')
 
     div.row
-      div.col-xs-7
+      div.col-xs-7.col-md-4
         nav.user
           - if signed_in?
             = "Signed in as #{link_to h(current_user.name), current_user} &middot; ".html_safe
             = link_to "Sign out", sign_out_path, method: :delete
           - else
             = link_to icon('github', 'Sign in with GitHub'), user_omniauth_authorize_path(:github)
-      div.col-xs-5
+      div.col-xs-5.col-md-8
         nav.top
-          ul class="collapse navbar-collapse" id="myNavbar"
+          ul class="collapse navbar-collapse" id="menu"
             li
             - if show_application_link?
               li = application_disambiguation_link
