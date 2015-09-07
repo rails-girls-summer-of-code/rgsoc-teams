@@ -28,20 +28,19 @@ body
 
 #header
   height: 60px
-  background-color: $railsred
-  a
-    text-decoration: none
+  background-color: $railsred 
   img
     width: 205px
     margin-top: -3px
   nav.top
     text-align: right
   a.button-burger
-    // position: absolute
     @include icon($reorder)
     width: 35px
     height: 35px
     font-size: 24px
+    text-decoration: none
+    color: $railsred
     background: $white
     border-radius: 50%
     overflow: hidden
@@ -49,11 +48,12 @@ body
     i
       position: relative
       top: 5px
-      right: 2px
-
-    // top: 12px
-    // right: 12px
-    
+      right: 7px
+  ul
+    padding: 0
+    margin-top: 15px
+    li
+      margin-bottom: 0.5rem
 
 #footer
   footer

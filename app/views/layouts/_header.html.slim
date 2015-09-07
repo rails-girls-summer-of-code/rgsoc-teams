@@ -5,10 +5,10 @@ section#header
         = link_to image_tag("logo_subnavi.png"), root_path
       div.col-xs-5
         nav.top
-          ul
+          a href="#" class="button-burger" id="nav-toggle" data-toggle="collapse" data-target="#myNavbar"
+            = icon('reorder')
+          ul class="collapse navbar-collapse" id="myNavbar"
             li
-              a href="#" class="button-burger"
-                = icon('reorder')
             - if show_application_link?
               li = application_disambiguation_link
             - if current_user.try :current_student?
