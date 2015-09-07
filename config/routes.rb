@@ -84,7 +84,6 @@ RgsocTeams::Application.routes.draw do
     get 'dashboard', to: 'dashboard#index'
   end
 
-
   # get 'activities(.:format)', to: 'activities#index', as: :activities
   get 'activities(/page/:page)(.:format)', to: 'activities#index', as: :activities
 end
