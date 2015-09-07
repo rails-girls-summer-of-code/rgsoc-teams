@@ -1,0 +1,8 @@
+= f.error_notification
+
+.form-inputs.clearfix
+  = f.input :team_id, as: :hidden
+  = f.input :text, as: :text, label: 'Have you checked on your team today?'
+
+.form-actions
+  = f.button :submit, 'Check!'

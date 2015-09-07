@@ -1,16 +1,27 @@
 h1 = "Hi #{current_user.name}!"
-h2 This is your brandnew Supervisor Dashboard - with love from Team Cheesy
-p alpha version
+
+div.row
+  div.col-sm-12
+    h2 This is your brandnew Supervisor Dashboard - with love from Team Cheesy
+    p Alpha version
 
 hr
 
 div.clearfix
   - for t in supervised_teams.each do
       div.dashboard-box
+        div.col-lg-6
         h3 = link_to t.name, t
         - if t.last_checked_at?
           p = "Your latest check was #{ time_ago_in_words(t.last_checked_at) } ago"
+        - if t.comments.any?
+          ul
+            == render t.comments, as: :comment
+        br
         - if t.activities.any?
           p = "Their latest update is from #{ time_ago_in_words(t.last_activity.created_at) } ago"
           h3 = t.last_activity.title
           p = render_markdown(t.last_activity.content).html_safe
+        .comments
+        = simple_form_for Comment.new(team_id: t.id), url: supervisor_comments_path do |f|
+          == render 'supervisor/comments/form', f: f

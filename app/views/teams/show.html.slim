@@ -39,28 +39,6 @@ nav.page
   - if @team.description
     p = render_markdown(@team.description).html_safe
 
-- if can? :supervise, @team
-  .supervising.well
-    h3 Supervising Area
-    h5 You can keep track of how often you check up on your team here. Have you checked on your team today?
-    p
-      = checkup_link(@team)
-    .information
-      - if @team.last_checked_by
-        h4 Last checked
-        p
-          = @team.last_checked_by.name_or_handle + ' on ' + @team.last_checked_at.to_s
-      h4 Past comments
-      - if @team.comments.any?
-        ul
-          = render @team.comments, as: :comment
-      - else
-        p class="text-info" No comments yet
-    .comments
-      = render partial: 'comments/form', object: @team, as: :team
-      br
-      
-    
 
 - if @team.helpdesk_team?
   - if @team.sources.any?
