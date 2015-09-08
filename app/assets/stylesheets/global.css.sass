@@ -2,13 +2,16 @@
 //
 // Site-wide used styles.
 
+// For debugging purposes
 // *
 //   border: 1px solid blue
 
-body
+html, body
   color: $main
   font-family: Lato, sans-serif
   font-size: 15px
+  // For sticky footer
+  height: 100%
 
   a, a:hover
     color: $railsred
@@ -17,6 +20,15 @@ body
     list-style-type: none
   .text-right
     text-align: right
+
+// For sticky footer
+#wrap
+  min-height: 100%
+  height: auto
+  // Negative indent footer by its height
+  margin: 0 auto -60px
+  // Pad bottom by footer height
+  padding: 0 0 60px
 
 #header
   height: 60px
@@ -71,7 +83,7 @@ body
         color: white
         text-decoration: none
 
-    //change bootstraps default collapsing breakpoint
+    // Changes bootstraps default collapsing breakpoint
     @media (min-width: 768px) and (max-width: 991px)
       .navbar-collapse.collapse
         display: none !important
@@ -83,11 +95,11 @@ body
   footer
     border-top: 1px solid $lightgray
     text-align: center
+    height: 60px
     ul
-      padding: 0
+      margin-top: 18px
     li
       display: inline-block
-      margin: 1.5rem 0 0 0
       &:after
         content: ''
         width: 2rem
