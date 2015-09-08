@@ -15,12 +15,13 @@ html
     link rel="apple-touch-icon" href="/images/apple-touch-icon.png"
 
   body class=controller.controller_name
-    / div.wrapper
-    /     div.ribbon
-    /       a href="//github.com/rails-girls-summer-of-code/rgsoc-teams" Fork me on GitHub
 
     div#wrap
       = render 'layouts/header'
+
+      div.wrapper
+        div.ribbon
+          a href="//github.com/rails-girls-summer-of-code/rgsoc-teams" Fork me on GitHub
 
       section.container#content
         - if notice
