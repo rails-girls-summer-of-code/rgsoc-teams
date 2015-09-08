@@ -7,45 +7,25 @@ describe Supervisor::CommentsController do
   let(:user) { FactoryGirl.create(:user) }
   let(:team) { FactoryGirl.create(:team) }
 
-  #TODO Move this out of comments after design is approved
-  let(:application) { FactoryGirl.create(:application) }
-
   before do
     user.roles.create(name: 'supervisor')
     sign_in user
   end
 
-
-  describe "POST create" do
-    describe "with valid params" do
+  describe 'POST create' do
+    describe 'with valid params' do
       context 'team comment' do
-        it "creates a new Comment" do
+        it 'creates a new Comment' do
           expect {
             post :create, {:comment => valid_attributes.merge(team_id: team.id)}, valid_session
           }.to change(Comment, :count).by(1)
         end
 
-        it "redirects to dashboard page" do
+        it 'redirects to the dashboard page' do
           post :create, {:comment => valid_attributes.merge(team_id: team.id)}, valid_session
           expect(response).to redirect_to supervisor_dashboard_path
         end
-      end
 
-      #TODO move tests to dedicated application controller after design is approved
-      # context 'applications comment' do
-      #   it "creates a new Comment" do
-      #     expect {
-      #       post :create, {:comment => valid_attributes.merge(application_id: application.id)}, valid_session
-      #     }.to change(Comment, :count).by(1)
-      #   end
-      #
-      #   it "redirects to the team page" do
-      #     post :create, {:comment => valid_attributes.merge(application_id: application.id)}, valid_session
-      #     expect(response).to redirect_to(application)
-      #   end
-      # end
-
-      context 'team comment' do
         after do
           clear_enqueued_jobs
         end

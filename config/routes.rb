@@ -27,7 +27,7 @@ RgsocTeams::Application.routes.draw do
   get 'users/info', to: 'users_info#index'
   resources :users, except: :new, concerns: :has_roles
   resources :sources, only: :index
-  #resources :comments, only: :create
+  resources :comments, only: :create
   resources :conferences
   resources :attendances
   resources :contributors, only: :index
