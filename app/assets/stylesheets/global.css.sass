@@ -2,8 +2,8 @@
 //
 // Site-wide used styles.
 
-*
-  border: 1px solid blue
+// *
+//   border: 1px solid blue
 
 body
   color: $main
@@ -46,117 +46,57 @@ body
     padding: 0
     margin-top: -15px
     text-align: right
-    @media screen and (min-width: 992px)
-      margin-top: -60px
     li
       margin-bottom: 0.5rem
-      @media screen and (min-width: 992px)
-        display: inline-block
+
+  nav.user
+    color: $darkgray
 
   nav.top
     @media screen and (min-width: 992px)
-      color: white
-      text-decoration: none
+      ul
+        margin-top: -55px
+      li
+        display: inline-block
+        &:after
+          content: ''
+          width: 2rem
+          font-family: FontAwesome
+          font-size: 1rem
+          color: $white
+          margin: 0 0.6rem 0 0.6rem
+        &:last-child:after, &:first-child:after
+          content: none
+      a
+        color: white
+        text-decoration: none
+
+    //change bootstraps default collapsing breakpoint
+    @media (min-width: 768px) and (max-width: 991px)
+      .navbar-collapse.collapse
+        display: none !important
+
+      .navbar-collapse.collapse.in
+        display: block !important
 
 #footer
   footer
     border-top: 1px solid $lightgray
     text-align: center
     ul
-      display: inline-block
       padding: 0
     li
       display: inline-block
-      margin: 1rem 0 0 0
+      margin: 1.5rem 0 0 0
       &:after
         content: ''
-        display: inline-block
         width: 2rem
         font-family: FontAwesome
-        line-height: 2rem
+        font-size: 1rem
         color: $lightgray
+        margin: 0 0.6rem 0 0.6rem
       &:last-child:after
         content: none
-
-// header
-//   h1
-//     display: inline-block
-//     margin: 0
-//     width: 210px
-//     height: 58px
-//     a
-//       display: block
-//       height: 100%
-//       width: 100%
-//       background-image: asset-url('logo_subnavi.png')
-//       background-repeat: no-repeat
-//       background-size: cover
-//       background-position: -15px -1px
-//       text-indent: 999%
-//       white-space: nowrap
-
-//   nav
-//     clear: right
-//     float: right
-//     @include clearfix
-
-//     &.top
-//       ul
-//         text-align: center
-//         position: relative
-//         top: 5px
-
-//       li
-//         display: inline-block
-//         margin: 1em 0 0 0
-
-//         &:last-child:after
-//           content: none
-
-//         &:after
-//           content: ''
-//           display: inline-block
-//           height: 20px
-//           width: 40px
-//           background: asset-url('star.png') 16px 8px no-repeat
-
-//         a
-//           display: inline-block
-//           height: 48px
-//           color: $white
-//           text-decoration: none
-
-//           &.active
-//             text-decoration: underline
-//             background-image: asset-url('header_nav_active.png')
-//             background-repeat: no-repeat
-//             background-position: center 32px
-//             text-decoration: none
-
-//     &.user
-//       font-size: 0.9em
-//       color: $gray
-
-// nav
-//   .back:before
-//     content: '\2190'
-//     display: inline-block
-//     position: absolute
-//     margin-left: -1.5em
-//     margin-top: -1px
-
-//   &.page
-//     font-size: 0.9em
-
-//   &.actions
-//     clear: right
-//     float: right
-//     min-width: 120px
-//     margin-top: 1em
-//     font-size: 0.9em
-
-// .btn
-//   white-space: nowrap
 
 #content
   margin-top: 3em
