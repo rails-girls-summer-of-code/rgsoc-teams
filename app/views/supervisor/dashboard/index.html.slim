@@ -9,7 +9,7 @@ div.clearfix
       div.dashboard-box
         h3 = link_to t.name, t
         - if t.last_checked_at?
-          p = "Your latest check was #{ time_ago_in_words(t.last_checked_at) } ago"
+          p = "Your latest check was #{ format_date(t.last_checked_at, :short) }"
         - if t.activities.any?
           p = "Their latest update is from #{ time_ago_in_words(t.last_activity.created_at) } ago"
           h3 = t.last_activity.title
