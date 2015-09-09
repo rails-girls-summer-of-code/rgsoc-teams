@@ -2,169 +2,130 @@
 //
 // Site-wide used styles.
 
-*
-  box-sizing: border-box
+// For debugging purposes
+// *
+//   border: 1px solid blue
 
-body
-  z-index: 0
-  position: relative
-  margin: 0 auto
-  padding-bottom: 5em
+html, body
   color: $main
   font-family: Lato, sans-serif
   font-size: 15px
-  a
-    color: $railsred
-  a:hover
-    color: $railsred
-  &:before
-    z-index: -1
-    position: absolute
-    left: 0
-    right: 0
-    top: 0
-    height: 66px
-    background-color: $railsred
-    content: ' '
+  // For sticky footer
+  height: 100%
 
-body>header,
-#content
-  width: 1026px
-  margin: 0 auto
+  a, a:hover
+    color: $railsred
+    color: $railsred
+  li
+    list-style-type: none
+  .text-right
+    text-align: right
+
+// For sticky footer
+#wrap
+  min-height: 100%
+  height: auto
+  // Negative indent footer by its height
+  margin: 0 auto -60px
+  // Pad bottom by footer height
+  padding: 0 0 60px
+
+#header
+  height: 60px
+  background-color: $railsred 
+  img
+    width: 205px
+    margin: -3px 0 0 -15px
+
+  a.button-burger
+    @include icon($reorder)
+    width: 35px
+    height: 35px
+    font-size: 24px
+    text-decoration: none
+    color: $railsred
+    background: $white
+    border-radius: 50%
+    overflow: hidden
+    margin-top: 12px
+    @media screen and (min-width: $screen-md)
+      display: none
+    i
+      position: relative
+      top: 5px
+      right: 7px
+  ul
+    padding: 0
+    margin-top: -15px
+    text-align: right
+    li
+      margin-bottom: 0.5rem
+
+  nav.user
+    color: $darkgray
+
+  nav.top
+    @media screen and (min-width: $screen-md)
+      ul
+        margin-top: -55px
+      li
+        display: inline-block
+        &:after
+          content: ''
+          width: 2rem
+          font-family: FontAwesome
+          font-size: 0.7rem
+          color: $white
+          margin: 0 0.6rem 0 0.6rem
+        &:last-child:after, &:first-child:after
+          content: none
+      a
+        color: white
+        text-decoration: none
+
+    // Changes bootstraps default collapsing breakpoint
+    @media (min-width: $screen-sm) and (max-width: $screen-sm-max)
+      .navbar-collapse.collapse
+        display: none !important
+
+      .navbar-collapse.collapse.in
+        display: block !important
 
 #footer
   footer
     border-top: 1px solid $lightgray
-    position: relative
-    top: 3em
-    width: 1026px
-    margin: 0 auto
-
-  ul
-    padding-left: 0.5em
-
-  li
-    display: inline-block
-    margin: 1em 0 0 0
-
-    &:last-child:after
-      content: none
-
-    &:after
-      content: ''
+    text-align: center
+    height: 60px
+    ul
+      margin-top: 18px
+    li
       display: inline-block
-      width: 1em
-      font-family: FontAwesome
-      line-height: 1em
-      color: $lightgray
-
-    a
-      display: inline-block
-      height: 48px
-      text-decoration: none
-
-li
-  list-style-type: none
-
-
-header
-  h1
-    display: inline-block
-    margin: 0
-    width: 210px
-    height: 58px
-    a
-      display: block
-      height: 100%
-      width: 100%
-      background-image: asset-url('logo_subnavi.png')
-      background-repeat: no-repeat
-      background-size: cover
-      background-position: -15px -1px
-      text-indent: 999%
-      white-space: nowrap
-
-  nav
-    clear: right
-    float: right
-    @include clearfix
-
-    &.top
-      ul
-        text-align: center
-        position: relative
-        top: 5px
-
-      li
-        display: inline-block
-        margin: 1em 0 0 0
-
-        &:last-child:after
-          content: none
-
-        &:after
-          content: ''
-          display: inline-block
-          height: 20px
-          width: 40px
-          background: asset-url('star.png') 16px 8px no-repeat
-
-        a
-          display: inline-block
-          height: 48px
-          color: $white
-          text-decoration: none
-
-          &.active
-            text-decoration: underline
-            background-image: asset-url('header_nav_active.png')
-            background-repeat: no-repeat
-            background-position: center 32px
-            text-decoration: none
-
-    &.user
-      font-size: 0.9em
-      color: $gray
-
-nav
-  .back:before
-    content: '\2190'
-    display: inline-block
-    position: absolute
-    margin-left: -1.5em
-    margin-top: -1px
-
-  &.page
-    font-size: 0.9em
-
-  &.actions
-    clear: right
-    float: right
-    min-width: 120px
-    margin-top: 1em
-    font-size: 0.9em
-
-.btn
-  white-space: nowrap
+      &:after
+        content: ''
+        width: 2rem
+        font-family: FontAwesome
+        font-size: 0.7rem
+        color: $lightgray
+        margin: 0 0.6rem 0 0.6rem
+      &:last-child:after
+        content: none
 
 #content
-  position: relative
-  margin-top: 3em
+  margin-top: 3rem
 
   h1
-    font-size: 2em
-    margin: 2em 0 1em 0
+    font-size: 2rem
+    margin: 2rem 0 1rem 0
 
   h2
-    font-size: 1.5em
+    font-size: 1.5rem
 
   h3
-    font-size: 1.25em
-    margin-bottom: 1em
-    // margin-bottom: 0
+    font-size: 1.25rem
+    margin-bottom: 1rem
 
   h4
-    font-size: 1.15em
+    font-size: 1.15rem
 
   p
     margin-bottom: 1em
@@ -284,11 +245,11 @@ nav
     p
       font-size: 1.3rem
 
-.status_updates, .activities
-  img
-    max-width: 75+75+10px
-    float: left
-    margin-right: 1rem
+  .status_updates, .activities
+    img
+      max-width: 75+75+10px
+      float: left
+      margin-right: 1rem
 
   a.atom
     float: right
