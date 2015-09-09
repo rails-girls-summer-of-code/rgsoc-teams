@@ -1,6 +1,0 @@
-= simple_form_for Comment.new(team_id: team.id) do |f|
-  = f.input :team_id, as: :hidden
-  = f.input :text, as: :text, label: 'Add a comment about how your team is doing (optional)'
-  .hint This will also automatically set the 'checked up'
-  .actions
-    = f.submit 'Check up with comment', class: 'btn btn-success'
