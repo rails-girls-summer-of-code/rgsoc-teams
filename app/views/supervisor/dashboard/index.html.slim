@@ -1,0 +1,16 @@
+h1 = "Hi #{current_user.name}!"
+h2 This is your brand-new Supervisor Dashboard - with love from Team Cheesy
+p alpha version
+
+hr
+
+div.clearfix
+  - supervised_teams.each do |t|
+      div.dashboard-box
+        h3 = link_to t.name, t
+        - if t.last_checked_at?
+          p = "Your latest check was #{ format_date(t.last_checked_at, :short) }"
+        - if t.activities.any?
+          p = "Their latest update is from #{ time_ago_in_words(t.last_activity.created_at) } ago"
+          h3 = t.last_activity.title
+          p = render_markdown(t.last_activity.content).html_safe

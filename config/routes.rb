@@ -1,4 +1,6 @@
 RgsocTeams::Application.routes.draw do
+
+
   get 'status_updates/show'
 
   resources :job_offers
@@ -76,6 +78,10 @@ RgsocTeams::Application.routes.draw do
 
   namespace :students do
     resources :status_updates, :except => [:new]
+  end
+
+  namespace :supervisor do
+    get 'dashboard', to: 'dashboard#index'
   end
 
   # get 'activities(.:format)', to: 'activities#index', as: :activities
