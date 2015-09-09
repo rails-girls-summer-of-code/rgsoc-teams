@@ -48,7 +48,7 @@ html, body
     border-radius: 50%
     overflow: hidden
     margin-top: 12px
-    @media screen and (min-width: 992px)
+    @media screen and (min-width: $screen-md)
       display: none
     i
       position: relative
@@ -65,7 +65,7 @@ html, body
     color: $darkgray
 
   nav.top
-    @media screen and (min-width: 992px)
+    @media screen and (min-width: $screen-md)
       ul
         margin-top: -55px
       li
@@ -84,7 +84,7 @@ html, body
         text-decoration: none
 
     // Changes bootstraps default collapsing breakpoint
-    @media (min-width: 768px) and (max-width: 991px)
+    @media (min-width: $screen-sm) and (max-width: $screen-sm-max)
       .navbar-collapse.collapse
         display: none !important
 
