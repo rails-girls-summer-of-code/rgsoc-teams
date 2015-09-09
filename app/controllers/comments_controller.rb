@@ -4,7 +4,7 @@ class CommentsController < ApplicationController
     comment = Comment.new(comment_params)
 
     if comment.save
-    redirect_to comment.application
+      redirect_to comment.application
     else
       flash[:alert] = "O no! We can't save your comment. Please try again?"
     end
