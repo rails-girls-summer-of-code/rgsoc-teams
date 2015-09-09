@@ -5,12 +5,20 @@ p alpha version
 hr
 
 div.clearfix
-  - supervised_teams.each do |t|
-      div.dashboard-box
-        h3 = link_to t.name, t
-        - if t.last_checked_at?
-          p = "Your latest check was #{ format_date(t.last_checked_at, :short) }"
-        - if t.activities.any?
-          p = "Their latest update is from #{ time_ago_in_words(t.last_activity.created_at) } ago"
-          h3 = t.last_activity.title
-          p = render_markdown(t.last_activity.content).html_safe
+- supervised_teams.each do |t|
+  div.dashboard-box
+    h3 = link_to t.name, t
+    - if t.last_checked_at?
+    p = "Your latest check was #{ format_date(t.last_checked_at, :short) }"
+    .comments
+      = simple_form_for Comment.new(team_id: t.id), url: supervisor_comments_path do |f|
+        == render 'supervisor/comments/form', f: f
+
+      - if t.comments.any?
+        ul
+          == render t.comments, as: :comment
+        br
+    - if t.activities.any?
+      p = "Their latest update is from #{ time_ago_in_words(t.last_activity.created_at) } ago"
+      h3 = t.last_activity.title
+      p = render_markdown(t.last_activity.content).html_safe
