@@ -47,7 +47,8 @@ class Season < ActiveRecord::Base
   end
 
   def back_to_reality
-    update({
+    # OPTIMIZE change update to destroy and adjust UX for developers accordingly
+  update({
         name: Date.today.year,
         starts_at: Time.utc(Date.today.year, 7, 1),
         ends_at: Time.utc(Date.today.year, 9, 30),
