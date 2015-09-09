@@ -44,6 +44,23 @@ class Orga::SeasonsController < Orga::BaseController
     redirect_to orga_seasons_path, notice: "Season #{@season.name} has been deleted."
   end
 
+  # In dev env only, this offers a setting to switch parts of season to open / close
+  # Application opens the link to the application form; CodingSummer opens the link to students/status_updates
+  def switch_phase
+    return unless Rails.env.development?
+    @season = current_season
+    case params[:option]
+    when 'Application'
+      @season.fake_application_phase
+    when 'CodingSummer'
+      @season.fake_coding_phase
+    when 'RealTime'
+      @season.back_to_reality
+    end
+    redirect_to orga_seasons_path, notice: "We time travelled into the #{params[:option]} Phase"
+  end
+
+
   private
 
   def build_resource

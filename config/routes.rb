@@ -71,11 +71,12 @@ RgsocTeams::Application.routes.draw do
     resources :submissions
   end
 
+  patch 'orga/seasons/switch_phase', to: 'orga/seasons#switch_phase', as: :switch_phase
   namespace :orga do
     resources :teams
     resources :seasons
   end
-
+  
   namespace :students do
     resources :status_updates, :except => [:new]
   end

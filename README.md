@@ -84,7 +84,8 @@ E.g. `foreman run rails server` or `foreman run rails console`.
     You can assign yourself other roles in the same way. If however you assign 
     yourself a student role AND another role, that may lead to unexpected behavior in the app. In that case, remove the student role.    
     - Refresh the browser to effectuate. You should see links for organizers. 
-- Once you are an `organizer`, you can change the season from open to close and vice versa at http://localhost:3000/orga/seasons in your browser. 
+- Once you are an `organizer`, you can add a season and switch between season's phases at 
+http://localhost:3000/orga/seasons in your browser.
 - You are good to go now. Happy coding!
 
 ## Testing
