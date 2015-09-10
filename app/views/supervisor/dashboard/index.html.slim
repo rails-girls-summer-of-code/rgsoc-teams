@@ -16,7 +16,7 @@ div.clearfix
         = simple_form_for Comment.new(team_id: t.id), url: supervisor_comments_path do |f|
           == render 'supervisor/comments/form', f: f
         - if t.comments.any?
-          p = render t.comments
+          p = render t.comments.recent
         - else
           p No comments.
       section.dashboard
