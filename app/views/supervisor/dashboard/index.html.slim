@@ -5,20 +5,28 @@ p alpha version
 hr
 
 div.clearfix
-- supervised_teams.each do |t|
-  div.dashboard-box
-    h3 = link_to t.name, t
-    - if t.last_checked_at?
-    p = "Your latest check was #{ format_date(t.last_checked_at, :short) }"
-    .comments
-      = simple_form_for Comment.new(team_id: t.id), url: supervisor_comments_path do |f|
-        == render 'supervisor/comments/form', f: f
-
-      - if t.comments.any?
-        ul
-          == render t.comments, as: :comment
-        br
-    - if t.activities.any?
-      p = "Their latest update is from #{ time_ago_in_words(t.last_activity.created_at) } ago"
-      h3 = t.last_activity.title
-      p = render_markdown(t.last_activity.content).html_safe
+  - supervised_teams.each do |t|
+      div.dashboard-box
+        h3 = link_to "Team " + t.name, t
+        section.dashboard
+          h4 Checks
+          - if t.last_checked_at?
+            p = "Your latest check was #{ format_date(t.last_checked_at, :short) }"
+          - else
+            p You didn't check upon them yet
+          = simple_form_for Comment.new(team_id: t.id), url: supervisor_comments_path do |f|
+            == render 'supervisor/comments/form', f: f
+        section.dashboard
+          h4 Comments
+          - if t.comments.any?
+            p = render t.comments
+          - else
+            p No comments
+        section.dashboard
+          - if t.activities.any?
+            h4 Status updates
+            p = "Their latest update is from #{ time_ago_in_words(t.last_activity.created_at) } ago"
+            h5 = t.last_activity.title
+            p = render_markdown(t.last_activity.content).html_safe
+          - else
+            p No activities
