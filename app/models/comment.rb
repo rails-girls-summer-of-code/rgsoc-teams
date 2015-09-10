@@ -3,6 +3,8 @@ class Comment < ActiveRecord::Base
   belongs_to :user
   belongs_to :application
 
+  scope :recent, -> { limit(3) }
+
   before_save :set_checked
 
   def for_application?
