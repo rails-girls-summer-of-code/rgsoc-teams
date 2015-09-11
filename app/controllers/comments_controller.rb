@@ -1,5 +1,8 @@
 class CommentsController < ApplicationController
 
+  # This controller manages the comments on applications only.
+  # Supervisor's comments on their teams are managed by the supervisor/comments-controller
+
   def create
     comment = Comment.new(comment_params)
 
