@@ -1,6 +1,8 @@
 class Supervisor::CommentsController < Supervisor::BaseController
-  
+  before_filter :get_team, except: :create
+
   def index
+    @comments = @team.comments
   end
 
   def create
@@ -22,5 +24,9 @@ class Supervisor::CommentsController < Supervisor::BaseController
 
   def comment_params
     params.require(:comment).permit(:team_id, :text).merge(user_id: current_user.id)
+  end
+
+  def get_team
+      @team = Team.find(params[:team_id])
   end
 end
