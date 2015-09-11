@@ -269,7 +269,4 @@ module ApplicationHelper
     TIMEZONES
   end
 
-  def checkup_link(team)
-    link_to "Checked up on them.", team_path(team, team: { checked: current_user }, format: :json), method: :put, remote: true, class: 'btn btn-info'
-  end
 end
