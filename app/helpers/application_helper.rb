@@ -248,7 +248,9 @@ module ApplicationHelper
 
 
   def user_for_comment(comment)
-    if comment.user.nil?
+    if comment.user == current_user
+      "You"
+    elsif comment.user.nil?
       "Deleted user"
     else
       comment.user.name
