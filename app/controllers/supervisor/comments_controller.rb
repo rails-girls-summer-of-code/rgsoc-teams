@@ -1,8 +1,7 @@
 class Supervisor::CommentsController < Supervisor::BaseController
-  #before_filter :get_team, except: :create
 
   def index
-   # @comments = @team.comments
+    find_comments
   end
 
   def create
@@ -15,7 +14,7 @@ class Supervisor::CommentsController < Supervisor::BaseController
           CommentMailer.email(comment).deliver_later
         end
       else
-        flash[:alert] = "O no! We can't save your comment. Please try again?"
+        flash[:alert] = "O no! We can't save your text. Please try again?"
       end
     end
   redirect_to supervisor_dashboard_path
@@ -28,7 +27,8 @@ private
     params.require(:comment).permit(:team_id, :text).merge(user_id: current_user.id)
   end
 
-  def get_team
-      @team = Team.find(params[:team_id])
+  def find_comments
+    @comments = Comment.includes(:team)
   end
+
 end

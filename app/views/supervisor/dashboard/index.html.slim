@@ -1,5 +1,5 @@
 h1 = "Hi #{current_user.name}!"
-h2 This is your brand-new Supervisor Dashboard - with love from Team Cheesy
+h2 Welcome @ your Supervisor Dashboard
 p alpha version
 
 div.clearfix
@@ -9,14 +9,16 @@ div.clearfix
         h3 = link_to "Team " + t.name, t
       section.dashboard
         h4 Checks
-        - if t.last_checked_at?
-          p = "Your latest check was #{ format_date(t.last_checked_at, :short) }."
+        - if t.comments.any?
+          p = "Your latest check was #{ time_ago_in_words(t.comments.first.created_at) } ago."
         - else
           p You didn't check upon them yet.
-        = simple_form_for Comment.new(team_id: t.id), url: supervisor_comments_path do |f|
-          == render 'supervisor/comments/form', f: f
-        - if t.comments.any?
-          p = render t.comments.recent
+        - if can?(:supervise, t)
+          = simple_form_for Comment.new(team_id: t.id), url: supervisor_comments_path do |f|
+            == render 'supervisor/comments/form', f: f
+          - if t.comments.any?
+            p = render t.comments.recent
+            p = link_to 'History', supervisor_comments_path(team_id: t.id)
       section.dashboard
         - if t.activities.any?
           h4 Status updates
