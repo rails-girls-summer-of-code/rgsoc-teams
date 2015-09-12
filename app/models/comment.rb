@@ -3,7 +3,7 @@ class Comment < ActiveRecord::Base
   belongs_to :user
   belongs_to :application
 
-  scope :recent, -> { limit(3) }
+  scope :recent, -> { order('created_at DESC').limit(3) }
 
   before_save :set_checked
 
