@@ -31,7 +31,7 @@ class ConferencesController < ApplicationController
     def conference_params
       params[:conference] ? params.require(:conference).permit(
         :name, :url, :location, :twitter, :tickets, :flights, :accomodation,
-        :'starts_on(1i)', :'starts_on(2i)', :'starts_on(3i)',
+        :'starts_on(1i)', :'starts_on(2i)', :'starts_on(3i)', :round,
         :'ends_on(1i)', :'ends_on(2i)', :'ends_on(3i)',
         attendances_attributes: [:id, :github_handle, :_destroy]
       ) : {}
