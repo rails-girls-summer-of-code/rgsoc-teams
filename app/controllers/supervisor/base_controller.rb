@@ -12,7 +12,7 @@ class Supervisor::BaseController < ApplicationController
   end
 
   def supervised_teams
-    @supervised_teams = current_user.teams.where("roles.name = 'supervisor'")
+    @supervised_teams = current_user.teams.where(:roles => { name: 'supervisor' }, :season_id => Season.current.id)
   end
 
 end
