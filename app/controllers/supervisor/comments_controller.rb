@@ -17,7 +17,7 @@ class Supervisor::CommentsController < Supervisor::BaseController
         flash[:alert] = "O no! We can't save your text. Please try again?"
       end
     end
-  redirect_to supervisor_dashboard_path
+  redirect_to supervisor_path
   end
 
 
@@ -28,7 +28,8 @@ private
   end
 
   def find_comments
-    @comments = Comment.includes(:team).ordered.page(params[:page])
+    team = Team.find(params[:team_id])
+    @comments = team.comments.ordered.page(params[:page])
   end
 
 end
