@@ -7,13 +7,14 @@ describe Supervisor::CommentsController do
   let(:user) { FactoryGirl.create(:user) }
   let(:team) { FactoryGirl.create(:team) }
 
-  before do
-    user.roles.create(name: 'supervisor')
-    sign_in user
-  end
-
   describe 'POST create' do
     describe 'with valid params' do
+
+      before do
+        user.roles.create(name: 'supervisor', team: team)
+        sign_in user
+      end
+
       context 'team comment' do
         it 'creates a new Comment' do
           expect {
@@ -23,7 +24,7 @@ describe Supervisor::CommentsController do
 
         it 'redirects to the dashboard page' do
           post :create, {:comment => valid_attributes.merge(team_id: team.id)}, valid_session
-          expect(response).to redirect_to supervisor_dashboard_path
+          expect(response).to redirect_to supervisor_path
         end
 
         after do
@@ -51,12 +52,26 @@ describe Supervisor::CommentsController do
 
         it 'creates a new Comment and redirects to team page' do
           expect(comment.persisted?).to eq(true)
-          expect(response).to redirect_to supervisor_dashboard_path
+          expect(response).to redirect_to supervisor_path
         end
 
         it 'enqueues a CommentMailer' do
           expect(mailer_jobs.size).to eq(1)
         end
+      end
+    end
+
+    describe "with another team's supervisor" do
+      let(:anotherteam) { FactoryGirl.create(:team) }
+      let(:comment) { anotherteam.comments.last }
+
+      before do
+        user.roles.create(name: 'supervisor', team: anotherteam)
+        sign_in user
+      end
+
+      it 'will not save a comment on a non-supervised team' do
+        expect(comment).not_to be_a_new(Comment)
       end
     end
   end
