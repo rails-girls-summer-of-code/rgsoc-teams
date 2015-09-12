@@ -28,7 +28,7 @@ private
   end
 
   def find_comments
-    @comments = Comment.includes(:team)
+    @comments = Comment.includes(:team).ordered.page(params[:page])
   end
 
 end
