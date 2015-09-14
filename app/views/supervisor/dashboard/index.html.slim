@@ -17,7 +17,7 @@ div.clearfix
             == render 'supervisor/comments/form', f: f
           - if t.comments.any?
             p = render t.comments.recent
-            p = link_to 'Show more...', supervisor_comments_path(team_id: t.id)
+            p = link_to 'View history', supervisor_comments_path(team_id: t.id)
       section.dashboard
         - if t.activities.any?
           h4 Activity
