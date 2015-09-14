@@ -1,6 +1,5 @@
-h1 = "Hi #{current_user.name}!"
-h2 Welcome @ your Supervisor Dashboard
-p alpha version
+h2 Supervisor Dashboard
+p Alpha Version
 
 div.clearfix
   - supervised_teams.each do |t|
@@ -10,7 +9,7 @@ div.clearfix
       section.dashboard
         h4 Checks
         - if t.comments.any?
-          p = "Your latest check was #{ time_ago_in_words(t.comments.last.created_at) } ago."
+          p = "Your latest check was #{ time_ago_in_words(t.comments.recent.first.created_at) } ago."
         - else
           p You didn't check upon them yet.
         - if can?(:supervise, t)
@@ -18,12 +17,13 @@ div.clearfix
             == render 'supervisor/comments/form', f: f
           - if t.comments.any?
             p = render t.comments.recent
-            p = link_to 'History', supervisor_comments_path(team_id: t.id)
+            p = link_to 'View history', supervisor_comments_path(team_id: t.id)
       section.dashboard
         - if t.activities.any?
-          h4 Status updates
+          h4 Activity
           p = "Their latest update is from #{ time_ago_in_words(t.last_activity.created_at) } ago."
           h5 = t.last_activity.title
           p = render_markdown(t.last_activity.content).html_safe
         - else
-          p No activities.
+          p Your team hasn't written any status updates yet.
+          
