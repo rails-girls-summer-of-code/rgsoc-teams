@@ -9,12 +9,11 @@ div.clearfix
       section.dashboard
         h4 Checks
         - if t.comments.any?
-          p = "Your latest check was #{ time_ago_in_words(t.comments.recent.first.created_at) } ago."
+          p = "Your latest check was #{ time_ago_in_words(t.comments.last.created_at) } ago."
         - else
           p You didn't check upon them yet.
-        - if can?(:supervise, t)
-          = simple_form_for Comment.new(team_id: t.id), url: supervisor_comments_path do |f|
-            == render 'supervisor/comments/form', f: f
+        = simple_form_for Comment.new(team_id: t.id), url: supervisor_comments_path do |f|
+          == render 'supervisor/comments/form', f: f
           - if t.comments.any?
             p = render t.comments.recent
             p = link_to 'View history', supervisor_comments_path(team_id: t.id)
