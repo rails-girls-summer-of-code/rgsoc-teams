@@ -1,16 +1,28 @@
-h1 = "Hi #{current_user.name}!"
-h2 This is your brand-new Supervisor Dashboard - with love from Team Cheesy
-p alpha version
-
-hr
+h2 Supervisor Dashboard
+p Alpha Version
 
 div.clearfix
   - supervised_teams.each do |t|
-      div.dashboard-box
-        h3 = link_to t.name, t
-        - if t.last_checked_at?
-          p = "Your latest check was #{ format_date(t.last_checked_at, :short) }"
+    div.dashboard-box
+      section.team-title
+        h3 = link_to "Team " + t.name, t
+      section.dashboard
+        h4 Checks
+        - if t.comments.any?
+          p = "You last checked on them #{ time_ago_in_words(t.comments.last.created_at) } ago."
+        - else
+          p You didn't check on them yet.
+        = simple_form_for Comment.new(team_id: t.id), url: supervisor_comments_path do |f|
+          == render 'supervisor/comments/form', f: f
+          - if t.comments.any?
+            p = render t.comments.recent
+            p = link_to 'Archive', supervisor_comments_path(team_id: t.id)
+      section.dashboard
+        h4 Activity
         - if t.activities.any?
-          p = "Their latest update is from #{ time_ago_in_words(t.last_activity.created_at) } ago"
-          h3 = t.last_activity.title
+          p = "Their latest update is from #{ time_ago_in_words(t.last_activity.created_at) } ago."
+          h5 = t.last_activity.title
           p = render_markdown(t.last_activity.content).html_safe
+        - else
+          p Your team hasn't written any status updates yet.
+          

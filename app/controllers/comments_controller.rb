@@ -1,8 +1,16 @@
 class CommentsController < ApplicationController
+
+  # This controller manages the comments on applications only.
+  # Supervisor's comments on their teams are managed by the supervisor/comments-controller
+
   def create
-    comment = Comment.create(comment_params)
-    CommentMailer.email(comment).deliver_later unless comment.for_application?
-    redirect_to comment.team || comment.application
+    comment = Comment.new(comment_params)
+
+    if comment.save
+      redirect_to comment.application
+    else
+      flash[:alert] = "O no! We can't save your comment. Please try again?"
+    end
   end
 
   private

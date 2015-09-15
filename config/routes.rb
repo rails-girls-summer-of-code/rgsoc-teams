@@ -81,8 +81,10 @@ RgsocTeams::Application.routes.draw do
     resources :status_updates, :except => [:new]
   end
 
+  get 'supervisor', to: 'supervisor/dashboard#index'
   namespace :supervisor do
     get 'dashboard', to: 'dashboard#index'
+    resources :comments, only: [:index, :create]
   end
 
   # get 'activities(.:format)', to: 'activities#index', as: :activities
