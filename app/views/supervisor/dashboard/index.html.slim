@@ -15,9 +15,9 @@ div.row
             p You didn't check on them yet.
           = simple_form_for Comment.new(team_id: t.id), url: supervisor_comments_path do |f|
             == render 'supervisor/comments/form', f: f
-            - if t.comments.any?
-              p = render t.comments.recent
-          p = link_to 'Archive', supervisor_comments_path(team_id: t.id)
+          - if t.comments.any?
+            p = render t.comments.recent
+            p = link_to 'Archive', supervisor_comments_path(team_id: t.id)
         section.dashboard
           h4 Activity
           - if t.activities.any?
