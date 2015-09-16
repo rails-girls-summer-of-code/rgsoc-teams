@@ -52,6 +52,33 @@ class Team < ActiveRecord::Base
     end
   end
 
+  # Memo: Team Performance to show Performance Score in Supervisor's Dashboard
+  def performance
+    @score = 0
+    latest_comment = comments.ordered.first
+    if latest_comment.created_at < Time.now-5.minute
+      @score = 2
+    elsif latest_comment.created_at < Time.now-1.minutes
+      @score = 1
+    elsif latest_comment.created_at > Time.now-1.minute
+      @score += 0
+    else @score += 2
+    end
+    evaluate_performance
+    #@performance
+  end
+
+  def evaluate_performance
+    @performance = ' '
+    if @score == 0
+      @performance = "Green"
+    elsif @score == 1
+      @performance = "Orange"
+    else
+      @performance = "Red"
+    end
+  end
+
   def application
     @application ||= applications.where(season_id: Season.current.id).first
   end

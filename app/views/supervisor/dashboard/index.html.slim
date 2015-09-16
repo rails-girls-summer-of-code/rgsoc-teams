@@ -6,6 +6,7 @@ div.clearfix
     div.dashboard-box
       section.team-title
         h3 = link_to "Team " + t.name, t
+        p = t.performance
       section.dashboard
         h4 Checks
         - if t.comments.any?
