@@ -65,7 +65,6 @@ class Team < ActiveRecord::Base
     else @score += 2
     end
     evaluate_performance
-    #@performance
   end
 
   def evaluate_performance
