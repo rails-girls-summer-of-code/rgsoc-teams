@@ -54,6 +54,7 @@ class Team < ActiveRecord::Base
 
   # Memo: Team Performance to show Performance Score in Supervisor's Dashboard
   def performance
+    return unless comments.any?
     @score = 0
     latest_comment = comments.ordered.first
     if latest_comment.created_at < Time.now-5.minute
