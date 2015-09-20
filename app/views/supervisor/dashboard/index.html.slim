@@ -3,7 +3,7 @@ p Alpha Version
 
 div.dashboard-box
   /this is where all the aggregated messages and info should go
-    p =
+  /= flash[:notice]
 
 div.clearfix
   - supervised_teams.each do |t|
@@ -12,12 +12,12 @@ div.clearfix
         h3 = link_to "Team " + t.name, t
         p = t.performance
         - if t.performance == :green
-          /div = render 'green'
+        /div = render 'green'
         - elsif t.performance == :orange
-          - flash.notice = "What is going on with team #{t.name}?"
+          - flash.notice = "Team #{t.name} needs your attention"
         /div = render 'orange'
         - elsif t.performance == :red
-          - flash.alert = "Team #{t.name} needs your attention!"
+          - flash.alert = "Red alert for team #{t.name}!"
       section.dashboard
         h4 Checks
         - if t.comments.any?
