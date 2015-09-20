@@ -2,6 +2,11 @@ h2 Supervisor Dashboard
 p Alpha Version
 
 div.dashboard-box
+  p#notice = notice
+  p#alert = alert
+  = link_to "Supervisors on GitHub", 'https://github.com/rails-girls-summer-of-code/supervisors'
+  br
+  = link_to "Guide", 'https://github.com/rails-girls-summer-of-code/supervisors/blob/master/guide.md'
   /this is where all the aggregated messages and info should go
   /= flash[:notice]
 
