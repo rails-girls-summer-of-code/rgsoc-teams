@@ -101,12 +101,12 @@ class Team < ActiveRecord::Base
   def evaluate_performance
     @performance = ' '
     if @score > 3
-      @performance = "Red"
+      @performance = :red
     elsif @score >= 2
-      @performance = "Orange"
+      @performance = :orange
     elsif @score == 0
-      @performance = "Green"
-    else @performance = "Orange"
+      @performance = :green
+    else @performance = :orange
     end
   end
 

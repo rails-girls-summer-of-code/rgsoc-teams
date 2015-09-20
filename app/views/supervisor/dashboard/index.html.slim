@@ -1,17 +1,23 @@
 h2 Supervisor Dashboard
 p Alpha Version
 
+div.dashboard-box
+  /this is where all the aggregated messages and info should go
+    p =
+
 div.clearfix
   - supervised_teams.each do |t|
     div.dashboard-box
       section.team-title
         h3 = link_to "Team " + t.name, t
-        - if t.performance == "Green"
-          div = render 'green'
-        - elsif t.performance == "Orange"
-          div = render 'orange'
-        - else
-          div = render 'red'
+        p = t.performance
+        - if t.performance == :green
+          /div = render 'green'
+        - elsif t.performance == :orange
+          - flash.notice = "What is going on with team #{t.name}?"
+        /div = render 'orange'
+        - elsif t.performance == :red
+          - flash.alert = "Team #{t.name} needs your attention!"
       section.dashboard
         h4 Checks
         - if t.comments.any?
