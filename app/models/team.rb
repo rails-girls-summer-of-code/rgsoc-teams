@@ -59,7 +59,6 @@ class Team < ActiveRecord::Base
   # TeamPerformance for Supervisor's Dashboard
   def performance
     @performance ||= TeamPerformance.new(self)
-    @performance.score
   end
 
   # def rating

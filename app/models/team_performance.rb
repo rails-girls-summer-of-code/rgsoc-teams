@@ -18,7 +18,6 @@ class TeamPerformance
       @score += 0
     end
 
-
     if @team.activities.any?
       activity_score
     elsif Time.now-2.days > Season.current.starts_at && Time.now < Season.current.ends_at
@@ -31,9 +30,9 @@ class TeamPerformance
 
   def comments_score
     latest_comment = @team.comments.ordered.first
-    if latest_comment.created_at < Time.now-5.days
+    if latest_comment.created_at <= Time.now-5.days
       @score += 2
-    elsif latest_comment.created_at < Time.now-2.days
+    elsif latest_comment.created_at <= Time.now-2.days
       @score += 1
     elsif latest_comment.created_at > Time.now-2.days
       @score += 0
@@ -43,9 +42,9 @@ class TeamPerformance
   end
 
   def activity_score
-    if @team.last_activity.created_at < Time.now-5.days
+    if @team.last_activity.created_at <= Time.now-5.days
       @score += 2
-    elsif @team.last_activity.created_at < Time.now-3.days
+    elsif @team.last_activity.created_at <= Time.now-3.days
       @score += 1
     elsif @team.last_activity.created_at > Time.now-3.days
       @score += 0
