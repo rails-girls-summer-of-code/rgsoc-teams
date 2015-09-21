@@ -1,6 +1,5 @@
 class Team < ActiveRecord::Base
   include ProfilesHelper, HasSeason
-  include TeamPerformance
 
   delegate :sponsored?, :voluntary?, to: :kind
 
@@ -53,9 +52,14 @@ class Team < ActiveRecord::Base
     end
   end
 
-
   def application
     @application ||= applications.where(season_id: Season.current.id).first
+  end
+
+  # TeamPerformance for Supervisor's Dashboard
+  def performance
+    @performance ||= TeamPerformance.new(self)
+    @performance.score
   end
 
   # def rating
