@@ -4,6 +4,7 @@ class Comment < ActiveRecord::Base
   belongs_to :application
 
   scope :recent, -> { order('created_at DESC').limit(3) }
+  scope :latest, -> { order('created_at DESC').limit(1) }
 
   before_save :set_checked
 
