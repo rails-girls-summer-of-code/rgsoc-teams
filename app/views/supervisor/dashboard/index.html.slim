@@ -1,11 +1,29 @@
 h2 Supervisor Dashboard
-p Alpha Version
+h5 Alpha Version
+
+div.dashboard-box
+  section.team-title
+    h3 Overview
+    h5 Under Construction
+  section.dashboard
+    p = link_to "Supervisors on GitHub", 'https://github.com/rails-girls-summer-of-code/supervisors'
+    p = link_to "Guide", 'https://github.com/rails-girls-summer-of-code/supervisors/blob/master/guide.md'
+    /this is where all the aggregated messages and info should go
+    /= flash[:notice]
 
 div.clearfix
   - supervised_teams.each do |t|
     div.dashboard-box
       section.team-title
         h3 = link_to "Team " + t.name, t
+        - if t.performance.score == :green
+          div = render 'green'
+        - elsif t.performance.score == :orange
+          - flash.notice = "Team #{t.name} needs your attention"
+          div = render 'orange'
+        - elsif t.performance.score == :red
+          - flash.alert = "Red alert for team #{t.name}!"
+          div = render 'red'
       section.dashboard
         h4 Checks
         - if t.comments.any?
