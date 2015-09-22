@@ -15,14 +15,14 @@ div.clearfix
     div.dashboard-box
       section.team-title
         h3 = link_to "Team " + t.name, t
-        p = t.performance.score
         - if t.performance.score == :green
-        /div = render 'green'
+          div = render 'green'
         - elsif t.performance.score == :orange
           - flash.notice = "Team #{t.name} needs your attention"
-        /div = render 'orange'
+          div = render 'orange'
         - elsif t.performance.score == :red
           - flash.alert = "Red alert for team #{t.name}!"
+          div = render 'red'
       section.dashboard
         h4 Checks
         - if t.comments.any?
