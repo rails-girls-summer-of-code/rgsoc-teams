@@ -16,10 +16,10 @@ div.clearfix
     div.dashboard-box
       section.team-title
         h3 = link_to "Team " + t.name, t
-        div = render "#{ t.performance.score }"
-        - if t.performance.score == :orange
+        div = render "#{ t.performance.evaluation }"
+        - if t.performance.evaluation == :orange
           - flash.notice = "Team #{t.name} needs your attention"
-        - if t.performance.score == :red
+        - if t.performance.evaluation == :red
           - flash.alert = "Red alert for team #{t.name}!"
       section.dashboard
         h4 Checks
