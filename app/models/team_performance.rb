@@ -14,16 +14,12 @@ class TeamPerformance
       # Maybe we should change the +3 score temporarily for the upcoming week,
       # because before Wed 16th comments-without-text were not being saved.
       @score += 3
-    else
-      @score += 0
     end
 
     if @team.activities.any?
       activity_score
     elsif Time.now-2.days > Season.current.starts_at && Time.now < Season.current.ends_at
       @score += 3
-    else
-      @score += 0
     end
     evaluate_performance
   end
@@ -66,7 +62,3 @@ class TeamPerformance
     end
   end
 end
-
-
-
-

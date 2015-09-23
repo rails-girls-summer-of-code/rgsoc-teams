@@ -1,8 +1,5 @@
 class Supervisor::CommentsController < Supervisor::BaseController
 
-
-
-
   def index
     find_comments
   end
