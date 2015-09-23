@@ -3,8 +3,6 @@ RgsocTeams::Application.routes.draw do
 
   get 'status_updates/show'
 
-  resources :job_offers
-
   resources :events
 
   # FIXME Accessing season this early breaks `rake db:create RAILS_ENV=test` on CI
@@ -76,7 +74,7 @@ RgsocTeams::Application.routes.draw do
     resources :teams
     resources :seasons
   end
-  
+
   namespace :students do
     resources :status_updates, :except => [:new]
   end
