@@ -5,24 +5,30 @@ class TeamPerformance
     @team = team
   end
 
+  def buffer_days?
+    # the first few days of the season, and the days before the season starts
+    Time.now < Season.current.starts_at+2.days || !Season.current.started?
+  end
+
   def score
     @score = 0
 
     if @team.comments.any?
       comments_score
-    elsif Time.now-2.days > Season.current.starts_at && Time.now < Season.current.ends_at
-      # Maybe we should change the +3 score temporarily for the upcoming week,
-      # because before Wed 16th comments-without-text were not being saved.
-      @score += 3
+    else
+      @score += 3 unless buffer_days?
     end
 
     if @team.activities.any?
       activity_score
-    elsif Time.now-2.days > Season.current.starts_at && Time.now < Season.current.ends_at
-      @score += 3
+    else
+      @score += 3 unless buffer_days?
     end
+
     evaluate_performance
   end
+
+  private
 
   def comments_score
     latest_comment = @team.comments.ordered.first
@@ -50,7 +56,6 @@ class TeamPerformance
   end
 
   def evaluate_performance
-    @performance = ' '
     if @score > 3
       @performance = :red
     elsif @score >= 2
