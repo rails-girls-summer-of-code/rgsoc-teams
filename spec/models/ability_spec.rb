@@ -122,35 +122,6 @@ describe Ability do
         end
       end
 
-      context 'accessing job offers' do
-        let(:job_offer) { JobOffer.new }
-
-        context 'when a user is not part of a team' do
-          it 'will not allow to read' do
-            expect(subject).not_to be_able_to :read, job_offer
-          end
-        end
-
-        context 'when a user is admin' do
-          let!(:organizer_role) { FactoryGirl.create(:organizer_role, user: user) }
-          it 'can CRUD job offers' do
-            expect(subject).to be_able_to :crud, job_offer
-          end
-        end
-
-        context 'when a user is a student' do
-          let!(:user) { FactoryGirl.create(:student) }
-
-          it 'can read job offers' do
-            expect(subject).to be_able_to :read, job_offer
-          end
-
-          it 'must not CRUD job offers' do
-            expect(subject).not_to be_able_to :crud, job_offer
-          end
-        end
-      end
-
     end
   end
 
