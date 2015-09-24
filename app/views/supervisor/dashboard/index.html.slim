@@ -20,7 +20,6 @@ div.row
         section.team-title
           h3 = link_to "Team " + t.name, t
           div.performance-icon
-            h4 status:
             = render t.performance.evaluation.to_s
             - if t.performance.evaluation == :orange
               - flash.notice = "Team #{t.name} needs your attention"
