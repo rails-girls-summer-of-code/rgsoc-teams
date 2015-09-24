@@ -56,6 +56,11 @@ class Team < ActiveRecord::Base
     @application ||= applications.where(season_id: Season.current.id).first
   end
 
+  # TeamPerformance for Supervisor's Dashboard
+  def performance
+    @performance ||= TeamPerformance.new(self)
+  end
+
   # def rating
   #   values = students.map { |student| student.rating }.flatten
   #   rating = values.empty? ? 0 : values.inject(&:+) / values.size
