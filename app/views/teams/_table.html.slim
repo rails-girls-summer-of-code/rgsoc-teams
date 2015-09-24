@@ -1,0 +1,33 @@
+h1.header
+  = icon('group')
+  span Teams
+
+table.table.table-striped.table-bordered.table-condensed
+  tr
+    th Name
+    - @display_roles.each do |role|
+      th = role.capitalize
+    th Conferences
+    th Location
+    - if current_user.admin?
+      th Last checked
+    th = sortable 'created_at', 'Last Activity'
+
+  - @teams.each do |team|
+    tr
+      td = link_to team.display_name, [:orga, team], class: "team #{team.kind}"
+      - @display_roles.each do |role|
+        td
+          ul
+            - team.send(role).each do |user|
+              li.user
+                = avatar_url(user, size: 20)
+                = link_to(user.name_or_handle, user)
+      td = links_to_conferences(team.members.map(&:conferences).flatten.uniq).join(', ').html_safe
+      td = team.students_location
+      - if current_user.admin?
+        td = format_date(team.last_checked_at)
+      td = format_date(team.last_activity.try(:created_at))
+
+p.hint
+  | <i class="icon-star"></i> Sponsored team
