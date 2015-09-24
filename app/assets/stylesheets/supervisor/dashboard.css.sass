@@ -26,8 +26,18 @@
 section.team-title
   background-color: $lightgray
   padding: 1rem
+  h3, h4
+    display: inline-block
+    font-weight: normal
 section.dashboard
   margin: 0 1rem
   padding: 1rem 0
 section.dashboard:not(:last-child)
   border-bottom: 1px solid $lightgray
+
+.performance-icon
+  display: inline-block
+  float: right
+  svg
+    height: 1em
+    fill: $railsred
