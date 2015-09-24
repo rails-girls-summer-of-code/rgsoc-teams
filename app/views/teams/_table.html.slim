@@ -9,7 +9,7 @@ table.table.table-striped.table-bordered.table-condensed
       th = role.capitalize
     th Conferences
     th Location
-    - if current_user.roles.includes?('organizer')
+    - if current_user.admin?
       th Last checked
     th = sortable 'created_at', 'Last Activity'
 
@@ -25,7 +25,7 @@ table.table.table-striped.table-bordered.table-condensed
                 = link_to(user.name_or_handle, user)
       td = links_to_conferences(team.members.map(&:conferences).flatten.uniq).join(', ').html_safe
       td = team.students_location
-      - if current_user.roles.includes?('organizer')
+      - if current_user.admin?
         td = format_date(team.last_checked_at)
       td = format_date(team.last_activity.try(:created_at))
 
