@@ -1,43 +1,47 @@
 h2 Supervisor Dashboard
 h5 Alpha Version
 
-div.dashboard-box
-  section.team-title
-    h3 Overview
-    h5 Under Construction
-  section.dashboard
-    p = link_to "Supervisors on GitHub", 'https://github.com/rails-girls-summer-of-code/supervisors'
-    p = link_to "Guide", 'https://github.com/rails-girls-summer-of-code/supervisors/blob/master/guide.md'
-    /this is where all the aggregated messages and info should go
-    /= flash[:notice]
-
-div.clearfix
-  - supervised_teams.each do |t|
-    div.dashboard-box
+div.row
+  div.dashboard-box.col-sm-12
+    div.background-color
       section.team-title
-        h3 = link_to "Team " + t.name, t
-        div = render t.performance.evaluation.to_s
-        - if t.performance.evaluation == :orange
-          - flash.notice = "Team #{t.name} needs your attention"
-        - if t.performance.evaluation == :red
-          - flash.alert = "Red alert for team #{t.name}!"
+        h3 Overview
+        h5 Under Construction
       section.dashboard
-        h4 Checks
-        - if t.comments.any?
-          p = "You last checked on them #{ time_ago_in_words(t.comments.last.created_at) } ago."
-        - else
-          p You didn't check on them yet.
-        = simple_form_for Comment.new(team_id: t.id), url: supervisor_comments_path do |f|
-          == render 'supervisor/comments/form', f: f
+        p = link_to "Supervisors on GitHub", 'https://github.com/rails-girls-summer-of-code/supervisors'
+        p = link_to "Guide", 'https://github.com/rails-girls-summer-of-code/supervisors/blob/master/guide.md'
+        /this is where all the aggregated messages and info should go
+        /= flash[:notice]
+
+div.row
+  - supervised_teams.each do |t|
+    div.dashboard-box.col-sm-6 class=("col-lg-4" if supervised_teams.count > 2)
+      div.background-color class=("min-height" if supervised_teams.count > 2)
+        section.team-title
+          h3 = link_to "Team " + t.name, t
+          div.performance-icon
+            = render t.performance.evaluation.to_s
+            - if t.performance.evaluation == :orange
+              - flash.notice = "Team #{t.name} needs your attention"
+            - if t.performance.evaluation == :red
+              - flash.alert = "Red alert for team #{t.name}!"
+        section.dashboard
+          h4 Checks
           - if t.comments.any?
-            p = render t.comments.recent
-            p = link_to 'Archive', supervisor_comments_path(team_id: t.id)
-      section.dashboard
-        h4 Activity
-        - if t.activities.any?
-          p = "Their latest update is from #{ time_ago_in_words(t.last_activity.created_at) } ago."
-          h5 = t.last_activity.title
-          p = render_markdown(t.last_activity.content).html_safe
-        - else
-          p Your team hasn't written any status updates yet.
-          
+            p = "You last checked on them #{ time_ago_in_words(t.comments.last.created_at) } ago."
+          - else
+            p You didn't check on them yet.
+          = simple_form_for Comment.new(team_id: t.id), url: supervisor_comments_path do |f|
+            == render 'supervisor/comments/form', f: f
+            - if t.comments.any?
+              p = render t.comments.recent
+              = link_to 'Archive', supervisor_comments_path(team_id: t.id)
+        section.dashboard
+          h4 Activity
+          - if t.activities.any?
+            p = "Their latest update is from #{ time_ago_in_words(t.last_activity.created_at) } ago."
+            h5 = t.last_activity.title
+            p = truncate((t.last_activity.content).html_safe, length: 220)
+              = link_to " Show all", activities_path(team_id: t.id)
+          - else
+            p Your team hasn't written any status updates yet.
