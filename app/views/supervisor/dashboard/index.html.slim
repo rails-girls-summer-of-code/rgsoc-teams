@@ -36,7 +36,7 @@ div.row
             == render 'supervisor/comments/form', f: f
             - if t.comments.any?
               p = render t.comments.recent
-              p = link_to 'Archive', supervisor_comments_path(team_id: t.id)
+              = link_to 'Archive', supervisor_comments_path(team_id: t.id)
         section.dashboard
           h4 Activity
           - if t.activities.any?
