@@ -6,8 +6,8 @@ class TeamPerformance
   end
 
   def buffer_days?
-    # the first few days of the season, and the days before the season starts
-    Time.now < Season.current.starts_at+2.days || !Season.current.started?
+    # the first few days, plus the days before and after the coding season
+    Time.now < Season.current.starts_at+2.days || !Season.current.started? || Time.now > Season.current.ends_at+2.days
   end
 
   def evaluation
