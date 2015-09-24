@@ -16,7 +16,7 @@ div.clearfix
     div.dashboard-box
       section.team-title
         h3 = link_to "Team " + t.name, t
-        div = render "#{ t.performance.evaluation }"
+        div = render t.performance.evaluation.to_s
         - if t.performance.evaluation == :orange
           - flash.notice = "Team #{t.name} needs your attention"
         - if t.performance.evaluation == :red

@@ -3,6 +3,7 @@ class TeamPerformance
 
   def initialize(team)
     @team = team
+    @score = 0
   end
 
   def buffer_days?
@@ -11,7 +12,6 @@ class TeamPerformance
   end
 
   def evaluation
-    @score = 0
     comments_score
     activity_score
 
