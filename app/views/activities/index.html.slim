@@ -1,28 +1,32 @@
-h1.header
-  = icon('comments-alt')
-  span Activities
-  = link_to '<span>Atom Feed</span>'.html_safe, activities_path(format: :atom), class: 'atom'
+div.row
+  div.col-sm-12
+    h1.header
+      = icon('comments-alt')
+      span Activities
+      = link_to '<span>Atom Feed</span>'.html_safe, activities_path(format: :atom), class: 'atom'
 
-- if current_user.try(:supervisor?)
-  .alert.alert-success
-    'Hey Supervisor! Did you check on your team today? You can do that in your Dashboard now!
+    - if current_user.try(:supervisor?)
+      .alert.alert-success
+        'Hey Supervisor! Did you check on your team today? You can do that in your Dashboard now!
 
-div.selection-box
-  form.filter.form-inline action=request.url
-    - public_activities.each do |kind|
-      label.radio
-        = radio_button_tag :kind, kind == 'all' ? '' : kind, params[:kind] == kind
-        = " " + kind == 'feed_entry' ? 'Blog Post' : kind.titleize
-    label.team_filter
-      ' Team:
-      = select_tag :team_id, options_for_select(teams.map { |t| [t.display_name, t.id] }, params[:team_id]), include_blank: true, class: 'form-control'
+    div.selection-box
+      form.filter.form-inline action=request.url
+        - public_activities.each do |kind|
+          label.radio
+            = radio_button_tag :kind, kind == 'all' ? '' : kind, params[:kind] == kind
+            = " " + kind == 'feed_entry' ? 'Blog Post' : kind.titleize
+        label.team_filter
+          ' Team:
+          = select_tag :team_id, options_for_select(teams.map { |t| [t.display_name, t.id] }, params[:team_id]), include_blank: true, class: 'form-control'
 
-p.pagination-info
-  = page_entries_info @activities
+    p.pagination-info
+      = page_entries_info @activities
 
-= render 'activities', object: @activities
+div.row
+  div.col-sm-12
+    = render 'activities', object: @activities
 
-= paginate @activities, theme: 'twitter-bootstrap-3', pagination_class: 'pagination-sm'
+    = paginate @activities, theme: 'twitter-bootstrap-3', pagination_class: 'pagination-sm'
 
-- content_for :head do
-  = auto_discovery_link_tag(:atom, {action: "index", format: "atom" }, {title: "Atom Feed"})
+    - content_for :head do
+      = auto_discovery_link_tag(:atom, {action: "index", format: "atom" }, {title: "Atom Feed"})
