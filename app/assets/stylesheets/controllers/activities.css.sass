@@ -1,35 +1,49 @@
-// Styles for the activities-controller.
+// // Styles for the activities-controller.
 
+// .activities
+//   margin: 0 0 1rem 0
+//   padding: 0
+//   .activity
+//     @include clearfix
+//     padding: 3rem
+//     border: 1px solid $lightgray
+//     &.mailing img
+//       height: 100px
+//       border-width: 0
+//     .images
+//       float: left
+//       width: 75+75+10+10+10px
+//       .avatar
+//         width: 75px
+//         height: 75px
+//       .avatar:nth-child(3)
+//         margin-top: 1rem
+//     .text
+//       display: inline-block
+//       // for readability
+//       max-width: 75rem
+//       h4
+//         margin: 0 0 0.5rem 0
+//         font-size: 2rem
+//       .info
+//         margin-bottom: 0
+//         font-style: italic
+//       .content
+//         margin-top: 1rem
+//       // fixes bullet points indentation
+//       ul
+//         padding-left: 1.5rem
 .activities
-  margin: 0 0 1rem 0
-  padding: 0
+  ul
+    padding-left: 0
   .activity
-    @include clearfix
-    padding: 3rem
     border: 1px solid $lightgray
-    &.mailing img
-      height: 100px
-      border-width: 0
-    .images
-      float: left
-      width: 75+75+10+10+10px
+    .avatars
+      padding: 1rem 1rem 1rem 2rem
       .avatar
-        width: 75px
-        height: 75px
-      .avatar:nth-child(3)
-        margin-top: 1rem
+        width: 50%
+        display: inline-block
+        float: left
+        padding-right: 1rem
     .text
-      display: inline-block
-      // for readability
-      max-width: 75rem
-      h4
-        margin: 0 0 0.5rem 0
-        font-size: 2rem
-      .info
-        margin-bottom: 0
-        font-style: italic
-      .content
-        margin-top: 1rem
-      // fixes bullet points indentation
-      ul
-        padding-left: 1.5rem
+      padding: 1.666rem 3rem 1rem 1rem
