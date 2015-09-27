@@ -4,15 +4,14 @@ h5 Alpha Version
 div.row
   div.dashboard-box.col-sm-12
     div.background-color
-      section.team-title
-        h3 Overview
-        h5 Under Construction
-      section.dashboard
-        p = link_to "Supervisors on GitHub", 'https://github.com/rails-girls-summer-of-code/supervisors'
-        p = link_to "Guide", 'https://github.com/rails-girls-summer-of-code/supervisors/blob/master/guide.md'
-        /this is where all the aggregated messages and info should go
-        /= flash[:notice]
-
+  section.team-title
+    h3 Overview
+    h5 Under Construction
+  section.dashboard
+    = simple_form_for @current_user.notepad, url: supervisor_notes_path do |f|
+      == render 'supervisor/notes/form', f: f
+    p = link_to "Supervisors on GitHub", 'https://github.com/rails-girls-summer-of-code/supervisors'
+    p = link_to "Guide", 'https://github.com/rails-girls-summer-of-code/supervisors/blob/master/guide.md'
 div.row
   - supervised_teams.each do |t|
     div.dashboard-box.col-sm-6 class=("col-lg-4" if supervised_teams.count > 2)

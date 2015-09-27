@@ -1,0 +1,7 @@
+.form-inputs.clearfix
+  = f.input :body, label: 'My notepad'
+  /, :value => @notepad.body.blank? ? '' : @notepad.body
+            /value: @notepad.body
+
+.form-actions
+  = f.button :submit, 'Save'
