@@ -80,9 +80,11 @@ RgsocTeams::Application.routes.draw do
   end
 
   get 'supervisor', to: 'supervisor/dashboard#index'
+  patch 'supervisor/notes', to: 'supervisor/notes#update'
   namespace :supervisor do
     get 'dashboard', to: 'dashboard#index'
     resources :comments, only: [:index, :create]
+    resources :notes
   end
 
   # get 'activities(.:format)', to: 'activities#index', as: :activities
