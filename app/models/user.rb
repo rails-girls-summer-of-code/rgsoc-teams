@@ -142,7 +142,8 @@ class User < ActiveRecord::Base
   end
 
   def notepad
-    @notepad = Note.find_or_create_by(id: self.id)
+    @current_user ||= self
+    @notepad = Note.find_or_create_by(id: @current_user.id)
   end
 
   private

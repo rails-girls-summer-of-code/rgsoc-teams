@@ -1,7 +1,7 @@
 class Note < ActiveRecord::Base
 
-  def initialize(user)
-   @user = user
-  end
+  # def initialize(user)
+  #  @current_user = user
+  # end
 
 end
