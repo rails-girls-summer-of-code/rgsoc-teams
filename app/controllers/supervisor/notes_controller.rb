@@ -1,8 +1,8 @@
 class Supervisor::NotesController < Supervisor::BaseController
 
   def update
-    @notepad = @current_user.notepad
-    @notepad.update(notepad_params)
+    notepad = @current_user.notepad
+    notepad.update!(notepad_params)L
     redirect_to supervisor_dashboard_path
   end
 
