@@ -36,18 +36,30 @@ section.dashboard:not(:last-child)
 
 .performance-icon
   display: inline-block
-  float: right
   svg
     height: 2rem
-    margin-top: -3px
+    margin: -3px
     fill: $railsred
+.team-title
+  .performance-icon
+    float: right
 
 .links
   padding-bottom: 1rem
 
+.legend
+  color: $railsred
+  background-color: $lightgray
+  display: block
+  padding: 1.5rem 1rem 1rem 1rem
+  td
+    padding-bottom: 0.2rem
+  svg
+    margin-left: -0.5rem
+
 .notes-form
   textarea
-    min-height: 200px
+    height: 181px
   @media screen and (min-width: $screen-sm)
     padding-left: 1rem
 
