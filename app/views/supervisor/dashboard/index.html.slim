@@ -9,7 +9,7 @@ div.row
         h5 Under Construction
       section.dashboard
         div.row
-          div.col-sm-6 class=("col-lg-8" if supervised_teams.count > 2)
+          div.links.col-sm-6 class=("col-lg-8" if supervised_teams.count > 2)
             p = link_to "Supervisors on GitHub", 'https://github.com/rails-girls-summer-of-code/supervisors'
             p = link_to "Guide", 'https://github.com/rails-girls-summer-of-code/supervisors/blob/master/guide.md'
           div.col-sm-6 class=("col-lg-4 padding" if supervised_teams.count > 2)
