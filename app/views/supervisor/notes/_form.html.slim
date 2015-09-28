@@ -1,5 +1,6 @@
-.form-inputs.clearfix
-  = f.input :body, label: 'My notepad'
+div.notes-form
+  .form-inputs.clearfix
+    = f.input :body, label: 'My notes'
 
-.form-actions
-  = f.button :submit, 'Update'
+  .form-actions
+    = f.button :submit, 'Update'
