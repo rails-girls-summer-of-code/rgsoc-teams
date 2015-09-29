@@ -1,8 +1,7 @@
 // // Styles for the activities-controller.
 
-.activities
-  ul
-    padding-left: 0
+ul.activities
+  padding-left: 0
   .activity
     border: 1px solid $lightgray
     margin-bottom: 1.6rem
@@ -12,7 +11,9 @@
         width: 50%
         display: inline-block
         float: left
-        padding-left: 0.9rem
+        padding: 0 0 0.9rem 0.9rem
+      .avatar:last-child
+        margin-bottom: 0.7rem
     .text
       padding: 0.4rem 2.2rem
     @media screen and (min-width: $screen-sm)
