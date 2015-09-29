@@ -9,7 +9,7 @@ class Supervisor::NotesController < Supervisor::BaseController
   private
 
   def find_notepad
-    @notepad = Note.notepad(params[:user_id])
+    @notepad = Note.notepad(current_user)
   end
 
   def notepad_params
