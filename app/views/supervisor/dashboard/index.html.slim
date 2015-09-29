@@ -27,7 +27,7 @@ div.row
                 td
                   '= Red alert
           div.col-sm-6 class=("col-lg-4 padding" if supervised_teams.count > 2)
-            = simple_form_for @current_user.notepad, url: supervisor_notes_path do |f|
+            = simple_form_for Note.notepad(current_user), url: supervisor_notes_path do |f|
               == render 'supervisor/notes/form', f: f
 
 div.row

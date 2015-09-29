@@ -141,10 +141,6 @@ class User < ActiveRecord::Base
       student.any?
   end
 
-  def notepad
-    @notepad ||= Note.find_or_create_by(user_id: id)
-  end
-
   private
 
   # Ensures that the location column either contains non-whitespace text, or is NULL
