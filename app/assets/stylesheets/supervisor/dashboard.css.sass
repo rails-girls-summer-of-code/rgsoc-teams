@@ -2,11 +2,6 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-.min-height
-  min-height: 42rem
-  section:nth-child(2)
-    min-height: 28.4rem
-
 .dashboard-box
   margin-bottom: 1rem
   h3, h4, h5
@@ -36,8 +31,32 @@ section.dashboard:not(:last-child)
 
 .performance-icon
   display: inline-block
-  float: right
   svg
     height: 2rem
-    margin-top: -3px
+    margin: -3px
     fill: $railsred
+.team-title
+  .performance-icon
+    float: right
+
+.links
+  padding-bottom: 1rem
+
+.legend
+  background-color: $lightgray
+  display: block
+  padding: 1.5rem 1rem 1rem 1rem
+  td
+    padding-bottom: 0.2rem
+  svg
+    margin-left: -0.5rem
+
+.notes-form
+  textarea
+    height: 181px
+  @media screen and (min-width: $screen-sm)
+    padding-left: 1rem
+
+.padding
+  @media screen and (min-width: $screen-lg)
+    padding-left: 20px
