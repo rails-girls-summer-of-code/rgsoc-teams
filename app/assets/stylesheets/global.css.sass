@@ -244,12 +244,6 @@ html, body
     p
       font-size: 1.3rem
 
-  .status_updates, .activities
-    // img
-    //   max-width: 75+75+10px
-    //   float: left
-    //   padding-right: 1rem
-
   a.atom
     float: right
     font-size: .6em
@@ -429,3 +423,15 @@ h1.header
   h5
     font-style: italic
     margin-bottom: 0
+
+// Images in status updates and activity stream
+
+.status_updates, .activities
+  p
+    img
+      max-width: 100%
+      float: left
+      padding: 1rem 0
+      @media screen and (min-width: $screen-md)
+        max-width: 50%
+        padding: 0 1rem 1rem 0
