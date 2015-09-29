@@ -48,12 +48,13 @@ html, body
     border-radius: 50%
     overflow: hidden
     margin-top: 12px
+    outline: none
+    text-align: center
     @media screen and (min-width: $screen-md)
       display: none
     i
       position: relative
       top: 5px
-      right: 7px
   ul
     padding: 0
     text-align: right
@@ -83,7 +84,7 @@ html, body
         text-decoration: none
 
     // Changes bootstraps default collapsing breakpoint
-    @media (min-width: $screen-sm) and (max-width: $screen-sm-max)
+    @media (min-width: $screen-xs) and (max-width: $screen-sm-max)
       .navbar-collapse.collapse
         display: none !important
 
@@ -111,6 +112,7 @@ html, body
 
 #content
   margin-top: 3rem
+  overflow-x: scroll
 
   h1
     font-size: 2rem
