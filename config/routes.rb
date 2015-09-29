@@ -84,7 +84,6 @@ RgsocTeams::Application.routes.draw do
   namespace :supervisor do
     get 'dashboard', to: 'dashboard#index'
     resources :comments, only: [:index, :create]
-    resources :notes
   end
 
   # get 'activities(.:format)', to: 'activities#index', as: :activities
