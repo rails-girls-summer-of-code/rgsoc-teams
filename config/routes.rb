@@ -3,8 +3,6 @@ RgsocTeams::Application.routes.draw do
 
   get 'status_updates/show'
 
-  resources :events
-
   # FIXME Accessing season this early breaks `rake db:create RAILS_ENV=test` on CI
   # if Season.current.started?
     root to: 'activities#index'

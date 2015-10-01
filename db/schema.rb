@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150929104102) do
+ActiveRecord::Schema.define(version: 20151001084746) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -119,14 +119,6 @@ ActiveRecord::Schema.define(version: 20150929104102) do
     t.integer  "round",                    default: 1
   end
 
-  create_table "events", force: :cascade do |t|
-    t.string   "name",       limit: 255
-    t.date     "start_date"
-    t.date     "end_date"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "mailings", force: :cascade do |t|
     t.string   "from",       limit: 255
     t.string   "to",         limit: 255
@@ -221,7 +213,6 @@ ActiveRecord::Schema.define(version: 20150929104102) do
     t.date     "starts_on"
     t.date     "finishes_on"
     t.string   "post_info",          limit: 255
-    t.integer  "event_id"
     t.date     "last_checked_at"
     t.integer  "last_checked_by"
     t.integer  "season_id"
