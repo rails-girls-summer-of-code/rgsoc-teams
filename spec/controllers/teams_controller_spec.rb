@@ -10,9 +10,8 @@ RSpec.describe TeamsController do
   let(:valid_attributes) { build(:team).attributes.merge(roles_attributes: [{ name: 'coach', github_handle: 'tobias' }], project_attributes: {name: 'project'}) }
   let(:valid_session)    { { "warden.user.user.key" => session["warden.user.user.key"] } }
 
-  before :each do
+  before do
     user.roles.create(name: 'student', team: team)
-    sign_in user
   end
 
   describe "GET index" do
@@ -53,6 +52,7 @@ RSpec.describe TeamsController do
 
       it 'only displays this season\'s accepted teams' do
         get :index
+        expect(response).to be_success
         expect(assigns(:teams)).to match_array [voluntary_team, sponsored_team]
       end
 
@@ -96,6 +96,8 @@ RSpec.describe TeamsController do
   end
 
   describe "POST create" do
+    before { sign_in user }
+
     describe "with valid params" do
       it "creates a new Team" do
         params = { team_id: team.to_param, team: valid_attributes }
@@ -121,6 +123,8 @@ RSpec.describe TeamsController do
   end
 
   describe "PUT update" do
+    before { sign_in user }
+
     context "their own team" do
       let(:team) { FactoryGirl.create(:team) }
 
@@ -177,6 +181,8 @@ RSpec.describe TeamsController do
   end
 
   describe "DELETE destroy" do
+    before { sign_in user }
+
     context "their own team" do
       let(:params) { { id: team.to_param } }
 
