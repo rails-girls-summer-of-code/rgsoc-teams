@@ -36,6 +36,7 @@ Features:
 Requirements:
 
 * Keep it simple, so Rails Girls students can get involved, too
+* By contributing, you agree to adhere to our [Code of Conduct](https://github.com/rails-girls-summer-of-code/rgsoc-teams/blob/master/CODE_OF_CONDUCT.md)
 
 ## System Requirements
 
