@@ -4,7 +4,7 @@ class AddProjectNameToTeams < ActiveRecord::Migration
 
     Project.joins(:team).each do |project|
       project.team.update_column :project_name, project.name
-    end
+    end if Project.new.respond_to? :team
   end
 
   def down
