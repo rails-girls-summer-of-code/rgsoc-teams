@@ -26,7 +26,7 @@ class Team < ActiveRecord::Base
   has_many :status_updates, -> { where(kind: 'status_update') }, class_name: 'Activity'
   has_many :ratings, as: :rateable
 
-  accepts_nested_attributes_for :roles, :sources, :project, allow_destroy: true
+  accepts_nested_attributes_for :roles, :sources, allow_destroy: true
 
   before_create :set_number
   before_save :set_last_checked, if: :checked

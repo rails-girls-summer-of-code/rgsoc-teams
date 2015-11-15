@@ -203,7 +203,6 @@ describe Team do
   end
 
   describe 'accept nested attributes for all three models' do
-    it { is_expected.to accept_nested_attributes_for :project }
     it { is_expected.to accept_nested_attributes_for :roles }
     it { is_expected.to accept_nested_attributes_for :sources }
   end

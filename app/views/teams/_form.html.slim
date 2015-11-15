@@ -36,8 +36,7 @@
   .form-group.form-btn-group
     = f.link_to_add 'Add another member', :roles, class: 'btn btn-primary col-sm-offset-3'
 
-  = f.simple_fields_for :project do |p|
-    = p.input :name, placeholder: 'Name of your project', label: 'Project Name'
+  = f.input :project_name, placeholder: 'Name of your project', label: 'Project Name'
 
   - if f.object.accepted?
     = f.input :github_handle, placeholder: '', hint: 'Should your team have an organization'
