@@ -7,7 +7,7 @@ RSpec.describe TeamsController do
   let(:user) { FactoryGirl.create(:user) }
   let(:team) { FactoryGirl.create(:team) }
 
-  let(:valid_attributes) { build(:team).attributes.merge(roles_attributes: [{ name: 'coach', github_handle: 'tobias' }], project_attributes: {name: 'project'}) }
+  let(:valid_attributes) { build(:team).attributes.merge(roles_attributes: [{ name: 'coach', github_handle: 'tobias' }]) }
   let(:valid_session)    { { "warden.user.user.key" => session["warden.user.user.key"] } }
 
   before do
@@ -132,11 +132,6 @@ RSpec.describe TeamsController do
         it "updates the requested team" do
           expect_any_instance_of(Team).to receive(:update_attributes).with({ 'name' => 'Blue' })
           put :update, { id: team.to_param, team: { 'name' => 'Blue' } }, valid_session
-        end
-
-        it "creates a project when team is selected" do
-          put :update, { id: team.to_param, team: { project_attributes: { 'name' => 'Blue' } } }, valid_session
-          expect(team.reload.project.name).to eq('Blue')
         end
 
         it "assigns the requested team as @team" do

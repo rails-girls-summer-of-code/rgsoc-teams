@@ -26,7 +26,7 @@ class Team < ActiveRecord::Base
   has_many :status_updates, -> { where(kind: 'status_update') }, class_name: 'Activity'
   has_many :ratings, as: :rateable
 
-  accepts_nested_attributes_for :roles, :sources, :project, allow_destroy: true
+  accepts_nested_attributes_for :roles, :sources, allow_destroy: true
 
   before_create :set_number
   before_save :set_last_checked, if: :checked
@@ -85,7 +85,7 @@ class Team < ActiveRecord::Base
 
   def display_name
     chunks = [name]
-    chunks << project.name if project
+    chunks << project_name
     chunks = chunks.select(&:present?)
     chunks[1] = "(#{chunks[1]})" if chunks[1]
     "Team #{chunks.join(' ')}"

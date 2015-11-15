@@ -100,18 +100,15 @@ describe Team do
   end
 
   describe '#display_name' do
-    let(:students) { [User.new(name: 'Nina'), User.new(name: 'Maya')] }
-    let!(:team) { Team.new }
-    let!(:project) { Project.new(name: 'Sinatra', team: team) }
-    before { subject.save! }
+    before { subject.project_name = 'Sinatra' }
 
-    it 'returns "Team ?" if no name given' do
-      expect(team.display_name).to be == 'Team Sinatra'
+    it 'returns "Team Sinatra" if no name given' do
+      expect(subject.display_name).to eql 'Team Sinatra'
     end
 
     it 'returns "Team Blue" if name given' do
-      team.name = 'Blue'
-      expect(team.display_name).to be == 'Team Blue (Sinatra)'
+      subject.name = 'Blue'
+      expect(subject.display_name).to eql 'Team Blue (Sinatra)'
     end
   end
 
@@ -206,7 +203,6 @@ describe Team do
   end
 
   describe 'accept nested attributes for all three models' do
-    it { is_expected.to accept_nested_attributes_for :project }
     it { is_expected.to accept_nested_attributes_for :roles }
     it { is_expected.to accept_nested_attributes_for :sources }
   end

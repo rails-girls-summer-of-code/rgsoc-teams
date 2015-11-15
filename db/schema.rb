@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151001084746) do
+ActiveRecord::Schema.define(version: 20151114201151) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -218,6 +218,7 @@ ActiveRecord::Schema.define(version: 20151001084746) do
     t.integer  "season_id"
     t.boolean  "invisible",                      default: false
     t.integer  "applications_count",             default: 0,     null: false
+    t.string   "project_name"
   end
 
   add_index "teams", ["applications_count"], name: "index_teams_on_applications_count", using: :btree

@@ -6,7 +6,7 @@ RSpec.describe Orga::TeamsController do
   let(:user) { create(:user) }
   let(:team) { create(:team) }
 
-  let(:valid_attributes) { build(:team).attributes.merge(roles_attributes: [{ name: 'coach', github_handle: 'tobias' }], project_attributes: {name: 'project'}) }
+  let(:valid_attributes) { build(:team).attributes.merge(roles_attributes: [{ name: 'coach', github_handle: 'tobias' }]) }
 
   before do
     user.roles.create(name: 'student', team: team)
@@ -76,11 +76,6 @@ RSpec.describe Orga::TeamsController do
         it "updates the requested team" do
           expect_any_instance_of(Team).to receive(:update_attributes).with({ 'name' => 'Blue' })
           put :update, { id: team.to_param, team: { 'name' => 'Blue' } }
-        end
-
-        it "creates a project when team is selected" do
-          put :update, { id: team.to_param, team: { project_attributes: { 'name' => 'Blue' } } }
-          expect(team.reload.project.name).to eq('Blue')
         end
 
         it "assigns the requested team as @team" do
