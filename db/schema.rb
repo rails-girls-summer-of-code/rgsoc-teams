@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151114201151) do
+ActiveRecord::Schema.define(version: 20151121094349) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -143,10 +143,19 @@ ActiveRecord::Schema.define(version: 20151114201151) do
   add_index "notes", ["user_id"], name: "index_notes_on_user_id", using: :btree
 
   create_table "projects", force: :cascade do |t|
-    t.string   "name",       limit: 255
-    t.integer  "team_id"
+    t.string   "name",                 limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "submitter_id"
+    t.integer  "season_id"
+    t.string   "mentor_name"
+    t.string   "mentor_github_handle"
+    t.string   "mentor_email"
+    t.string   "url"
+    t.text     "description"
+    t.text     "issues_and_features"
+    t.boolean  "beginner_friendly"
+    t.string   "aasm_state"
   end
 
   create_table "ratings", force: :cascade do |t|
