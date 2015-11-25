@@ -3,5 +3,6 @@
 FactoryGirl.define do
   factory :project do
     name { FFaker::Product.product_name }
+    association :submitter, factory: :user
   end
 end

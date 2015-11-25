@@ -1,10 +1,14 @@
 require 'spec_helper'
 
 RSpec.describe Project do
-  it { is_expected.to validate_presence_of(:name) }
 
   context 'with associations' do
     it { is_expected.to belong_to(:submitter).class_name(User) }
+  end
+
+  context 'with validations' do
+    it { is_expected.to validate_presence_of(:name) }
+    it { is_expected.to validate_presence_of(:submitter) }
   end
 
   context 'as a finite state machine' do
