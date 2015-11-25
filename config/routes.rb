@@ -28,6 +28,7 @@ RgsocTeams::Application.routes.draw do
   resources :attendances
   resources :contributors, only: :index
   resources :status_updates, only: :show
+  resources :projects, except: [:destroy]
 
   namespace :applications do
     get 'students/:id', to: 'students#show', as: 'student'
