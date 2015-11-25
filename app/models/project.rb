@@ -1,4 +1,7 @@
 class Project < ActiveRecord::Base
+
+  belongs_to :submitter, class_name: 'User'
+
   validates :name, presence: true
 
   include AASM

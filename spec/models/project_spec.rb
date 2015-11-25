@@ -3,6 +3,10 @@ require 'spec_helper'
 RSpec.describe Project do
   it { is_expected.to validate_presence_of(:name) }
 
+  context 'with associations' do
+    it { is_expected.to belong_to(:submitter).class_name(User) }
+  end
+
   context 'as a finite state machine' do
     it 'starts as "proposed"' do
       expect(subject).to be_proposed
