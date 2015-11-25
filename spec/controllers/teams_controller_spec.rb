@@ -76,12 +76,10 @@ RSpec.describe TeamsController do
   describe "GET edit" do
     context "their own team" do
       let(:team) { FactoryGirl.create(:team) }
-      let!(:project) { FactoryGirl.create(:project, name: 'Blue', team: team) }
 
       it "assigns the requested team as @team" do
         get :edit, { id: team.to_param }, valid_session
         expect(assigns(:team)).to eq(team)
-        expect(assigns(:team).project).to eq(project)
       end
     end
 
