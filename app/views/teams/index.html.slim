@@ -3,4 +3,4 @@ nav.actions
     li = link_to 'My Team', current_student.current_team, class: 'btn btn-primary btn-sm' if current_student.current_team
     li = link_to icon('plus', 'New Team'), new_team_path, class: 'btn btn-default btn-sm' if can? :create, Team.new
 
-= render 'table'
+= render 'table', namespace: nil

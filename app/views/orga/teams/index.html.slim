@@ -3,4 +3,4 @@ nav.actions
     li = link_to icon('plus', 'New Team'), new_orga_team_path, class: 'btn btn-default btn-sm'
     li = link_to 'Teams organizers info &rarr;'.html_safe, teams_info_path
 
-= render 'teams/table'
+= render 'teams/table', namespace: :orga
