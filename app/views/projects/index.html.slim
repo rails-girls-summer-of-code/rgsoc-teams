@@ -1,0 +1,18 @@
+nav.actions
+  ul.list-inline
+    li = link_to icon('plus', 'Submit a Project'), new_project_path, class: 'btn btn-default btn-sm'
+
+h1.header
+  = icon('group')
+  span Projects
+
+table.table.table-striped.table-bordered.table-condensed
+  tr
+    th = sortable 'name'
+    th = sortable 'created_at', 'Submitted'
+    th = sortable 'aasm_state', 'Status'
+
+  - @projects.each do |project|
+    tr
+      td = link_to project.name, project
+      td = l project.created_at
