@@ -55,4 +55,8 @@ class ApplicationController < ActionController::Base
   def require_role(role_name)
     redirect_to '/' unless current_user && current_user.roles.includes?(role_name)
   end
+
+  def login_required
+    redirect_to root_path, alert: 'Please log in with your Github account first' unless current_user
+  end
 end
