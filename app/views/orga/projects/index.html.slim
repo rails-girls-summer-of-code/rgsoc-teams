@@ -1,0 +1,26 @@
+h1 Listing Projects
+
+table.table.table-striped.table-bordered.table-condensed
+  thead
+    tr
+      th Name
+      th Submitter
+      th State
+      th Application Start
+      th Application End
+      th
+      th
+      th
+
+  tbody
+    - @projects.each do |project|
+      tr
+        td = project.name
+        td = project.submitter.try :display_name
+        td = project.aasm_state
+        td = link_to 'Show', [:orga, project]
+        td = link_to 'Edit', [:edit, :orga, project]
+        td = link_to 'Destroy', [:orga, project], data: { confirm: 'Are you sure?'}, method: :delete
+
+br
+
