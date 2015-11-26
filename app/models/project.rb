@@ -6,7 +6,7 @@ class Project < ActiveRecord::Base
 
   include AASM
 
-  aasm do
+  aasm whiny_transitions: false do
     state :proposed, initial: true
     state :accepted
     state :rejected
