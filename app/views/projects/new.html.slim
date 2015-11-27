@@ -2,5 +2,24 @@ nav.page
   ul
     li = link_to 'All Projects', projects_path, class: 'back'
 
+= simple_nested_form_for @project do |f|
+  - if @project.errors.any?
+    #error_explanation
+      h2 = "#{pluralize(@project.errors.count, "error")} prohibited this project from being saved:"
+      ul
+        - @project.errors.full_messages.each do |message|
+          li = message
+
+  = f.input :name, required: true, wrapper_html: { class: 'col-md-6' }
+  = f.input :mentor_name, required: true, wrapper_html: { class: 'col-md-6' }
+  = f.input :mentor_github_handle, required: true, wrapper_html: { class: 'col-md-6' }
+  = f.input :url, as: :url, wrapper_html: { class: 'col-md-6' }
+  = f.input :description, wrapper_html: { class: 'col-md-6' }
+  = f.input :issues_and_features, wrapper_html: { class: 'col-md-6' }
+
+  .actions
+    ul.list-inline
+      li = f.submit 'Submit', class: 'btn btn-success'
+      li = link_to 'Cancel', @user, class: 'btn btn-default btn-sm'
 
 img src="https://media.giphy.com/media/F8oLZ6P5WCAbS/giphy.gif"
