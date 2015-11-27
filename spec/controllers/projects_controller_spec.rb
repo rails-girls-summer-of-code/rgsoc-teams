@@ -3,6 +3,8 @@ require 'spec_helper'
 RSpec.describe ProjectsController do
   render_views
 
+  let(:project) { FactoryGirl.create(:project) }
+
   describe 'GET index' do
     let!(:proposed) { create :project, name: 'proposed project' }
     let!(:accepted) { create :project, :accepted, name: 'accepted project' }
@@ -30,6 +32,11 @@ RSpec.describe ProjectsController do
       it 'returns success' do
         get :new
         expect(response).to be_success
+      end
+
+      it "assigns a new project as @project" do
+        get :new
+        expect(assigns(:project)).to be_a_new(Project)
       end
     end
   end
