@@ -13,7 +13,7 @@ class ProjectsController < ApplicationController
   def create
     @project = Project.new(project_params)
 
-    @project.submitter_id = current_user.id
+    @project.submitter = current_user
     respond_to do |format|
       if @project.save
         format.html { redirect_to projects_path, notice: 'Project was successfully submitted.' }
