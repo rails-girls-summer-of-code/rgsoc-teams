@@ -129,4 +129,24 @@ describe Season do
       expect(subject.applications_close_at.year).to eql year+1
     end
   end
+
+  describe '.transition?' do
+    subject { Season }
+
+    context 'during mid-summer' do
+      before { Timecop.travel Date.parse('2015-08-01') }
+      it { is_expected.not_to be_transition }
+    end
+
+    context 'right after the summer has ended' do
+      before { Timecop.travel Date.parse('2015-10-01') }
+      it { is_expected.to be_transition }
+    end
+
+    context 'on New Year\'s' do
+      before { Timecop.travel Date.parse('2016-01-01') }
+      it { is_expected.not_to be_transition }
+    end
+  end
+
 end
