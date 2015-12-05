@@ -14,5 +14,9 @@ table.table.table-striped.table-bordered.table-condensed
 
   - @projects.each do |project|
     tr
-      td = link_to project.name, project
+      td
+        = link_to project.name, project
+        - if current_user == project.submitter
+          = link_to [:edit, project], class: 'edit-project' do
+            = icon('edit')
       td = l project.created_at
