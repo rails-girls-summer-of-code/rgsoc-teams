@@ -7,6 +7,8 @@ describe Season do
   end
 
   context 'with callbacks' do
+    subject { described_class.new name: Date.today.year }
+
     context 'before validation' do
       it 'sets starts_at' do
         expect { subject.valid? }.to change { subject.starts_at }.from nil
