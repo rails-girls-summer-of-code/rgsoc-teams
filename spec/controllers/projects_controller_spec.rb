@@ -87,6 +87,28 @@ RSpec.describe ProjectsController do
         expect(response.body).to include 'prohibited this project from being saved'
         expect(response).to render_template 'new'
       end
+
+      context 'with season' do
+        subject { Project.last }
+
+        context 'in December' do
+          before do
+            Timecop.travel Date.parse('2015-12-06')
+            post :create, project: valid_attributes
+          end
+
+          it { expect(subject.season.year).to eql '2016' }
+        end
+
+        context 'in January' do
+          before do
+            Timecop.travel Date.parse('2016-01-10')
+            post :create, project: valid_attributes
+          end
+
+          it { expect(subject.season.year).to eql '2016' }
+        end
+      end
     end
 
   end

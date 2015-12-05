@@ -19,6 +19,7 @@ class ProjectsController < ApplicationController
     @project = Project.new(project_params)
 
     @project.submitter = current_user
+    @project.season = Season.transition? ? Season.succ : Season.current
     respond_to do |format|
       if @project.save
         ProjectMailer.proposal(@project).deliver_later
