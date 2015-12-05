@@ -42,23 +42,24 @@ RSpec.describe ProjectsController do
   end
 
   describe 'POST create' do
-    let(:user) { create(:user) }
-    let(:attributes) { attributes_for :project }
+    context 'with user logged in' do
+      include_context 'with user logged in'
+      let(:attributes) { attributes_for :project }
 
-    before { sign_in user }
 
-    it 'creates a project and redirects to list' do
-      expect { post :create, project: attributes }.to \
-        change { Project.count }.by 1
-      expect(flash[:notice]).not_to be_nil
-      expect(response).to redirect_to(projects_path)
-    end
+      it 'creates a project and redirects to list' do
+        expect { post :create, project: attributes }.to \
+          change { Project.count }.by 1
+        expect(flash[:notice]).not_to be_nil
+        expect(response).to redirect_to(projects_path)
+      end
 
-    it 'fails to create a project from invalid parameters' do
-      expect { post :create, project: { name: '' } }.not_to \
-        change { Project.count }
-      expect(response.body).to include 'prohibited this project from being saved'
-      expect(response).to render_template 'new'
+      it 'fails to create a project from invalid parameters' do
+        expect { post :create, project: { name: '' } }.not_to \
+          change { Project.count }
+        expect(response.body).to include 'prohibited this project from being saved'
+        expect(response).to render_template 'new'
+      end
     end
 
   end
