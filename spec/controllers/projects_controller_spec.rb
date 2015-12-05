@@ -136,4 +136,22 @@ RSpec.describe ProjectsController do
 
   end
 
+  describe 'DELETE destroy' do
+    let(:user) { create(:user) }
+    let(:project) { create(:project, submitter: user) }
+
+    before do
+      sign_in user
+      project # Boop it to life
+    end
+
+    it 'deletes the project' do
+      expect { delete :destroy, id: project.to_param }.to \
+        change { Project.count }.by -1
+      expect(flash[:notice]).not_to be_nil
+      expect(response).to redirect_to(projects_path)
+    end
+
+  end
+
 end
