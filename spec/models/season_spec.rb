@@ -96,4 +96,23 @@ describe Season do
     end
   end
 
+  describe '.next' do
+    subject { Season.next }
+    let(:year) { Date.today.year }
+
+    context 'with existing successor season' do
+      let!(:next_season) { Season.create name: year+1 }
+
+      it 'returns the existing follow-up season' do
+        expect { subject }.not_to change { Season.count }
+        expect(subject).to eql next_season
+      end
+    end
+
+    it 'creates the successor if it doesn\'t exist' do
+      expect { subject }.to change { Season.count }.by(1)
+      expect(subject.name).to eql (year+1).to_s
+    end
+  end
+
 end

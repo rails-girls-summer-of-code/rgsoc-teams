@@ -8,6 +8,10 @@ class Season < ActiveRecord::Base
     def current
       find_or_create_by(name: Date.today.year.to_s)
     end
+
+    def next
+      find_or_create_by(name: (Date.today.year+1).to_s)
+    end
   end
 
   def application_period?
