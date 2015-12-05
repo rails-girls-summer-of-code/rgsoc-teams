@@ -121,6 +121,12 @@ describe Season do
       expect { subject }.to change { Season.count }.by(1)
       expect(subject.name).to eql (year+1).to_s
     end
-  end
 
+    it 'sets the dates into the following year' do
+      expect(subject.starts_at.year).to eql year+1
+      expect(subject.ends_at.year).to eql year+1
+      expect(subject.applications_open_at.year).to eql year+1
+      expect(subject.applications_close_at.year).to eql year+1
+    end
+  end
 end
