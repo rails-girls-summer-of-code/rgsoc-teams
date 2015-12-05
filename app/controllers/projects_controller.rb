@@ -3,7 +3,12 @@ class ProjectsController < ApplicationController
   before_action :login_required, only: [:new]
 
   def new
-    @project = Project.new
+    project
+  end
+
+  def edit
+    project
+    render :new
   end
 
   def index
