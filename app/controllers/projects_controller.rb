@@ -17,11 +17,8 @@ class ProjectsController < ApplicationController
   end
 
   def destroy
-    respond_to do |format|
-      return unless project.submitter == current_user
-      @project.destroy
-      format.html { redirect_to projects_path, notice: 'Project was successfully deleted' }
-    end
+    project.destroy
+    redirect_to projects_path, notice: 'Project was successfully deleted'
   end
 
   def create
