@@ -7,6 +7,7 @@ en:
       time: '%H:%M'
       precise: '%A, %B %d %Y at %H:%M:%S %Z'
       short: '%A, %B %e, %H:%M'  # example: Monday, August 17, 13:00
+      shortest: '%b %e, %Y @ %H:%M'
   date:
     formats:
       season: '%B %e, %Y'        # example: August 17, 2015

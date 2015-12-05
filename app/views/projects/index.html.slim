@@ -21,4 +21,5 @@ table.table.table-striped.table-bordered.table-condensed
             = icon('edit')
           = link_to project, data: { confirm: 'This action cannot be undone. Are you sure?' }, method: :delete, class: 'edit-project' do
             = icon('minus-sign')
-      td = l project.created_at
+      td = l project.created_at, format: :short
+      td = project_status project
