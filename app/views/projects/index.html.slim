@@ -19,4 +19,6 @@ table.table.table-striped.table-bordered.table-condensed
         - if current_user == project.submitter
           = link_to [:edit, project], class: 'edit-project' do
             = icon('edit')
+          = link_to project, data: { confirm: 'This action cannot be undone. Are you sure?' }, method: :delete, class: 'edit-project' do
+            = icon('minus-sign')
       td = l project.created_at
