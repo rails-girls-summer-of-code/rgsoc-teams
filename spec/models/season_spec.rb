@@ -122,8 +122,8 @@ describe Season do
     end
   end
 
-  describe '.next' do
-    subject { Season.next }
+  describe '.succ' do
+    subject { Season.succ }
     let(:year) { Date.today.year }
 
     context 'with existing successor season' do
