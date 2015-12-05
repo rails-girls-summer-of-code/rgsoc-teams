@@ -167,4 +167,27 @@ describe Season do
     end
   end
 
+  describe '.projects_proposable?' do
+    subject { described_class }
+
+    context 'during transition phase' do
+      context 'before project proposals open date' do
+        before { Timecop.travel Date.parse('2015-11-15') }
+        it { is_expected.not_to be_projects_proposable }
+      end
+
+      context 'after project proposals open date' do
+        before { Timecop.travel Date.parse('2015-12-15') }
+        it { is_expected.to be_projects_proposable }
+      end
+    end
+
+    context 'at the beginning of a new year' do
+      context 'after project proposals open date' do
+        before { Timecop.travel Date.parse('2016-01-10') }
+        it { is_expected.to be_projects_proposable }
+      end
+    end
+  end
+
 end

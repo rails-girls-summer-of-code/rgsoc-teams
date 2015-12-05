@@ -19,6 +19,13 @@ class Season < ActiveRecord::Base
     def transition?
       current.transition?
     end
+
+    def projects_proposable?
+      season = transition? ? succ : current
+      Time.now.utc.between? \
+        season.project_proposals_open_at,
+        season.project_proposals_close_at
+    end
   end
 
   def application_period?
@@ -85,7 +92,7 @@ class Season < ActiveRecord::Base
     self.applications_open_at  ||= Time.utc(year, 3, 1)
     self.applications_close_at ||= Time.utc(year, 3, 31)
     self.acceptance_notification_at ||= Time.utc(year, 5, 1)
-    self.project_proposals_open_at ||= Time.utc((transition? ? (year.to_i-1) : year), 12, 1)
+    self.project_proposals_open_at  ||= Time.utc(year.to_i-1, 12, 1)
     self.project_proposals_close_at ||= Time.utc(year, 02, 1)
     self.applications_open_at  = applications_open_at.utc.beginning_of_day
     self.applications_close_at = applications_close_at.utc.end_of_day
