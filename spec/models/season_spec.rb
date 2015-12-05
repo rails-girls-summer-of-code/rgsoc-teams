@@ -8,6 +8,14 @@ describe Season do
 
   context 'with callbacks' do
     context 'before validation' do
+      it 'sets starts_at' do
+        expect { subject.valid? }.to change { subject.starts_at }.from nil
+      end
+
+      it 'sets ends_at' do
+        expect { subject.valid? }.to change { subject.ends_at }.from nil
+      end
+
       it 'sets applications_open_at to the beginning of day' do
         date = DateTime.parse('2015-02-22 14:00 GMT+1')
         subject.applications_open_at = date

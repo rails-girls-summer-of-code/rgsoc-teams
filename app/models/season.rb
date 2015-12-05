@@ -65,6 +65,8 @@ class Season < ActiveRecord::Base
   private
 
   def set_application_dates
+    self.starts_at ||= Time.utc(Date.today.year, 7, 1)
+    self.ends_at   ||= Time.utc(Date.today.year, 9, 30)
     self.applications_open_at  ||= Time.utc(Date.today.year, 3, 1)
     self.applications_close_at ||= Time.utc(Date.today.year, 3, 31)
     self.acceptance_notification_at ||= Time.utc(Date.today.year, 5, 1)
