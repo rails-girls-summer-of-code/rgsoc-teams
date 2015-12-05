@@ -41,6 +41,22 @@ RSpec.describe ProjectsController do
     end
   end
 
+  describe 'PATCH update' do
+    let(:user) { create(:user) }
+    let(:project) { create(:project, submitter: user) }
+
+    before { sign_in user }
+
+    it 'creates a project and redirects to list' do
+      proj = project
+      proj.name = "This is an updated name!"
+      post :create, project: proj.as_json
+      expect(flash[:notice]).not_to be_nil
+      expect(response).to redirect_to(projects_path)
+    end
+
+  end
+
   describe 'POST create' do
     let(:user) { create(:user) }
     let(:project) { build(:project) }
