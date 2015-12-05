@@ -44,14 +44,25 @@ RSpec.describe ProjectsController do
   describe 'POST create' do
     context 'with user logged in' do
       include_context 'with user logged in'
-      let(:attributes) { attributes_for :project }
+      let(:valid_attributes) { attributes_for :project }
 
+      def mailer_jobs
+        enqueued_jobs.select do |job|
+          job[:job] == ActionMailer::DeliveryJob &&
+            job[:args][0] == 'ProjectMailer' && job[:args][1] == 'proposal'
+        end
+      end
 
       it 'creates a project and redirects to list' do
-        expect { post :create, project: attributes }.to \
+        expect { post :create, project: valid_attributes }.to \
           change { Project.count }.by 1
         expect(flash[:notice]).not_to be_nil
         expect(response).to redirect_to(projects_path)
+      end
+
+      it 'sends an email to organizers' do
+        expect { post :create, project: valid_attributes }.to \
+          change { mailer_jobs.size }.by 1
       end
 
       it 'fails to create a project from invalid parameters' do

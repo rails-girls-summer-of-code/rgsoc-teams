@@ -16,6 +16,7 @@ class ProjectsController < ApplicationController
     @project.submitter = current_user
     respond_to do |format|
       if @project.save
+        ProjectMailer.proposal(@project).deliver_later
         format.html { redirect_to projects_path, notice: 'Project was successfully submitted.' }
       else
         format.html { render action: :new }
