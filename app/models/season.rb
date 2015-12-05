@@ -17,7 +17,7 @@ class Season < ActiveRecord::Base
     # we are in the transition phase after the current season's
     # coding period but before the new year (i.d. 'Season') begun.
     def transition?
-      current.year == Date.today.year.to_s and current.ended?
+      current.transition?
     end
   end
 
@@ -72,6 +72,9 @@ class Season < ActiveRecord::Base
     })
   end
 
+  def transition?
+    year == Date.today.year.to_s and ended?
+  end
 
   private
 
