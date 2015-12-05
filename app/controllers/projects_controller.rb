@@ -25,6 +25,16 @@ class ProjectsController < ApplicationController
 
   private
 
+  def project
+    @project ||= if params[:id]
+                   Project.find(params[:id])
+                 else
+                   Project.new
+                 end
+    @project = Project.new unless current_user == @project.submitter
+    @project
+  end
+
   def project_params
     params.require(:project).permit(
       :name, :mentor_name, :mentor_github_handle, :mentor_email,
