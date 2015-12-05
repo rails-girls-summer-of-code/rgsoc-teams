@@ -4,7 +4,10 @@ class ProjectsController < ApplicationController
   before_action :check_date!, only: [:new, :create]
 
   def new
-    project
+    @project = Project.new(
+      mentor_name: current_user.name,
+      mentor_github_handle: current_user.github_handle
+    )
   end
 
   def edit
@@ -54,11 +57,7 @@ class ProjectsController < ApplicationController
   end
 
   def project
-    @project ||= if params[:id]
-                   Project.where(submitter_id: current_user.id).find(params[:id])
-                 else
-                   Project.new
-                 end
+    @project ||= Project.where(submitter_id: current_user.id).find(params[:id])
   end
 
   def project_params
