@@ -29,14 +29,20 @@ RSpec.describe ProjectsController do
     context 'with user logged in' do
       include_context 'with user logged in'
 
-      it 'returns success' do
-        get :new
-        expect(response).to be_success
-      end
+      context 'during project submission time' do
+        before do
+          allow(Season).to receive(:projects_proposable?) { true }
+        end
 
-      it "assigns a new project as @project" do
-        get :new
-        expect(assigns(:project)).to be_a_new(Project)
+        it 'returns success' do
+          get :new
+          expect(response).to be_success
+        end
+
+        it "assigns a new project as @project" do
+          get :new
+          expect(assigns(:project)).to be_a_new(Project)
+        end
       end
     end
   end
@@ -69,44 +75,61 @@ RSpec.describe ProjectsController do
         end
       end
 
-      it 'creates a project and redirects to list' do
-        expect { post :create, project: valid_attributes }.to \
-          change { Project.count }.by 1
-        expect(flash[:notice]).not_to be_nil
-        expect(response).to redirect_to(projects_path)
-      end
-
-      it 'sends an email to organizers' do
-        expect { post :create, project: valid_attributes }.to \
-          change { mailer_jobs.size }.by 1
-      end
-
-      it 'fails to create a project from invalid parameters' do
-        expect { post :create, project: { name: '' } }.not_to \
-          change { Project.count }
-        expect(response.body).to include 'prohibited this project from being saved'
-        expect(response).to render_template 'new'
-      end
-
-      context 'with season' do
-        subject { Project.last }
-
-        context 'in December' do
-          before do
-            Timecop.travel Date.parse('2015-12-06')
-            post :create, project: valid_attributes
-          end
-
-          it { expect(subject.season.year).to eql '2016' }
+      context 'during project submission time' do
+        before do
+          allow(Season).to receive(:projects_proposable?) { true }
         end
 
-        context 'in January' do
-          before do
-            Timecop.travel Date.parse('2016-01-10')
-            post :create, project: valid_attributes
+        it 'creates a project and redirects to list' do
+          expect { post :create, project: valid_attributes }.to \
+            change { Project.count }.by 1
+          expect(flash[:notice]).not_to be_nil
+          expect(response).to redirect_to(projects_path)
+        end
+
+        it 'sends an email to organizers' do
+          expect { post :create, project: valid_attributes }.to \
+            change { mailer_jobs.size }.by 1
+        end
+
+        it 'fails to create a project from invalid parameters' do
+          expect { post :create, project: { name: '' } }.not_to \
+            change { Project.count }
+          expect(response.body).to include 'prohibited this project from being saved'
+          expect(response).to render_template 'new'
+        end
+
+        context 'with season' do
+          subject { Project.last }
+
+          context 'in December' do
+            before do
+              Timecop.travel Date.parse('2015-12-06')
+              post :create, project: valid_attributes
+            end
+
+            it { expect(subject.season.year).to eql '2016' }
           end
 
-          it { expect(subject.season.year).to eql '2016' }
+          context 'in January' do
+            before do
+              Timecop.travel Date.parse('2016-01-10')
+              post :create, project: valid_attributes
+            end
+
+            it { expect(subject.season.year).to eql '2016' }
+          end
+        end
+      end
+
+      context 'after project proposals have been closed' do
+        before { Timecop.travel Date.parse('2016-03-01') }
+
+        it 'will not create a project' do
+          expect { post :create, project: valid_attributes }.not_to \
+            change { Project.count }
+          expect(response).to redirect_to root_path
+          expect(flash[:alert]).to be_present
         end
       end
     end

@@ -1,6 +1,7 @@
 class ProjectsController < ApplicationController
 
   before_action :login_required, only: [:new]
+  before_action :check_date!, only: [:new, :create]
 
   def new
     project
@@ -41,6 +42,11 @@ class ProjectsController < ApplicationController
   end
 
   private
+
+  def check_date!
+    redirect_to root_path, alert: 'Project submissions are closed.' and return \
+      unless Season.projects_proposable?
+  end
 
   def project
     @project ||= if params[:id]
