@@ -6,6 +6,10 @@ class Project < ActiveRecord::Base
 
   validates :name, :submitter, presence: true
 
+  scope :current, -> do
+    where(season: Season.transition? ? Season.succ : Season.current)
+  end
+
   include AASM
 
   aasm whiny_transitions: false do

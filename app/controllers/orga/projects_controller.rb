@@ -2,7 +2,7 @@ class Orga::ProjectsController < Orga::BaseController
   before_action :find_resource, only: [:accept, :reject]
 
   def index
-    @projects = Project.all
+    @projects = Project.current
   end
 
   def accept
