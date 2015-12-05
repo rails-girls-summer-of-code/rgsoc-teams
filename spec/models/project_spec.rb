@@ -2,6 +2,8 @@ require 'spec_helper'
 
 RSpec.describe Project do
 
+  it_behaves_like 'HasSeason'
+
   context 'with associations' do
     it { is_expected.to belong_to(:submitter).class_name(User) }
   end

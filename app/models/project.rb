@@ -1,5 +1,7 @@
 class Project < ActiveRecord::Base
 
+  include HasSeason
+
   belongs_to :submitter, class_name: 'User'
 
   validates :name, :submitter, presence: true
