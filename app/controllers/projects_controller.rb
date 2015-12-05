@@ -50,12 +50,10 @@ class ProjectsController < ApplicationController
 
   def project
     @project ||= if params[:id]
-                   Project.find(params[:id])
+                   Project.where(submitter_id: current_user.id).find(params[:id])
                  else
                    Project.new
                  end
-    @project = Project.new unless current_user == @project.submitter
-    @project
   end
 
   def project_params
