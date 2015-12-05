@@ -85,9 +85,13 @@ class Season < ActiveRecord::Base
     self.applications_open_at  ||= Time.utc(year, 3, 1)
     self.applications_close_at ||= Time.utc(year, 3, 31)
     self.acceptance_notification_at ||= Time.utc(year, 5, 1)
+    self.project_proposals_open_at ||= Time.utc((transition? ? (year.to_i-1) : year), 12, 1)
+    self.project_proposals_close_at ||= Time.utc(year, 02, 1)
     self.applications_open_at  = applications_open_at.utc.beginning_of_day
     self.applications_close_at = applications_close_at.utc.end_of_day
     self.acceptance_notification_at = acceptance_notification_at.utc.end_of_day
+    self.project_proposals_open_at  = project_proposals_open_at.beginning_of_day
+    self.project_proposals_close_at = project_proposals_close_at.end_of_day
   end
 
 end
