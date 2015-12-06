@@ -7,8 +7,7 @@ table.table.table-striped.table-bordered.table-condensed
       th Submitted
       th Submitted by
       th State
-      th Languages
-      th
+      th Tags
       th
 
   tbody
@@ -18,7 +17,7 @@ table.table.table-striped.table-bordered.table-condensed
         td = l project.created_at, format: :shortest
         td = link_to project.submitter.name, project.submitter
         td = project_status project
-        td
+        td = project_tags project
         td = link_to 'Edit', [:edit, :orga, project]
         td = link_to 'Destroy', [:orga, project], data: { confirm: 'Are you sure?'}, method: :delete
 

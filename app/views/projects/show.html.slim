@@ -18,6 +18,9 @@ table.table.table-striped.table-bordered
     th Suitable for Beginners?
     td = @project.beginner_friendly? ? 'yes' : 'no'
   tr
+    th Tags
+    td = project_tags @project
+  tr
     th State
     td = project_status(@project)
 
