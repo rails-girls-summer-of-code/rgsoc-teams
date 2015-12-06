@@ -49,6 +49,13 @@ RSpec.describe ProjectsController do
     end
   end
 
+  describe 'GET show' do
+    it 'returns the project page' do
+      get :show, id: project.to_param
+      expect(response).to be_success
+    end
+  end
+
   describe 'PATCH update' do
     let!(:project) { create(:project, submitter: current_user) }
 

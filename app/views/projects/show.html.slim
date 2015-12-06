@@ -1,0 +1,30 @@
+- content_for :title do
+  = [@project.name, @project.season.try(:name)].compact.join(' – ')
+
+= content_tag :h1, @project.name
+
+table.table.table-striped.table-bordered
+  tr
+    th Mentor
+    td
+      = @project.mentor_name
+      = " ("
+      = link_to @project.mentor_github_handle, "https://github.com/#{@project.mentor_github_handle}", class: 'github'
+      |)
+  tr
+    th Project Website
+    td = link_to @project.url
+  tr
+    th Suitable for Beginners?
+    td = @project.beginner_friendly? ? 'yes' : 'no'
+  tr
+    th State
+    td = project_status(@project)
+
+h2 Project Description
+- if @project.description
+  p = render_markdown(@project.description).html_safe
+
+h2 Issues, Features, and Milestones
+- if @project.issues_and_features
+  p = render_markdown(@project.issues_and_features).html_safe
