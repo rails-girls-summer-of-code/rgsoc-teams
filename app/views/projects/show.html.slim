@@ -3,6 +3,12 @@
 
 = content_tag :h1, @project.name
 
+- if can? :edit, @project
+  nav.btn-group
+    = link_to 'Edit', edit_project_path(@project), class: 'edit btn btn-default btn-small'
+    = link_to 'Destroy', project_path(@project), method: :delete, data: { confirm: 'This action cannot be undone. Are you sure?' }, class: 'edit btn btn-default btn-small'
+  p
+
 table.table.table-striped.table-bordered
   tr
     th Mentor

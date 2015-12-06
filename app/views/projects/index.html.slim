@@ -16,7 +16,7 @@ table.table.table-striped.table-bordered.table-condensed
     tr
       td
         = link_to project.name, project
-        - if current_user == project.submitter
+        - if can? :crud, project
           .project-actions
             = link_to [:edit, project] do
               = icon('edit')
