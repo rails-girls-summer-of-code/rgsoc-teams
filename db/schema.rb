@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151206131158) do
+ActiveRecord::Schema.define(version: 20151206133817) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -159,6 +159,7 @@ ActiveRecord::Schema.define(version: 20151206131158) do
     t.text     "issues_and_features"
     t.boolean  "beginner_friendly"
     t.string   "aasm_state"
+    t.text     "tags",                             default: [], array: true
   end
 
   create_table "ratings", force: :cascade do |t|
