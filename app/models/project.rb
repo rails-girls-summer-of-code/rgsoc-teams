@@ -25,7 +25,13 @@ class Project < ActiveRecord::Base
     event :reject do
       transitions from: :proposed, to: :rejected
     end
-
   end
 
+  def taglist
+    tags.join(', ')
+  end
+
+  def taglist=(taglist)
+    self.tags = taglist.split(',').map(&:strip).reject(&:blank?)
+  end
 end

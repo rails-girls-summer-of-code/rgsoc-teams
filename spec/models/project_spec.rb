@@ -33,8 +33,30 @@ RSpec.describe Project do
         expect { subject.reject! }.to \
           change { subject.rejected? }.to true
       end
+    end
+  end
 
+  describe '#taglist' do
+    it 'returns an empty string when tags are empty' do
+      expect(subject.taglist).to eql ''
     end
 
+    it 'returns a comma-separated string' do
+      subject.tags = %w[rails ruby]
+      expect(subject.taglist).to eql 'rails, ruby'
+    end
   end
+
+  describe '#taglist=' do
+    it 'sets the tags by splitting at comma' do
+      expect { subject.taglist = "foo, bar" }.
+        to change { subject.tags }.to %w[foo bar]
+    end
+
+    it 'removes empty values' do
+      expect { subject.taglist = "foo, , bar" }.
+        to change { subject.tags }.to %w[foo bar]
+    end
+  end
+
 end
