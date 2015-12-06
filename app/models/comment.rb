@@ -2,6 +2,7 @@ class Comment < ActiveRecord::Base
   belongs_to :team
   belongs_to :user
   belongs_to :application
+  belongs_to :project
 
   scope :recent, -> { order('created_at DESC').limit(3) }
 

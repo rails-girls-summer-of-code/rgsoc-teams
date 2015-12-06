@@ -6,6 +6,7 @@ RSpec.describe Project do
 
   context 'with associations' do
     it { is_expected.to belong_to(:submitter).class_name(User) }
+    it { is_expected.to have_many(:comments).dependent(:destroy) }
   end
 
   context 'with validations' do

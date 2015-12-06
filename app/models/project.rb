@@ -3,6 +3,7 @@ class Project < ActiveRecord::Base
   include HasSeason
 
   belongs_to :submitter, class_name: 'User'
+  has_many :comments, dependent: :destroy
 
   validates :name, :submitter, presence: true
 
