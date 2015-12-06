@@ -8,7 +8,7 @@ table.table.table-striped.table-bordered.table-condensed
       th Submitted by
       th State
       th Tags
-      th
+      th colspan=3
 
   tbody
     - @projects.each do |project|
@@ -18,8 +18,13 @@ table.table.table-striped.table-bordered.table-condensed
         td = link_to project.submitter.name, project.submitter
         td = project_status project
         td = project_tags project
-        td = link_to 'Edit', [:edit, :orga, project]
-        td = link_to 'Destroy', [:orga, project], data: { confirm: 'Are you sure?'}, method: :delete
+        td
+          - if project.may_accept?
+            = link_to 'Accept', [:accept, :orga, project], method: :put, class: 'btn btn-sm btn-success'
+        td
+          - if project.may_reject?
+            = link_to 'Reject', [:reject, :orga, project], method: :put, class: 'btn btn-sm btn-warning'
+        td = link_to 'Destroy', [:orga, project], data: { confirm: 'Are you sure?'}, method: :delete, class: 'btn btn-sm btn-danger'
 
 br
 
