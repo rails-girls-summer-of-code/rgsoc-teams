@@ -28,3 +28,23 @@ h2 Project Description
 h2 Issues, Features, and Milestones
 - if @project.issues_and_features
   p = render_markdown(@project.issues_and_features).html_safe
+
+h2 Comments
+- if current_user
+  = simple_form_for Comment.new(project: @project), url: comments_path do |f|
+    .checks
+      = f.error_notification
+
+      .form-inputs.clearfix
+        = f.input :project_id, as: :hidden
+        = f.input :text, as: :text, label: "Comment on this project", input_html: { rows: 5 }, hint: 'You can use basic <a href="http://en.wikipedia.org/wiki/Markdown" target="_blank">Markdown</a> here.'.html_safe, required: true
+
+      .form-actions
+        = f.button :submit, 'Save comment'
+- else
+  p You must be logged in to comment on this project.
+
+- @project.comments.each do |comment|
+  hr
+  h5 = "#{ user_for_comment(comment) }, #{ format_date(comment.created_at, :short) }"
+  p = render_markdown(comment.text).html_safe

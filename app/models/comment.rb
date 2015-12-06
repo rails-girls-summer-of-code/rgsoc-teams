@@ -18,6 +18,10 @@ class Comment < ActiveRecord::Base
     end
   end
 
+  def commentable
+    [team, application, project].find(&:present?)
+  end
+
   private
 
   def set_checked
