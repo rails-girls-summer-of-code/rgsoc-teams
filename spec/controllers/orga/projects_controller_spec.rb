@@ -75,7 +75,7 @@ RSpec.describe Orga::ProjectsController do
           let!(:project) { create :project, :"#{action}ed" }
           it 'complains and redirects to show' do
             put action, id: project.to_param
-            expect(response).to redirect_to [:orga, project]
+            expect(response).to redirect_to [:orga, :projects]
             expect(flash[:alert]).to be_present
           end
         end
@@ -84,7 +84,7 @@ RSpec.describe Orga::ProjectsController do
           expect {
             put action, id: project.to_param
           }.to change { project.reload.aasm_state }.to "#{action}ed"
-          expect(response).to redirect_to [:orga, project]
+          expect(response).to redirect_to [:orga, :projects]
           expect(flash[:notice]).to be_present
         end
       end

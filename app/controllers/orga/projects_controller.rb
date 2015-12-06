@@ -11,7 +11,7 @@ class Orga::ProjectsController < Orga::BaseController
     else
       flash[:alert]  = "There has been an error accepting this project."
     end
-    redirect_to [:orga, @project]
+    redirect_to [:orga, :projects]
   end
 
   def reject
@@ -20,7 +20,7 @@ class Orga::ProjectsController < Orga::BaseController
     else
       flash[:alert]  = "There has been an error rejecting this project."
     end
-    redirect_to [:orga, @project]
+    redirect_to [:orga, :projects]
   end
 
   private
