@@ -17,9 +17,10 @@ table.table.table-striped.table-bordered.table-condensed
       td
         = link_to project.name, project
         - if current_user == project.submitter
-          = link_to [:edit, project], class: 'edit-project' do
-            = icon('edit')
-          = link_to project, data: { confirm: 'This action cannot be undone. Are you sure?' }, method: :delete, class: 'edit-project' do
-            = icon('minus-sign')
+          .project-actions
+            = link_to [:edit, project] do
+              = icon('edit')
+            = link_to project, data: { confirm: 'This action cannot be undone. Are you sure?' }, method: :delete do
+              = icon('minus-sign')
       td = l project.created_at, format: :short
       td = project_status project

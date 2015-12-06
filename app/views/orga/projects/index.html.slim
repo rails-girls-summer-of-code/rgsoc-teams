@@ -23,7 +23,7 @@ table.table.table-striped.table-bordered.table-condensed
             = link_to 'Accept', [:accept, :orga, project], method: :put, class: 'btn btn-sm btn-success'
         td
           - if project.may_reject?
-            = link_to 'Reject', [:reject, :orga, project], method: :put, class: 'btn btn-sm btn-warning'
+            = link_to 'Reject', [:reject, :orga, project], method: :put, class: 'btn btn-sm btn-danger'
 
 br
 
