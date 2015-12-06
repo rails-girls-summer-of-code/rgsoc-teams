@@ -6,9 +6,11 @@ RSpec.describe ProjectsController do
   let(:project) { FactoryGirl.create(:project) }
 
   describe 'GET index' do
-    let!(:proposed) { create :project, name: 'proposed project' }
-    let!(:accepted) { create :project, :accepted, name: 'accepted project' }
-    let!(:rejected) { create :project, :rejected, name: 'rejected project' }
+    before { Timecop.travel Date.parse('2015-12-15') }
+
+    let!(:proposed) { create :project, season: Season.succ, name: 'proposed project' }
+    let!(:accepted) { create :project, :accepted, season: Season.succ, name: 'accepted project' }
+    let!(:rejected) { create :project, :rejected, season: Season.succ, name: 'rejected project' }
 
     it 'displays all projects by default' do
       get :index
