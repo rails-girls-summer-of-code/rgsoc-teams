@@ -26,11 +26,13 @@ table.table.table-striped.table-bordered
 
 h2 Project Description
 - if @project.description
-  p = render_markdown(@project.description).html_safe
+  .projects
+    p = render_markdown(@project.description).html_safe
 
 h2 Issues, Features, and Milestones
 - if @project.issues_and_features
-  p = render_markdown(@project.issues_and_features).html_safe
+  .projects
+    p = render_markdown(@project.issues_and_features).html_safe
 
 h2 Comments
 - if current_user
