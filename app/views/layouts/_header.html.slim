@@ -20,7 +20,8 @@ section#header
         nav.top
           ul class="collapse navbar-collapse" id="menu"
             - if Season.projects_proposable?
-              li = link_to 'Submit your Project', new_project_path
+              li class="announcement"
+                = link_to 'Submit your Project', new_project_path
             - if show_application_link?
               li = application_disambiguation_link
             - if current_user.try :current_student?
