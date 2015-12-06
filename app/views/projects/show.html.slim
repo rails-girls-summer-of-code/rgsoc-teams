@@ -24,17 +24,23 @@ table.table.table-striped.table-bordered
     th State
     td = project_status(@project)
 
-h2 Project Description
+h2.header
+  = icon('file') 
+  span Project Description
 - if @project.description
   .projects
     p = render_markdown(@project.description).html_safe
 
-h2 Issues, Features, and Milestones
+h2.header
+  = icon('list') 
+  span Issues, Features, and Milestones
 - if @project.issues_and_features
   .projects
     p = render_markdown(@project.issues_and_features).html_safe
 
-h2 Comments
+h2.header 
+  = icon('comments')
+  span Comments
 - if current_user
   = simple_form_for Comment.new(project: @project), url: comments_path do |f|
     .checks
