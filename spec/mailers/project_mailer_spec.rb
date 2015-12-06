@@ -13,11 +13,8 @@ RSpec.describe ProjectMailer do
     end
 
     context 'with recipients' do
-      let!(:organizers) { create_list(:organizer_role, 2).map(&:user) }
-      let!(:others) { create_list :supervisor_role, 1 }
-
       it 'sends mail to every organiser' do
-        expect(subject.to).to match_array organizers.map(&:email)
+        expect(subject.to).to match_array %w[summer-of-code@railsgirls.com]
       end
     end
   end
