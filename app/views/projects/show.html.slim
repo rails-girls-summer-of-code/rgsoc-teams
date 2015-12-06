@@ -1,6 +1,10 @@
 - content_for :title do
   = [@project.name, @project.season.try(:name)].compact.join(' – ')
 
+nav.page
+  ul
+    li = link_to 'All Projects', projects_path, class: 'back'
+
 = content_tag :h1, @project.name
 
 - if can? :edit, @project
