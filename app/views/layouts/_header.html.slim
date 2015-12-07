@@ -9,14 +9,7 @@ section#header
             = icon('reorder')
 
     div.row
-      div.col-xs-7.col-md-4
-        nav.user
-          - if signed_in?
-            = "Signed in as #{link_to h(current_user.name), current_user} &middot; ".html_safe
-            = link_to "Sign out", sign_out_path, method: :delete
-          - else
-            = link_to icon('github', 'Sign in with GitHub'), user_omniauth_authorize_path(:github)
-      div.col-xs-5.col-md-8
+      div.col-xs-offset-7.col-xs-5.col-md-offset-4.col-md-8
         nav.top
           ul class="collapse navbar-collapse" id="menu"
             - if show_application_link?
@@ -34,3 +27,12 @@ section#header
             /- if signed_in? && current_user.roles.includes?('reviewer')  # TODO bring this into a reviewer dashboard
             /  li = link_to 'Applications', applications_path
             li = link_to 'Home &rarr;'.html_safe, 'http://railsgirlssummerofcode.org'
+    div.row 
+      div.col-xs-offset-5.col-xs-7.col-md-offset-8.col-md-4
+        .text-right
+          nav.user
+            - if signed_in?
+              = "Signed in as #{link_to h(current_user.name), current_user} &middot; ".html_safe
+              = link_to "Sign out", sign_out_path, method: :delete
+            - else
+              = link_to icon('github', 'Sign in with GitHub'), user_omniauth_authorize_path(:github)
