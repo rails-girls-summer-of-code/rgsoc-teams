@@ -16,6 +16,12 @@ html, body
   a, a:hover
     color: $railsred
     color: $railsred
+
+  a:hover
+    i
+      text-decoration: none
+      color: $darkgray
+
   li
     list-style-type: none
   .text-right
@@ -85,6 +91,18 @@ html, body
           margin: 0 0.6rem 0 0.6rem
         &:last-child:after
           content: none
+      li.announcement
+        a
+          padding: 4px
+          -webkit-border-radius: 5px
+          -moz-border-radius: 5px
+          border-radius: 5px
+          background-color: white
+          color: $railsred
+        a:hover
+          color: white
+          background-color: $railsred
+
       a
         color: white
         text-decoration: none
@@ -171,7 +189,7 @@ html, body
       width: 120px
       font-weight: bold
 
-  .sources, .teams, .profiles, .attendees, .conferences, .status_update
+  .sources, .teams, .profiles, .attendees, .conferences, .status_update, .projects
     li
       list-style-type: disc
       p, ul
@@ -364,7 +382,7 @@ form
 
 // page-header
 
-h1.header
+h1.header, h2.header
   i, span
     display: inline-block
   span

@@ -7,7 +7,17 @@ describe Season do
   end
 
   context 'with callbacks' do
+    subject { described_class.new name: Date.today.year }
+
     context 'before validation' do
+      it 'sets starts_at' do
+        expect { subject.valid? }.to change { subject.starts_at }.from nil
+      end
+
+      it 'sets ends_at' do
+        expect { subject.valid? }.to change { subject.ends_at }.from nil
+      end
+
       it 'sets applications_open_at to the beginning of day' do
         date = DateTime.parse('2015-02-22 14:00 GMT+1')
         subject.applications_open_at = date
@@ -29,6 +39,22 @@ describe Season do
         subject.acceptance_notification_at = date
         expect { subject.valid? }.to \
           change { subject.acceptance_notification_at }.to \
+          DateTime.parse('2015-02-22 23:59:59 GMT')
+      end
+
+      it 'sets the project_proposals_open_at to the beginning of the day' do
+        date = DateTime.parse('2015-02-22 14:00 GMT+1')
+        subject.project_proposals_open_at = date
+        expect { subject.valid? }.to \
+          change { subject.project_proposals_open_at }.to \
+          DateTime.parse('2015-02-22 0:00 UTC')
+      end
+
+      it 'sets the project_proposals_close_at to the end of the day' do
+        date = DateTime.parse('2015-02-22 14:00 GMT+1')
+        subject.project_proposals_close_at= date
+        expect { subject.valid? }.to \
+          change { subject.project_proposals_close_at }.to \
           DateTime.parse('2015-02-22 23:59:59 GMT')
       end
     end
@@ -93,6 +119,74 @@ describe Season do
     it 'returns the existing season' do
       season = create :season, name: Date.today.year
       expect(Season.current).to eql season
+    end
+  end
+
+  describe '.succ' do
+    subject { Season.succ }
+    let(:year) { Date.today.year }
+
+    context 'with existing successor season' do
+      let!(:next_season) { Season.create name: year+1 }
+
+      it 'returns the existing follow-up season' do
+        expect { subject }.not_to change { Season.count }
+        expect(subject).to eql next_season
+      end
+    end
+
+    it 'creates the successor if it doesn\'t exist' do
+      expect { subject }.to change { Season.count }.by(1)
+      expect(subject.name).to eql (year+1).to_s
+    end
+
+    it 'sets the dates into the following year' do
+      expect(subject.starts_at.year).to eql year+1
+      expect(subject.ends_at.year).to eql year+1
+      expect(subject.applications_open_at.year).to eql year+1
+      expect(subject.applications_close_at.year).to eql year+1
+    end
+  end
+
+  describe '.transition?' do
+    subject { Season }
+
+    context 'during mid-summer' do
+      before { Timecop.travel Date.parse('2015-08-01') }
+      it { is_expected.not_to be_transition }
+    end
+
+    context 'right after the summer has ended' do
+      before { Timecop.travel Date.parse('2015-10-01') }
+      it { is_expected.to be_transition }
+    end
+
+    context 'on New Year\'s' do
+      before { Timecop.travel Date.parse('2016-01-01') }
+      it { is_expected.not_to be_transition }
+    end
+  end
+
+  describe '.projects_proposable?' do
+    subject { described_class }
+
+    context 'during transition phase' do
+      context 'before project proposals open date' do
+        before { Timecop.travel Date.parse('2015-11-15') }
+        it { is_expected.not_to be_projects_proposable }
+      end
+
+      context 'after project proposals open date' do
+        before { Timecop.travel Date.parse('2015-12-15') }
+        it { is_expected.to be_projects_proposable }
+      end
+    end
+
+    context 'at the beginning of a new year' do
+      context 'after project proposals open date' do
+        before { Timecop.travel Date.parse('2016-01-10') }
+        it { is_expected.to be_projects_proposable }
+      end
     end
   end
 

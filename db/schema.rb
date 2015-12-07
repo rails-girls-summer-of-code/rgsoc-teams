@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151114201151) do
+ActiveRecord::Schema.define(version: 20151207195550) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -102,7 +102,10 @@ ActiveRecord::Schema.define(version: 20151114201151) do
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
     t.integer  "application_id"
+    t.integer  "project_id"
   end
+
+  add_index "comments", ["project_id"], name: "index_comments_on_project_id", using: :btree
 
   create_table "conferences", force: :cascade do |t|
     t.string   "name",         limit: 255
@@ -143,10 +146,22 @@ ActiveRecord::Schema.define(version: 20151114201151) do
   add_index "notes", ["user_id"], name: "index_notes_on_user_id", using: :btree
 
   create_table "projects", force: :cascade do |t|
-    t.string   "name",       limit: 255
-    t.integer  "team_id"
+    t.string   "name",                 limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "submitter_id"
+    t.integer  "season_id"
+    t.string   "mentor_name"
+    t.string   "mentor_github_handle"
+    t.string   "mentor_email"
+    t.string   "url"
+    t.text     "description"
+    t.text     "issues_and_features"
+    t.boolean  "beginner_friendly"
+    t.string   "aasm_state"
+    t.text     "tags",                             default: [], array: true
+    t.string   "source_url"
+    t.boolean  "comments_locked",                  default: false
   end
 
   create_table "ratings", force: :cascade do |t|
@@ -179,6 +194,8 @@ ActiveRecord::Schema.define(version: 20151114201151) do
     t.datetime "applications_open_at"
     t.datetime "applications_close_at"
     t.datetime "acceptance_notification_at"
+    t.datetime "project_proposals_open_at"
+    t.datetime "project_proposals_close_at"
   end
 
   create_table "sources", force: :cascade do |t|

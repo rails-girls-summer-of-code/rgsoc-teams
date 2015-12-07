@@ -1,0 +1,73 @@
+- content_for :title do
+  = [@project.name, @project.season.try(:name)].compact.join(' – ')
+
+nav.page
+  ul
+    li = link_to 'All Projects', projects_path, class: 'back'
+
+= content_tag :h1, @project.name
+
+- if can? :edit, @project
+  nav.btn-group
+    = link_to 'Edit', edit_project_path(@project), class: 'edit btn btn-default btn-small'
+    = link_to 'Destroy', project_path(@project), method: :delete, data: { confirm: 'This action cannot be undone. Are you sure?' }, class: 'edit btn btn-default btn-small'
+  p
+
+table.table.table-striped.table-bordered
+  tr
+    th Mentor
+    td
+      = @project.mentor_name
+      = " ("
+      = link_to @project.mentor_github_handle, "https://github.com/#{@project.mentor_github_handle}", class: 'github'
+      |)
+  tr
+    th Project Website
+    td = link_to @project.url
+  tr
+    th Suitable for Beginners?
+    td = @project.beginner_friendly? ? 'yes' : 'no'
+  tr
+    th Tags
+    td = project_tags @project
+  tr
+    th State
+    td = project_status(@project)
+
+h2.header
+  = icon('file') 
+  span Project Description
+- if @project.description
+  .projects
+    p = render_markdown(@project.description).html_safe
+
+h2.header
+  = icon('list') 
+  span Issues, Features, and Milestones
+- if @project.issues_and_features
+  .projects
+    p = render_markdown(@project.issues_and_features).html_safe
+
+h2.header 
+  = icon('comments')
+  span Comments
+- if @project.comments_locked?
+  p Comments for this project have been locked.
+- elsif current_user
+  = simple_form_for Comment.new(project: @project), url: comments_path do |f|
+    .checks
+      = f.error_notification
+
+      .form-inputs.clearfix
+        = f.input :project_id, as: :hidden
+        = f.input :text, as: :text, label: "Comment on this project", input_html: { rows: 5 }, hint: 'You can use basic <a href="http://en.wikipedia.org/wiki/Markdown" target="_blank">Markdown</a> here.'.html_safe, required: true
+
+      .form-actions
+        = f.button :submit, 'Save comment'
+- else
+  p You must be logged in to comment on this project.
+
+- @project.comments.each do |comment|
+  hr
+  h5 = "#{ user_for_comment(comment) }, #{ format_date(comment.created_at, :short) }"
+  p = render_markdown(comment.text).html_safe

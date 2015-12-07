@@ -7,7 +7,7 @@ class CommentsController < ApplicationController
     comment = Comment.new(comment_params)
 
     if comment.save
-      redirect_to comment.application
+      redirect_to comment.commentable
     else
       flash[:alert] = "O no! We can't save your comment. Please try again?"
     end
@@ -16,6 +16,6 @@ class CommentsController < ApplicationController
   private
 
   def comment_params
-    params.require(:comment).permit(:team_id, :text, :application_id).merge(user_id: current_user.id)
+    params.require(:comment).permit(:team_id, :text, :application_id, :project_id).merge(user_id: current_user.id)
   end
 end

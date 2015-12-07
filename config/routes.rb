@@ -25,6 +25,7 @@ RgsocTeams::Application.routes.draw do
   resources :attendances
   resources :contributors, only: :index
   resources :status_updates, only: :show
+  resources :projects
 
   namespace :applications do
     get 'students/:id', to: 'students#show', as: 'student'
@@ -66,6 +67,14 @@ RgsocTeams::Application.routes.draw do
 
   patch 'orga/seasons/switch_phase', to: 'orga/seasons#switch_phase', as: :switch_phase
   namespace :orga do
+    resources :projects, only: [:index] do
+      member do
+        put :accept
+        put :reject
+        put :lock
+        put :unlock
+      end
+    end
     resources :teams
     resources :seasons
   end

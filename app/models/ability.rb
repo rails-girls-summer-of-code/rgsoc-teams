@@ -45,6 +45,11 @@ class Ability
     can :crud, :comments  if user.admin?
     can :read, :users_info if user.admin? || user.supervisor?
 
+    can :crud, Project do |project|
+      user.admin? ||
+        user == project.submitter
+    end
+
     # activities
     can :read, :feed_entry
     can :read, :mailing if signed_in?(user)

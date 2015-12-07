@@ -4,7 +4,6 @@ describe Team do
   subject { Team.new(kind: 'sponsored') }
 
   it { is_expected.to have_many(:activities) }
-  it { is_expected.to have_one(:project) }
   it { is_expected.to have_many(:sources) }
   it { is_expected.to have_many(:members) }
   it { is_expected.to have_many(:students) }

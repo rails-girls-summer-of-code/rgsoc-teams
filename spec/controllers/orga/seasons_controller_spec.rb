@@ -49,10 +49,7 @@ RSpec.describe Orga::SeasonsController do
       end
 
       context 'with invalid data' do
-        before do
-          season
-          allow_any_instance_of(Season).to receive(:valid?).and_return(false)
-        end
+        let!(:season) { create :season }
 
         it 'fails updates and renders the edit template' do
           patch :update, id: season.to_param, season: { name: '' }

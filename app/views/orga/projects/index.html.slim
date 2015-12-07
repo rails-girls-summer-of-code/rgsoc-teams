@@ -1,0 +1,34 @@
+h1 Listing Projects
+
+table.table.table-striped.table-bordered.table-condensed
+  thead
+    tr
+      th Name
+      th Submitted
+      th Submitted by
+      th State
+      th Tags
+      th colspan=3
+
+  tbody
+    - @projects.each do |project|
+      tr
+        td = link_to project.name, project
+        td = l project.created_at, format: :shortest
+        td = link_to project.submitter.name, project.submitter
+        td = project_status project
+        td = project_tags project
+        td
+          - if project.may_accept?
+            = link_to 'Accept', [:accept, :orga, project], method: :put, class: 'btn btn-sm btn-success'
+        td
+          - if project.may_reject?
+            = link_to 'Reject', [:reject, :orga, project], method: :put, class: 'btn btn-sm btn-danger'
+        td
+          - if project.comments_locked?
+            = link_to 'Unlock comments', [:unlock, :orga, project], method: :put, class: 'btn btn-sm btn-warning'
+          - else
+            = link_to 'Lock comments', [:lock, :orga, project], method: :put, class: 'btn btn-sm btn-warning'
+
+br
+
