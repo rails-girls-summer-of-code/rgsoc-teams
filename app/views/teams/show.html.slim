@@ -2,8 +2,10 @@
   = @team.display_name
 
 nav.page
-  ul
-    li = link_to 'All teams', teams_path, class: 'back'
+  .back-nav
+    ul
+      li = icon('chevron-left')
+      li = link_to 'All teams', teams_path, class: 'back'
 
 - if can? :join, @team
   nav.actions
