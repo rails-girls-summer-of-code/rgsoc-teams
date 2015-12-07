@@ -5,7 +5,7 @@ class Project < ActiveRecord::Base
   belongs_to :submitter, class_name: 'User'
   has_many :comments, dependent: :destroy
 
-  validates :name, :submitter, presence: true
+  validates :name, :submitter, :mentor_email, presence: true
 
   scope :current, -> do
     where(season: Season.transition? ? Season.succ : Season.current)

@@ -6,7 +6,8 @@ class ProjectsController < ApplicationController
   def new
     @project = Project.new(
       mentor_name: current_user.name,
-      mentor_github_handle: current_user.github_handle
+      mentor_github_handle: current_user.github_handle,
+      mentor_email: current_user.email
     )
   end
 
