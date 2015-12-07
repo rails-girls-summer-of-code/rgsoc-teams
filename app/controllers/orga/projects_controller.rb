@@ -1,5 +1,5 @@
 class Orga::ProjectsController < Orga::BaseController
-  before_action :find_resource, only: [:accept, :reject]
+  before_action :find_resource, except: [:index]
 
   def index
     @projects = Project.current
@@ -21,6 +21,16 @@ class Orga::ProjectsController < Orga::BaseController
       flash[:alert]  = "There has been an error rejecting this project."
     end
     redirect_to [:orga, :projects]
+  end
+
+  def lock
+    @project.update_attribute :comments_locked, true
+    redirect_to [:orga, :projects], notice: "Comments for '#{@project.name}' are now locked."
+  end
+
+  def unlock
+    @project.update_attribute :comments_locked, false
+    redirect_to [:orga, :projects], notice: "Comments for '#{@project.name}' are now unlocked."
   end
 
   private

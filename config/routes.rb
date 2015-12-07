@@ -74,6 +74,8 @@ RgsocTeams::Application.routes.draw do
       member do
         put :accept
         put :reject
+        put :lock
+        put :unlock
       end
     end
     resources :teams

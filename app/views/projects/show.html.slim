@@ -51,7 +51,9 @@ h2.header
 h2.header 
   = icon('comments')
   span Comments
-- if current_user
+- if @project.comments_locked?
+  p Comments for this project have been locked.
+- elsif current_user
   = simple_form_for Comment.new(project: @project), url: comments_path do |f|
     .checks
       = f.error_notification
