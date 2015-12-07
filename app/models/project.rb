@@ -34,4 +34,29 @@ class Project < ActiveRecord::Base
   def taglist=(taglist)
     self.tags = taglist.split(',').map(&:strip).reject(&:blank?)
   end
+
+  def subscribers
+    [submitter, mentor].uniq
+  end
+
+  # FIXME Remove me after https://github.com/rails-girls-summer-of-code/rgsoc-teams/issues/342
+  class NullMentor
+    attr_reader :email, :github_handle
+    def initialize(project)
+      @email = project.mentor_email.to_s.downcase
+      @github_handle = project.mentor_github_handle.to_s.downcase
+    end
+    def eql?(user)
+      user.github_handle.to_s.downcase == github_handle
+    end
+  end
+
+  def mentor
+    mentor = NullMentor.new(self)
+    if mentor.eql? submitter
+      submitter
+    else
+      mentor
+    end
+  end
 end

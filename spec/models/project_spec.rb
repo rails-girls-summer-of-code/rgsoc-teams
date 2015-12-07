@@ -60,4 +60,29 @@ RSpec.describe Project do
     end
   end
 
+  describe '#subscribers' do
+    let(:submitter) { build_stubbed :user }
+
+    context 'when comments are empty' do
+      context 'when submitter is also the mentor' do
+        subject do
+          build :project, submitter: submitter, mentor_email: submitter.email.upcase, mentor_github_handle: submitter.github_handle
+        end
+
+        it 'returns a list with just the submitter' do
+          expect(subject.subscribers).to match_array [submitter]
+        end
+      end
+
+      context 'when submitter and mentor differs' do
+        subject { build :project, submitter: submitter }
+
+        it 'returns a list with just the submitter' do
+          expect(subject.subscribers).to match_array [submitter, duck_type(:email)]
+        end
+      end
+    end
+
+  end
+
 end
