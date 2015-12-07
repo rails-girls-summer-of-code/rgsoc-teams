@@ -23,7 +23,7 @@ class Project < ActiveRecord::Base
     end
 
     event :reject do
-      transitions from: :proposed, to: :rejected
+      transitions from: :proposed, to: :rejected, after: -> { self.comments_locked = true }
     end
   end
 

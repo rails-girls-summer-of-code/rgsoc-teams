@@ -34,6 +34,11 @@ RSpec.describe Project do
         expect { subject.reject! }.to \
           change { subject.rejected? }.to true
       end
+
+      it 'locks comments upon rejection' do
+        expect { subject.reject! }.to \
+          change { subject.reload.comments_locked? }.to true
+      end
     end
   end
 
