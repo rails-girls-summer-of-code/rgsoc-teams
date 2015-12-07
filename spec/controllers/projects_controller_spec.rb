@@ -58,13 +58,12 @@ RSpec.describe ProjectsController do
 
   describe 'PATCH update' do
     let!(:project) { create(:project, submitter: current_user) }
-
     context 'with user logged in' do
       include_context 'with user logged in'
       let(:current_user) { create(:user) }
 
       it 'creates a project and redirects to list' do
-        post :create, project: { name: "This is an updated name!" }
+        patch :update, id: project.to_param, project: { name: "This is an updated name!" }
         expect(flash[:notice]).not_to be_nil
         expect(response).to redirect_to(projects_path)
       end
