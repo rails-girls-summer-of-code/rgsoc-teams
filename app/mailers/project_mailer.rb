@@ -8,4 +8,11 @@ class ProjectMailer < ActionMailer::Base
     mail subject: subject, to: "summer-of-code@railsgirls.com"
   end
 
+  def comment(project, comment)
+    subject = "[RGSoC] New comment: Project '#{project.name}'"
+    @project, @comment = project, comment
+    rcpts = project.subscribers.map(&:email)
+    mail subject: subject, to: rcpts
+  end
+
 end
