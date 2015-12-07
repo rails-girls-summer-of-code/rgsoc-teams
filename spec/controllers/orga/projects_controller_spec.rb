@@ -10,59 +10,11 @@ RSpec.describe Orga::ProjectsController do
 
     let(:project) { Project.create name: 2015 }
 
-    describe 'GET new' do
-      it 'renders the new template' do
-        skip "waiting for CRUD templates in public namespace"
-        get :new
-        expect(response).to be_success
-        expect(response).to render_template 'new'
-      end
-    end
-
     describe 'GET index' do
       it 'renders the index template' do
         get :index
         expect(response).to be_success
         expect(response).to render_template 'index'
-      end
-    end
-
-    describe 'GET edit' do
-      it 'renders the edit template' do
-        skip "waiting for CRUD templates in public namespace"
-        get :edit, id: project.to_param
-        expect(response).to be_success
-        expect(response).to render_template 'edit'
-      end
-    end
-
-    describe 'GET show' do
-      it 'renders the show template' do
-        skip "waiting for CRUD templates in public namespace"
-        get :show, id: project.to_param
-        expect(response).to be_success
-        expect(response).to render_template 'show'
-      end
-    end
-
-    describe 'PATCH update' do
-      it 'updates and redirects' do
-        skip "waiting for CRUD templates in public namespace"
-        patch :update, id: project.to_param, project: { name: '2525' }
-        expect(response).to redirect_to orga_projects_path
-      end
-
-      context 'with invalid data' do
-        before do
-          project
-          allow_any_instance_of(Project).to receive(:valid?).and_return(false)
-        end
-
-        it 'fails updates and renders the edit template' do
-          skip "waiting for CRUD templates in public namespace"
-          patch :update, id: project.to_param, project: { name: '' }
-          expect(response).to render_template 'edit'
-        end
       end
     end
 
@@ -94,4 +46,5 @@ RSpec.describe Orga::ProjectsController do
     it_behaves_like 'deals with proposals', :reject
 
   end
+
 end
