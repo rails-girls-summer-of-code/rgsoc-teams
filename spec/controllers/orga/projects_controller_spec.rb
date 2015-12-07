@@ -8,7 +8,7 @@ RSpec.describe Orga::ProjectsController do
   context 'with admin logged in' do
     include_context 'with admin logged in'
 
-    let(:project) { Project.create name: 2015 }
+    let(:project) { create :project }
 
     describe 'GET index' do
       it 'renders the index template' do
@@ -21,8 +21,6 @@ RSpec.describe Orga::ProjectsController do
     shared_examples_for 'deals with proposals' do |action|
 
       describe "PUT #{action}" do
-        let(:project) { create :project }
-
         context 'with an accepted record' do
           let!(:project) { create :project, :"#{action}ed" }
           it 'complains and redirects to show' do
@@ -44,6 +42,24 @@ RSpec.describe Orga::ProjectsController do
 
     it_behaves_like 'deals with proposals', :accept
     it_behaves_like 'deals with proposals', :reject
+
+    describe 'PUT lock' do
+      it 'toggles the comments_locked boolean' do
+        expect { put :lock, id: project.to_param }.
+          to change { project.reload.comments_locked? }.to true
+        expect(response).to redirect_to [:orga, :projects]
+      end
+    end
+
+    describe 'PUT unlock' do
+      let!(:project) { create :project, comments_locked: true }
+
+      it 'toggles the comments_unlocked boolean' do
+        expect { put :unlock, id: project.to_param }.
+          to change { project.reload.comments_locked? }.to false
+        expect(response).to redirect_to [:orga, :projects]
+      end
+    end
 
   end
 

@@ -34,6 +34,11 @@ RSpec.describe Project do
         expect { subject.reject! }.to \
           change { subject.rejected? }.to true
       end
+
+      it 'locks comments upon rejection' do
+        expect { subject.reject! }.to \
+          change { subject.reload.comments_locked? }.to true
+      end
     end
   end
 
@@ -58,6 +63,43 @@ RSpec.describe Project do
       expect { subject.taglist = "foo, , bar" }.
         to change { subject.tags }.to %w[foo bar]
     end
+  end
+
+  describe '#subscribers' do
+    let(:submitter) { build_stubbed :user }
+
+    context 'when comments are empty' do
+      context 'when submitter is also the mentor' do
+        subject do
+          build :project, submitter: submitter, mentor_email: submitter.email.upcase, mentor_github_handle: submitter.github_handle
+        end
+
+        it 'returns a list with just the submitter' do
+          expect(subject.subscribers).to match_array [submitter]
+        end
+      end
+
+      context 'when submitter and mentor differs' do
+        subject { build :project, submitter: submitter }
+
+        it 'returns a list with just the submitter' do
+          expect(subject.subscribers).to match_array [submitter, duck_type(:email)]
+        end
+      end
+    end
+
+    context 'with comments' do
+      subject { create :project }
+
+      let!(:comments) { create_list :comment, 2, project: subject }
+      let(:commenters) { comments.map(&:user) }
+
+      it 'returns submitter, mentor, and commenters' do
+        expect(subject.subscribers).to match_array \
+          [subject.submitter, subject.mentor, commenters].flatten
+      end
+    end
+
   end
 
 end
