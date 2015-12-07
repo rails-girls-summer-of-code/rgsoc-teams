@@ -36,7 +36,7 @@ class Project < ActiveRecord::Base
   end
 
   def subscribers
-    [submitter, mentor].uniq
+    [submitter, mentor, comments.map(&:user)].flatten.uniq
   end
 
   # FIXME Remove me after https://github.com/rails-girls-summer-of-code/rgsoc-teams/issues/342
@@ -52,11 +52,13 @@ class Project < ActiveRecord::Base
   end
 
   def mentor
-    mentor = NullMentor.new(self)
-    if mentor.eql? submitter
-      submitter
-    else
-      mentor
-    end
+    @mentor ||= begin
+                  _mentor = NullMentor.new(self)
+                  if _mentor.eql? submitter
+                    submitter
+                  else
+                    _mentor
+                  end
+                end
   end
 end

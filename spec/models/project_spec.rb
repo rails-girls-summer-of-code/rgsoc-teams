@@ -83,6 +83,18 @@ RSpec.describe Project do
       end
     end
 
+    context 'with comments' do
+      subject { create :project }
+
+      let!(:comments) { create_list :comment, 2, project: subject }
+      let(:commenters) { comments.map(&:user) }
+
+      it 'returns submitter, mentor, and commenters' do
+        expect(subject.subscribers).to match_array \
+          [subject.submitter, subject.mentor, commenters].flatten
+      end
+    end
+
   end
 
 end
