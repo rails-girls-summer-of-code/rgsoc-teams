@@ -1,6 +1,8 @@
 nav.page
-  ul
-    li = link_to 'All Projects', projects_path, class: 'back'
+  .back-nav
+    ul
+      li = icon('chevron-left')
+      li = link_to 'All Projects', projects_path, class: 'back'
 
 p.well Please make sure you have read our #{link_to "mentor guide", 'http://railsgirlssummerofcode.org/guide/projects/'} before you submit your Open Source project for the upcoming Rails Girls Summer of Code.
 
