@@ -87,11 +87,10 @@ RSpec.describe ProjectsController do
           allow(Season).to receive(:projects_proposable?) { true }
         end
 
-        it 'creates a project and redirects to list' do
+        it 'creates a project and redirects to thank you message' do
           expect { post :create, project: valid_attributes }.to \
             change { Project.count }.by 1
-          expect(flash[:notice]).not_to be_nil
-          expect(response).to redirect_to(projects_path)
+          expect(response).to redirect_to(receipt_project_path(assigns(:project)))
         end
 
         it 'sends an email to organizers' do

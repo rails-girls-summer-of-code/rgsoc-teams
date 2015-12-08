@@ -37,11 +37,15 @@ class ProjectsController < ApplicationController
     respond_to do |format|
       if @project.save
         ProjectMailer.proposal(@project).deliver_later
-        format.html { redirect_to projects_path, notice: 'Project was successfully submitted.' }
+        format.html { redirect_to receipt_project_path(@project) }
       else
         format.html { render action: :new }
       end
     end
+  end
+
+  def receipt
+    @project = Project.find(params[:id])
   end
 
   def update
