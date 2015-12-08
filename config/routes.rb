@@ -25,7 +25,11 @@ RgsocTeams::Application.routes.draw do
   resources :attendances
   resources :contributors, only: :index
   resources :status_updates, only: :show
-  resources :projects
+  resources :projects do
+    member do
+      get 'receipt', as: :receipt
+    end
+  end
 
   namespace :applications do
     get 'students/:id', to: 'students#show', as: 'student'
