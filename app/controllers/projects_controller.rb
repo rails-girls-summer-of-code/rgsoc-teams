@@ -3,7 +3,7 @@ class ProjectsController < ApplicationController
   before_action :login_required, only: [:new]
   before_action :check_date!, only: [:new, :create]
 
-  load_and_authorize_resource except: [:index, :show]
+  load_and_authorize_resource only: [:update, :destroy]
 
   def new
     @project = Project.new(
@@ -51,7 +51,7 @@ class ProjectsController < ApplicationController
 
   def update
     respond_to do |format|
-      if project.update_attributes(project_params)
+      if @project.update_attributes(project_params)
         format.html { redirect_to projects_path, notice: 'Project was successfully updated.' }
       else
         format.html { render action: :new }
