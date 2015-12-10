@@ -11,7 +11,7 @@ class ProjectMailer < ActionMailer::Base
   def comment(project, comment)
     subject = "[RGSoC] New comment: Project '#{project.name}'"
     @project, @comment = project, comment
-    rcpts = project.subscribers.map(&:email)
+    rcpts = (project.subscribers - [comment.user]).map(&:email)
     mail subject: subject, to: rcpts
   end
 

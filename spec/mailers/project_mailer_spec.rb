@@ -1,10 +1,9 @@
 require 'spec_helper'
 
 RSpec.describe ProjectMailer do
+  let(:project) { build_stubbed :project }
 
   describe '#proposal' do
-    let(:project) { build_stubbed :project }
-
     subject { described_class.proposal(project) }
 
     it 'sends a mail with link to orga/projects/:id' do
@@ -17,6 +16,18 @@ RSpec.describe ProjectMailer do
       it 'sends mail to every organiser' do
         expect(subject.to).to match_array %w[summer-of-code@railsgirls.com]
       end
+    end
+  end
+
+  describe '#comment' do
+    let!(:comment) { create :comment, project: project }
+    let!(:commenter) { create(:comment, project: project).user }
+
+    subject { described_class.comment(project, comment) }
+
+    it 'sends to every subscriber but the new commenter' do
+      expected_recipients = project.subscribers - [comment.user]
+      expect(subject.to).to match_array expected_recipients.map(&:email)
     end
   end
 end
