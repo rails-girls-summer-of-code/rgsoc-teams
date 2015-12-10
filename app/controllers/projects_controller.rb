@@ -3,6 +3,8 @@ class ProjectsController < ApplicationController
   before_action :login_required, only: [:new]
   before_action :check_date!, only: [:new, :create]
 
+  load_and_authorize_resource except: [:index, :show]
+
   def new
     @project = Project.new(
       mentor_name: current_user.name,
@@ -16,7 +18,6 @@ class ProjectsController < ApplicationController
   end
 
   def edit
-    project
     render :new
   end
 
@@ -25,7 +26,7 @@ class ProjectsController < ApplicationController
   end
 
   def destroy
-    project.destroy
+    @project.destroy
     redirect_to projects_path, notice: 'Project was successfully deleted'
   end
 
@@ -63,10 +64,6 @@ class ProjectsController < ApplicationController
   def check_date!
     redirect_to root_path, alert: 'Project submissions are closed.' and return \
       unless Season.projects_proposable?
-  end
-
-  def project
-    @project ||= Project.where(submitter_id: current_user.id).find(params[:id])
   end
 
   def project_params
