@@ -11,7 +11,7 @@ section#header
     div.row
       div.col-xs-offset-7.col-xs-5.col-md-offset-4.col-md-8
         nav.top
-          ul class="collapse navbar-collapse" id="menu"
+          ul class="navbar-default collapse navbar-collapse" id="menu"
             - if Season.projects_proposable?
               li class="announcement"
                 = link_to 'Submit your Project', new_project_path
