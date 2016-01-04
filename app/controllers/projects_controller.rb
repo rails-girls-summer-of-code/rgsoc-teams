@@ -3,7 +3,7 @@ class ProjectsController < ApplicationController
   before_action :login_required, only: [:new]
   before_action :check_date!, only: [:new, :create]
 
-  load_and_authorize_resource only: [:update, :destroy]
+  load_and_authorize_resource only: [:edit, :update, :destroy]
 
   def new
     @project = Project.new(
