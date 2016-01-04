@@ -12,7 +12,7 @@ module ApplicationHelper
 
   def application_disambiguation_link
     if current_user && current_user.application_drafts.any?
-      link_to  application_drafts_path, class: 'team' do
+      link_to  application_drafts_path do
         concat 'My Applications '
         concat content_tag(:span, current_user.application_drafts.count, class: 'badge')
       end
