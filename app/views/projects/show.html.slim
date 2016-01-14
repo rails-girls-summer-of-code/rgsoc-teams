@@ -25,7 +25,7 @@ table.table.table-striped.table-bordered
       |)
   tr
     th Project Website
-    td = link_to @project.url
+    td = link_to @project.url, @project.url
   tr
     th Suitable for Beginners?
     td = @project.beginner_friendly? ? 'yes' : 'no'
