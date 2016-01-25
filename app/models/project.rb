@@ -3,7 +3,7 @@ class Project < ActiveRecord::Base
   include HasSeason
 
   belongs_to :submitter, class_name: 'User'
-  has_many :comments, dependent: :destroy
+  has_many :comments, -> { order('created_at DESC') }, dependent: :destroy
 
   validates :name, :submitter, :mentor_email, presence: true
 
