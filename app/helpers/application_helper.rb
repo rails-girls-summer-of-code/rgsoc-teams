@@ -250,9 +250,12 @@ module ApplicationHelper
   def user_for_comment(comment)
     if comment.user.nil?
       "Deleted user"
-    elsif
-      comment.user == current_user
+    elsif comment.user == current_user
       "You"
+    elsif comment.user.admin?
+      comment.user.name + " " + content_tag(:small) do
+        content_tag(:span, 'RGSoC', class: 'label label-primary')
+      end
     else
       comment.user.name
     end
