@@ -71,5 +71,5 @@ h2#comments.header
 
 - @project.comments.each do |comment|
   hr
-  h5 = "#{ user_for_comment(comment) }, #{ format_date(comment.created_at, :short) }"
+  h5 = "#{ user_for_comment(comment) }, #{ l(comment.created_at, format: :short) }"
   p = render_markdown(comment.text).html_safe
