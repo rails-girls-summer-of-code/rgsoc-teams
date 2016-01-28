@@ -35,6 +35,10 @@ class Project < ActiveRecord::Base
     self.tags = taglist.split(',').map(&:strip).reject(&:blank?)
   end
 
+  def to_param
+    "#{id}-#{name}".parameterize
+  end
+
   def subscribers
     [submitter, mentor, comments.map(&:user)].flatten.uniq
   end

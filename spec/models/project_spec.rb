@@ -65,6 +65,13 @@ RSpec.describe Project do
     end
   end
 
+  describe '#to_param' do
+    it 'appends the name' do
+      subject.id, subject.name = 4711, 'Hello World'
+      expect(subject.to_param).to eql '4711-hello-world'
+    end
+  end
+
   describe '#subscribers' do
     let(:submitter) { build_stubbed :user }
 
