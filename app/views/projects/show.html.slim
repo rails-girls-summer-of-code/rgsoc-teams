@@ -50,7 +50,7 @@ h2.header
   .projects
     p = render_markdown(@project.issues_and_features).html_safe
 
-h2.header 
+h2#comments.header
   = icon('comments')
   span Comments
 - if @project.comments_locked?

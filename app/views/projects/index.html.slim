@@ -8,9 +8,10 @@ h1.header
 
 table.table.table-striped.table-bordered.table-condensed
   tr
-    th = sortable 'name'
-    th = sortable 'created_at', 'Submitted'
-    th = sortable 'aasm_state', 'Status'
+    th Name
+    th Submitted
+    th Comments
+    th Status
 
   - @projects.each do |project|
     tr
@@ -23,4 +24,7 @@ table.table.table-striped.table-bordered.table-condensed
             = link_to project, data: { confirm: 'This action cannot be undone. Are you sure?' }, method: :delete do
               = icon('minus-sign')
       td = l project.created_at, format: :short
+      td
+        - if project.comments.any?
+          = link_to project.comments.count, project_path(project, anchor: 'comments'), class: 'label label-default'
       td = project_status project
