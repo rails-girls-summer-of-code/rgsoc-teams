@@ -5,7 +5,7 @@ nav.page
   .back-nav
     ul
       li = icon('chevron-left')
-      li = link_to 'All Projects', 'javascript:history.back()', class: 'back'
+      li = link_to 'All Projects', projects_path, class: 'back'
 
 = content_tag :h1, @project.name
 
