@@ -27,7 +27,7 @@ describe Role do
     end
 
     shared_examples 'a guide role' do
-      it 'sends a noticiation to the user' do
+      it 'sends a notification to the user' do
         expect(RoleMailer).to have_received(:user_added_to_team).with(subject)
         expect(mailer).to have_received(:deliver_later)
       end
@@ -40,7 +40,7 @@ describe Role do
     context 'when the user is added as a student' do
       let(:role_name) { 'student' }
 
-      it 'does not send a noticiation' do
+      it 'does not send a notification' do
         expect(RoleMailer).to_not have_received(:user_added_to_team).with(subject)
       end
     end
