@@ -30,6 +30,9 @@ table.table.table-striped.table-bordered
     th Project Website
     td = link_to @project.url, @project.url
   tr
+    th Project Repository
+    td = link_to @project.source_url, @project.source_url
+  tr
     th Suitable for Beginners?
     td = @project.beginner_friendly? ? 'yes' : 'no'
   tr
