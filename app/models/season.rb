@@ -46,7 +46,7 @@ class Season < ActiveRecord::Base
 
   def year; name end
 
-  # switch_phase, in dev env only: enables developers to easily switch
+  # switch_phase, not available in deployment: enables developers to easily switch
   # between time dependent settings in views
   def fake_application_phase
     update({
@@ -69,7 +69,8 @@ class Season < ActiveRecord::Base
   end
 
   def back_to_reality
-    update({
+    # OPTIMIZE change update to destroy and adjust UX for developers accordingly
+  update({
         name: Date.today.year,
         starts_at: Time.utc(Date.today.year, 7, 1),
         ends_at: Time.utc(Date.today.year, 9, 30),
