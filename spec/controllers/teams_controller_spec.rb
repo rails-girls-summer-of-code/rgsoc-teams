@@ -4,11 +4,13 @@ require 'cancan/matchers'
 RSpec.describe TeamsController do
   render_views
 
+  include_context 'with user logged in'
+
   let(:user) { FactoryGirl.create(:user) }
   let(:team) { FactoryGirl.create(:team) }
+  let(:current_user) { user }
 
   let(:valid_attributes) { build(:team).attributes.merge(roles_attributes: [{ name: 'coach', github_handle: 'tobias' }]) }
-  let(:valid_session)    { { "warden.user.user.key" => session["warden.user.user.key"] } }
 
   before do
     user.roles.create(name: 'student', team: team)
@@ -61,14 +63,14 @@ RSpec.describe TeamsController do
 
   describe "GET show" do
     it "assigns the requested team as @team" do
-      get :show, { id: team.to_param }, valid_session
+      get :show, { id: team.to_param }
       expect(assigns(:team)).to eql team
     end
   end
 
   describe "GET new" do
     it "assigns a new team as @team" do
-      get :new, {}, valid_session
+      get :new
       expect(assigns(:team)).to be_a_new(Team)
     end
   end
@@ -78,8 +80,9 @@ RSpec.describe TeamsController do
       let(:team) { FactoryGirl.create(:team) }
 
       it "assigns the requested team as @team" do
-        get :edit, { id: team.to_param }, valid_session
+        get :edit, { id: team.to_param }
         expect(assigns(:team)).to eq(team)
+        expect(response).to be_success
       end
     end
 
@@ -87,7 +90,7 @@ RSpec.describe TeamsController do
       let(:another_team) { FactoryGirl.create(:team) }
 
       it "redirects to the homepage" do
-        get :edit, { id: another_team.to_param }, valid_session
+        get :edit, { id: another_team.to_param }
         expect(response).to redirect_to(root_url)
       end
     end
@@ -99,22 +102,22 @@ RSpec.describe TeamsController do
     describe "with valid params" do
       it "creates a new Team" do
         params = { team_id: team.to_param, team: valid_attributes }
-        expect { post :create, params, valid_session }.to change(Team, :count).by(1)
+        expect { post :create, params }.to change(Team, :count).by(1)
       end
 
       it "assigns a newly created team as @team" do
-        post :create, { team_id: team.to_param, team: valid_attributes }, valid_session
+        post :create, { team_id: team.to_param, team: valid_attributes }
         expect(assigns(:team)).to be_a(Team)
         expect(assigns(:team)).to be_persisted
       end
 
       it "redirects to the created team" do
-        post :create, { team_id: team.to_param, team: valid_attributes }, valid_session
+        post :create, { team_id: team.to_param, team: valid_attributes }
         expect(response).to redirect_to(assigns(:team))
       end
 
       it 'sets the current season' do
-        post :create, { team_id: team.to_param, team: valid_attributes }, valid_session
+        post :create, { team_id: team.to_param, team: valid_attributes }
         expect(assigns(:team).season.name).to eql Date.today.year.to_s
       end
     end
@@ -129,16 +132,16 @@ RSpec.describe TeamsController do
       describe "with valid params" do
         it "updates the requested team" do
           expect_any_instance_of(Team).to receive(:update_attributes).with({ 'name' => 'Blue' })
-          put :update, { id: team.to_param, team: { 'name' => 'Blue' } }, valid_session
+          put :update, { id: team.to_param, team: { 'name' => 'Blue' } }
         end
 
         it "assigns the requested team as @team" do
-          put :update, { id: team.to_param, team: valid_attributes }, valid_session
+          put :update, { id: team.to_param, team: valid_attributes }
           expect(assigns(:team)).to eq(team)
         end
 
         it "redirects to the team" do
-          put :update, { id: team.to_param, team: valid_attributes }, valid_session
+          put :update, { id: team.to_param, team: valid_attributes }
           expect(response).to redirect_to(team)
         end
       end
@@ -146,13 +149,13 @@ RSpec.describe TeamsController do
       describe "with invalid params" do
         it "assigns the team as @team" do
           allow_any_instance_of(Team).to receive(:save).and_return(false)
-          put :update, { id: team.to_param, team: { 'name' => 'invalid value' } }, valid_session
+          put :update, { id: team.to_param, team: { 'name' => 'invalid value' } }
           expect(assigns(:team)).to eq(team)
         end
 
         it "re-renders the 'edit' template" do
           allow_any_instance_of(Team).to receive(:save).and_return(false)
-          put :update, { id: team.to_param, team: { 'name' => 'invalid value' } }, valid_session
+          put :update, { id: team.to_param, team: { 'name' => 'invalid value' } }
           expect(response).to render_template("edit")
         end
       end
@@ -162,11 +165,11 @@ RSpec.describe TeamsController do
 
         it "does not update the requested team" do
           expect_any_instance_of(Team).not_to receive(:update_attributes)
-          put :update, { id: another_team.to_param, team: { 'name' => 'Blue' } }, valid_session
+          put :update, { id: another_team.to_param, team: { 'name' => 'Blue' } }
         end
 
         it "redirects the team to the homepage" do
-          put :update, { id: another_team.to_param, team: valid_attributes }, valid_session
+          put :update, { id: another_team.to_param, team: valid_attributes }
           expect(response).to redirect_to(root_url)
         end
       end
@@ -180,11 +183,11 @@ RSpec.describe TeamsController do
       let(:params) { { id: team.to_param } }
 
       it "destroys the requested team" do
-        expect { delete :destroy, params, valid_session }.to change(Team, :count).by(-1)
+        expect { delete :destroy, params }.to change(Team, :count).by(-1)
       end
 
       it "redirects to the team list" do
-        delete :destroy, params, valid_session
+        delete :destroy, params
         expect(response).to redirect_to(teams_url)
       end
     end
@@ -194,11 +197,11 @@ RSpec.describe TeamsController do
       let(:params)       { { id: another_team.to_param } }
 
       it "doesn't destroy the requested team" do
-        expect { delete :destroy, params, valid_session }.to change(Team, :count).by(1)
+        expect { delete :destroy, params }.to change(Team, :count).by(1)
       end
 
       it "redirects to the homepage" do
-        delete :destroy, params, valid_session
+        delete :destroy, params
         expect(response).to redirect_to(root_url)
       end
     end
