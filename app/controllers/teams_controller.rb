@@ -25,7 +25,6 @@ class TeamsController < ApplicationController
 
   def edit
     @team.sources.build(kind: 'blog') unless @team.sources.any?
-    @team.build_project unless @team.project
   end
 
   def create
