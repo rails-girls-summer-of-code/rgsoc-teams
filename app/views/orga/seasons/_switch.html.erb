@@ -4,6 +4,8 @@
 <p>… to adjusts all the date dependent settings for <i>current_season</i>.
 
 <%= form_tag switch_phase_path, :method => :patch do %>
+    <%= radio_button_tag :option, "Proposals" %>
+    <%= label_tag :option_Proposals, "Proposals Phase" %>
     <%= radio_button_tag :option, "Application" %>
      <%= label_tag :option_Application, "Application Phase" %> 
     <%= radio_button_tag :option, "CodingSummer" %> 

@@ -46,36 +46,37 @@ class Season < ActiveRecord::Base
 
   def year; name end
 
-  # switch_phase, in dev env only: enables developers to easily switch
+  # switch_phase: enables developers to easily switch
   # between time dependent settings in views
+  def fake_proposals_phase
+    update({
+         starts_at: 6.months.from_now,
+         ends_at: 9.months.from_now,
+         applications_open_at: 3.months.from_now,
+         applications_close_at: 4.months.from_now,
+         acceptance_notification_at: 5.months.from_now,
+         project_proposals_open_at: 4.weeks.ago,
+         project_proposals_close_at: 4.weeks.from_now
+    })
+  end
+
   def fake_application_phase
     update({
-        starts_at: Date.today+2.months,
-        ends_at: Date.today+5.months,
-        applications_open_at: Date.today-2.weeks,
-        applications_close_at: Date.today+2.weeks,
-        acceptance_notification_at: Date.today+6.weeks
+        starts_at: 2.months.from_now,
+        ends_at: 5.months.from_now,
+        applications_open_at: 2.weeks.ago,
+        applications_close_at: 2.weeks.from_now,
+        acceptance_notification_at: 6.weeks.from_now
     })
   end
 
   def fake_coding_phase
     update({
-        starts_at: Date.today-6.weeks,
-        ends_at: Date.today+6.weeks,
-        applications_open_at: Date.today-4.months,
-        applications_close_at: Date.today-3.months,
-        acceptance_notification_at: Date.today-2.months
-    })
-  end
-
-  def back_to_reality
-    update({
-        name: Date.today.year,
-        starts_at: Time.utc(Date.today.year, 7, 1),
-        ends_at: Time.utc(Date.today.year, 9, 30),
-        applications_open_at: Time.utc(Date.today.year, 3, 1),
-        applications_close_at: Time.utc(Date.today.year, 3, 31),
-        acceptance_notification_at: Time.utc(Date.today.year, 5, 1)
+        starts_at: 6.weeks.ago,
+        ends_at: 6.weeks.from_now,
+        applications_open_at: 4.months.ago,
+        applications_close_at: 3.months.ago,
+        acceptance_notification_at: 2.months.ago
     })
   end
 
