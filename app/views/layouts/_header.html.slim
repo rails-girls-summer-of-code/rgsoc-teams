@@ -10,26 +10,27 @@ section#header
 
     div.row
       div.col-xs-offset-7.col-xs-5.col-md-offset-4.col-md-8
-        nav.top
-          ul class="collapse navbar-collapse" id="menu"
-            - if Season.projects_proposable?
-              li class="announcement"
-                = link_to 'Submit your Project', new_project_path
-            - if show_application_link?
-              li = application_disambiguation_link
-            - if current_user.try :current_student?
-              li = link_to 'Status Updates', [:students, :status_updates], class: params[:controller] == 'students/status_updates' ? 'active' : ''
-            - if current_user.try :supervisor?
-              li = link_to 'Dashboard', supervisor_dashboard_path
-            - if current_season.started?
-              li = link_to 'Activity',     root_path,  class: params[:controller] == 'activities' ? 'active' : ''
-            li = link_to 'Teams',        teams_path, class: params[:controller] == 'teams' ? 'active' : ''
-            li = link_to 'Community', users_path, class: params[:controller] == 'users' ? 'active' : ''
-            - if current_season.applications_open?
-              li = link_to 'Conferences',  conferences_path,  class: params[:controller] == 'conferences' ? 'active' : ''
-            /- if signed_in? && current_user.roles.includes?('reviewer')  # TODO bring this into a reviewer dashboard
-            /  li = link_to 'Applications', applications_path
-            li = link_to 'Home &rarr;'.html_safe, 'http://railsgirlssummerofcode.org'
+        nav class="top navbar-default" role="navigation"
+          div class="collapse navbar-collapse" id="menu"
+            ul
+              - if Season.projects_proposable?
+                li class="announcement"
+                  = link_to 'Submit your Project', new_project_path
+              - if show_application_link?
+                li = application_disambiguation_link
+              - if current_user.try :current_student?
+                li = link_to 'Status Updates', [:students, :status_updates], class: params[:controller] == 'students/status_updates' ? 'active' : ''
+              - if current_user.try :supervisor?
+                li = link_to 'Dashboard', supervisor_dashboard_path
+              - if current_season.started?
+                li = link_to 'Activity',     root_path,  class: params[:controller] == 'activities' ? 'active' : ''
+              li = link_to 'Teams',        teams_path, class: params[:controller] == 'teams' ? 'active' : ''
+              li = link_to 'Community', users_path, class: params[:controller] == 'users' ? 'active' : ''
+              - if current_season.applications_open?
+                li = link_to 'Conferences',  conferences_path,  class: params[:controller] == 'conferences' ? 'active' : ''
+              /- if signed_in? && current_user.roles.includes?('reviewer')  # TODO bring this into a reviewer dashboard
+              /  li = link_to 'Applications', applications_path
+              li = link_to 'Home &rarr;'.html_safe, 'http://railsgirlssummerofcode.org'
     div.row 
       div.col-xs-offset-5.col-xs-7.col-md-offset-8.col-md-4
         .text-right
