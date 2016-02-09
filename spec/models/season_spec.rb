@@ -190,4 +190,21 @@ describe Season do
     end
   end
 
+  ######## Testing Season Switch #############
+  describe 'switch phase' do
+    it 'timeshifts the application phase to today' do
+      Timecop.travel(Season.current.applications_close_at - 1.month) do
+        shift = subject.fake_application_phase
+        expect(subject).to be_application_period
+      end
+    end
+
+    it 'timeshifts the coding phase to today' do
+      Timecop.travel(Season.current.applications_close_at - 1.day) do
+        shift = subject.fake_coding_phase
+        expect(subject).to be_started
+      end
+    end
+  end
+
 end
