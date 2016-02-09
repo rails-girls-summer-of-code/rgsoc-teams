@@ -48,6 +48,18 @@ class Season < ActiveRecord::Base
 
   # switch_phase: enables developers to easily switch
   # between time dependent settings in views
+  def fake_proposals_phase
+    update({
+         starts_at: Date.today+6.months,
+         ends_at: Date.today+9.months,
+         applications_open_at: Date.today+3.months,
+         applications_close_at: Date.today+4.months,
+         acceptance_notification_at: Date.today+5.months,
+         project_proposals_open_at: Date.today-4.weeks,
+         project_proposals_close_at: Date.today+4.weeks
+    })
+  end
+
   def fake_application_phase
     update({
         starts_at: Date.today+2.months,
