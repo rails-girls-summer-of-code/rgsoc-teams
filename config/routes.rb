@@ -1,11 +1,7 @@
 RgsocTeams::Application.routes.draw do
   get 'status_updates/show'
 
-  if ActiveRecord::Base.connection.table_exists?("seasons") && Season.current.started?
-    root to: 'activities#index'
-  else
-    root to: 'users#index'
-  end
+  root to: 'activities#index'
 
   devise_for :users, controllers: { omniauth_callbacks: 'omniauth_callbacks' }
 
