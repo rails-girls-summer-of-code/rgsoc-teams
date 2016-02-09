@@ -26,7 +26,7 @@ gem 'font-awesome-sass-rails'
 
 gem 'sass-rails'
 gem 'coffee-rails'
-gem 'uglifier', '~> 2.5.0'
+gem 'uglifier', '~> 2.7.0'
 gem 'sprockets-rails'
 
 gem 'newrelic_rpm'
