@@ -47,7 +47,7 @@ class Orga::SeasonsController < Orga::BaseController
   # # switch_phase: enables developers to easily switch between time dependent settings in views
   # by opening and closing the corresponding links in the nav bar
   def switch_phase
-    return unless Rails.env.development?
+    return if Rails.env.production?
     @season = current_season
     case params[:option]
     when 'Application'

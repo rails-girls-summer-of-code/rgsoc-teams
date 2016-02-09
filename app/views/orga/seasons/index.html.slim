@@ -28,4 +28,4 @@ br
 
 = link_to 'New Season', [:new, :orga, :season], class: 'btn btn-default'
 
-= render partial: 'orga/seasons/switch' if Rails.env.development?
+= render partial: 'orga/seasons/switch' unless Rails.env.production?
