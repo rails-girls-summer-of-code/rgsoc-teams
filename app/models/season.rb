@@ -46,7 +46,7 @@ class Season < ActiveRecord::Base
 
   def year; name end
 
-  # switch_phase, in dev env only: enables developers to easily switch
+  # switch_phase: enables developers to easily switch
   # between time dependent settings in views
   def fake_application_phase
     update({
@@ -65,17 +65,6 @@ class Season < ActiveRecord::Base
         applications_open_at: Date.today-4.months,
         applications_close_at: Date.today-3.months,
         acceptance_notification_at: Date.today-2.months
-    })
-  end
-
-  def back_to_reality
-    update({
-        name: Date.today.year,
-        starts_at: Time.utc(Date.today.year, 7, 1),
-        ends_at: Time.utc(Date.today.year, 9, 30),
-        applications_open_at: Time.utc(Date.today.year, 3, 1),
-        applications_close_at: Time.utc(Date.today.year, 3, 31),
-        acceptance_notification_at: Time.utc(Date.today.year, 5, 1)
     })
   end
 
