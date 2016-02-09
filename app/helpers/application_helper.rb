@@ -7,7 +7,7 @@ module ApplicationHelper
 
   def show_application_link?
     current_season.application_period? ||
-      (!current_season.started? && Time.now.utc < (current_season.acceptance_notification_at || Time.new))
+      (Time.now.utc.between? current_season.applications_close_at, current_season.acceptance_notification_at)
   end
 
   def application_disambiguation_link
