@@ -2,6 +2,7 @@
 
 [![Build Status](https://travis-ci.org/rails-girls-summer-of-code/rgsoc-teams.png)](https://travis-ci.org/rails-girls-summer-of-code/rgsoc-teams)
 [![Code Climate](https://codeclimate.com/github/rails-girls-summer-of-code/rgsoc-teams.png)](https://codeclimate.com/github/rails-girls-summer-of-code/rgsoc-teams)
+[![Dependency Status](https://gemnasium.com/rails-girls-summer-of-code/rgsoc-teams.svg)](https://gemnasium.com/rails-girls-summer-of-code/rgsoc-teams)
 
 **Looking for your help!**
 
@@ -71,21 +72,21 @@ directory the variables from `.env` will be loaded into the environment.
 
 E.g. `foreman run rails server` or `foreman run rails console`.
 
-## Quick Start  
-###Beginner Friendly Tips for New Contributors  
+## Quick Start 
+###Beginner Friendly Tips for New Contributors
 - After forking the repo, follow the steps described above under 'Bootstrap'. Mailtrap is optional.
 - (Install and) connect to Postgres server  
 - With everything properly installed, open the browser in development environment
 - The app should be available, with the database loaded with fake data.
-- To access all the functionality of the teams app, add yourself as an organizer. 
+- To access all the functionality of the teams app, add yourself as an organizer.
     * In the browser: log in with your github account 
-    * In Rails Console:  
-    ``` user = User.last``` #or ```user = User.find_by(github_handle: "yourgithubhandle") ```  
-    ``` user.roles.create(name: "organizer") ```  
-    You can assign yourself other roles in the same way. If however you assign 
+    * In Rails Console:
+    ``` user = User.last``` #or ```user = User.find_by(github_handle: "yourgithubhandle") ```
+    ``` user.roles.create(name: "organizer") ```
+    You can assign yourself other roles in the same way. If however you assign
     yourself a student role AND another role, that may lead to unexpected behavior in the app. In that case, remove the student role.    
     - Refresh the browser to effectuate. You should see links for organizers. 
-- Once you are an `organizer`, you can add a season and switch between season's phases at 
+- Once you are an `organizer`, you can add a season and switch between season's phases at
 http://localhost:3000/orga/seasons in your browser.
 - You are good to go now. Happy coding!
 
