@@ -8,7 +8,6 @@ FactoryGirl.define do
       student_name: FFaker::Name.name,
       location: FFaker::Address.city,
       minimum_money: rand(100),
-      coaches_hours_per_week: 3
     }}
   end
 end
