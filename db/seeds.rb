@@ -7,3 +7,5 @@ FactoryGirl.create(:supervisor)
 # To explore use cases where user has no role yet
 # NB These are not listed in the Community listing
 FactoryGirl.create_list(:user, 6)
+
+FactoryGirl.create_list(:status_update, 5)

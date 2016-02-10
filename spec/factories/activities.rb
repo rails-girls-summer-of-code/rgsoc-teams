@@ -19,8 +19,8 @@ FactoryGirl.define do
 
     factory :status_update do
       kind 'status_update'
-      title { FFaker::Lorem.sentence(5) }
-      content { FFaker::Lorem.paragraph }
+      title { FFaker::CheesyLingo.sentence }
+      content { FFaker::CheesyLingo.paragraph }
     end
 
   end
