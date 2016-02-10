@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151207195550) do
+ActiveRecord::Schema.define(version: 20160210124328) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -33,8 +33,6 @@ ActiveRecord::Schema.define(version: 20151207195550) do
 
   create_table "application_drafts", force: :cascade do |t|
     t.text     "coaches_contact_info"
-    t.text     "coaches_hours_per_week"
-    t.text     "coaches_why_team_successful"
     t.text     "project_name"
     t.text     "project_url"
     t.text     "misc_info"
@@ -48,7 +46,7 @@ ActiveRecord::Schema.define(version: 20151207195550) do
     t.datetime "updated_at"
     t.datetime "applied_at"
     t.integer  "updater_id"
-    t.text     "state",                       default: "draft", null: false
+    t.text     "state",                    default: "draft", null: false
     t.text     "project_plan"
     t.integer  "position"
     t.integer  "signed_off_by"
@@ -159,7 +157,7 @@ ActiveRecord::Schema.define(version: 20151207195550) do
     t.text     "issues_and_features"
     t.boolean  "beginner_friendly"
     t.string   "aasm_state"
-    t.text     "tags",                             default: [], array: true
+    t.text     "tags",                             default: [],    array: true
     t.string   "source_url"
     t.boolean  "comments_locked",                  default: false
   end
@@ -259,7 +257,7 @@ ActiveRecord::Schema.define(version: 20151207195550) do
     t.text     "banking_info"
     t.text     "postal_address"
     t.string   "timezone",                          limit: 255
-    t.string   "interested_in",                                 default: [],                 array: true
+    t.string   "interested_in",                     limit: 255, default: [],                 array: true
     t.boolean  "hide_email"
     t.boolean  "is_company",                                    default: false
     t.string   "company_name",                      limit: 255
