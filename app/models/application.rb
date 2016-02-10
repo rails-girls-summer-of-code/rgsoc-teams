@@ -15,7 +15,7 @@ class Application < ActiveRecord::Base
       :student0_application_about, :student1_application_about,
       :student0_application_community_engagement, :student1_application_community_engagement,
 
-      :coaches_hours_per_week, :coaches_why_team_successful, :voluntary, :voluntary_hours_per_week, :heard_about_it,
+      :voluntary, :voluntary_hours_per_week, :heard_about_it,
 
       :project_name, :project_url, :project_plan,
     ]
@@ -135,7 +135,7 @@ class Application < ActiveRecord::Base
   end
 
   def rating_defaults
-    keys = [:women_priority, :skill_level, :practice_time, :project_time, :support]
+    keys = [:women_priority, :skill_level, :practice_time, :project_time]
     keys.inject({}) { |defaults, key| defaults.merge(key => send("estimated_#{key}")) }
   end
 
@@ -176,17 +176,6 @@ class Application < ActiveRecord::Base
 
   def estimated_project_time
     10
-  end
-
-  def estimated_support
-    value = application_data['coaches_hours_per_week']
-    return unless value =~ /^\d+$/
-
-    case value.to_i
-    when 5 then 8
-    when 3 then 5
-    when 1 then 1
-    end
   end
 
   def seems_to_have_pair?
