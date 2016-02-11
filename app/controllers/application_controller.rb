@@ -1,6 +1,8 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
 
+  after_action :store_location
+
   helper_method :current_season, :current_student
 
   before_action do
@@ -20,7 +22,7 @@ class ApplicationController < ActionController::Base
     if user.just_created?
       edit_user_path(user, welcome: true, redirect_to: session.delete(:redirect_to))
     else
-      session.delete(:redirect_to) || user_path(current_user)
+      session.delete(:previous_url_login_required) || session.delete(:previous_url) || user_path(current_user)
     end
   end
 
@@ -57,6 +59,16 @@ class ApplicationController < ActionController::Base
   end
 
   def login_required
+    store_location key: :previous_url_login_required
     redirect_to root_path, alert: 'Please log in with your Github account first' unless current_user
+  end
+
+  def store_location(key: :previous_url)
+    return unless request.get?
+    if !request.path.starts_with?('/auth') && \
+        request.path != "/sign_out" && \
+        !request.xhr? # don't store ajax calls
+      session[key] = request.fullpath
+    end
   end
 end
