@@ -66,15 +66,6 @@ class ApplicationDraftsController < ApplicationController
     redirect_to application_drafts_path
   end
 
-  def sign_off
-    if application_draft.sign_off!
-      flash[:notice] = 'Application draft has been signed off.'
-    elsif application_draft.errors.any?
-      flash[:alert] = 'An error has occured. Please contact us.'
-    end
-    redirect_to application_drafts_url
-  end
-
   protected
 
   def application_draft
