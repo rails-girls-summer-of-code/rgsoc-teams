@@ -118,12 +118,11 @@ RSpec.describe ApplicationDraftsController do
         context "as a #{role} of the team" do
           it 'renders the new template' do
             get :edit, id: draft.to_param
-            expect(response).to render_template 'new'
+            expect(response).to redirect_to root_path
           end
         end
       end
 
-      it_behaves_like 'reading the application draft form as', :student
       it_behaves_like 'reading the application draft form as', :coach
       it_behaves_like 'reading the application draft form as', :mentor
     end
@@ -248,22 +247,22 @@ RSpec.describe ApplicationDraftsController do
         end
       end
 
-      shared_examples_for 'fails to apply for role' do |role|
+      shared_examples_for 'fails to apply for role' do |role, redirection_to:|
         let!(:role) { create("#{role}_role", user: user, team: team) }
 
         it "fails to apply as a #{role}" do
           expect { put :apply, id: draft.id }.not_to change { Application.count }
           expect(flash[:alert]).to be_present
-          expect(response).to redirect_to application_drafts_path
+          expect(response).to redirect_to redirection_to
         end
       end
 
-      it_behaves_like 'fails to apply for role', :student do
+      it_behaves_like 'fails to apply for role', :student, redirection_to: '/application_drafts' do
         let(:draft) { create :application_draft, team: team }
       end
 
-      it_behaves_like 'fails to apply for role', :coach
-      it_behaves_like 'fails to apply for role', :mentor
+      it_behaves_like 'fails to apply for role', :coach,  redirection_to: '/'
+      it_behaves_like 'fails to apply for role', :mentor, redirection_to: '/'
     end
 
     describe 'PUT sign_off' do

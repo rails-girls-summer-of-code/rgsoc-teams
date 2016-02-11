@@ -4,7 +4,7 @@ class ApplicationDraftsController < ApplicationController
   before_action :sign_in_required
   before_action :ensure_max_applications, only: :new
   before_action :disallow_modifications_after_submission, only: :update
-  before_action :require_student, only: [:prioritize, :apply]
+  before_action -> { require_role 'student' }, except: [:new]
 
   helper_method :application_draft
 
@@ -86,13 +86,8 @@ class ApplicationDraftsController < ApplicationController
   end
 
   def application_draft_params
-    if application_draft.as_student?
-      params.require(:application_draft).
-        permit(:project_name, :project_url, :project_plan, :misc_info, :heard_about_it, :voluntary, :voluntary_hours_per_week)
-    elsif application_draft.as_coach?
-      params.require(:application_draft).
-        permit(:coaches_contact_info)
-    end
+    params.require(:application_draft).
+      permit(:project_name, :project_url, :project_plan, :misc_info, :heard_about_it, :voluntary, :voluntary_hours_per_week)
   end
 
   def student_params
@@ -112,7 +107,7 @@ class ApplicationDraftsController < ApplicationController
   end
 
   def update_student!
-    current_student.update!(student_params) if application_draft.as_student?
+    current_student.update!(student_params)
   end
 
   def checktime
@@ -131,21 +126,8 @@ class ApplicationDraftsController < ApplicationController
     end
   end
 
-  def require_student
-    unless application_draft.as_student?
-      redirect_to application_drafts_path, alert: 'You must be listed as a student on your team'
-    end
-  end
-
   def current_team
-    current_student.current_team || extended_team
-  end
-
-  def extended_team
-    @extended_team ||= begin
-                        team = ApplicationDraft.find(params[:id]).team
-                        team if (team.coaches + team.mentors).include? current_user
-                      end
+    current_student.current_team
   end
 
   def open_draft
