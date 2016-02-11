@@ -91,7 +91,7 @@ class ApplicationDraftsController < ApplicationController
         permit(:project_name, :project_url, :project_plan, :misc_info, :heard_about_it, :voluntary, :voluntary_hours_per_week)
     elsif application_draft.as_coach?
       params.require(:application_draft).
-        permit(:coaches_contact_info, :coaches_hours_per_week, :coaches_why_team_successful)
+        permit(:coaches_contact_info)
     end
   end
 

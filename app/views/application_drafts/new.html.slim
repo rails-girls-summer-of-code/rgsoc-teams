@@ -38,11 +38,6 @@ p.attention
     = f.input :project_plan, label: 'Your project plan', hint: "Please describe issues and features that you want to work on this summer, as discussed with your project mentor(s). See #{link_to 'Project Plan Section in Application Guide', 'http://railsgirlssummerofcode.org/students/application/#projectplan', target: :blank} for details.".html_safe, input_html: { rows: 6, disabled: !application_draft.as_student? || application_draft.applied? }
 
   fieldset
-    legend Filled in by coach(es)
-    = f.input :coaches_hours_per_week, label: 'Coach(es): How much time can your coaches put into (being available for) support, in total?', hint: 'Rough estimate, e.g. x hours per day', input_html: { disabled: !application_draft.as_coach? }
-    = f.input :coaches_why_team_successful, label: 'Coach(es): Why do you think this team will be successful with their project?', input_html: { disabled: !application_draft.as_coach? }
-
-  fieldset
     legend Miscellaneous
     = f.input :voluntary, as: :boolean, hint: 'This will not exclude you from being in the running for a sponsored seat.', label: 'We could join the RGSoC as a voluntary team', input_html: { disabled: !application_draft.as_student? || application_draft.applied? }
     = f.input :voluntary_hours_per_week, as: :integer, label: 'As a voluntary team, how many hours per week would you be able to work in the project? (please enter a full number only! eg. 15)', input_html: { disabled: !application_draft.as_student? || application_draft.applied? }

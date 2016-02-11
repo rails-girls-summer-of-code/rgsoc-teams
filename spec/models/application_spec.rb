@@ -109,26 +109,12 @@ describe Application do
       it { is_expected.to be_present }
     end
 
-    default_methods = %w(women_priority skill_level practice_time project_time support)
+    default_methods = %w(women_priority skill_level practice_time project_time)
 
     default_methods.each do |key|
       describe "estimated_#{key}" do
         subject { super().send("estimated_#{key}") }
         it { is_expected.to be_present }
-      end
-    end
-
-    describe '.estimated_support' do
-      it 'returns the a estimated value depending on coach-hours' do
-        hours = {
-          5 => 8,
-          3 => 5,
-          1 => 1
-        }
-        hours.each do |key, value|
-          allow(subject).to receive(:application_data).and_return('coaches_hours_per_week' => key.to_s)
-          expect(subject.estimated_support).to eq(value)
-        end
       end
     end
   end

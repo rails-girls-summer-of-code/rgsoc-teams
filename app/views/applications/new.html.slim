@@ -44,12 +44,6 @@ p.attention
     = f.input :projects, as: :text, label: 'What project are you planning to work on?', hint: "What project are you planning to work on? If you don't know yet, you'll have time to still sort this out. The earlier you know your project the better :)", input_html: { rows: '5' }
 
   fieldset
-    legend Filled in by coach(es)
-    = f.input :coaches, as: :text, label: 'Coach(es): Who is going to coach you?', hint: 'Please provide contact information. If you have a team of coaches please describe how they are going to team up/split work.', input_html: { rows: '5', disabled: !@application_form.as_coach? }
-    = f.input :hours_per_coach, label: 'Coach(es): How much time can your coaches put into (being available for) support, in total?', hint: 'Rough estimate, e.g. x hours per day', input_html: { disabled: !@application_form.as_coach? }
-    = f.input :why_team_successful, label: 'Coach(es): Why do you think this team is going to be successfully working on their projects?', input_html: { disabled: !@application_form.as_coach? }
-
-  fieldset
     legend Miscellaneous
     -# = f.input :project_period, as: :text, label: 'When do you plan to work on this?', hint: 'We are aiming at July 1st to September 30th for most students, but you can be flexible. Please discuss this with your team.', input_html: { rows: '5' }
     = f.input :minimum_money, label: 'Where you live, how much money do you need at the very minimum per month to sustain yourself while working fulltime on an Open Source project?', hint: 'This question is optional'

@@ -35,13 +35,7 @@ class CreatesApplicationFromDraft
       voluntary_hours_per_week: application_draft.voluntary_hours_per_week,
       heard_about_it: application_draft.heard_about_it,
       misc_info: application_draft.misc_info,
-    }.merge(student_attributes).merge(coaches_attributes).merge(project_attributes)
-  end
-
-  def coaches_attributes
-    %w(coaches_hours_per_week coaches_why_team_successful).each_with_object({}) do |attribute, hash|
-      hash[attribute] = application_draft.send(attribute)
-    end
+    }.merge(student_attributes).merge(project_attributes)
   end
 
   def project_attributes
