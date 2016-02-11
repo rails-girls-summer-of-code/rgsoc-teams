@@ -1,7 +1,7 @@
 FactoryGirl.define do
   factory :team do
     kind 'sponsored'
-    sequence(:name) { |i| "#{i}-#{FFaker::Lorem.word}" }
+    sequence(:name) { |i| "#{i}-#{FFaker::CheesyLingo.word}" }
 
     trait :helpdesk do
       name 'helpdesk'
