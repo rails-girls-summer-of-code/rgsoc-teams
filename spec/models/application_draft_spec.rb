@@ -153,18 +153,6 @@ RSpec.describe ApplicationDraft do
         end
       end
     end
-
-    context 'for coaches\' attributes' do
-      before { allow(subject).to receive(:students).and_return [] }
-
-      it { is_expected.not_to validate_presence_of :coaches_hours_per_week }
-      it { is_expected.not_to validate_presence_of :coaches_why_team_successful }
-
-      context 'when applying' do
-        it { is_expected.to validate_presence_of(:coaches_hours_per_week).on(:apply) }
-        it { is_expected.to validate_presence_of(:coaches_why_team_successful).on(:apply) }
-      end
-    end
   end
 
   context 'with callbacks' do

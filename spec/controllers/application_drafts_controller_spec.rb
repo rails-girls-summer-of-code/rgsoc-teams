@@ -118,12 +118,11 @@ RSpec.describe ApplicationDraftsController do
         context "as a #{role} of the team" do
           it 'renders the new template' do
             get :edit, id: draft.to_param
-            expect(response).to render_template 'new'
+            expect(response).to redirect_to root_path
           end
         end
       end
 
-      it_behaves_like 'reading the application draft form as', :student
       it_behaves_like 'reading the application draft form as', :coach
       it_behaves_like 'reading the application draft form as', :mentor
     end
@@ -248,50 +247,23 @@ RSpec.describe ApplicationDraftsController do
         end
       end
 
-      shared_examples_for 'fails to apply for role' do |role|
+      shared_examples_for 'fails to apply for role' do |role, redirection_to:|
         let!(:role) { create("#{role}_role", user: user, team: team) }
 
         it "fails to apply as a #{role}" do
           expect { put :apply, id: draft.id }.not_to change { Application.count }
           expect(flash[:alert]).to be_present
-          expect(response).to redirect_to application_drafts_path
+          expect(response).to redirect_to redirection_to
         end
       end
 
-      it_behaves_like 'fails to apply for role', :student do
+      it_behaves_like 'fails to apply for role', :student, redirection_to: '/application_drafts' do
         let(:draft) { create :application_draft, team: team }
       end
 
-      it_behaves_like 'fails to apply for role', :coach
-      it_behaves_like 'fails to apply for role', :mentor
+      it_behaves_like 'fails to apply for role', :coach,  redirection_to: '/'
+      it_behaves_like 'fails to apply for role', :mentor, redirection_to: '/'
     end
 
-    describe 'PUT sign_off' do
-      let(:team)  { create(:team, :applying_team) }
-      let(:draft) { create :application_draft, :appliable, team: team }
-      let!(:role) { create(:mentor_role, user: user, team: team) }
-      let(:application) { draft.reload.application }
-
-      subject { put :sign_off, id: draft.id }
-
-      before do
-        draft.submit_application!
-        subject
-        draft.reload
-      end
-
-      it 'signs off the draft' do
-        expect(draft.signed_off_by).to eq(user.id)
-        expect(draft.signed_off_at.to_s).to eq(Time.now.utc.to_s)
-        expect(flash[:notice]).to eq('Application draft has been signed off.')
-        expect(response).to redirect_to application_drafts_path
-      end
-
-      it 'marks the associated application as signed off' do
-        expect(application).to be_signed_off
-        expect(application.signed_off_by).to eq(user.id)
-        expect(application.signed_off_at.to_s).to eq(Time.now.utc.to_s)
-      end
-    end
   end
 end

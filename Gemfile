@@ -48,7 +48,7 @@ group :development, :test do
   gem 'factory_girl_rails'
   gem 'database_cleaner'
   gem 'byebug', require: !ENV['RM_INFO'] #require parameter is workaround for RubyMine with Rails ~> 4.1
-  gem 'ffaker'
+  gem 'ffaker', '~> 2.2.0'
 end
 
 group :development do
