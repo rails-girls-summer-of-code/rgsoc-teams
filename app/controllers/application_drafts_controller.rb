@@ -51,11 +51,6 @@ class ApplicationDraftsController < ApplicationController
     render :new
   end
 
-  def prioritize
-    application_draft.insert_at(1)
-    redirect_to application_drafts_url
-  end
-
   def apply
     if application_draft.ready? && application_draft.submit_application!
       flash[:notice] = 'Your application has been submitted!'
