@@ -23,7 +23,9 @@ deploy:
   provider: heroku
   api_key:
     secure: pYiwd56UVWKPYDO1057KBIfZYfKKpPZ69kHIbDG1s1C/GY6mrfGRvchYGobguNw0fvhYdGkIlgZrpmwerC/EPkamKBxLjbKoL851ps+Ng7iREEPwT+t9HB1kV8yvjTsQVYHfXHtR12qi4NO3sqYTwxvkW/0cNXYgj//5+osc6/k=
-  app: rgsoc-teams-production
+  app:
+    master: rgsoc-teams-production
+    application-process-2016: rgsoc-teams-staging
   run:
   - rake db:migrate
   - restart
