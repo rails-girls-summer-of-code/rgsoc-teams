@@ -112,7 +112,7 @@ class ApplicationDraftsController < ApplicationController
   end
 
   def ensure_max_applications
-    if current_student.current_drafts.size > 1
+    if current_student.current_drafts.any?
       redirect_to application_drafts_path, alert: 'You cannot lodge more than two applications'
     end
   end

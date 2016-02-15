@@ -22,7 +22,7 @@ class ApplicationDraft < ActiveRecord::Base
   validates :project_name, :project_url, :project_plan, presence: true, on: :apply
   validates :heard_about_it, presence: true, on: :apply
   validates :voluntary_hours_per_week, presence: true, on: :apply, if: :voluntary?
-  validate :only_two_application_drafts_allowed, if: :team, on: :create
+  validate :only_one_application_draft_allowed, if: :team, on: :create
   validate :mentor_required, on: :apply
 
   validates *STUDENT0_REQUIRED_FIELDS, presence: true, on: :apply
@@ -121,9 +121,9 @@ class ApplicationDraft < ActiveRecord::Base
     end
   end
 
-  def only_two_application_drafts_allowed
-    unless team.application_drafts.where(season: season).count < 2
-      errors.add(:base, 'Only two applications may be lodged')
+  def only_one_application_draft_allowed
+    unless team.application_drafts.where(season: season).none?
+      errors.add(:base, 'Only one application may be lodged')
     end
   end
 

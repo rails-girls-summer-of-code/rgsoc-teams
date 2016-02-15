@@ -20,24 +20,17 @@ RSpec.describe ApplicationDraft do
         team.application_drafts.build
       end
 
-      it 'allows the creation of a second application draft' do
-        expect { build_draft.save }.to \
-          change { team.application_drafts.count }.by(1)
-      end
-
       context 'with an existing draft' do
-        before { build_draft.save }
+        let!(:second_draft) { build_draft }
 
-        let!(:third_draft) { build_draft }
-
-        it 'prohibits the creation of a third application draft' do
-          expect { third_draft.save }.not_to change { team.application_drafts.count }
-          expect(third_draft.errors[:base]).to eql ['Only two applications may be lodged']
+        it 'prohibits the creation of a second application draft' do
+          expect { second_draft.save }.not_to change { team.application_drafts.count }
+          expect(second_draft.errors[:base]).to eql ['Only one application may be lodged']
         end
 
         it 'allows drafts in different seasons' do
-          third_draft.season = create(:season, name: 2000)
-          expect { third_draft.save }.to change { team.application_drafts.count }.by(1)
+          second_draft.season = create(:season, name: 2000)
+          expect { second_draft.save }.to change { team.application_drafts.count }.by(1)
         end
       end
     end
