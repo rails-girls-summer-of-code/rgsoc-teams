@@ -5,6 +5,7 @@ FactoryGirl.define do
     trait :appliable do
       team { create :team, :applying_team }
 
+      association :project1, factory: :project
       project_name { FFaker::Movie.title }
       project_url { FFaker::Internet.http_url }
       project_plan { FFaker::Lorem.paragraph }

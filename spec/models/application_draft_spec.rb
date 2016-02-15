@@ -45,6 +45,7 @@ RSpec.describe ApplicationDraft do
         it { is_expected.to validate_presence_of(attribute).on(:apply) }
       end
 
+      it_behaves_like 'proxies :apply validation', :project1
       it_behaves_like 'proxies :apply validation', :project_name
       it_behaves_like 'proxies :apply validation', :project_url
       it_behaves_like 'proxies :apply validation', :project_plan
