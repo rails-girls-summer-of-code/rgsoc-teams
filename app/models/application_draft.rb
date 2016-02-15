@@ -9,6 +9,8 @@ class ApplicationDraft < ActiveRecord::Base
 
   belongs_to :team
   belongs_to :updater, class_name: 'User'
+  belongs_to :project1, class_name: 'Project'
+  belongs_to :project2, class_name: 'Project'
   has_one    :application
   belongs_to :signatory, class_name: 'User', foreign_key: :signed_off_by
 
