@@ -1,5 +1,6 @@
 class Team < ActiveRecord::Base
   include ProfilesHelper, HasSeason
+  include AASM
 
   delegate :sponsored?, :voluntary?, to: :kind
 
@@ -68,6 +69,19 @@ class Team < ActiveRecord::Base
 
   def rating(type = :mean, options = { bonus_points: true })
     Rating::Calc.new(self, type, options).calc
+  end
+
+  aasm :column => :state, :no_direct_assignment => true do
+    state :pending, :initial => true
+    state :confirmed
+
+    event :confirm do
+      transitions from: :pending, to:  :confirmed, guard: :two_students_present?
+    end
+  end
+
+  def two_students_present?
+    students.size > 1
   end
 
   def combined_ratings
