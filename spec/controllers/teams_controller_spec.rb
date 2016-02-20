@@ -120,6 +120,25 @@ RSpec.describe TeamsController do
         post :create, { team_id: team.to_param, team: valid_attributes }
         expect(assigns(:team).season.name).to eql Date.today.year.to_s
       end
+
+      it 'sets the state as pending' do
+        post :create, { team_id: team.to_param, team: valid_attributes }
+        expect(assigns(:team)).to be_pending
+      end
+
+      context 'given the team is comprised of two students' do
+        let(:first_student) { FactoryGirl.create(:user) }
+        let(:second_student) { FactoryGirl.create(:user) }
+        let(:team) { FactoryGirl.create(:team) }
+        let(:current_user) { first_student }
+
+        let(:valid_attributes) { build(:team).attributes.merge(roles_attributes: [{ name: 'student', github_handle: first_student.github_handle }, { name: 'student', github_handle: second_student.github_handle }]) }
+
+        it 'sets the state as confirmed' do
+          post :create, { team_id: team.to_param, team: valid_attributes }
+          expect(assigns(:team)).to be_confirmed
+        end
+      end
     end
   end
 
