@@ -158,6 +158,21 @@ RSpec.describe ApplicationDraft do
     end
   end
 
+  describe '#projects' do
+    let(:project1) { build_stubbed :project }
+    let(:project2) { build_stubbed :project }
+
+    it 'collects both projects' do
+      subject.project1 = project1
+      subject.project2 = project2
+      expect(subject.projects).to eql [project1, project2]
+    end
+
+    it 'returns a list of nils' do
+      expect(subject.projects).to eql [nil, nil]
+    end
+  end
+
   context 'with proxy methods for its students' do
     let(:student0) { Student.new }
     let(:student1) { Student.new }

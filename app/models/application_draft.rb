@@ -51,6 +51,10 @@ class ApplicationDraft < ActiveRecord::Base
     end
   end
 
+  def projects
+    [project1, project2]
+  end
+
   def students
     if as_student?
       [ current_student, current_pair ].compact
