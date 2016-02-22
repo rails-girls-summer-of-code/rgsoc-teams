@@ -62,6 +62,37 @@ RSpec.describe ApplicationDraft do
         end
       end
 
+      context 'requiring projects to be accepted' do
+
+        [:project1, :project2].each do |project_method|
+          context "for #{project_method}" do
+            let(:project_method) { project_method }
+
+            def assign_project(project)
+              subject.send("#{project_method}=", project)
+              subject.valid? :apply
+              project
+            end
+
+            it 'will not allow a pending project' do
+              assign_project create(:project)
+              expect(subject.errors[:projects]).to be_present
+            end
+
+            it 'will not allow a rejected project' do
+              assign_project create(:project, :rejected)
+              expect(subject.errors[:projects]).to be_present
+            end
+
+            it 'will allow an accepted project' do
+              assign_project create(:project, :accepted)
+              expect(subject.errors[:projects]).to be_blank
+            end
+          end
+        end
+
+      end
+
       context 'requiring a mentor' do
         it 'complains about a missing role' do
           error_msg = 'You need at least one mentor on your team'
