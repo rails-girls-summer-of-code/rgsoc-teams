@@ -13,7 +13,11 @@ class ApplicationDraftsController < ApplicationController
   end
 
   def new
-    redirect_to new_team_path, alert: 'You need to be in a team as a student' unless current_user.student?
+    if current_user.student?
+      redirect_to root_path, alert: 'You need to have a partner in your team' unless current_team.confirmed?
+    else
+      redirect_to new_team_path, alert: 'You need to be in a team as a student'
+    end
   end
 
   def create
