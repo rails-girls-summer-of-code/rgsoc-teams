@@ -24,6 +24,7 @@ class ApplicationDraft < ActiveRecord::Base
   validates :voluntary_hours_per_week, presence: true, on: :apply, if: :voluntary?
   validate :only_one_application_draft_allowed, if: :team, on: :create
   validate :mentor_required, on: :apply
+  validate :different_projects_required
   validate :accepted_projects_required, on: :apply
 
   validates *STUDENT0_REQUIRED_FIELDS, presence: true, on: :apply
@@ -123,6 +124,12 @@ class ApplicationDraft < ActiveRecord::Base
   def mentor_required
     unless (team || Team.new).mentors.any?
       errors.add(:base, 'You need at least one mentor on your team')
+    end
+  end
+
+  def different_projects_required
+    if project1 && project1 == project2
+      errors.add(:projects, 'must not be selected twice')
     end
   end
 
