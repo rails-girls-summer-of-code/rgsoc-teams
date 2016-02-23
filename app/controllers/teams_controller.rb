@@ -33,6 +33,7 @@ class TeamsController < ApplicationController
 
     respond_to do |format|
       if @team.save
+        @team.confirm! if @team.two_students_present?
         format.html { redirect_to @team, notice: 'Team was successfully created.' }
         format.json { render action: :show, status: :created, location: @team }
       else
