@@ -19,6 +19,10 @@ FactoryGirl.define do
       end
     end
 
+    trait :with_two_projects do
+      association :project2, :accepted, factory: :project
+    end
+
     trait :voluntary do
       voluntary true
       voluntary_hours_per_week 20
