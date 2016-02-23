@@ -71,12 +71,11 @@ RSpec.describe ApplicationDraftsController do
         expect(flash[:alert]).to be_present
       end
 
-      it 'renders the "new" template for a single team member' do
+      it 'redirects for a single team member' do
         create :student_role, user: user
         get :new
-        expect(response).to render_template 'new'
-        expect(response.body).to \
-          match "You haven't got a second student on your team."
+        expect(response).to redirect_to root_path
+        expect(flash[:alert]).to be_present
       end
 
       it 'renders the "new" template for a tean with two students' do
