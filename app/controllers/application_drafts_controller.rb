@@ -73,7 +73,7 @@ class ApplicationDraftsController < ApplicationController
 
   def application_draft_params
     params.require(:application_draft).
-      permit(:project_name, :project_url, :project_plan, :misc_info, :heard_about_it, :voluntary, :voluntary_hours_per_week)
+      permit(:project1_id, :project2_id, :project_plan, :misc_info, :heard_about_it, :voluntary, :voluntary_hours_per_week)
   end
 
   def student_params
