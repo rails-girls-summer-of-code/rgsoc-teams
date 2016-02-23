@@ -50,8 +50,12 @@ ActiveRecord::Schema.define(version: 20160217141602) do
     t.text     "project_plan"
     t.integer  "position"
     t.integer  "signed_off_by"
+    t.integer  "project1_id"
+    t.integer  "project2_id"
   end
 
+  add_index "application_drafts", ["project1_id"], name: "index_application_drafts_on_project1_id", using: :btree
+  add_index "application_drafts", ["project2_id"], name: "index_application_drafts_on_project2_id", using: :btree
   add_index "application_drafts", ["season_id"], name: "index_application_drafts_on_season_id", using: :btree
   add_index "application_drafts", ["signed_off_by"], name: "index_application_drafts_on_signed_off_by", using: :btree
   add_index "application_drafts", ["team_id"], name: "index_application_drafts_on_team_id", using: :btree

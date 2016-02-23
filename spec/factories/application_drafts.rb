@@ -5,8 +5,7 @@ FactoryGirl.define do
     trait :appliable do
       team { create :team, :applying_team }
 
-      project_name { FFaker::Movie.title }
-      project_url { FFaker::Internet.http_url }
+      association :project1, :accepted, factory: :project
       project_plan { FFaker::Lorem.paragraph }
       heard_about_it { FFaker::Lorem.paragraph }
       misc_info { FFaker::Lorem.paragraph } # NOTE not a required field
@@ -16,6 +15,10 @@ FactoryGirl.define do
           student.update(attributes_for :student, :applicant)
         end
       end
+    end
+
+    trait :with_two_projects do
+      association :project2, :accepted, factory: :project
     end
 
     trait :voluntary do

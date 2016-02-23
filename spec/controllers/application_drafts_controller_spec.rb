@@ -38,7 +38,7 @@ RSpec.describe ApplicationDraftsController do
 
     describe 'GET index' do
       let!(:student_role) { FactoryGirl.create :student_role, user: user, team: team }
-      let!(:drafts) { FactoryGirl.create_list(:application_draft, 2, team: team) }
+      let!(:drafts) { FactoryGirl.create_list(:application_draft, 1, team: team) }
 
       it 'lists the application drafts' do
         get :index
@@ -85,9 +85,9 @@ RSpec.describe ApplicationDraftsController do
         expect(response).to render_template 'new'
       end
 
-      it 'redirects to the index action if there are already more than two application drafts' do
+      it 'redirects to the index action if there an application draft already exists' do
         create :student_role, user: user, team: team
-        2.times { team.application_drafts.create }
+        team.application_drafts.create
 
         get :new
         expect(response).to redirect_to application_drafts_path
@@ -197,26 +197,6 @@ RSpec.describe ApplicationDraftsController do
           expect(response).to render_template 'new'
           expect(flash[:notice]).to be_present
         end
-      end
-    end
-
-    describe 'PUT #prioritize' do
-      let!(:student_role) do
-        FactoryGirl.create(:student_role, user: user, team: team)
-      end
-      let!(:drafts) { FactoryGirl.create_list(:application_draft, 2, team: team) }
-
-      subject do
-        put :prioritize,
-            id: drafts.last.id
-      end
-
-      before do
-        subject
-      end
-
-      it 'sets the positions' do
-        expect(team.application_drafts.order('position ASC').map(&:id)).to eq [2, 1]
       end
     end
 
