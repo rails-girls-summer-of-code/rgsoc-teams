@@ -13,7 +13,7 @@ RSpec.describe CreatesApplicationFromDraft do
   end
 
   describe '#save' do
-    let(:application_draft) { create :application_draft, :appliable }
+    let(:application_draft) { create :application_draft, :appliable, :with_two_projects }
     let(:team)              { create :team, :applying_team }
 
     context 'with a draft that is not ready yet' do
@@ -67,7 +67,7 @@ RSpec.describe CreatesApplicationFromDraft do
       end
 
       context 'carrying over the project related information' do
-        %w(project_name project_url project_plan).each do |project_attribute|
+        %w(project1_id project2_id project_plan).each do |project_attribute|
           it_behaves_like 'matches corresponding attribute', project_attribute
         end
       end

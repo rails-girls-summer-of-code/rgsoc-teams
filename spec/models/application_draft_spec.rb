@@ -5,6 +5,8 @@ RSpec.describe ApplicationDraft do
 
   context 'with associations' do
     it { is_expected.to belong_to(:updater).class_name('User') }
+    it { is_expected.to belong_to(:project1).class_name('Project') }
+    it { is_expected.to belong_to(:project2).class_name('Project') }
   end
 
   context 'with validations' do
@@ -18,25 +20,26 @@ RSpec.describe ApplicationDraft do
         team.application_drafts.build
       end
 
-      it 'allows the creation of a second application draft' do
-        expect { build_draft.save }.to \
-          change { team.application_drafts.count }.by(1)
-      end
-
       context 'with an existing draft' do
-        before { build_draft.save }
+        let!(:second_draft) { build_draft }
 
-        let!(:third_draft) { build_draft }
-
-        it 'prohibits the creation of a third application draft' do
-          expect { third_draft.save }.not_to change { team.application_drafts.count }
-          expect(third_draft.errors[:base]).to eql ['Only two applications may be lodged']
+        it 'prohibits the creation of a second application draft' do
+          expect { second_draft.save }.not_to change { team.application_drafts.count }
+          expect(second_draft.errors[:base]).to eql ['Only one application may be lodged']
         end
 
         it 'allows drafts in different seasons' do
-          third_draft.season = create(:season, name: 2000)
-          expect { third_draft.save }.to change { team.application_drafts.count }.by(1)
+          second_draft.season = create(:season, name: 2000)
+          expect { second_draft.save }.to change { team.application_drafts.count }.by(1)
         end
+      end
+    end
+
+    context 'with projects' do
+      it 'fails if both selected projects are the same' do
+        subject.project1 = subject.project2 = build_stubbed(:project, :accepted)
+        expect { subject.valid? }.to change { subject.errors[:projects] }.
+          to ['must not be selected twice']
       end
     end
 
@@ -50,8 +53,7 @@ RSpec.describe ApplicationDraft do
         it { is_expected.to validate_presence_of(attribute).on(:apply) }
       end
 
-      it_behaves_like 'proxies :apply validation', :project_name
-      it_behaves_like 'proxies :apply validation', :project_url
+      it_behaves_like 'proxies :apply validation', :project1
       it_behaves_like 'proxies :apply validation', :project_plan
       it_behaves_like 'proxies :apply validation', :heard_about_it
 
@@ -64,6 +66,37 @@ RSpec.describe ApplicationDraft do
           it { is_expected.not_to validate_presence_of :voluntary_hours_per_week }
           it { is_expected.to validate_presence_of(:voluntary_hours_per_week).on(:apply) }
         end
+      end
+
+      context 'requiring projects to be accepted' do
+
+        [:project1, :project2].each do |project_method|
+          context "for #{project_method}" do
+            let(:project_method) { project_method }
+
+            def assign_project(project)
+              subject.send("#{project_method}=", project)
+              subject.valid? :apply
+              project
+            end
+
+            it 'will not allow a pending project' do
+              assign_project create(:project)
+              expect(subject.errors[:projects]).to be_present
+            end
+
+            it 'will not allow a rejected project' do
+              assign_project create(:project, :rejected)
+              expect(subject.errors[:projects]).to be_present
+            end
+
+            it 'will allow an accepted project' do
+              assign_project create(:project, :accepted)
+              expect(subject.errors[:projects]).to be_blank
+            end
+          end
+        end
+
       end
 
       context 'requiring a mentor' do
@@ -159,6 +192,21 @@ RSpec.describe ApplicationDraft do
     it 'sets the current season if left blank' do
       expect { subject.valid? }.to \
         change { subject.season }.from(nil).to(Season.current)
+    end
+  end
+
+  describe '#projects' do
+    let(:project1) { build_stubbed :project }
+    let(:project2) { build_stubbed :project }
+
+    it 'collects both projects' do
+      subject.project1 = project1
+      subject.project2 = project2
+      expect(subject.projects).to eql [project1, project2]
+    end
+
+    it 'returns a list of nils' do
+      expect(subject.projects).to eql [nil, nil]
     end
   end
 

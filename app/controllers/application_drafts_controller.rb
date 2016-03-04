@@ -13,7 +13,11 @@ class ApplicationDraftsController < ApplicationController
   end
 
   def new
-    redirect_to new_team_path, alert: 'You need to be in a team as a student' unless current_user.student?
+    if current_user.student?
+      redirect_to root_path, alert: 'You need to have a partner in your team' unless current_team.confirmed?
+    else
+      redirect_to new_team_path, alert: 'You need to be in a team as a student'
+    end
   end
 
   def create
@@ -51,11 +55,6 @@ class ApplicationDraftsController < ApplicationController
     render :new
   end
 
-  def prioritize
-    application_draft.insert_at(1)
-    redirect_to application_drafts_url
-  end
-
   def apply
     if application_draft.ready? && application_draft.submit_application!
       flash[:notice] = 'Your application has been submitted!'
@@ -78,7 +77,7 @@ class ApplicationDraftsController < ApplicationController
 
   def application_draft_params
     params.require(:application_draft).
-      permit(:project_name, :project_url, :project_plan, :misc_info, :heard_about_it, :voluntary, :voluntary_hours_per_week)
+      permit(:project1_id, :project2_id, :project_plan, :misc_info, :heard_about_it, :voluntary, :voluntary_hours_per_week)
   end
 
   def student_params
@@ -112,7 +111,7 @@ class ApplicationDraftsController < ApplicationController
   end
 
   def ensure_max_applications
-    if current_student.current_drafts.size > 1
+    if current_student.current_drafts.any?
       redirect_to application_drafts_path, alert: 'You cannot lodge more than two applications'
     end
   end

@@ -43,11 +43,11 @@ p.attention
         - else
           = render 'student_fields', f: f, student: application_draft.students[1]
     #three.tab-pane
-      = f.input :project_name, as: :string, label: 'What project are you planning to work on?', placeholder: 'Project Name', input_html: { disabled: !application_draft.as_student? || application_draft.applied? }
-      = f.input :project_url, as: :url, label: 'Provide a link to the issue of your chosen project', placeholder: 'https://github.com/rails-girls-summer-of-code/projects/issues/NN', hint: "If the project you want to work on is not listed in #{link_to 'our repository', 'https://github.com/rails-girls-summer-of-code/projects/issues/', target: :blank} yet, ping the mentor to submit it.".html_safe, input_html: { disabled: !application_draft.as_student? || application_draft.applied? }
+      = f.association :project1, collection: Project.accepted.order(:name), input_html: { disabled: !application_draft.as_student? || application_draft.applied? }
+      = f.association :project2, collection: Project.accepted.order(:name), input_html: { disabled: !application_draft.as_student? || application_draft.applied?, allow_blank: true }, hint: "Note: this serves as your secondary choice in case we cannot select your team with your first project."
       = f.input :project_plan, label: 'Your project plan', hint: "Please describe issues and features that you want to work on this summer, as discussed with your project mentor(s). See #{link_to 'Project Plan Section in Application Guide', 'http://railsgirlssummerofcode.org/students/application/#projectplan', target: :blank} for details.".html_safe, input_html: { rows: 6, disabled: !application_draft.as_student? || application_draft.applied? }
   
-    #four.tab-pane  
+    #four.tab-pane
       = f.input :voluntary, as: :boolean, hint: 'This will not exclude you from being in the running for a sponsored seat.', label: 'We could join the RGSoC as a voluntary team', input_html: { disabled: !application_draft.as_student? || application_draft.applied? }
       = f.input :voluntary_hours_per_week, as: :integer, label: 'As a voluntary team, how many hours per week would you be able to work in the project? (please enter a full number only! eg. 15)', input_html: { disabled: !application_draft.as_student? || application_draft.applied? }
       = f.input :heard_about_it, as: :text, label: 'How have you heard about the program?', input_html: { rows: 3, disabled: !application_draft.as_student? || application_draft.applied? }

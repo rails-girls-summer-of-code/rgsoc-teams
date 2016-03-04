@@ -9,6 +9,8 @@ class ApplicationDraft < ActiveRecord::Base
 
   belongs_to :team
   belongs_to :updater, class_name: 'User'
+  belongs_to :project1, class_name: 'Project'
+  belongs_to :project2, class_name: 'Project'
   has_one    :application
   belongs_to :signatory, class_name: 'User', foreign_key: :signed_off_by
 
@@ -17,11 +19,13 @@ class ApplicationDraft < ActiveRecord::Base
   scope :current, -> { where(season: Season.current) }
 
   validates :team, presence: true
-  validates :project_name, :project_url, :project_plan, presence: true, on: :apply
+  validates :project1, :project_plan, presence: true, on: :apply
   validates :heard_about_it, presence: true, on: :apply
   validates :voluntary_hours_per_week, presence: true, on: :apply, if: :voluntary?
-  validate :only_two_application_drafts_allowed, if: :team, on: :create
+  validate :only_one_application_draft_allowed, if: :team, on: :create
   validate :mentor_required, on: :apply
+  validate :different_projects_required
+  validate :accepted_projects_required, on: :apply
 
   validates *STUDENT0_REQUIRED_FIELDS, presence: true, on: :apply
   validates *STUDENT1_REQUIRED_FIELDS, presence: true, on: :apply
@@ -47,6 +51,10 @@ class ApplicationDraft < ActiveRecord::Base
     else
       super
     end
+  end
+
+  def projects
+    [project1, project2]
   end
 
   def students
@@ -119,9 +127,21 @@ class ApplicationDraft < ActiveRecord::Base
     end
   end
 
-  def only_two_application_drafts_allowed
-    unless team.application_drafts.where(season: season).count < 2
-      errors.add(:base, 'Only two applications may be lodged')
+  def different_projects_required
+    if project1 && project1 == project2
+      errors.add(:projects, 'must not be selected twice')
+    end
+  end
+
+  def accepted_projects_required
+    if projects.any? { |p| p && !p.accepted? } # if they don't exist, the presence validation will handle it
+      errors.add(:projects, 'must have been accepted')
+    end
+  end
+
+  def only_one_application_draft_allowed
+    unless team.application_drafts.where(season: season).none?
+      errors.add(:base, 'Only one application may be lodged')
     end
   end
 

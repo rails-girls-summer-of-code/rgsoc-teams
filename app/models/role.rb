@@ -17,6 +17,9 @@ class Role < ActiveRecord::Base
   validates :user_id, uniqueness: { scope: [:name, :team_id] }
 
   after_create :send_notification, if: Proc.new { GUIDE_ROLES.include?(self.name) }
+  after_create do |role|
+    role.team.confirm! if role.team && role.team.pending? && role.team.two_students_present?
+  end
 
   class << self
     def includes?(role_name)
