@@ -51,7 +51,7 @@ describe Role do
       it_behaves_like 'a guide role'
     end
 
-    context 'when the user is added as a coach' do
+    context 'when the user is added as a mentor' do
       let(:role_name) { 'mentor' }
 
       it_behaves_like 'a guide role'
