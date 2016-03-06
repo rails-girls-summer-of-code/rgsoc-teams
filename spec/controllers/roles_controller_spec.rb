@@ -18,6 +18,20 @@ describe RolesController do
     end
   end
 
+  describe "PUT update" do
+    let(:team)    { create(:team) }
+
+    context 'as a coach confirming my role' do
+      let!(:role) { create(:role, name: 'coach', team: team, user: user) }
+      let!(:params) { { team_id: team.to_param, id: role.to_param, confirm: true } }
+
+      it 'allows the role to be confirmed' do
+        put :update, params, valid_session
+        expect(response).to redirect_to(assigns(:team))
+      end
+    end
+  end
+
   describe "POST create" do
     let(:team)    { create(:team) }
     let!(:params) { { team_id: team.to_param, role: valid_attributes.merge(github_handle: 'steve') } }
