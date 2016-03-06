@@ -10,7 +10,7 @@ RgsocTeams::Application.routes.draw do
   end
 
   concern :has_roles do
-    resources :roles, only: [:new, :create, :destroy]
+    resources :roles, only: [:new, :create, :destroy, :update]
   end
 
   get 'users/info', to: 'users_info#index'

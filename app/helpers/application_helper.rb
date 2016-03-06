@@ -182,8 +182,19 @@ module ApplicationHelper
 
   def link_to_team_members(team, role = :member)
     team.send(role.to_s.pluralize).sort_by(&:name_or_handle).map do |student|
-      link_to_team_member(student)
+      link_to_team_member(student) + status_for(team, student, role)
     end.join.html_safe
+  end
+
+  def status_for(team, member, role_name)
+    if role_name == :coach
+      role = team.roles.find { |role| role.user == member}
+      if role && role.confirmed?
+        'Confirmed'
+      else
+        current_user == member ? link_to('Confirm', team_role_path(team, role, confirm: true), method: :put) : 'Not Confirmed Yet'
+      end
+    end
   end
 
   def link_to_team_member(member)

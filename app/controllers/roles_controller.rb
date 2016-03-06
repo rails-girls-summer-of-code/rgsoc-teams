@@ -23,6 +23,32 @@ class RolesController < ApplicationController
     end
   end
 
+  def update
+    user = @role.user
+    respond_to do |format|
+      if user == current_user
+        if params[:confirm]
+          if @role.pending?
+            @role.confirm!
+            if @role.save
+              format.html { redirect_to @team, notice: "You're now confirmed!" }
+              format.json { render action: :show, status: :updated, location: @team }
+            else
+              format.html { redirect_to @team }
+              format.json { render json: @role.errors, status: :unprocessable_entity }
+            end
+          else
+            format.html { redirect_to @team, notice: 'Already confirmed!' }
+            format.json { render action: :show, status: :updated, location: @team }
+          end
+        end
+      else
+        format.html { redirect_to @team, notice: "Can't confirm for others!" }
+        format.json { render json: @role.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
   def destroy
     @role.destroy
     redirect_to @team
@@ -45,7 +71,7 @@ class RolesController < ApplicationController
 
     def role_params
       params[:role] ||= { name: params[:name] }
-      params.require(:role).permit(:user_id, :team_id, :name, :github_handle)
+      params.require(:role).permit(:user_id, :team_id, :name, :github_handle, :confirm)
     end
 
 end
