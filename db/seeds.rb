@@ -9,3 +9,5 @@ FactoryGirl.create(:supervisor)
 FactoryGirl.create_list(:user, 6)
 
 FactoryGirl.create_list(:status_update, 5)
+
+Mailing.update_all(seasons: [Season.current.name])
