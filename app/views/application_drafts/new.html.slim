@@ -63,7 +63,7 @@ p.attention
         |  Please fill this information together as a team.
 
       h2 Working together
-      p Since this is a self-guided program, how are you planning to work together? [placeholder]
+      = f.input :working_together, label: 'Since this is a self-guided program, how are you planning to work together?', input_html: { rows: 5, disabled: !application_draft.as_student? || application_draft.applied? }
 
       h2 For volunteer teams only
       p You can read up on volunteer teams in the #{link_to 'application guide', 'http://railsgirlssummerofcode.org/students/application/#volunteer-teams', target: :blank}.
