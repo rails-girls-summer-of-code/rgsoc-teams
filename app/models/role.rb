@@ -1,5 +1,6 @@
 class Role < ActiveRecord::Base
   include GithubHandle
+  include AASM
 
   TEAM_ROLES  = %w(student coach mentor)
   OTHER_ROLES = %w(helpdesk reviewer supervisor)
@@ -17,6 +18,11 @@ class Role < ActiveRecord::Base
   validates :user_id, uniqueness: { scope: [:name, :team_id] }
 
   after_create :send_notification, if: Proc.new { GUIDE_ROLES.include?(self.name) }
+
+  after_create do |role|
+    role.confirm! unless role.name == 'coach'
+  end
+
   after_create do |role|
     role.team.confirm! if role.team && role.team.pending? && role.team.two_students_present?
   end
@@ -24,6 +30,15 @@ class Role < ActiveRecord::Base
   class << self
     def includes?(role_name)
       !where(name: role_name).empty?
+    end
+  end
+
+  aasm column: :state, no_direct_assignment: true do
+    state :pending, :initial => true
+    state :confirmed
+
+    event :confirm do
+      transitions from: :pending, to: :confirmed
     end
   end
 
