@@ -8,12 +8,13 @@ class Team < ActiveRecord::Base
   validates :name, uniqueness: true, allow_blank: true
   # validate :must_have_members
   validate :disallow_multiple_student_roles
+  validate :limit_number_of_students
 
   attr_accessor :checked
 
   has_many :applications, dependent: :nullify, inverse_of: :team
   has_many :application_drafts, dependent: :nullify
-  has_many :roles, dependent: :destroy
+  has_many :roles, dependent: :destroy, inverse_of: :team
   has_many :members, class_name: 'User', through: :roles, source: :user
   Role::ROLES.each do |role|
     has_many role.pluralize.to_sym, -> { where(roles: { name: role }) }, class_name: 'User', through: :roles, source: :user
@@ -136,6 +137,12 @@ class Team < ActiveRecord::Base
     return if students.empty?
     msg = MSGS[:"duplicate_student_roles_#{students.size == 1 ? 'singular' : 'plural'}"]
     errors.add :roles, msg % students.map(&:name).join(', ')
+  end
+
+  def limit_number_of_students
+    students = roles.select{|r| r.name == 'student' && !r.marked_for_destruction?}
+    return unless students.size > 2
+    errors.add(:roles, 'there cannot be more than 2 students on a team.')
   end
 
   # def must_have_members
