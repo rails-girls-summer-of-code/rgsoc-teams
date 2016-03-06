@@ -15,6 +15,7 @@ class Role < ActiveRecord::Base
   validates :user, presence: true
   validates :name, inclusion: { in: ROLES }, presence: true
   validates :user_id, uniqueness: { scope: [:name, :team_id] }
+  validates_associated :team
 
   after_create :send_notification, if: Proc.new { GUIDE_ROLES.include?(self.name) }
 
