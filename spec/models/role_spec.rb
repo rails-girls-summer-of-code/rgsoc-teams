@@ -15,6 +15,51 @@ describe Role do
     end
   end
 
+  describe '#state' do
+    let(:user) { FactoryGirl.create(:user) }
+    let(:team) { FactoryGirl.create(:team) }
+
+    before do
+      subject
+    end
+
+    subject do
+      user.roles.create team: team, name: role_name
+    end
+
+    context 'when the user is added as a coach' do
+      let(:role_name) { 'coach' }
+
+      it 'has the pending state' do
+        expect(subject).to be_pending
+      end
+    end
+
+    context 'when the user is added as a student' do
+      let(:role_name) { 'student' }
+
+      it 'has the confirmed state' do
+        expect(subject).to be_confirmed
+      end
+    end
+
+    context 'when the user is added as a mentor' do
+      let(:role_name) { 'mentor' }
+
+      it 'has the confirmed state' do
+        expect(subject).to be_confirmed
+      end
+    end
+
+    context 'when the user is added as a supervisor' do
+      let(:role_name) { 'supervisor' }
+
+      it 'has the confirmed state' do
+        expect(subject).to be_confirmed
+      end
+    end
+  end
+
   describe 'create' do
     let(:user) { FactoryGirl.create(:user) }
     let(:team) { FactoryGirl.create(:team) }
