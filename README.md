@@ -53,7 +53,7 @@ Then install all dependencies:
 
 ```bash
 bundle install
-bundle exec rake db:drop db:create db:migrate
+bundle exec rake db:drop db:setup
 ```
 
 ### Mailtrap (optional)
@@ -75,7 +75,7 @@ E.g. `foreman run rails server` or `foreman run rails console`.
 ## Quick Start 
 ###Beginner Friendly Tips for New Contributors
 - After forking the repo, follow the steps described above under 'Bootstrap'. Mailtrap is optional.
-- (Install and) connect to Postgres server  
+- (Install and) connect to Postgres server 
 - With everything properly installed, open the browser in development environment
 - The app should be available, with the database loaded with fake data.
 - To access all the functionality of the teams app, add yourself as an organizer.
