@@ -72,7 +72,7 @@ Then install all dependencies:
 
 ```bash
 bundle install
-bundle exec rake db:drop db:create db:migrate
+bundle exec rake db:drop db:setup
 ```
 
 ### Mailtrap (optional)
