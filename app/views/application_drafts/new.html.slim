@@ -15,35 +15,35 @@ p.attention
   ul.nav.nav-tabs
     li.active
       - if application_draft.as_student?
-        a role="tab" href="#student-one" data-toggle="tab"  About yourself
+        a role="tab" href="#student-one-tab" data-toggle="tab"  About yourself
       - else
-        a role="tab" href="#student-one" data-toggle="tab" About your pair
+        a role="tab" href="#student-one-tab" data-toggle="tab" About your pair
     li
       - if application_draft.as_student?
-        a role="tab" href="#student-two" data-toggle="tab"  About your pair
+        a role="tab" href="#student-two-tab" data-toggle="tab"  About your pair
       - else
-        a role="tab" href="#student-two" data-toggle="tab" About yourself
+        a role="tab" href="#student-two-tab" data-toggle="tab" About yourself
     li
-      a role="tab" href="#project" data-toggle="tab" About your project
+      a role="tab" href="#project-tab" data-toggle="tab" About your project
     li
-      a role="tab" href="#team" data-toggle="tab" About your team
+      a role="tab" href="#team-tab" data-toggle="tab" About your team
 
   .tab-content
-    #student-one.tab-pane.active
+    #student-one-tab.tab-pane.active
       .alert.alert-info
         strong Info:
         |  You can edit the fields about you in #{link_to 'your user profile', edit_user_path(current_user, anchor: 'application_specific')}, too.
       fieldset
 
         = render 'student_fields', f: f, student: application_draft.students[0]
-    #student-two.tab-pane
+    #student-two-tab.tab-pane
       fieldset
         - if application_draft.students.count == 1
           .alert.alert-warning You haven't got a second student on your team.
         - else
           = render 'student_fields', f: f, student: application_draft.students[1]
 
-    #project.tab-pane
+    #project-tab.tab-pane
       .alert.alert-info
         strong Note:
         |  Please fill this information together as a team.
@@ -57,7 +57,7 @@ p.attention
       = f.input :why_selected_project, label: 'Why did you select this project?', input_html: { rows: 4, disabled: !application_draft.as_student? || application_draft.applied? }
       = f.input :project_plan, label: 'Which features are you planning to work on?', hint: "Please describe some issues and features that you want to work on this summer.".html_safe, input_html: { rows: 6, disabled: !application_draft.as_student? || application_draft.applied? }
   
-    #team.tab-pane
+    #team-tab.tab-pane
       .alert.alert-info
         strong Note:
         |  Please fill this information together as a team.
