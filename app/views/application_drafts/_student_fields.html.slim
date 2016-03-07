@@ -33,14 +33,11 @@
        - explanations.each do |l|
         li #{l}
   = s.input :application_community_engagement, label: 'Tell us about your Rails Girls and community involvement.', hint: 'When did you attend your first Rails Girls (or similar) workshop? Have you been involved in organization/coaching/study groups since then? Tell us all about it!', input_html: { disabled: !may_edit?(s.object) }
-  label For how many months have you actively been learning after your first workshop?
   .form-inline
-    - User::MONTHS_LEARNING.each do |months|
-      .radio
-        = s.radio_button :application_learning_period, months, disabled: !may_edit?(s.object)
-        | #{months} months
-      <br>
-    <br>
+    = s.input :application_learning_period, :collection => User::MONTHS_LEARNING, :include_blank => false, label: 'For how many months have you actively been learning after your first workshop?', disabled: !may_edit?(s.object)
+  .form-inline
+    = s.input :application_language_learning_period, :collection => User::MONTHS_LEARNING, :include_blank => false, label: 'For how many months have you been learning the language of your chosen project?', disabled: !may_edit?(s.object)
+    
 
   = s.input :application_learning_history, label: 'Please summarize what you have been doing to learn programming since your first workshop', hint: 'e.g. entered a study group, learning Rails by doing exercises etc.', input_html: { disabled: !may_edit?(s.object) }
   

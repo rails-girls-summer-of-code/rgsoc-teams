@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160307130143) do
+ActiveRecord::Schema.define(version: 20160307150725) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -248,28 +248,28 @@ ActiveRecord::Schema.define(version: 20160307130143) do
 
   create_table "users", force: :cascade do |t|
     t.integer  "github_id"
-    t.string   "github_handle",                     limit: 255
-    t.string   "name",                              limit: 255
-    t.string   "email",                             limit: 255
-    t.string   "location",                          limit: 255
+    t.string   "github_handle",                        limit: 255
+    t.string   "name",                                 limit: 255
+    t.string   "email",                                limit: 255
+    t.string   "location",                             limit: 255
     t.text     "bio"
-    t.string   "homepage",                          limit: 255
-    t.string   "avatar_url",                        limit: 255
-    t.datetime "created_at",                                                    null: false
-    t.datetime "updated_at",                                                    null: false
+    t.string   "homepage",                             limit: 255
+    t.string   "avatar_url",                           limit: 255
+    t.datetime "created_at",                                                       null: false
+    t.datetime "updated_at",                                                       null: false
     t.integer  "team_id"
-    t.string   "twitter_handle",                    limit: 255
-    t.string   "irc_handle",                        limit: 255
-    t.string   "tshirt_size",                       limit: 255
+    t.string   "twitter_handle",                       limit: 255
+    t.string   "irc_handle",                           limit: 255
+    t.string   "tshirt_size",                          limit: 255
     t.text     "banking_info"
     t.text     "postal_address"
-    t.string   "timezone",                          limit: 255
-    t.string   "interested_in",                     limit: 255, default: [],                 array: true
+    t.string   "timezone",                             limit: 255
+    t.string   "interested_in",                        limit: 255, default: [],                 array: true
     t.boolean  "hide_email"
-    t.boolean  "is_company",                                    default: false
-    t.string   "company_name",                      limit: 255
+    t.boolean  "is_company",                                       default: false
+    t.string   "company_name",                         limit: 255
     t.text     "company_info"
-    t.string   "country",                           limit: 255
+    t.string   "country",                              limit: 255
     t.boolean  "application_voluntary"
     t.integer  "application_coding_level"
     t.text     "application_gender_identification"
@@ -285,6 +285,7 @@ ActiveRecord::Schema.define(version: 20160307130143) do
     t.text     "application_code_background"
     t.text     "application_age"
     t.text     "application_goals"
+    t.text     "application_language_learning_period"
   end
 
 end
