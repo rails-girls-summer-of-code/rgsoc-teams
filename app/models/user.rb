@@ -34,6 +34,16 @@ class User < ActiveRecord::Base
     "24+",
   ]
 
+  AGE = [
+    "under 18",
+    "18-21",
+    "22-30",
+    "31-40",
+    "41-50",
+    "51-60",
+    "over 60",
+  ]
+
   include ActiveModel::ForbiddenAttributesProtection
   include Authentication::ActiveRecordHelpers
   include ProfilesHelper

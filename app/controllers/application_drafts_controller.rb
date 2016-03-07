@@ -86,9 +86,9 @@ class ApplicationDraftsController < ApplicationController
       # TODO: Do we need an index? Maybe just compare id with current_student.id
       params[:student].
         permit(
-          :name, :application_about, :application_motivation, :application_gender_identification,
+          :name, :application_about, :application_motivation, :application_gender_identification, :application_age,
           :application_coding_level, :application_community_engagement, :application_learning_period,
-          :application_learning_history, :application_skills,
+          :application_learning_history, :application_skills, :application_code_background, :application_goals,
           :application_code_samples, :application_location, :banking_info, :application_minimum_money
       )
     else
