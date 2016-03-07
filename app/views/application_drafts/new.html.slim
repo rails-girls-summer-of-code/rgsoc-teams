@@ -54,8 +54,8 @@ p.attention
 
       h2 Your project goals
       
-      p Why did you select this project? [placeholder]
-      = f.input :project_plan, label: 'Your project plan', hint: "Please describe issues and features that you want to work on this summer, as discussed with your project mentor(s). See #{link_to 'Project Plan Section in Application Guide', 'http://railsgirlssummerofcode.org/students/application/#projectplan', target: :blank} for details.".html_safe, input_html: { rows: 6, disabled: !application_draft.as_student? || application_draft.applied? }
+      = f.input :why_selected_project, label: 'Why did you select this project?', input_html: { rows: 4, disabled: !application_draft.as_student? || application_draft.applied? }
+      = f.input :project_plan, label: 'Which features are you planning to work on?', hint: "Please describe some issues and features that you want to work on this summer.".html_safe, input_html: { rows: 6, disabled: !application_draft.as_student? || application_draft.applied? }
   
     #team.tab-pane
       .alert.alert-info

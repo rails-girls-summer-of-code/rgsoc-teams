@@ -53,7 +53,7 @@
   = s.input :application_goals, label: "What do you want to achieve by the end of the summer?", input_html: { rows: 4, disabled: !may_edit?(s.object) }
 
   = s.input :application_motivation, label: 'Why are you applying to this program, and what do you think you can give back?', hint: "Write a short essay (750-1000 words) explaining your motivation. Please don't mention your name, age, or current location.", input_html: { rows: 10, disabled: !may_edit?(s.object) }
-  
+    
+  h2 Financial matters
   = private_application_data(application_draft) do
     = s.input :application_minimum_money, as: :text, label: 'How much money do you need at the very minimum per month to sustain yourself while working fulltime on an Open Source project? Please give a short summary of your costs including rent, living costs, special circumstances.', hint: 'The total of the stipend will be decided on case-by-case basis, taking into consideration data from the world bank plus individual living situations.', input_html: { rows: 4, disabled: !may_edit?(s.object) }
-    
