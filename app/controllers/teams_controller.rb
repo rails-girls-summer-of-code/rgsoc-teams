@@ -15,6 +15,7 @@ class TeamsController < ApplicationController
   end
 
   def show
+    flash.notice = "Please note: Not all of your coaches have confirmed their membership. You won't be able to submit your application unless they've all confirmed!" unless @team.coaches_confirmed?
   end
 
   def new
