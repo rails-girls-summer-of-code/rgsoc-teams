@@ -60,6 +60,28 @@ describe Team do
     end
   end
 
+  describe '#coaches_confirmed?' do
+    let(:role)   { FactoryGirl.create "#{role_name}_role" }
+    let(:role_name)   { 'coach' }
+    let(:member) { role.user }
+    let(:user) { create(:user) }
+    let(:team) { FactoryGirl.create(:team) }
+    let(:roles_attributes) { [{ name: role_name, team_id: team.id, user_id: member.id }] }
+
+    it 'says its coaches are confirmed when all coaches are confirmed' do
+      team.attributes = { roles_attributes: roles_attributes }
+      team.roles.each { |role| role.confirm! unless role.confirmed? }
+      team.save!
+      expect(team).to be_coaches_confirmed
+    end
+
+    it 'says its coaches are not confirmed when not all coaches are confirmed' do
+      team.attributes = { roles_attributes: roles_attributes }
+      team.save!
+      expect(team).to_not be_coaches_confirmed
+    end
+  end
+
   describe '#state' do
     let(:first_student) { create(:user) }
     let(:second_student) { create(:user) }
