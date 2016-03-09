@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160307150725) do
+ActiveRecord::Schema.define(version: 20160309141732) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -185,8 +185,9 @@ ActiveRecord::Schema.define(version: 20160307150725) do
     t.integer  "team_id"
     t.integer  "user_id"
     t.string   "name",       limit: 255
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.datetime "created_at",                                 null: false
+    t.datetime "updated_at",                                 null: false
+    t.text     "state",                  default: "pending", null: false
   end
 
   create_table "seasons", force: :cascade do |t|
@@ -286,6 +287,7 @@ ActiveRecord::Schema.define(version: 20160307150725) do
     t.text     "application_age"
     t.text     "application_goals"
     t.text     "application_language_learning_period"
+    t.integer  "application_money"
   end
 
 end
