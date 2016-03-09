@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Role do
+RSpec.describe Role do
   it { is_expected.to belong_to(:team) }
   it { is_expected.to belong_to(:user) }
   it { is_expected.to validate_presence_of(:user) }
@@ -12,6 +12,17 @@ describe Role do
     it 'includes role name' do
       FactoryGirl.create(:student_role)
       expect(Role.includes?('student')).to eq true
+    end
+  end
+
+  context 'with callbacks' do
+    context 'before save' do
+      before { allow(subject).to receive(:valid?) { true } }
+
+      it 'creates a confirmation token' do
+        expect { subject.save }.to \
+          change { subject.confirmation_token }.from nil
+      end
     end
   end
 

@@ -17,6 +17,7 @@ class Role < ActiveRecord::Base
   validates :name, inclusion: { in: ROLES }, presence: true
   validates :user_id, uniqueness: { scope: [:name, :team_id] }
 
+  before_create :set_confirmation_token
   after_create :send_notification, if: Proc.new { GUIDE_ROLES.include?(self.name) }
 
   after_create do |role|
@@ -46,5 +47,9 @@ class Role < ActiveRecord::Base
 
   def send_notification
     RoleMailer.user_added_to_team(self).deliver_later
+  end
+
+  def set_confirmation_token
+    self.confirmation_token = SecureRandom.hex(8)
   end
 end
