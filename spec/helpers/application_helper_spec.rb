@@ -68,8 +68,10 @@ describe ApplicationHelper do
     it 'should return link_to student based on role type' do
       expect(link_to_team_members(@team)).to           eq(link_to_team_member(@user2) + link_to_team_member(@user3) + link_to_team_member(@user1))
       expect(link_to_team_members(@team, :student)).to eq(link_to_team_member(@user1))
-      expect(link_to_team_members(@team, :coach)).to   eq(link_to_team_member(@user2) + "Not Confirmed Yet")
       expect(link_to_team_members(@team, :mentor)).to  eq(link_to_team_member(@user3))
+
+      expect(link_to_team_members(@team, :coach)).to   start_with link_to_team_member(@user2)
+      expect(link_to_team_members(@team, :coach)).to   match "Not confirmed yet"
     end
   end
 
