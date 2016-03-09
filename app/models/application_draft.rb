@@ -14,8 +14,6 @@ class ApplicationDraft < ActiveRecord::Base
   has_one    :application
   belongs_to :signatory, class_name: 'User', foreign_key: :signed_off_by
 
-  acts_as_list scope: :team
-
   scope :current, -> { where(season: Season.current) }
 
   validates :team, presence: true

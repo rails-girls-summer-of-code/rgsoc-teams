@@ -9,7 +9,7 @@ class ApplicationDraftsController < ApplicationController
   helper_method :application_draft
 
   def index
-    @application_drafts = current_user.application_drafts.current.order('position ASC')
+    @application_drafts = current_user.application_drafts.current
   end
 
   def new

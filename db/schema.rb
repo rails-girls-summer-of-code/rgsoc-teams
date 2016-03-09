@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160309141732) do
+ActiveRecord::Schema.define(version: 20160309200334) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -48,7 +48,6 @@ ActiveRecord::Schema.define(version: 20160309141732) do
     t.integer  "updater_id"
     t.text     "state",                    default: "draft", null: false
     t.text     "project_plan"
-    t.integer  "position"
     t.integer  "signed_off_by"
     t.integer  "project1_id"
     t.integer  "project2_id"
