@@ -7,6 +7,7 @@ RSpec.describe ApplicationDraftsController do
 
   before do
     Timecop.travel(Time.utc(2013, 3, 15))
+    allow_any_instance_of(Team).to receive(:coaches_confirmed?).and_return(true)
   end
 
   context 'as an anonymous user' do
@@ -208,21 +209,35 @@ RSpec.describe ApplicationDraftsController do
       context 'as a student' do
         let!(:student_role) { create(:student_role, user: user, team: team) }
 
-        it 'creates a new application' do
-          expect { put :apply, id: draft.id }.to change { Application.count }.by(1)
-          expect(flash[:notice]).to be_present
-          expect(response).to redirect_to application_drafts_path
-          expect(application.application_draft).to eql draft
+        context 'coaches confirmed' do
+          it 'creates a new application' do
+            expect { put :apply, id: draft.id }.to change { Application.count }.by(1)
+            expect(flash[:notice]).to be_present
+            expect(response).to redirect_to application_drafts_path
+            expect(application.application_draft).to eql draft
+          end
+
+          it 'sends a mail' do
+            expect { put :apply, id: draft.id }.to \
+              change { enqueued_jobs.size }.by(1)
+          end
+
+          it 'flags the draft as applied' do
+            expect { put :apply, id: draft.id }.to \
+              change { draft.reload.state }.to('applied')
+          end
         end
 
-        it 'sends a mail' do
-          expect { put :apply, id: draft.id }.to \
-            change { enqueued_jobs.size }.by(1)
-        end
+        context 'coaches not confirmed' do
+          before do
+            allow_any_instance_of(Team).to receive(:coaches_confirmed?).and_return(false)
+          end
 
-        it 'flags the draft as applied' do
-          expect { put :apply, id: draft.id }.to \
-            change { draft.reload.state }.to('applied')
+          it "fails to apply" do
+            expect { put :apply, id: draft.id }.not_to change { Application.count }
+            expect(flash[:alert]).to be_present
+            expect(response).to redirect_to team
+          end
         end
       end
 

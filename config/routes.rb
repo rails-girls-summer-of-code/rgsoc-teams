@@ -49,9 +49,14 @@ RgsocTeams::Application.routes.draw do
   get 'apply', to: 'application_drafts#new', as: :apply
 
   get 'teams/info', to: 'teams_info#index'
-  resources :teams, concerns: :has_roles do
+  resources :teams do
     resources :join, only: [:new, :create]
     resources :sources
+    resources :roles, only: [:new, :create, :destroy]
+  end
+
+  resources :roles, only: [] do
+    put :confirm, on: :member
   end
 
   get 'calendar/index', as: :calendar

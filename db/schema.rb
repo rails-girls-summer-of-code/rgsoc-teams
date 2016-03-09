@@ -184,10 +184,11 @@ ActiveRecord::Schema.define(version: 20160309141732) do
   create_table "roles", force: :cascade do |t|
     t.integer  "team_id"
     t.integer  "user_id"
-    t.string   "name",       limit: 255
-    t.datetime "created_at",                                 null: false
-    t.datetime "updated_at",                                 null: false
-    t.text     "state",                  default: "pending", null: false
+    t.string   "name",               limit: 255
+    t.datetime "created_at",                                         null: false
+    t.datetime "updated_at",                                         null: false
+    t.text     "state",                          default: "pending", null: false
+    t.string   "confirmation_token"
   end
 
   create_table "seasons", force: :cascade do |t|
