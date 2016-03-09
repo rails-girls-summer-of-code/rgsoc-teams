@@ -1,8 +1,8 @@
 class RolesController < ApplicationController
-  before_action :set_team
-  before_action :set_role, except: [:index, :show]
+  before_action :set_team, except: [:confirm]
+  before_action :set_role, except: [:confirm, :index, :show]
 
-  load_and_authorize_resource except: [:index, :show]
+  load_and_authorize_resource except: [:index, :show, :confirm]
 
   def new
     @role = @team.roles.new(name: params[:name])
@@ -23,28 +23,21 @@ class RolesController < ApplicationController
     end
   end
 
-  def update
-    user = @role.user
+  def confirm
+    @role = Role.where.not(confirmation_token: nil).find_by! confirmation_token: params[:id]
+    @team = @role.team
     respond_to do |format|
-      if user == current_user
-        if params[:confirm]
-          if @role.pending?
-            @role.confirm!
-            if @role.save
-              format.html { redirect_to @team, notice: "You're now confirmed!" }
-              format.json { render action: :show, status: :updated, location: @team }
-            else
-              format.html { redirect_to @team }
-              format.json { render json: @role.errors, status: :unprocessable_entity }
-            end
-          else
-            format.html { redirect_to @team, notice: 'Already confirmed!' }
-            format.json { render action: :show, status: :updated, location: @team }
-          end
+      if @role.pending?
+        if @role.confirm!
+          format.html { redirect_to @team, notice: "You're now confirmed!" }
+          format.json { render action: :show, status: :updated, location: @team }
+        else
+          format.html { redirect_to @team }
+          format.json { render json: @role.errors, status: :unprocessable_entity }
         end
       else
-        format.html { redirect_to @team, notice: "Can't confirm for others!" }
-        format.json { render json: @role.errors, status: :unprocessable_entity }
+        format.html { redirect_to @team, notice: 'Already confirmed!' }
+        format.json { render action: :show, status: :updated, location: @team }
       end
     end
   end
