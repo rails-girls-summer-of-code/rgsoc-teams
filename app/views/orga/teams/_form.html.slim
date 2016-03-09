@@ -84,4 +84,7 @@
     = f.input :season_id, as: :select, collection: Season.order('name DESC') { |e| [s.name, s.id] }
 
   .actions
-    = f.submit 'Save', class: 'btn btn-success'
+    ul.list-inline
+      li  = f.submit 'Save', class: 'btn btn-success'
+      li = link_to 'Cancel', [:orga, @team], class: 'btn btn-default'
+

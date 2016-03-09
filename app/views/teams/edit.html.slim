@@ -1,11 +1,14 @@
 nav.page
-  ul
-    li = link_to 'Back', @team, class: 'back'
+  .back-nav
+    ul
+      li = icon('chevron-left')
+      li = link_to 'Back', @team, class: 'back'
 
 nav.actions
-  ul
-    li
-      = link_to 'Destroy', @team, data: { confirm: 'Are you sure?' }, method: :delete, class: 'destroy'
+  .pull-right
+    ul
+      li
+        = link_to 'Destroy', @team, data: { confirm: 'Are you sure?' }, method: :delete, class: 'btn btn-danger'
 
 h1 Editing team
 == render 'form'

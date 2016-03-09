@@ -5,8 +5,10 @@
 
 - else
   nav.page
-    ul
-      li = link_to 'Back', @user, class: 'back'
+    .back-nav
+      ul
+        li = icon('chevron-left')
+        li = link_to 'Back', @user, class: 'back'
   nav.actions
     ul.list-inline
       li = link_to 'Cancel', @user, class: 'btn btn-default btn-sm'
@@ -113,4 +115,4 @@
   .actions
     ul.list-inline
       li = f.submit 'Save', class: 'btn btn-success'
-      li = link_to 'Cancel', @user, class: 'btn btn-default btn-sm'
+      li = link_to 'Cancel', @user, class: 'btn btn-default'

@@ -70,4 +70,6 @@
         = f.link_to_add 'Add another source', :sources, class: 'btn btn-primary col-sm-offset-3'
 
   .actions
-    = f.submit 'Save', class: 'btn btn-success'
+    ul.list-inline
+      li  = f.submit 'Save', class: 'btn btn-success'
+      li = link_to 'Cancel', @team, class: 'btn btn-default'
