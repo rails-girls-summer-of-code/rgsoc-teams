@@ -18,7 +18,7 @@ section#header
                   = link_to 'Submit your Project', new_project_path
               - if show_application_link?
                 li = application_disambiguation_link
-              - if current_user.try :current_student?
+              - if current_user.try :admin?
                 li = link_to 'Status Updates', [:students, :status_updates], class: params[:controller] == 'students/status_updates' ? 'active' : ''
               - if current_user.try :supervisor?
                 li = link_to 'Dashboard', supervisor_dashboard_path
@@ -26,12 +26,12 @@ section#header
                 li = link_to 'Activity',     root_path,  class: params[:controller] == 'activities' ? 'active' : ''
               li = link_to 'Teams',        teams_path, class: params[:controller] == 'teams' ? 'active' : ''
               li = link_to 'Community', users_path, class: params[:controller] == 'users' ? 'active' : ''
-              - if current_season.applications_open?
+              - if current_user.try :admin?
                 li = link_to 'Conferences',  conferences_path,  class: params[:controller] == 'conferences' ? 'active' : ''
               /- if signed_in? && current_user.roles.includes?('reviewer')  # TODO bring this into a reviewer dashboard
               /  li = link_to 'Applications', applications_path
               li = link_to 'Home &rarr;'.html_safe, 'http://railsgirlssummerofcode.org'
-    div.row 
+    div.row
       div.col-xs-offset-5.col-xs-7.col-md-offset-8.col-md-4
         .text-right
           nav.user
