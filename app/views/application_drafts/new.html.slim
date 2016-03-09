@@ -18,41 +18,62 @@ p.attention
   ul.nav.nav-tabs
     li.active
       - if application_draft.as_student?
-        a role="tab" href="#one" data-toggle="tab"  About yourself
+        a role="tab" href="#student-one-tab" data-toggle="tab"  About yourself
       - else
-        a role="tab" href="#one" data-toggle="tab" About your pair
+        a role="tab" href="#student-one-tab" data-toggle="tab" About your pair
     li
       - if application_draft.as_student?
-        a role="tab" href="#two" data-toggle="tab"  About your pair
+        a role="tab" href="#student-two-tab" data-toggle="tab"  About your pair
       - else
-        a role="tab" href="#two" data-toggle="tab" About yourself
+        a role="tab" href="#student-two-tab" data-toggle="tab" About yourself
     li
-      a role="tab" href="#three" data-toggle="tab" About your team
+      a role="tab" href="#project-tab" data-toggle="tab" About your project
     li
-      a role="tab" href="#four" data-toggle="tab" Miscellaneous
+      a role="tab" href="#team-tab" data-toggle="tab" About your team
 
   .tab-content
-    #one.tab-pane.active
+    #student-one-tab.tab-pane.active
       .alert.alert-info
         strong Info:
         |  You can edit the fields about you in #{link_to 'your user profile', edit_user_path(current_user, anchor: 'application_specific')}, too.
       fieldset
 
         = render 'student_fields', f: f, student: application_draft.students[0]
-    #two.tab-pane
+    #student-two-tab.tab-pane
       fieldset
         - if application_draft.students.count == 1
           .alert.alert-warning You haven't got a second student on your team.
         - else
           = render 'student_fields', f: f, student: application_draft.students[1]
-    #three.tab-pane
+
+    #project-tab.tab-pane
+      .alert.alert-info
+        strong Note:
+        |  Please fill this information together as a team.
+
+      h2 Your project choice
       = f.association :project1, collection: Project.accepted.order(:name), input_html: { disabled: !application_draft.as_student? || application_draft.applied? }
       = f.association :project2, collection: Project.accepted.order(:name), input_html: { disabled: !application_draft.as_student? || application_draft.applied?, allow_blank: true }, hint: "Note: this serves as your secondary choice in case we cannot select your team with your first project."
-      = f.input :project_plan, label: 'Your project plan', hint: "Please describe issues and features that you want to work on this summer, as discussed with your project mentor(s). See #{link_to 'Project Plan Section in Application Guide', 'http://railsgirlssummerofcode.org/students/application/#projectplan', target: :blank} for details.".html_safe, input_html: { rows: 6, disabled: !application_draft.as_student? || application_draft.applied? }
+
+      h2 Your project goals
+      
+      = f.input :why_selected_project, label: 'Why did you select this project?', input_html: { rows: 4, disabled: !application_draft.as_student? || application_draft.applied? }
+      = f.input :project_plan, label: 'Which features are you planning to work on?', hint: "Please describe some issues and features that you want to work on this summer.".html_safe, input_html: { rows: 6, disabled: !application_draft.as_student? || application_draft.applied? }
   
-    #four.tab-pane
+    #team-tab.tab-pane
+      .alert.alert-info
+        strong Note:
+        |  Please fill this information together as a team.
+
+      h2 Working together
+      = f.input :working_together, label: 'Since this is a self-guided program, how are you planning to work together?', input_html: { rows: 5, disabled: !application_draft.as_student? || application_draft.applied? }
+
+      h2 For volunteer teams only
+      p You can read up on volunteer teams in the #{link_to 'application guide', 'http://railsgirlssummerofcode.org/students/application/#volunteer-teams', target: :blank}.
       = f.input :voluntary, as: :boolean, hint: 'This will not exclude you from being in the running for a sponsored seat.', label: 'We could join the RGSoC as a voluntary team', input_html: { disabled: !application_draft.as_student? || application_draft.applied? }
-      = f.input :voluntary_hours_per_week, as: :integer, label: 'As a voluntary team, how many hours per week would you be able to work in the project? (please enter a full number only! eg. 15)', input_html: { disabled: !application_draft.as_student? || application_draft.applied? }
+      = f.input :voluntary_hours_per_week, as: :integer, label: 'As a voluntary team, how many hours per week would you be able to work on the project?', hint: 'Please only enter a full number, e.g. 15', input_html: { disabled: !application_draft.as_student? || application_draft.applied? }
+
+      h2 Miscellaneous
       = f.input :heard_about_it, as: :text, label: 'How have you heard about the program?', input_html: { rows: 3, disabled: !application_draft.as_student? || application_draft.applied? }
       = f.input :misc_info, as: :text, label: 'Anything else to add?', hint: 'Address anything that you feel is relevant to your application and was not covered previously.', input_html: { rows: 4, disabled: !application_draft.as_student? || application_draft.applied? }
 
