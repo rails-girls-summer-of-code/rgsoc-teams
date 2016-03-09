@@ -192,7 +192,7 @@ module ApplicationHelper
       if role && role.confirmed?
         'Confirmed'
       else
-        current_user == member ? link_to('Confirm', team_role_path(team, role, confirm: true), method: :put) : 'Not Confirmed Yet'
+        current_user == member ? link_to('Confirm', team_role_path(team, role, confirm: true), method: :put, class: 'btn btn-sm btn-success') : 'Not Confirmed Yet'
       end
     end
   end
