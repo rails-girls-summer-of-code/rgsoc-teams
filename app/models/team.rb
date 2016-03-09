@@ -133,7 +133,15 @@ class Team < ActiveRecord::Base
     User.find(user_id) if user_id
   end
 
+  def coaches_confirmed?
+    coach_roles.all? { |role| role.confirmed? }
+  end
+
   private
+
+  def coach_roles
+    roles.select { |role| role.name == 'coach' }
+  end
 
   def set_last_checked
     self.last_checked_at = Time.now.utc

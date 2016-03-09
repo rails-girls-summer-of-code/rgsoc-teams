@@ -56,13 +56,18 @@ class ApplicationDraftsController < ApplicationController
   end
 
   def apply
-    if application_draft.ready? && application_draft.submit_application!
-      flash[:notice] = 'Your application has been submitted!'
-      ApplicationFormMailer.new_application(application_draft.application).deliver_later
+    if current_team.coaches_confirmed?
+      if application_draft.ready? && application_draft.submit_application!
+        flash[:notice] = 'Your application has been submitted!'
+        ApplicationFormMailer.new_application(application_draft.application).deliver_later
+      else
+        flash[:alert]  = 'An error has occured. Please contact us.'
+      end
+      redirect_to application_drafts_path
     else
-      flash[:alert]  = 'An error has occured. Please contact us.'
+      flash[:alert]  = 'Your coaches have not all confirmed their membership.'
+      redirect_to current_team
     end
-    redirect_to application_drafts_path
   end
 
   protected

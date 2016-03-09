@@ -1,5 +1,8 @@
 h1 Student Application for Rails Girls Summer of Code #{Season.current.name}
 
+- unless application_draft.team.coaches_confirmed?
+  p.alert.alert-warning Please note: Not all of your coaches have confirmed their membership. You won't be able to submit your application unless they've all confirmed!
+
 p.attention
   | Please read our
     #{link_to "Student Application Guide", "http://railsgirlssummerofcode.org/students/application/"}
