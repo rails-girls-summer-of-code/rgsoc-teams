@@ -190,9 +190,13 @@ module ApplicationHelper
     if role_name == :coach
       role = team.roles.find { |role| role.user == member}
       if role && role.confirmed?
-        'Confirmed'
+        content_tag :span, 'Confirmed', class: 'label label-default'
       else
-        current_user == member ? link_to('Confirm', team_role_path(team, role, confirm: true), method: :put, class: 'btn btn-sm btn-success') : 'Not Confirmed Yet'
+        if current_user == member
+          link_to 'Confirm', team_role_path(team, role, confirm: true), method: :put, class: 'btn btn-sm btn-success'
+        else
+          content_tag :span, 'Not confirmed yet', class: 'label label-default'
+        end
       end
     end
   end
