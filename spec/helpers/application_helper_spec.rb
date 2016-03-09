@@ -25,7 +25,7 @@ describe ApplicationHelper do
       it 'returns a link to the drafts list' do
         create "#{guide_role}_role", user: user, team: draft.team
         allow(helper).to receive(:current_user).and_return(user)
-        expect(subject).to match 'Applications'
+        expect(subject).to match 'My Application'
         expect(subject).to match application_drafts_path
       end
     end

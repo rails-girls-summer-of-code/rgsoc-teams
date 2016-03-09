@@ -41,24 +41,11 @@ RSpec.describe ApplicationDraftsController do
       let!(:student_role) { FactoryGirl.create :student_role, user: user, team: team }
       let!(:drafts) { FactoryGirl.create_list(:application_draft, 1, team: team) }
 
-      it 'lists the application drafts' do
+      it "redirects to the existing application draft's edit action" do
         get :index
-        expect(response).to have_http_status(200)
         expect(assigns(:application_drafts)).to match_array(drafts)
-        expect(response).to render_template(:index)
+        expect(response).to redirect_to edit_application_draft_path(drafts.first)
       end
-
-      context 'after application deadline but before acceptance letters were sent out' do
-        it 'lists the application drafts' do
-          Timecop.travel(Season.current.acceptance_notification_at - 2.days) do
-            get :index
-            expect(response).to have_http_status(200)
-            expect(assigns(:application_drafts)).to match_array(drafts)
-            expect(response).to render_template(:index)
-          end
-        end
-      end
-
     end
 
     describe 'GET new' do

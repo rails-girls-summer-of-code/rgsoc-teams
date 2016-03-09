@@ -10,6 +10,7 @@ class ApplicationDraftsController < ApplicationController
 
   def index
     @application_drafts = current_user.application_drafts.current
+    redirect_to [:edit, @application_draft] and return if @application_draft = @application_drafts.first
   end
 
   def new
