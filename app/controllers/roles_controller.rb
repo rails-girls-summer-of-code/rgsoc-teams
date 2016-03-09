@@ -32,11 +32,11 @@ class RolesController < ApplicationController
           format.html { redirect_to @team, notice: "You're now confirmed!" }
           format.json { render action: :show, status: :updated, location: @team }
         else
-          format.html { redirect_to @team }
+          format.html { redirect_to @team, alert: "We encountered an error confirming your role." }
           format.json { render json: @role.errors, status: :unprocessable_entity }
         end
       else
-        format.html { redirect_to @team, notice: 'Already confirmed!' }
+        format.html { redirect_to @team, alert: 'Already confirmed!' }
         format.json { render action: :show, status: :updated, location: @team }
       end
     end
