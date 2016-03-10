@@ -1,3 +1,8 @@
+nav.actions
+  ul.list-inline
+    li = link_to icon('plus', 'New Season'), [:new, :orga, :season], class: 'btn btn-primary'
+
+
 h1 Listing Seasons
 
 table.table.table-striped.table-bordered.table-condensed
@@ -26,6 +31,5 @@ table.table.table-striped.table-bordered.table-condensed
 
 br
 
-= link_to 'New Season', [:new, :orga, :season], class: 'btn btn-default'
 
 = render partial: 'orga/seasons/switch' unless Rails.env.production?

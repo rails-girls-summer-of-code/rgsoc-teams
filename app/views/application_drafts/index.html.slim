@@ -1,6 +1,6 @@
 nav.actions
-  ul
-    li = link_to 'New Application Draft', new_application_draft_path, class: 'btn btn-primary btn-small', disabled: !can?(:create, :application_draft), title: ("You cannot lodge another application" unless can?(:create, :application))
+  ul.list-inline
+    li = link_to icon('plus', 'New Application Draft'), new_application_draft_path, class: 'btn btn-primary btn-sm', disabled: !can?(:create, :application_draft), title: ("You cannot lodge another application" unless can?(:create, :application))
 
 h1.header
   = icon('inbox')

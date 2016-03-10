@@ -1,6 +1,6 @@
 nav.actions
-  ul
-    li = link_to icon('plus', 'New Conference'), new_conference_path, class: 'btn btn-small' if can? :create, Conference.new
+  ul.list-inline
+    li = link_to icon('plus', 'New Conference'), new_conference_path, class: 'btn btn-primary btn-sm' if can? :create, Conference.new
 
 h1.header
   / = icon('group')
