@@ -152,6 +152,10 @@ class User < ActiveRecord::Base
       student.any?
   end
 
+  def self.search(search)
+    where("users.name ILIKE ?", "%#{search}%")
+  end
+
   private
 
   # Ensures that the location column either contains non-whitespace text, or is NULL

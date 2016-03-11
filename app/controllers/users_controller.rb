@@ -18,6 +18,7 @@ class UsersController < ApplicationController
     @users = @users.with_assigned_roles if Time.now.utc > (current_season.starts_at || Date.new)
     @users = @users.with_role(params[:role]) if params[:role].present? && params[:role] != 'all'
     @users = @users.with_interest(params[:interest]) if params[:interest].present? && params[:interest] != 'all'
+    @users = @users.search(params[:search]) if params[:search]
   end
 
   def show

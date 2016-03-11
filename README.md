@@ -44,16 +44,35 @@ Requirements:
 * PostgreSQL 9.3 or newer
 * Ruby 2.3.0
 
+### Setup on Ubuntu
+```bash
+# Install required packages
+$ sudo apt-get install postgresql libpq-dev libcurl3 libcurl3-gnutls libcurl4-openssl-dev postgresql-contrib-9.3
+# Create database user rgsoc with password rgsoc
+$ sudo -u postgres createuser -P -s rgsoc
+Enter password for new role: rgsoc
+Enter it again: rgsoc
+```
+
 ## Bootstrap
 
 Copy `config/database.yml.example` to `config/database.yml`. Then make sure you
 modify the settings so it could connect to your postgres server.
 
+Inside database.yml add username and password for development and test:
+```
+development:
+  adapter: postgresql
+  database: rgsocteams_development
+  host: localhost
+  username: rgsoc
+  password: rgsoc
+```
 Then install all dependencies:
 
 ```bash
 bundle install
-bundle exec rake db:drop db:create db:migrate
+bundle exec rake db:drop db:setup
 ```
 
 ### Mailtrap (optional)
@@ -75,7 +94,7 @@ E.g. `foreman run rails server` or `foreman run rails console`.
 ## Quick Start 
 ###Beginner Friendly Tips for New Contributors
 - After forking the repo, follow the steps described above under 'Bootstrap'. Mailtrap is optional.
-- (Install and) connect to Postgres server  
+- (Install and) connect to Postgres server 
 - With everything properly installed, open the browser in development environment
 - The app should be available, with the database loaded with fake data.
 - To access all the functionality of the teams app, add yourself as an organizer.

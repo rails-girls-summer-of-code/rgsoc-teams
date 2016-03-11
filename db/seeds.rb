@@ -8,4 +8,4 @@ FactoryGirl.create(:supervisor)
 # NB These are not listed in the Community listing
 FactoryGirl.create_list(:user, 6)
 
-FactoryGirl.create_list(:status_update, 5)
+FactoryGirl.create_list(:status_update, 5, published_at: Time.now)

@@ -13,7 +13,7 @@ describe Team do
   it { is_expected.to have_many(:organizers) }
   it { is_expected.to have_many(:supervisors) }
   it { is_expected.to have_many(:status_updates) }
-  it { is_expected.to have_many(:roles) }
+  it { is_expected.to have_many(:roles).inverse_of(:team) }
 
   it { is_expected.to validate_uniqueness_of(:name) }
 
@@ -56,6 +56,64 @@ describe Team do
       it 'allows multiple memberships' do
         team.attributes = { roles_attributes: roles_attributes }
         expect { team.save }.to change { team.members.count }.by(1)
+      end
+    end
+  end
+
+  describe 'limit of students' do
+    let(:team) { create :team }
+    let(:new_student) { -> {{ name: 'student', team_id: team.id, user_id: create(:user).id }} }
+    let(:remove_student) { -> {{ name: 'student', team_id: team.id, user_id: create(:user).id, _destroy: true }} }
+
+    context 'when team has no students yet' do
+      it 'allows to add 2 new students' do
+        roles_attributes = [new_student.call] * 2
+        expect {
+          team.update roles_attributes: roles_attributes
+        }.to change { team.members.count }.by 2
+      end
+
+      it 'ignores students marked for destruction' do
+        roles_attributes = [new_student.call] * 2
+        roles_attributes << remove_student.call
+        expect {
+          team.update roles_attributes: roles_attributes
+        }.to change { team.members.count }.by 2
+      end
+
+      it 'does not allow to add more than 2 new students' do
+        roles_attributes = [new_student.call] * 3
+        team.attributes = { roles_attributes: roles_attributes }
+        expect { team.save }.not_to change { team.members.count }
+        expect(team.errors[:roles].first).to eql 'there cannot be more than 2 students on a team.'
+      end
+    end
+    context 'when team has students' do
+      let!(:student_1) { create :student_role, team: team, user: create(:user) }
+      let!(:student_2) { create :student_role, team: team, user: create(:user) }
+      before { team.reload }
+
+      it 'does not allow to add new students' do
+        roles_attributes = [new_student.call]
+        team.attributes = { roles_attributes: roles_attributes }
+        expect { team.save }.not_to change { team.members.count }
+        expect(team.errors[:roles].first).to eql 'there cannot be more than 2 students on a team.'
+      end
+
+      it 'allows to remove existing student and add new' do
+        roles_attributes = [{ id: student_1.id, _destroy: true }, new_student.call]
+        expect {
+          team.update roles_attributes: roles_attributes
+        }.not_to change { team.students.count }
+        expect(team.students).not_to include student_1
+      end
+
+      it 'allows to edit role of existing student and add new' do
+        roles_attributes = [{ id: student_1.id, name: 'coach' }, new_student.call]
+        expect {
+          team.update roles_attributes: roles_attributes
+        }.not_to change { team.students.count }
+        expect(team.students).not_to include student_1
       end
     end
   end

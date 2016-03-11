@@ -6,8 +6,11 @@ h1.header
 - if Time.now.utc < (current_season.starts_at || Date.new)
   = render partial: 'users/interests'
 
+
 - if admin?
   p.organizers = link_to 'Users organizers info &rarr;'.html_safe, users_info_path
+
+= render partial: 'users/search'
 
 table.users.table.table-striped.table-bordered.table-condensed.table-hover
   thead

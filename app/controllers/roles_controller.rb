@@ -13,7 +13,7 @@ class RolesController < ApplicationController
     @role.user = User.where(github_handle: params[:role][:github_handle]).first_or_create
 
     respond_to do |format|
-      if @role.save
+      if @team.save
         format.html { redirect_to @team, notice: 'Team was successfully created.' }
         format.json { render action: :show, status: :created, location: @team }
       else
