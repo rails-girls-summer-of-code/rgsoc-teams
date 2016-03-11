@@ -82,7 +82,7 @@ class Team < ActiveRecord::Base
   end
 
   def two_students_present?
-    students.size > 1
+    students.size == 2
   end
 
   def combined_ratings
