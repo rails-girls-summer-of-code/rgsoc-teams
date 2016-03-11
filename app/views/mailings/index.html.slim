@@ -1,7 +1,7 @@
 - if can? :crud, Mailing
   nav.actions
-    ul
-      li = link_to 'New Mailing', new_mailing_path, class: 'btn btn-small btn-success'
+    ul.list-inline
+      li = link_to link_to icon('plus', 'New Mailing'), new_mailing_path, class: 'btn btn-sm btn-primary'
 
 h1 Mailings
 
