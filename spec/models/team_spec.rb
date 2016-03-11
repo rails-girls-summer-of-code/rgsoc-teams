@@ -31,7 +31,7 @@ describe Team do
       it 'allows no more than one team as a student' do
         team.attributes = { roles_attributes: roles_attributes }
         expect { team.save }.not_to change { team.members.count }
-        expect(team.errors[:roles].first).to eql "#{member.name} already is a student on another team."
+        expect(team.errors[:base].first).to eql "#{member.name} already is a student on another team for #{Season.current.name}."
       end
 
       it 'allows adding a student who is not yet part of a team' do

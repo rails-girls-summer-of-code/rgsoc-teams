@@ -146,15 +146,15 @@ class Team < ActiveRecord::Base
   end
 
   MSGS = {
-    duplicate_student_roles_singular: '%s already is a student on another team.',
-    duplicate_student_roles_plural: '%s already are students on another team.'
+    duplicate_student_roles_singular: "%s already is a student on another team for #{Season.current.name}.",
+    duplicate_student_roles_plural: "%s already are students on another team for #{Season.current.name}."
   }
 
   def disallow_multiple_student_roles
     students = User.with_role('student').where(id: roles.map(&:user_id)).where.not('roles.team_id' => id)
     return if students.empty?
     msg = MSGS[:"duplicate_student_roles_#{students.size == 1 ? 'singular' : 'plural'}"]
-    errors.add :roles, msg % students.map(&:name).join(', ')
+    errors.add :base, msg % students.map(&:name).join(', ')
   end
 
   def limit_number_of_students
