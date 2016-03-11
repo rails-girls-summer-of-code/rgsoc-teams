@@ -15,6 +15,7 @@ class Ability
     can :crud, Team do |team|
       user.admin? or signed_in?(user) && team.new_record? or on_team?(user, team)
     end
+    cannot :create, Team if user.roles.student.exists?
 
     can :join, Team do |team|
       team.helpdesk_team? and signed_in?(user) and not on_team?(user, team)
