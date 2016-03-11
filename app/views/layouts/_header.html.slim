@@ -18,8 +18,9 @@ section#header
                   = link_to 'Submit your Project', new_project_path
               - if show_application_link?
                 li = application_disambiguation_link
-              - if current_season.started?
-                li = link_to 'Status Updates', [:students, :status_updates], class: params[:controller] == 'students/status_updates' ? 'active' : ''
+              - if current_user.try :current_student? 
+                - if current_season.started?
+                  li = link_to 'Status Updates', [:students, :status_updates], class: params[:controller] == 'students/status_updates' ? 'active' : ''
               - if current_user.try :supervisor?
                 li = link_to 'Dashboard', supervisor_dashboard_path
               - if current_season.started?
