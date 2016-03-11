@@ -25,7 +25,7 @@ class Role < ActiveRecord::Base
   end
 
   after_create do |role|
-    role.team.confirm! if role.team && role.team.pending? && role.team.two_students_present?
+    role.team.confirm! if role&.team&.may_confirm?
   end
 
   class << self
