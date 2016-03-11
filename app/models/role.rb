@@ -2,12 +2,13 @@ class Role < ActiveRecord::Base
   include GithubHandle
   include AASM
 
-  TEAM_ROLES  = %w(student coach mentor)
-  OTHER_ROLES = %w(helpdesk reviewer supervisor)
+  TEAM_ROLES  = %w(student coach)
+  OTHER_ROLES = %w(helpdesk reviewer supervisor mentor)
   ADMIN_ROLES = %w(organizer developer)
   ROLES = TEAM_ROLES + OTHER_ROLES + ADMIN_ROLES
 
   GUIDE_ROLES = %w(coach mentor supervisor)
+  FULL_TEAM_ROLES = TEAM_ROLES + GUIDE_ROLES
   CONTRIBUTOR_ROLES = ADMIN_ROLES + GUIDE_ROLES
 
   belongs_to :user
