@@ -9,11 +9,16 @@ class ApplicationDraftsController < ApplicationController
   helper_method :application_draft
 
   def index
-    @application_drafts = current_user.application_drafts.order('position ASC')
+    @application_drafts = current_user.application_drafts.current
+    redirect_to [:edit, @application_draft] and return if @application_draft = @application_drafts.first
   end
 
   def new
-    redirect_to new_team_path, alert: 'You need to be in a team as a student' unless current_user.student?
+    if current_user.student?
+      redirect_to root_path, alert: 'You need to have a partner in your team' unless current_team.confirmed?
+    else
+      redirect_to new_team_path, alert: 'You need to be in a team as a student'
+    end
   end
 
   def create
@@ -51,34 +56,34 @@ class ApplicationDraftsController < ApplicationController
     render :new
   end
 
-  def prioritize
-    application_draft.insert_at(1)
-    redirect_to application_drafts_url
-  end
-
   def apply
-    if application_draft.ready? && application_draft.submit_application!
-      flash[:notice] = 'Your application has been submitted!'
-      ApplicationFormMailer.new_application(application_draft.application).deliver_later
+    if current_team.coaches_confirmed?
+      if application_draft.ready? && application_draft.submit_application!
+        flash[:notice] = 'Your application has been submitted!'
+        ApplicationFormMailer.new_application(application_draft.application).deliver_later
+      else
+        flash[:alert]  = 'An error has occured. Please contact us.'
+      end
+      redirect_to application_drafts_path
     else
-      flash[:alert]  = 'An error has occured. Please contact us.'
+      flash[:alert]  = 'Your coaches have not all confirmed their membership.'
+      redirect_to current_team
     end
-    redirect_to application_drafts_path
   end
 
   protected
 
   def application_draft
     @application_draft ||= if params[:id]
-                             current_team.application_drafts.find(params[:id])
+                             current_team.application_drafts.current.find(params[:id])
                            else
-                             current_team.application_drafts.new(team: current_team)
+                             current_team.application_drafts.current.new(team: current_team)
                            end.tap { |draft| draft.assign_attributes(current_user: current_user, updater: current_user) }
   end
 
   def application_draft_params
     params.require(:application_draft).
-      permit(:project_name, :project_url, :project_plan, :misc_info, :heard_about_it, :voluntary, :voluntary_hours_per_week)
+      permit(:project1_id, :project2_id, :project_plan, :misc_info, :heard_about_it, :voluntary, :voluntary_hours_per_week, :working_together, :why_selected_project)
   end
 
   def student_params
@@ -87,10 +92,10 @@ class ApplicationDraftsController < ApplicationController
       # TODO: Do we need an index? Maybe just compare id with current_student.id
       params[:student].
         permit(
-          :name, :application_about, :application_motivation, :application_gender_identification,
-          :application_coding_level, :application_community_engagement, :application_learning_period,
-          :application_learning_history, :application_skills,
-          :application_code_samples, :application_location, :banking_info, :application_minimum_money
+          :name, :application_about, :application_motivation, :application_gender_identification, :application_age,
+          :application_coding_level, :application_community_engagement, :application_learning_period, :application_language_learning_period,
+          :application_learning_history, :application_skills, :application_code_background, :application_goals,
+          :application_code_samples, :application_location, :banking_info, :application_minimum_money, :application_money
       )
     else
       {}
@@ -112,7 +117,7 @@ class ApplicationDraftsController < ApplicationController
   end
 
   def ensure_max_applications
-    if current_student.current_drafts.size > 1
+    if current_student.current_drafts.any?
       redirect_to application_drafts_path, alert: 'You cannot lodge more than two applications'
     end
   end

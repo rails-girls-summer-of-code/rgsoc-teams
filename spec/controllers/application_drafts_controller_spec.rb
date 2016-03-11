@@ -7,6 +7,7 @@ RSpec.describe ApplicationDraftsController do
 
   before do
     Timecop.travel(Time.utc(2013, 3, 15))
+    allow_any_instance_of(Team).to receive(:coaches_confirmed?).and_return(true)
   end
 
   context 'as an anonymous user' do
@@ -38,26 +39,13 @@ RSpec.describe ApplicationDraftsController do
 
     describe 'GET index' do
       let!(:student_role) { FactoryGirl.create :student_role, user: user, team: team }
-      let!(:drafts) { FactoryGirl.create_list(:application_draft, 2, team: team) }
+      let!(:drafts) { FactoryGirl.create_list(:application_draft, 1, team: team) }
 
-      it 'lists the application drafts' do
+      it "redirects to the existing application draft's edit action" do
         get :index
-        expect(response).to have_http_status(200)
         expect(assigns(:application_drafts)).to match_array(drafts)
-        expect(response).to render_template(:index)
+        expect(response).to redirect_to edit_application_draft_path(drafts.first)
       end
-
-      context 'after application deadline but before acceptance letters were sent out' do
-        it 'lists the application drafts' do
-          Timecop.travel(Season.current.acceptance_notification_at - 2.days) do
-            get :index
-            expect(response).to have_http_status(200)
-            expect(assigns(:application_drafts)).to match_array(drafts)
-            expect(response).to render_template(:index)
-          end
-        end
-      end
-
     end
 
     describe 'GET new' do
@@ -71,12 +59,11 @@ RSpec.describe ApplicationDraftsController do
         expect(flash[:alert]).to be_present
       end
 
-      it 'renders the "new" template for a single team member' do
+      it 'redirects for a single team member' do
         create :student_role, user: user
         get :new
-        expect(response).to render_template 'new'
-        expect(response.body).to \
-          match "You haven't got a second student on your team."
+        expect(response).to redirect_to root_path
+        expect(flash[:alert]).to be_present
       end
 
       it 'renders the "new" template for a tean with two students' do
@@ -86,9 +73,9 @@ RSpec.describe ApplicationDraftsController do
         expect(response).to render_template 'new'
       end
 
-      it 'redirects to the index action if there are already more than two application drafts' do
+      it 'redirects to the index action if there an application draft already exists' do
         create :student_role, user: user, team: team
-        2.times { team.application_drafts.create }
+        team.application_drafts.create
 
         get :new
         expect(response).to redirect_to application_drafts_path
@@ -201,26 +188,6 @@ RSpec.describe ApplicationDraftsController do
       end
     end
 
-    describe 'PUT #prioritize' do
-      let!(:student_role) do
-        FactoryGirl.create(:student_role, user: user, team: team)
-      end
-      let!(:drafts) { FactoryGirl.create_list(:application_draft, 2, team: team) }
-
-      subject do
-        put :prioritize,
-            id: drafts.last.id
-      end
-
-      before do
-        subject
-      end
-
-      it 'sets the positions' do
-        expect(team.application_drafts.order('position ASC').map(&:id)).to eq [2, 1]
-      end
-    end
-
     describe 'PUT apply' do
       let(:team)  { create(:team, :applying_team) }
       let(:draft) { create :application_draft, :appliable, team: team }
@@ -229,21 +196,35 @@ RSpec.describe ApplicationDraftsController do
       context 'as a student' do
         let!(:student_role) { create(:student_role, user: user, team: team) }
 
-        it 'creates a new application' do
-          expect { put :apply, id: draft.id }.to change { Application.count }.by(1)
-          expect(flash[:notice]).to be_present
-          expect(response).to redirect_to application_drafts_path
-          expect(application.application_draft).to eql draft
+        context 'coaches confirmed' do
+          it 'creates a new application' do
+            expect { put :apply, id: draft.id }.to change { Application.count }.by(1)
+            expect(flash[:notice]).to be_present
+            expect(response).to redirect_to application_drafts_path
+            expect(application.application_draft).to eql draft
+          end
+
+          it 'sends a mail' do
+            expect { put :apply, id: draft.id }.to \
+              change { enqueued_jobs.size }.by(1)
+          end
+
+          it 'flags the draft as applied' do
+            expect { put :apply, id: draft.id }.to \
+              change { draft.reload.state }.to('applied')
+          end
         end
 
-        it 'sends a mail' do
-          expect { put :apply, id: draft.id }.to \
-            change { enqueued_jobs.size }.by(1)
-        end
+        context 'coaches not confirmed' do
+          before do
+            allow_any_instance_of(Team).to receive(:coaches_confirmed?).and_return(false)
+          end
 
-        it 'flags the draft as applied' do
-          expect { put :apply, id: draft.id }.to \
-            change { draft.reload.state }.to('applied')
+          it "fails to apply" do
+            expect { put :apply, id: draft.id }.not_to change { Application.count }
+            expect(flash[:alert]).to be_present
+            expect(response).to redirect_to team
+          end
         end
       end
 

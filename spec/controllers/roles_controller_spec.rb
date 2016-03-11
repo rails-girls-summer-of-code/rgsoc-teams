@@ -18,6 +18,21 @@ describe RolesController do
     end
   end
 
+  describe "PUT confirm" do
+    let(:team)    { create(:team) }
+
+    context 'as a coach confirming my role' do
+      let!(:role) { create(:role, name: 'coach', team: team, user: user) }
+
+      it 'allows the role to be confirmed' do
+        expect {
+          put :confirm, { id: role.confirmation_token }, valid_session
+        }.to change { role.reload.state }.from('pending').to('confirmed')
+        expect(response).to redirect_to(assigns(:team))
+      end
+    end
+  end
+
   describe "POST create" do
     let(:team)    { create(:team) }
     let!(:params) { { team_id: team.to_param, role: valid_attributes.merge(github_handle: 'steve') } }

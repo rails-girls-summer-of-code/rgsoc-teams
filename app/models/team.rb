@@ -1,5 +1,6 @@
 class Team < ActiveRecord::Base
   include ProfilesHelper, HasSeason
+  include AASM
 
   delegate :sponsored?, :voluntary?, to: :kind
 
@@ -71,6 +72,15 @@ class Team < ActiveRecord::Base
     Rating::Calc.new(self, type, options).calc
   end
 
+  aasm :column => :state, :no_direct_assignment => true do
+    state :pending, :initial => true
+    state :confirmed
+
+    event :confirm do
+      transitions from: :pending, to:  :confirmed, guard: :two_students_present?
+    end
+  end
+
   def combined_ratings
     ratings.to_a + students.map { |student| student.ratings }.flatten
   end
@@ -120,7 +130,15 @@ class Team < ActiveRecord::Base
     User.find(user_id) if user_id
   end
 
+  def coaches_confirmed?
+    coach_roles.all? { |role| role.confirmed? }
+  end
+
   private
+
+  def coach_roles
+    roles.select { |role| role.name == 'coach' }
+  end
 
   def set_last_checked
     self.last_checked_at = Time.now.utc
@@ -143,6 +161,10 @@ class Team < ActiveRecord::Base
     students = roles.select{|r| r.name == 'student' && !r.marked_for_destruction?}
     return unless students.size > 2
     errors.add(:roles, 'there cannot be more than 2 students on a team.')
+  end
+
+  def two_students_present?
+    students.size == 2
   end
 
   # def must_have_members

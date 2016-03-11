@@ -25,7 +25,7 @@ describe ApplicationHelper do
       it 'returns a link to the drafts list' do
         create "#{guide_role}_role", user: user, team: draft.team
         allow(helper).to receive(:current_user).and_return(user)
-        expect(subject).to match 'Applications'
+        expect(subject).to match 'My Application'
         expect(subject).to match application_drafts_path
       end
     end
@@ -62,13 +62,16 @@ describe ApplicationHelper do
       @role1 = create(:student_role, user: @user1, team: @team)
       @role2 = create(:coach_role,   user: @user2, team: @team)
       @role3 = create(:mentor_role,  user: @user3, team: @team)
+      allow(self).to receive(:current_user).and_return(@user1)
     end
 
     it 'should return link_to student based on role type' do
       expect(link_to_team_members(@team)).to           eq(link_to_team_member(@user2) + link_to_team_member(@user3) + link_to_team_member(@user1))
       expect(link_to_team_members(@team, :student)).to eq(link_to_team_member(@user1))
-      expect(link_to_team_members(@team, :coach)).to   eq(link_to_team_member(@user2))
       expect(link_to_team_members(@team, :mentor)).to  eq(link_to_team_member(@user3))
+
+      expect(link_to_team_members(@team, :coach)).to   start_with link_to_team_member(@user2)
+      expect(link_to_team_members(@team, :coach)).to   match "Not confirmed yet"
     end
   end
 

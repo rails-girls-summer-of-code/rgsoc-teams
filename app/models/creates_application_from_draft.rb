@@ -39,7 +39,7 @@ class CreatesApplicationFromDraft
   end
 
   def project_attributes
-    %w(project_name project_url project_plan).each_with_object({}) do |attribute, hash|
+    %w(project1_id project2_id project_plan).each_with_object({}) do |attribute, hash|
       hash[attribute] = application_draft.send(attribute)
     end
   end
