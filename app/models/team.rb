@@ -81,10 +81,6 @@ class Team < ActiveRecord::Base
     end
   end
 
-  def two_students_present?
-    students.size == 2
-  end
-
   def combined_ratings
     ratings.to_a + students.map { |student| student.ratings }.flatten
   end
@@ -165,6 +161,10 @@ class Team < ActiveRecord::Base
     students = roles.select{|r| r.name == 'student' && !r.marked_for_destruction?}
     return unless students.size > 2
     errors.add(:roles, 'there cannot be more than 2 students on a team.')
+  end
+
+  def two_students_present?
+    students.size == 2
   end
 
   # def must_have_members
