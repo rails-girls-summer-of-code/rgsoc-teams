@@ -29,7 +29,7 @@
           - accessible_roles.each do |role|
             .radio
               label
-                = r.radio_button :name, role, required: true
+                = r.radio_button :name, role, required: true, disabled: (!current_user.admin? && r.object.persisted?)
                 = role.capitalize
           .help-block Note: Coaches will be informed via email and have to confirm their role.
           .form-btn-group
