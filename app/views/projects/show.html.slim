@@ -41,16 +41,22 @@ table.table.table-striped.table-bordered
   tr
     th State
     td = project_status(@project)
+  tr
+    th Applications (1st Choice)
+    td = @project.first_choice_application_drafts.count
+  tr
+    th Applications (2nd Choice)
+    td = @project.second_choice_application_drafts.count
 
 h2.header
-  = icon('file') 
+  = icon('file')
   span Project Description
 - if @project.description
   .projects
     p = render_markdown(@project.description).html_safe
 
 h2.header
-  = icon('list') 
+  = icon('list')
   span Issues, Features, and Milestones
 - if @project.issues_and_features
   .projects

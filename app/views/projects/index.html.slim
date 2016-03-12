@@ -11,6 +11,8 @@ table.table.table-striped.table-bordered.table-condensed
     th Name
     th Submitted
     th Comments
+    th Applications (1st Choice)
+    th Applications (2nd Choice)
     th Status
 
   - @projects.each do |project|
@@ -27,4 +29,6 @@ table.table.table-striped.table-bordered.table-condensed
       td
         - if project.comments.any?
           = link_to project.comments.count, project_path(project, anchor: 'comments'), class: 'label label-default'
+      td = project.first_choice_application_drafts.count
+      td = project.second_choice_application_drafts.count
       td = project_status project
