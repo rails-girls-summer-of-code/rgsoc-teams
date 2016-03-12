@@ -31,6 +31,7 @@
               label
                 = r.radio_button :name, role, required: true
                 = role.capitalize
+          .help-block Note: Coaches will be informed via email and have to confirm their role.
           .form-btn-group
             = r.link_to_remove 'Remove team member', class: 'btn btn-default'
   .form-group.form-btn-group
