@@ -7,6 +7,8 @@ RSpec.describe Project do
   context 'with associations' do
     it { is_expected.to belong_to(:submitter).class_name(User) }
     it { is_expected.to have_many(:comments).dependent(:destroy) }
+    it { is_expected.to have_many(:first_choice_application_drafts).class_name(ApplicationDraft) }
+    it { is_expected.to have_many(:second_choice_application_drafts).class_name(ApplicationDraft) }
   end
 
   context 'with validations' do

@@ -5,6 +5,9 @@ class Project < ActiveRecord::Base
   belongs_to :submitter, class_name: 'User'
   has_many :comments, -> { order('created_at DESC') }, dependent: :destroy
 
+  has_many :first_choice_application_drafts,  class_name: 'ApplicationDraft', foreign_key: 'project1_id'
+  has_many :second_choice_application_drafts, class_name: 'ApplicationDraft', foreign_key: 'project2_id'
+
   validates :name, :submitter, :mentor_email, presence: true
 
   scope :current, -> do
