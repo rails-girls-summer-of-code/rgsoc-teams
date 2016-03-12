@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :role do
-    team
+    association :team, :current_season
     user
     name { Role::ROLES.sample }
 

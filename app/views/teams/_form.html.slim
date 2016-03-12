@@ -1,7 +1,7 @@
 = simple_nested_form_for @team, wrapper: :horizontal_form, html:{class:'form-horizontal'} do |f|
   - if @team.errors.any?
-    #error_explanation
-      h2 = "#{pluralize(@team.errors.count, "error")} prohibited this team from being saved:"
+    .alert.alert-danger
+      h4 = "#{pluralize(@team.errors.count, "error")} prohibited this team from being saved:"
       ul
         - @team.errors.full_messages.each do |message|
           li = message
@@ -29,8 +29,9 @@
           - accessible_roles.each do |role|
             .radio
               label
-                = r.radio_button :name, role, required: true
+                = r.radio_button :name, role, required: true, disabled: (!current_user.admin? && r.object.persisted?)
                 = role.capitalize
+          .help-block Note: Coaches will be informed via email and have to confirm their role.
           .form-btn-group
             = r.link_to_remove 'Remove team member', class: 'btn btn-default'
   .form-group.form-btn-group

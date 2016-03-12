@@ -32,7 +32,7 @@ class ApplicationDraft < ActiveRecord::Base
 
   attr_accessor :current_user
 
-  Role::TEAM_ROLES.each do |role|
+  Role::FULL_TEAM_ROLES.each do |role|
     define_method "as_#{role}?" do                                     # def as_student?
       (team || Team.new).send(role.pluralize).include? current_user    #   team.students.include? current_user
     end                                                                # end

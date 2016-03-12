@@ -79,10 +79,20 @@ class TeamsController < ApplicationController
         :checked, :'starts_on(1i)', :'starts_on(2i)', :'starts_on(3i)',
         :'finishes_on(1i)', :'finishes_on(2i)', :'finishes_on(3i)', :invisible,
         :project_name,
-        roles_attributes: [:id, :name, :github_handle, :_destroy],
+        roles_attributes: role_attributes_list,
         sources_attributes: [:id, :kind, :url, :_destroy]
       )
     end
+
+  def role_attributes_list
+    unless current_user.admin? ||
+      # If it contains an ID, the user is updating an existing role
+      params.fetch(:roles_attributes, {}).none? { |_, attributes| attributes.has_key? 'id' }
+      [:id, :github_handle, :_destroy] # do not allow to update the actual role
+    else
+      [:id, :name, :github_handle, :_destroy]
+    end
+  end
 
   def set_display_roles
     @display_roles = ['student']
