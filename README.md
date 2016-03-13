@@ -54,6 +54,20 @@ Enter password for new role: rgsoc
 Enter it again: rgsoc
 ```
 
+### Setup on OS X
+```bash
+# Install required packages
+$ brew install ruby
+$ gem install bundler
+$ brew install postgres
+# Make sure to follow the instructions printed on the screen for postgres
+
+# Create database user rgsoc with password rgsoc
+$ createuser -P -s rgsoc
+Enter password for new role: rgsoc
+Enter it again: rgsoc
+```
+
 ## Bootstrap
 
 Copy `config/database.yml.example` to `config/database.yml`. Then make sure you
@@ -74,6 +88,14 @@ Then install all dependencies:
 bundle install
 bundle exec rake db:drop db:setup
 ```
+
+**Note for OS X:** There is a bug where on OS X you need to force 64bit mode for `bundle install`:
+
+```bash
+ARCHFLAGS="-arch x86_64" bundle install
+```
+
+Otherwise pg gem installation will fail.
 
 ### Mailtrap (optional)
 
