@@ -27,15 +27,19 @@ FactoryGirl.define do
         application_about { FFaker::Lorem.paragraph }
         application_motivation { FFaker::Lorem.paragraph }
         application_gender_identification 'female'
+        application_age '18-21'
         application_coding_level { (1..5).to_a.sample }
         application_community_engagement { FFaker::Lorem.paragraph }
         application_learning_period { User::MONTHS_LEARNING.sample }
+        application_language_learning_period { User::MONTHS_LEARNING.sample }
         application_learning_history { FFaker::Lorem.paragraph }
         application_skills{ FFaker::Lorem.paragraph }
         application_code_samples{ FFaker::Lorem.paragraph }
         application_location{ FFaker::Address.city }
-        application_minimum_money { FFaker::Lorem.paragraph }
-        banking_info { FFaker::Lorem.paragraph }
+        application_minimum_money { FFaker::Lorem.paragraph } # NOTE not a required field
+        application_money '850'
+        application_goals{ FFaker::Lorem.paragraph }
+        application_code_background{ FFaker::Lorem.paragraph }
       end
     end
 
