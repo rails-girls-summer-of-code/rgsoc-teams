@@ -1,0 +1,5 @@
+.actions
+  = f.button :submit, 'Save as draft', class: 'btn'
+  - unless application_draft.ready?
+    .help-block Your application is not yet ready for submission
+

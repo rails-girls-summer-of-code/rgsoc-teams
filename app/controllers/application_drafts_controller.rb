@@ -35,7 +35,6 @@ class ApplicationDraftsController < ApplicationController
   def edit
     redirect_to root_path, alert: 'Not part of a team' and return unless current_team
     application_draft
-    render :new
   end
 
   def update
