@@ -30,6 +30,8 @@ p.attention
       a role="tab" href="#project-tab" data-toggle="tab" About your project
     li
       a role="tab" href="#team-tab" data-toggle="tab" About your team
+    li
+      a role="tab" href="#review-tab" data-toggle="tab" Review and Submit
 
   .tab-content
     #student-one-tab.tab-pane.active
@@ -37,14 +39,16 @@ p.attention
         strong Info:
         |  You can edit the fields about you in #{link_to 'your user profile', edit_user_path(current_user, anchor: 'application_specific')}, too.
       fieldset
-
         = render 'student_fields', f: f, student: application_draft.students[0]
+      = render 'save_draft_button', f: f if application_draft.draft?
+
     #student-two-tab.tab-pane
       fieldset
         - if application_draft.students.count == 1
           .alert.alert-warning You haven't got a second student on your team.
         - else
           = render 'student_fields', f: f, student: application_draft.students[1]
+          = render 'save_draft_button', f: f if application_draft.draft?
 
     #project-tab.tab-pane
       .alert.alert-info
@@ -59,6 +63,8 @@ p.attention
 
       = f.input :why_selected_project, label: 'Why did you select this project?', input_html: { rows: 4, disabled: !application_draft.as_student? || application_draft.applied? }
       = f.input :project_plan, label: 'Which features are you planning to work on?', hint: "Please describe some issues and features that you want to work on this summer.".html_safe, input_html: { rows: 6, disabled: !application_draft.as_student? || application_draft.applied? }
+
+      = render 'save_draft_button', f: f if application_draft.draft?
 
     #team-tab.tab-pane
       .alert.alert-info
@@ -77,18 +83,20 @@ p.attention
       = f.input :heard_about_it, as: :text, label: 'How have you heard about the program?', input_html: { rows: 3, disabled: !application_draft.as_student? || application_draft.applied? }
       = f.input :misc_info, as: :text, label: 'Anything else to add?', hint: 'Address anything that you feel is relevant to your application and was not covered previously.', input_html: { rows: 4, disabled: !application_draft.as_student? || application_draft.applied? }
 
-  - if application_draft.draft?
-    .actions
-      = f.button :submit, 'Save as draft', class: 'btn'
-      - unless application_draft.ready?
-        .help-block Your application is not yet ready for submission
+      = render 'save_draft_button', f: f if application_draft.draft?
 
-- if application_draft.draft?
-  - if application_draft.ready? && application_draft.as_student?
-    = simple_form_for application_draft, url: apply_application_draft_path(application_draft), method: :put do |f|
-      .actions
-        = f.button :submit, 'Apply', class: 'btn btn-success'
-  - elsif application_draft.persisted?
-    = simple_form_for application_draft, url: [:check, application_draft], method: :get do |f|
-      .actions
-        = f.button :submit, 'Check Validity', class: 'btn btn-info'
+    #review-tab.tab-pane
+      = render 'save_draft_button', f: f if application_draft.draft?
+
+      - if application_draft.draft?
+        - if application_draft.ready? && application_draft.as_student?
+          = simple_form_for application_draft, url: apply_application_draft_path(application_draft), method: :put do |f|
+            .actions
+              = f.button :submit, 'Apply', class: 'btn btn-success'
+        - elsif application_draft.persisted?
+          = simple_form_for application_draft, url: [:check, application_draft], method: :get do |f|
+            .actions
+              = f.button :submit, 'Check Validity', class: 'btn btn-info'
+        - else
+          Please save your application first.
+
