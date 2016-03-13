@@ -92,11 +92,17 @@ p.attention
         - if application_draft.ready? && application_draft.as_student?
           = simple_form_for application_draft, url: apply_application_draft_path(application_draft), method: :put do |f|
             .actions
-              = f.button :submit, 'Apply', class: 'btn btn-success'
+              = f.button :submit, 'Apply', class: 'btn btn-success', id: 'apply_application_draft'
+              .hidden.unsaved_application_changes_notice.help-block
+                p You have unsaved changes in your application form. Please save before applying.
+
         - elsif application_draft.persisted?
           = simple_form_for application_draft, url: [:check, application_draft], method: :get do |f|
             .actions
-              = f.button :submit, 'Check Validity', class: 'btn btn-info'
+              = f.button :submit, 'Check Validity', class: 'btn btn-info', id: 'verify_application_draft'
+              .hidden.unsaved_application_changes_notice.help-block
+                p You have unsaved changes in your application form. Please save before validating.
+
         - else
           Please save your application first.
 
