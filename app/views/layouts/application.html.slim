@@ -25,9 +25,14 @@ html
 
       section.container#content
         - if notice
-          p.alert.alert-success = notice
+          p.alert.alert-success 
+            button.close data-dismiss="alert" type="button"  &times;
+            = notice
         - if alert
-          p.alert.alert-danger = alert
+          p.alert.alert-danger
+            button.close data-dismiss="alert" type="button"  &times;
+            = alert
+
         = yield
 
       script
