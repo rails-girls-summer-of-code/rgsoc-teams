@@ -48,7 +48,7 @@
   h3.page-header I am interested in:
 
   = f.collection_check_boxes :interested_in, User::INTERESTS.to_a, :first, :last, item_wrapper_tag: 'div', item_wrapper_class: 'interested_in'
-      
+
   - if Conference.any?
     h3.page-header Conferences
     p.help-block Here you can select your preferred conferences (max. 3) for the conference raffle. Watch out: Your participation will only be valid if you tweet about it!
@@ -57,7 +57,7 @@
         label Conference
       = f.simple_fields_for :attendances do |s|
         = s.input :conference_id, as: :select, collection: conferences, required: false, label: false, default: 1
-        
+
         = s.link_to_remove 'Remove'
       = f.link_to_add 'I want to add another conference!', :attendances, class: 'btn btn-primary form-btn-group'
 
@@ -87,7 +87,7 @@
          - explanations.each do |l|
           li #{l}
 
-    = f.input :application_community_engagement, label: 'Tell us about your Rails Girls involvement!', hint: 'When did you attend your first Rails Girls (or similar) workshop. Have you been involved in organization/coaching/study groups since then? Tell us all about it!'
+    = f.input :application_community_engagement, label: 'Tell us about your community involvement!', hint: 'When did you attend your first Rails Girls, Railsbridge, Black Girls Code, PyLadies, or similar workshop? Have you been involved in organization/coaching/study groups since then? Tell us all about it!'
     label For how many months have you actively been learning after your first workshop?
     .form-inline
       - User::MONTHS_LEARNING.each do |months|

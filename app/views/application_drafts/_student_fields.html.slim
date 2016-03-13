@@ -5,7 +5,7 @@
   .form-inline
     = s.input :application_age, :collection => User::AGE, :include_blank => false, label: 'Your age', disabled: !may_edit?(s.object)
   = s.input :application_gender_identification, label: 'Your gender self-identification', hint: 'No-one is excluded from applying on the basis of gender, but people who self-identify as female, or have experiences being socialized as female, are given preference during selection.', input_html: { disabled: !may_edit?(s.object) }
-  
+
   = s.input :application_location, as: :string, label: 'Where do you plan to live July-September? (Please write as "City, Country")', input_html: { disabled: !may_edit?(s.object) }
 
   hr
@@ -14,15 +14,15 @@
 
   = s.input :application_about, as: :text, label: 'Please tell us a little bit about yourself. What is your background?', hint: 'Only share what you feel comfortable with.', input_html: { rows: 5, disabled: !may_edit?(s.object) }
   = s.input :application_code_background, label: 'How did you get into programming?', input_html: {rows: 5, disabled: !may_edit?(s.object) }
-  
+
   hr
 
   h2 Your programming skills
-  
+
   = s.input :application_skills, label: 'Please give us a short summary of your programming skills', hint: 'What languages, frameworks, and tech tools did you learn? What did you build?', input_html: { disabled: !may_edit?(s.object) }
 
   h4 According to these guidelines, what is your programming level (where 1 is the 'lowest')?
-  p.help-block Some of the guidelines are specific to ruby, but most are language-agnostic. For each level, assume that the guidelines of the level(s) below it are also true, meaning that if you see yourself as a Level 2, you should be able to do most of Level 1, too.
+  p.help-block For each level, assume that the guidelines of the level(s) below it are also true, meaning that if you see yourself as a Level 2, you should be able to do most of Level 1, too.
   .form-inline
     - SkillLevel.each do |level, explanations|
       .radio
@@ -32,15 +32,15 @@
       ul
        - explanations.each do |l|
         li #{l}
-  = s.input :application_community_engagement, label: 'Tell us about your Rails Girls and community involvement.', hint: 'When did you attend your first Rails Girls (or similar) workshop? Have you been involved in organization/coaching/study groups since then? Tell us all about it!', input_html: { disabled: !may_edit?(s.object) }
+  = s.input :application_community_engagement, label: 'Tell us about your community involvement.', hint: 'When did you attend your first Rails Girls, Railsbridge, Black Girls Code, PyLadies, or similar workshop? Have you been involved in organization/coaching/study groups since then? Tell us all about it!', input_html: { disabled: !may_edit?(s.object) }
   .form-inline
     = s.input :application_learning_period, :collection => User::MONTHS_LEARNING, :include_blank => false, label: 'For how many months have you actively been learning after your first workshop?', disabled: !may_edit?(s.object)
   .form-inline
-    = s.input :application_language_learning_period, :collection => User::MONTHS_LEARNING, :include_blank => false, label: 'For how many months have you been learning the language of your chosen project?', disabled: !may_edit?(s.object)
-    
+    = s.input :application_language_learning_period, :collection => User::MONTHS_LEARNING, :include_blank => false, label: 'For how many months have you been learning the language of your primary project?', disabled: !may_edit?(s.object)
+
 
   = s.input :application_learning_history, label: 'Please summarize what you have been doing to learn programming since your first workshop', hint: 'e.g. entered a study group, learning Rails by doing exercises etc.', input_html: { disabled: !may_edit?(s.object) }
-  
+
   = s.input :application_code_samples, as: :text, label: 'Please link to pull requests you have done or other examples of your coding on GitHub or elsewhere.', input_html: { rows: 4, disabled: !may_edit?(s.object) }
 
   hr
@@ -50,7 +50,7 @@
   = s.input :application_goals, label: "What do you want to achieve by the end of the summer?", input_html: { rows: 4, disabled: !may_edit?(s.object) }
 
   = s.input :application_motivation, label: 'Why are you applying to this program, and what do you think you can give back?', hint: "Write a short essay (750-1000 words) explaining your motivation. Please don't mention your name, age, or current location.", input_html: { rows: 10, disabled: !may_edit?(s.object) }
-    
+
   h2 Financial matters
   = private_application_data(application_draft) do
     = s.input :application_money, :collection => (200..1500).step(50), label: 'How much money, in USD, do you need per month to sustain yourself while working fulltime on an Open Source project?', hint: "Double-check your selection by using #{link_to 'this cost of living calculator', 'http://www.numbeo.com/cost-of-living/', target: :blank}. If you need more than $1500/month, select 1500 and let us know so below.".html_safe, input_html: { disabled: !may_edit?(s.object) }

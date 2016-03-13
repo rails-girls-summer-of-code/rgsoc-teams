@@ -4,7 +4,7 @@ class SkillLevel
     1   => ['I understand and can explain the difference between data types (strings, booleans, integers)',
             'I have heard of the MVC (Model View Controller) pattern',
             'I am comfortable creating and deleting files from the command line'],
-    2   => ['I am confident writing a simple method in ruby',
+    2   => ['I am confident writing a simple method',
             'I am familiar with the concept of TDD and can explain what it stands for',
             'I am able to write a counter that loops through numbers (e.g. from one to ten)'],
     3   => ['I am comfortable solving a merge conflict in git.',
