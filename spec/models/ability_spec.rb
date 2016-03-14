@@ -105,6 +105,62 @@ describe Ability do
         end
       end
 
+      describe 'operations on teams' do
+        let(:team) { create :team }
+
+        context 'when user admin' do
+          let(:user) { create :organizer }
+
+          it 'allows crud' do
+            expect(subject).to be_able_to :crud, team
+          end
+        end
+        context 'when user student' do
+          let!(:user) { create :student }
+
+          it 'allows crud on new team' do
+            expect(subject).to be_able_to :crud, Team.new
+          end
+
+          it 'allows crud on own team' do
+            create :student_role, team: team, user: user
+            expect(subject).to be_able_to :crud, team
+          end
+
+          it 'does not allow crud on other team' do
+            expect(subject).not_to be_able_to :crud, team
+          end
+
+          context 'when in team for season' do
+            before { create :student_role, team: student_team, user: user }
+            let(:student_team) { create(:team, :current_season) }
+
+            it 'allows crud on own team' do
+              expect(subject).to be_able_to :crud, student_team
+            end
+
+            it 'allows to create team for different season' do
+              expect(subject).to be_able_to :create, Team.new
+            end
+
+            it 'does not allow to create team for same season' do
+              expect(subject).not_to be_able_to :create, Team.new(season: student_team.season)
+            end
+          end
+        end
+        context 'when user guest (not persisted)' do
+          let(:user) { build :user }
+
+          it 'does not allow crud on existing team' do
+            expect(subject).not_to be_able_to :crud, team
+          end
+          
+          it 'does not allow to create team' do
+            expect(subject).not_to be_able_to :create, Team.new
+          end
+        end
+      end
+
       context 'permitting activities' do
         context 'for feed_entries' do
           it 'allows anyone to read' do

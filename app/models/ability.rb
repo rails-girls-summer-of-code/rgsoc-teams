@@ -16,6 +16,10 @@ class Ability
       user.admin? or signed_in?(user) && team.new_record? or on_team?(user, team)
     end
 
+    cannot :create, Team do |team|
+      on_team_for_season?(user, team.season)
+    end
+
     can :join, Team do |team|
       team.helpdesk_team? and signed_in?(user) and not on_team?(user, team)
     end
@@ -64,6 +68,10 @@ class Ability
 
   def on_team?(user, team)
     user.teams.include?(team)
+  end
+
+  def on_team_for_season?(user, season)
+    season && user.roles.student.joins(:team).pluck(:season_id).include?(season.id)
   end
 
 end
