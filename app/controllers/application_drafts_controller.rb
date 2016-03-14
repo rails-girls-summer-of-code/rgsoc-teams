@@ -61,7 +61,7 @@ class ApplicationDraftsController < ApplicationController
         flash[:notice] = 'Your application has been submitted!'
         ApplicationFormMailer.new_application(application_draft.application).deliver_later
       else
-        flash[:alert]  = 'An error has occured. Please contact us.'
+        flash[:alert]  = 'An error has occurred. Please contact us.'
       end
       redirect_to application_drafts_path
     else
@@ -117,7 +117,7 @@ class ApplicationDraftsController < ApplicationController
 
   def ensure_max_applications
     if current_student.current_drafts.any?
-      redirect_to application_drafts_path, alert: 'You cannot lodge more than two applications'
+      redirect_to application_drafts_path, alert: 'You cannot lodge more than one application'
     end
   end
 
