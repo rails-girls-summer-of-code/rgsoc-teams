@@ -46,6 +46,18 @@ en:
         student1_application_location: Location during the summer (2nd student)
         student1_banking_info: Banking Information (2nd student)
         student1_application_minimum_money: Minimum Money (2nd student)
+        student0_application_language_learning_period: Learning Period (1st student)
+        student1_application_language_learning_period: Learning Period (2nd student)
+        student0_application_money: Required Money (1st student)
+        student1_application_money: Required Money (2nd student)
+        student0_application_goals: Goals (1st student)
+        student1_application_goals: Goals (2nd student)
+        student0_application_motivation: Motivation (1st student)
+        student1_application_motivation: Motivation (2nd student)
+        student0_application_code_background: Code Background (1st student)
+        student1_application_code_background: Code Background (2nd student)
+        student0_application_age: Age (1st student)
+        student1_application_age: Age (2nd student)
         misc_info: Additional information
         voluntary: Voluntary team
         heard_about_it: How have you heard about the program?
