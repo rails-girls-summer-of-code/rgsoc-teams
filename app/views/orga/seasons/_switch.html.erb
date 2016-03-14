@@ -1,18 +1,15 @@
-<br/>
 <hr>
-<h3> For development only: select season phase… </h3>
-<p>… to adjusts all the date dependent settings for <i>current_season</i>.
+<h3>For development only: select season phase… </h3>
+<p>… to adjust all the date-dependent settings for the current season.</p>
 
 <%= form_tag switch_phase_path, :method => :patch do %>
-    <%= radio_button_tag :option, "Proposals" %>
-    <%= label_tag :option_Proposals, "Proposals Phase" %>
-    <%= radio_button_tag :option, "Application" %>
-     <%= label_tag :option_Application, "Application Phase" %> 
-    <%= radio_button_tag :option, "CodingSummer" %> 
-    <%= label_tag :option_CodingSummer, "Coding Summer" %> 
-    <%= radio_button_tag :option, "RealTime" %>
-    <%= label_tag :option_RealTime, "Back to Real Time" %>
-      <%= submit_tag("Switch phase") %>
-  <% end %>
-<br>
-<p><%=  current_season.inspect %></p>
+  <%= radio_button_tag :option, "Proposals" %>
+  <%= label_tag :option_Proposals, "Proposals Phase" %>
+  <%= radio_button_tag :option, "Application" %>
+  <%= label_tag :option_Application, "Application Phase" %> 
+  <%= radio_button_tag :option, "CodingSummer" %> 
+  <%= label_tag :option_CodingSummer, "Coding Summer" %> 
+  <%= radio_button_tag :option, "RealTime" %>
+  <%= label_tag :option_RealTime, "Back to Real Time" %>
+  <%= submit_tag "Switch phase", class: 'btn btn-sm btn-warning' %>
+<% end %>
