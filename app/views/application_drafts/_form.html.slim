@@ -13,7 +13,7 @@ p.attention
     #error_explanation
       h2 = "#{pluralize(application_draft.errors.count, "error")} to go before you can apply:"
       ul
-        - application_draft.errors.full_messages.each do |message|
+        - application_draft.errors.full_messages.sort.each do |message|
           li = message
   ul.nav.nav-tabs
     li.active
