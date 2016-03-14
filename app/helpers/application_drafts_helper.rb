@@ -6,15 +6,17 @@ module ApplicationDraftsHelper
       current_student.id == student.try(:id)
   end
 
-  def private_application_data(application_draft, &block)
+  def private_application_data(application_draft, student, &block)
     block ||= Proc.new {}
     header  = Proc.new do
-      content_tag :h4, "This section is hidden from your team's coaches and mentors"
+      content_tag :h4, "This section is hidden from the rest of your team"
     end
 
-    if application_draft.as_student?
-      content_tag :div, class: 'bs-callout bs-callout-warning' do
+    content_tag :div, class: 'bs-callout bs-callout-warning' do
+      if student == current_user
         capture(&header) + capture(&block)
+      else
+        "This section is private."
       end
     end
   end
