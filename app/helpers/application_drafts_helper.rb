@@ -6,7 +6,7 @@ module ApplicationDraftsHelper
       current_student.id == student.try(:id)
   end
 
-  def private_application_data(application_draft, student, &block)
+  def private_application_data(student, &block)
     block ||= Proc.new {}
     header  = Proc.new do
       content_tag :h4, "This section is hidden from the rest of your team"
