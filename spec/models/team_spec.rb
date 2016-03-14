@@ -155,14 +155,12 @@ describe Team do
     let(:role_name) { 'student' }
     it 'will not be confirmed if only one student present' do
       team.attributes = { roles_attributes: [{ name: role_name, user_id: first_student.id }] }
-      team.save!
-      expect(team).not_to be_confirmed
+      expect { team.save! }.not_to change { team.confirmed? }.from false
     end
 
     it 'will confirm team through role assignment when second student present' do
       team.attributes = { roles_attributes: [{ name: role_name, user_id: first_student.id }, { name: role_name, user_id: second_student.id }] }
-      team.save!
-      expect(team).to be_confirmed
+      expect { team.save! }.to change { team.confirmed? }.to true
     end
   end
 

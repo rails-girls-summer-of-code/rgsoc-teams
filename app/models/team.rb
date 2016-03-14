@@ -159,7 +159,7 @@ class Team < ActiveRecord::Base
   end
 
   def two_students_present?
-    students.size == 2
+    students(true).select(&:persisted?).size == 2
   end
 
   # def must_have_members
