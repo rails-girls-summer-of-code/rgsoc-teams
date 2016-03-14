@@ -1,6 +1,5 @@
 class Team < ActiveRecord::Base
   include ProfilesHelper, HasSeason
-  include AASM
 
   delegate :sponsored?, :voluntary?, to: :kind
 
@@ -72,13 +71,8 @@ class Team < ActiveRecord::Base
     Rating::Calc.new(self, type, options).calc
   end
 
-  aasm :column => :state, :no_direct_assignment => true do
-    state :pending, :initial => true
-    state :confirmed
-
-    event :confirm do
-      transitions from: :pending, to:  :confirmed, guard: :two_students_present?
-    end
+  def confirmed?
+    two_students_present?
   end
 
   def combined_ratings
@@ -165,7 +159,7 @@ class Team < ActiveRecord::Base
   end
 
   def two_students_present?
-    students.size == 2
+    students(true).select(&:persisted?).size == 2
   end
 
   # def must_have_members

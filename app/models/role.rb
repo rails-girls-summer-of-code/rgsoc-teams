@@ -25,10 +25,6 @@ class Role < ActiveRecord::Base
     role.confirm! unless role.name == 'coach'
   end
 
-  after_create do |role|
-    role.team.confirm! if role&.team&.may_confirm?
-  end
-
   class << self
     def includes?(role_name)
       !where(name: role_name).empty?

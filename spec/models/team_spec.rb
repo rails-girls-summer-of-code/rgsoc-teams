@@ -148,14 +148,14 @@ describe Team do
     end
   end
 
-  describe '#state' do
+  describe '#confirmed?' do
     let(:first_student) { create(:user) }
     let(:second_student) { create(:user) }
     let(:team) { FactoryGirl.create(:team) }
     let(:role_name) { 'student' }
-    it 'returns "pending" when only one student present' do
+    it 'will not be confirmed if only one student present' do
       team.attributes = { roles_attributes: [{ name: role_name, user_id: first_student.id }] }
-      expect { team.save! }.not_to change { team.confirmed? }
+      expect { team.save! }.not_to change { team.confirmed? }.from false
     end
 
     it 'will confirm team through role assignment when second student present' do
@@ -164,15 +164,6 @@ describe Team do
     end
   end
 
-  describe '#confirm' do
-
-    let(:team) { FactoryGirl.create(:team) }
-
-    it 'will not confirm the team if two students are not present' do
-      expect { team.confirm! }.to raise_error AASM::InvalidTransition
-    end
-
-  end
 
   it_behaves_like 'HasSeason'
 
