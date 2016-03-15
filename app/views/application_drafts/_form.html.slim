@@ -18,18 +18,18 @@ p.attention
   ul.nav.nav-tabs
     li.active
       - if application_draft.as_student?
-        a role="tab" href="#student-one-tab" data-toggle="tab"  About yourself
+        a role="tab" href="#student-one-tab" data-toggle="tab" = "About yourself #{student0_tab_errors(application_draft)}"
       - else
-        a role="tab" href="#student-one-tab" data-toggle="tab" About your pair
+        a role="tab" href="#student-one-tab" data-toggle="tab" = "About your pair #{student0_tab_errors(application_draft)}"
     li
       - if application_draft.as_student?
-        a role="tab" href="#student-two-tab" data-toggle="tab"  About your pair
+        a role="tab" href="#student-two-tab" data-toggle="tab"  = "About your pair #{student1_tab_errors(application_draft)}"
       - else
-        a role="tab" href="#student-two-tab" data-toggle="tab" About yourself
+        a role="tab" href="#student-two-tab" data-toggle="tab" = "About yourself #{student1_tab_errors(application_draft)}"
     li
-      a role="tab" href="#project-tab" data-toggle="tab" About your project
+      a role="tab" href="#project-tab" data-toggle="tab" = "About your project #{projects_tab_errors(application_draft)}"
     li
-      a role="tab" href="#team-tab" data-toggle="tab" About your team
+      a role="tab" href="#team-tab" data-toggle="tab" = "About your team #{team_tab_errors(application_draft)}"
     li
       a role="tab" href="#review-tab" data-toggle="tab" Review and Submit
 
