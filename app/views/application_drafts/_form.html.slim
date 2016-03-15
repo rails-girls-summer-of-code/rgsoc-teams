@@ -39,7 +39,7 @@ p.attention
         strong Info:
         |  You can edit the fields about you in #{link_to 'your user profile', edit_user_path(current_user, anchor: 'application_specific')}, too.
       fieldset
-        = render 'student_fields', f: f, student: application_draft.students[0]
+        = render 'student_fields', f: f, student: application_draft.students[0], index: 0, application_draft: f.object
       = render 'save_draft_button', f: f if application_draft.draft?
 
     #student-two-tab.tab-pane
@@ -47,7 +47,7 @@ p.attention
         - if application_draft.students.count == 1
           .alert.alert-warning You haven't got a second student on your team.
         - else
-          = render 'student_fields', f: f, student: application_draft.students[1]
+          = render 'student_fields', f: f, student: application_draft.students[1], index: 1, application_draft: f.object
           = render 'save_draft_button', f: f if application_draft.draft?
 
     #project-tab.tab-pane
