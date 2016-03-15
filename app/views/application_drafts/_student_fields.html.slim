@@ -23,15 +23,18 @@
 
   h4 According to these guidelines, what is your programming level (where 1 is the 'lowest')?
   p.help-block For each level, assume that the guidelines of the level(s) below it are also true, meaning that if you see yourself as a Level 2, you should be able to do most of Level 1, too.
-  .form-inline
-    - SkillLevel.each do |level, explanations|
-      .radio
-        = s.radio_button :application_coding_level, level, disabled: !may_edit?(s.object)
-      label
-        | Skill Level #{level}
-      ul
-       - explanations.each do |l|
-        li #{l}
+  div class="#{student_field_error_class(index, application_draft, :application_coding_level)}"
+    .form-inline
+      - SkillLevel.each do |level, explanations|
+        .radio
+          = s.radio_button :application_coding_level, level, disabled: !may_edit?(s.object)
+        label
+          | Skill Level #{level}
+        ul
+         - explanations.each do |l|
+          li #{l}
+    .help-block
+      = student_field_error_hint(index, application_draft, :application_coding_level)
   = s.input :application_community_engagement, label: 'Tell us about your community involvement.', hint: 'When did you attend your first Rails Girls, Railsbridge, Black Girls Code, PyLadies, or similar workshop? Have you been involved in organization/coaching/study groups since then? Tell us all about it!', input_html: { disabled: !may_edit?(s.object) }
   .form-inline
     = s.input :application_learning_period, :collection => User::MONTHS_LEARNING, :include_blank => false, label: 'For how many months have you actively been learning after your first workshop?', disabled: !may_edit?(s.object)
