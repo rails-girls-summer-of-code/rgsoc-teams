@@ -86,10 +86,8 @@ class ApplicationDraftsController < ApplicationController
   end
 
   def student_params
-    # TODO make sure we are the student set to be updated
     if application_draft.as_student? and params[:student]
-      # TODO: Do we need an index? Maybe just compare id with current_student.id
-      params[:student].
+      params[:student].fetch(current_user.id.to_s, {}).
         permit(
           :name, :application_about, :application_motivation, :application_gender_identification, :application_age,
           :application_coding_level, :application_community_engagement, :application_learning_period, :application_language_learning_period,
