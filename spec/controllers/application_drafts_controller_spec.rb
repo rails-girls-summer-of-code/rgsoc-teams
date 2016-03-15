@@ -223,7 +223,7 @@ RSpec.describe ApplicationDraftsController do
           it "fails to apply" do
             expect { put :apply, id: draft.id }.not_to change { Application.count }
             expect(flash[:alert]).to be_present
-            expect(response).to redirect_to team
+            expect(response).to redirect_to application_drafts_path
           end
         end
       end
