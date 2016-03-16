@@ -8,6 +8,7 @@ class Team < ActiveRecord::Base
   validates :name, uniqueness: true, allow_blank: true
   # validate :must_have_members
   validate :disallow_multiple_student_roles
+  validate :disallow_duplicate_members
   validate :limit_number_of_students
 
   attr_accessor :checked
@@ -150,6 +151,14 @@ class Team < ActiveRecord::Base
     return if students.empty?
     msg = MSGS[:"duplicate_student_roles_#{students.size == 1 ? 'singular' : 'plural'}"]
     errors.add :base, msg % students.map(&:name).join(', ')
+  end
+
+  def disallow_duplicate_members
+    new_members = roles.map { |role| role.user }
+    duplicate_role_users = new_members.find_all { |member| new_members.count(member) > 1 }.uniq
+    return if duplicate_role_users.empty?
+    msg = "%s can't have more than one role in this team!"
+    errors.add :base, msg % duplicate_role_users.map(&:name).join(', ')
   end
 
   def limit_number_of_students
