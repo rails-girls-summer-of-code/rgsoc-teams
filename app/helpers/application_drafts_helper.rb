@@ -42,6 +42,14 @@ module ApplicationDraftsHelper
     content_tag :span, draft.state.titleize, class: "label #{label_class}"
   end
 
+  def student_field_error_class(index, application_draft, field)
+    'has-error' if application_draft.errors["student#{index}_#{field}".to_sym].present?
+  end
+
+  def student_field_error_hint(index, application_draft, field)
+    application_draft.errors["student#{index}_#{field}".to_sym].join.presence
+  end
+
   ####
   # add error counts to tabs
   ###
