@@ -47,40 +47,44 @@ nav.page
     h3 Sources
     = list_sources(@team)
 
-  h3 Members
-  = link_to_team_members(@team, :helpdesk)
+  .team-members
+    h3 Members
+    = link_to_team_members(@team, :helpdesk)
 
 - elsif @team.organizers_team?
   - if @team.sources.any?
     h3 Sources
     = list_sources(@team)
 
-  h3 Members
-  = link_to_team_members(@team, :organizer)
+  .team-members
+    h3 Members
+    = link_to_team_members(@team, :organizer)
 
 - elsif @team.supervisors_team?
   - if @team.sources.any?
     h3 Sources
     = list_sources(@team)
 
-  h3 Members
-  = link_to_team_members(@team, :supervisor)
+  .team-members
+    h3 Members
+    = link_to_team_members(@team, :supervisor)
 
 - else
   h3 Sources
   = @team.sources.any? ? list_sources(@team) : '-'
 
-  h3 Students
-  p = @team.students.any? ? link_to_team_members(@team, :student) : '-'
+  .team-members
+    h3 Students
+    p = @team.students.any? ? link_to_team_members(@team, :student) : '-'
 
-  h3 Coaches
-  p = @team.coaches.any? ? link_to_team_members(@team, :coach) : '-'
+    h3 Coaches
+    p = @team.coaches.any? ? link_to_team_members(@team, :coach) : '-'
 
-  h3 Mentors
-  p = @team.mentors.any? ? link_to_team_members(@team, :mentor) : '-'
+    h3 Mentors
+    p = @team.mentors.any? ? link_to_team_members(@team, :mentor) : '-'
 
-  h3 Supervisors
-  p = @team.supervisors.any? ? link_to_team_members(@team, :supervisor) : content_tag(:em, 'Will be added by RGSoC Organizers')
+    h3 Supervisors
+    p = @team.supervisors.any? ? link_to_team_members(@team, :supervisor) : content_tag(:em, 'Will be added by RGSoC Organizers')
 
 - if @team.members.any? { |user| user.conferences.any? }
   h4 Conferences
