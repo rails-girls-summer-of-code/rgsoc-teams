@@ -9,12 +9,6 @@ p.attention
     before you fill out this form. Applications must be submitted before <strong>#{l current_season.applications_close_at, format: :precise}</strong>.
 
 = simple_nested_form_for application_draft do |f|
-  - if application_draft.errors.any?
-    #error_explanation
-      h2 = "#{pluralize(application_draft.errors.count, "error")} to go before you can apply:"
-      ul
-        - application_draft.errors.full_messages.sort.each do |message|
-          li = message
   ul.nav.nav-tabs
     li.active
       - if application_draft.as_student?
