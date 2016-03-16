@@ -1,5 +1,5 @@
 class CreatesApplicationFromDraft
-  STUDENT_FIELDS = ApplicationDraft::STUDENT0_REQUIRED_FIELDS + ApplicationDraft::STUDENT1_REQUIRED_FIELDS
+  STUDENT_FIELDS = [0, 1].map { |index| User.columns.map(&:name).select{ |n| /\Aapplication_/ =~ n }.map{|n| "student#{index}_#{n}" } }.flatten
 
   delegate :team, to: :application_draft
 
@@ -35,6 +35,8 @@ class CreatesApplicationFromDraft
       voluntary_hours_per_week: application_draft.voluntary_hours_per_week,
       heard_about_it: application_draft.heard_about_it,
       misc_info: application_draft.misc_info,
+      working_together: application_draft.working_together,
+      why_selected_project: application_draft.why_selected_project
     }.merge(student_attributes).merge(project_attributes)
   end
 
