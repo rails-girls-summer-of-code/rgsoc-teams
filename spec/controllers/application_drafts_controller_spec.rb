@@ -171,7 +171,10 @@ RSpec.describe ApplicationDraftsController do
           get :check, id: draft.to_param
           expect(response).to render_template 'new'
           expect(flash[:alert]).to be_present
-          expect(response.body).to match 'to go before you can apply'
+          expect(response.body).to match /About yourself \(\d{,2} errors\)/
+          expect(response.body).to match /About your pair \(\d{,2} errors\)/
+          expect(response.body).to match /About your project \(\d{,2} errors\)/
+          expect(response.body).to match /About your team \(\d{,2} errors\)/
         end
       end
 
