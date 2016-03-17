@@ -3,7 +3,7 @@ h1 Student Application for Rails Girls Summer of Code 2014
 p.attention
   | Please read our
     #{link_to "Student Application Guide", "http://railsgirlssummerofcode.org/students/application/"}
-    before you fill out this form. Applications must be submitted before <strong>#{current_season.applications_close_at}</strong>.
+    before you fill out this form. Applications must be submitted before <strong>#{current_season.applications_close_at}</strong>. Need #{link_to "help", page_path('help'), target: '_blank'}?
 
 = simple_form_for @application_form, as: :application do |f|
   - if @application_form.errors.any?

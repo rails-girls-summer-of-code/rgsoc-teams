@@ -6,7 +6,7 @@ h1 Student Application for Rails Girls Summer of Code #{Season.current.name}
 p.attention
   | Please read our
     #{link_to "Student Application Guide", "http://railsgirlssummerofcode.org/students/application/"}
-    before you fill out this form. Applications must be submitted before <strong>#{l current_season.applications_close_at, format: :precise}</strong>.
+    before you fill out this form. Applications must be submitted before <strong>#{l current_season.applications_close_at, format: :precise}</strong>. Need #{link_to "help", page_path('help'), target: '_blank'}?
 
 = simple_nested_form_for application_draft do |f|
   ul.nav.nav-tabs
