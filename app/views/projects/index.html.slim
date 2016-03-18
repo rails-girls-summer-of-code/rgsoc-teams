@@ -9,7 +9,7 @@ h1.header
 table.table.table-striped.table-bordered.table-condensed
   tr
     th Name
-    th Submitted
+    th Tags
     th Comments
     th Applications (1st Choice)
     th Applications (2nd Choice)
@@ -25,7 +25,7 @@ table.table.table-striped.table-bordered.table-condensed
               = icon('edit')
             = link_to project, data: { confirm: 'This action cannot be undone. Are you sure?' }, method: :delete do
               = icon('minus-sign')
-      td = l project.created_at, format: :short
+      td = project_tags project
       td
         - if project.comments.any?
           = link_to project.comments.count, project_path(project, anchor: 'comments'), class: 'label label-default'
