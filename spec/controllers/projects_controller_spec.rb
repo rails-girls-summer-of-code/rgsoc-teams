@@ -12,12 +12,12 @@ RSpec.describe ProjectsController do
     let!(:accepted) { create :project, :accepted, season: Season.succ, name: 'accepted project' }
     let!(:rejected) { create :project, :rejected, season: Season.succ, name: 'rejected project' }
 
-    it 'displays all projects by default' do
+    it 'hides rejected projects' do
       get :index
       expect(response).to be_success
       expect(response.body).to include 'proposed project'
       expect(response.body).to include 'accepted project'
-      expect(response.body).to include 'rejected project'
+      expect(response.body).not_to include 'rejected project'
     end
   end
 
