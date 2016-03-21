@@ -65,7 +65,7 @@ class ApplicationDraftsController < ApplicationController
       end
       redirect_to application_drafts_path
     else
-      flash[:alert] = %Q[Your coaches have not all confirmed their membership. See <a href="#{team_path(current_team)}">your team</a> for more info.]
+      flash[:alert] = %Q[Your coaches have not all confirmed their membership. See <a href="#{team_path(current_team)}">your team</a> for more info.].html_safe
       redirect_to application_drafts_path
     end
   end
