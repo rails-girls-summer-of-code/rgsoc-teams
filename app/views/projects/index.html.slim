@@ -11,8 +11,8 @@ table.table.table-striped.table-bordered.table-condensed
     th Name
     th Tags
     th Comments
-    th Applications (1st Choice)
-    th Applications (2nd Choice)
+    th title="Application referencing this project as 1st choice" Applications (1st Choice)
+    th title="Application referencing this project as 2nd choice" Applications (2nd Choice)
     th Status
 
   - @projects.each do |project|
@@ -30,7 +30,11 @@ table.table.table-striped.table-bordered.table-condensed
         - if project.comments.any?
           = link_to project.comments.count, project_path(project, anchor: 'comments'), class: 'label label-default'
       td
-        span.label.label-default = project.first_choice_application_drafts.count
+        span.label.label-default title="Application still in draft mode"= project.first_choice_application_drafts.draft.count
+        | /
+        span.label.label-primary title="Applications sent in" = project.first_choice_application_drafts.applied.count
       td
-        span.label.label-default = project.second_choice_application_drafts.count
+        span.label.label-default title="Applications still in draft mode" = project.second_choice_application_drafts.draft.count
+        | /
+        span.label.label-primary title="Applications sent in" = project.second_choice_application_drafts.applied.count
       td = project_status project
