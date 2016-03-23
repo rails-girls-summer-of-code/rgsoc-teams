@@ -18,12 +18,8 @@ class ApplicationController < ActionController::Base
     params[resource] &&= send(method) if respond_to?(method, true)
   end
 
-  def after_sign_in_path_for(user)
-    if user.just_created?
-      edit_user_path(user, welcome: true, redirect_to: session.delete(:redirect_to))
-    else
-      session.delete(:previous_url_login_required) || session.delete(:previous_url) || user_path(current_user)
-    end
+  def after_sign_in_path_for(user)  
+    request.env['omniauth.origin'] || session.delete(:previous_url_login_required) || session.delete(:previous_url) || user_path(current_user)
   end
 
   rescue_from CanCan::AccessDenied do |exception|
