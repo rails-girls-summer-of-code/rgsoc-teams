@@ -7,7 +7,7 @@ table.table.table-striped.table-bordered.table-condensed
     th Name
     - @display_roles.each do |role|
       th = role.capitalize
-    / quick fix, hiding conferences in teams view
+    / TODO quick fix, hiding conferences in teams view until program kick-off
     / th Conferences
     th Location
     - if current_user.try :admin?
@@ -24,7 +24,7 @@ table.table.table-striped.table-bordered.table-condensed
               li.user
                 = avatar_url(user, size: 20)
                 = link_to(user.name_or_handle, user)
-      / quick fix, hiding conferences in teams view
+      / TODO quick fix, hiding conferences in teams view until program kick-off
       / td = links_to_conferences(team.members.map(&:conferences).flatten.uniq).join(', ').html_safe
       td = team.students_location
       - if current_user.try :admin?
