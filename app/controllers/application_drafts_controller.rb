@@ -15,9 +15,9 @@ class ApplicationDraftsController < ApplicationController
 
   def new
     if current_user.student?
-      redirect_to root_path, alert: 'You need to have a partner in your team' unless current_team.confirmed?
+      redirect_to root_path, alert: 'You need to have a partner in your team to create an application.' unless current_team.confirmed?
     else
-      redirect_to new_team_path, alert: 'You need to be in a team as a student'
+      redirect_to new_team_path, alert: 'You need to be in a team as a student to create an application.'
     end
   end
 
@@ -109,13 +109,13 @@ class ApplicationDraftsController < ApplicationController
 
   def disallow_modifications_after_submission
     if application_draft.applied?
-      redirect_to application_drafts_path, alert: 'You cannot modify this application anymore'
+      redirect_to application_drafts_path, alert: 'This application has already been submitted. You cannot modify it anymore!'
     end
   end
 
   def ensure_max_applications
     if current_student.current_drafts.any?
-      redirect_to application_drafts_path, alert: 'You cannot lodge more than one application'
+      redirect_to application_drafts_path, alert: 'Sorry, you cannot lodge more than one application.'
     end
   end
 
