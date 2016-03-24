@@ -20,9 +20,9 @@ class ApplicationController < ActionController::Base
 
   def after_sign_in_path_for(user)
     if user.just_created?
-      edit_user_path(user, welcome: true, redirect_to: session.delete(:redirect_to))
+      request.env['omniauth.origin'] || edit_user_path(user, welcome: true)
     else
-      session.delete(:previous_url_login_required) || session.delete(:previous_url) || user_path(current_user)
+      request.env['omniauth.origin'] || session.delete(:previous_url_login_required) || session.delete(:previous_url) || user_path(current_user)
     end
   end
 
