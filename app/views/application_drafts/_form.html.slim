@@ -24,8 +24,9 @@ p.attention
       a role="tab" href="#project-tab" data-toggle="tab" = "About your project #{projects_tab_errors(application_draft)}"
     li
       a role="tab" href="#team-tab" data-toggle="tab" = "About your team #{team_tab_errors(application_draft)}"
-    li
-      a role="tab" href="#review-tab" data-toggle="tab" Review and Submit
+    - if application_draft.draft?
+      li
+        a role="tab" href="#review-tab" data-toggle="tab" Review and Submit
 
   .tab-content
     #student-one-tab.tab-pane.active
@@ -97,4 +98,3 @@ p.attention
 
         - else
           Please save your application first.
-
