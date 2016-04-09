@@ -2,12 +2,16 @@ development:
   adapter: postgresql
   database: rgsocteams_development
   host: localhost
+  username: rgsoc
+  password: rgsoc
 
 test:
   adapter: postgresql
   database: rgsocteams_test
   host: localhost
   min_messages: error
+  username: rgsoc
+  password: rgsoc
 
 production:
   adapter: postgresql
