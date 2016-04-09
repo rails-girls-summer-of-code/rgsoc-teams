@@ -33,7 +33,7 @@ RgsocTeams::Application.routes.draw do
     get 'todos', to: 'todos#index', as: 'todos'
   end
   resources :applications, only: [:index, :show, :edit, :update]
-  resources :ratings
+  resources :ratings, only: [:create, :update]
 
   resources :application_drafts, except: [:show, :destroy] do
     member do
