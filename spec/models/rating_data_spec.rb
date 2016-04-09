@@ -18,7 +18,16 @@ describe RatingData do
       end
     end
 
-    it 'has _<field>_options for multiple choice options (not implemented yet)'
+    it 'has _<field>_options method to return array for multiple choice options' do
+      RatingData::FIELDS.keys.each do |key|
+        expect(rating_data).to respond_to "#{key}_options"
+        expect(rating_data.send "#{key}_options").to be_an Array
+      end
+    end
+
+    it '_<field>_options method returns array for multiple choice options' do
+      expect(rating_data.women_priority_options).to be_an Array
+    end
   end
   describe '.points_for' do
     context 'with invalid :field_name' do

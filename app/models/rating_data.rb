@@ -51,13 +51,12 @@ class RatingData
     attributes.each do |name, value|
       send("#{name}=", value)
     end
-  end
-
-  # define <field>_options methods for all fields
-  # (to be used by forms to create select tags)
-  FIELDS.each do |name, options|
-    define_singleton_method "#{name}_options" do
-      options.map { |o| [o[:id], o[:human] ] }
+    # define <field>_options methods for all fields
+    # (to be used by forms to create select tags)
+    FIELDS.each do |name, options|
+      define_singleton_method "#{name}_options" do
+        options.try(:map) { |o| [o[:id], o[:human] ] } || []
+      end
     end
   end
 
