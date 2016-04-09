@@ -1,6 +1,6 @@
 class Applications::TeamsController < ApplicationController
   before_action :authenticate_user!
-  before_action -> { require_role 'reviewer' }, except: [:new, :create]
+  before_action -> { require_role 'reviewer' }
   respond_to :html
 
   def show
