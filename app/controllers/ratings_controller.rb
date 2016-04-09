@@ -1,23 +1,24 @@
 class RatingsController < ApplicationController
   before_action :authenticate_user!
+  before_action -> { require_role 'reviewer' }
   before_action :normalize_data
 
   def create
     rating = find_or_initialize_rating
-    rating.update_attributes(rating_params)
+    rating.update(rating_attr_params)
     redirect_to next_path(rating.rateable)
   end
 
-  def update # maybe different params hash for update? (why can I stil change rateable_type and id)
-    rating = Rating.find(params[:id])
-    rating.update_attributes(rating_params)
+  def update
+    rating = Rating.by(current_user).find(params[:id])
+    rating.update(rating_attr_params)
     redirect_to next_path(rating.rateable)
   end
 
   private
 
-  def rating_params
-    params.require(:rating).permit(:pick, :rateable_type, :rateable_id, data: RatingData::FIELDS.keys)
+  def rating_attr_params
+    params.require(:rating).permit(:pick, data: RatingData::FIELDS.keys)
   end
 
   def normalize_data
@@ -30,9 +31,8 @@ class RatingsController < ApplicationController
   end
 
   def find_or_initialize_rating
-    rating = Rating.by(current_user).for(params[:rating][:rateable_type], params[:rating][:rateable_id])
-    rating = rating.first_or_initialize
-    rating
+    rateable_args = params[:rating].values_at(:rateable_type, :rateable_id)
+    Rating.by(current_user).for(*rateable_args).first_or_initialize
   end
 
   def next_path(current)
