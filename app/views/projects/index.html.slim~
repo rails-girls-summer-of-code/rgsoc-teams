@@ -1,0 +1,40 @@
+nav.actions
+  ul.list-inline
+    li = link_to icon('plus', 'Submit a Project'), new_project_path, class: 'btn btn-default btn-sm'
+
+h1.header
+  = icon('group')
+  span Projects
+
+table.table.table-striped.table-bordered.table-condensed
+  tr
+    th Name
+    th Tags
+    th Comments
+    th title="Application referencing this project as 1st choice" Applications (1st Choice)
+    th title="Application referencing this project as 2nd choice" Applications (2nd Choice)
+    th Status
+
+  - @projects.each do |project|
+    tr
+      td
+        = link_to project.name, project
+        - if can? :crud, project
+          .project-actions
+            = link_to [:edit, project] do
+              = icon('edit')
+            = link_to project, data: { confirm: 'This action cannot be undone. Are you sure?' }, method: :delete do
+              = icon('minus-sign')
+      td = project_tags project
+      td
+        - if project.comments.any?
+          = link_to project.comments.count, project_path(project, anchor: 'comments'), class: 'label label-default'
+      td
+        span.label.label-default title="Application still in draft mode"= project.first_choice_application_drafts.draft.count
+        | /
+        span.label.label-primary title="Applications sent in" = project.first_choice_application_drafts.applied.count
+      td
+        span.label.label-default title="Applications still in draft mode" = project.second_choice_application_drafts.draft.count
+        | /
+        span.label.label-primary title="Applications sent in" = project.second_choice_application_drafts.applied.count
+      td = project_status project

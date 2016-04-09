@@ -76,7 +76,7 @@ p.attention
 
       h2 Miscellaneous
       = f.input :heard_about_it, as: :text, label: 'How have you heard about the program?', input_html: { rows: 3, disabled: !application_draft.as_student? || application_draft.applied? }
-      = f.input :misc_info, as: :text, label: 'Anything else to add?', hint: 'Address anything that you feel is relevant to your application and was not covered previously.', input_html: { rows: 4, disabled: !application_draft.as_student? || application_draft.applied? }
+      = f.input :misc_info, as: :text, label: 'Anything else to add?', hint: 'Address anything that you feel is relevant to your application and was not covered previously. For example: Do you have a coaching company? Do you have extra remote coaches on board? etc..', input_html: { rows: 4, disabled: !application_draft.as_student? || application_draft.applied? }
 
       = render 'save_draft_button', f: f if application_draft.draft?
 

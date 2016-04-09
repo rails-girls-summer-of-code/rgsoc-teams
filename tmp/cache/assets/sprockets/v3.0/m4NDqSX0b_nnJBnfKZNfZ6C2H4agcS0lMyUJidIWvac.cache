@@ -1,0 +1,12 @@
+I",(function() {
+  $(function() {
+    $('.filter input[type=radio], .filter input[type=checkbox], .filter select').change(function() {
+      return $(this).closest('form').submit();
+    });
+    return $('.comments a').click(function() {
+      return $('.comments').hide();
+    });
+  });
+
+}).call(this);
+:ET

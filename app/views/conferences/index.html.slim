@@ -13,6 +13,7 @@ table.table.table-striped.table-bordered.table-condensed.conferences
     th = sortable 'starts_on', 'Date'
     th Attendees
     th Tickets left
+    th Lightning Talk Slots
 
   - Conference.where(round: 2).each do |conference|
     tr
@@ -21,6 +22,7 @@ table.table.table-striped.table-bordered.table-condensed.conferences
       td = format_conference_date(conference.starts_on, conference.ends_on)
       td = conference.attendees.any? ? links_to_attendances(conference).join(', ').html_safe : '-'
       td = conference.tickets_left
+      td = conference.lightningtalkslots
 
 p = link_to "View as Calendar", calendar_path
 p = link_to "Show/Hide First Round Conferences", "#", onclick: "$('.first-conferences').toggle()"
@@ -36,6 +38,7 @@ p = link_to "Show/Hide First Round Conferences", "#", onclick: "$('.first-confer
       th = sortable 'starts_on', 'Date'
       th Attendees
       th Tickets left
+      th Lightning Talk Slots
 
     - Conference.where(round: 1).each do |conference|
       tr
@@ -44,3 +47,4 @@ p = link_to "Show/Hide First Round Conferences", "#", onclick: "$('.first-confer
         td = format_conference_date(conference.starts_on, conference.ends_on)
         td = conference.attendees.any? ? links_to_attendances(conference).join(', ').html_safe : '-'
         td = conference.tickets_left
+        td = conference.lightningtalkslots
