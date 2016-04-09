@@ -17,7 +17,7 @@ class RatingsController < ApplicationController
   private
 
   def rating_params
-    params.require(:rating).permit(:pick, :rateable_type, :rateable_id, data: RatingData::FIELDS)
+    params.require(:rating).permit(:pick, :rateable_type, :rateable_id, data: RatingData::FIELDS.keys)
   end
 
   def normalize_data
