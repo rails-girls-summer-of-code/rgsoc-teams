@@ -27,49 +27,5 @@
 #   [0,  'project undecided']
 # ]
 
-WOMEN_PRIORITY = [
-  [0, '2 women pair'],
-  [1, 'mixed pair or single women'],
-  [2, 'men pair']
-]
-
-PRACTICE_TIME = [
-  [0, 'more than 12 months'],
-  [1, '9-12 months'],
-  [2, '6-9 months'],
-  [3, '3-6 months'],
-  [4, '1-3 months'],
-  [5, 'less than a month'],
-]
-
-SKILL_LEVELS = [
-  [0, '5: Is used to refactoring'],
-  [1, '4: Has contributed to Open Source'],
-  [2, '3: Can write a unit test'],
-  [3, '2: Can write a method'],
-  [4, '1: Knows data types'],
-]
-
-SUPPORT = [
-  [0, 'fulltime support'],
-  [1, '5-6 hours a day'],
-  [2, '3-4 hours a day'],
-  [3, '1-2 hours a day'],
-  [4, '1 hour a day']
-]
-
-PLANNING = [
-  [0,  'has a proper project plan'],
-  [1,  'weak plan, project only vaguely mentioned'],
-  [2,  'project undecided, no plan']
-]
-
-WEIGHTS = {
-  practice_time: [10, 6, 3, 2, 1, 0],
-  skill_level:   [10, 6, 3, 1, 0],
-  support:       [10, 8, 6, 4, 2],
-  planning:      [10, 6, 0]
-}
-
 SPONSOR_PICK = 20
 MENTOR_PICK = 10

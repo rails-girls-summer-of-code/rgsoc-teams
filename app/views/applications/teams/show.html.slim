@@ -34,7 +34,7 @@
 
       h3 A. Support
       .button_group
-        = d.collection_radio_buttons :support, SUPPORT, :first, :last, checked: @data.support
+        = d.collection_radio_buttons :support, @data.support_options, :first, :last, checked: @data.support
 
       h3 B. Extra points
       = d.input :bonus, as: :string, required: false, label: false, input_html: { value: @data.bonus }

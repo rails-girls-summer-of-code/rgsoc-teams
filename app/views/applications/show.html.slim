@@ -70,7 +70,7 @@
 
       h3 A. Planning quality
       .button_group
-        = d.collection_radio_buttons :planning, PLANNING, :first, :last, checked: @data.planning
+        = d.collection_radio_buttons :planning, @data.planning_options, :first, :last, checked: @data.planning
 
     = f.submit 'Save'
 

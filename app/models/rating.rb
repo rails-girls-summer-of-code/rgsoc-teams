@@ -76,11 +76,11 @@ class Rating < ActiveRecord::Base
   def values(options = {})
     data = self.data.except(:min_money, :is_woman)
     data = data.merge(bonus: data[:bonus] + 10) if options[:bonus_points] && data[:bonus]
-    data.map { |key, value| weight_for(key, value) }
+    data.map { |key, value| points_for(key, value) }
   end
 
-  def weight_for(key, value)
-    return value unless WEIGHTS[key]
-    WEIGHTS[key][value.to_i] or raise("Unknown weight for #{key.inspect}/#{value.inspect}")
-  end
+  private
+    def points_for(key, value)
+      points = RatingData.points_for(field_name: key, id_picked: value)
+    end
 end

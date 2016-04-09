@@ -8,7 +8,7 @@ class RatingsController < ApplicationController
     redirect_to next_path(rating.rateable)
   end
 
-  def update
+  def update # maybe different params hash for update? (why can I stil change rateable_type and id)
     rating = Rating.find(params[:id])
     rating.update_attributes(rating_params)
     redirect_to next_path(rating.rateable)
@@ -17,7 +17,7 @@ class RatingsController < ApplicationController
   private
 
   def rating_params
-    params.require(:rating).permit(:pick, :rateable_type, :rateable_id, data: RatingData::FIELDS).tap { |d| p d }
+    params.require(:rating).permit(:pick, :rateable_type, :rateable_id, data: RatingData::FIELDS)
   end
 
   def normalize_data
