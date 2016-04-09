@@ -47,6 +47,9 @@ table.table.table-striped.table-bordered
   tr
     th Applications (2nd Choice)
     td = @project.second_choice_application_drafts.count
+  tr
+    th Code of Conduct 
+    td = link_to @project.code_of_conduct, @project.code_of_conduct
 
 h2.header
   = icon('file')
