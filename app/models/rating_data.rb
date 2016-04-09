@@ -62,20 +62,13 @@ class RatingData
   end
 
   def self.points_for( field_name:, id_picked: )
-    if FIELDS.has_key? field_name
-      if FIELDS[field_name] == 'numeric'
-        return id_picked # if the field is marked as numeric the points are the id
-      else
-        FIELDS[field_name].each do |h|
-          if h[:id] == id_picked
-            return h[:points]
-          end
-        end
-      end
-
-      nil
+    case FIELDS[field_name]
+    when nil
+      raise ArgumentError, 'field_name not defined'
+    when 'numeric'
+      id_picked
     else
-      raise ArgumentError.new
+      FIELDS[field_name].detect{|h| h[:id] == id_picked}.try(:[], :points)
     end
   end
 end
