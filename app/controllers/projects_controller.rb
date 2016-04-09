@@ -54,7 +54,7 @@ class ProjectsController < ApplicationController
       if @project.update_attributes(project_params)
         format.html { redirect_to projects_path, notice: 'Project was successfully updated.' }
       else
-        format.html { render action: :new }\
+        format.html { render action: :new }
       end
     end
   end
