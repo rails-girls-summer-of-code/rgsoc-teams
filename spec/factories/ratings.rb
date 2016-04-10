@@ -10,5 +10,9 @@ FactoryGirl.define do
     trait :for_team do
       association :rateable, factory: :team
     end
+
+    trait :for_application do
+      association :rateable, factory: :application
+    end
   end
 end
