@@ -1,0 +1,353 @@
+# Logfile created on 2016-04-08 14:57:14 +0530 by logger.rb/53141
+[04/08/16 14:57:14 +0530 Unrestricted (7359)] INFO : Starting the New Relic agent in "development" environment.
+[04/08/16 14:57:14 +0530 Unrestricted (7359)] INFO : To prevent agent startup add a NEWRELIC_AGENT_ENABLED=false environment variable or modify the "development" section of your newrelic.yml.
+[04/08/16 14:57:14 +0530 Unrestricted (7359)] INFO : Reading configuration from config/newrelic.yml (/home/tanmai/rgsoc-teams)
+[04/08/16 14:57:14 +0530 Unrestricted (7359)] INFO : New Relic Agent Developer Mode enabled.
+[04/08/16 14:57:14 +0530 Unrestricted (7359)] ERROR : No application name configured.
+[04/08/16 14:57:14 +0530 Unrestricted (7359)] ERROR : The Agent cannot start without at least one. Please check your 
+[04/08/16 14:57:14 +0530 Unrestricted (7359)] ERROR : newrelic.yml and ensure that it is valid and has at least one 
+[04/08/16 14:57:14 +0530 Unrestricted (7359)] ERROR : value set for app_name in the development 
+[04/08/16 14:57:14 +0530 Unrestricted (7359)] ERROR : environment.
+[04/08/16 14:57:14 +0530 Unrestricted (7359)] INFO : Installing Net instrumentation
+[04/08/16 14:57:14 +0530 Unrestricted (7359)] INFO : Installing deferred Rack instrumentation
+[04/08/16 14:57:14 +0530 Unrestricted (7359)] INFO : Installing Rack::Builder middleware instrumentation
+[04/08/16 14:57:14 +0530 Unrestricted (7359)] INFO : Installing ActiveRecord 4 instrumentation
+[04/08/16 14:57:14 +0530 Unrestricted (7359)] INFO : Installing ActiveJob instrumentation
+[04/08/16 14:57:14 +0530 Unrestricted (7359)] INFO : Installing Rails 3+ middleware instrumentation
+[04/08/16 14:57:14 +0530 Unrestricted (7359)] INFO : Installing Rails 4 view instrumentation
+[04/08/16 14:57:14 +0530 Unrestricted (7359)] INFO : Installing Rails 4 Controller instrumentation
+[04/08/16 14:57:14 +0530 Unrestricted (7359)] INFO : Installing Rails 4 Error instrumentation
+[04/08/16 14:57:14 +0530 Unrestricted (7359)] INFO : Finished instrumentation
+[04/08/16 14:57:14 +0530 Unrestricted (7359)] INFO : Doing deferred dependency-detection before Rack startup
+[04/08/16 22:44:33 +0530 Unrestricted (18373)] INFO : Starting the New Relic agent in "development" environment.
+[04/08/16 22:44:33 +0530 Unrestricted (18373)] INFO : To prevent agent startup add a NEWRELIC_AGENT_ENABLED=false environment variable or modify the "development" section of your newrelic.yml.
+[04/08/16 22:44:33 +0530 Unrestricted (18373)] INFO : Reading configuration from config/newrelic.yml (/home/tanmai/rgsoc-teams)
+[04/08/16 22:44:33 +0530 Unrestricted (18373)] INFO : New Relic Agent Developer Mode enabled.
+[04/08/16 22:44:33 +0530 Unrestricted (18373)] ERROR : No application name configured.
+[04/08/16 22:44:33 +0530 Unrestricted (18373)] ERROR : The Agent cannot start without at least one. Please check your 
+[04/08/16 22:44:33 +0530 Unrestricted (18373)] ERROR : newrelic.yml and ensure that it is valid and has at least one 
+[04/08/16 22:44:33 +0530 Unrestricted (18373)] ERROR : value set for app_name in the development 
+[04/08/16 22:44:33 +0530 Unrestricted (18373)] ERROR : environment.
+[04/08/16 22:44:33 +0530 Unrestricted (18373)] INFO : Installing Net instrumentation
+[04/08/16 22:44:33 +0530 Unrestricted (18373)] INFO : Installing deferred Rack instrumentation
+[04/08/16 22:44:33 +0530 Unrestricted (18373)] INFO : Installing Rack::Builder middleware instrumentation
+[04/08/16 22:44:33 +0530 Unrestricted (18373)] INFO : Installing ActiveRecord 4 instrumentation
+[04/08/16 22:44:33 +0530 Unrestricted (18373)] INFO : Installing ActiveJob instrumentation
+[04/08/16 22:44:33 +0530 Unrestricted (18373)] INFO : Installing Rails 3+ middleware instrumentation
+[04/08/16 22:44:33 +0530 Unrestricted (18373)] INFO : Installing Rails 4 view instrumentation
+[04/08/16 22:44:33 +0530 Unrestricted (18373)] INFO : Installing Rails 4 Controller instrumentation
+[04/08/16 22:44:33 +0530 Unrestricted (18373)] INFO : Installing Rails 4 Error instrumentation
+[04/08/16 22:44:33 +0530 Unrestricted (18373)] INFO : Finished instrumentation
+[04/08/16 22:44:33 +0530 Unrestricted (18373)] INFO : Doing deferred dependency-detection before Rack startup
+[04/08/16 23:32:36 +0530 Unrestricted (20275)] INFO : Starting the New Relic agent in "development" environment.
+[04/08/16 23:32:36 +0530 Unrestricted (20275)] INFO : To prevent agent startup add a NEWRELIC_AGENT_ENABLED=false environment variable or modify the "development" section of your newrelic.yml.
+[04/08/16 23:32:36 +0530 Unrestricted (20275)] INFO : Reading configuration from config/newrelic.yml (/home/tanmai/rgsoc-teams)
+[04/08/16 23:32:36 +0530 Unrestricted (20275)] INFO : New Relic Agent Developer Mode enabled.
+[04/08/16 23:32:36 +0530 Unrestricted (20275)] ERROR : No application name configured.
+[04/08/16 23:32:36 +0530 Unrestricted (20275)] ERROR : The Agent cannot start without at least one. Please check your 
+[04/08/16 23:32:36 +0530 Unrestricted (20275)] ERROR : newrelic.yml and ensure that it is valid and has at least one 
+[04/08/16 23:32:36 +0530 Unrestricted (20275)] ERROR : value set for app_name in the development 
+[04/08/16 23:32:36 +0530 Unrestricted (20275)] ERROR : environment.
+[04/08/16 23:32:36 +0530 Unrestricted (20275)] INFO : Installing Net instrumentation
+[04/08/16 23:32:36 +0530 Unrestricted (20275)] INFO : Installing deferred Rack instrumentation
+[04/08/16 23:32:36 +0530 Unrestricted (20275)] INFO : Installing Rack::Builder middleware instrumentation
+[04/08/16 23:32:36 +0530 Unrestricted (20275)] INFO : Installing ActiveRecord 4 instrumentation
+[04/08/16 23:32:36 +0530 Unrestricted (20275)] INFO : Installing ActiveJob instrumentation
+[04/08/16 23:32:36 +0530 Unrestricted (20275)] INFO : Installing Rails 3+ middleware instrumentation
+[04/08/16 23:32:36 +0530 Unrestricted (20275)] INFO : Installing Rails 4 view instrumentation
+[04/08/16 23:32:36 +0530 Unrestricted (20275)] INFO : Installing Rails 4 Controller instrumentation
+[04/08/16 23:32:36 +0530 Unrestricted (20275)] INFO : Installing Rails 4 Error instrumentation
+[04/08/16 23:32:36 +0530 Unrestricted (20275)] INFO : Finished instrumentation
+[04/08/16 23:32:36 +0530 Unrestricted (20275)] INFO : Doing deferred dependency-detection before Rack startup
+[04/08/16 23:40:35 +0530 Unrestricted (20832)] INFO : Starting the New Relic agent in "development" environment.
+[04/08/16 23:40:35 +0530 Unrestricted (20832)] INFO : To prevent agent startup add a NEWRELIC_AGENT_ENABLED=false environment variable or modify the "development" section of your newrelic.yml.
+[04/08/16 23:40:35 +0530 Unrestricted (20832)] INFO : Reading configuration from config/newrelic.yml (/home/tanmai/rgsoc-teams)
+[04/08/16 23:40:35 +0530 Unrestricted (20832)] INFO : New Relic Agent Developer Mode enabled.
+[04/08/16 23:40:35 +0530 Unrestricted (20832)] ERROR : No application name configured.
+[04/08/16 23:40:35 +0530 Unrestricted (20832)] ERROR : The Agent cannot start without at least one. Please check your 
+[04/08/16 23:40:35 +0530 Unrestricted (20832)] ERROR : newrelic.yml and ensure that it is valid and has at least one 
+[04/08/16 23:40:35 +0530 Unrestricted (20832)] ERROR : value set for app_name in the development 
+[04/08/16 23:40:35 +0530 Unrestricted (20832)] ERROR : environment.
+[04/08/16 23:40:35 +0530 Unrestricted (20832)] INFO : Installing Net instrumentation
+[04/08/16 23:40:35 +0530 Unrestricted (20832)] INFO : Installing deferred Rack instrumentation
+[04/08/16 23:40:35 +0530 Unrestricted (20832)] INFO : Installing Rack::Builder middleware instrumentation
+[04/08/16 23:40:35 +0530 Unrestricted (20832)] INFO : Installing ActiveRecord 4 instrumentation
+[04/08/16 23:40:35 +0530 Unrestricted (20832)] INFO : Installing ActiveJob instrumentation
+[04/08/16 23:40:35 +0530 Unrestricted (20832)] INFO : Installing Rails 3+ middleware instrumentation
+[04/08/16 23:40:35 +0530 Unrestricted (20832)] INFO : Installing Rails 4 view instrumentation
+[04/08/16 23:40:35 +0530 Unrestricted (20832)] INFO : Installing Rails 4 Controller instrumentation
+[04/08/16 23:40:35 +0530 Unrestricted (20832)] INFO : Installing Rails 4 Error instrumentation
+[04/08/16 23:40:35 +0530 Unrestricted (20832)] INFO : Finished instrumentation
+[04/08/16 23:40:35 +0530 Unrestricted (20832)] INFO : Doing deferred dependency-detection before Rack startup
+[04/09/16 00:24:05 +0530 Unrestricted (22563)] INFO : Starting the New Relic agent in "development" environment.
+[04/09/16 00:24:05 +0530 Unrestricted (22563)] INFO : To prevent agent startup add a NEWRELIC_AGENT_ENABLED=false environment variable or modify the "development" section of your newrelic.yml.
+[04/09/16 00:24:05 +0530 Unrestricted (22563)] INFO : Reading configuration from config/newrelic.yml (/home/tanmai/rgsoc-teams)
+[04/09/16 00:24:05 +0530 Unrestricted (22563)] INFO : New Relic Agent Developer Mode enabled.
+[04/09/16 00:24:05 +0530 Unrestricted (22563)] ERROR : No application name configured.
+[04/09/16 00:24:05 +0530 Unrestricted (22563)] ERROR : The Agent cannot start without at least one. Please check your 
+[04/09/16 00:24:05 +0530 Unrestricted (22563)] ERROR : newrelic.yml and ensure that it is valid and has at least one 
+[04/09/16 00:24:05 +0530 Unrestricted (22563)] ERROR : value set for app_name in the development 
+[04/09/16 00:24:05 +0530 Unrestricted (22563)] ERROR : environment.
+[04/09/16 00:24:05 +0530 Unrestricted (22563)] INFO : Installing Net instrumentation
+[04/09/16 00:24:05 +0530 Unrestricted (22563)] INFO : Installing deferred Rack instrumentation
+[04/09/16 00:24:05 +0530 Unrestricted (22563)] INFO : Installing Rack::Builder middleware instrumentation
+[04/09/16 00:24:05 +0530 Unrestricted (22563)] INFO : Installing ActiveRecord 4 instrumentation
+[04/09/16 00:24:05 +0530 Unrestricted (22563)] INFO : Installing ActiveJob instrumentation
+[04/09/16 00:24:05 +0530 Unrestricted (22563)] INFO : Installing Rails 3+ middleware instrumentation
+[04/09/16 00:24:05 +0530 Unrestricted (22563)] INFO : Installing Rails 4 view instrumentation
+[04/09/16 00:24:05 +0530 Unrestricted (22563)] INFO : Installing Rails 4 Controller instrumentation
+[04/09/16 00:24:05 +0530 Unrestricted (22563)] INFO : Installing Rails 4 Error instrumentation
+[04/09/16 00:24:05 +0530 Unrestricted (22563)] INFO : Finished instrumentation
+[04/09/16 00:24:35 +0530 Unrestricted (22585)] INFO : Starting the New Relic agent in "development" environment.
+[04/09/16 00:24:35 +0530 Unrestricted (22585)] INFO : To prevent agent startup add a NEWRELIC_AGENT_ENABLED=false environment variable or modify the "development" section of your newrelic.yml.
+[04/09/16 00:24:35 +0530 Unrestricted (22585)] INFO : Reading configuration from config/newrelic.yml (/home/tanmai/rgsoc-teams)
+[04/09/16 00:24:36 +0530 Unrestricted (22585)] INFO : New Relic Agent Developer Mode enabled.
+[04/09/16 00:24:36 +0530 Unrestricted (22585)] ERROR : No application name configured.
+[04/09/16 00:24:36 +0530 Unrestricted (22585)] ERROR : The Agent cannot start without at least one. Please check your 
+[04/09/16 00:24:36 +0530 Unrestricted (22585)] ERROR : newrelic.yml and ensure that it is valid and has at least one 
+[04/09/16 00:24:36 +0530 Unrestricted (22585)] ERROR : value set for app_name in the development 
+[04/09/16 00:24:36 +0530 Unrestricted (22585)] ERROR : environment.
+[04/09/16 00:24:36 +0530 Unrestricted (22585)] INFO : Installing Net instrumentation
+[04/09/16 00:24:36 +0530 Unrestricted (22585)] INFO : Installing deferred Rack instrumentation
+[04/09/16 00:24:36 +0530 Unrestricted (22585)] INFO : Installing Rack::Builder middleware instrumentation
+[04/09/16 00:24:36 +0530 Unrestricted (22585)] INFO : Installing ActiveRecord 4 instrumentation
+[04/09/16 00:24:36 +0530 Unrestricted (22585)] INFO : Installing ActiveJob instrumentation
+[04/09/16 00:24:36 +0530 Unrestricted (22585)] INFO : Installing Rails 3+ middleware instrumentation
+[04/09/16 00:24:36 +0530 Unrestricted (22585)] INFO : Installing Rails 4 view instrumentation
+[04/09/16 00:24:36 +0530 Unrestricted (22585)] INFO : Installing Rails 4 Controller instrumentation
+[04/09/16 00:24:36 +0530 Unrestricted (22585)] INFO : Installing Rails 4 Error instrumentation
+[04/09/16 00:24:36 +0530 Unrestricted (22585)] INFO : Finished instrumentation
+[04/09/16 00:24:36 +0530 Unrestricted (22585)] INFO : Doing deferred dependency-detection before Rack startup
+[04/09/16 00:25:35 +0530 Unrestricted (22707)] INFO : Starting the New Relic agent in "development" environment.
+[04/09/16 00:25:35 +0530 Unrestricted (22707)] INFO : To prevent agent startup add a NEWRELIC_AGENT_ENABLED=false environment variable or modify the "development" section of your newrelic.yml.
+[04/09/16 00:25:35 +0530 Unrestricted (22707)] INFO : Reading configuration from config/newrelic.yml (/home/tanmai/rgsoc-teams)
+[04/09/16 00:25:36 +0530 Unrestricted (22707)] INFO : New Relic Agent Developer Mode enabled.
+[04/09/16 00:25:36 +0530 Unrestricted (22707)] ERROR : No application name configured.
+[04/09/16 00:25:36 +0530 Unrestricted (22707)] ERROR : The Agent cannot start without at least one. Please check your 
+[04/09/16 00:25:36 +0530 Unrestricted (22707)] ERROR : newrelic.yml and ensure that it is valid and has at least one 
+[04/09/16 00:25:36 +0530 Unrestricted (22707)] ERROR : value set for app_name in the development 
+[04/09/16 00:25:36 +0530 Unrestricted (22707)] ERROR : environment.
+[04/09/16 00:25:36 +0530 Unrestricted (22707)] INFO : Installing Net instrumentation
+[04/09/16 00:25:36 +0530 Unrestricted (22707)] INFO : Installing deferred Rack instrumentation
+[04/09/16 00:25:36 +0530 Unrestricted (22707)] INFO : Installing Rack::Builder middleware instrumentation
+[04/09/16 00:25:36 +0530 Unrestricted (22707)] INFO : Installing ActiveRecord 4 instrumentation
+[04/09/16 00:25:36 +0530 Unrestricted (22707)] INFO : Installing ActiveJob instrumentation
+[04/09/16 00:25:36 +0530 Unrestricted (22707)] INFO : Installing Rails 3+ middleware instrumentation
+[04/09/16 00:25:36 +0530 Unrestricted (22707)] INFO : Installing Rails 4 view instrumentation
+[04/09/16 00:25:36 +0530 Unrestricted (22707)] INFO : Installing Rails 4 Controller instrumentation
+[04/09/16 00:25:36 +0530 Unrestricted (22707)] INFO : Installing Rails 4 Error instrumentation
+[04/09/16 00:25:36 +0530 Unrestricted (22707)] INFO : Finished instrumentation
+[04/09/16 00:26:00 +0530 Unrestricted (22727)] INFO : Starting the New Relic agent in "development" environment.
+[04/09/16 00:26:00 +0530 Unrestricted (22727)] INFO : To prevent agent startup add a NEWRELIC_AGENT_ENABLED=false environment variable or modify the "development" section of your newrelic.yml.
+[04/09/16 00:26:00 +0530 Unrestricted (22727)] INFO : Reading configuration from config/newrelic.yml (/home/tanmai/rgsoc-teams)
+[04/09/16 00:26:01 +0530 Unrestricted (22727)] INFO : New Relic Agent Developer Mode enabled.
+[04/09/16 00:26:01 +0530 Unrestricted (22727)] ERROR : No application name configured.
+[04/09/16 00:26:01 +0530 Unrestricted (22727)] ERROR : The Agent cannot start without at least one. Please check your 
+[04/09/16 00:26:01 +0530 Unrestricted (22727)] ERROR : newrelic.yml and ensure that it is valid and has at least one 
+[04/09/16 00:26:01 +0530 Unrestricted (22727)] ERROR : value set for app_name in the development 
+[04/09/16 00:26:01 +0530 Unrestricted (22727)] ERROR : environment.
+[04/09/16 00:26:01 +0530 Unrestricted (22727)] INFO : Installing Net instrumentation
+[04/09/16 00:26:01 +0530 Unrestricted (22727)] INFO : Installing deferred Rack instrumentation
+[04/09/16 00:26:01 +0530 Unrestricted (22727)] INFO : Installing Rack::Builder middleware instrumentation
+[04/09/16 00:26:01 +0530 Unrestricted (22727)] INFO : Installing ActiveRecord 4 instrumentation
+[04/09/16 00:26:01 +0530 Unrestricted (22727)] INFO : Installing ActiveJob instrumentation
+[04/09/16 00:26:01 +0530 Unrestricted (22727)] INFO : Installing Rails 3+ middleware instrumentation
+[04/09/16 00:26:01 +0530 Unrestricted (22727)] INFO : Installing Rails 4 view instrumentation
+[04/09/16 00:26:01 +0530 Unrestricted (22727)] INFO : Installing Rails 4 Controller instrumentation
+[04/09/16 00:26:01 +0530 Unrestricted (22727)] INFO : Installing Rails 4 Error instrumentation
+[04/09/16 00:26:01 +0530 Unrestricted (22727)] INFO : Finished instrumentation
+[04/09/16 00:26:58 +0530 Unrestricted (22788)] INFO : Starting the New Relic agent in "development" environment.
+[04/09/16 00:26:58 +0530 Unrestricted (22788)] INFO : To prevent agent startup add a NEWRELIC_AGENT_ENABLED=false environment variable or modify the "development" section of your newrelic.yml.
+[04/09/16 00:26:58 +0530 Unrestricted (22788)] INFO : Reading configuration from config/newrelic.yml (/home/tanmai/rgsoc-teams)
+[04/09/16 00:26:58 +0530 Unrestricted (22788)] INFO : New Relic Agent Developer Mode enabled.
+[04/09/16 00:26:58 +0530 Unrestricted (22788)] ERROR : No application name configured.
+[04/09/16 00:26:58 +0530 Unrestricted (22788)] ERROR : The Agent cannot start without at least one. Please check your 
+[04/09/16 00:26:58 +0530 Unrestricted (22788)] ERROR : newrelic.yml and ensure that it is valid and has at least one 
+[04/09/16 00:26:58 +0530 Unrestricted (22788)] ERROR : value set for app_name in the development 
+[04/09/16 00:26:58 +0530 Unrestricted (22788)] ERROR : environment.
+[04/09/16 00:26:58 +0530 Unrestricted (22788)] INFO : Installing Net instrumentation
+[04/09/16 00:26:58 +0530 Unrestricted (22788)] INFO : Installing deferred Rack instrumentation
+[04/09/16 00:26:58 +0530 Unrestricted (22788)] INFO : Installing Rack::Builder middleware instrumentation
+[04/09/16 00:26:58 +0530 Unrestricted (22788)] INFO : Installing ActiveRecord 4 instrumentation
+[04/09/16 00:26:58 +0530 Unrestricted (22788)] INFO : Installing ActiveJob instrumentation
+[04/09/16 00:26:58 +0530 Unrestricted (22788)] INFO : Installing Rails 3+ middleware instrumentation
+[04/09/16 00:26:58 +0530 Unrestricted (22788)] INFO : Installing Rails 4 view instrumentation
+[04/09/16 00:26:58 +0530 Unrestricted (22788)] INFO : Installing Rails 4 Controller instrumentation
+[04/09/16 00:26:58 +0530 Unrestricted (22788)] INFO : Installing Rails 4 Error instrumentation
+[04/09/16 00:26:58 +0530 Unrestricted (22788)] INFO : Finished instrumentation
+[04/09/16 00:26:58 +0530 Unrestricted (22788)] INFO : Doing deferred dependency-detection before Rack startup
+[04/09/16 00:48:29 +0530 Unrestricted (23639)] INFO : Starting the New Relic agent in "development" environment.
+[04/09/16 00:48:29 +0530 Unrestricted (23639)] INFO : To prevent agent startup add a NEWRELIC_AGENT_ENABLED=false environment variable or modify the "development" section of your newrelic.yml.
+[04/09/16 00:48:29 +0530 Unrestricted (23639)] INFO : Reading configuration from config/newrelic.yml (/home/tanmai/rgsoc-teams)
+[04/09/16 00:48:29 +0530 Unrestricted (23639)] INFO : New Relic Agent Developer Mode enabled.
+[04/09/16 00:48:29 +0530 Unrestricted (23639)] ERROR : No application name configured.
+[04/09/16 00:48:29 +0530 Unrestricted (23639)] ERROR : The Agent cannot start without at least one. Please check your 
+[04/09/16 00:48:29 +0530 Unrestricted (23639)] ERROR : newrelic.yml and ensure that it is valid and has at least one 
+[04/09/16 00:48:29 +0530 Unrestricted (23639)] ERROR : value set for app_name in the development 
+[04/09/16 00:48:29 +0530 Unrestricted (23639)] ERROR : environment.
+[04/09/16 00:48:29 +0530 Unrestricted (23639)] INFO : Installing Net instrumentation
+[04/09/16 00:48:29 +0530 Unrestricted (23639)] INFO : Installing deferred Rack instrumentation
+[04/09/16 00:48:29 +0530 Unrestricted (23639)] INFO : Installing Rack::Builder middleware instrumentation
+[04/09/16 00:48:29 +0530 Unrestricted (23639)] INFO : Installing ActiveRecord 4 instrumentation
+[04/09/16 00:48:29 +0530 Unrestricted (23639)] INFO : Installing ActiveJob instrumentation
+[04/09/16 00:48:29 +0530 Unrestricted (23639)] INFO : Installing Rails 3+ middleware instrumentation
+[04/09/16 00:48:29 +0530 Unrestricted (23639)] INFO : Installing Rails 4 view instrumentation
+[04/09/16 00:48:29 +0530 Unrestricted (23639)] INFO : Installing Rails 4 Controller instrumentation
+[04/09/16 00:48:29 +0530 Unrestricted (23639)] INFO : Installing Rails 4 Error instrumentation
+[04/09/16 00:48:29 +0530 Unrestricted (23639)] INFO : Finished instrumentation
+[04/09/16 00:49:16 +0530 Unrestricted (23665)] INFO : Starting the New Relic agent in "development" environment.
+[04/09/16 00:49:16 +0530 Unrestricted (23665)] INFO : To prevent agent startup add a NEWRELIC_AGENT_ENABLED=false environment variable or modify the "development" section of your newrelic.yml.
+[04/09/16 00:49:16 +0530 Unrestricted (23665)] INFO : Reading configuration from config/newrelic.yml (/home/tanmai/rgsoc-teams)
+[04/09/16 00:49:16 +0530 Unrestricted (23665)] INFO : New Relic Agent Developer Mode enabled.
+[04/09/16 00:49:16 +0530 Unrestricted (23665)] ERROR : No application name configured.
+[04/09/16 00:49:16 +0530 Unrestricted (23665)] ERROR : The Agent cannot start without at least one. Please check your 
+[04/09/16 00:49:16 +0530 Unrestricted (23665)] ERROR : newrelic.yml and ensure that it is valid and has at least one 
+[04/09/16 00:49:16 +0530 Unrestricted (23665)] ERROR : value set for app_name in the development 
+[04/09/16 00:49:16 +0530 Unrestricted (23665)] ERROR : environment.
+[04/09/16 00:49:16 +0530 Unrestricted (23665)] INFO : Installing Net instrumentation
+[04/09/16 00:49:16 +0530 Unrestricted (23665)] INFO : Installing deferred Rack instrumentation
+[04/09/16 00:49:16 +0530 Unrestricted (23665)] INFO : Installing Rack::Builder middleware instrumentation
+[04/09/16 00:49:16 +0530 Unrestricted (23665)] INFO : Installing ActiveRecord 4 instrumentation
+[04/09/16 00:49:16 +0530 Unrestricted (23665)] INFO : Installing ActiveJob instrumentation
+[04/09/16 00:49:16 +0530 Unrestricted (23665)] INFO : Installing Rails 3+ middleware instrumentation
+[04/09/16 00:49:16 +0530 Unrestricted (23665)] INFO : Installing Rails 4 view instrumentation
+[04/09/16 00:49:16 +0530 Unrestricted (23665)] INFO : Installing Rails 4 Controller instrumentation
+[04/09/16 00:49:16 +0530 Unrestricted (23665)] INFO : Installing Rails 4 Error instrumentation
+[04/09/16 00:49:16 +0530 Unrestricted (23665)] INFO : Finished instrumentation
+[04/09/16 00:50:18 +0530 Unrestricted (23702)] INFO : Starting the New Relic agent in "development" environment.
+[04/09/16 00:50:18 +0530 Unrestricted (23702)] INFO : To prevent agent startup add a NEWRELIC_AGENT_ENABLED=false environment variable or modify the "development" section of your newrelic.yml.
+[04/09/16 00:50:18 +0530 Unrestricted (23702)] INFO : Reading configuration from config/newrelic.yml (/home/tanmai/rgsoc-teams)
+[04/09/16 00:50:18 +0530 Unrestricted (23702)] INFO : New Relic Agent Developer Mode enabled.
+[04/09/16 00:50:18 +0530 Unrestricted (23702)] ERROR : No application name configured.
+[04/09/16 00:50:18 +0530 Unrestricted (23702)] ERROR : The Agent cannot start without at least one. Please check your 
+[04/09/16 00:50:18 +0530 Unrestricted (23702)] ERROR : newrelic.yml and ensure that it is valid and has at least one 
+[04/09/16 00:50:18 +0530 Unrestricted (23702)] ERROR : value set for app_name in the development 
+[04/09/16 00:50:18 +0530 Unrestricted (23702)] ERROR : environment.
+[04/09/16 00:50:18 +0530 Unrestricted (23702)] INFO : Installing Net instrumentation
+[04/09/16 00:50:18 +0530 Unrestricted (23702)] INFO : Installing deferred Rack instrumentation
+[04/09/16 00:50:18 +0530 Unrestricted (23702)] INFO : Installing Rack::Builder middleware instrumentation
+[04/09/16 00:50:18 +0530 Unrestricted (23702)] INFO : Installing ActiveRecord 4 instrumentation
+[04/09/16 00:50:18 +0530 Unrestricted (23702)] INFO : Installing ActiveJob instrumentation
+[04/09/16 00:50:18 +0530 Unrestricted (23702)] INFO : Installing Rails 3+ middleware instrumentation
+[04/09/16 00:50:18 +0530 Unrestricted (23702)] INFO : Installing Rails 4 view instrumentation
+[04/09/16 00:50:18 +0530 Unrestricted (23702)] INFO : Installing Rails 4 Controller instrumentation
+[04/09/16 00:50:18 +0530 Unrestricted (23702)] INFO : Installing Rails 4 Error instrumentation
+[04/09/16 00:50:18 +0530 Unrestricted (23702)] INFO : Finished instrumentation
+[04/09/16 00:50:45 +0530 Unrestricted (23719)] INFO : Starting the New Relic agent in "development" environment.
+[04/09/16 00:50:45 +0530 Unrestricted (23719)] INFO : To prevent agent startup add a NEWRELIC_AGENT_ENABLED=false environment variable or modify the "development" section of your newrelic.yml.
+[04/09/16 00:50:45 +0530 Unrestricted (23719)] INFO : Reading configuration from config/newrelic.yml (/home/tanmai/rgsoc-teams)
+[04/09/16 00:50:45 +0530 Unrestricted (23719)] INFO : New Relic Agent Developer Mode enabled.
+[04/09/16 00:50:45 +0530 Unrestricted (23719)] ERROR : No application name configured.
+[04/09/16 00:50:45 +0530 Unrestricted (23719)] ERROR : The Agent cannot start without at least one. Please check your 
+[04/09/16 00:50:45 +0530 Unrestricted (23719)] ERROR : newrelic.yml and ensure that it is valid and has at least one 
+[04/09/16 00:50:45 +0530 Unrestricted (23719)] ERROR : value set for app_name in the development 
+[04/09/16 00:50:45 +0530 Unrestricted (23719)] ERROR : environment.
+[04/09/16 00:50:45 +0530 Unrestricted (23719)] INFO : Installing Net instrumentation
+[04/09/16 00:50:45 +0530 Unrestricted (23719)] INFO : Installing deferred Rack instrumentation
+[04/09/16 00:50:45 +0530 Unrestricted (23719)] INFO : Installing Rack::Builder middleware instrumentation
+[04/09/16 00:50:45 +0530 Unrestricted (23719)] INFO : Installing ActiveRecord 4 instrumentation
+[04/09/16 00:50:45 +0530 Unrestricted (23719)] INFO : Installing ActiveJob instrumentation
+[04/09/16 00:50:45 +0530 Unrestricted (23719)] INFO : Installing Rails 3+ middleware instrumentation
+[04/09/16 00:50:45 +0530 Unrestricted (23719)] INFO : Installing Rails 4 view instrumentation
+[04/09/16 00:50:45 +0530 Unrestricted (23719)] INFO : Installing Rails 4 Controller instrumentation
+[04/09/16 00:50:45 +0530 Unrestricted (23719)] INFO : Installing Rails 4 Error instrumentation
+[04/09/16 00:50:45 +0530 Unrestricted (23719)] INFO : Finished instrumentation
+[04/09/16 00:56:44 +0530 Unrestricted (23998)] INFO : Starting the New Relic agent in "development" environment.
+[04/09/16 00:56:44 +0530 Unrestricted (23998)] INFO : To prevent agent startup add a NEWRELIC_AGENT_ENABLED=false environment variable or modify the "development" section of your newrelic.yml.
+[04/09/16 00:56:44 +0530 Unrestricted (23998)] INFO : Reading configuration from config/newrelic.yml (/home/tanmai/rgsoc-teams)
+[04/09/16 00:56:44 +0530 Unrestricted (23998)] INFO : New Relic Agent Developer Mode enabled.
+[04/09/16 00:56:44 +0530 Unrestricted (23998)] ERROR : No application name configured.
+[04/09/16 00:56:44 +0530 Unrestricted (23998)] ERROR : The Agent cannot start without at least one. Please check your 
+[04/09/16 00:56:44 +0530 Unrestricted (23998)] ERROR : newrelic.yml and ensure that it is valid and has at least one 
+[04/09/16 00:56:44 +0530 Unrestricted (23998)] ERROR : value set for app_name in the development 
+[04/09/16 00:56:44 +0530 Unrestricted (23998)] ERROR : environment.
+[04/09/16 00:56:44 +0530 Unrestricted (23998)] INFO : Installing Net instrumentation
+[04/09/16 00:56:44 +0530 Unrestricted (23998)] INFO : Installing deferred Rack instrumentation
+[04/09/16 00:56:44 +0530 Unrestricted (23998)] INFO : Installing Rack::Builder middleware instrumentation
+[04/09/16 00:56:44 +0530 Unrestricted (23998)] INFO : Installing ActiveRecord 4 instrumentation
+[04/09/16 00:56:44 +0530 Unrestricted (23998)] INFO : Installing ActiveJob instrumentation
+[04/09/16 00:56:44 +0530 Unrestricted (23998)] INFO : Installing Rails 3+ middleware instrumentation
+[04/09/16 00:56:44 +0530 Unrestricted (23998)] INFO : Installing Rails 4 view instrumentation
+[04/09/16 00:56:44 +0530 Unrestricted (23998)] INFO : Installing Rails 4 Controller instrumentation
+[04/09/16 00:56:44 +0530 Unrestricted (23998)] INFO : Installing Rails 4 Error instrumentation
+[04/09/16 00:56:44 +0530 Unrestricted (23998)] INFO : Finished instrumentation
+[04/09/16 00:56:45 +0530 Unrestricted (23998)] INFO : Doing deferred dependency-detection before Rack startup
+[04/09/16 01:16:46 +0530 Unrestricted (24845)] INFO : Starting the New Relic agent in "development" environment.
+[04/09/16 01:16:46 +0530 Unrestricted (24845)] INFO : To prevent agent startup add a NEWRELIC_AGENT_ENABLED=false environment variable or modify the "development" section of your newrelic.yml.
+[04/09/16 01:16:46 +0530 Unrestricted (24845)] INFO : Reading configuration from config/newrelic.yml (/home/tanmai/rgsoc-teams)
+[04/09/16 01:16:46 +0530 Unrestricted (24845)] INFO : New Relic Agent Developer Mode enabled.
+[04/09/16 01:16:46 +0530 Unrestricted (24845)] ERROR : No application name configured.
+[04/09/16 01:16:46 +0530 Unrestricted (24845)] ERROR : The Agent cannot start without at least one. Please check your 
+[04/09/16 01:16:46 +0530 Unrestricted (24845)] ERROR : newrelic.yml and ensure that it is valid and has at least one 
+[04/09/16 01:16:46 +0530 Unrestricted (24845)] ERROR : value set for app_name in the development 
+[04/09/16 01:16:46 +0530 Unrestricted (24845)] ERROR : environment.
+[04/09/16 01:16:46 +0530 Unrestricted (24845)] INFO : Installing Net instrumentation
+[04/09/16 01:16:46 +0530 Unrestricted (24845)] INFO : Installing deferred Rack instrumentation
+[04/09/16 01:16:46 +0530 Unrestricted (24845)] INFO : Installing Rack::Builder middleware instrumentation
+[04/09/16 01:16:46 +0530 Unrestricted (24845)] INFO : Installing ActiveRecord 4 instrumentation
+[04/09/16 01:16:46 +0530 Unrestricted (24845)] INFO : Installing ActiveJob instrumentation
+[04/09/16 01:16:46 +0530 Unrestricted (24845)] INFO : Installing Rails 3+ middleware instrumentation
+[04/09/16 01:16:46 +0530 Unrestricted (24845)] INFO : Installing Rails 4 view instrumentation
+[04/09/16 01:16:46 +0530 Unrestricted (24845)] INFO : Installing Rails 4 Controller instrumentation
+[04/09/16 01:16:46 +0530 Unrestricted (24845)] INFO : Installing Rails 4 Error instrumentation
+[04/09/16 01:16:46 +0530 Unrestricted (24845)] INFO : Finished instrumentation
+[04/09/16 01:16:46 +0530 Unrestricted (24845)] INFO : Doing deferred dependency-detection before Rack startup
+[04/09/16 01:33:11 +0530 Unrestricted (25486)] INFO : Starting the New Relic agent in "development" environment.
+[04/09/16 01:33:11 +0530 Unrestricted (25486)] INFO : To prevent agent startup add a NEWRELIC_AGENT_ENABLED=false environment variable or modify the "development" section of your newrelic.yml.
+[04/09/16 01:33:11 +0530 Unrestricted (25486)] INFO : Reading configuration from config/newrelic.yml (/home/tanmai/rgsoc-teams)
+[04/09/16 01:33:11 +0530 Unrestricted (25486)] INFO : New Relic Agent Developer Mode enabled.
+[04/09/16 01:33:11 +0530 Unrestricted (25486)] ERROR : No application name configured.
+[04/09/16 01:33:11 +0530 Unrestricted (25486)] ERROR : The Agent cannot start without at least one. Please check your 
+[04/09/16 01:33:11 +0530 Unrestricted (25486)] ERROR : newrelic.yml and ensure that it is valid and has at least one 
+[04/09/16 01:33:11 +0530 Unrestricted (25486)] ERROR : value set for app_name in the development 
+[04/09/16 01:33:11 +0530 Unrestricted (25486)] ERROR : environment.
+[04/09/16 01:33:11 +0530 Unrestricted (25486)] INFO : Installing Net instrumentation
+[04/09/16 01:33:11 +0530 Unrestricted (25486)] INFO : Installing deferred Rack instrumentation
+[04/09/16 01:33:11 +0530 Unrestricted (25486)] INFO : Installing Rack::Builder middleware instrumentation
+[04/09/16 01:33:11 +0530 Unrestricted (25486)] INFO : Installing ActiveRecord 4 instrumentation
+[04/09/16 01:33:11 +0530 Unrestricted (25486)] INFO : Installing ActiveJob instrumentation
+[04/09/16 01:33:12 +0530 Unrestricted (25486)] INFO : Installing Rails 3+ middleware instrumentation
+[04/09/16 01:33:12 +0530 Unrestricted (25486)] INFO : Installing Rails 4 view instrumentation
+[04/09/16 01:33:12 +0530 Unrestricted (25486)] INFO : Installing Rails 4 Controller instrumentation
+[04/09/16 01:33:12 +0530 Unrestricted (25486)] INFO : Installing Rails 4 Error instrumentation
+[04/09/16 01:33:12 +0530 Unrestricted (25486)] INFO : Finished instrumentation
+[04/09/16 01:37:00 +0530 Unrestricted (25616)] INFO : Starting the New Relic agent in "development" environment.
+[04/09/16 01:37:00 +0530 Unrestricted (25616)] INFO : To prevent agent startup add a NEWRELIC_AGENT_ENABLED=false environment variable or modify the "development" section of your newrelic.yml.
+[04/09/16 01:37:00 +0530 Unrestricted (25616)] INFO : Reading configuration from config/newrelic.yml (/home/tanmai/rgsoc-teams)
+[04/09/16 01:37:00 +0530 Unrestricted (25616)] INFO : New Relic Agent Developer Mode enabled.
+[04/09/16 01:37:00 +0530 Unrestricted (25616)] ERROR : No application name configured.
+[04/09/16 01:37:00 +0530 Unrestricted (25616)] ERROR : The Agent cannot start without at least one. Please check your 
+[04/09/16 01:37:00 +0530 Unrestricted (25616)] ERROR : newrelic.yml and ensure that it is valid and has at least one 
+[04/09/16 01:37:00 +0530 Unrestricted (25616)] ERROR : value set for app_name in the development 
+[04/09/16 01:37:00 +0530 Unrestricted (25616)] ERROR : environment.
+[04/09/16 01:37:00 +0530 Unrestricted (25616)] INFO : Installing Net instrumentation
+[04/09/16 01:37:00 +0530 Unrestricted (25616)] INFO : Installing deferred Rack instrumentation
+[04/09/16 01:37:00 +0530 Unrestricted (25616)] INFO : Installing Rack::Builder middleware instrumentation
+[04/09/16 01:37:00 +0530 Unrestricted (25616)] INFO : Installing ActiveRecord 4 instrumentation
+[04/09/16 01:37:00 +0530 Unrestricted (25616)] INFO : Installing ActiveJob instrumentation
+[04/09/16 01:37:00 +0530 Unrestricted (25616)] INFO : Installing Rails 3+ middleware instrumentation
+[04/09/16 01:37:00 +0530 Unrestricted (25616)] INFO : Installing Rails 4 view instrumentation
+[04/09/16 01:37:00 +0530 Unrestricted (25616)] INFO : Installing Rails 4 Controller instrumentation
+[04/09/16 01:37:00 +0530 Unrestricted (25616)] INFO : Installing Rails 4 Error instrumentation
+[04/09/16 01:37:00 +0530 Unrestricted (25616)] INFO : Finished instrumentation
+[04/09/16 01:37:00 +0530 Unrestricted (25616)] INFO : Doing deferred dependency-detection before Rack startup
+[04/09/16 14:00:25 +0530 Unrestricted (9928)] INFO : Starting the New Relic agent in "development" environment.
+[04/09/16 14:00:25 +0530 Unrestricted (9928)] INFO : To prevent agent startup add a NEWRELIC_AGENT_ENABLED=false environment variable or modify the "development" section of your newrelic.yml.
+[04/09/16 14:00:25 +0530 Unrestricted (9928)] INFO : Reading configuration from config/newrelic.yml (/home/tanmai/rgsoc-teams)
+[04/09/16 14:00:25 +0530 Unrestricted (9928)] INFO : New Relic Agent Developer Mode enabled.
+[04/09/16 14:00:25 +0530 Unrestricted (9928)] ERROR : No application name configured.
+[04/09/16 14:00:25 +0530 Unrestricted (9928)] ERROR : The Agent cannot start without at least one. Please check your 
+[04/09/16 14:00:25 +0530 Unrestricted (9928)] ERROR : newrelic.yml and ensure that it is valid and has at least one 
+[04/09/16 14:00:25 +0530 Unrestricted (9928)] ERROR : value set for app_name in the development 
+[04/09/16 14:00:25 +0530 Unrestricted (9928)] ERROR : environment.
+[04/09/16 14:00:25 +0530 Unrestricted (9928)] INFO : Installing Net instrumentation
+[04/09/16 14:00:25 +0530 Unrestricted (9928)] INFO : Installing deferred Rack instrumentation
+[04/09/16 14:00:25 +0530 Unrestricted (9928)] INFO : Installing Rack::Builder middleware instrumentation
+[04/09/16 14:00:25 +0530 Unrestricted (9928)] INFO : Installing ActiveRecord 4 instrumentation
+[04/09/16 14:00:25 +0530 Unrestricted (9928)] INFO : Installing ActiveJob instrumentation
+[04/09/16 14:00:25 +0530 Unrestricted (9928)] INFO : Installing Rails 3+ middleware instrumentation
+[04/09/16 14:00:25 +0530 Unrestricted (9928)] INFO : Installing Rails 4 view instrumentation
+[04/09/16 14:00:25 +0530 Unrestricted (9928)] INFO : Installing Rails 4 Controller instrumentation
+[04/09/16 14:00:25 +0530 Unrestricted (9928)] INFO : Installing Rails 4 Error instrumentation
+[04/09/16 14:00:25 +0530 Unrestricted (9928)] INFO : Finished instrumentation
+[04/09/16 14:00:25 +0530 Unrestricted (9928)] INFO : Doing deferred dependency-detection before Rack startup

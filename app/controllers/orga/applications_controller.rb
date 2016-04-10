@@ -17,7 +17,7 @@ class Orga::ApplicationsController < ApplicationController
       if current_user.student?
         @application_form = ApplicationForm.new(team: current_user.roles.student.first.team, current_user: current_user)
       else
-        redirect_to new_team_path, alert: 'You need to be in a team as a student'
+        redirect_to new_team_path, alert: 'You need to be in a team as a student to create an application.'
       end
     else
       render 'sign_in'

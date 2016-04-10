@@ -57,7 +57,8 @@ Rails.application.configure do
   else
     config.action_mailer.raise_delivery_errors = false
   end
-  config.action_mailer.preview_path = "#{Rails.root}/lib/mailer_previews"
+#  config.action_mailer.preview_path = "#{Rails.root}/lib/mailer_previews"
+   config.action_mailer.preview_path = "#{Rails.root}/spec/mailers/previews"
 
   # Do not eager load code on boot.
   config.eager_load = false
