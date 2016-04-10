@@ -1,6 +1,14 @@
 class ConferencesController < ApplicationController
   load_and_authorize_resource except: [:index, :show]
 
+  def new
+    if Conference.count == 3
+      redirect_to conferences_path, notice: 'The maximum number of conferences is 3.'
+    end
+  end
+  def index
+    @conference = Conference.count
+  end
   def create
     conference.save!
     redirect_to conference
