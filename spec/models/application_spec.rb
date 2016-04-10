@@ -103,22 +103,6 @@ describe Application do
     end
   end
 
-  describe 'rating defaults' do
-    describe '#rating_defaults' do
-      subject { super().rating_defaults }
-      it { is_expected.to be_present }
-    end
-
-    default_methods = %w(women_priority skill_level practice_time project_time)
-
-    default_methods.each do |key|
-      describe "estimated_#{key}" do
-        subject { super().send("estimated_#{key}") }
-        it { is_expected.to be_present }
-      end
-    end
-  end
-
   describe 'sponsor pick' do
     application = FactoryGirl.create(:application)
     it 'does not have a sponsor' do

@@ -27,7 +27,7 @@ class ApplicationsController < ApplicationController
   def show
     @application = Application.find(params[:id])
     @application_data = @application.data_for(:application, @application)
-    @rating = find_or_initialize_rating
+    @rating = @application.ratings.find_or_initialize_by(user: current_user)
     @data = RatingData.new(@rating.data)
   end
 
@@ -90,12 +90,6 @@ class ApplicationsController < ApplicationController
       options.merge(flag => send(:"display_#{flag}?"))
     end
     Application::Table.new(Rating.user_names, applications, options)
-  end
-
-  def find_or_initialize_rating
-    Rating.where(user: current_user, rateable: @application).first_or_initialize do |rating|
-      rating.data = Hashr.new(@application.rating_defaults)
-    end
   end
 
   def prev_application
