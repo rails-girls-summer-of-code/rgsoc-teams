@@ -18,11 +18,12 @@
     - @student.teams.each do |team|
        li = link_to "Team: #{team.name} (#{team.rating})", applications_team_path(team)
 
-  - @applications.each do |application|
-    h2 = "Submitted Application (#{application.project_name})"
-    - application.data_for(:student, @student).each do |title, value|
-      h4 = Application.data_label(title)
-      p  = auto_link(simple_format(value || 'n/a'))
+  /TODO: add student info back in
+  / - @applications.each do |application|
+  /   h2 = "Submitted Application (#{application.project_name})"
+  /   - application.data_for(:student, @student).each do |title, value|
+  /     h4 = Application.data_label(title)
+  /     p  = auto_link(simple_format(value || 'n/a'))
 
 
 #rating
@@ -39,7 +40,7 @@
 
       h3 B. Experience/skill level
       .button_group
-        = d.collection_radio_buttons :skill_level, SKILL_LEVELS, :first, :last, checked: @data.skill_level
+        = d.collection_radio_buttons :skill_level, @data.skill_level_options, :first, :last, checked: @data.skill_level
 
       h3 C. Minimum money
       p
