@@ -49,7 +49,7 @@ class Application < ActiveRecord::Base
     end
   end
 
-  include HasSeason
+  include HasSeason, Rateable
 
   belongs_to :application_draft
   belongs_to :team, inverse_of: :applications, counter_cache: true
@@ -63,7 +63,6 @@ class Application < ActiveRecord::Base
   FLAGS = [:hidden, :cs_student, :remote_team, :mentor_pick,
            :volunteering_team, :in_team, :duplicate, :selected, :remote_team]
 
-  has_many :ratings, as: :rateable
   has_many :comments
 
   scope :hidden, -> { where('applications.hidden IS NOT NULL and applications.hidden = ?', true) }
@@ -114,8 +113,10 @@ class Application < ActiveRecord::Base
     ratings.where(pick: true).count
   end
 
-  def rating
-    total_rating(:mean)
+  # public: Average total points for the application.
+  # This does include the average points each student got and the arverage points of the team.
+  def average_total_points
+    average_points + team.students.collect(&:average_points).sum + team.average_points
   end
 
   def total_rating(type, options = {})

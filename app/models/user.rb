@@ -49,6 +49,8 @@ class User < ActiveRecord::Base
   include Authentication::ActiveRecordHelpers
   include ProfilesHelper
 
+  include Rateable
+
   devise :omniauthable
 
   has_many :roles do
@@ -73,7 +75,6 @@ class User < ActiveRecord::Base
   has_many :applications, through: :teams
   has_many :attendances
   has_many :conferences, through: :attendances
-  has_many :ratings, as: :rateable
 
   validates :github_handle, presence: true, uniqueness: { case_sensitive: false }
   validates :homepage, format: { with: URL_PREFIX_PATTERN }, allow_blank: true

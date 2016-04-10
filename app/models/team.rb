@@ -1,5 +1,5 @@
 class Team < ActiveRecord::Base
-  include ProfilesHelper, HasSeason
+  include ProfilesHelper, HasSeason, Rateable
 
   delegate :sponsored?, :voluntary?, to: :kind
 
@@ -25,7 +25,6 @@ class Team < ActiveRecord::Base
   has_one :last_activity, -> { order('id DESC') }, class_name: 'Activity'
   has_many :comments
   has_many :status_updates, -> { where(kind: 'status_update') }, class_name: 'Activity'
-  has_many :ratings, as: :rateable
 
   accepts_nested_attributes_for :roles, :sources, allow_destroy: true
 

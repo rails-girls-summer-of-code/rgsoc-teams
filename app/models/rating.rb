@@ -68,6 +68,11 @@ class Rating < ActiveRecord::Base
     data[:is_woman] == 1
   end
 
+  # public: The sum of the points that the reviewer gave.
+  def points
+    values.sum
+  end
+
   def value(options = {})
     values = values(options)
     values.empty? ? 0 : values.mean
