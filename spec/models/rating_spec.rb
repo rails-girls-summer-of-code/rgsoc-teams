@@ -21,5 +21,16 @@ describe Rating do
         expect(Rating.by(user).first).to eq(rating)
       end
     end
+
+    context 'points' do
+      it 'should add up some points given through valid fields' do
+        rating = FactoryGirl.create(:rating)
+        rating.data = { practice_time: 0, support: 2 }
+        rating.save
+
+        # practice time with id 0 is 10, support with id 2 is 6:
+        expect(rating.points).to eq(16)
+      end
+    end
   end
 end
