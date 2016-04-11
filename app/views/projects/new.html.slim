@@ -22,9 +22,9 @@ p.well Please make sure you have read our #{link_to "mentor guide", 'http://rail
   = f.input :source_url, as: :url, wrapper_html: { class: 'col-md-6' }, label: "Repository", placeholder: 'Link to your source code (Github, Gitlab, Bitbucket, …)' 
   = f.input :description, wrapper_html: { class: 'col-md-6' }, placeholder: "What's your project about?", input_html: { rows: 5 }, hint: 'You can use basic <a href="http://en.wikipedia.org/wiki/Markdown" target="_blank">Markdown</a> here.'.html_safe
   = f.input :issues_and_features, wrapper_html: { class: 'col-md-6' }, placeholder: "A list of possible features to work on, maybe even concrete Github issues", input_html: { rows: 5 }, hint: 'You can use basic <a href="http://en.wikipedia.org/wiki/Markdown" target="_blank">Markdown</a> here.'.html_safe
-  = f.input :beginner_friendly, wrapper_html: { class: 'col-md-6' }, label: 'Suitable for beginners?'
   = f.input :taglist, wrapper_html: { class: 'col-md-6' }, placeholder: 'Languages, techniques, etc involved', label: 'Tags', hint: 'Separate tags by comma.'
-
+  = f.input :code_of_conduct, as: :url, wrapper_html: { class: 'col-md-6' }, label: "Code Of Conduct", placeholder: "Link to your project's code of conduct"
+  = f.input :beginner_friendly, wrapper_html: { class: 'col-md-6' }, label: 'Suitable for beginners?'
   .actions
     ul.list-inline
       li = f.submit 'Submit', class: 'btn btn-success'
