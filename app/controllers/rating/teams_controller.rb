@@ -1,6 +1,4 @@
-class Applications::TeamsController < ApplicationController
-  before_action :authenticate_user!
-  before_action -> { require_role 'reviewer' }
+class Rating::TeamsController < Rating::BaseController
   respond_to :html
 
   def show

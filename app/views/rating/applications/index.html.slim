@@ -56,6 +56,6 @@ table#applications.table.table-striped.table-bordered.table-condensed.table-hove
       /   th = link_to_ordered 'D', :duplicate
 
   tbody
-    = render partial: 'applications/application', collection: @applications.rows, as: :row
+    = render partial: 'application', collection: @applications.rows, as: :row
 
 = link_to "Show hidden", "?show_hidden=true"

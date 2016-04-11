@@ -1,6 +1,4 @@
-class Applications::TodosController < ApplicationController
-  before_action :authenticate_user!
-  before_action -> { require_role 'reviewer' }, except: [:new, :create]
+class Rating::TodosController < Rating::BaseController
   respond_to :html
 
   include TodoHelper

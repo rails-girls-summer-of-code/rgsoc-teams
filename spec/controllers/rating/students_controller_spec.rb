@@ -1,20 +1,20 @@
 require 'spec_helper'
 
-describe Applications::StudentsController, type: :controller do
+describe Rating::StudentsController, type: :controller do
   render_views
 
   describe 'GET show' do
     let(:student) { create :student }
 
     it 'requires login' do
-      get :show, id: student
+      get :show, id: student.id
       expect(response).to redirect_to root_path
       expect(flash[:alert]).to be_present
     end
 
     it 'requires reviewer role' do
       sign_in create(:organizer)
-      get :show, id: student
+      get :show, id: student.id
       expect(response).to redirect_to root_path
       expect(flash[:alert]).to be_present
     end
@@ -44,8 +44,8 @@ describe Applications::StudentsController, type: :controller do
           expect(assigns :data).to be_a RatingData
         end
 
-        it 'renders applications/students/show' do
-          expect(response).to render_template 'applications/students/show'
+        it 'renders rating/students/show' do
+          expect(response).to render_template 'rating/students/show'
         end
       end
       context 'when student already rated by user' do

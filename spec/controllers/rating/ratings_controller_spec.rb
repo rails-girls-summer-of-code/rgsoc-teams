@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe RatingsController, type: :controller do
+describe Rating::RatingsController, type: :controller do
   render_views
 
   describe 'POST create' do
@@ -33,9 +33,9 @@ describe RatingsController, type: :controller do
             }.to change{Rating.count}.by 1
           end
 
-          it 'redirect_to application' do
+          it 'redirect_to rating/application' do
             post :create, params
-            expect(response).to redirect_to application
+            expect(response).to redirect_to [:rating, application]
           end
         end
         context 'when team already rated by user' do
@@ -80,9 +80,9 @@ describe RatingsController, type: :controller do
           }.to change{rating.data}
         end
 
-        it 'redirect_to application' do
+        it 'redirect_to rating/application' do
           put :update, params
-          expect(response).to redirect_to application
+          expect(response).to redirect_to [:rating, application]
         end
       end
     end

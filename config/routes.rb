@@ -27,13 +27,13 @@ RgsocTeams::Application.routes.draw do
     end
   end
 
-  namespace :applications do
+  namespace :rating do
     get 'students/:id', to: 'students#show', as: 'student'
     get 'teams/:id', to: 'teams#show', as: 'team'
     get 'todos', to: 'todos#index', as: 'todos'
+    resources :applications, except: [:new, :create, :destroy]
+    resources :ratings, only: [:create, :update]
   end
-  resources :applications, only: [:index, :show, :edit, :update]
-  resources :ratings, only: [:create, :update]
 
   resources :application_drafts, except: [:show, :destroy] do
     member do

@@ -1,6 +1,4 @@
-class RatingsController < ApplicationController
-  before_action :authenticate_user!
-  before_action -> { require_role 'reviewer' }
+class Rating::RatingsController < Rating::BaseController
   before_action :normalize_data
 
   def create
@@ -44,8 +42,8 @@ class RatingsController < ApplicationController
   end
 
   PATHS = {
-    user: 'applications_student_path',
-    team: 'applications_team_path',
-    application: 'application_path'
+    user: 'rating_student_path',
+    team: 'rating_team_path',
+    application: 'rating_application_path'
   }
 end

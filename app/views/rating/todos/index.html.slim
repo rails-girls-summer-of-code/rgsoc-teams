@@ -9,7 +9,7 @@ table.table
   tbody
     - @teams.each do |team|
       tr class="team-#{team.id}"
-        td= link_to team.name, applications_team_path(team)
+        td= link_to team.name, rating_team_path(team)
         td= rating(team).try(:updated_at) || 'Never'
         td
           table.table
@@ -20,7 +20,7 @@ table.table
             tbody
               - team.students.each do |student|
                 tr class="student-#{student.id}"
-                  td= link_to student.name, applications_student_path(student)
+                  td= link_to student.name, rating_student_path(student)
                   td= rating(student).try(:updated_at) || 'Never'
         td
           table.table
@@ -31,5 +31,5 @@ table.table
             tbody
               - team.applications.each do |application|
                 tr class="application-#{application.id}"
-                  td= link_to application.project_name, application_path(application)
+                  td= link_to application.project_name, rating_application_path(application)
                   td= rating(application).try(:updated_at) || 'Never'

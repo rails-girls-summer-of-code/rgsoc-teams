@@ -1,9 +1,9 @@
 .nav
   - if @prev
     = link_to @prev ? '&larr; Previous'.html_safe : '', @prev, class: 'left'
-  = link_to 'Overview', applications_path
+  = link_to 'Overview', rating_applications_path
   br
-  = link_to 'Rating To-Dos', applications_todos_path
+  = link_to 'Rating To-Dos', rating_todos_path
   - if @next
     = link_to @next ? 'Next &rarr;'.html_safe : '', @next, class: 'right'
 
@@ -12,11 +12,11 @@
 
   ul
     - @team.applications.each do |application|
-      = link_to "Application: #{application.name} (#{application.average_points})", application
+      = link_to "Application: #{application.name} (#{application.average_points})", [:rating, application]
 
   ul
     - @team.students.each do |student|
-       li = link_to "Student: #{student.name} (#{student.rating})", applications_student_path(student)
+       li = link_to "Student: #{student.name} (#{student.rating})", rating_student_path(student)
 
   - @applications.each do |application|
     h2 = "Submitted Application (#{application.project_name})"
@@ -25,7 +25,7 @@
       p  = auto_link(simple_format(value || 'n/a'))
 
 #rating
-  = simple_form_for @rating do |f|
+  = simple_form_for [:rating, @rating] do |f|
     = hidden_field_tag :return_to, request.url
 
     = f.simple_fields_for :data, @data do |d|

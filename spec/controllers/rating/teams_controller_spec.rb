@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Applications::TeamsController, type: :controller do
+describe Rating::TeamsController, type: :controller do
   render_views
 
   describe 'GET show' do
@@ -43,8 +43,8 @@ describe Applications::TeamsController, type: :controller do
           expect(assigns :data).to be_a RatingData
         end
 
-        it 'renders applications/teams/show' do
-          expect(response).to render_template 'applications/teams/show'
+        it 'renders rating/teams/show' do
+          expect(response).to render_template 'rating/teams/show'
         end
       end
       context 'when team already has rating' do

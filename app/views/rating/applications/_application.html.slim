@@ -5,7 +5,7 @@ tr class=application_classes_for(application)
   td.id
     = link_to application.id, application
   td.team
-    = link_to application.team.name, applications_team_path(application.team)
+    = link_to application.team.name, [:rating, application.team]
   td.name
     = link_to_application_team_members(application.team, :student)
   td.project
@@ -21,7 +21,7 @@ tr class=application_classes_for(application)
   td = application.total_rating(:weighted, bonus_points: display_bonus_points?)
   td = application.total_rating(:truncated, bonus_points: display_bonus_points?)
 
-  = render partial: 'applications/ratings', collection: row.ratings, as: :rating
+  = render partial: 'ratings', collection: row.ratings, as: :rating
 
   td = application.average_skill_level
   - [:mentor_pick, :volunteering_team, :remote_team, :cs_student, :in_team, :duplicate].each do |flag|

@@ -214,7 +214,7 @@ module ApplicationHelper
   def link_to_application_team_member(member)
     content_tag(:li, :class => :user) do
       avatar_url(member, size: 40) +
-        link_to(member.name_or_handle, applications_student_path(member))
+        link_to(member.name_or_handle, rating_student_path(member))
     end
   end
 
@@ -237,7 +237,7 @@ module ApplicationHelper
     if order.to_sym == type
       content_tag :span, text, class: 'active'
     else
-      link_to text, applications_path(order: type)
+      link_to text, rating_applications_path(order: type)
     end
   end
 
