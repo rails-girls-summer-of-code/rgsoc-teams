@@ -60,17 +60,6 @@ class Team < ActiveRecord::Base
     @performance ||= TeamPerformance.new(self)
   end
 
-  # def rating
-  #   values = students.map { |student| student.rating }.flatten
-  #   rating = values.empty? ? 0 : values.inject(&:+) / values.size
-  #   values = [rating] + ratings.map(&:value)
-  #   values.empty? ? 0 : values.sum.to_f / values.size
-  # end
-
-  def rating(type = :mean, options = { bonus_points: true })
-    Rating::Calc.new(self, type, options).calc
-  end
-
   def confirmed?
     two_students_present?
   end

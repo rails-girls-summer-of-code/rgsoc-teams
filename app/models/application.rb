@@ -119,18 +119,6 @@ class Application < ActiveRecord::Base
     average_points + team.students.collect(&:average_points).sum + team.average_points
   end
 
-  def total_rating(type, options = {})
-    total = calc_rating(type, options)
-    total += COACHING_COMPANY_WEIGHT if coaching_company.present?
-    total += MENTOR_PICK_WEIGHT if mentor_pick?
-    total += project_visibility.to_i * PROJECT_VISIBILITY_WEIGHT unless project_visibility.blank?
-    total
-  end
-
-  def calc_rating(type, options)
-    Rating::Calc.new(self, type, options).calc
-  end
-
   def combined_ratings
     ratings.to_a + team.combined_ratings
   end

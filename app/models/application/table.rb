@@ -7,7 +7,7 @@ class Application
 
       def_delegators :application, :id, :location, :team_name, :project_name, :student_name,
         :total_picks, :coaching_company, :average_skill_level, :mentor_pick, :volunteering_team?,
-        :remote_team, :cs_student, :in_team
+        :remote_team, :cs_student, :in_team, :average_total_points
 
       attr_reader :names, :application, :options
 
@@ -15,11 +15,6 @@ class Application
         @names = names
         @application = application
         @options = options
-      end
-
-      def total_rating(column, options)
-        rating = application.total_rating(column, options).to_f
-        rating.nan? ? 0.0 : rating
       end
 
       def monies_needed
@@ -67,8 +62,8 @@ class Application
       case order = options[:order].to_sym
       when :picks
         sort_by_picks(rows).reverse
-      when :mean, :median, :weighted, :truncated
-        rows.sort_by { |row| row.total_rating(order, options) }.reverse
+      when :average_points
+        rows.sort_by { |row| row.average_total_points }.reverse
       else
         rows.sort_by(&order)
       end

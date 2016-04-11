@@ -9,7 +9,7 @@ module Rateable
     if ratings.count > 0
       ratings.collect(&:points).sum / ratings.count
     else
-      "n/a"
+      0
     end
   end
 end

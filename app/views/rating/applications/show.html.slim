@@ -8,14 +8,14 @@
     = link_to @next ? 'Next &rarr;'.html_safe : '', @next, class: 'right'
 
 #application
-  h1 = "Application: #{@application.name} (#{@application.total_rating(:mean)})"
+  h1 = "Application: #{@application.name} (#{@application.average_points})"
 
   ul
-    li = link_to "Team: #{@application.team.name} (#{@application.team.rating})", [:rating, @application.team]
+    li = link_to "Team: #{@application.team.name} (#{@application.team.average_points})", [:rating, @application.team]
 
   ul
     - @application.team.students.each do |student|
-      li = link_to "Student: #{student.name} (#{student.rating})", rating_student_path(student)
+      li = link_to "Student: #{student.name} (#{student.average_points})", rating_student_path(student)
 
   h2 Additional Info
 

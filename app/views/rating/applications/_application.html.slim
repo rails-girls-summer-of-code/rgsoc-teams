@@ -16,11 +16,7 @@ tr class=application_classes_for(application)
     = row.monies_needed
 
   td = application.total_picks
-  td = application.total_rating(:mean, bonus_points: display_bonus_points?)
-  td = application.total_rating(:median, bonus_points: display_bonus_points?)
-  td = application.total_rating(:weighted, bonus_points: display_bonus_points?)
-  td = application.total_rating(:truncated, bonus_points: display_bonus_points?)
-
+  td = application.average_total_points
   = render partial: 'ratings', collection: row.ratings, as: :rating
 
   td = application.average_skill_level

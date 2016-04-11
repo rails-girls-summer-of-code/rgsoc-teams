@@ -16,7 +16,7 @@
 
   ul
     - @student.teams.each do |team|
-       li = link_to "Team: #{team.name} (#{team.rating})", [:rating, team]
+       li = link_to "Team: #{team.name} (#{team.average_points})", [:rating, team]
 
   /TODO: add student info back in
   / - @applications.each do |application|
