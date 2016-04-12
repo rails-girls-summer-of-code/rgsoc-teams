@@ -27,7 +27,10 @@ h1 class="conference" = conference.name
     dt Tickets left
     dd = conference.tickets_left
     dt Lightning Talk Slots
-    dd = conference.lightningtalkslots
+    - if conference.lightningtalkslots?
+      		dd = "yes"
+    - else
+      		dd = "no"
 
   h4 Attendees
   ul.attendees
