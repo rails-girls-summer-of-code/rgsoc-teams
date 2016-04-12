@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Rating::StudentsController do
   describe 'routing' do
     it 'routes to #show' do
-      expect(get '/rating/students/:id').to route_to 'rating/students#show', id: ':id'
+      expect(get 'rating/students/:id').to route_to 'rating/students#show', id: ':id'
     end
   end
   describe 'routing helpers' do

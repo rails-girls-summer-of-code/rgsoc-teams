@@ -9,7 +9,7 @@ describe CommentsController do
   let(:application) { FactoryGirl.create(:application) }
 
   before do
-    user.roles.create(name: 'organizer')
+    user.roles.create(name: 'reviewer')
     sign_in user
   end
 
@@ -22,13 +22,11 @@ describe CommentsController do
           }.to change(Comment, :count).by(1)
         end
 
-        it 'redirects to the team page' do
+        it 'redirects to the application page' do
           post :create, {:comment => valid_attributes.merge(application_id: application.id)}, valid_session
-          expect(response).to redirect_to(application)
+          expect(response).to redirect_to([:rating, application])
         end
       end
     end
   end
 end
-
-

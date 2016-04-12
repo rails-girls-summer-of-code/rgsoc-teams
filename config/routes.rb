@@ -42,10 +42,6 @@ RgsocTeams::Application.routes.draw do
     end
   end
 
-  get 'application', to: 'applications#new'
-  get 'application_forms', to: 'applications#new'
-  post 'application_forms', to: 'applications#create'
-
   get 'apply', to: 'application_drafts#new', as: :apply
 
   get 'teams/info', to: 'teams_info#index'
