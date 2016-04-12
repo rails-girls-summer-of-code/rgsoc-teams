@@ -26,6 +26,11 @@ h1 class="conference" = conference.name
     dd = format_conference_scholarships(conference.tickets, conference.flights, conference.accomodation)
     dt Tickets left
     dd = conference.tickets_left
+    dt Lightning Talk Slots
+    - if conference.lightningtalkslots?
+      		dd = "yes"
+    - else
+      		dd = "no"
 
   h4 Attendees
   ul.attendees

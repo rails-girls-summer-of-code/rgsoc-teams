@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160409202420) do
+ActiveRecord::Schema.define(version: 20160410084420) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -111,18 +111,19 @@ ActiveRecord::Schema.define(version: 20160409202420) do
   add_index "comments", ["project_id"], name: "index_comments_on_project_id", using: :btree
 
   create_table "conferences", force: :cascade do |t|
-    t.string   "name",         limit: 255
-    t.string   "location",     limit: 255
-    t.string   "twitter",      limit: 255
-    t.string   "url",          limit: 255
+    t.string   "name",               limit: 255
+    t.string   "location",           limit: 255
+    t.string   "twitter",            limit: 255
+    t.string   "url",                limit: 255
     t.date     "starts_on"
     t.date     "ends_on"
     t.integer  "tickets"
     t.integer  "accomodation"
     t.integer  "flights"
-    t.datetime "created_at",                           null: false
-    t.datetime "updated_at",                           null: false
-    t.integer  "round",                    default: 1
+    t.datetime "created_at",                                 null: false
+    t.datetime "updated_at",                                 null: false
+    t.integer  "round",                          default: 1
+    t.boolean  "lightningtalkslots"
   end
 
   create_table "mailings", force: :cascade do |t|
