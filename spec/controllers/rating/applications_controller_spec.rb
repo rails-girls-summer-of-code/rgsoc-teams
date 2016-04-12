@@ -25,8 +25,13 @@ describe Rating::ApplicationsController do
           CreatesApplicationFromDraft.new(application_draft).tap { |c| c.save }.application
         end
 
+        before { get :index }
+
+        it 'initializes @applications as a new Application::Table' do
+          expect(assigns :applications).to be_a Application::Table
+        end
+
         it 'lists all available applications' do
-          get :index
           expect(response).to be_success
         end
       end

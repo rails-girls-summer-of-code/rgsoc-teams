@@ -52,7 +52,7 @@ class Application
     def initialize(names, applications, options)
       @names = names
       @options = options
-      @order = options[:order].try(:to_sym) || :id
+      @order = options[:order].try(:to_sym) || :id #TODO: this will basically never be :id (almost everything responds to to_sym...)
       @rows = applications.map { |application| Row.new(names, application, options) }
       @rows = rows.select { |row| row.display? }
       @rows = sort(rows)
