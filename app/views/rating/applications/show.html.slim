@@ -52,7 +52,7 @@
     h2 Comments
 
     - @application.comments.each do |comment|
-      hr
+      hr(id="#{dom_id comment}")
       h5 = "#{ user_for_comment(comment) }, #{ l(comment.created_at, format: :short) }".html_safe
       p = render_markdown(comment.text).html_safe
 

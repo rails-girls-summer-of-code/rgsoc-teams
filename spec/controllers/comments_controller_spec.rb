@@ -4,9 +4,7 @@ describe CommentsController do
   render_views
   let(:valid_attributes) { { "text" => FFaker::CheesyLingo.sentence } }
   let(:valid_session) { {} }
-  let(:user) { FactoryGirl.create(:user) }
-  let(:team) { FactoryGirl.create(:team) }
-  let(:application) { FactoryGirl.create(:application) }
+  let(:user) { create(:user) }
 
   before do
     user.roles.create(name: 'reviewer')
@@ -14,17 +12,63 @@ describe CommentsController do
   end
 
   describe 'POST create' do
-    describe 'with valid params' do
-      context 'applications comment' do
+    describe 'application comment' do
+      let(:application) { create(:application) }
+      let(:params) { {application_id: application.id} }
+
+      context 'with valid params' do
         it 'creates a new Comment' do
           expect {
-            post :create, {:comment => valid_attributes.merge(application_id: application.id)}, valid_session
+            post :create, {comment: params.merge(valid_attributes)}, valid_session
           }.to change(Comment, :count).by(1)
         end
 
-        it 'redirects to the application page' do
-          post :create, {:comment => valid_attributes.merge(application_id: application.id)}, valid_session
+        it 'redirects to comment on application page' do
+          post :create, {comment: params.merge(valid_attributes)}, valid_session
+          expect(response).to redirect_to([:rating, application, anchor: 'comment_1'])
+        end
+      end
+      context 'with invalid params (no text)' do
+        it 'does not create new Comment' do
+          expect {
+            post :create, {comment: params}, valid_session
+          }.not_to change(Comment, :count)
+        end
+
+        it 'redirects to the application page with flash' do
+          post :create, {comment: params}, valid_session
+          expect(flash[:alert]).to be_present
           expect(response).to redirect_to([:rating, application])
+        end
+      end
+    end
+    describe 'project comment' do
+      let(:project) { create :project }
+      let(:params) { {project_id: project.id} }
+
+      context 'with valid params' do
+        it 'creates a new Comment' do
+          expect {
+            post :create, {comment: params.merge(valid_attributes)}, valid_session
+          }.to change(Comment, :count).by 1
+        end
+
+        it 'redirects to comment on project page' do
+          post :create, {comment: params.merge(valid_attributes)}, valid_session
+          expect(response).to redirect_to [project, anchor: 'comment_1']
+        end
+      end
+      context 'with invalid params (no text)' do
+        it 'does not create new Comment' do
+          expect {
+            post :create, {comment: params}, valid_session
+          }.not_to change(Comment, :count)
+        end
+
+        it 'redirects to project page' do
+          post :create, {comment: params}, valid_session
+          expect(flash[:alert]).to be_present
+          expect(response).to redirect_to project
         end
       end
     end

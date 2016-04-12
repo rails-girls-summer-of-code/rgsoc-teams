@@ -85,6 +85,6 @@ h2#comments.header
   p You must be logged in to comment on this project.
 
 - @project.comments.each do |comment|
-  hr
+  hr(id="#{dom_id comment}")
   h5 = "#{ user_for_comment(comment) }, #{ l(comment.created_at, format: :short) }".html_safe
   p = render_markdown(comment.text).html_safe
