@@ -45,7 +45,6 @@ class Rating < ActiveRecord::Base
 
   def values(options = {})
     data = self.data.except(:min_money, :is_woman)
-    data = data.merge(bonus: data[:bonus] + 10) if options[:bonus_points] && data[:bonus]
     data.map { |key, value| points_for(key, value) }
   end
 

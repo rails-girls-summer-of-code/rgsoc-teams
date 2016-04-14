@@ -43,7 +43,7 @@ class Rating::ApplicationsController < Rating::BaseController
   end
 
   def store_filters
-    [:bonus_points, :cs_students, :remote_teams, :in_teams, :duplicates].each do |key|
+    [:cs_students, :remote_teams, :in_teams, :duplicates].each do |key|
       key = :"hide_#{key}"
       session[key] = params[:filter][key] == 'true' if params[:filter] && params[:filter].key?(key)
     end

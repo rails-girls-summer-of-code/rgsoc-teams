@@ -23,25 +23,3 @@
     - application.data_for(:team, @team).each do |title, value|
       h4 = Application.data_label(title)
       p  = auto_link(simple_format(value || 'n/a'))
-
-#rating
-  = simple_form_for [:rating, @rating] do |f|
-    = hidden_field_tag :return_to, request.url
-
-    = f.simple_fields_for :data, @data do |d|
-      = f.input :rateable_type, :as => :hidden, input_html: { value: @rating.rateable_type }
-      = f.input :rateable_id,   :as => :hidden, input_html: { value: @rating.rateable_id }
-
-      h3 A. Support
-      .button_group
-        = d.collection_radio_buttons :support, @data.support_options, :first, :last, checked: @data.support
-
-      h3 B. Extra points
-      = d.input :bonus, as: :string, required: false, label: false, input_html: { value: @data.bonus }
-      p.hint up to 10: great overall impression, women who have been discriminated against, have a difficult background etc.
-
-    = f.submit 'Save'
-
-      h3 H. Mentor pick
-      h3 I. Sponsor pick
-      p these can to be global ...

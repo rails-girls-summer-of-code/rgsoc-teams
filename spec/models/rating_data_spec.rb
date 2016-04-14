@@ -26,29 +26,7 @@ describe RatingData do
     end
 
     it '_<field>_options method returns array for multiple choice options' do
-      expect(rating_data.women_priority_options).to be_an Array
-    end
-  end
-  describe '.points_for' do
-    context 'with invalid :field_name' do
-      it 'raises ArgumentError' do
-        expect{
-          RatingData.points_for field_name: :invalid_key, id_picked: 1
-        }.to raise_error ArgumentError
-      end
-    end
-    context 'with valid :field_name' do
-      it 'returns nil for invalid :id_picked' do
-        expect(RatingData.points_for field_name: :women_priority, id_picked: 1000).to eq nil
-      end
-
-      it 'returns points for valid :id_picked' do
-        expect(RatingData.points_for field_name: :women_priority, id_picked: 0).to eq RatingData::FIELDS[:women_priority].first[:points]
-      end
-
-      it 'returns :id_picked for numeric fields' do
-        expect(RatingData.points_for field_name: :bonus, id_picked: 10).to eq 10
-      end
+      expect(rating_data.ambitions_options).to be_an Array
     end
   end
 end

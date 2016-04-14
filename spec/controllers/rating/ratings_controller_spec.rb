@@ -21,10 +21,10 @@ describe Rating::RatingsController, type: :controller do
       let(:user) { create :reviewer }
       before { sign_in user }
 
-      context 'when rating team' do
+      context 'when rating an application' do
         let(:team) { create :team }
         let!(:application) { create :application, team: team }
-        let(:params) { {rating: {rateable_id: team.id, rateable_type: 'Team', data: {planning: 0}}} }
+        let(:params) { {rating: {rateable_id: application.id, rateable_type: 'Application', data: {diversity: 5}}} }
 
         context 'when team not already rated by user' do
           it 'creates new rating record for team' do

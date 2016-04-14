@@ -71,10 +71,6 @@
       = f.input :rateable_id,   :as => :hidden, input_html: { value: @rating.rateable_id }
       = f.input :pick, label: "My Pick"
 
-      h3 A. Planning quality
-      .button_group
-        = d.collection_radio_buttons :planning, @data.planning_options, :first, :last, checked: @data.planning
-
     = f.submit 'Save'
 
       h3 G. Project exposure
