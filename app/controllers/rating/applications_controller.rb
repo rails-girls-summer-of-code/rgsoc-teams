@@ -11,7 +11,6 @@ class Rating::ApplicationsController < Rating::BaseController
 
   def show
     @application = Application.find(params[:id])
-    @application_data = @application.data_for(:application, @application)
     @rating = @application.ratings.find_or_initialize_by(user: current_user)
   end
 

@@ -63,10 +63,6 @@ describe Rating::ApplicationsController do
           expect(assigns :application).to eq application
         end
 
-        it 'assigns @application_data' do
-          expect(assigns :application_data).to be
-        end
-
         it 'assigns new @rating from user' do
           expect(assigns :rating).to be_a_new Rating
           expect(assigns :rating).to have_attributes(user: user, rateable: application)
