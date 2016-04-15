@@ -6,7 +6,6 @@ rvm:
 bundler_args: "-j4 --without development production --quiet"
 notifications:
   email:
-  - me@svenfuchs.com
   - trung.le@ruby-journal.com
   - cz@aegisnet.de
   notifications:
