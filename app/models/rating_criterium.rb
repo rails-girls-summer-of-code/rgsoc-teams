@@ -30,6 +30,6 @@ class RatingCriterium
   end
 
   def weighted_points(points)
-    points * @weight
+    (points || 0) * @weight
   end
 end

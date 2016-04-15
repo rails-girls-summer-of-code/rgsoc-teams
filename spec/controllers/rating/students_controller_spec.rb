@@ -40,10 +40,6 @@ describe Rating::StudentsController, type: :controller do
           expect(assigns :rating).to have_attributes(user: user, rateable: student)
         end
 
-        it 'assigns @data (rating data)' do
-          expect(assigns :data).to be_a RatingData
-        end
-
         it 'renders rating/students/show' do
           expect(response).to render_template 'rating/students/show'
         end

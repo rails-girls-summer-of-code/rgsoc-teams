@@ -12,11 +12,11 @@
 
   ul
     - @student.applications.each do |application|
-      li = link_to "Application: #{application.name} (#{application.total_rating(:mean)})", [:rating, application]
+      li = link_to "Application: #{application.name}", [:rating, application]
 
   ul
     - @student.teams.each do |team|
-       li = link_to "Team: #{team.name} (#{team.average_points})", [:rating, team]
+       li = link_to "Team: #{team.name}", [:rating, team]
 
   /TODO: add student info back in
   / - @applications.each do |application|

@@ -39,10 +39,6 @@ describe Rating::TeamsController, type: :controller do
           expect(assigns :rating).to be_a_new Rating
         end
 
-        it 'assigns @data (rating data)' do
-          expect(assigns :data).to be_a RatingData
-        end
-
         it 'renders rating/teams/show' do
           expect(response).to render_template 'rating/teams/show'
         end

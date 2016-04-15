@@ -50,7 +50,6 @@ class Orga::ApplicationsController < ApplicationController
   def show
     @application = Application.find(params[:id])
     @rating = find_or_initialize_rating
-    @data = RatingData.new(@rating.data)
     unless @application.hidden
       @prev = prev_application
       @next = next_application

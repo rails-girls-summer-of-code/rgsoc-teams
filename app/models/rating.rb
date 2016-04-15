@@ -6,6 +6,34 @@ class Rating < ActiveRecord::Base
   belongs_to :user
   belongs_to :rateable, polymorphic: true
 
+  FIELDS = HashWithIndifferentAccess.new({
+    diversity: RatingCriterium.new( 0.05, { 10 => "super diverse", 0 => "not diverse at all" } ),
+    skills: RatingCriterium.new( 0.15 ),
+    community_involvement: RatingCriterium.new( 0.15 ),
+    ambitions: RatingCriterium.new( 0.15),
+    ability_to_work_independently: RatingCriterium.new( 0.10 ),
+    ability_to_finish_projects: RatingCriterium.new( 0.15 ),
+    motivation_for_the_program: RatingCriterium.new( 0.10 ),
+    support: RatingCriterium.new( 0.05 ),
+    personal_impression: RatingCriterium.new( 0.05 )
+  })
+
+  attr_accessor *FIELDS.keys
+
+  FIELDS.each do |name, rating_criterium|
+    define_singleton_method "#{name}_options" do
+      rating_criterium.point_options
+    end
+
+    define_method name do
+      data[name]
+    end
+
+    define_method "#{name}=" do |value|
+      data[name] = value
+    end
+  end
+
   class << self
     def user_names
       # may eventually change this to work with users instead of strings
@@ -33,23 +61,12 @@ class Rating < ActiveRecord::Base
     data[:is_woman] == 1
   end
 
-  # public: The sum of the points that the reviewer gave.
+  # public: The weighted sum of the points that the reviewer gave.
   def points
-    values.sum
-  end
-
-  def value(options = {})
-    values = values(options)
-    values.empty? ? 0 : values.mean
-  end
-
-  def values(options = {})
-    data = self.data.except(:min_money, :is_woman)
-    data.map { |key, value| points_for(key, value) }
-  end
-
-  private
-    def points_for(key, value)
-      points = RatingData.points_for(field_name: key, id_picked: value)
+    weighted_points = FIELDS.map do |name, rating_criterium|
+      rating_criterium.weighted_points(self.send(name))
     end
+
+    weighted_points.sum
+  end
 end

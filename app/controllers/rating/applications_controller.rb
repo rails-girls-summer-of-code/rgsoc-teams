@@ -13,7 +13,6 @@ class Rating::ApplicationsController < Rating::BaseController
     @application = Application.find(params[:id])
     @application_data = @application.data_for(:application, @application)
     @rating = @application.ratings.find_or_initialize_by(user: current_user)
-    @data = RatingData.new(@rating.data)
   end
 
   def edit

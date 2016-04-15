@@ -1,5 +1,4 @@
 class Rating::RatingsController < Rating::BaseController
-  before_action :normalize_data
 
   def create
     rating = find_or_initialize_rating
@@ -16,16 +15,7 @@ class Rating::RatingsController < Rating::BaseController
   private
 
   def rating_attr_params
-    params.require(:rating).permit(:pick, data: RatingData::FIELDS.keys)
-  end
-
-  def normalize_data
-    data = params[:rating][:data]
-    data.each do |key, value|
-      next unless value
-      data[key] = value.to_i
-      data[key] = 10 if data[key] > 10 && key != 'min_money'
-    end
+    params.require(:rating).permit(:pick, Rating::FIELDS.keys)
   end
 
   def find_or_initialize_rating

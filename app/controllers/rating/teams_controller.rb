@@ -5,7 +5,6 @@ class Rating::TeamsController < Rating::BaseController
     @team = Team.find(params[:id])
     @applications = @team.applications
     @rating = find_or_initialize_rating(@team)
-    @data = RatingData.new(@rating.data)
   end
 
   private

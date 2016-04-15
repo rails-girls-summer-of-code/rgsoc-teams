@@ -72,10 +72,6 @@ describe Rating::ApplicationsController do
           expect(assigns :rating).to have_attributes(user: user, rateable: application)
         end
 
-        it 'assigns @data (rating data)' do
-          expect(assigns :data).to be_a RatingData
-        end
-
         it 'renders rating/applications/show' do
           expect(response).to render_template 'rating/applications/show'
         end
