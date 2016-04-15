@@ -5,52 +5,47 @@ describe Rating::Table do
     let(:users) { create_list :user, 3 }
     let(:user_names) { users.map(&:name) }
     let(:applications) { create_list :application, 3 }
-    let(:options) { {order: :average_points} }
+    let(:options) { {order: :average_points, hide_flags: []} }
 
-    let(:table) { described_class.new(user_names, applications, options) }
+    let(:table) { Rating::Table.new user_names, applications, options }
 
-    describe '#names' do
-      it 'is readonly' do
-        expect(table).to respond_to :names
-        expect(table).not_to respond_to "names="
-      end
+    it 'has names' do
+      expect(table.names).to eq user_names
+    end
 
-      it 'contains passed user_names' do
-        expect(table.names).to match_array user_names
+    it 'has options' do
+      expect(table.options).to eq options
+    end
+
+    it 'has rows' do
+      expect(table.rows.size).to eq applications.count
+      expect(table.rows).to all be_a Rating::Table::Row
+    end
+
+    it 'has order' do
+      expect(table.order).to eq options[:order]
+    end
+  end
+  describe 'filtering' do
+    let(:users) { create_list :user, 3 }
+    let(:user_names) { users.map(&:name) }
+    let!(:remote_team_application) { create :application, flags: [:remote_team] }
+    let!(:other_applications) { create_list :application, 3 }
+    let(:table) { Rating::Table.new user_names, Application.all, options }
+
+    context 'when hide_flags given' do
+      let(:options) { {order: :average_points, hide_flags: ["remote_team"]} }
+
+      it 'excludes rows / applications flagged with hidden flags' do
+        expect(table.rows.map{|r| r.application}).to match_array other_applications
       end
     end
-    describe '#options' do
-      it 'is readonly' do
-        expect(table).to respond_to :options
-        expect(table).not_to respond_to "options="
-      end
+    context 'when not hide_flags given' do
+      let(:options) { {order: :average_points} }
 
-      it 'contains passed options_hash' do
-        expect(table.options).to eq options
+      it 'returns all applications' do
+        expect(table.rows.map{|r| r.application}).to match_array Application.all
       end
-    end
-    describe '#rows' do
-      it 'is readonly' do
-        expect(table).to respond_to :rows
-        expect(table).not_to respond_to "rows="
-      end
-
-      it 'contains an ::Row for each passed application' do
-        expect(table.rows.size).to eq applications.count
-        expect(table.rows).to all be_a described_class::Row
-      end
-    end
-    describe '#order' do
-      it 'is readonly' do
-        expect(table).to respond_to :order
-        expect(table).not_to respond_to "order="
-      end
-
-      it 'contains the passed order-option as a sym' do
-        expect(table.order).to eq options[:order]
-      end
-
-      it 'contains :id if no valid order passed (currently not working)'
     end
   end
 end

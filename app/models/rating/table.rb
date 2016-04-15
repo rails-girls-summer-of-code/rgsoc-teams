@@ -4,16 +4,21 @@ class Rating::Table
   class Row
     extend Forwardable
 
-    def_delegators :application, :id, :location, :team_name, :project_name, :student_name,
+    def_delegators :application, :id, :flags, :location, :team_name, :project_name, :student_name,
       :total_picks, :coaching_company, :average_skill_level, :mentor_pick, :volunteering_team?,
       :remote_team, :average_total_points
 
     attr_reader :names, :application, :options
 
+    # todo: pass users, not just names
     def initialize(names, application, options)
       @names = names
       @application = application
-      @options = options
+      @options = default_options.merge options
+    end
+
+    def default_options
+      { hide_flags: [] }
     end
 
     def ratings
@@ -26,14 +31,14 @@ class Rating::Table
     end
 
     def display?
-      (@options[:hide_flags] & application.flags).empty?
+      (options[:hide_flags] & flags).empty?
     end
   end
 
   attr_reader :names, :rows, :order, :options
 
   def initialize(names, applications, options)
-    @names = names
+    @names = names # should be users / reviewers
     @options = options
     @order = options[:order].try(:to_sym) || :id #TODO: this will basically never be :id (almost everything responds to to_sym...)
     @rows = applications.map { |application| Row.new(names, application, options) }

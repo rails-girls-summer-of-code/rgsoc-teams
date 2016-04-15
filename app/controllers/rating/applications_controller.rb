@@ -62,7 +62,7 @@ class Rating::ApplicationsController < Rating::BaseController
   end
 
   def applications
-    @applications = Application.visible.includes(:ratings) #.sort_by(order)
+    Application.visible.includes(:ratings)
   end
 
   def applications_table

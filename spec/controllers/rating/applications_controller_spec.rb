@@ -28,7 +28,7 @@ describe Rating::ApplicationsController do
         before { get :index }
 
         it 'initializes @applications as a new Application::Table' do
-          expect(assigns :applications).to be_a Application::Table
+          expect(assigns :applications).to be_a Rating::Table
         end
 
         it 'lists all available applications' do
