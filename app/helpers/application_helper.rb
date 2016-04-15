@@ -205,12 +205,6 @@ module ApplicationHelper
     end
   end
 
-  def link_to_application_team_members(team, role = :member)
-    team.send(role.to_s.pluralize).sort_by(&:name_or_handle).map do |student|
-      link_to_application_team_member(student)
-    end.join.html_safe
-  end
-
   def link_to_application_team_member(member)
     content_tag(:li, :class => :user) do
       avatar_url(member, size: 40) +

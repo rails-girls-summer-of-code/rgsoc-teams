@@ -11,11 +11,11 @@
   h1 = "Application: #{@application.name} (#{@application.average_points})"
 
   ul
-    li = link_to "Team: #{@application.team.name} (#{@application.team.average_points})", [:rating, @application.team]
+    li = "Team: #{@application.team.name}"
 
   ul
     - @application.team.students.each do |student|
-      li = link_to "Student: #{student.name} (#{student.average_points})", rating_student_path(student)
+      li = "Student: #{student.name}"
 
   h2 Additional Info
 

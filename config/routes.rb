@@ -28,8 +28,6 @@ RgsocTeams::Application.routes.draw do
   end
 
   namespace :rating do
-    get 'students/:id', to: 'students#show', as: 'student'
-    get 'teams/:id', to: 'teams#show', as: 'team'
     get 'todos', to: 'todos#index', as: 'todos'
     resources :applications, except: [:new, :create, :destroy]
     resources :ratings, only: [:create, :update]
