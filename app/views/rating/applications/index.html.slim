@@ -1,13 +1,9 @@
 form id='applications-filter' class='filter' action=request.url
-  label
-    = hidden_field_tag 'filter[hide_bonus_points]', false
-    = check_box_tag 'filter[hide_bonus_points]', true, hide_bonus_points?
-    ' Hide bonus points
-  label
-    = hidden_field_tag 'filter[hide_remote_teams]', false
-    = check_box_tag 'filter[hide_remote_teams]', true, hide_remote_teams?
-    ' Hide remote teams
-  label
+  - Application::FLAGS.each do |flag|
+    label
+      = hidden_field_tag "filter[hide_#{flag}]", false
+      = check_box_tag "filter[hide_#{flag}]", true, send("hide_#{flag.to_s}?")
+      = " Hide #{flag.to_s.humanize}"
 
 table#applications.table.table-striped.table-bordered.table-condensed.table-hover
   thead
@@ -27,7 +23,7 @@ table#applications.table.table-striped.table-bordered.table-condensed.table-hove
       th = link_to_ordered 'M', :mentor_pick
       th = link_to_ordered 'V', :volunteering_team?
 
-      - if display_remote_teams?
+      - if display_remote_team?
         th = link_to_ordered 'R', :remote_team
 
   tbody

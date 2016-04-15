@@ -16,13 +16,6 @@ class Rating::Table
       @options = options
     end
 
-    def monies_needed
-      monies = application.team.students.map do |s|
-        s.ratings.map { |r| r.data[:min_money] || 0 }
-      end.flatten.select {|m| m > 0 }
-      monies.join(', ')
-    end
-
     def ratings
       @ratings ||= names.map do |name|
         ratings = application.ratings
@@ -33,13 +26,7 @@ class Rating::Table
     end
 
     def display?
-      (remote_teams? || !application.remote_team?)
-    end
-
-    [:remote_teams, :duplicates].each do |flag|
-      define_method(:"#{flag}?") do
-        options.key?(flag) && options[flag]
-      end
+      (@options[:hide_flags] & application.flags).empty?
     end
   end
 

@@ -41,7 +41,7 @@ class Rating::ApplicationsController < Rating::BaseController
   end
 
   def store_filters
-    [:cs_students, :remote_teams, :in_teams, :duplicates].each do |key|
+    Application::FLAGS.each do |key|
       key = :"hide_#{key}"
       session[key] = params[:filter][key] == 'true' if params[:filter] && params[:filter].key?(key)
     end
@@ -62,18 +62,13 @@ class Rating::ApplicationsController < Rating::BaseController
   end
 
   def applications
-    if params[:show_hidden]
-      @applications = Application.hidden.includes(:ratings) #.sort_by(order)
-    else
-      @applications = Application.visible.includes(:ratings) #.sort_by(order)
-    end
+    @applications = Application.visible.includes(:ratings) #.sort_by(order)
   end
 
   def applications_table
-    options = { order: order, exclude: exclude }
-    flags = [:bonus_points, :remote_teams]
-    options = flags.inject(options) do |options, flag|
-      options.merge(flag => send(:"display_#{flag}?"))
+    options = { order: order, exclude: exclude, hide_flags: [] }
+    Application::FLAGS.each do |flag|
+      options[:hide_flags] << flag.to_s if send(:"hide_#{flag}?")
     end
     Rating::Table.new(Rating.user_names, applications, options)
   end
