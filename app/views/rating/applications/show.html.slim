@@ -9,21 +9,15 @@
 
 #application
   h1 = "Application: #{@application.name} (#{@application.average_points})"
-
   ul
     li = "Team: #{@application.team.name}"
-
   ul
     - @application.team.students.each do |student|
       li = "Student: #{student.name}"
 
   h2 Additional Info
-
   p = link_to 'Edit additional Info', edit_rating_application_path(@application)
-
   p = @application.misc_info
-
-  = @application.coaching_company
   table.misc_info
     tbody
       tr
@@ -32,13 +26,12 @@
       tr
         td Project name
         td = @application.project_name
-      - if @application.coaching_company
-        tr
-          td Coaching Company
-          td = @application.coaching_company
+      tr
+        td Coaching Company
+        td = @application.coaching_company
       tr
         td Project visibility
-        td = @application.project_visibility || '-'
+        td = @application.project_visibility
       tr
         td Flags
         td = format_application_flags(@application)
@@ -50,12 +43,12 @@
 
   #comments
     h2 Comments
-
+    
     - @application.comments.each do |comment|
       hr(id="#{dom_id comment}")
       h5 = "#{ user_for_comment(comment) }, #{ l(comment.created_at, format: :short) }".html_safe
       p = render_markdown(comment.text).html_safe
-
+      
     = simple_form_for Comment.new(application_id: @application.id) do |f|
       = f.input :application_id, as: :hidden
       = f.input :text

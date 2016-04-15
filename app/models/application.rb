@@ -62,8 +62,8 @@ class Application < ActiveRecord::Base
   PROJECT_VISIBILITY_WEIGHT = ENV['PROJECT_VISIBILITY_WEIGHT'] || 2
   COACHING_COMPANY_WEIGHT = ENV['COACHING_COMPANY_WEIGHT'] || 2
   MENTOR_PICK_WEIGHT = ENV['MENTOR_PICK_WEIGHT'] || 2
-  FLAGS = [:hidden, :cs_student, :remote_team, :mentor_pick,
-           :volunteering_team, :in_team, :duplicate, :selected, :remote_team]
+  FLAGS = [:hidden, :remote_team, :mentor_pick, :volunteering_team, :selected,
+            :male_gender, :zero_community, :age_below_18, :less_than_two_coaches]
 
   has_many :comments
 

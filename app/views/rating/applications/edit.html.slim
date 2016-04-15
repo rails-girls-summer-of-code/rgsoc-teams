@@ -5,7 +5,6 @@
   = a.input :coaching_company
   = a.input :city
   = a.input :country, as: :country, label: "Country", prompt: ""
-  = a.input :hidden
-  - [:selected, :cs_student, :remote_team, :mentor_pick, :volunteering_team, :duplicate, :in_team].each do |key|
+  - Application::FLAGS.each do |key|
     = a.input key, as: :boolean
   = a.submit 'Save'

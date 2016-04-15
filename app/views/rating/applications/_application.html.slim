@@ -18,6 +18,6 @@ tr class=application_classes_for(application)
   = render partial: 'ratings', collection: row.ratings, as: :rating
 
   td = application.average_skill_level
-  - [:mentor_pick, :volunteering_team, :remote_team, :cs_student, :in_team, :duplicate].each do |flag|
+  - Application::FLAGS.each do |flag|
     - if !respond_to?(:"display_#{flag}s?") || send(:"display_#{flag}s?")
       td = application.send(:"#{flag}?") ? 'x' : ''
