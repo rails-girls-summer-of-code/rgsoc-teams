@@ -10,12 +10,13 @@ tr class=application_classes_for(application)
     = format_application_project(application)
   td.location
     = format_application_location(application)
-  td.monies_needed
-    = row.monies_needed
 
   td = application.total_picks
   td = application.average_total_points
-  = render partial: 'ratings', collection: row.ratings, as: :rating
+  - row.ratings.each do |rating|
+    td class=rating_classes_for(rating, current_user)
+      = rating.points
+
 
   td = application.average_skill_level
   - Application::FLAGS.each do |flag|

@@ -71,11 +71,11 @@ class Rating::ApplicationsController < Rating::BaseController
 
   def applications_table
     options = { order: order, exclude: exclude }
-    flags = [:bonus_points, :cs_students, :remote_teams, :in_teams, :duplicates]
+    flags = [:bonus_points, :remote_teams]
     options = flags.inject(options) do |options, flag|
       options.merge(flag => send(:"display_#{flag}?"))
     end
-    Application::Table.new(Rating.user_names, applications, options)
+    Rating::Table.new(Rating.user_names, applications, options)
   end
 
   def prev_application
