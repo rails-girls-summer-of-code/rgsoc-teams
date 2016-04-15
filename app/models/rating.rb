@@ -38,6 +38,9 @@ class Rating < ActiveRecord::Base
 
   before_validation :set_data
 
+  validates :user, :rateable, presence: true
+  validates :user, uniqueness: { scope: :rateable }
+
   class << self
     def user_names
       # may eventually change this to work with users instead of strings

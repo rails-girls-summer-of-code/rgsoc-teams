@@ -1,16 +1,25 @@
 require 'spec_helper'
 describe Rating do
+  let(:application) { FactoryGirl.build_stubbed(:application) }
+
   describe 'associations' do
     it { is_expected.to belong_to(:user) }
     it { is_expected.to belong_to(:application) }
     it { is_expected.to belong_to(:rateable) }
+
+    let(:user) { FactoryGirl.build_stubbed(:user) }
+
+    it 'should only allow for one rating per user and rateable' do
+      Rating.create(rateable: application, user: user)
+      expect{ Rating.create!(rateable: application, user: user) }.to raise_error(ActiveRecord::RecordInvalid)
+    end
   end
 
   describe 'scopes' do
     describe 'by' do
       it 'should return the rating for the given user' do
         user = create(:user)
-        rating = create(:rating, user: user)
+        rating = create(:rating, user: user, rateable: application)
         expect(Rating.by(user).first).to eq(rating)
       end
     end
@@ -19,14 +28,9 @@ describe Rating do
     let(:users) { create_list :user, 3 }
     let(:user_names) { users.map(&:name) }
 
-    before { users.each{|user| create(:rating, user: user) } }
+    before { users.each{|user| create(:rating, user: user, rateable: application) } }
 
     it 'returns names of all users who submitted a rating' do
-      expect(Rating.user_names).to match_array user_names
-    end
-
-    it 'contains each name only once' do
-      create :rating, user: users.first
       expect(Rating.user_names).to match_array user_names
     end
 
@@ -37,12 +41,13 @@ describe Rating do
   end
   describe '#points' do
     it 'should add up some points given through valid fields' do
-      rating = create(:rating)
-      rating.data = { practice_time: 0, support: 2 }
+      rating = create(:rating, rateable: application)
+      rating.diversity = 0
+      rating.skills = 10
       rating.save
 
-      # practice time with id 0 is 10, support with id 2 is 6:
-      expect(rating.points).to eq(16)
+      # after weights this hsould be:
+      expect(rating.points).to eq(1.5)
     end
   end
 end
