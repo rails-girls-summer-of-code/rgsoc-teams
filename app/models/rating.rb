@@ -18,21 +18,25 @@ class Rating < ActiveRecord::Base
     personal_impression: RatingCriterium.new( 0.05 )
   })
 
-  attr_accessor *FIELDS.keys
-
   FIELDS.each do |name, rating_criterium|
     define_singleton_method "#{name}_options" do
       rating_criterium.point_options
     end
 
     define_method name do
-      data[name]
+      if data.present?
+        data[name]
+      else
+        nil
+      end
     end
 
     define_method "#{name}=" do |value|
       data[name] = value
     end
   end
+
+  before_validation :set_data
 
   class << self
     def user_names
@@ -53,10 +57,6 @@ class Rating < ActiveRecord::Base
     end
   end
 
-  def data
-    Hashr.new(super)
-  end
-
   def woman?
     data[:is_woman] == 1
   end
@@ -69,4 +69,15 @@ class Rating < ActiveRecord::Base
 
     weighted_points.sum
   end
+
+  private
+    def set_data
+      new_data = {}
+      FIELDS.keys.each do |name|
+        points = self.send(name)
+        new_data = new_data.merge({ name => points })
+      end
+
+      self.data = new_data
+    end
 end

@@ -1,8 +1,9 @@
 class Rating::RatingsController < Rating::BaseController
 
   def create
-    rating = find_or_initialize_rating
-    rating.update(rating_attr_params)
+    rating = Rating.new(new_rating_params)
+    rating.user = current_user
+    rating.save!
     redirect_to rating_todos_path
   end
 
@@ -13,6 +14,10 @@ class Rating::RatingsController < Rating::BaseController
   end
 
   private
+
+  def new_rating_params
+    params.require(:rating).permit(:rateable_id, :rateable_type, :pick, Rating::FIELDS.keys)
+  end
 
   def rating_attr_params
     params.require(:rating).permit(:pick, Rating::FIELDS.keys)
