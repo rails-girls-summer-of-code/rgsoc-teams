@@ -226,15 +226,6 @@ module ApplicationHelper
     end.compact.join(', ').html_safe
   end
 
-  def link_to_ordered(text, type)
-    # link_to text, applications_path(order: type), class: order.to_sym == type ? 'active' : ''
-    if order.to_sym == type
-      content_tag :span, text, class: 'active'
-    else
-      link_to text, rating_applications_path(order: type)
-    end
-  end
-
   def role_names(team, user)
     team.roles(true).select{|role| role.user == user}.map do |role|
       role.name.titleize

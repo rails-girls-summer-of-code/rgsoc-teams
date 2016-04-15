@@ -17,8 +17,6 @@ tr class=application_classes_for(application)
     td class=rating_classes_for(rating, current_user)
       = rating.points
 
-
-  td = application.average_skill_level
   - Application::FLAGS.each do |flag|
     - if !respond_to?(:"display_#{flag}s?") || send(:"display_#{flag}s?")
       td = application.send(:"#{flag}?") ? 'x' : ''

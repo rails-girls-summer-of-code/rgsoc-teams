@@ -10,21 +10,17 @@ table#applications.table.table-striped.table-bordered.table-condensed.table-hove
     tr
       th #
       th = link_to_ordered 'ID', :id
-
       th = link_to_ordered 'Team', :team_name
       th = link_to_ordered 'Projects', :project_name
       th = link_to_ordered 'Locations', :location
-
       th = link_to_ordered 'Picks', :picks
       th = link_to_ordered 'Average Points', :average_points
+      
       - @applications.names.each do |name|
         th = name.split.first
-
-      th = link_to_ordered 'M', :mentor_pick
-      th = link_to_ordered 'V', :volunteering_team?
-
-      - if display_remote_team?
-        th = link_to_ordered 'R', :remote_team
+        
+      - Application::FLAGS.each do |flag|
+        th = link_to_ordered flag.to_s.humanize, flag
 
   tbody
     = render partial: 'application', collection: @applications.rows, as: :row
