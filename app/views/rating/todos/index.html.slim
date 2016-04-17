@@ -2,34 +2,10 @@ h1 Todo
 table.table
   thead
     tr
-      th scope="col" Team
+      th scope="col" Application
       th scope="col" Rated at
-      th scope="col" Students
-      th scope="col" Applications
   tbody
-    - @teams.each do |team|
-      tr class="team-#{team.id}"
-        td= team.name
-        td= rating(team).try(:updated_at) || 'Never'
-        td
-          table.table
-            thead
-              tr
-                th scope="col" Name
-                th scope="col" Rated at
-            tbody
-              - team.students.each do |student|
-                tr class="student-#{student.id}"
-                  td= student.name
-                  td= rating(student).try(:updated_at) || 'Never'
-        td
-          table.table
-            thead
-              tr
-                th scope="col" Name
-                th scope="col" Rated at
-            tbody
-              - team.applications.each do |application|
-                tr class="application-#{application.id}"
-                  td= link_to application.project_name, rating_application_path(application)
-                  td= rating(application).try(:updated_at) || 'Never'
+    - @applications.each do |application|
+      tr
+        td= link_to application.name, rating_application_path(application)
+        td= rating(application).try(:updated_at) || 'Never'
