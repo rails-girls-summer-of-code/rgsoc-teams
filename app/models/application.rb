@@ -121,12 +121,6 @@ class Application < ActiveRecord::Base
     ratings.where(pick: true).count
   end
 
-  # public: Average total points for the application.
-  # This does include the average points each student got and the arverage points of the team.
-  def average_total_points
-    average_points + team.students.collect(&:average_points).sum + team.average_points
-  end
-
   def combined_ratings
     ratings.to_a + team.combined_ratings
   end

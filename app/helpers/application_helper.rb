@@ -94,12 +94,6 @@ module ApplicationHelper
     twitter.to_s.starts_with?('@') ? link_to(twitter, "http://twitter.com/#{twitter.gsub('@', '')}") : twitter
   end
 
-  def format_application_project(application)
-    project = "#{application.project_name}"
-    project = "#{application.project_name} (#{application.project_visibility})" if application.project_visibility
-    project
-  end
-
   def format_application_location(application)
     country = country_for_application(application).to_s
     location = location_for_application(application).to_s

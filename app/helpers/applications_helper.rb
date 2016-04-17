@@ -28,4 +28,14 @@ module ApplicationsHelper
                 end
     content_tag :p, formatted.html_safe
   end
+  
+  def link_to_ordered(text, type)
+    link_to text, rating_applications_path(order: type)
+  end
+
+  def format_application_project(application)
+    project = "#{application.project_name}"
+    project = "#{application.project_name} (#{application.project_visibility})" if application.project_visibility
+    project
+  end
 end

@@ -20,7 +20,7 @@ table#applications.table.table-striped.table-bordered.table-condensed.table-hove
         th = name.split.first
         
       - Application::FLAGS.each do |flag|
-        th = link_to_ordered flag.to_s.humanize, flag
+        th = flag.to_s.humanize
 
   tbody
     = render partial: 'application', collection: @applications.rows, as: :row
