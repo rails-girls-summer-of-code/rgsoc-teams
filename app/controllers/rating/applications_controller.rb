@@ -62,7 +62,7 @@ class Rating::ApplicationsController < Rating::BaseController
   end
 
   def applications
-    Application.visible.includes(:ratings)
+    Application.includes(:ratings).where(season: current_season)
   end
 
   def applications_table
