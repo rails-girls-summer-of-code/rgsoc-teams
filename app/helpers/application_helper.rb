@@ -94,31 +94,6 @@ module ApplicationHelper
     twitter.to_s.starts_with?('@') ? link_to(twitter, "http://twitter.com/#{twitter.gsub('@', '')}") : twitter
   end
 
-  def format_application_location(application)
-    country = country_for_application(application).to_s
-    location = location_for_application(application).to_s
-    location = location.gsub(country, '').gsub(%r(^\s*/\s*), '').gsub(/[\(\)]*/, '')
-    [location.strip, country.strip].select(&:present?).join('/')
-  end
-
-  def country_for_application(application)
-    country = application.country
-    country = 'US' if country == 'United States of America'
-    country = 'UK' if country == 'United Kingdom'
-    country
-  end
-
-  def location_for_application(application)
-    application.city.present? ? application.city : application.team.students.map(&:location).reject(&:blank?).join(', ')
-  end
-
-  def format_application_flags(application)
-    flags = Application::FLAGS.select do |flag|
-      application.send(:"#{flag}?")
-    end
-    flags.map { |flag| flag.to_s.titleize }.join(', ')
-  end
-
   def if_present?(user, *attrs)
     yield if attrs.any? { |attr| user.send(attr).present? }
   end
@@ -196,13 +171,6 @@ module ApplicationHelper
     content_tag(:li, :class => :user) do
       avatar_url(member, size: 40) +
         link_to(member.name_or_handle, member)
-    end
-  end
-
-  def link_to_application_team_member(member)
-    content_tag(:li, :class => :user) do
-      avatar_url(member, size: 40) +
-        link_to(member.name_or_handle, rating_student_path(member))
     end
   end
 

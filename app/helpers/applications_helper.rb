@@ -28,7 +28,25 @@ module ApplicationsHelper
                 end
     content_tag :p, formatted.html_safe
   end
-  
+
+  def format_application_location(application)
+    country = country_for_application(application).to_s
+    location = location_for_application(application).to_s
+    location = location.gsub(country, '').gsub(%r(^\s*/\s*), '').gsub(/[\(\)]*/, '')
+    [location.strip, country.strip].select(&:present?).join('/')
+  end
+
+  def country_for_application(application)
+    country = application.country
+    country = 'US' if country == 'United States of America'
+    country = 'UK' if country == 'United Kingdom'
+    country
+  end
+
+  def location_for_application(application)
+    application.city.present? ? application.city : application.team.students.map(&:location).reject(&:blank?).join(', ')
+  end
+
   def link_to_ordered(text, type)
     link_to text, rating_applications_path(order: type)
   end
@@ -37,5 +55,12 @@ module ApplicationsHelper
     project = "#{application.project_name}"
     project = "#{application.project_name} (#{application.project_visibility})" if application.project_visibility
     project
+  end
+  
+  def format_application_flags(application)
+    flags = Application::FLAGS.select do |flag|
+      application.send(:"#{flag}?")
+    end
+    flags.map { |flag| flag.to_s.titleize }.join(', ')
   end
 end

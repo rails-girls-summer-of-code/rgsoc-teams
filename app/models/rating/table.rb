@@ -9,7 +9,6 @@ class Rating::Table
 
     attr_reader :names, :application, :options
 
-    # TODO: pass users, not just names
     def initialize(names, application, options)
       @names = names
       @application = application
@@ -36,7 +35,7 @@ class Rating::Table
   attr_reader :names, :rows, :order, :options
 
   def initialize(names, applications, options)
-    @names = names # should be users / reviewers
+    @names = names
     @options = options
     @rows = applications.map { |application| Row.new(names, application, options) }
     @rows = rows.select { |row| row.display? }
