@@ -50,7 +50,6 @@ class Rating::ApplicationsController < Rating::BaseController
   def order
     params[:order] || session[:order] || :id
   end
-  helper_method :order
 
   def persist_order
     session[:order] = :mean if session[:order] == 'total_rating'
