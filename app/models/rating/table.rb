@@ -23,7 +23,6 @@ class Rating::Table
     def ratings
       @ratings ||= names.map do |name|
         ratings = application.ratings
-        ratings = ratings.excluding(options[:exclude]) unless options[:exclude].blank?
         rating = ratings.find { |rating| rating.user.name == name }
         rating || Hashr.new(value: '-')
       end

@@ -56,33 +56,15 @@ class Rating::ApplicationsController < Rating::BaseController
     session[:order] = params[:order] if params[:order]
   end
 
-  def exclude
-    (params[:exclude] || session[:exclude] || '').split(',').map(&:strip)
-  end
-
   def applications
     Application.includes(:ratings).where(season: current_season)
   end
 
   def applications_table
-    options = { order: order, exclude: exclude, hide_flags: [] }
+    options = { order: order, hide_flags: [] }
     Application::FLAGS.each do |flag|
       options[:hide_flags] << flag.to_s if send(:"hide_#{flag}?")
     end
     Rating::Table.new(Rating.user_names, applications, options)
-  end
-
-  def prev_application
-    all = applications
-    all = all.reverse if [:mean, :median, :weighted, :truncated].include?(order)
-    ix = all.index { |a| a.id == params[:id].to_i }
-    all[ix - 1]
-  end
-
-  def next_application
-    all = applications
-    all = all.reverse if [:mean, :median, :weighted, :truncated].include?(order)
-    ix = all.index { |a| a.id == params[:id].to_i }
-    all[ix + 1]
   end
 end
