@@ -1,6 +1,6 @@
 class Rating < ActiveRecord::Base
 
-  serialize :data, HashWithIndifferentAccess
+  serialize :data
 
   belongs_to :application
   belongs_to :user
