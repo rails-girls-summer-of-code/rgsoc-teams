@@ -30,6 +30,14 @@ describe Rating::RatingsController, type: :controller do
         }.to change{Rating.count}.by 1
       end
 
+      it 'sets rating attribute' do
+        post :create, params
+        rating = Rating.last
+        expect(rating.diversity).to eq '5'
+        expect(rating.data['diversity']).to eq '5'
+        expect(rating.data[:diversity]).to eq '5'
+      end
+
       it 'redirect_to rating/todos' do
         post :create, params
         expect(response).to redirect_to rating_todos_path

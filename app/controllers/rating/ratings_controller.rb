@@ -1,9 +1,10 @@
 class Rating::RatingsController < Rating::BaseController
 
+  # In order to get the rating data persisted, FIRST create the rating record,
+  # then update it to actually set the values.
   def create
-    rating = Rating.new(new_rating_params)
-    rating.user = current_user
-    rating.save!
+    rating = find_or_create_rating
+    rating.update new_rating_params
     redirect_to rating_todos_path
   end
 
@@ -23,8 +24,8 @@ class Rating::RatingsController < Rating::BaseController
     params.require(:rating).permit(:pick, Rating::FIELDS.keys)
   end
 
-  def find_or_initialize_rating
-    rateable_args = params[:rating].values_at(:rateable_type, :rateable_id)
-    Rating.by(current_user).for(*rateable_args).first_or_initialize
+  def find_or_create_rating
+    rateable_args = new_rating_params.values_at(:rateable_type, :rateable_id)
+    Rating.by(current_user).for(*rateable_args).first_or_create
   end
 end

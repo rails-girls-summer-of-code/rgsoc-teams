@@ -1,6 +1,6 @@
 class Rating < ActiveRecord::Base
 
-  serialize :data
+  serialize :data, HashWithIndifferentAccess
 
   belongs_to :application
   belongs_to :user
@@ -75,7 +75,7 @@ class Rating < ActiveRecord::Base
 
   private
     def set_data
-      new_data = {}
+      new_data = HashWithIndifferentAccess.new
       FIELDS.keys.each do |name|
         points = self.send(name)
         new_data = new_data.merge({ name => points })
