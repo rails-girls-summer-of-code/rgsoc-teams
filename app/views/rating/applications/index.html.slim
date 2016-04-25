@@ -1,3 +1,5 @@
+= render 'rating/breadcrumbs'
+
 form id='applications-filter' class='filter' action=request.url
   - Application::FLAGS.each do |flag|
     label
@@ -15,10 +17,10 @@ table#applications.table.table-striped.table-bordered.table-condensed.table-hove
       th = link_to_ordered 'Locations', :location
       th = link_to_ordered 'Picks', :picks
       th = link_to_ordered 'Average Points', :average_points
-      
+
       - @applications.names.each do |name|
         th = name.split.first
-        
+
       - Application::FLAGS.each do |flag|
         th = flag.to_s.humanize
 

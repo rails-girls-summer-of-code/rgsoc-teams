@@ -5,6 +5,11 @@ class Rating::ApplicationsController < Rating::BaseController
   before_action :persist_order, only: :index
   respond_to :html
 
+  def set_breadcrumbs
+    super
+    @breadcrumbs << [ 'Applications', [:rating, :applications] ]
+  end
+
   def index
     @applications = applications_table
   end
@@ -12,10 +17,15 @@ class Rating::ApplicationsController < Rating::BaseController
   def show
     @application = Application.find(params[:id])
     @rating = @application.ratings.find_or_initialize_by(user: current_user)
+
+    @breadcrumbs << ["Application ##{@application.id}", [:rating, @application]]
   end
 
   def edit
     @application = Application.find(params[:id])
+
+    @breadcrumbs << ["Application ##{@application.id}", [:rating, @application]]
+    @breadcrumbs << ["Edit additional info", [:edit, :rating, @application ]]
   end
 
   def update
