@@ -31,7 +31,7 @@ class Rating::ApplicationsController < Rating::BaseController
   def update
     @application = Application.find(params[:id])
     if @application.update(application_params)
-      redirect_to action: :index
+      redirect_to [:rating, @application]
     else
       render :edit
     end

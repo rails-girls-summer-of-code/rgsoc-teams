@@ -12,7 +12,7 @@ tr class=application_classes_for(application)
     = format_application_location(application)
 
   td = application.total_picks
-  td = application.average_points
+  td = application.average_points.round 2
   - row.ratings.each do |rating|
     td class=rating_classes_for(rating, current_user)
       = rating.points
