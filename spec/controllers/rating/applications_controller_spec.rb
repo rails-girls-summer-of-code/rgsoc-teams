@@ -147,9 +147,9 @@ describe Rating::ApplicationsController do
           }.to change{application.mentor_pick}.to true
         end
 
-        it 'redirect to index' do
+        it 'redirects to application' do
           put :update, params
-          expect(response).to redirect_to [:rating, Application]
+          expect(response).to redirect_to [:rating, application]
         end
       end
     end
