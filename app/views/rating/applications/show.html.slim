@@ -1,10 +1,10 @@
 .nav
-  = link_to 'Overview', rating_applications_path
+  = link_to 'Applications Overview', rating_applications_path
   br
   = link_to 'Rating To-Dos', rating_todos_path
 
 #application
-  h1 = "Application: #{@application.name} (#{@application.average_points})"
+  h1 = "Application: #{@application.name} (#{@application.average_points.round 2})"
   ul
     li = "Team: #{@application.team.name}"
   ul
