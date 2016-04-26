@@ -33,18 +33,18 @@
         td = format_application_flags(@application)
 
   h2 Submitted Application
-  - @application.application_data.each do |title, value|
+  - @application.blinded_sorted_application_data.each do |title, value|
     h4 = Application.data_label(title)
     p  = formatted_application_data_value(title, value)
 
   #comments
     h2 Comments
-    
+
     - @application.comments.each do |comment|
       hr(id="#{dom_id comment}")
       h5 = "#{ user_for_comment(comment) }, #{ l(comment.created_at, format: :short) }".html_safe
       p = render_markdown(comment.text).html_safe
-      
+
     = simple_form_for Comment.new(application_id: @application.id) do |f|
       = f.input :application_id, as: :hidden
       = f.input :text
@@ -55,9 +55,9 @@
   = simple_form_for [:rating, @rating] do |f|
     = f.input :rateable_id, as: :hidden, value: @application.id
     = f.input :rateable_type, as: :hidden, value: @application.class
-        
+
     - Rating::FIELDS.keys.each do |key|
       = f.input key, collection: Rating.send("#{key}_options"), include_blank: false, selected: @rating.send(key)
-      
+
     = f.input :pick, label: "My Pick"
     = f.submit 'Save'
