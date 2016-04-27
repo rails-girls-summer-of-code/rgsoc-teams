@@ -78,7 +78,12 @@ class Application < ActiveRecord::Base
                              :student0_application_location,
                              :student1_application_location,
                              :student0_application_age,
-                             :student1_application_age]
+                             :student1_application_age,
+                             :voluntary,
+                             :voluntary_hours_per_week,
+                             :heard_about_it,
+                             :student0_application_location,
+                             :student1_application_location]
 
   has_many :comments
 

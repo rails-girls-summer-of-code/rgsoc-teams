@@ -1,10 +1,5 @@
 = render 'rating/breadcrumbs'
 
-.nav
-  = link_to 'Applications Overview', rating_applications_path
-  br
-  = link_to 'Rating To-Dos', rating_todos_path
-
 #application
   h1 = "Application: #{@application.name} (#{rounded_points_for @application})"
   ul
@@ -18,9 +13,6 @@
   p = @application.misc_info
   table.misc_info
     tbody
-      tr
-        td Location
-        td = format_application_location(@application)
       tr
         td Project name
         td = @application.project_name
