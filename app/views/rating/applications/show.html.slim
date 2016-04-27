@@ -6,7 +6,7 @@
   = link_to 'Rating To-Dos', rating_todos_path
 
 #application
-  h1 = "Application: #{@application.name} (#{@application.average_points.round 2})"
+  h1 = "Application: #{@application.name} (#{rounded_points_for @application})"
   ul
     li = "Team: #{@application.team.name}"
   ul
@@ -59,7 +59,8 @@
     = f.input :rateable_type, as: :hidden, value: @application.class
 
     - Rating::FIELDS.keys.each do |key|
-      = f.input key, collection: Rating.send("#{key}_options"), include_blank: false, selected: @rating.send(key)
+      = f.input key, collection: Rating.send("#{key}_options"), include_blank: false, selected: @rating.send(key), input_html: {data: {toggle: 'popover', placement: 'bottom', trigger: 'hover', content: 'nice' }, title: 'something' }
+
 
     = f.input :pick, label: "My Pick"
     = f.submit 'Save'

@@ -12,10 +12,10 @@ tr class=application_classes_for(application)
     = format_application_location(application)
 
   td = application.total_picks
-  td = application.average_points.round 2
+  td = rounded_points_for application
   - row.ratings.each do |rating|
     td class=rating_classes_for(rating, current_user)
-      = rating.points
+      = rounded_points_for rating
 
   - Application::FLAGS.each do |flag|
     - if !respond_to?(:"display_#{flag}s?") || send(:"display_#{flag}s?")
