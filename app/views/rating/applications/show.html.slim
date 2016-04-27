@@ -57,7 +57,8 @@
     = f.input :rateable_type, as: :hidden, value: @application.class
 
     - Rating::FIELDS.keys.each do |key|
-      = f.input key, collection: Rating.send("#{key}_options"), include_blank: false, selected: @rating.send(key)
+      = f.input key, collection: Rating.send("#{key}_options"), include_blank: false, selected: @rating.send(key), input_html: {data: {toggle: 'tooltip', placement: 'bottom', html: true }, title: 'something<br>else' }
+
 
     = f.input :pick, label: "My Pick"
     = f.submit 'Save'

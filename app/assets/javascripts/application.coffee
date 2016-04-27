@@ -10,3 +10,5 @@ $ ->
 
   $('.comments a').click ->
     $('.comments').hide()
+
+  $('[data-toggle="tooltip"]').tooltip()
