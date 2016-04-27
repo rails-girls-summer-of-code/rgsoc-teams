@@ -45,7 +45,7 @@
       = f.submit 'Add comment'
 
 
-#rating
+#rating data-behavior='rating-sidebar'
   = simple_form_for [:rating, @rating] do |f|
     = f.input :rateable_id, as: :hidden, value: @application.id
     = f.input :rateable_type, as: :hidden, value: @application.class

@@ -404,7 +404,7 @@ h1.header, h2.header
     vertical-align: middle
 
 #rating
-  position: fixed
+  position: absolute
   background: $lightgray
   width: 400px
   padding: 10px
@@ -414,6 +414,9 @@ h1.header, h2.header
   overflow: scroll
   .button_group span
     display: block
+  .rating-fixed &
+    position: fixed
+    top: 0
 
 #application
   margin-right: 420px
