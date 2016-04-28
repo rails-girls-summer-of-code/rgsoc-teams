@@ -117,11 +117,15 @@ class Team < ActiveRecord::Base
     coach_roles.all? { |role| role.confirmed? }
   end
 
-  private
+  def confimred_coaches
+    roles.where(name: 'coach', state: 'confirmed')
+  end
 
   def coach_roles
     roles.select { |role| role.name == 'coach' }
   end
+
+  private
 
   def set_last_checked
     self.last_checked_at = Time.now.utc

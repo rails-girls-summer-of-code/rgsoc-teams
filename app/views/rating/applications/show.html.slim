@@ -4,9 +4,8 @@
   h1 = "Application: #{@application.name} (#{rounded_points_for @application})"
   ul
     li = "Team: #{@application.team.name}"
-  ul
-    - @application.team.students.each do |student|
-      li = "Student: #{student.name}"
+
+  p = "confirmed coaches: #{@application.team.coach_roles.count}"
 
   h2 Additional Info
   p = link_to 'Edit additional Info', edit_rating_application_path(@application)
@@ -25,6 +24,7 @@
       tr
         td Flags
         td = format_application_flags(@application)
+
 
   h2 Submitted Application
   - @application.blinded_sorted_application_data.each do |title, value|
