@@ -61,6 +61,8 @@ en:
         misc_info: Additional information
         voluntary: Voluntary team
         heard_about_it: How have you heard about the program?
+        working_together: Since this is a self-guided program, how are you planning to work together?
+        why_selected_project: Why did you select this project?
 
       job_offer:
         paid: Paid?
