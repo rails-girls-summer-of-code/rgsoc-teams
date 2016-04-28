@@ -75,6 +75,8 @@ class Application < ActiveRecord::Base
                              :student1_name,
                              :student0_application_minimum_money,
                              :student1_application_minimum_money,
+                             :student0_application_money,
+                             :student1_application_money,
                              :student0_application_location,
                              :student1_application_location,
                              :student0_application_age,
