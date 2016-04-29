@@ -15,54 +15,55 @@ en:
   activerecord:
     attributes:
       application_draft:
-        project1: Project (1st choice)
-        project2: Project (2nd choice)
+        student0_name: Student Name (1st student)
+        student1_name: Student Name (2nd student)
+        student0_application_age: Your age (1st student)
+        student1_application_age: Your age (2nd student)
+        student0_application_gender_identification: Your gender self-identification (1st student)
+        student1_application_gender_identification: Your gender self-identification (2nd student)
+        student0_application_location: Where do you plan to live July-September? (1st student)
+        student1_application_location: Where do you plan to live July-September? (2nd student)
+        student0_application_about: What is your background? (1st student)
+        student1_application_about: What is your background? (2nd student)
+        student0_application_code_background: How did you get into programming? (1st student)
+        student1_application_code_background: How did you get into programming? (2nd student)
+        student0_application_skills: Short summary of your programming skills (1st student)
+        student1_application_skills: Short summary of your programming skills (2nd student)
+        student0_application_coding_level: What is your programming level? (1st student)
+        student1_application_coding_level: What is your programming level? (2nd student)
+        student0_application_community_engagement: Tell us about your community involvement (1st student)
+        student1_application_community_engagement: Tell us about your community involvement (2nd student)
+        student0_application_learning_period: For how many months have you actively been learning after your first workshop? (1st student)
+        student1_application_learning_period: For how many months have you actively been learning after your first workshop? (2nd student)
+        student0_application_language_learning_period: For how many months have you been learning the language of your primary project? (1st student)
+        student1_application_language_learning_period: For how many months have you been learning the language of your primary project? (2nd student)
+        student0_application_learning_history: What you have been doing to learn programming since your first workshop (1st student)
+        student1_application_learning_history: What you have been doing to learn programming since your first workshop (2nd student)
+        student0_application_code_samples: Link to pull requests you have done or other examples of your coding on GitHub or elsewhere (1st student)
+        student1_application_code_samples: Link to pull requests you have done or other examples of your coding on GitHub or elsewhere (2nd student)
+        student0_application_goals: What do you want to achieve by the end of the summer? (1st student)
+        student1_application_goals: What do you want to achieve by the end of the summer? (2nd student)
+        student0_application_motivation: Why are you applying to this program, and what do you think you can give back? (1st student)
+        student1_application_motivation: Why are you applying to this program, and what do you think you can give back? (2nd student)
+        student0_application_money: How much money, in USD, do you need per month? (1st student)
+        student1_application_money: How much money, in USD, do you need per month? (2nd student)
+        student0_application_minimum_money: Break down your costs, or point out any special circumstances which require a higher budget than what you've selected above or than what is usual for your city. (1st student)
+        student1_application_minimum_money: Break down your costs, or point out any special circumstances which require a higher budget than what you've selected above or than what is usual for your city. (2nd student)
+        project1_id: Project (1st choice)
+        project2_id: Project (2nd choice)
+        why_selected_project: Why did you select this project?
+        project_plan: Which features are you planning to work on?
+        working_together: How are you planning to work together?
+        voluntary: Voluntary team
+        voluntary_hours_per_week: How many hours per week would you be able to work on the project?
+        heard_about_it: How have you heard about the program?
+        misc_info: Anything else to add?
+
+        student0_banking_info: Banking Information (1st student)
+        student1_banking_info: Banking Information (2nd student)
         project_url: Project URL
         coaches_hours_per_week: "Coaches' Hours-per-Week"
         coaches_why_team_successful: "Coaches' Success-Statement"
-        student0_application_about: Background (1st student)
-        student0_application_motivation: Motivation (1st student)
-        student0_application_gender_identification: Gender Self-Identification (1st student)
-        student0_application_coding_level: Skill Level (1st student)
-        student0_application_community_engagement: Rails Girls / Community Involvement (1st student)
-        student0_application_learning_period: Learning Period (1st student)
-        student0_application_learning_history: Learning Summary (1st student)
-        student0_application_skills: Programming Skills Summary (1st student)
-        student0_application_code_samples: Code Samples (1st student)
-        student0_application_location: Location during the summer (1st student)
-        student0_banking_info: Banking Information (1st student)
-        student0_application_minimum_money: Minimum Money (1st student)
-        student0_name: Name (1st student)
-        student1_name: Name (2nd student)
-        student1_application_about: Background (2nd student)
-        student1_application_motivation: Motivation (2nd student)
-        student1_application_gender_identification: Gender Self-Identification (2nd student)
-        student1_application_coding_level: Skill Level (2nd student)
-        student1_application_community_engagement: Rails Girls / Community Involvement (2nd student)
-        student1_application_learning_period: Learning Period (2nd student)
-        student1_application_learning_history: Learning Summary (2nd student)
-        student1_application_skills: Programming Skills Summary (2nd student)
-        student1_application_code_samples: Code Samples (2nd student)
-        student1_application_location: Location during the summer (2nd student)
-        student1_banking_info: Banking Information (2nd student)
-        student1_application_minimum_money: Minimum Money (2nd student)
-        student0_application_language_learning_period: Learning Period (1st student)
-        student1_application_language_learning_period: Learning Period (2nd student)
-        student0_application_money: Required Money (1st student)
-        student1_application_money: Required Money (2nd student)
-        student0_application_goals: Goals (1st student)
-        student1_application_goals: Goals (2nd student)
-        student0_application_motivation: Motivation (1st student)
-        student1_application_motivation: Motivation (2nd student)
-        student0_application_code_background: Code Background (1st student)
-        student1_application_code_background: Code Background (2nd student)
-        student0_application_age: Age (1st student)
-        student1_application_age: Age (2nd student)
-        misc_info: Additional information
-        voluntary: Voluntary team
-        heard_about_it: How have you heard about the program?
-        working_together: Since this is a self-guided program, how are you planning to work together?
-        why_selected_project: Why did you select this project?
 
       job_offer:
         paid: Paid?
@@ -70,5 +71,3 @@ en:
         misc_info: Additional information
       user:
         location: City
-
-

@@ -1,6 +1,7 @@
 diversity: |
   Please base your rate on the following application fields:
 
+  - Your gender self-identification
   - What is your background?
   - How did you get into programming?
   - Anything else?
@@ -13,10 +14,10 @@ skills: |
   Please base your rate on the following application fields:
 
   - Short summary of your programming skills
-  - Programming Level
-  - For how many months have you been learning the language of your primary project
-  - For how many months have you actively been learning after your first workshop
-  - Code examples
+  - What is your programming level?
+  - For how many months have you been learning the language of your primary project?
+  - For how many months have you actively been learning after your first workshop?
+  - Link to pull requests you have done or other examples of your coding on GitHub or elsewhere
 
   Give <strong>10 points</strong> to students who look highly skilled and experienced: ~ 5 level, 24+ month learning period, decent pieces of code, other evidence of skills.
   Give <strong>5 points</strong> to students who are somewhat experienced: ~ 3 level, 12+ month learning period, good pieces of code, other evidence of skills.
@@ -47,7 +48,7 @@ ambitions: |
 ability_to_work_independently: |
   Please base your rate on the following application fields:
 
-  - What you have been doing to learn programming?
+  - What you have been doing to learn programming since your first workshop?
   - Why did you select this project?
   - Which features are you planning to work on?
   - How are you planning to work together?
@@ -59,10 +60,10 @@ ability_to_work_independently: |
 ability_to_finish_projects: |
   Please base your rate on the following application fields:
 
-  - Short summary of your programming skills (What did you build?)
-  - Code examples
+  - Short summary of your programming skills
+  - Link to pull requests you have done or other examples of your coding on GitHub or elsewhere
   - What do you want to achieve by the end of the summer?
-  - Why are you applying / What can you give back?
+  - Why are you applying to this program, and what do you think you can give back?
   - Why did you select this project?
 
   Give <strong>10 points</strong> to students who have multiple accomplishments or at least one significant accomplishment (few months of work). It can be workings projects on Github, solid contributions to existing projects, Uni projects or any other achievements.
