@@ -5,7 +5,7 @@
   ul
     li = "Team: #{@application.team.name}"
 
-  p = "confirmed coaches: #{@application.team.coach_roles.count}"
+  p = "confirmed coaches: #{@application.team.confirmed_coaches.count}"
 
   h2 Additional Info
   p = link_to 'Edit additional Info', edit_rating_application_path(@application)

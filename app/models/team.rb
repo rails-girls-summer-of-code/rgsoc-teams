@@ -117,7 +117,7 @@ class Team < ActiveRecord::Base
     coach_roles.all? { |role| role.confirmed? }
   end
 
-  def confimred_coaches
+  def confirmed_coaches
     roles.where(name: 'coach', state: 'confirmed')
   end
 
