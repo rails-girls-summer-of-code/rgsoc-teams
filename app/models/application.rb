@@ -4,20 +4,30 @@ class Application < ActiveRecord::Base
       nil,
 
       :student0_name, :student1_name,
-      :student0_application_location, :student1_application_location,
+      :student0_application_age, :student1_application_age,
       :student0_application_gender_identification, :student1_application_gender_identification,
-      :student0_application_minimum_money, :student1_application_minimum_money,
-      :student0_application_coding_level, :student1_application_coding_level,
+      :student0_application_location, :student1_application_location,
+      :student0_application_about, :student1_application_about,
+      :student0_application_code_background, :student1_application_code_background,
       :student0_application_skills, :student1_application_skills,
+      :student0_application_coding_level, :student1_application_coding_level,
+      :student0_application_community_engagement, :student1_application_community_engagement,
       :student0_application_learning_period, :student1_application_learning_period,
+      :student0_application_language_learning_period, :student1_application_language_learning_period,
       :student0_application_learning_history, :student1_application_learning_history,
       :student0_application_code_samples, :student1_application_code_samples,
-      :student0_application_about, :student1_application_about,
-      :student0_application_community_engagement, :student1_application_community_engagement,
+      :student0_application_goals, :student1_application_goals,
+      :student0_application_motivation, :student1_application_motivation,
+      :student0_application_money, :student1_application_money,
+      :student0_application_minimum_money, :student1_application_minimum_money,
+      :project1_id, :project2_id,
+      :why_selected_project,
+      :project_plan,
+      :working_together,
+      :voluntary, :voluntary_hours_per_week,
+      :heard_about_it,
+      :misc_info,
 
-      :voluntary, :voluntary_hours_per_week, :heard_about_it,
-
-      :project_name, :project_url, :project_plan,
     ]
 
     def extract
