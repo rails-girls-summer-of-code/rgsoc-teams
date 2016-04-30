@@ -5,7 +5,8 @@
   ul
     li = "Team: #{@application.team.name}"
 
-  p = "confirmed coaches (on submission): #{@application.team_snapshot['coaches'].try(:count)}"
+  - if @application.team_snapshot.present? && @application.team_snapshot['coaches'].present?
+    p = "confirmed coaches (on submission): #{@application.team_snapshot['coaches'].count}"
 
   h2 Additional Info
   p = link_to 'Edit additional Info', edit_rating_application_path(@application)
