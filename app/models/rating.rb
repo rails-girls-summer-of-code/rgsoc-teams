@@ -110,8 +110,8 @@ class Rating < ActiveRecord::Base
 
   before_validation :set_data
 
-  validates :user, :rateable, presence: true
-  validates :user, uniqueness: { scope: :rateable }
+  validates :rateable, presence: true
+  validates :user_id, presence: true, uniqueness: { scope: [:rateable_type, :rateable_id] }
 
   class << self
     def user_names

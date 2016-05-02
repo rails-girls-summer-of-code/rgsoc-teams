@@ -6,15 +6,20 @@ describe Rating do
     it { is_expected.to belong_to(:user) }
     it { is_expected.to belong_to(:application) }
     it { is_expected.to belong_to(:rateable) }
+  end
+  describe 'validations' do
+    it { is_expected.to validate_presence_of :rateable }
+    it { is_expected.to validate_presence_of :user_id }
 
-    let(:user) { FactoryGirl.build_stubbed(:user) }
-
+    # shoulda matcher for uniqueness does not work in this scenario
+    # https://github.com/thoughtbot/shoulda-matchers/issues/535
+    # that's why we do it "by hand"
     it 'should only allow for one rating per user and rateable' do
+      user = create :user
       Rating.create(rateable: application, user: user)
       expect{ Rating.create!(rateable: application, user: user) }.to raise_error(ActiveRecord::RecordInvalid)
     end
   end
-
   describe 'scopes' do
     describe 'by' do
       it 'should return the rating for the given user' do
