@@ -115,8 +115,7 @@ class Rating < ActiveRecord::Base
 
   class << self
     def user_names
-      # may eventually change this to work with users instead of strings
-      User.find(pluck(:user_id).uniq).map(&:name)
+      User.includes(:roles).where('roles.name = ?', 'reviewer').pluck(:name)
     end
 
     def excluding(names)

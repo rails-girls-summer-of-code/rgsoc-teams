@@ -30,12 +30,10 @@ describe Rating do
     end
   end
   describe '.user_names' do
-    let(:users) { create_list :user, 3 }
+    let!(:users) { create_list :reviewer, 3 }
     let(:user_names) { users.map(&:name) }
 
-    before { users.each{|user| create(:rating, user: user, rateable: application) } }
-
-    it 'returns names of all users who submitted a rating' do
+    it 'returns names of all reviewers' do
       expect(Rating.user_names).to match_array user_names
     end
 
