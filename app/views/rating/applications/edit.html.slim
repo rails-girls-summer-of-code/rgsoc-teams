@@ -4,8 +4,8 @@ h1 = "Application: #{@application.name}"
 
 = simple_form_for [:rating, @application] do |a|
   = a.input :misc_info
+  = a.association :project, collection: Project.current.order(:name), include_blank: '- none -'
   = a.input :project_visibility
-  = a.input :project_name
   = a.input :coaching_company
   = a.input :city
   = a.input :country, as: :country, label: "Country", prompt: ""

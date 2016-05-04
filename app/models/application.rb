@@ -63,6 +63,7 @@ class Application < ActiveRecord::Base
 
   belongs_to :application_draft
   belongs_to :team, inverse_of: :applications, counter_cache: true
+  belongs_to :project
   belongs_to :signatory, class_name: 'User', foreign_key: :signed_off_by
 
   has_many :ratings, as: :rateable
@@ -107,16 +108,17 @@ class Application < ActiveRecord::Base
   end
 
   def name
-    [team.try(:name), project_name].reject(&:blank?).join(' - ')
+    [team.try(:name), project.try(:name)].reject(&:blank?).join(' - ')
   end
 
   def team_name
     team.name
   end
 
-  def project_name
-    application_data['project_name']
-  end
+  # TODO needs to be improved...
+  # def project_name
+  #   application_data['project_name']
+  # end
 
   def student_name
     team.students.first.try(:name)

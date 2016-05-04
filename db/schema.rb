@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160410084420) do
+ActiveRecord::Schema.define(version: 20160504090958) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -70,7 +70,6 @@ ActiveRecord::Schema.define(version: 20160410084420) do
     t.text     "misc_info"
     t.string   "sponsor_pick",                  limit: 255
     t.integer  "project_visibility"
-    t.string   "project_name",                  limit: 255
     t.boolean  "hidden"
     t.text     "flags",                                     default: [], array: true
     t.string   "country",                       limit: 255
@@ -83,9 +82,11 @@ ActiveRecord::Schema.define(version: 20160410084420) do
     t.json     "team_snapshot"
     t.integer  "signed_off_by"
     t.datetime "signed_off_at"
+    t.integer  "project_id"
   end
 
   add_index "applications", ["application_draft_id"], name: "index_applications_on_application_draft_id", using: :btree
+  add_index "applications", ["project_id"], name: "index_applications_on_project_id", using: :btree
   add_index "applications", ["season_id"], name: "index_applications_on_season_id", using: :btree
   add_index "applications", ["signed_off_by"], name: "index_applications_on_signed_off_by", using: :btree
   add_index "applications", ["team_id"], name: "index_applications_on_team_id", using: :btree

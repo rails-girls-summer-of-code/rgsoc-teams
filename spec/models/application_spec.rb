@@ -8,6 +8,7 @@ describe Application do
 
   context 'with associations' do
     it { is_expected.to belong_to(:team) }
+    it { is_expected.to belong_to(:project) }
     it { is_expected.to belong_to(:application_draft) }
   end
 
@@ -24,13 +25,13 @@ describe Application do
   describe '#name' do
     it 'returns an empty string' do
       subject.team = nil
-      subject.application_data['project_name'] = nil
+      subject.project = nil
       expect(subject.name).to eql ''
     end
 
-    it 'derives its name from its team and project name' do
+    it 'derives its name from its team and project' do
       subject.team = build_stubbed(:team, name: 'Foobar')
-      subject.application_data['project_name'] = 'Hello World'
+      subject.project = build_stubbed(:project, name: 'Hello World')
 
       expect(subject.name).to eql 'Foobar - Hello World'
     end

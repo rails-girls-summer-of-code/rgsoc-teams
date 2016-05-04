@@ -15,7 +15,7 @@ class Rating::ApplicationsController < Rating::BaseController
   end
 
   def show
-    @application = Application.find(params[:id])
+    @application = Application.includes(:team, :project, :comments).find(params[:id])
     @rating = @application.ratings.find_or_initialize_by(user: current_user)
 
     @breadcrumbs << ["Application ##{@application.id}", [:rating, @application]]
@@ -43,7 +43,7 @@ class Rating::ApplicationsController < Rating::BaseController
     params.require(:application).
       permit(:misc_info,
             :project_visibility,
-            :project_name,
+            :project_id,
             :city,
             :country,
             :coaching_company,

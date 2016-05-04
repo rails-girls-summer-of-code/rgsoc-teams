@@ -51,16 +51,29 @@ module ApplicationsHelper
     link_to text, rating_applications_path(order: type)
   end
 
-  def format_application_project(application)
-    project = "#{application.project_name}"
-    project = "#{application.project_name} (#{application.project_visibility})" if application.project_visibility
-    project
+  def format_application_projects(application)
+    link_to_application_project(application) || links_to_application_projects(application)
   end
-  
+
+  def link_to_application_project(application)
+    if project = application.project
+      link_txt = project.name
+      link_txt += " (#{application.project_visibility})" if application.project_visibility
+      link_to link_txt, project
+    end
+  end
+
   def format_application_flags(application)
     flags = Application::FLAGS.select do |flag|
       application.send(:"#{flag}?")
     end
     flags.map { |flag| flag.to_s.titleize }.join(', ')
+  end
+
+  private
+
+  def links_to_application_projects(application)
+    projects = Project.where id: application.application_data.values_at('project1_id', 'project2_id')
+    safe_join(projects.map{|p| link_to(p.name, p)}, "<br/>".html_safe)
   end
 end

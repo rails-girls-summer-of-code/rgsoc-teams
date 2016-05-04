@@ -14,14 +14,14 @@
   table.misc_info
     tbody
       tr
-        td Project name
-        td = @application.project_name
-      tr
-        td Coaching Company
-        td = @application.coaching_company
+        td Project
+        td = link_to_application_project @application
       tr
         td Project visibility
         td = @application.project_visibility
+      tr
+        td Coaching Company
+        td = @application.coaching_company
       tr
         td Flags
         td = format_application_flags(@application)
