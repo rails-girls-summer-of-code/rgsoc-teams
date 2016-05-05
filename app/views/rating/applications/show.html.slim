@@ -5,10 +5,19 @@
   ul
     li = "Team: #{@application.team.name}"
 
+  ul
+    - @application.team.students.each do |student|
+      li = "Student: #{student.name}"
+
+  ul
+    - @application.team.coaches.each do |coach|
+      li = "Coach: #{coach.name}"
+
+
   - if @application.team_snapshot.present? && @application.team_snapshot['coaches'].present?
     p = "confirmed coaches (on submission): #{@application.team_snapshot['coaches'].count}"
-
   h2 Additional Info
+
   p = link_to 'Edit additional Info', edit_rating_application_path(@application)
   p = @application.misc_info
   table.misc_info
@@ -28,7 +37,7 @@
 
 
   h2 Submitted Application
-  - @application.blinded_sorted_application_data.each do |title, value|
+  - @application.sorted_application_data.each do |title, value|
     h4 = Application.data_label(title)
     p  = formatted_application_data_value(title, value)
 

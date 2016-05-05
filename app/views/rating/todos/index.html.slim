@@ -9,5 +9,5 @@ table.table
   tbody
     - @applications.each do |application|
       tr
-        td= link_to application.name, rating_application_path(application)
+        td= link_to application.name, rating_todo_path(application)
         td= rating(application).try(:updated_at) || 'Never'
