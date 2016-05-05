@@ -46,14 +46,4 @@
       = f.submit 'Add comment'
 
 
-#rating data-behavior='rating-sidebar'
-  = simple_form_for [:rating, @rating] do |f|
-    = f.input :rateable_id, as: :hidden, value: @application.id
-    = f.input :rateable_type, as: :hidden, value: @application.class
-
-    - Rating::FIELDS.keys.each do |key|
-      = f.input key, collection: Rating.send("#{key}_options"), include_blank: false, selected: @rating.send(key), input_html: field_tooltip(key)
-
-
-    = f.input :pick, label: "My Pick", label_html: field_tooltip(:pick)
-    = f.submit 'Save'
+= render '/rating/shared/rating_sidebar', rating: @rating, application: @application
