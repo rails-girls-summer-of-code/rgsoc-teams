@@ -29,7 +29,7 @@ RgsocTeams::Application.routes.draw do
 
   get 'rating', to: 'rating/overview#index'
   namespace :rating do
-    get 'todos', to: 'todos#index', as: 'todos'
+    resources 'todos', to: 'todos', only: [:index, :show]
     resources :applications, except: [:new, :create, :destroy]
     resources :ratings, only: [:create, :update]
   end
