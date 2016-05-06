@@ -127,4 +127,32 @@ describe ApplicationsHelper do
       end
     end
   end
+  describe '.format_application_money' do
+    let(:application) { build :application, application_data: application_data }
+
+    subject(:application_money) { format_application_money application }
+
+    context 'when not student_application_money data' do
+      let(:application_data) {{}}
+
+      it 'returns empty string' do
+        expect(application_money).to eq ""
+      end
+    end
+    context 'when student_application_money for first student' do
+      let(:application_data) {{ 'student0_application_money' => '1100' }}
+
+      it 'returns amount in $ without ct' do
+        expect(application_money).to eq "$1,100"
+      end
+    end
+    context 'when student_application_money for both students' do
+      let(:application_data) {{ 'student0_application_money' => '1100',
+                                'student1_application_money' => '2300' }}
+
+      it 'returns both amounts in $ without ct' do
+        expect(application_money).to eq "$1,100\n$2,300"
+      end
+    end
+  end
 end

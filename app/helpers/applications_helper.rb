@@ -70,6 +70,13 @@ module ApplicationsHelper
     flags.map { |flag| flag.to_s.titleize }.join(', ')
   end
 
+  def format_application_money(application)
+    money = application.application_data.
+      values_at('student0_application_money', 'student1_application_money').
+      reject(&:blank?)
+    safe_join(money.map{|m| number_to_currency m, precision: 0}, "\n")
+  end
+
   private
 
   def links_to_application_projects(application)
