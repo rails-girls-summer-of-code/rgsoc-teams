@@ -3,7 +3,9 @@
 #application
   h1 = "Application: #{@application.name}"
   ul
-    li = "Team: #{@application.team.name}"
+    li
+      span = "Team: "
+      span = link_to @application.team.name, @application.team
 
   - if @application.team_snapshot.present? && @application.team_snapshot['coaches'].present?
     p = "confirmed coaches (on submission): #{@application.team_snapshot['coaches'].count}"

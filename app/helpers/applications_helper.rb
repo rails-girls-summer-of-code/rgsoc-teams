@@ -21,11 +21,15 @@ module ApplicationsHelper
   def formatted_application_data_value(key, value)
     markdown_fields = %w(project_plan)
     value = value.presence || 'n/a'
-    formatted = if markdown_fields.include? key.to_s
-                  render_markdown value
-                else
-                  auto_link simple_format(value)
-                end
+    formatted = case
+    when markdown_fields.include?(key.to_s)
+      render_markdown value
+    when /project._id/ =~ key.to_s
+      project = Project.find_by_id value
+      link_to project.name, project
+    else
+      auto_link simple_format(value)
+    end
     content_tag :p, formatted.html_safe
   end
 
