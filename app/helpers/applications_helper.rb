@@ -21,11 +21,15 @@ module ApplicationsHelper
   def formatted_application_data_value(key, value)
     markdown_fields = %w(project_plan)
     value = value.presence || 'n/a'
-    formatted = if markdown_fields.include? key.to_s
-                  render_markdown value
-                else
-                  auto_link simple_format(value)
-                end
+    formatted = case
+    when markdown_fields.include?(key.to_s)
+      render_markdown value
+    when /project._id/ =~ key.to_s
+      project = Project.find_by_id value
+      link_to project.name, project
+    else
+      auto_link simple_format(value)
+    end
     content_tag :p, formatted.html_safe
   end
 
@@ -68,6 +72,13 @@ module ApplicationsHelper
       application.send(:"#{flag}?")
     end
     flags.map { |flag| flag.to_s.titleize }.join(', ')
+  end
+
+  def format_application_money(application)
+    money = application.application_data.
+      values_at('student0_application_money', 'student1_application_money').
+      reject(&:blank?)
+    safe_join(money.map{|m| number_to_currency m, precision: 0}, "\n")
   end
 
   private

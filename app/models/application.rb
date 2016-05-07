@@ -115,11 +115,6 @@ class Application < ActiveRecord::Base
     team.name
   end
 
-  # TODO needs to be improved...
-  # def project_name
-  #   application_data['project_name']
-  # end
-
   def student_name
     team.students.first.try(:name)
   end
@@ -173,7 +168,7 @@ class Application < ActiveRecord::Base
 
     define_method :"#{flag}=" do |value|
       flags_will_change!
-      value.to_s != '0' ? flags.concat([flag.to_sym]).uniq : flags.delete(flag.to_sym)
+      value.to_s != '0' ? flags.concat([flag.to_s]).uniq : flags.delete(flag.to_s)
     end
   end
 

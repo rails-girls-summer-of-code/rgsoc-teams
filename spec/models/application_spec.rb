@@ -68,18 +68,18 @@ describe Application do
     end
 
     it 'adds the flag if the value is > 0' do
-      flag = flags.sample.to_sym
-      expect(subject.flags).not_to include(flag)
+      flag = flags.sample.to_s
+      expect(subject.flags).to be_empty
 
       subject.send("#{flag}=", '1')
       expect(subject.flags).to include(flag)
     end
 
     it 'removes the flag if the value is 0' do
-      flag = flags.sample.to_sym
-      subject.send("#{flag}=".to_sym, '1')
+      flag = flags.sample.to_s
+      subject.send(:"#{flag}=", '1')
       expect(subject.flags).to include(flag)
-      subject.send("#{flag}=".to_sym, '0')
+      subject.send(:"#{flag}=", '0')
       expect(subject.flags).not_to include(flag)
     end
   end
