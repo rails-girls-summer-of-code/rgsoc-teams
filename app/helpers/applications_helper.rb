@@ -26,7 +26,7 @@ module ApplicationsHelper
       render_markdown value
     when /project._id/ =~ key.to_s
       project = Project.find_by_id value
-      link_to project.name, project
+      link_to_if project, project.try(:name), project
     else
       auto_link simple_format(value)
     end
