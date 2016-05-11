@@ -6,9 +6,11 @@
     li
       span = "Team: "
       span = link_to @application.team.name, @application.team
-
-  - if @application.team_snapshot.present? && @application.team_snapshot['coaches'].present?
-    p = "confirmed coaches (on submission): #{@application.team_snapshot['coaches'].count}"
+    li
+      - if @application.team_snapshot.present? && @application.team_snapshot['coaches'].present?
+        span = "confirmed coaches (on submission): #{@application.team_snapshot['coaches'].count}"
+    li
+      span = "confirmed coaches (current state): #{@application.team.confirmed_coaches.count}"
 
   h2 Additional Info
   p = link_to 'Edit additional Info', edit_rating_application_path(@application)
