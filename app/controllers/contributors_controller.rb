@@ -4,7 +4,9 @@ class ContributorsController < ApplicationController
   respond_to :json
 
   def index
-    @contributors = User.with_role(Role::CONTRIBUTOR_ROLES).uniq
+    @contributors = User.with_role(Role::CONTRIBUTOR_ROLES).includes(roles: :team).
+      where("teams.season_id IS NULL OR teams.season_id = ?", Season.current).
+      references(:teams).uniq
     respond_with @contributors.as_json(json_params)
   end
 
