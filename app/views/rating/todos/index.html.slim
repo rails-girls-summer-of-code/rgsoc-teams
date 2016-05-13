@@ -1,6 +1,9 @@
 = render 'rating/breadcrumbs'
 
 h1 Todo
+
+p Rated applications: #{@applications.select{ |a| rating(a).try(:updated_at) }.count} of #{@applications.count}
+
 table.table
   thead
     tr
