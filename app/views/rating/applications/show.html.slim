@@ -13,6 +13,14 @@
     li
       span = "confirmed coaches (current state): #{@application.team.confirmed_coaches.count}"
 
+  ul
+    - @application.team.students.each do |student|
+      li = "Student: #{student.name}"
+
+  ul
+    - @application.team.coaches.each do |coach|
+      li = "Coach: #{coach.name}"
+
   h2 Additional Info
 
   p = link_to 'Edit additional Info', edit_rating_application_path(@application)

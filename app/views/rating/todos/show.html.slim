@@ -4,22 +4,14 @@
   h1 = "Application: #{@application.name}"
   ul
     li
-      span = "Team: #{@application.team.name}"
+      span = "Team: "
       span = link_to @application.team.name, @application.team
 
-  ul
-    - @application.team.students.each do |student|
-      li = "Student: #{student.name}"
-
-  ul
-    - @application.team.coaches.each do |coach|
-      li = "Coach: #{coach.name}"
-
-
-  - if @application.team_snapshot.present? && @application.team_snapshot['coaches'].present?
-    p = "confirmed coaches (on submission): #{@application.team_snapshot['coaches'].count}"
-  - if @application.team_snapshot.present? && @application.team_snapshot['coaches'].present?
-    p = "confirmed coaches (on submission): #{@application.team_snapshot['coaches'].count}"
+    li
+      - if @application.team_snapshot.present? && @application.team_snapshot['coaches'].present?
+        span = "confirmed coaches (on submission): #{@application.team_snapshot['coaches'].count}"
+    li
+      span = "confirmed coaches (current state): #{@application.team.confirmed_coaches.count}"
 
   h2 Additional Info
   p = link_to 'Edit additional Info', edit_rating_application_path(@application)
