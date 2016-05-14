@@ -29,13 +29,18 @@ RgsocTeams::Application.routes.draw do
 
   get 'rating', to: 'rating/overview#index'
   namespace :rating do
-    resources 'todos', to: 'todos', only: [:index, :show]
+    resources 'todos', to: 'todos', only: [:index]
     namespace 'todos' do
       resources :ratings, only: [:create, :update]
+      resources :comments, only: [:create]
+      resources :applications, only: [:show]
     end
+
+
 
     resources :applications, except: [:new, :create, :destroy]
     resources :ratings, only: [:create, :update]
+    resources :comments, only: :create
   end
 
   resources :application_drafts, except: [:show, :destroy] do

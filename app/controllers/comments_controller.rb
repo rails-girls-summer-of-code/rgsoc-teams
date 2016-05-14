@@ -4,6 +4,9 @@ class CommentsController < ApplicationController
   # Supervisor's comments on their teams are managed by the supervisor/comments-controller
   # We only allow comments with text (others do not make sense here)
 
+  # this might be overwritten by subclasses to prepend to the riderct path:
+  PATH_PARENTS = []
+
   def create
     comment = Comment.new(comment_params)
 
@@ -16,17 +19,11 @@ class CommentsController < ApplicationController
   end
 
   private
-
-  def comment_params
-    params.require(:comment).permit(:team_id, :text, :application_id, :project_id).merge(user_id: current_user.id)
-  end
-
-  def commentable_path(commentable, anchor)
-    case commentable
-    when Application
-      [:rating, commentable, anchor: anchor]
-    else
-      [commentable, anchor: anchor]
+    def comment_params
+      params.require(:comment).permit(:team_id, :text, :application_id, :project_id).merge(user_id: current_user.id)
     end
-  end
+
+    def commentable_path(commentable, anchor)
+      self.class::PATH_PARENTS + [commentable, anchor: anchor]
+    end
 end
