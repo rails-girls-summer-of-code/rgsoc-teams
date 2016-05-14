@@ -38,9 +38,9 @@ describe Rating::RatingsController, type: :controller do
         expect(rating.data[:diversity]).to eq '5'
       end
 
-      it 'redirect_to rating/todos' do
+      it 'redirect_to rating/applications' do
         post :create, params
-        expect(response).to redirect_to rating_todos_path
+        expect(response).to redirect_to rating_applications_path
       end
     end
   end
@@ -79,9 +79,9 @@ describe Rating::RatingsController, type: :controller do
           }.to change{rating.diversity}.from(nil).to('5')
         end
 
-        it 'redirect_to rating/todos' do
+        it 'redirect_to rating/applications' do
           put :update, params
-          expect(response).to redirect_to rating_todos_path
+          expect(response).to redirect_to rating_applications_path
         end
       end
     end

@@ -40,7 +40,7 @@ RgsocTeams::Application.routes.draw do
 
     resources :applications, except: [:new, :create, :destroy]
     resources :ratings, only: [:create, :update]
-    resources :comments, only: :create
+    resources :comments, only: [:create]
   end
 
   resources :application_drafts, except: [:show, :destroy] do
