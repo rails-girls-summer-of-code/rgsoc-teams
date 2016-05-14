@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'rating/comments_controller'
 
 describe Rating::CommentsController, type: :controller do
   render_views
