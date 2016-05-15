@@ -5,7 +5,7 @@ tr class=application_classes_for(application)
   td.id
     = link_to application.id, [:rating, application]
   td.team
-    = application.team.name
+    = link_to application.team.name, [application.team]
   td.project
     = format_application_projects(application)
   td.location
