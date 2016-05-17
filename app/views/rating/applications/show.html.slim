@@ -14,12 +14,14 @@
       span = "confirmed coaches (current state): #{@application.team.confirmed_coaches.count}"
 
   ul
-    - @application.team.students.each do |student|
-      li = "Student: #{student.name}"
+    li
+      span = "Students:"
+      span = link_to_team_members(@application.team, :student)
 
   ul
-    - @application.team.coaches.each do |coach|
-      li = "Coach: #{coach.name}"
+    li
+      span = "Coaches:"
+      span = link_to_team_members(@application.team, :coach)
 
   h2 Additional Info
 
