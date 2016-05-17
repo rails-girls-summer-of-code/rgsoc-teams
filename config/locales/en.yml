@@ -47,8 +47,8 @@ en:
         student1_application_motivation: Why are you applying to this program, and what do you think you can give back? (2nd student)
         student0_application_money: How much money, in USD, do you need per month? (1st student)
         student1_application_money: How much money, in USD, do you need per month? (2nd student)
-        student0_application_minimum_money: Break down your costs, or point out any special circumstances which require a higher budget than what you've selected above or than what is usual for your city. (1st student)
-        student1_application_minimum_money: Break down your costs, or point out any special circumstances which require a higher budget than what you've selected above or than what is usual for your city. (2nd student)
+        student0_application_minimum_money: Break down your costs, or point out any special circumstances which require a higher budget than what you've selected above or than what is usual for your city (1st student)
+        student1_application_minimum_money: Break down your costs, or point out any special circumstances which require a higher budget than what you've selected above or than what is usual for your city (2nd student)
         project1_id: Project (1st choice)
         project2_id: Project (2nd choice)
         why_selected_project: Why did you select this project?
