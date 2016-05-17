@@ -5,6 +5,8 @@ class Rating::ApplicationsController < Rating::BaseController
   before_action :persist_order, only: :index
   respond_to :html
 
+  PATH_PARENTS = [:rating]
+
   def set_breadcrumbs
     super
     @breadcrumbs << [ 'Applications', [:rating, :applications] ]
@@ -18,20 +20,24 @@ class Rating::ApplicationsController < Rating::BaseController
     @application = Application.includes(:team, :project, :comments).find(params[:id])
     @rating = @application.ratings.find_or_initialize_by(user: current_user)
 
-    @breadcrumbs << ["Application ##{@application.id}", [:rating, @application]]
+
+    @breadcrumbs << ["Application ##{@application.id}", (self.class::PATH_PARENTS + [@application])]
+
   end
 
   def edit
     @application = Application.find(params[:id])
 
-    @breadcrumbs << ["Application ##{@application.id}", [:rating, @application]]
-    @breadcrumbs << ["Edit additional info", [:edit, :rating, @application ]]
+    @breadcrumbs << ["Application ##{@application.id}", (self.class::PATH_PARENTS + [@application])]
+    @breadcrumbs << ["Edit additional info", [:edit] + self.class::PATH_PARENTS + [@application]]
+
+    @form_path = self.class::PATH_PARENTS + [@application]
   end
 
   def update
     @application = Application.find(params[:id])
     if @application.update(application_params)
-      redirect_to [:rating, @application]
+      redirect_to self.class::PATH_PARENTS + [@application]
     else
       render :edit
     end

@@ -33,7 +33,7 @@ RgsocTeams::Application.routes.draw do
     namespace 'todos' do
       resources :ratings, only: [:create, :update]
       resources :comments, only: [:create]
-      resources :applications, only: [:show]
+      resources :applications, only: [:show, :edit, :update]
     end
 
 

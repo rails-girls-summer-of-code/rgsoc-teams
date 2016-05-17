@@ -1,13 +1,8 @@
-class Rating::Todos::ApplicationsController < Rating::BaseController
+class Rating::Todos::ApplicationsController < Rating::ApplicationsController
+  PATH_PARENTS = [:rating, :todos]
+
+
   def set_breadcrumbs
-    super
-    @breadcrumbs << [ 'Todo', [:rating, :todos] ]
-  end
-
-  def show
-    @application = Application.includes(:team, :project, :comments).find(params[:id])
-    @rating = @application.ratings.find_or_initialize_by(user: current_user)
-
-    @breadcrumbs << ["Application ##{@application.id}", rating_todos_application_path(@application)]
+    @breadcrumbs = [ ['Rating', :rating], ['Todos', [:rating, :todos]] ]
   end
 end

@@ -14,7 +14,7 @@
       span = "confirmed coaches (current state): #{@application.team.confirmed_coaches.count}"
 
   h2 Additional Info
-  p = link_to 'Edit additional Info', edit_rating_application_path(@application)
+  p = link_to 'Edit additional Info', edit_rating_todos_application_path(@application)
   p = @application.misc_info
   table.misc_info
     tbody
