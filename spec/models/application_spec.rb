@@ -7,9 +7,13 @@ describe Application do
   it { is_expected.to validate_presence_of(:team) }
 
   context 'with associations' do
-    it { is_expected.to belong_to(:team) }
+    it { is_expected.to belong_to(:team).inverse_of(:applications).counter_cache(true) }
     it { is_expected.to belong_to(:project) }
     it { is_expected.to belong_to(:application_draft) }
+    it { is_expected.to belong_to(:application_draft) }
+    it { is_expected.to belong_to(:signatory).with_foreign_key(:signed_off_by) }
+    it { is_expected.to have_many(:comments).dependent(:destroy).order(:created_at) }
+    it { is_expected.to have_many(:ratings) }
   end
 
   describe '#average_skill_level' do
