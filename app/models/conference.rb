@@ -1,4 +1,7 @@
 class Conference < ActiveRecord::Base
+
+  include HasSeason
+
   has_many :attendances
   has_many :attendees, through: :attendances, source: :user
   validates :name, :round, presence: true
