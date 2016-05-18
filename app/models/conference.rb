@@ -1,7 +1,7 @@
 class Conference < ActiveRecord::Base
   has_many :attendances
   has_many :attendees, through: :attendances, source: :user
-  validates_presence_of :round
+  validates :name, :round, presence: true
 
   accepts_nested_attributes_for :attendances
 

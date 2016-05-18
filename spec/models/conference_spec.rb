@@ -1,8 +1,9 @@
 require 'spec_helper'
 
-describe Conference do
+RSpec.describe Conference do
   it { is_expected.to have_many(:attendances) }
   it { is_expected.to have_many(:attendees) }
+  it { is_expected.to validate_presence_of(:name) }
   it { is_expected.to validate_presence_of(:round) }
 
   describe 'scopes' do
