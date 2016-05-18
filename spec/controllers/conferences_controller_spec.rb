@@ -22,6 +22,11 @@ RSpec.describe ConferencesController do
         }.to change { Conference.count }.by 1
         expect(response).to redirect_to Conference.last
       end
+
+      it 'sets the current season' do
+        post :create, conference: attributes_for(:conference)
+        expect(assigns(:conference).season.name).to eql Date.today.year.to_s
+      end
     end
 
     describe 'DELETE destroy' do

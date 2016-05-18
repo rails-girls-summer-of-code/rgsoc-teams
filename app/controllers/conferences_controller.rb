@@ -2,6 +2,7 @@ class ConferencesController < ApplicationController
   load_and_authorize_resource except: [:index, :show]
 
   def create
+    conference.season = current_season
     conference.save!
     redirect_to conference
   end
