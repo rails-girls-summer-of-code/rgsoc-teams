@@ -39,6 +39,9 @@
         td Coaching Company
         td = @application.coaching_company
       tr
+        td Location
+        td = @application.city + ' ' + @application.country
+      tr
         td Flags
         td = format_application_flags(@application)
 
