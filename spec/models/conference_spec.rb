@@ -1,6 +1,8 @@
 require 'spec_helper'
 
 RSpec.describe Conference do
+  it_behaves_like 'HasSeason'
+
   it { is_expected.to have_many(:attendances) }
   it { is_expected.to have_many(:attendees) }
   it { is_expected.to validate_presence_of(:name) }

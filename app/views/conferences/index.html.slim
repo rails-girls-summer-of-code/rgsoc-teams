@@ -15,7 +15,7 @@ table.table.table-striped.table-bordered.table-condensed.conferences
     th Tickets left
     th Lightning Talk Slots
 
-  - Conference.where(round: 2).each do |conference|
+  - conferences.where(round: 2).each do |conference|
     tr
       td = link_to conference.name, conference
       td = conference.location
@@ -43,7 +43,7 @@ p = link_to "Show/Hide First Round Conferences", "#", onclick: "$('.first-confer
       th Tickets left
       th Lightning Talk Slots
 
-    - Conference.where(round: 1).each do |conference|
+    - conferences.where(round: 1).each do |conference|
       tr
         td = link_to conference.name, conference
         td = conference.location

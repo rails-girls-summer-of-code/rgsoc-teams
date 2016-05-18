@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160504090958) do
+ActiveRecord::Schema.define(version: 20160518202056) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -125,7 +125,10 @@ ActiveRecord::Schema.define(version: 20160504090958) do
     t.datetime "updated_at",                                 null: false
     t.integer  "round",                          default: 1
     t.boolean  "lightningtalkslots"
+    t.integer  "season_id"
   end
+
+  add_index "conferences", ["season_id"], name: "index_conferences_on_season_id", using: :btree
 
   create_table "mailings", force: :cascade do |t|
     t.string   "from",       limit: 255

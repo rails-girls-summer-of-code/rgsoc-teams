@@ -2,6 +2,7 @@ class ConferencesController < ApplicationController
   load_and_authorize_resource except: [:index, :show]
 
   def create
+    conference.season = current_season
     conference.save!
     redirect_to conference
   end
@@ -19,12 +20,12 @@ class ConferencesController < ApplicationController
   private
 
     def conferences
-      Conference.ordered(sort_params)
+      @conferences ||= Conference.ordered(sort_params).current
     end
     helper_method :conferences
 
     def conference
-      params[:id] ? Conference.find(params[:id]) : Conference.new(conference_params)
+      @conference ||= params[:id] ? Conference.find(params[:id]) : Conference.new(conference_params)
     end
     helper_method :conference
 
