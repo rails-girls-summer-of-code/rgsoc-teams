@@ -24,7 +24,7 @@ class ConferencesController < ApplicationController
     helper_method :conferences
 
     def conference
-      params[:id] ? Conference.find(params[:id]) : Conference.new(conference_params)
+      @conference ||= params[:id] ? Conference.find(params[:id]) : Conference.new(conference_params)
     end
     helper_method :conference
 

@@ -15,6 +15,15 @@ RSpec.describe ConferencesController do
   context 'with admin logged in' do
     include_context 'with admin logged in'
 
+    describe 'POST create' do
+      it 'creates a record' do
+        expect {
+          post :create, conference: attributes_for(:conference)
+        }.to change { Conference.count }.by 1
+        expect(response).to redirect_to Conference.last
+      end
+    end
+
     describe 'DELETE destroy' do
       let!(:conference) { create :conference }
 
