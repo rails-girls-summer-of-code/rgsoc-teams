@@ -4,12 +4,16 @@ RSpec.describe ConferencesController do
   render_views
 
   describe 'GET index' do
-    before { get :index }
+    let(:last_season)            { Season.create name: Date.today.year-1 }
+    let!(:current_conference)    { create :conference, :current_season }
+    let!(:last_years_conference) { create :conference, season: last_season }
 
-    specify do
-      expect(response.response_code).to eq 200
-      expect(response).to render_template('conferences/index')
+    it 'displays all of this season\'s conferences' do
+      get :index
+      expect(response).to be_success
+      expect(assigns(:conferences)).to match_array [current_conference]
     end
+
   end
 
   context 'with admin logged in' do

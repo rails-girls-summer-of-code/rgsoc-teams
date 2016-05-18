@@ -20,7 +20,7 @@ class ConferencesController < ApplicationController
   private
 
     def conferences
-      @conferences ||= Conference.ordered(sort_params)
+      @conferences ||= Conference.ordered(sort_params).current
     end
     helper_method :conferences
 
