@@ -73,6 +73,7 @@ module ApplicationHelper
   end
 
   def format_conference_date(starts_on, ends_on)
+    return unless [starts_on, ends_on].all?(&:present?)
     starts_on = starts_on.strftime('%d %b %y')
     ends_on = ends_on.strftime('%d %b %y')
     starts_on == ends_on ? starts_on : [starts_on, ends_on].join(' - ')
