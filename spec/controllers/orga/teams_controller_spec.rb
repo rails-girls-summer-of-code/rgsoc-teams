@@ -27,7 +27,7 @@ RSpec.describe Orga::TeamsController do
       end
 
       it 'assigns all teams as @teams when requested' do
-        get :index, filter: 'all' # or whatever param it will turn out to be
+        get :index, filter: 'all'
         expect(assigns(:teams)).to match_array [voluntary_team, sponsored_team, team]
       end
     end
