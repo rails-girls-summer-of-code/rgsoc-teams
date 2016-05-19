@@ -22,3 +22,6 @@ tr class=application_classes_for(application)
   - Application::FLAGS.each do |flag|
     - if !respond_to?(:"display_#{flag}s?") || send(:"display_#{flag}s?")
       td = application.send(:"#{flag}?") ? 'x' : ''
+
+  td.misc_info
+    = application.misc_info

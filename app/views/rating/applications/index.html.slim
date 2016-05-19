@@ -26,6 +26,8 @@ table#applications.table.table-striped.table-bordered.table-condensed.table-hove
       - Application::FLAGS.each do |flag|
         th = flag.to_s.humanize
 
+      th = 'Misc info'
+
   tbody
     = render partial: 'application', collection: @applications.rows, as: :row
 

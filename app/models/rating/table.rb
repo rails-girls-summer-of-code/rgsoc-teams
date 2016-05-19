@@ -5,7 +5,8 @@ class Rating::Table
     extend Forwardable
 
     def_delegators :application, :id, :flags, :location, :team_name,
-      :project_name, :student_name, :total_picks, :average_points, :coaching_company
+      :project_name, :student_name, :total_picks, :average_points, :coaching_company,
+      :misc_info
 
     attr_reader :names, :application, :options
 
