@@ -7,6 +7,7 @@
 
 * Very valuable
 * Check if issue already exists
+* Provide as many details as possible (screenshot)
 
 ## Suggesting a new feature
 
@@ -14,6 +15,15 @@
 
 * Dibs
 * Ping via comment and/or join Slack
+
+## Resolving an existing issue
+
+### Finding an issue
+
+* See [`beginner-friendly`](https://github.com/rails-girls-summer-of-code/rgsoc-teams/issues?q=is%3Aissue+is%3Aopen+label%3Abeginner-friendly) issues for your first steps in open source
+* See [`#pairwithme`](https://github.com/rails-girls-summer-of-code/rgsoc-teams/labels/%23pairwithme) for more involving issues
+* Make sure no one else is already working on it (assignee, comments)
+* Check if issue is still valid (comments)
 
 ## Creating a Pull Request
 (inspired by [jbuilder](https://github.com/rails/jbuilder/blob/master/CONTRIBUTING.md))
