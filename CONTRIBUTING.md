@@ -48,7 +48,7 @@ git checkout -b my-feature-branch
 
 * [Ruby Style Guide](https://github.com/bbatsov/ruby-style-guide)
 * With tests (TODO: can be hard for beginners)
-* Commits w/ descript
+* Commits w/ descriptive commit message
 
 ### Make a Pull Request
 
