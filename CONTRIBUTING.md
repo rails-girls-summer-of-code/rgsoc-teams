@@ -47,7 +47,8 @@ git checkout -b my-feature-branch
 ### Write Code
 
 * [Ruby Style Guide](https://github.com/bbatsov/ruby-style-guide)
-* With tests (TODO: can be hard for beginners)
+* Write tests for all your code.  
+  A well defined test suite is as much part of the app as the tested code itself. It helps to ascertain the well-being of any software product - the Teams App being no exception here. But this should not be a blocker. See the existing tests to find out where yours would fit in and in case it's hard to get started, ask us, we'll help.
 * Commits w/ descriptive commit message
 
 ### Make a Pull Request
