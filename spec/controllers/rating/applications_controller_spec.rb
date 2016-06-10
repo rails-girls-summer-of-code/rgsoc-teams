@@ -25,14 +25,26 @@ describe Rating::ApplicationsController do
           CreatesApplicationFromDraft.new(application_draft).tap { |c| c.save }.application
         end
 
-        before { get :index }
-
         it 'initializes @applications as a new Application::Table' do
+          get :index
           expect(assigns :applications).to be_a Rating::Table
         end
 
         it 'lists all available applications' do
+          get :index
           expect(response).to be_success
+        end
+
+        context 'team deletes their profile' do
+
+          before do
+            application.team.destroy
+          end
+
+          it 'does not list their application' do
+            get :index
+            expect(assigns(:applications).rows).to be_empty
+          end
         end
       end
     end

@@ -73,7 +73,7 @@ class Rating::ApplicationsController < Rating::BaseController
   end
 
   def applications
-    Application.includes(:ratings).where(season: current_season)
+    Application.includes(:ratings).where(season: current_season).where.not(team: nil)
   end
 
   def applications_table
