@@ -1,63 +1,80 @@
 # Contributing to the RGSoC Teams App
 
-* Introduction, thanks for contributing
-* [Code of Conduct](https://github.com/rails-girls-summer-of-code/rgsoc-teams/blob/master/CODE_OF_CONDUCT.md)
+First of all, thank you for your contribution to the RGSoC Teams App. Or the consideration thereof. :smile: The Teams App is a collaborative effort of [many contributors](https://github.com/rails-girls-summer-of-code/rgsoc-teams/graphs/contributors).
 
-## Reporting a bug
+Please note our [Code of Conduct](https://github.com/rails-girls-summer-of-code/rgsoc-teams/blob/master/CODE_OF_CONDUCT.md).
 
-* Very valuable
-* Check if issue already exists
-* Provide as many details as possible (screenshot)
+There are different ways to get involved.
 
-## Suggesting a new feature
+0. _TODO: how to call this_
+1. Reporting an error
+2. Suggesting a new feature
+3. Resolving an existing feature
 
-### Labels
+## _TODO: how to call this_
 
+* Labels
 * Dibs
 * Ping via comment and/or join Slack
 
+## Reporting an error
+
+Reporting a bug is very important and we appreciate the time you take to inform us about the Teams App's mischief. Before you do, we kindly ask you to check if [it has already been reported](https://github.com/rails-girls-summer-of-code/rgsoc-teams/issues?q=is%3Aopen+is%3Aissue+label%3Abug).
+
+If you do [file a new  bug report](https://github.com/rails-girls-summer-of-code/rgsoc-teams/issues/new), provide as many details as possible: how can the error be reproduced? What was the expected and what the actual behaviour? Can you provide an error message or a screenshot that illustrates the problem?
+
+
+## Suggesting a new feature
+
+We are very open to feature requests and ideas to improve the Teams App. If you are a RGSoC student or supervisor who uses the Teams App on a daily basis over the course of the summer, your feedback on how the user experience can be improved is very valuable.
+
+As with filing a bug report, please check if the feature has [already been suggested](https://github.com/rails-girls-summer-of-code/rgsoc-teams/issues). If not, [share your ideas](https://github.com/rails-girls-summer-of-code/rgsoc-teams/issues/new)!
+
+
 ## Resolving an existing issue
+
+If you want to get involved with the RGSoC Teams App, the [list of open issues](https://github.com/rails-girls-summer-of-code/rgsoc-teams/issues) is a good starting point. 
 
 ### Finding an issue
 
-* See [`beginner-friendly`](https://github.com/rails-girls-summer-of-code/rgsoc-teams/issues?q=is%3Aissue+is%3Aopen+label%3Abeginner-friendly) issues for your first steps in open source
-* See [`#pairwithme`](https://github.com/rails-girls-summer-of-code/rgsoc-teams/labels/%23pairwithme) for more involving issues
-* Make sure no one else is already working on it (assignee, comments)
-* Check if issue is still valid (comments)
+We have issues labelled as [`beginner-friendly`](https://github.com/rails-girls-summer-of-code/rgsoc-teams/issues?q=is%3Aissue+is%3Aopen+label%3Abeginner-friendly) suitable for your first steps in open source. See [`#pairwithme`](https://github.com/rails-girls-summer-of-code/rgsoc-teams/labels/%23pairwithme) for more involving issues and the standing invitation to work on a problem together (check [this great list of resources](http://www.pairprogramwith.me/) about (remote) pair programming).
 
-## Creating a Pull Request
-(inspired by [jbuilder](https://github.com/rails/jbuilder/blob/master/CONTRIBUTING.md))
+Before you start working, make sure no one else is already working on it: check if the issue has been assigned to someone already and/or comment on the issue. Adding comments is also the best way to ask questions about the issue at hand or if the issue is still valid.
 
+### Creating a Pull Request
 
-* If related to an issue: better ask first
-* Fork repo
-* Install locally (see [README](https://github.com/rails-girls-summer-of-code/rgsoc-teams/blob/master/README.md) for hints)
-* Make sure tests pass locally: `rake spec`
+Clone/fork the repo and install the Teams App locally on your computer. Our [README](https://github.com/rails-girls-summer-of-code/rgsoc-teams/blob/master/README.md) provides setup instructions and hints).
+
+Before you start working, make sure tests pass locally: run `bundle exec rake spec` from the terminal in your local Teams App directory. There should be plenty of green dots (and some in yellow).
 
 ### Create a Topic Branch
 
-Make sure your fork is up-to-date and create a topic branch for your feature or bug fix.
+All commits should go into a branch, not to `master` directly. Create a local branch:
 
 ```
-git checkout master
-git pull upstream master
 git checkout -b my-feature-branch
 ```
 
+If you've cloned the app a while ago, you want to make sure that your cloned `master` is in sync with the upstream. Github provives a help page on [how to keeping your fork in sync with `upstream/master`](https://help.github.com/articles/syncing-a-fork/).
+
 ### Write Code
 
-* [Ruby Style Guide](https://github.com/bbatsov/ruby-style-guide)
-* Write tests for all your code.  
-  A well defined test suite is as much part of the app as the tested code itself. It helps to ascertain the well-being of any software product - the Teams App being no exception here. But this should not be a blocker. See the existing tests to find out where yours would fit in and in case it's hard to get started, ask us, we'll help.
-* Commits w/ descriptive commit message
+We aim to follow the [Ruby Style Guide](https://github.com/bbatsov/ruby-style-guide) but we don't enforce it (i.e. there is no [RubuCop](https://github.com/bbatsov/rubocop)). The most important thing is probably just proper indentation: two whitespaces.
+
+We would ask you to write tests for your code: A well defined test suite is as much part of the app as the tested code itself. It helps to ascertain the well-being of any software product - the Teams App being no exception here. But this should not be a blocker. See the existing tests to find out where yours would fit in and in case it's hard to get started, ask us, we'll help.
+
+Make atomic commits with a descriptive commit message.
 
 ### Make a Pull Request
 
-* Point to GH docs?
+Github [provides documentation](https://help.github.com/articles/creating-a-pull-request/) on how to create a PR. A new PR (and any subsequent updates to it) will trigger running the test suite on Travis CI.
 
 ### Be Patient
 
+Please give us a few days to get back to you. Thank you so much!
+
 
 ## No idea where to put this:
+
 
 * Purely code-cosmetic contributions are likely to not be accepted
