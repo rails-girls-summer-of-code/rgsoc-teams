@@ -1,8 +1,5 @@
-require 'csv'
-
-class UserExporter
-
-  class << self
+module Exporters
+  class Users < Base
 
     # Note: This only grabs the user who sent in the application, not the pair.
     # FIXME: This will fall apart in 2015 when we keep the user data.
@@ -16,15 +13,5 @@ class UserExporter
       end
     end
 
-    private
-
-    def generate(enum, *header)
-      CSV.generate(col_sep: ';') do |csv|
-        csv << header
-        enum.each { |entry| csv << (yield entry) }
-      end
-    end
-
   end
-
 end

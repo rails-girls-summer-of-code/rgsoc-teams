@@ -1,0 +1,13 @@
+module Exporters
+  class Projects < Base
+
+    def current
+      projects = Project.current.includes(:submitter)
+
+      generate(projects, 'Project ID', 'Name', 'Submitter GH Handle', 'Mentor Name', 'Mentor GH Handle', 'Mentor Email', 'Website', 'Status') do |p|
+        [p.id, p.name, p.submitter&.github_handle, p.mentor_name, p.mentor_github_handle, p.mentor_email, p.url, p.aasm_state]
+      end
+    end
+
+  end
+end
