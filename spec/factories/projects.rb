@@ -18,5 +18,9 @@ FactoryGirl.define do
     trait :rejected do
       after(:create) { |record| record.reject! }
     end
+
+    trait :current do
+      season { Season.current }
+    end
   end
 end
