@@ -1,0 +1,4 @@
+<%= form_tag [:orga, :exports] do %>
+  <%= select_tag "export", options_for_select(available_exports), prompt: "<Select an exporter method>" %>
+  <%= button_tag "Make it so!", type: 'submit' %>
+<% end %>

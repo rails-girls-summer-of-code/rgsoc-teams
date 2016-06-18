@@ -84,6 +84,7 @@ RgsocTeams::Application.routes.draw do
     end
     resources :teams
     resources :seasons
+    resources :exports, only: [:index, :create]
   end
 
   namespace :students do
