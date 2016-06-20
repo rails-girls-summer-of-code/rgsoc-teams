@@ -5,10 +5,6 @@ div.row
       span Activities
       = link_to '<span>Atom Feed</span>'.html_safe, activities_path(format: :atom), class: 'atom'
 
-    - if current_user.try(:supervisor?)
-      .alert.alert-success
-        'Hey Supervisor. We loved working on your Dashboard! Team Cheesy says: Bye!
-
     div.selection-box
       form.filter.form-inline action=request.url
         - public_activities.each do |kind|
