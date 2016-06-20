@@ -13,17 +13,17 @@ div.row
             table.legend
               tr
                 td
-                  .performance-icon = render 'green'
+                  = render "supervisor/shared/performance_icon", status: 'green'
                 td
                   '= Alive and kicking
               tr
                 td
-                  .performance-icon = render 'orange'
+                  = render "supervisor/shared/performance_icon", status: 'orange'
                 td
                   '= Needs Tender Loving Care
               tr
                 td
-                  .performance-icon = render 'red'
+                  = render "supervisor/shared/performance_icon", status: 'red'
                 td
                   '= Red alert
           div.col-sm-6 class=("col-lg-4 padding" if supervised_teams.count > 2)
@@ -36,8 +36,7 @@ div.row
       div.background-color
         section.team-title
           h3 = link_to "Team " + t.name, t
-          div.performance-icon
-            = render t.performance.evaluation.to_s
+          = render "supervisor/shared/performance_icon", status: t.performance.evaluation.to_s
         section.dashboard
           h4 Checks
           - if t.comments.any?
