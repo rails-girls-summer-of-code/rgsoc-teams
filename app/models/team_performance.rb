@@ -6,11 +6,6 @@ class TeamPerformance
     @score = 0
   end
 
-  def buffer_days?
-    # the first few days, plus the days before and after the coding season
-    Time.now < Season.current.starts_at+2.days || !Season.current.started? || Time.now > Season.current.ends_at+2.days
-  end
-
   def evaluation
     comments_score
     activity_score
@@ -28,10 +23,15 @@ class TeamPerformance
 
   private
 
+  def self.buffer_days?
+    # the first few days, plus the days before and after the coding season
+    Time.now < Season.current.starts_at+2.days || !Season.current.started? || Time.now > Season.current.ends_at+2.days
+  end
+
   def comments_score
     latest_comment = @team.comments.ordered.first
     if @team.comments.empty?
-      @score += 3 unless buffer_days?
+      @score += 3 unless self.class.buffer_days?
     elsif latest_comment.created_at <= Time.now-5.days
       @score += 2
     elsif latest_comment.created_at <= Time.now-2.days
@@ -45,7 +45,7 @@ class TeamPerformance
 
   def activity_score
     if @team.activities.empty?
-      @score += 3 unless buffer_days?
+      @score += 3 unless self.class.buffer_days?
     elsif @team.last_activity.created_at <= Time.now-5.days
       @score += 2
     elsif @team.last_activity.created_at <= Time.now-3.days
