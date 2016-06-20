@@ -109,7 +109,7 @@ class User < ActiveRecord::Base
     end
 
     def with_team_kind(kind)
-      joins(:teams).where('teams.kind = ?', kind)
+      joins(:teams).where('teams.kind' => kind)
     end
 
     def with_all_associations_joined
