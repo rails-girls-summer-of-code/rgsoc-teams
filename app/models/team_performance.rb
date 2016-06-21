@@ -31,30 +31,34 @@ class TeamPerformance
 
   def comments_score
     latest_comment = @team.comments.ordered.first
-    if @team.comments.empty?
-      @score += 3 unless self.class.buffer_days?
-    elsif latest_comment.created_at <= Time.now-5.days
-      @score += 2
-    elsif latest_comment.created_at <= Time.now-2.days
-      @score += 1
-    elsif latest_comment.created_at > Time.now-2.days
-      @score += 0
-    else
-      @score += 1
+    if !self.class.buffer_days?
+      if @team.comments.empty?
+        @score += 3
+      elsif latest_comment.created_at <= Time.now-5.days
+        @score += 2
+      elsif latest_comment.created_at <= Time.now-2.days
+        @score += 1
+      elsif latest_comment.created_at > Time.now-2.days
+        @score += 0
+      else
+        @score += 1
+      end
     end
   end
 
   def activity_score
-    if @team.activities.empty?
-      @score += 3 unless self.class.buffer_days?
-    elsif @team.last_activity.created_at <= Time.now-5.days
-      @score += 2
-    elsif @team.last_activity.created_at <= Time.now-3.days
-      @score += 1
-    elsif @team.last_activity.created_at > Time.now-3.days
-      @score += 0
-    else
-      @score += 1
+    if !self.class.buffer_days?
+      if @team.activities.empty?
+        @score += 3
+      elsif @team.last_activity.created_at <= Time.now-5.days
+        @score += 2
+      elsif @team.last_activity.created_at <= Time.now-3.days
+        @score += 1
+      elsif @team.last_activity.created_at > Time.now-3.days
+        @score += 0
+      else
+        @score += 1
+      end
     end
   end
 
