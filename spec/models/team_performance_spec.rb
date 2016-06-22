@@ -1,137 +1,187 @@
 require 'spec_helper'
 
 describe TeamPerformance do
-  let(:future_season) { build_stubbed :season, starts_at: 10.days.from_now, ends_at: 3.months.from_now }
-  let(:current_season) { build_stubbed :season, starts_at: 10.days.ago, ends_at: 2.months.from_now }
-  let(:past_season) { build_stubbed :season, starts_at: 2.months.ago, ends_at: 10.days.ago }
+  let :team_nothing do
+    build_stubbed :team
+  end
 
-  context 'for a team without activites and feedback' do
-    let(:team) { build_stubbed :team }
-    subject { TeamPerformance.new(team) }
+  let :team_activitiy do
+    team = create :team
+    create :activity, team: team
+    team
+  end
+
+  let :team_commented do
+    team = create :team
+    create :comment, team: team
+    team
+  end
+
+  let :team_both_outdated do
+    team = create :team
+    create :comment, team: team, created_at: 4.days.ago
+    create :activity, team: team, created_at: 4.days.ago
+    team
+  end
+
+  let :team_both do
+    team = create :team
+    create :comment, team: team
+    create :activity, team: team
+    team
+  end
+
+  context "before the season" do
+    before :each do
+      future_season =  build_stubbed :season, starts_at: 10.days.from_now, ends_at: 3.months.from_now
+      allow(Season).to receive(:current).and_return(future_season)
+    end
 
     describe "#evaluation" do
-      it "signals green before the season starts" do
-        allow(Season).to receive(:current).and_return(future_season)
+      context 'for a team without activites and feedback' do
+        subject { TeamPerformance.new(team_nothing) }
 
-        expect(subject.evaluation).to eq(:green)
+        it "signals green" do
+          expect(subject.evaluation).to eq(:green)
+        end
       end
 
-      it "signals red before the season starts" do
-        allow(Season).to receive(:current).and_return(current_season)
+      context 'for a team with activities but without feedback' do
+        subject { TeamPerformance.new(team_activitiy) }
 
-        expect(subject.evaluation).to eq(:red)
+        it "signals green" do
+          expect(subject.evaluation).to eq(:green)
+        end
       end
 
-      it "signals green after the season ends" do
-        allow(Season).to receive(:current).and_return(past_season)
+      context 'for a team without activites but with recent feedback' do
+        subject { TeamPerformance.new(team_commented) }
 
-        expect(subject.evaluation).to eq(:green)
+        it "signals green" do
+          expect(subject.evaluation).to eq(:green)
+        end
+      end
+
+      context 'for a team with older activities and older feedback' do
+        subject { TeamPerformance.new(team_both_outdated)}
+
+        it "signals green" do
+          expect(subject.evaluation).to eq(:green)
+        end
+      end
+
+      context 'for a team with recent activites and with recent feedback' do
+        subject { TeamPerformance.new(team_both) }
+
+        it "signals green" do
+          expect(subject.evaluation).to eq(:green)
+        end
       end
     end
   end
 
-  context 'for a team without activites but with recent feedback' do
-    let(:team) { create :team }
-    before { create :comment, team: team }
-    subject { TeamPerformance.new(team) }
-
-    it "signals green before the season starts" do
-      allow(Season).to receive(:current).and_return(future_season)
-
-      expect(subject.evaluation).to eq(:green)
-    end
-
-    it "signals orange during the season" do
+  context "during the season" do
+    before :each do
+      current_season =  build_stubbed :season, starts_at: 10.days.ago, ends_at: 2.months.from_now
       allow(Season).to receive(:current).and_return(current_season)
-
-      expect(subject.evaluation).to eq(:orange)
     end
 
-    it "signals orange after evaluation was called multiple times" do
-      allow(Season).to receive(:current).and_return(current_season)
+    describe "#evaluation" do
+      context 'for a team without activites and feedback' do
+        subject { TeamPerformance.new(team_nothing) }
 
-      10.times { subject.evaluation }
-      expect(subject.evaluation).to eq(:orange)
-    end
+        it "signals red" do
+          expect(subject.evaluation).to eq(:red)
+        end
+      end
 
-    it "signals green after the season" do
-      allow(Season).to receive(:current).and_return(past_season)
+      context 'for a team with activities but without feedback' do
+        subject { TeamPerformance.new(team_activitiy) }
 
-      expect(subject.evaluation).to eq(:green)
+        it "signals orange" do
+          expect(subject.evaluation).to eq(:orange)
+        end
+      end
+
+      context 'for a team without activites but with recent feedback' do
+        subject { TeamPerformance.new(team_commented) }
+
+        it "signals orange" do
+          expect(subject.evaluation).to eq(:orange)
+        end
+      end
+
+      context 'for a team with older activities and older feedback' do
+        subject { TeamPerformance.new(team_both_outdated)}
+
+        it "signals orange" do
+          expect(subject.evaluation).to eq(:orange)
+        end
+
+        it "still signals orange after beeing called repeatedly" do
+          10.times { subject.evaluation }
+
+          expect(subject.evaluation).to eq(:orange)
+        end
+      end
+
+      context 'for a team with recent activites and with recent feedback' do
+        subject { TeamPerformance.new(team_both) }
+
+        it "signals green" do
+          expect(subject.evaluation).to eq(:green)
+        end
+      end
     end
   end
 
-  context 'for a team with recent activities but without feedback' do
-    let(:team) { create :team }
-    before { create :activity, team: team }
-    subject { TeamPerformance.new(team) }
 
-    it "signals green before the season starts" do
-      allow(Season).to receive(:current).and_return(future_season)
-
-      expect(subject.evaluation).to eq(:green)
-    end
-
-    it "signals orange during the season" do
-      allow(Season).to receive(:current).and_return(current_season)
-
-      expect(subject.evaluation).to eq(:orange)
-    end
-
-    it "signals green after the season" do
+  context "after the season" do
+    before :each do
+      past_season =  build_stubbed :season, starts_at: 2.months.ago, ends_at: 10.days.ago
       allow(Season).to receive(:current).and_return(past_season)
-
-      expect(subject.evaluation).to eq(:green)
-    end
-  end
-
-  context 'for a team with older activities and older feedback' do
-    let(:team) { create :team }
-    before { create :comment, team: team, created_at: 4.days.ago }
-    before { create :activity, team: team, created_at: 4.days.ago }
-    subject { TeamPerformance.new(team) }
-
-    it "signals green before the season starts" do
-      allow(Season).to receive(:current).and_return(future_season)
-
-      expect(subject.evaluation).to eq(:green)
     end
 
-    it "signals orange during the season" do
-      allow(Season).to receive(:current).and_return(current_season)
+    describe "#evaluation" do
+      context 'for a team without activites and feedback' do
+        subject { TeamPerformance.new(team_nothing) }
 
-      expect(subject.evaluation).to eq(:orange)
-    end
+        it "signals green" do
+          expect(subject.evaluation).to eq(:green)
+        end
+      end
 
-    it "signals green after the season" do
-      allow(Season).to receive(:current).and_return(past_season)
+      context 'for a team with activities but without feedback' do
+        subject { TeamPerformance.new(team_activitiy) }
 
-      expect(subject.evaluation).to eq(:green)
-    end
-  end
+        it "signals green" do
+          expect(subject.evaluation).to eq(:green)
+        end
+      end
 
-  context 'for a team with recent activities and recent feedback' do
-    let(:team) { create :team }
-    before { create :comment, team: team }
-    before { create :activity, team: team }
-    subject { TeamPerformance.new(team) }
+      context 'for a team without activites but with recent feedback' do
+        subject { TeamPerformance.new(team_commented) }
 
-    it "signals green before the season starts" do
-      allow(Season).to receive(:current).and_return(future_season)
+        it "signals green" do
+          expect(subject.evaluation).to eq(:green)
+        end
+      end
 
-      expect(subject.evaluation).to eq(:green)
-    end
+      context 'for a team with older activities and older feedback' do
+        subject { TeamPerformance.new(team_both_outdated)}
 
-    it "signals green during the season" do
-      allow(Season).to receive(:current).and_return(current_season)
+        it "signals green" do
+          expect(subject.evaluation).to eq(:green)
+        end
+      end
 
-      expect(subject.evaluation).to eq(:green)
-    end
+      context 'for a team with recent activites and with recent feedback' do
+        subject { TeamPerformance.new(team_both) }
 
-    it "signals green after the season" do
-      allow(Season).to receive(:current).and_return(past_season)
-
-      expect(subject.evaluation).to eq(:green)
+        it "signals green" do
+          expect(subject.evaluation).to eq(:green)
+        end
+      end
     end
   end
 end
