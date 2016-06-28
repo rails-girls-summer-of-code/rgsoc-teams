@@ -13,6 +13,9 @@ table.table.table-striped.table-bordered.table-condensed
     - if current_user.try :admin?
       th Last checked
     th = sortable 'created_at', 'Last Activity'
+    - if current_user.try :admin?
+      th Status
+
 
   - @teams.each do |team|
     tr
@@ -30,6 +33,8 @@ table.table.table-striped.table-bordered.table-condensed
       - if current_user.try :admin?
         td = format_date(team.last_checked_at)
       td = format_date(team.last_activity.try(:created_at))
+      - if current_user.try :admin?
+        td = render "supervisor/shared/performance_icon", status: team.performance.evaluation.to_s
 
 p.hint
   | <i class="icon-star"></i> Sponsored team
