@@ -208,6 +208,40 @@ describe Team do
         end
       end
     end
+
+    describe '.without_recent_log_update' do
+      let(:team_without) do
+        create :team
+      end
+
+      let(:team_with_old) do
+        team_with_old = create :team
+        create :status_update, created_at: 2.days.ago, team: team_with_old
+        team_with_old
+      end
+
+      let(:team_with_recent) do
+        team_with_recent = create :team
+        create :status_update, created_at: 1.hour.ago, team: team_with_recent
+        team_with_recent
+      end
+
+      it 'includes the team without any status updates' do
+        team_without
+        expect(described_class.without_recent_log_update).to include(team_without)
+      end
+
+      it 'includes the team with only old updates' do
+        team_with_old
+        expect(described_class.without_recent_log_update).to include(team_with_old)
+      end
+
+      it 'does not include the team with recent updates' do
+        team_with_recent
+        expect(described_class.without_recent_log_update).not_to include(team_with_recent)
+      end
+    end
+
   end
 
   describe 'creating a new team' do
