@@ -1,13 +1,17 @@
 require 'spec_helper'
 
 describe TeamPerformance do
+  def create_all_teams
+    [team_nothing, team_activitiy, team_commented, team_both_outdated, team_both]
+  end
+
   let :team_nothing do
-    build_stubbed :team
+    create :team, kind: 'sponsored'
   end
 
   let :team_activitiy do
     team = create :team
-    create :activity, team: team
+    create :status_update, team: team
     team
   end
 
@@ -20,14 +24,14 @@ describe TeamPerformance do
   let :team_both_outdated do
     team = create :team
     create :comment, team: team, created_at: 4.days.ago
-    create :activity, team: team, created_at: 4.days.ago
+    create :status_update, team: team, created_at: 4.days.ago
     team
   end
 
   let :team_both do
     team = create :team
     create :comment, team: team
-    create :activity, team: team
+    create :status_update, team: team
     team
   end
 
@@ -78,11 +82,18 @@ describe TeamPerformance do
         end
       end
     end
+
+    describe ".teams_to_remind" do
+      it 'should not remind anyone' do
+        create_all_teams.each { |t| t.update(season: Season.current)}
+        expect(TeamPerformance.teams_to_remind).to match_array([])
+      end
+    end
   end
 
   context "during the season" do
     before :each do
-      current_season =  build_stubbed :season, starts_at: 10.days.ago, ends_at: 2.months.from_now
+      current_season =  build_stubbed :season, acceptance_notification_at: 14.days.ago, starts_at: 10.days.ago, ends_at: 2.months.from_now
       allow(Season).to receive(:current).and_return(current_season)
     end
 
@@ -133,6 +144,14 @@ describe TeamPerformance do
         end
       end
     end
+
+    describe ".teams_to_remind" do
+      # create all the teams
+      it 'should remind some' do
+        create_all_teams.each { |t| t.update(season: Season.current)}
+        expect(TeamPerformance.teams_to_remind).to match_array([team_nothing, team_commented, team_both_outdated])
+      end
+    end
   end
 
 
@@ -181,6 +200,13 @@ describe TeamPerformance do
         it "signals green" do
           expect(subject.evaluation).to eq(:green)
         end
+      end
+    end
+
+    describe ".teams_to_remind" do
+      it 'should not remind anyone' do
+        create_all_teams.each { |t| t.update(season: Season.current)}
+        expect(TeamPerformance.teams_to_remind).to match_array([])
       end
     end
   end
