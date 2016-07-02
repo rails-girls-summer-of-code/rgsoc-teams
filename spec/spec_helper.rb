@@ -47,8 +47,6 @@ RSpec.configure do |config|
   config.order = 'random'
 
   config.include ActiveJob::TestHelper
-  config.include Devise::TestHelpers, type: :controller
-  config.include Devise::TestHelpers, type: :view
   config.include RSpecHtmlMatchers
   config.extend ControllerMacros,     type: :controller
 
