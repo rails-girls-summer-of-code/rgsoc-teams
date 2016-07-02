@@ -1,5 +1,5 @@
 h1 Student Application for Rails Girls Summer of Code #{current_season.name}
 
 p
-  | Please #{link_to 'sign in with GitHub', user_omniauth_authorize_path(:github, redirect_to: request.original_url)}
+  | Please #{link_to 'sign in with GitHub', user_github_omniauth_authorize_path(redirect_to: request.original_url)}
     in order to apply for Rails Girls Summer of Code #{current_season.name}.
