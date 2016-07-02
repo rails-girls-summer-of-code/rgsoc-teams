@@ -19,7 +19,7 @@ class Role < ActiveRecord::Base
   validates :user_id, uniqueness: { scope: [:name, :team_id] }
 
   before_create :set_confirmation_token
-  after_create :send_notification, if: Proc.new { GUIDE_ROLES.include?(self.name) }
+  after_commit :send_notification, on: :create, if: -> { GUIDE_ROLES.include?(name) }
 
   after_create do |role|
     role.confirm! unless role.name == 'coach'
