@@ -159,6 +159,9 @@ at http://teams.railsgirlssummerofcode.org.
 
 Append `-r staging` or `-r production` to any `heroku` command in order to specify the app.
 
-### Cron job set up for activity:update
+### Cron jobs
 
-A scheduler should be set up to rake `activity:update` rake task every 10 min
+Set up the Heroku scheduler to run these tasks:
+
+* `rake activity:update`  every 10 min
+* `rake teams:notify_missing_log_updates` once per day as close to midnight as possible (currently 23:30 UTC)
