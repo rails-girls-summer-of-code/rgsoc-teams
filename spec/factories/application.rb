@@ -9,5 +9,9 @@ FactoryGirl.define do
       location: FFaker::Address.city,
       minimum_money: rand(100),
     }}
+
+    trait :current do
+      season { Season.current }
+    end
   end
 end
