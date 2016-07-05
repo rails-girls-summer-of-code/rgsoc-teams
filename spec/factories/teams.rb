@@ -1,7 +1,7 @@
 FactoryGirl.define do
   factory :team do
     kind 'sponsored'
-    sequence(:name) { |i| "#{i}-#{FFaker::CheesyLingo.word}" }
+    sequence(:name) { |i| "#{i}-#{FFaker::CheesyLingo.word.capitalize}" }
 
     trait :helpdesk do
       name 'helpdesk'
@@ -9,6 +9,10 @@ FactoryGirl.define do
 
     trait :current_season do
       season { Season.current }
+    end
+
+    trait :last_season do
+      season { Season.prev }
     end
 
     trait :supervise do
