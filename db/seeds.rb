@@ -19,6 +19,6 @@ end
 FactoryGirl.create(:application_draft)
 FactoryGirl.create(:application_draft, :appliable)
 
-FactoryGirl.create(:project) #proposed
-FactoryGirl.create(:project, :accepted)
-FactoryGirl.create(:project, :rejected)
+FactoryGirl.create(:project, :current) #proposed
+FactoryGirl.create(:project, :accepted, :current)
+FactoryGirl.create(:project, :rejected, :current)
