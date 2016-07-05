@@ -11,6 +11,10 @@ FactoryGirl.define do
       season { Season.current }
     end
 
+    trait :last_season do
+      season { Season.prev }
+    end
+
     trait :supervise do
       name 'supervise'
     end
