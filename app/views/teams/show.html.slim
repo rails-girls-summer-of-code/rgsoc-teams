@@ -94,5 +94,7 @@ nav.page
         li = "#{link_to user.name, user}: #{links_to_conferences(user.conferences, true).join(', ')}".html_safe
 
 - if @team.activities.any?
-  h3 Activities
+  h3
+    span Activities
+    = link_to '<span>Atom Feed</span>'.html_safe, activities_path(format: :atom, team_id: @team.id), class: 'atom'
   = render 'activities/activities', object: @team.activities.ordered
