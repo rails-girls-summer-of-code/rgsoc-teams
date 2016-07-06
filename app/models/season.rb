@@ -13,10 +13,6 @@ class Season < ActiveRecord::Base
       find_or_create_by(name: (Date.today.year+1).to_s)
     end
 
-    def prev
-      find_or_create_by(name: (Date.today.year-1).to_s)
-    end
-
     # Project proposals open early. This predicate tells us if
     # we are in the transition phase after the current season's
     # coding period but before the new year (i.d. 'Season') begun.

@@ -12,7 +12,7 @@ FactoryGirl.define do
     end
 
     trait :last_season do
-      season { Season.prev }
+      season { Season.find_or_create_by name: (Date.today.year - 1) }
     end
 
     trait :supervise do
