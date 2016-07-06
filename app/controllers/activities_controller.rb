@@ -6,6 +6,7 @@ class ActivitiesController < ApplicationController
   before_action :set_activities
 
   def index
+    @team = Team.find_by id: params[:team_id] if params[:team_id]
     respond_to do |format|
       format.html
       format.json { render json: @activities }
