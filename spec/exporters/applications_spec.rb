@@ -6,7 +6,8 @@ RSpec.describe Exporters::Applications do
     subject { described_class.current }
 
     it 'returns empty export data' do
-      expect(subject).to eql "Team ID\n"
+      expected = "Team ID;Coaching Company;Misc. Info;City;Country;Project Visibility;Remote Team;Mentor Pick;Volunteering Team;Selected;Male Gender;Zero Community;Age Below 18;Less Than Two Coaches\n"
+      expect(subject).to eql expected
     end
 
     context 'for existing applications' do

@@ -9,7 +9,10 @@ module Exporters
       end
 
       def headers
-        @headers ||= ["Team ID"] + keys.map { |key| Application.data_label key }
+        @headers ||= ["Team ID"] +
+          keys.map { |key| Application.data_label key } +
+          ["Coaching Company", "Misc. Info", "City", "Country", "Project Visibility"] +
+          Application::FLAGS.map(&:to_s).map(&:titleize)
       end
 
       private
@@ -27,7 +30,10 @@ module Exporters
 
       generate(applications, *csv_headers) do |app|
         values = keys.map{ |k| app.application_data[k] }
-        [app.team_id] + values
+        [app.team_id] +
+          values +
+          [:coaching_company, :misc_info, :city, :country, :project_visibility].map { |attribute| app.send attribute } +
+          Application::FLAGS.map { |flag| app.send flag }
       end
     end
 
