@@ -1,5 +1,5 @@
 atom_feed language: 'en-US' do |feed|
-  feed.title "Rails Girls Summer of Code Activities"
+  feed.title "Rails Girls Summer of Code Activities#{": #{@team.display_name}" if @team}"
   feed.updated @activities.first.try(:updated_at)
 
   @activities.each do |activity|
