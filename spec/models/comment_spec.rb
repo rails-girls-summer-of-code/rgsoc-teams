@@ -5,6 +5,7 @@ describe Comment do
   it { is_expected.to belong_to(:user) }
   it { is_expected.to belong_to(:application) }
   it { is_expected.to belong_to(:project) }
+  it { is_expected.to belong_to(:commentable) }
 
   before do
     @first_comment = FactoryGirl.create(:team_comment)

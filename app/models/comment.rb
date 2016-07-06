@@ -3,6 +3,7 @@ class Comment < ActiveRecord::Base
   belongs_to :user
   belongs_to :application
   belongs_to :project
+  belongs_to :commentable, polymorphic: true
 
   scope :recent, -> { order('created_at DESC').limit(3) }
 
