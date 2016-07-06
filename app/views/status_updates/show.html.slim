@@ -9,8 +9,10 @@ p Published #{l @status_update.published_at, format: :long}
   = render_markdown(@status_update.content).html_safe
 
 nav.page
-  ul
-    li = link_to 'All activities', root_path, class: 'back'
+  .back-nav
+    ul
+      li = icon('chevron-left')
+      li = link_to 'All activities', root_path, class: 'back'
 
 - content_for :title do
   = @status_update.title
