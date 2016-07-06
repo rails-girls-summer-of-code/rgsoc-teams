@@ -26,13 +26,13 @@ module Exporters
     def current
       applications     = Application.where(season: Season.current)
       keys_and_headers = KeysAndHeaders.new(Season.current)
-      keys             = keys_and_headers.keys
+      application_keys = keys_and_headers.keys
       csv_headers      = keys_and_headers.headers
 
       generate(applications, *csv_headers) do |app|
-        values = keys.map{ |k| app.application_data[k] }
+        application_data_values = application_keys.map{ |k| app.application_data[k] }
         [app.team_id] +
-          values +
+          application_data_values +
           [:coaching_company, :misc_info, :city, :country, :project_visibility].map { |attribute| app.send attribute } +
           Application::FLAGS.map { |flag| app.send flag }
       end
