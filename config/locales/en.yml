@@ -59,8 +59,7 @@ en:
         heard_about_it: How have you heard about the program?
         misc_info: Anything else to add?
 
-        student0_banking_info: Banking Information (1st student)
-        student1_banking_info: Banking Information (2nd student)
+        
         project_url: Project URL
         coaches_hours_per_week: "Coaches' Hours-per-Week"
         coaches_why_team_successful: "Coaches' Success-Statement"

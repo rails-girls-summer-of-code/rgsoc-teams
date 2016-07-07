@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160518202056) do
+ActiveRecord::Schema.define(version: 20160707112342) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -267,7 +267,6 @@ ActiveRecord::Schema.define(version: 20160518202056) do
     t.string   "twitter_handle",                       limit: 255
     t.string   "irc_handle",                           limit: 255
     t.string   "tshirt_size",                          limit: 255
-    t.text     "banking_info"
     t.text     "postal_address"
     t.string   "timezone",                             limit: 255
     t.string   "interested_in",                        limit: 255, default: [],                 array: true
