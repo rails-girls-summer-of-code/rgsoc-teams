@@ -93,7 +93,7 @@ If you've cloned the app a while ago, you want to make sure that your cloned `ma
 
 ### Write Code
 
-We aim to follow the [Ruby Style Guide](https://github.com/bbatsov/ruby-style-guide) but we don't enforce it (i.e. there is no [RubuCop](https://github.com/bbatsov/rubocop)). The most important thing is probably just proper indentation: two whitespaces.
+We aim to follow the [Ruby Style Guide](https://github.com/bbatsov/ruby-style-guide) but we don't enforce it (i.e. there is no [RuboCop](https://github.com/bbatsov/rubocop)). The most important thing is probably just proper indentation: two whitespaces.
 
 If you enjoy polishing up other people's code: be aware that **purely** *code-cosmetic* changes are likely to not be accepted. We aim to be welcoming to beginners. So while e.g. pointing out accidental N+1 queries is a useful contribution, just rewriting things to look more conventional can be discouraging for newcomers.
 
