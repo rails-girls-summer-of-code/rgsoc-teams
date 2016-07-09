@@ -11,9 +11,43 @@ There are different ways to get involved.
 2. Suggesting a new feature
 3. Resolving an existing feature
 
-## _TODO: how to call this_
+## Find work that needs to be done
 
-* Labels
+How things are organized:
+
+### Labels
+
+We use labels to track, manage and organize issues and pull requests.
+
+| Label Name         | Issues                  | Description |
+| ------------------ |:-----------------------:| ------------|
+| `beginner-friendly`| [search][beginner]      | Less complex issues, suitable for your first steps in open source. |
+| `bug`              | [search][bug]           | Confirmed misbehavior of the application code. |
+| `duplicate`        | [search][duplicate]     | Issues which have already been reported. |
+| `in progress`      | [search][in progress]   | Work in progress, things which are already taken care of. |
+| `invalid`          | [search][invalid]       | Issues which aren't *"real"* issues (e.g. user errors). |
+| `needs review`     | [search][needs review]  | Work still needs to be reviewed by another member of the team. |
+| `#pairwithme`      | [search][#pairwithme]   | Looking for someone to pair on this. |
+| `question`         | [search][question]      | Feature and code related questions which are no bug reports or feature requests. |
+| `rgsoc-<year>`     | [search][rgsoc-<year>]  | Issues targeting a specific `<year>` of the program, being relevant to e.g. the beginning of the program in 2016. |
+| `styling`          | [search][styling]       | CSS and UI related things. |
+| `wontfix`          | [search][wontfix]       | The team has decided to not fix these things for now, e.g. because the whole feature will be replaced soon. |
+| `would be nice`    | [search][would be nice] | Features and enhancement which are *"nice to have"* but not super necessary. |
+
+[beginner]:      https://github.com/rails-girls-summer-of-code/rgsoc-teams/labels/beginner-friendly
+[bug]:           https://github.com/rails-girls-summer-of-code/rgsoc-teams/labels/bug
+[duplicate]:     https://github.com/rails-girls-summer-of-code/rgsoc-teams/labels/duplicate
+[enhancement]:   https://github.com/rails-girls-summer-of-code/rgsoc-teams/labels/enhancement
+[in progress]:   https://github.com/rails-girls-summer-of-code/rgsoc-teams/labels/in%20progress
+[invalid]:       https://github.com/rails-girls-summer-of-code/rgsoc-teams/labels/invalid
+[needs review]:  https://github.com/rails-girls-summer-of-code/rgsoc-teams/labels/needs%20review
+[#pairwithme]:   https://github.com/rails-girls-summer-of-code/rgsoc-teams/labels/%23pairwithme
+[question]:      https://github.com/rails-girls-summer-of-code/rgsoc-teams/labels/question
+[rgsoc-<year>]:  https://github.com/rails-girls-summer-of-code/rgsoc-teams/labels/rgsoc-2016
+[styling]:       https://github.com/rails-girls-summer-of-code/rgsoc-teams/labels/styling
+[wontfix]:       https://github.com/rails-girls-summer-of-code/rgsoc-teams/labels/wontfix
+[would be nice]: https://github.com/rails-girls-summer-of-code/rgsoc-teams/labels/would%20be%20nice
+
 * Dibs
 * Ping via comment and/or join Slack
 
