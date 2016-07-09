@@ -33,7 +33,7 @@ As with filing a bug report, please check if the feature has [already been sugge
 
 ## Resolving an existing issue
 
-If you want to get involved with the RGSoC Teams App, the [list of open issues](https://github.com/rails-girls-summer-of-code/rgsoc-teams/issues) is a good starting point. 
+If you want to get involved with the RGSoC Teams App, the [list of open issues](https://github.com/rails-girls-summer-of-code/rgsoc-teams/issues) is a good starting point.
 
 ### Finding an issue
 
@@ -61,6 +61,8 @@ If you've cloned the app a while ago, you want to make sure that your cloned `ma
 
 We aim to follow the [Ruby Style Guide](https://github.com/bbatsov/ruby-style-guide) but we don't enforce it (i.e. there is no [RubuCop](https://github.com/bbatsov/rubocop)). The most important thing is probably just proper indentation: two whitespaces.
 
+If you enjoy polishing up other people's code: be aware that **purely** *code-cosmetic* changes are likely to not be accepted. We aim to be welcoming to beginners. So while e.g. pointing out accidental N+1 queries is a useful contribution, just rewriting things to look more conventional can be discouraging for newcomers.
+
 We would ask you to write tests for your code: A well defined test suite is as much part of the app as the tested code itself. It helps to ascertain the well-being of any software product - the Teams App being no exception here. But this should not be a blocker. See the existing tests to find out where yours would fit in and in case it's hard to get started, ask us, we'll help.
 
 Make atomic commits with a descriptive commit message.
@@ -72,9 +74,3 @@ Github [provides documentation](https://help.github.com/articles/creating-a-pull
 ### Be Patient
 
 Please give us a few days to get back to you. Thank you so much!
-
-
-## No idea where to put this:
-
-
-* Purely code-cosmetic contributions are likely to not be accepted
