@@ -6,7 +6,7 @@ Please note our [Code of Conduct](https://github.com/rails-girls-summer-of-code/
 
 There are different ways to get involved.
 
-0. _TODO: how to call this_
+0. Find work that needs to be done
 1. Reporting an error
 2. Suggesting a new feature
 3. Resolving an existing feature
