@@ -9,7 +9,7 @@ There are different ways to get involved.
 0. Find work that needs to be done
 1. Reporting an error
 2. Suggesting a new feature
-3. Resolving an existing feature
+3. Resolving an existing issue
 
 ## Find work that needs to be done
 
