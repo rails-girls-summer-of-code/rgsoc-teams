@@ -88,8 +88,7 @@ class Season < ActiveRecord::Base
        applications_open_at: Time.utc(Date.today.year, 3, 1),
        applications_close_at: Time.utc(Date.today.year, 3, 31),
        acceptance_notification_at: Time.utc(Date.today.year, 5, 1)
-           })
-
+     })
   end
 
   def transition?
