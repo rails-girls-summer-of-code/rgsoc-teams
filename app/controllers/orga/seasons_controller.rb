@@ -57,7 +57,7 @@ class Orga::SeasonsController < Orga::BaseController
       when 'CodingSummer'
         @season.fake_coding_phase
       when 'RealTime'
-        @season.destroy
+        @season.back_to_reality
       end
     redirect_to orga_seasons_path, notice: "We time travelled into the #{params[:option]} phase"
   end
