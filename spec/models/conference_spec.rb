@@ -24,14 +24,24 @@ RSpec.describe Conference do
   end
 
   describe '#tickets_left' do
-    subject { FactoryGirl.build_stubbed(:conference) }
-    let(:attendance)    { FactoryGirl.build(:attendance, confirmed: true) }
 
-
-    it 'subtracts attendances' do
-      allow(subject).to receive(:attendances).and_return([attendance])
-      left_tickets = subject.tickets - subject.attendances.size
-      expect(subject.tickets_left).to eq(left_tickets)
+    context 'ticket value defined' do
+      let(:attendance)    { FactoryGirl.build(:attendance, confirmed: true) }
+      subject { FactoryGirl.build_stubbed(:conference, tickets: 2) }
+      it 'subtracts attendances' do
+        allow(subject).to receive(:attendances).and_return([attendance])
+        left_tickets = subject.tickets - subject.attendances.size
+        expect(subject.tickets_left).to eq(left_tickets)
+      end
     end
+
+    context 'tickets value not defined' do
+      subject { FactoryGirl.build_stubbed(:conference, tickets: nil) }
+      it 'returns 0' do
+        allow(subject).to receive(:attendances).and_return([])
+        expect(subject.tickets_left).to eq(0)
+      end
+    end
+
   end
 end

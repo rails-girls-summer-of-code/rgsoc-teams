@@ -266,7 +266,6 @@ ActiveRecord::Schema.define(version: 20160712204505) do
     t.string   "twitter_handle",                       limit: 255
     t.string   "irc_handle",                           limit: 255
     t.string   "tshirt_size",                          limit: 255
-    t.text     "banking_info"
     t.text     "postal_address"
     t.string   "timezone",                             limit: 255
     t.string   "interested_in",                        limit: 255, default: [],                 array: true

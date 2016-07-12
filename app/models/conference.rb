@@ -13,6 +13,6 @@ class Conference < ActiveRecord::Base
 
   def tickets_left
     confirmed_attendances = attendances.select { |attendance| attendance.confirmed }
-    tickets - confirmed_attendances.size
+    tickets.to_i - confirmed_attendances.size
   end
 end
