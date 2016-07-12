@@ -100,7 +100,7 @@ RSpec.describe Project do
     context 'with comments' do
       subject { create :project }
 
-      let!(:comments) { create_list :comment, 2, project: subject }
+      let!(:comments) { create_list :comment, 2, commentable: subject }
       let(:commenters) { comments.map(&:user) }
 
       it 'returns submitter, mentor, and commenters' do

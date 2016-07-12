@@ -17,20 +17,20 @@ describe TeamPerformance do
 
   let :team_commented do
     team = create :team
-    create :comment, team: team
+    create :comment, commentable: team
     team
   end
 
   let :team_both_outdated do
     team = create :team
-    create :comment, team: team, created_at: 4.days.ago
+    create :comment, commentable: team, created_at: 4.days.ago
     create :status_update, team: team, created_at: 4.days.ago
     team
   end
 
   let :team_both do
     team = create :team
-    create :comment, team: team
+    create :comment, commentable: team
     create :status_update, team: team
     team
   end

@@ -1,10 +1,7 @@
 require 'spec_helper'
 
 describe Comment do
-  it { is_expected.to belong_to(:team) }
   it { is_expected.to belong_to(:user) }
-  it { is_expected.to belong_to(:application) }
-  it { is_expected.to belong_to(:project) }
   it { is_expected.to belong_to(:commentable) }
 
   before do
@@ -27,10 +24,10 @@ describe Comment do
   end
 
   it 'sets a checked on the team' do
-    @first_comment.team.checked = nil
+    @first_comment.commentable.checked = nil
 
     expect do
       @first_comment.save!
-    end.to change(@first_comment.team, :checked)
+    end.to change(@first_comment.commentable, :checked)
   end
 end

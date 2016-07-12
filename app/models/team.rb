@@ -23,7 +23,7 @@ class Team < ActiveRecord::Base
   has_many :sources, dependent: :destroy
   has_many :activities, dependent: :destroy
   has_one :last_activity, -> { order('id DESC') }, class_name: 'Activity'
-  has_many :comments
+  has_many :comments, as: :commentable
   has_many :status_updates, -> { where(kind: 'status_update') }, class_name: 'Activity'
 
   accepts_nested_attributes_for :roles, :sources, allow_destroy: true
