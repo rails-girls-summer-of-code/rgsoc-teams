@@ -21,5 +21,15 @@ class MakeExistingForeignKeysPolymorphicForComments < ActiveRecord::Migration
   end
 
   def down
+    ActiveRecord::Base.transaction do
+      Comment.find_each do |comment|
+        association = comment.commentable_type.underscore
+        comment.update!({
+          "#{association}_id" => comment.commentable_id,
+          :commentable_id   => nil,
+          :commentable_type => nil
+        })
+      end
+    end
   end
 end
