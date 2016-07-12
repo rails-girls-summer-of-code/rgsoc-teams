@@ -15,7 +15,7 @@ describe Rating::CommentsController, type: :controller do
 
   describe 'application comment' do
     let(:application) { create(:application) }
-    let(:params) { {application_id: application.id} }
+    let(:params) { {commentable_id: application.id, commentable_type: 'Application'} }
 
     context 'with valid params' do
       it 'creates a new Comment' do

@@ -8,7 +8,7 @@ class Supervisor::CommentsController < Supervisor::BaseController
     comment = Comment.new(comment_params)
     # Now that we are saving 'checks' without comment text too, we can list them in the view with the text comments.
     # For the user, checks with or without text are treated the same (except for the mailer).
-    authorize! :supervise, comment.team, :message => "Only a team's own supervisor can comment on the team"
+    authorize! :supervise, comment.commentable, :message => "Only a team's own supervisor can comment on the team"
       if comment.save
         if comment.text.present?
           CommentMailer.email(comment).deliver_later
@@ -23,7 +23,7 @@ class Supervisor::CommentsController < Supervisor::BaseController
 private
 
   def comment_params
-    params.require(:comment).permit(:team_id, :text).merge(user_id: current_user.id)
+    params.require(:comment).permit(:commentable_id, :commentable_type, :text).merge(user_id: current_user.id)
   end
 
   def find_comments

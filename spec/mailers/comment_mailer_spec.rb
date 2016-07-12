@@ -2,7 +2,7 @@ require 'spec_helper'
 
 RSpec.describe CommentMailer do
   let(:team)    { build_stubbed :team }
-  let(:comment) { build_stubbed :comment, team: team }
+  let(:comment) { build_stubbed :comment, commentable: team }
 
   describe 'email' do
     subject { described_class.email comment }

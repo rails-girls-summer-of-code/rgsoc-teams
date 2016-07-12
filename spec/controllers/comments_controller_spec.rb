@@ -14,7 +14,7 @@ describe CommentsController do
   describe 'POST create' do
     describe 'project comment' do
       let(:project) { create :project }
-      let(:params) { {project_id: project.id} }
+      let(:params) { { commentable_id: project.id, commentable_type: 'Project' } }
 
       context 'with valid params' do
         it 'creates a new Comment' do

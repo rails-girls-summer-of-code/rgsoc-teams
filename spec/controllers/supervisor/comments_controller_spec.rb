@@ -18,12 +18,12 @@ describe Supervisor::CommentsController do
       context 'team comment' do
         it 'creates a new Comment' do
           expect {
-            post :create, {:comment => valid_attributes.merge(team_id: team.id)}, valid_session
+            post :create, {:comment => valid_attributes.merge(commentable_id: team.id, commentable_type: 'Team')}, valid_session
           }.to change(Comment, :count).by(1)
         end
 
         it 'redirects to the dashboard page' do
-          post :create, {:comment => valid_attributes.merge(team_id: team.id)}, valid_session
+          post :create, {:comment => valid_attributes.merge(commentable_id: team.id, commentable_type: 'Team')}, valid_session
           expect(response).to redirect_to supervisor_path
         end
 
@@ -42,7 +42,7 @@ describe Supervisor::CommentsController do
 
         subject do
           post :create,
-               { comment: valid_attributes.merge(team_id: team.id) },
+               { comment: valid_attributes.merge(commentable_id: team.id, commentable_type: 'Team') },
                valid_session
         end
 
