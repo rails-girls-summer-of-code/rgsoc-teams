@@ -53,6 +53,10 @@ class Team < ActiveRecord::Base
         Team.visible.where season: Season.current
       end
     end
+
+    def active_teams
+      Team.where(season: Season.current, kind: %w(sponsored voluntary)).order(:name)
+    end
   end
 
   def application

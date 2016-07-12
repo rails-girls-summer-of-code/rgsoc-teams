@@ -81,9 +81,9 @@ class UsersController < ApplicationController
     helper_method :conferences
 
     def teams
-      all_teams = Team.all
-      active_teams = Team.where(season: Season.current, kind: %w(sponsored voluntary)).order(:name)
-      current_season.active? ? active_teams : all_teams
+      all_teams = Team.all.order(:name)
+      selected_teams = Team.active_teams.order(:name)
+      current_season.active? ? selected_teams : all_teams
     end
     helper_method :teams
 
