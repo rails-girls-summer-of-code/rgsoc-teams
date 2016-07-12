@@ -1,9 +1,9 @@
-[![Stories in Ready](https://badge.waffle.io/rails-girls-summer-of-code/rgsoc-teams.png?label=ready&title=Ready)](https://waffle.io/rails-girls-summer-of-code/rgsoc-teams)
 # Rails Girls Summer of Code Teams
 
 [![Build Status](https://travis-ci.org/rails-girls-summer-of-code/rgsoc-teams.png)](https://travis-ci.org/rails-girls-summer-of-code/rgsoc-teams)
 [![Code Climate](https://codeclimate.com/github/rails-girls-summer-of-code/rgsoc-teams.png)](https://codeclimate.com/github/rails-girls-summer-of-code/rgsoc-teams)
 [![Dependency Status](https://gemnasium.com/rails-girls-summer-of-code/rgsoc-teams.svg)](https://gemnasium.com/rails-girls-summer-of-code/rgsoc-teams)
+[![Stories in Ready](https://badge.waffle.io/rails-girls-summer-of-code/rgsoc-teams.png?label=ready&title=Ready)](https://waffle.io/rails-girls-summer-of-code/rgsoc-teams)
 
 **Looking for your help!**
 
