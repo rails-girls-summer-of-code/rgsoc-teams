@@ -1,3 +1,4 @@
+[![Stories in Ready](https://badge.waffle.io/rails-girls-summer-of-code/rgsoc-teams.png?label=ready&title=Ready)](https://waffle.io/rails-girls-summer-of-code/rgsoc-teams)
 # Rails Girls Summer of Code Teams
 
 [![Build Status](https://travis-ci.org/rails-girls-summer-of-code/rgsoc-teams.png)](https://travis-ci.org/rails-girls-summer-of-code/rgsoc-teams)
