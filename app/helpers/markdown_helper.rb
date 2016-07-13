@@ -1,4 +1,4 @@
-require 'camo_renderer'
+require 'redcarpet_camo_renderer'
 
 module MarkdownHelper
   def render_markdown(source)
