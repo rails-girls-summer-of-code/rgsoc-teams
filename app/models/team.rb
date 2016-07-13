@@ -54,9 +54,14 @@ class Team < ActiveRecord::Base
       end
     end
 
-    def active_teams
-      Team.where(season: Season.current, kind: %w(sponsored voluntary)).order(:name)
+    def current_season
+      where(season: Season.current)
     end
+
+    def selected
+      where(kind: %w(sponsored voluntary))
+    end
+
   end
 
   def application
