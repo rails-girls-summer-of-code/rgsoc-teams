@@ -29,7 +29,7 @@ We use labels to track, manage and organize issues and pull requests.
 | `needs review`     | [🔍][needs review]  | Work still needs to be reviewed by another member of the team. |
 | `#pairwithme`      | [🔍][#pairwithme]   | Looking for someone to pair on this. |
 | `question`         | [🔍][question]      | Feature and code related questions which are no bug reports or feature requests. |
-| `rgsoc-<year>`     | [🔍][rgsoc-<year>]  | Issues that a pair of RGSoC students of a given `<year>` working on the Teams App as their project can work on. |
+| `rgsoc-<year>`     | [🔍][rgsoc-<year>]  | Issues intended for students working on the Teams App during RGSoC in a given `<year>`. |
 | `styling`          | [🔍][styling]       | CSS and UI related things. |
 | `wontfix`          | [🔍][wontfix]       | The team has decided to not fix these things for now, e.g. because the whole feature will be replaced soon. |
 | `would be nice`    | [🔍][would be nice] | Features and enhancement which are *"nice to have"* but not super necessary. |
