@@ -48,11 +48,20 @@ class Team < ActiveRecord::Base
     # phase of the running season we're currently in.
     def by_season_phase
       if Time.now.utc > Season.current.acceptance_notification_at
-        Team.where season: Season.current, kind: %w(sponsored voluntary)
+        Team.current.selected
       else
-        Team.visible.where season: Season.current
+        Team.current.visible
       end
     end
+
+    def current
+      where(season: Season.current)
+    end
+
+    def selected
+      where(kind: %w(sponsored voluntary))
+    end
+
   end
 
   def application

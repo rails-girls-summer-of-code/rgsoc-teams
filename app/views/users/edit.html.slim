@@ -115,7 +115,7 @@
   - if admin?
     h3.page-header Roles
     = f.simple_fields_for :roles do |r|
-        = r.input :team_id, as: :select, collection: @teams, required: false
+        = r.input :team_id, as: :select, collection: teams, required: false
         = r.input :name, as: :select, collection: Role::ROLES
         = r.link_to_remove 'Remove', class: 'btn btn-default'
     = f.link_to_add 'Add another role', :roles, class: 'btn btn-primary form-btn-group'

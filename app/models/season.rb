@@ -36,6 +36,10 @@ class Season < ActiveRecord::Base
     Time.now.utc >= (applications_open_at || 1.week.from_now)
   end
 
+  def active?
+    Time.now.utc.between?(acceptance_notification_at, ends_at)
+  end
+
   def started?
     Time.now.utc >= (starts_at || 1.week.from_now)
   end

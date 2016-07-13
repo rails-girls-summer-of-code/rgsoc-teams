@@ -11,7 +11,7 @@ class Orga::TeamsController < Orga::BaseController
       @teams = Team.order(:kind, :name)
     end
     if params[:filter] != 'all'
-      @teams = @teams.where(season: current_season).select { |team| team.sponsored? || team.voluntary? }
+      @teams = Team.current.selected.ordered
     end
   end
 

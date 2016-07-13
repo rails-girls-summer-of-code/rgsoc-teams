@@ -31,7 +31,6 @@ class UsersController < ApplicationController
   def edit
     if current_user.admin?
       @user.attendances.build unless @user.attendances.any?
-      @teams = Team.all
     end
   end
 
@@ -80,6 +79,13 @@ class UsersController < ApplicationController
       @conferences ||= Conference.current.order(:name)
     end
     helper_method :conferences
+
+    def teams
+      all_teams = Team.all.order(:name)
+      selected_teams = Team.current.selected.order(:name)
+      current_season.active? ? selected_teams : all_teams
+    end
+    helper_method :teams
 
     def user_params
       params.require(:user).permit(
