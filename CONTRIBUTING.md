@@ -48,9 +48,6 @@ We use labels to track, manage and organize issues and pull requests.
 [wontfix]:       https://github.com/rails-girls-summer-of-code/rgsoc-teams/labels/wontfix
 [would be nice]: https://github.com/rails-girls-summer-of-code/rgsoc-teams/labels/would%20be%20nice
 
-* Dibs
-* Ping via comment and/or join Slack
-
 ## Reporting an error
 
 Reporting a bug is very important and we appreciate the time you take to inform us about the Teams App's mischief. Before you do, we kindly ask you to check if [it has already been reported](https://github.com/rails-girls-summer-of-code/rgsoc-teams/issues?q=is%3Aopen+is%3Aissue+label%3Abug).
