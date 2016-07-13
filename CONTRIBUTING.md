@@ -75,6 +75,12 @@ We have issues labelled as [`beginner-friendly`](https://github.com/rails-girls-
 
 Before you start working, make sure no one else is already working on it: check if the issue has been assigned to someone already and/or comment on the issue. Adding comments is also the best way to ask questions about the issue at hand or if the issue is still valid.
 
+If you've confirmed that no one is working on the issue and would like to give it a go, feel free to leave a comment saying so! You could write something like the following:
+
+```
+  I think I know how to fix this one! Will give it a try :thumbsup:
+```
+
 ### Creating a Pull Request
 
 Clone/fork the repo and install the Teams App locally on your computer. Our [README](https://github.com/rails-girls-summer-of-code/rgsoc-teams/blob/master/README.md) provides setup instructions and hints).
