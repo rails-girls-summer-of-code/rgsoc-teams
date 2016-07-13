@@ -160,6 +160,9 @@ at http://teams.railsgirlssummerofcode.org.
 
 Append `-r staging` or `-r production` to any `heroku` command in order to specify the app.
 
+This app uses [camo](https://github.com/atmos/camo) to proxy insecure images in activity logs
+when `CAMO_HOST` and `CAMO_KEY` environment variables are set.
+
 ### Cron jobs
 
 Set up the Heroku scheduler to run these tasks:
