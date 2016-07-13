@@ -2,7 +2,7 @@ require 'camo_renderer'
 
 module MarkdownHelper
   def render_markdown(source)
-    renderer = CamoRenderer.new(
+    renderer = Redcarpet::Render::Camo.new(
       filter_html: true,
       safe_links_only: true,
       hard_wrap: true
