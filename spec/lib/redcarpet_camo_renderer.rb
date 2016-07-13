@@ -16,7 +16,7 @@ RSpec.describe Redcarpet::Render::Camo do
         let(:image) { "https://something.securely.funny/foo.gif" }
 
         it 'renders the image as-is' do
-          expect(subject).to match %r[src='https://something.securely.funny/foo.gif']
+          expect(subject).to match %r[src="https://something.securely.funny/foo.gif"]
         end
       end
 
@@ -24,7 +24,7 @@ RSpec.describe Redcarpet::Render::Camo do
         let(:image) { "http://something.funny/foo.gif" }
 
         it 'renders the image as-is' do
-          expect(subject).to match %r[src='http://something.funny/foo.gif']
+          expect(subject).to match %r[src="http://something.funny/foo.gif"]
         end
       end
 
@@ -42,7 +42,7 @@ RSpec.describe Redcarpet::Render::Camo do
         let(:image) { "https://something.securely.funny/foo.gif" }
 
         it 'renders the image as-is' do
-          expect(subject).to match %r[src='https://something.securely.funny/foo.gif']
+          expect(subject).to match %r[src="https://something.securely.funny/foo.gif"]
         end
       end
 
@@ -50,7 +50,7 @@ RSpec.describe Redcarpet::Render::Camo do
         let(:image) { "http://something.funny/foo.gif" }
 
         it 'renders the image as-is' do
-          expect(subject).to match %r[src='#{camo_host}]
+          expect(subject).to match %r[src="#{camo_host}]
         end
       end
     end

@@ -7,7 +7,7 @@ module Redcarpet
         if camo_configured? and link.starts_with?('http:')
           link = camo(link)
         end
-        "<img src='#{link}' alt='#{alt_text}' title='#{title}'>"
+        "<img src=\"#{link}\" alt=\"#{alt_text}\" title=\"#{title}\">"
       end
 
       private
