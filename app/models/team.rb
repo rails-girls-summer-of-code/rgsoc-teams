@@ -45,16 +45,16 @@ class Team < ActiveRecord::Base
     end
 
     # Returns a base scope reflecting the relevant teams depending on what
-    # phase of the running season we're currently in.
+    # phase of the running season we're currentin_ly in.
     def by_season_phase
       if Time.now.utc > Season.current.acceptance_notification_at
-        Team.where season: Season.current, kind: %w(sponsored voluntary)
+        Team.in_current_season.selected
       else
-        Team.visible.where season: Season.current
+        Team.in_current_season.visible
       end
     end
 
-    def current_season
+    def in_current_season
       where(season: Season.current)
     end
 

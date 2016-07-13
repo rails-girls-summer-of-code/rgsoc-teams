@@ -22,7 +22,7 @@ class ActivitiesController < ApplicationController
     end
 
     def teams
-      Team.where(season: Season.current, kind: %w(sponsored voluntary)).order(:name)
+      Team.in_current_season.selected.order(:name)
     end
     helper_method :teams
 
