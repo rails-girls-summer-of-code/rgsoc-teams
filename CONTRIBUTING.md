@@ -21,18 +21,18 @@ We use labels to track, manage and organize issues and pull requests.
 
 | Label Name         | Issues                  | Description |
 | ------------------ |:-----------------------:| ------------|
-| `beginner-friendly`| [search][beginner]      | Less complex issues, suitable for your first steps in open source. |
-| `bug`              | [search][bug]           | Confirmed misbehavior of the application code. |
-| `duplicate`        | [search][duplicate]     | Issues which have already been reported. |
-| `in progress`      | [search][in progress]   | Work in progress, things which are already taken care of. |
-| `invalid`          | [search][invalid]       | Issues which aren't *"real"* issues (e.g. user errors). |
-| `needs review`     | [search][needs review]  | Work still needs to be reviewed by another member of the team. |
-| `#pairwithme`      | [search][#pairwithme]   | Looking for someone to pair on this. |
-| `question`         | [search][question]      | Feature and code related questions which are no bug reports or feature requests. |
-| `rgsoc-<year>`     | [search][rgsoc-<year>]  | Issues that a pair of RGSoC students of a given `<year>` working on the Teams App as their project can work on. |
-| `styling`          | [search][styling]       | CSS and UI related things. |
-| `wontfix`          | [search][wontfix]       | The team has decided to not fix these things for now, e.g. because the whole feature will be replaced soon. |
-| `would be nice`    | [search][would be nice] | Features and enhancement which are *"nice to have"* but not super necessary. |
+| `beginner-friendly`| [🔍][beginner]      | Less complex issues, suitable for your first steps in open source. |
+| `bug`              | [🔍][bug]           | Confirmed misbehavior of the application code. |
+| `duplicate`        | [🔍][duplicate]     | Issues which have already been reported. |
+| `in progress`      | [🔍][in progress]   | Work in progress, things which are already taken care of. |
+| `invalid`          | [🔍][invalid]       | Issues which aren't *"real"* issues (e.g. user errors). |
+| `needs review`     | [🔍][needs review]  | Work still needs to be reviewed by another member of the team. |
+| `#pairwithme`      | [🔍][#pairwithme]   | Looking for someone to pair on this. |
+| `question`         | [🔍][question]      | Feature and code related questions which are no bug reports or feature requests. |
+| `rgsoc-<year>`     | [🔍][rgsoc-<year>]  | Issues that a pair of RGSoC students of a given `<year>` working on the Teams App as their project can work on. |
+| `styling`          | [🔍][styling]       | CSS and UI related things. |
+| `wontfix`          | [🔍][wontfix]       | The team has decided to not fix these things for now, e.g. because the whole feature will be replaced soon. |
+| `would be nice`    | [🔍][would be nice] | Features and enhancement which are *"nice to have"* but not super necessary. |
 
 [beginner]:      https://github.com/rails-girls-summer-of-code/rgsoc-teams/labels/beginner-friendly
 [bug]:           https://github.com/rails-girls-summer-of-code/rgsoc-teams/labels/bug
