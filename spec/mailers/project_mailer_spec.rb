@@ -21,7 +21,7 @@ RSpec.describe ProjectMailer do
 
   describe '#comment' do
     let!(:comment) { create :comment, commentable: project }
-    let!(:commenter) { create(:comment, commentable: project).user }
+    let(:commenter) { comment.user }
 
     subject { described_class.comment(project, comment) }
 
