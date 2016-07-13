@@ -28,7 +28,7 @@ table.table.table-striped.table-bordered.table-condensed
                 = avatar_url(user, size: 20)
                 = link_to(user.name_or_handle, user)
       / TODO quick fix, hiding conferences in teams view until program kick-off
-      / td = links_to_conferences(team.members.map(&:conferences).flatten.uniq).join(', ').html_safe
+      / td = links_to_conferences(team.members.map { |u| u.conferences.current }.flatten.uniq).join(', ').html_safe
       td = team.students_location
       - if current_user.try :admin?
         td = format_date(team.last_checked_at)
