@@ -1,2 +1,2 @@
-h5 = "#{ user_for_comment(comment) }, #{ format_date(comment.created_at, :short) }"
+h5 = "#{ user_for_comment(comment) }, #{ format_date(comment.created_at, :short) }".html_safe
 p = comment.text
