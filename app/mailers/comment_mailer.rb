@@ -18,7 +18,7 @@ class CommentMailer < ActionMailer::Base
     end
 
     def set(comment)
-      @team = comment.team
+      @team = comment.commentable
       @comment = comment
     end
 end

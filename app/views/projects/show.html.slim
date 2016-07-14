@@ -71,12 +71,13 @@ h2#comments.header
 - if @project.comments_locked?
   p Comments for this project have been locked.
 - elsif current_user
-  = simple_form_for Comment.new(project: @project), url: comments_path do |f|
+  = simple_form_for Comment.new(commentable: @project), url: comments_path do |f|
     .checks
       = f.error_notification
 
       .form-inputs.clearfix
-        = f.input :project_id, as: :hidden
+        = f.input :commentable_id, as: :hidden
+        = f.input :commentable_type, as: :hidden
         = f.input :text, as: :text, label: "Comment on this project", input_html: { rows: 5 }, hint: 'You can use basic <a href="http://en.wikipedia.org/wiki/Markdown" target="_blank">Markdown</a> here.'.html_safe, required: true
 
       .form-actions

@@ -98,7 +98,7 @@ class Application < ActiveRecord::Base
                              :student0_application_location,
                              :student1_application_location]
 
-  has_many :comments, -> { order(:created_at) }, dependent: :destroy
+  has_many :comments, -> { order(:created_at) }, as: :commentable, dependent: :destroy
 
   scope :hidden, -> { where('applications.hidden IS NOT NULL and applications.hidden = ?', true) }
   scope :visible, -> { where('applications.hidden IS NULL or applications.hidden = ?', false) }

@@ -1,8 +1,7 @@
 class Comment < ActiveRecord::Base
-  belongs_to :team
   belongs_to :user
-  belongs_to :application
   belongs_to :project
+  belongs_to :commentable, polymorphic: true
 
   scope :recent, -> { order('created_at DESC').limit(3) }
 
@@ -10,17 +9,13 @@ class Comment < ActiveRecord::Base
   after_commit :notify!
 
   def for_application?
-    !application_id.blank?
+    commentable.is_a? Application
   end
 
   class << self
     def ordered
       order('created_at DESC, id DESC')
     end
-  end
-
-  def commentable
-    [team, application, project].find(&:present?)
   end
 
   private
@@ -33,8 +28,8 @@ class Comment < ActiveRecord::Base
   end
 
   def set_checked
-    return unless team
-    team.checked = user
-    team.save
+    return unless commentable.is_a? Team
+    commentable.checked = user
+    commentable.save
   end
 end

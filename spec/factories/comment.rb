@@ -4,11 +4,11 @@ FactoryGirl.define do
     text { FFaker::CheesyLingo.paragraph }
 
     factory :team_comment do
-      team
+      association :commentable, factory: :team
     end
 
     factory :application_comment do
-      application
+      association :commentable, factory: :application
     end
   end
 end
