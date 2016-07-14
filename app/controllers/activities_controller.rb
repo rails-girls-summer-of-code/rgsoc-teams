@@ -22,7 +22,7 @@ class ActivitiesController < ApplicationController
     end
 
     def teams
-      Team.current.selected.order(:name)
+      Team.in_current_season.selected.order(:name)
     end
     helper_method :teams
 

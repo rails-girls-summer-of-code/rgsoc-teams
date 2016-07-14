@@ -48,13 +48,13 @@ class Team < ActiveRecord::Base
     # phase of the running season we're currently in.
     def by_season_phase
       if Time.now.utc > Season.current.acceptance_notification_at
-        Team.current.selected
+        Team.in_current_season.selected
       else
-        Team.current.visible
+        Team.in_current_season.visible
       end
     end
 
-    def current
+    def in_current_season
       where(season: Season.current)
     end
 
