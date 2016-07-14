@@ -43,7 +43,7 @@ div.row
             p = "You last checked on them #{ time_ago_in_words(t.comments.last.created_at) } ago."
           - else
             p You didn't check on them yet.
-          = simple_form_for Comment.new(team_id: t.id), url: supervisor_comments_path do |f|
+          = simple_form_for Comment.new(commentable: t), url: supervisor_comments_path do |f|
             == render 'supervisor/comments/form', f: f
             - if t.comments.any?
               p = render t.comments.recent
