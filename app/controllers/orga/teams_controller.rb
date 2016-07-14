@@ -11,7 +11,7 @@ class Orga::TeamsController < Orga::BaseController
       @teams = Team.order(:kind, :name)
     end
     if params[:filter] != 'all'
-      @teams = Team.current.selected.ordered
+      @teams = Team.in_current_season.selected.ordered
     end
   end
 
