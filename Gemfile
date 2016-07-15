@@ -36,6 +36,7 @@ gem 'rollbar'
 
 gem 'aasm'
 gem 'acts_as_list'
+gem 'camo'
 
 group :production do
   gem 'unicorn'

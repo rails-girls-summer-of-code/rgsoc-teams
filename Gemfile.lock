@@ -61,6 +61,7 @@ GEM
       sass (>= 3.3.4)
     builder (3.2.2)
     byebug (9.0.5)
+    camo (0.0.2)
     cancancan (1.15.0)
     codeclimate-test-reporter (0.6.0)
       simplecov (>= 0.7.1, < 1.0.0)
@@ -338,6 +339,7 @@ DEPENDENCIES
   bootstrap-kaminari-views
   bootstrap-sass
   byebug
+  camo
   cancancan
   codeclimate-test-reporter
   coffee-rails
