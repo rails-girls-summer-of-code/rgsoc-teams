@@ -68,8 +68,8 @@ module ApplicationHelper
     content
   end
 
-  def format_date(date, format = :short)
-    date && date.to_date.to_formatted_s(format) || '-'
+  def format_date(date, format = :long)
+    date && l(date.to_date, format: format) || '-'
   end
 
   def format_conference_date(starts_on, ends_on)
