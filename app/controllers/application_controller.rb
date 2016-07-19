@@ -18,6 +18,8 @@ class ApplicationController < ActionController::Base
     params[resource] &&= send(method) if respond_to?(method, true)
   end
 
+  before_action :set_timezone
+
   def after_sign_in_path_for(user)
     if user.just_created?
       request.env['omniauth.origin'] || edit_user_path(user, welcome: true)
@@ -70,5 +72,9 @@ class ApplicationController < ActionController::Base
         !request.xhr? # don't store ajax calls
       session[key] = request.fullpath
     end
+  end
+
+  def set_timezone
+    Time.zone = current_user&.timezone || 'UTC'
   end
 end
