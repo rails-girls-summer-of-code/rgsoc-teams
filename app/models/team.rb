@@ -92,6 +92,7 @@ class Team < ActiveRecord::Base
   def display_name
     chunks = [name, project_name].select(&:present?)
     chunks[1] = "(#{chunks[1]})" if chunks[1]
+    chunks << "[#{season.name}]" if season && season != Season.current
     "Team #{chunks.join(' ')}"
   end
 

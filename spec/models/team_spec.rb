@@ -268,6 +268,26 @@ describe Team do
         expect(subject.display_name).to eql 'Team Blue (Sinatra)'
       end
     end
+
+    context 'with season information' do
+      subject { described_class.new season: season, name: 'Cheesy' }
+
+      context 'for a current team' do
+        let(:season) { Season.current }
+
+        it 'will not display the year' do
+          expect(subject.display_name).to eql 'Team Cheesy'
+        end
+      end
+
+      context 'for a past team' do
+        let(:season) { create :season, name: Date.today.year - 1 }
+
+        it 'will append the year' do
+          expect(subject.display_name).to eql "Team Cheesy [#{season.name}]"
+        end
+      end
+    end
   end
 
   describe '#github_handle=' do
