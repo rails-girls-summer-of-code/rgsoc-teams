@@ -256,15 +256,42 @@ describe Team do
   end
 
   describe '#display_name' do
-    before { subject.project_name = 'Sinatra' }
+    context 'with a project name' do
+      before { subject.project_name = 'Sinatra' }
 
-    it 'returns "Team Sinatra" if no name given' do
-      expect(subject.display_name).to eql 'Team Sinatra'
+      it 'returns "Team Sinatra" if no name given' do
+        expect(subject.display_name).to eql 'Team Sinatra'
+      end
+
+      it 'returns "Team Blue" if name given' do
+        subject.name = 'Blue'
+        expect(subject.display_name).to eql 'Team Blue (Sinatra)'
+      end
     end
 
-    it 'returns "Team Blue" if name given' do
-      subject.name = 'Blue'
-      expect(subject.display_name).to eql 'Team Blue (Sinatra)'
+    context 'with season information' do
+      subject { described_class.new season: season, name: 'Cheesy' }
+
+      context 'for a current team' do
+        let(:season) { Season.current }
+
+        it 'will not display the year' do
+          expect(subject.display_name).to eql 'Team Cheesy'
+        end
+      end
+
+      context 'for a past team' do
+        let(:season) { create :season, name: Date.today.year - 1 }
+
+        it 'will append the year' do
+          expect(subject.display_name).to eql "Team Cheesy [#{season.name}]"
+        end
+      end
+    end
+
+    it 'will not prepend "Team" if already in place' do
+      subject.name = "Team Three Headed Monkey"
+      expect(subject.display_name).to eql "Team Three Headed Monkey"
     end
   end
 

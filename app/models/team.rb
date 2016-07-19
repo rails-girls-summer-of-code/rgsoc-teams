@@ -90,11 +90,12 @@ class Team < ActiveRecord::Base
   end
 
   def display_name
-    chunks = [name]
-    chunks << project_name
-    chunks = chunks.select(&:present?)
+    chunks = [name, project_name].select(&:present?)
     chunks[1] = "(#{chunks[1]})" if chunks[1]
-    "Team #{chunks.join(' ')}"
+    chunks << "[#{season.name}]" if season && season != Season.current
+
+    d_name = chunks.join ' '
+    d_name =~ /team /i ? d_name : "Team #{d_name}"
   end
 
   def accepted?
