@@ -256,15 +256,17 @@ describe Team do
   end
 
   describe '#display_name' do
-    before { subject.project_name = 'Sinatra' }
+    context 'with a project name' do
+      before { subject.project_name = 'Sinatra' }
 
-    it 'returns "Team Sinatra" if no name given' do
-      expect(subject.display_name).to eql 'Team Sinatra'
-    end
+      it 'returns "Team Sinatra" if no name given' do
+        expect(subject.display_name).to eql 'Team Sinatra'
+      end
 
-    it 'returns "Team Blue" if name given' do
-      subject.name = 'Blue'
-      expect(subject.display_name).to eql 'Team Blue (Sinatra)'
+      it 'returns "Team Blue" if name given' do
+        subject.name = 'Blue'
+        expect(subject.display_name).to eql 'Team Blue (Sinatra)'
+      end
     end
   end
 
