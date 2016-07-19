@@ -288,6 +288,11 @@ describe Team do
         end
       end
     end
+
+    it 'will not prepend "Team" if already in place' do
+      subject.name = "Team Three Headed Monkey"
+      expect(subject.display_name).to eql "Team Three Headed Monkey"
+    end
   end
 
   describe '#github_handle=' do
