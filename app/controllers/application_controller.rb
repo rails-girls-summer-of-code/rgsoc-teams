@@ -75,10 +75,11 @@ class ApplicationController < ActionController::Base
   end
 
   def set_timezone
-    Time.zone = begin
-                  current_user&.timezone
-                rescue ArgumentError
-                  'UTC'
-                end
+    begin
+      Time.zone = current_user&.timezone
+    rescue ArgumentError
+      Time.zone = 'UTC'
+    end
   end
+
 end
