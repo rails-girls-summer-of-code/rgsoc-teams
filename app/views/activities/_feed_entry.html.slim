@@ -13,6 +13,6 @@ li class="activity #{activity.kind}"
       p.info
         = link_to activity.team.display_name, activity.team
         ' &nbsp;&mdash;
-        span.published_at = "at #{activity.published_at.to_formatted_s(:time)}".html_safe if activity.published_at
+        span.published_at = "at #{l activity.published_at, format: :long}".html_safe if activity.published_at
       p.content
         = format_activity_content(activity, length: 300)
