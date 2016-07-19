@@ -1,5 +1,5 @@
-h4 Roles
 .selection-box
+  h4 Filter by role
   form.filter.form-inline action=request.url
     input type='hidden' name='sort' value=params[:sort]
     input type='hidden' name='direction' value=params[:direction]
@@ -7,3 +7,5 @@ h4 Roles
       label.radio
         = radio_button_tag :role, role == 'all' ? '' : role, params[:role] == role
         = role.capitalize
+
+  = render partial: 'users/search'

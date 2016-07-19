@@ -10,8 +10,6 @@ h1.header
 - if admin?
   p.organizers = link_to 'Users organizers info &rarr;'.html_safe, users_info_path
 
-= render partial: 'users/search'
-
 table.users.table.table-striped.table-bordered.table-condensed.table-hover
   thead
     tr
