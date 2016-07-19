@@ -27,7 +27,7 @@ class ActivitiesController < ApplicationController
     helper_method :teams
 
     def normalize_params
-      params[:kind] = '' if params[:kind] == 'all'
+      params[:kind] = 'all' if params[:kind].blank?
     end
 
     def whitelisted_kind
