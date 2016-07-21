@@ -154,8 +154,7 @@ class User < ActiveRecord::Base
   end
 
   def self.search(search)
-    where("users.name ILIKE ?", "%#{search}%")
-    where("teams.name ILIKE ?", "%#{search}%")
+    where("users.name || teams.name ILIKE ?", "%#{search}%")
   end
 
   private
