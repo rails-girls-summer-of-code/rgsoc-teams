@@ -29,7 +29,7 @@
 
   = f.input :name, wrapper_html: { class: 'col-md-6' }
   = f.input :email, required: true, wrapper_html: { class: 'col-md-6' }
-  = f.input :github_handle, wrapper_html: { class: 'col-md-6' }
+  = f.input :github_handle, required: false, disabled: true, wrapper_html: { class: 'col-md-6' }
   = f.input :twitter_handle, wrapper_html: { class: 'col-md-6' }
   = f.input :irc_handle, wrapper_html: { class: 'col-md-6' }
   = f.input :homepage, as: :url, wrapper_html: { class: 'col-md-6' }
