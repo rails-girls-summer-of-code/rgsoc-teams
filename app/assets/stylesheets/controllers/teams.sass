@@ -1,3 +1,25 @@
 .team-members
   .label, .btn
     margin-right: 1em
+
+// from global line 315
+.teams
+  // TODO td:first-child + team:before can be removed and :before adjusted?
+  td:first-child
+    padding-left: 2em
+  .team:before
+    margin-left: -1.5em
+  .user
+    white-space: nowrap
+
+// from global line 330
+.team
+  @include icon-before($star-empty)
+  &.sponsored
+    @include icon-before($star)
+
+.hint
+  font-size: 0.9em
+  color: $gray
+  i
+    margin-right: 0.25em
