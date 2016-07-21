@@ -78,6 +78,7 @@ class User < ActiveRecord::Base
 
   validates :github_handle, presence: true, uniqueness: { case_sensitive: false }
   validates :homepage, format: { with: URL_PREFIX_PATTERN }, allow_blank: true
+  validate :immutable_github_handle
 
   accepts_nested_attributes_for :attendances, allow_destroy: true
   accepts_nested_attributes_for :roles
@@ -178,4 +179,10 @@ class User < ActiveRecord::Base
     update_attributes attrs
     @just_created = true
   end
+
+  def immutable_github_handle
+    return if new_record?
+    errors[:github_handle] = 'can\'t be changed' if github_handle_changed?
+  end
+
 end

@@ -17,6 +17,25 @@ describe User do
   it { expect(subject).to allow_value('https://example.com').for(:homepage) }
   it { expect(subject).to_not allow_value('example.com').for(:homepage) }
 
+  describe 'immutable github handle validation' do
+    context 'when creating a new user' do
+      let(:new_user) { build(:user, github_handle: 'github_handle') }
+
+      it 'allows creating a user with given github handle' do
+        expect(new_user.valid?).to eq(true)
+      end
+    end
+
+    context 'when updating an existing user' do
+      let(:existing_user) { create(:user) }
+
+      it 'doesn\'t allow to change user\'s github handle' do
+        existing_user.update(github_handle: 'new_github_handle')
+        expect(existing_user.errors.messages[:github_handle]).to eq(['can\'t be changed'])
+      end
+    end
+  end
+
   describe 'scopes' do
     before do
       @user1 = create(:user)
