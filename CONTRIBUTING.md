@@ -6,10 +6,10 @@ Please note our [Code of Conduct](https://github.com/rails-girls-summer-of-code/
 
 There are different ways to get involved.
 
-0. Find work that needs to be done
-1. Reporting an error
-2. Suggesting a new feature
-3. Resolving an existing issue
+0. [Find work that needs to be done](#find-work-that-needs-to-be-done)
+1. [Reporting an error](#reporting-an-error)
+2. [Suggesting a new feature](#suggesting-a-new-feature)
+3. [Resolving an existing issue](#resolving-an-existing-issue)
 
 ## Find work that needs to be done
 
