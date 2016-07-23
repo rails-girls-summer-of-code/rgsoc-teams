@@ -4,7 +4,7 @@ First of all, thank you for your contribution to the RGSoC Teams App. Or the con
 
 Please note our [Code of Conduct](https://github.com/rails-girls-summer-of-code/rgsoc-teams/blob/master/CODE_OF_CONDUCT.md).
 
-There are different ways to get involved.
+There are different ways to get involved:
 
 0. [Find work that needs to be done](#find-work-that-needs-to-be-done)
 1. [Reporting an error](#reporting-an-error)
@@ -107,6 +107,8 @@ Make atomic commits with a descriptive commit message.
 ### Make a Pull Request
 
 Github [provides documentation](https://help.github.com/articles/creating-a-pull-request/) on how to create a PR. A new PR (and any subsequent updates to it) will trigger running the test suite on Travis CI.
+
+If your contribution alters the way the Teams App looks (e.g. CSS changes), we kindly ask you to provide a few screenshots (before/after) that illustrate the change. It's much easier and quicker to review as we won't have to checkout the PR locally. You can drag'n'drop image files directly into the PR description or its comments section.
 
 ### Be Patient
 
