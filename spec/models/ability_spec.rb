@@ -133,7 +133,7 @@ describe Ability do
 
           context 'when in team for season' do
             before { create :student_role, team: student_team, user: user }
-            let(:student_team) { create(:team, :current_season) }
+            let(:student_team) { create(:team, :in_current_season) }
 
             it 'allows crud on own team' do
               expect(subject).to be_able_to :crud, student_team

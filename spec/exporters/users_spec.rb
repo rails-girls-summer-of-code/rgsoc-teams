@@ -4,7 +4,7 @@ RSpec.describe Exporters::Users do
 
   describe '#current_students' do
     let(:old_team) { create :team, season: nil }
-    let(:new_team) { create :team, :current_season }
+    let(:new_team) { create :team, :in_current_season }
 
     let!(:old_student) { create :user, name: "OLDSTUDENT" }
     let!(:new_student) { create :user, name: "NEWSTUDENT" }

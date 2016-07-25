@@ -7,7 +7,7 @@ FactoryGirl.define do
       name 'helpdesk'
     end
 
-    trait :current_season do
+    trait :in_current_season do
       season { Season.current }
     end
 
