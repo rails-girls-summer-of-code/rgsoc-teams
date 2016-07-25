@@ -4,7 +4,7 @@ h1 = "Application: #{@application.name}"
 
 = simple_form_for @form_path do |a|
   = a.input :misc_info
-  = a.association :project, collection: Project.current.order(:name), include_blank: '- none -'
+  = a.association :project, collection: Project.in_current_season.order(:name), include_blank: '- none -'
   = a.input :project_visibility
   = a.input :coaching_company
   = a.input :city

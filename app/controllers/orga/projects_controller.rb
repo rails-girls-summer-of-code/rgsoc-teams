@@ -2,7 +2,7 @@ class Orga::ProjectsController < Orga::BaseController
   before_action :find_resource, except: [:index]
 
   def index
-    @projects = Project.current
+    @projects = Project.in_current_season
   end
 
   def accept

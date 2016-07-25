@@ -19,7 +19,7 @@ FactoryGirl.define do
       after(:create) { |record| record.reject! }
     end
 
-    trait :current do
+    trait :in_current_season do
       season { Season.current }
     end
   end

@@ -29,6 +29,6 @@ end
 FactoryGirl.create(:application_draft)
 FactoryGirl.create(:application_draft, :appliable)
 
-FactoryGirl.create(:project, :current) #proposed
-FactoryGirl.create(:project, :accepted, :current)
-FactoryGirl.create(:project, :rejected, :current)
+FactoryGirl.create(:project, :in_current_season) #proposed
+FactoryGirl.create(:project, :accepted, :in_current_season)
+FactoryGirl.create(:project, :rejected, :in_current_season)
