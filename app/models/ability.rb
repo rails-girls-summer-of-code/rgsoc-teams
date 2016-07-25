@@ -59,7 +59,7 @@ class Ability
     can :read, :mailing if signed_in?(user)
 
     # applications
-    can :create, :application_draft if user.student? && user.application_drafts.current.none?
+    can :create, :application_draft if user.student? && user.application_drafts.in_current_season.none?
   end
 
   def signed_in?(user)
