@@ -3,7 +3,7 @@ FactoryGirl.define do
     name { [FFaker::CheesyLingo.title, 'Conf'].join ' ' }
     tickets 2
 
-    trait :current_season do
+    trait :in_current_season do
       season { Season.current }
     end
 
