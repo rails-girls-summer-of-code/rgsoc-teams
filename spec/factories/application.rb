@@ -10,7 +10,7 @@ FactoryGirl.define do
       minimum_money: rand(100),
     }}
 
-    trait :current do
+    trait :in_current_season do
       season { Season.current }
     end
   end

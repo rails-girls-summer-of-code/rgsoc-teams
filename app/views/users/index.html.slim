@@ -38,7 +38,7 @@ table.users.table.table-striped.table-bordered.table-condensed.table-hover
         td = user.country
         td = user.location
         td = time_for_user(user)
-        / td = links_to_conferences(user.conferences.current).join(', ').html_safe
+        / td = links_to_conferences(user.conferences.in_current_season).join(', ').html_safe
 
 p.pagination-info
   = page_entries_info @users

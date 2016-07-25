@@ -76,7 +76,7 @@ class UsersController < ApplicationController
     end
 
     def conferences
-      @conferences ||= Conference.current.order(:name)
+      @conferences ||= Conference.in_current_season.order(:name)
     end
     helper_method :conferences
 
