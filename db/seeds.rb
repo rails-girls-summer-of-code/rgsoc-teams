@@ -1,5 +1,5 @@
 # Teams
-FactoryGirl.create_list(:team, 5, :current_season, kind: "sponsored")
+FactoryGirl.create_list(:team, 5, :in_current_season, kind: "sponsored")
 FactoryGirl.create(:team, :in_current_season, kind: "voluntary")
 FactoryGirl.create(:team, :in_current_season) #not accepted
 
