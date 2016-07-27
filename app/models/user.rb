@@ -108,6 +108,10 @@ class User < ActiveRecord::Base
       joins(:roles).where('roles.id IS NOT NULL')
     end
 
+    def with_teams
+      joins(:teams).references(:teams)
+    end
+
     def with_team_kind(kind)
       joins(:teams).where('teams.kind' => kind)
     end
@@ -154,7 +158,9 @@ class User < ActiveRecord::Base
   end
 
   def self.search(search)
-    where("users.name ILIKE ? OR teams.name ILIKE ?", "%#{search}%", "%#{search}%")
+    q_user_names = User.where("users.name ILIKE ?", "%#{search}%")
+    q_team_names = User.with_teams.where("teams.name ILIKE ?", "%#{search}%")
+    q_user_names + q_team_names
   end
 
   private
