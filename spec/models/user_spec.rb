@@ -22,7 +22,7 @@ describe User do
       let(:new_user) { build(:user, github_handle: 'github_handle') }
 
       it 'allows creating a user with given github handle' do
-        expect(new_user.valid?).to eq(true)
+        expect(new_user).to be_valid
       end
     end
 
