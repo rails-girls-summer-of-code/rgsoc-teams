@@ -49,7 +49,7 @@ class UsersController < ApplicationController
 
   def update
     respond_to do |format|
-      if @user.update_attributes(user_params)
+      if @user.update_attributes(restricted_user_params)
         format.html { redirect_to params[:redirect_to] || @user, notice: 'User was successfully updated.' }
         format.json { head :no_content }
       else
@@ -107,4 +107,9 @@ class UsersController < ApplicationController
     def normalize_params
       params[:role] = 'all' if params[:role].blank?
     end
+
+    def restricted_user_params
+      user_params.except(:github_handle)
+    end
+
 end
