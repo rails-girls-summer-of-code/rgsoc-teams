@@ -217,6 +217,37 @@ describe User do
     end
   end
 
+  describe 'Search for user names and team names' do
+    before do
+      @cruyff = FactoryGirl.create(:user, name: "Johan Cruyff")
+      @eesy = FactoryGirl.create(:user, name: "Eesy Peesy")
+      @team = FactoryGirl.create(:team, name: "Cheesy")
+      @cheesy = FactoryGirl.create(:student, team: @team)
+
+    end
+
+    it 'returns user with matching name' do
+      expect(User.search("ruyf")).to eq [@cruyff]
+    end
+    it 'does not return user with non-matching name' do
+      expect(User.search("max")).not_to eq [@cruyff]
+    end
+    it 'searches case insensitive' do
+      expect(User.search("cRUyfF")).to eq [@cruyff]
+    end
+    it 'returns team with matching name' do
+      expect(User.search("chees")).to eq [@cheesy]
+    end
+    it 'returns users and teams with matching name' do
+      expect(User.search("eesy")).to eq [@eesy, @cheesy]
+    end
+    it 'returns all when search string is empty' do
+      expect(User.search("").count).to be == 3
+    end
+  end
+
+
+
   context 'with roles' do
     let!(:user) { FactoryGirl.create(:user) }
     let!(:team) { FactoryGirl.create(:team) }
