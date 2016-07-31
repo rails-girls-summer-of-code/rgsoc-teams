@@ -220,10 +220,16 @@ describe Team do
         team_with_old
       end
 
-      let(:team_with_recent) do
-        team_with_recent = create :team
-        create :status_update, created_at: 1.hour.ago, team: team_with_recent
-        team_with_recent
+      let(:team_with_recent_status_update) do
+        team_with_recent_status_update = create :team
+        create :status_update, created_at: 1.hour.ago, team: team_with_recent_status_update
+        team_with_recent_status_update
+      end
+
+      let(:team_with_recent_feed_entry) do
+        team_with_recent_feed_entry = create :team
+        create :activity, :feed_entry, created_at: 1.hour.ago, team: team_with_recent_feed_entry
+        team_with_recent_feed_entry
       end
 
       it 'includes the team without any status updates' do
@@ -236,9 +242,12 @@ describe Team do
         expect(described_class.without_recent_log_update).to include(team_with_old)
       end
 
-      it 'does not include the team with recent updates' do
-        team_with_recent
-        expect(described_class.without_recent_log_update).not_to include(team_with_recent)
+      it 'does not include the teams with recent updates' do
+        team_with_recent_status_update
+        team_with_recent_feed_entry
+        expect(described_class.without_recent_log_update).not_to include(team_with_recent_status_update)
+        expect(described_class.without_recent_log_update).not_to include(team_with_recent_feed_entry)
+
       end
     end
 

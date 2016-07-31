@@ -32,7 +32,7 @@ class Team < ActiveRecord::Base
   before_save :set_last_checked, if: :checked
 
   scope :without_recent_log_update, -> {
-    where.not(id: Activity.where(kind: 'status_update').where("created_at > ?", 26.hours.ago).pluck(:team_id))
+    where.not(id: Activity.where(kind: ['status_update', 'feed_entry']).where("created_at > ?", 26.hours.ago).pluck(:team_id))
   }
 
   class << self
