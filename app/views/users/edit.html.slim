@@ -48,17 +48,17 @@
   h3.page-header I am interested in:
 
   = f.collection_check_boxes :interested_in, User::INTERESTS.to_a, :first, :last, item_wrapper_tag: 'div', item_wrapper_class: 'interested_in'
-      
+
   - if current_season.started?
     - if Conference.any?
       h3.page-header Conferences
-      p.help-block Here you can select your preferred conferences (max. 3) for the conference raffle. Watch out: Your participation will only be valid if you tweet about it!
+      p.help-block Here you can select your preferred conferences (max. 3) for the conference raffle.
       fieldset.conferences
         .header
           label Conference
         = f.simple_fields_for :attendances do |s|
           = s.input :conference_id, as: :select, collection: conferences, required: false, label: false, default: 1
-          
+
           = s.link_to_remove 'Remove'
         = f.link_to_add 'I want to add another conference!', :attendances, class: 'btn btn-primary form-btn-group'
 
@@ -81,7 +81,7 @@
     = f.input :application_code_background, label: 'How did you get into programming?', input_html: {rows: '5' }
 
     = f.input :application_skills, label: 'Please give us a short summary of your programming skills', hint: 'What languages, frameworks, and tech tools did you learn? What did you build?'
-    
+
     h4 According to these guidelines, what is your programming level (where 1 is the 'lowest')?
     p.help-block For each level, assume that the guidelines of the level(s) below it are also true, meaning that if you see yourself as a Level 2, you should be able to do most of Level 1, too.
     .form-inline
@@ -101,7 +101,7 @@
       = f.input :application_language_learning_period, :collection => User::MONTHS_LEARNING, :include_blank => false, label: 'For how many months have you been learning the language of your primary project?'
 
     = f.input :application_learning_history, label: 'Please summarize what you have been doing to learn programming since your first workshop', hint: 'e.g. entered a study group, learning Rails by doing exercises etc.'
-    
+
     = f.input :application_code_samples, as: :text, label: 'Please link to pull requests you have done or other examples of your coding on GitHub or elsewhere.', input_html: { rows: '5' }
 
     = f.input :application_goals, label: "What do you want to achieve by the end of the summer?", input_html: { rows: 4 }
