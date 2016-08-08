@@ -4,7 +4,7 @@ RSpec.describe Orga::TeamsController do
   render_views
 
   let(:user) { create(:user) }
-  let(:team) { create(:team, :current_season, kind: nil) }
+  let(:team) { create(:team, :in_current_season, kind: nil) }
 
   let(:valid_attributes) { build(:team).attributes.merge(roles_attributes: [{ name: 'coach', github_handle: 'tobias' }]) }
 
@@ -18,8 +18,8 @@ RSpec.describe Orga::TeamsController do
     include_context 'with admin logged in'
 
     describe 'GET index' do
-      let!(:voluntary_team)  { create :team, :current_season, kind: 'voluntary' }
-      let!(:sponsored_team)  { create :team, :current_season, kind: 'sponsored' }
+      let!(:voluntary_team)  { create :team, :in_current_season, kind: 'voluntary' }
+      let!(:sponsored_team)  { create :team, :in_current_season, kind: 'sponsored' }
 
       it 'assigns only selected teams as @teams' do
         get :index

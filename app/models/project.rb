@@ -10,7 +10,7 @@ class Project < ActiveRecord::Base
 
   validates :name, :submitter, :mentor_email, presence: true
 
-  scope :current, -> do
+  scope :in_current_season, -> do
     where(season: Season.transition? ? Season.succ : Season.current)
   end
 

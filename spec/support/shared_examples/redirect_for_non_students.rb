@@ -1,7 +1,7 @@
 RSpec.shared_examples 'redirects for non-users' do
   # OPTIMIZE test actions other than 'index'
 
-  let(:accepted_team) { create :team, :current_season, kind: 'sponsored' }
+  let(:accepted_team) { create :team, :in_current_season, kind: 'sponsored' }
 
   shared_examples_for 'disallows access to students namespace' do
     before do
@@ -37,7 +37,7 @@ RSpec.shared_examples 'redirects for non-users' do
 
   context 'as a student' do
     context 'who is not part of an accepted team' do
-      let(:unaccepted_team) { create :team, :current_season, kind: nil }
+      let(:unaccepted_team) { create :team, :in_current_season, kind: nil }
       let(:user) { create(:student_role, team: unaccepted_team).user }
       it_behaves_like 'disallows access to students namespace'
     end

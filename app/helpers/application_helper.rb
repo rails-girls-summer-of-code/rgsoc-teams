@@ -11,7 +11,7 @@ module ApplicationHelper
   end
 
   def application_disambiguation_link
-    if current_user && current_user.application_drafts.current.any?
+    if current_user && current_user.application_drafts.in_current_season.any?
       link_to 'My Application', application_drafts_path
     else
       link_to 'Apply now', apply_path

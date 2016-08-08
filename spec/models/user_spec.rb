@@ -205,13 +205,13 @@ describe User do
     end
 
     it 'returns false if user\'s team has not been accepted' do
-      team    = FactoryGirl.create(:team, :current_season, kind: nil)
+      team    = FactoryGirl.create(:team, :in_current_season, kind: nil)
       student = FactoryGirl.create(:student, team: team)
       expect(student).not_to be_current_student
     end
 
     it 'returns true if user is among this season\'s accepted students' do
-      team    = FactoryGirl.create(:team, :current_season, kind: 'sponsored')
+      team    = FactoryGirl.create(:team, :in_current_season, kind: 'sponsored')
       student = FactoryGirl.create(:student, team: team)
       expect(student).to be_current_student
     end

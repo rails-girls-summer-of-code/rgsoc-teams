@@ -22,7 +22,7 @@ describe Team do
     let(:role)   { FactoryGirl.create "#{role_name}_role" }
     let(:member) { role.user }
     let(:user) { create(:user) }
-    let(:team) { create :team, :current_season }
+    let(:team) { create :team, :in_current_season }
     let(:roles_attributes) { [{ name: role_name, team_id: team.id, user_id: member.id }] }
 
     context 'for students' do

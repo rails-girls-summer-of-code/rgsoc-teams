@@ -4,8 +4,8 @@ RSpec.describe Exporters::Teams do
 
   describe '#current' do
     let!(:old_team) { create :team, name: "OLDTEAM" }
-    let!(:new_team) { create :team, :current_season, name: "NEWTEAM" }
-    let!(:app_team) { create :team, :applying_team, :current_season, name: "APPLYINGTEAM" }
+    let!(:new_team) { create :team, :in_current_season, name: "NEWTEAM" }
+    let!(:app_team) { create :team, :applying_team, :in_current_season, name: "APPLYINGTEAM" }
 
     subject { described_class.current }
 

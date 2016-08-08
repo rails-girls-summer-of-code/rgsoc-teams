@@ -9,7 +9,7 @@ class ApplicationDraftsController < ApplicationController
   helper_method :application_draft
 
   def index
-    @application_drafts = current_user.application_drafts.current
+    @application_drafts = current_user.application_drafts.in_current_season
     redirect_to [:edit, @application_draft] and return if @application_draft = @application_drafts.first
   end
 
@@ -74,9 +74,9 @@ class ApplicationDraftsController < ApplicationController
 
   def application_draft
     @application_draft ||= if params[:id]
-                             current_team.application_drafts.current.find(params[:id])
+                             current_team.application_drafts.in_current_season.find(params[:id])
                            else
-                             current_team.application_drafts.current.new(team: current_team)
+                             current_team.application_drafts.in_current_season.new(team: current_team)
                            end.tap { |draft| draft.assign_attributes(current_user: current_user, updater: current_user) }
   end
 

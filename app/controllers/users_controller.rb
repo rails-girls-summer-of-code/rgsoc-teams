@@ -76,13 +76,13 @@ class UsersController < ApplicationController
     end
 
     def conferences
-      @conferences ||= Conference.current.order(:name)
+      @conferences ||= Conference.in_current_season.order(:name)
     end
     helper_method :conferences
 
     def teams
       all_teams = Team.all.order(:name)
-      selected_teams = Team.current.selected.order(:name)
+      selected_teams = Team.in_current_season.selected.order(:name)
       current_season.active? ? selected_teams : all_teams
     end
     helper_method :teams

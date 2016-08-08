@@ -8,7 +8,7 @@ RSpec.describe Students::StatusUpdatesController do
   context 'with student logged in' do
     include_context 'with student logged in'
 
-    let(:team) { create :team, :current_season }
+    let(:team) { create :team, :in_current_season }
 
     let(:status_update) { create :status_update, team: team }
 

@@ -12,7 +12,7 @@ RSpec.describe Exporters::Applications do
 
     context 'for existing applications' do
       let!(:old_application) { create :application }
-      let!(:new_application) { create :application, :current }
+      let!(:new_application) { create :application, :in_current_season }
 
       it 'exports all applications of the current season' do
         csv_rows = subject.split("\n")

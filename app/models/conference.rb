@@ -9,7 +9,7 @@ class Conference < ActiveRecord::Base
   accepts_nested_attributes_for :attendances
 
   scope :ordered, ->(sort = {}) { order([sort[:order] || 'starts_on, name', sort[:direction] || 'asc'].join(' ')) }
-  scope :current, -> { where(season: Season.current) }
+  scope :in_current_season, -> { where(season: Season.current) }
 
   def tickets_left
     confirmed_attendances = attendances.select { |attendance| attendance.confirmed }
