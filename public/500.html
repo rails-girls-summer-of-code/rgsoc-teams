@@ -1,29 +1,38 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>OH NOEEES! Something went wrong.Sorry, we'll do better next time. Here is a gif of a cat and a baby for you.(500)</title>
- 
+  <title>Something went wrong (500) | Rails Girls Summer of Code - Teams App</title>
   <style type="text/css">
-    body { background-color: #fff; color: #666; text-align: center; font-family: arial, sans-serif; }
-    div.dialog {
-      width: 25em;
-      padding: 0 4em;
-      margin: 4em auto 0 auto;
+    body { background-color: #fff; color: #666; text-align: center; font-family: Arial, sans-serif; }
+    div.container {
+      margin: 4rem auto;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      max-width: 400px;
+      background-color: #d82222;
       border: 1px solid #ccc;
       border-right-color: #999;
       border-bottom-color: #999;
     }
+    .dialog { padding: 2rem 0; background-color: white; }
     h1 { font-size: 100%; color: #f00; line-height: 1.5em; }
+    a { color: #d82222; text-decoration: none; }
   </style>
 </head>
- 
 <body>
-
   <!-- This file lives in public/500.html -->
-  <div class="dialog">
-    <h1>OH NOEEES! Something went wrong. Sorry, we'll do better next time. Here is a gif of a cat and a baby for you.</h1>
-
+  <div class="container">
+    <a href="https://teams.railsgirlssummerofcode.org/" title="RGSoC Teams App">
+      <img src="images/logo_subnavi.png" alt="RGSoC Logo" width="80%" height="auto" />
+    </a>
+    <div class="dialog">
+      <h1>Something went wrong.<br />Sorry, we'll do better next time. <br />(Error 500)</h1>
+      <p>Here is a gif of a cat and a baby for you.</p>
+      <p>Go back to the <a href="https://teams.railsgirlssummerofcode.org/" title="RGSoC Teams App">Teams App &rarr;</a></p>
+      <img src="https://cloud.githubusercontent.com/assets/1711357/7545667/1651b494-f5d7-11e4-9dc0-d643346d01d2.gif" alt="Cat jumping away from another cat" width="80%" height="auto" />
+    </div>
   </div>
 </body>
- <img src="https://cloud.githubusercontent.com/assets/1711357/7545667/1651b494-f5d7-11e4-9dc0-d643346d01d2.gif">
 </html>
