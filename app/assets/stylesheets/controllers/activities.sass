@@ -1,4 +1,4 @@
-// // Styles for the activities-controller.
+// Styles for the activities-controller.
 
 ul.activities
   padding-left: 0
@@ -22,3 +22,25 @@ ul.activities
     @media screen and (min-width: $screen-sm)
       .text
         padding: 1.2rem 3rem 0.8rem 0
+
+.status_update
+  dl
+    @include clearfix
+  dt
+    float: left
+    width: 120px
+    font-weight: bold
+
+// Images in status updates and activity stream
+.status_updates, .activities
+  p
+    img
+      max-width: 100%
+      float: left
+      padding: 1rem 0
+      @media screen and (min-width: $screen-md)
+        max-width: 50%
+        padding: 0 1rem 1rem 0
+
+.hidden
+  display: none
