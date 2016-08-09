@@ -14,11 +14,10 @@ class UsersController < ApplicationController
     }
     @users = User.ordered(params[:sort],params[:direction])
         .group('users.id').with_all_associations_joined
-        .page(params[:page])
     @users = @users.with_assigned_roles if Time.now.utc > (current_season.starts_at || Date.new)
     @users = @users.with_role(params[:role]) if params[:role].present? && params[:role] != 'all'
     @users = @users.with_interest(params[:interest]) if params[:interest].present? && params[:interest] != 'all'
-    @users = @users.search(params[:search]) if params[:search]
+    @users = Kaminari.paginate_array(@users.search(params[:search])).page(params[:page])
   end
 
   def show
