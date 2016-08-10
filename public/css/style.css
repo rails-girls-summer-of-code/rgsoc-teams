@@ -1,0 +1,31 @@
+body {
+  background-color: #fff;
+  color: #666;
+  text-align: center;
+  font-family: Arial, sans-serif;
+}
+div.container {
+  margin: 4rem auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  max-width: 400px;
+  background-color: #d82222;
+  border: 1px solid #ccc;
+  border-right-color: #999;
+  border-bottom-color: #999;
+}
+.dialog {
+  padding: 2rem 0;
+  background-color: white;
+}
+h1 {
+  font-size: 100%;
+  color: #f00;
+  line-height: 1.5em;
+}
+a {
+  color: #d82222;
+  text-decoration: none;
+}
