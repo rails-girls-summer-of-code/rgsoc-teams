@@ -19,7 +19,8 @@ p.well Please make sure you have read our #{link_to "mentor guide", 'http://rail
            data: sform, // serialized from
            success: function(data)
            {
-               alert(data); // show response from server.
+              //alert(data); // show response from server.
+              $('#preview_pane').html(data);
            }
        });
      }

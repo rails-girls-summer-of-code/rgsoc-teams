@@ -37,7 +37,7 @@ class ProjectsController < ApplicationController
     @project.season = Season.transition? ? Season.succ : Season.current
     respond_to do |format|
       if !params.has_key?(:commit) || !@project.save
-        format.html { render action: :new }
+        format.html { render partial: "preview" }
   # TODO: render and send partial _preview.html.slim
         #render :partial => '_preview', :content_type => 'text/html'
       else
