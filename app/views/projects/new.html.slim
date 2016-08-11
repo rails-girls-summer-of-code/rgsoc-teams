@@ -31,7 +31,9 @@ p.well Please make sure you have read our #{link_to "mentor guide", 'http://rail
       li
         a href="#preview_pane" data-toggle="tab" id="preview_tab" onclick="send_preview();" Preview
   </ul>
-          
+  <div class="tab-content">
+      <div class="tab-pane #{'active' unless params[:preview_button]}" id="project_pane">
+                    
       
       
 
@@ -58,7 +60,7 @@ p.well Please make sure you have read our #{link_to "mentor guide", 'http://rail
           ul.list-inline
             li = f.submit 'Submit', class: 'btn btn-success'
 
-      
+  </div>   
   <div class="tab-pane" id="preview_pane">
     
   </div>
