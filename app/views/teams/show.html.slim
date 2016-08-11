@@ -91,8 +91,7 @@ nav.page
   ul.conferences
     - @team.members.each do |user|
       - if user.conferences.in_current_season.any?
-        li = "#{link_to user.name, user}: #{links_to_conferences(user.conferences.in_current_season, true).join(', ')}"
-        .html_safe
+        li = "#{link_to user.name, user}: #{links_to_conferences(user.conferences.in_current_season, true).join(', ')}".html_safe
 
 - if @team.activities.any?
   h3
