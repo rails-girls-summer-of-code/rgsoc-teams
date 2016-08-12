@@ -36,24 +36,20 @@ class ProjectsController < ApplicationController
     @project.submitter = current_user
     @project.season = Season.transition? ? Season.succ : Season.current
     respond_to do |format|
-      if !params.has_key?(:commit) || !@project.save
-        format.html { render partial: "preview" }
-  # TODO: render and send partial _preview.html.slim
-        #render :partial => '_preview', :content_type => 'text/html'
-      else
-        @project.save
+      if @project.save
         ProjectMailer.proposal(@project).deliver_later
         format.html { redirect_to receipt_project_path(@project) }
+      else
+        format.html { render :new }
       end
     end
   end
 
-  # def preview
-  #   @project = Project.build(project_params)
-  #    format.html { render action: :preview }
-
-  # end
-
+  def preview
+    @project = Project.new(project_params)
+    render partial: "preview"
+  end
+  
   def receipt
     @project = Project.find(params[:id])
   end
