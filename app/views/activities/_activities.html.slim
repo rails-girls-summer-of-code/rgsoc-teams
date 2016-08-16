@@ -4,4 +4,7 @@
   - activities.each do |activity|
     ul.activities
       = render partial: "activities/#{activity.kind}", object: activity, as: :activity
-
+      - if activity.comments.any?
+        - activity.comments.each do |comment|
+          h5 = "#{ user_for_comment(comment) }, #{ format_date(comment.created_at, :short) }".html_safe
+          p = comment.text.html_safe

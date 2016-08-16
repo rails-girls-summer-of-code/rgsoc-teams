@@ -12,6 +12,32 @@ p
 .well.status_update
   = render_markdown(@status_update.content).html_safe
 
+/copied from projects show view
+
+h2#comments.header
+  = icon('comments')
+  span Comments
+
+- if current_user
+  = simple_form_for Comment.new(commentable: @status_update), url: comments_path do |f|
+    .checks
+      = f.error_notification
+
+      .form-inputs.clearfix
+        = f.input :commentable_id, as: :hidden
+        = f.input :commentable_type, as: :hidden
+        = f.input :text, as: :text, label: "Comment on this project", input_html: { rows: 5 }, hint: 'You can use basic <a href="http://en.wikipedia.org/wiki/Markdown" target="_blank">Markdown</a> here.'.html_safe, required: true
+
+      .form-actions
+        = f.button :submit, 'Save comment'
+- else
+  p You must be logged in to comment on this project.
+
+- @status_update.comments.each do |comment|
+  hr(id="#{dom_id comment}")
+  h5 = "#{ user_for_comment(comment) }, #{ l(comment.created_at, format: :short) }".html_safe
+  p = render_markdown(comment.text).html_safe
+
 nav.page
   .back-nav
     ul
