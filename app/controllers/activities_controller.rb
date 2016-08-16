@@ -14,10 +14,6 @@ class ActivitiesController < ApplicationController
     end
   end
 
-  def show
-
-  end
-
   private
 
     def set_activities
