@@ -14,6 +14,10 @@ class ActivitiesController < ApplicationController
     end
   end
 
+  def show
+    @status_update = Activity.with_kind('status_update').find params[:id]
+  end
+
   private
 
     def set_activities
