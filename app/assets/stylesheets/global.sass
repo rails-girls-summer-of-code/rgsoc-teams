@@ -179,7 +179,7 @@ html, body
       height: 180px
       margin-right: 2em
 
-  .profile, .mailing, .conference
+  .profile, .mailing
     dl
       // margin-bottom: 1em
       @include clearfix
@@ -187,20 +187,6 @@ html, body
       float: left
       width: 100px
       font-weight: normal
-  .conference
-    dl
-      width: 100%
-    dt
-      width: 20%
-      text-align: left
-
-  .status_update
-    dl
-      @include clearfix
-    dt
-      float: left
-      width: 120px
-      font-weight: bold
 
   .sources, .teams, .profiles, .attendees, .conferences, .status_update, .projects
     li
@@ -265,15 +251,12 @@ html, body
       *:last-child
         margin-bottom: 0
 
+  // TODO: .comment(s) used anywhere? application?
   .comments
     top: 180px
     width: 300px
     ul
       margin-left: 0
-
-  .information
-    ul
-      padding-left: 0
 
   .comment
     h3
@@ -281,6 +264,11 @@ html, body
       font-weight: bold
     p
       font-size: 1.3rem
+
+  // TODO: .information possibly unused
+  .information
+    ul
+      padding-left: 0
 
   a.atom
     float: right
@@ -293,41 +281,13 @@ html, body
   .pagination-info
     color: $gray
 
-  .pages
-    #content
-      width: 100%
-      padding-right: 300px
-
-    aside
-      position: absolute
-      right: 0
-      width: 220px
-      ul
-        margin-left: 0
-.users
-  td:nth-child(2)
-    white-space: nowrap
-
-.teams
-  .user
-    white-space: nowrap
-
-.github
-  @include icon-after($github-alt)
+// .well is the grey-ish box, e.g. Private info in users/show
+.well h3
+  padding: 0
+  margin-top: 0
 
 .twitter
   @include icon-after($twitter)
-
-.team
-  @include icon-before($star-empty)
-  &.sponsored
-    @include icon-before($star)
-
-.hint
-  font-size: 0.9em
-  color: $gray
-  i
-    margin-right: 0.25em
 
 form
   .help-block
@@ -367,16 +327,13 @@ form
   .form-control
     margin-left: 5px
 
-.interested_in
-  label
-    font-weight: normal
-  input[type=checkbox]
-    margin-right: 10px !important
+.form-btn-group
+  margin: 1em 0 2em
 
+// #search-form currently only used in users/show
+// But keep it with grouped with form styles in global.sass
 #search-form
   margin: 1rem 0
-
-#search-form
   input[type=text]
     padding: 0.1rem 0.3rem 0.3rem
 
@@ -400,13 +357,13 @@ form
   border-color: $railsred
 
 // page-header
-
 h1.header, h2.header
   i, span
     display: inline-block
   span
     margin-left: 10px
 
+// Used with teams/show, nav, …
 .user
   margin: 0 10px 10px 0
   display: inline-block
@@ -416,72 +373,9 @@ h1.header, h2.header
     margin-right: 5px
     vertical-align: middle
 
-#rating
-  position: absolute
-  background: $lightgray
-  width: 400px
-  padding: 10px
-  right: 0
-  top: 100px
-  bottom: 0
-  overflow: scroll
-  .button_group span
-    display: block
-  .rating-fixed &
-    position: fixed
-    top: 0
-
-#application
-  margin-right: 420px
-  .comment h3
-    font-size: 1em
-    font-weight: bold
-  .comment p
-    font-size: 1em
-
-#team
-  margin-right: 420px
-
-#student
-  margin-right: 420px
-
-#content .well h3
-  padding: 0
-  margin-top: 0
-
-.supervising
-  position: relative
-  overflow: auto
-  h5
-    width: 30%
-  .information
-    position: absolute
-    top: 20px
-    right: 20px
-    text-align: left
-    width: 35%
-
-.form-btn-group
-  margin: 1em 0 2em
-
 // Supervisor Comments
 
 .comments
   h5
     font-style: italic
     margin-bottom: 0
-
-// Images in status updates and activity stream
-
-.status_updates, .activities
-  p
-    img
-      max-width: 100%
-      float: left
-      padding: 1rem 0
-      @media screen and (min-width: $screen-md)
-        max-width: 50%
-        padding: 0 1rem 1rem 0
-
-.hidden
-  display: none
