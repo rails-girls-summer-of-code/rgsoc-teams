@@ -6,6 +6,9 @@ Rails.application.configure do
   # since you don't have to restart the web server when you make code changes.
   config.cache_classes = false
 
+  # Do not eager load code on boot.
+  config.eager_load = false
+
   # Show full error reports and disable caching.
   config.consider_all_requests_local       = true
   config.action_controller.perform_caching = false
@@ -18,12 +21,6 @@ Rails.application.configure do
 
   # Raise an error on page load if there are pending migrations.
   config.active_record.migration_error = :page_load
-
-  # Only use best-standards-support built into browsers.
-  config.action_dispatch.best_standards_support = :builtin
-
-  # Do not compress assets.
-  config.assets.compress = false
 
   # Debug mode disables concatenation and preprocessing of assets.
   # This option may cause significant delays in view rendering with a large
@@ -39,7 +36,7 @@ Rails.application.configure do
   # Raises helpful error messages.
   config.assets.raise_runtime_errors = true
 
-  # Raises error for missing translations.
+  # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
 
   config.action_mailer.default_url_options = { host: 'localhost:3000' }
@@ -58,7 +55,4 @@ Rails.application.configure do
     config.action_mailer.raise_delivery_errors = false
   end
   config.action_mailer.preview_path = "#{Rails.root}/lib/mailer_previews"
-
-  # Do not eager load code on boot.
-  config.eager_load = false
 end
