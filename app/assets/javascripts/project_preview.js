@@ -10,8 +10,7 @@
 //   return
 
   function send_preview() {
-  var sform=$('#new_project').serialize()
-   
+  var sform=$($('[data-js="project_form"]')[0].elements).not('input:hidden[name=_method]').serialize()
   $.ajax({
     type: "POST",
     url: "/projects/preview",
@@ -20,6 +19,8 @@
     {
     
     $('#preview_pane').html(data);
+
+    console.log(data);
     
     }
   });
