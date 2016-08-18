@@ -40,7 +40,7 @@ class ProjectsController < ApplicationController
         ProjectMailer.proposal(@project).deliver_later
         format.html { redirect_to receipt_project_path(@project) }
       else
-        format.html { render :new }
+        format.html { render action: :new }
       end
     end
   end
