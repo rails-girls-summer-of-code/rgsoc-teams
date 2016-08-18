@@ -24,12 +24,12 @@ h2#comments.header
       .form-inputs.clearfix
         = f.input :commentable_id, as: :hidden
         = f.input :commentable_type, as: :hidden
-        = f.input :text, as: :text, label: "Comment on this project", input_html: { rows: 5 }, hint: 'You can use basic <a href="http://en.wikipedia.org/wiki/Markdown" target="_blank">Markdown</a> here.'.html_safe, required: true
+        = f.input :text, as: :text, label: "Add a comment", input_html: { rows: 5 }, hint: 'You can use basic <ahref="http://en.wikipedia.org/wiki/Markdown" target="_blank">Markdown</a> here.'.html_safe, required: true
 
       .form-actions
         = f.button :submit, 'Save comment'
 - else
-  p You must be logged in to comment on this project.
+  p You must be logged in to add a comment.
 
 - @status_update.comments.each do |comment|
   hr(id="#{dom_id comment}")

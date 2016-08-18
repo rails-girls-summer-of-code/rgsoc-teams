@@ -20,8 +20,8 @@ RgsocTeams::Application.routes.draw do
   resources :conferences
   resources :attendances
   resources :contributors, only: :index
-  # resources :status_updates, only: :show
-  resources :activities, only: :show, as: :activity
+  resources :status_updates, only: :show, as: :activity
+
 
   resources :projects do
     member do
