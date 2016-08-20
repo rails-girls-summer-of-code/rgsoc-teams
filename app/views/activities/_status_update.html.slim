@@ -6,7 +6,7 @@ li class="activity #{activity.kind}"
     
     div.text.col-sm-8.col-md-9
       h4.title
-        = link_to(activity.title, activity_path(activity))
+        = link_to(activity.title, status_update_path(activity))
       p.info
         = link_to activity.team.display_name, activity.team
         ' &nbsp;&mdash; 
