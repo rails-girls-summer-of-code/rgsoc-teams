@@ -4,8 +4,8 @@ class StatusUpdateCommentsController < CommentsController
     comment = Comment.new(comment_params)
     status_update = comment.commentable
 
-    if (comment.text.present? && comment.save)
-      anchor = ActionView::RecordIdentifier.dom_id(comment)
+    if comment.text.present?
+      comment.save
     else
       flash[:alert] = "Oh no! We can't save your comment. Please try again?"
     end

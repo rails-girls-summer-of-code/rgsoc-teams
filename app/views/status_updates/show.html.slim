@@ -32,7 +32,6 @@ h2#comments.header
   p You must be logged in to add a comment.
 
 - @status_update.comments.each do |comment|
-  hr(id="#{dom_id comment}")
   h5 = "#{ user_for_comment(comment) }, #{ l(comment.created_at, format: :shortest) }".html_safe
   p = render_markdown(comment.text).html_safe
 
