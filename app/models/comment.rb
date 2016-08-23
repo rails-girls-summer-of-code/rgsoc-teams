@@ -1,4 +1,7 @@
 class Comment < ActiveRecord::Base
+
+  validates :text, presence: true, unless: :is_supervisor_check?
+
   belongs_to :user
   belongs_to :project
   belongs_to :commentable, polymorphic: true
@@ -7,6 +10,10 @@ class Comment < ActiveRecord::Base
 
   before_save :set_checked
   after_commit :notify!
+
+  def is_supervisor_check?
+    commentable.is_a? Team
+  end
 
   def for_application?
     commentable.is_a? Application
