@@ -10,7 +10,7 @@ class CommentsController < ApplicationController
   def create
     comment = Comment.new(comment_params)
 
-    if (comment.text.present? && comment.save)
+    if comment.save
       anchor = ActionView::RecordIdentifier.dom_id(comment)
     else
       flash[:alert] = "Oh no! We can't save your comment. Please try again?"
