@@ -1,4 +1,4 @@
-class StatusUpdates::CommentsController < CommentsController
+class StatusUpdateCommentsController < CommentsController
 
   def create
     comment = Comment.new(comment_params)

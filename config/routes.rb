@@ -22,9 +22,7 @@ RgsocTeams::Application.routes.draw do
   resources :contributors, only: :index
 
   resources :status_updates, only: :show
-  namespace :status_updates do
-    resources :comments, only: :create
-  end
+  resources :status_update_comments, only: :create
 
   resources :projects do
     member do
