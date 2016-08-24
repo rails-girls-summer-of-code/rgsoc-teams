@@ -1,4 +1,3 @@
-
 nav.page
   .back-nav
     ul
@@ -12,7 +11,7 @@ p.well Please make sure you have read our #{link_to "mentor guide", 'http://rail
       li.active
         a (href="#project_pane" data-toggle="tab") Project
       li
-        a (href="#preview_pane" data-toggle="tab" id="preview_tab" onclick="sendPreview()") Preview
+        a (href="#preview_pane" data-toggle="tab" id="preview_tab" onclick="sendPreview()" data-ajax_path=preview_projects_path) Preview
 
   .tab-content
     .tab-pane.active#project_pane
@@ -40,4 +39,3 @@ p.well Please make sure you have read our #{link_to "mentor guide", 'http://rail
           li = f.submit 'Submit', class: 'btn btn-success'
     
     .tab-pane#preview_pane
-    
