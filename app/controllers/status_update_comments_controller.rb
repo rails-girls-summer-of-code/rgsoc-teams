@@ -4,12 +4,12 @@ class StatusUpdateCommentsController < CommentsController
     comment = Comment.new(comment_params)
     status_update = comment.commentable
 
-    if comment.save
-      redirect_to status_update_path(status_update)
+    if comment.text.present?
+      comment.save
     else
       flash[:alert] = "O no! We can't save an empty comment. Please try again?"
-      redirect_to status_update_path(status_update)
     end
+    redirect_to status_update_path(status_update)
   end
 
   private

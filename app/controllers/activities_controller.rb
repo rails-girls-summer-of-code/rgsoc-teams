@@ -7,7 +7,6 @@ class ActivitiesController < ApplicationController
 
   def index
     @team = Team.find_by id: params[:team_id] if params[:team_id]
-    flash.now[:notice] = "You can add comments now! Click on the title of a post and see what emerges"
     respond_to do |format|
       format.html
       format.json { render json: @activities }
