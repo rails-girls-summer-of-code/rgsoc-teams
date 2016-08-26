@@ -6,15 +6,15 @@ nav.page
 
 p.well Please make sure you have read our #{link_to "mentor guide", 'http://railsgirlssummerofcode.org/guide/projects/'} before you submit your Open Source project for the upcoming Rails Girls Summer of Code.
 
-= simple_nested_form_for @project, data: { js: "project_form" } do |f|
+= simple_nested_form_for @project, data: { js: "project-form" } do |f|
   ul.nav.nav-tabs
       li.active
-        a (href="#project_pane" data-toggle="tab") Project
+        a (href="#project-pane" data-toggle="tab") Project
       li
-        a (href="#preview_pane" data-toggle="tab" id="preview_tab" onclick="sendPreview()" data-ajax_path=preview_projects_path) Preview
+        a (href="#preview-pane" data-toggle="tab" id="preview-tab" onclick="sendPreview()" data-ajax-path=preview_projects_path) Preview
 
   .tab-content
-    .tab-pane.active#project_pane
+    .tab-pane.active#project-pane
 
       - if @project.errors.any?
         #error_explanation
@@ -38,4 +38,4 @@ p.well Please make sure you have read our #{link_to "mentor guide", 'http://rail
         ul.list-inline
           li = f.submit 'Submit', class: 'btn btn-success'
     
-    .tab-pane#preview_pane
+    .tab-pane#preview-pane

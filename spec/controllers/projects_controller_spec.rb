@@ -72,7 +72,7 @@ RSpec.describe ProjectsController do
 
   describe 'POST preview' do
     it 'renders partial preview' do
-      post :preview, project: project.attributes
+      xhr :post, :preview, project: project.attributes
       expect(response).to render_template "_preview"
     end
   end
