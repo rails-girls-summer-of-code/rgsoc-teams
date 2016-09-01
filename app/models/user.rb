@@ -126,7 +126,11 @@ class User < ActiveRecord::Base
     def with_interest(interest)
       where(":interest = ANY(interested_in)", interest: interest)
     end
-  end
+
+    def non_updateable_params
+      :github_handle
+    end
+  end # class << self
 
   def rating(type = :mean, options = {})
     Rating::Calc.new(self, type, options).calc
