@@ -1,0 +1,16 @@
+= content_for :head do
+  link rel="alternate" type="application/atom+xml" title="#{@status_update.team.display_name}'s Status Updates" href=activities_url(format: :atom, team_id: @status_update.team_id)
+= content_tag :h1, @status_update.title
+
+p
+  Published #{l @status_update.published_at, format: :long} 
+  by #{link_to @status_update.team.display_name, @status_update.team}
+
+  = link_to activities_path(format: :atom, team_id: @status_update.team.id), class: 'atom' do
+    | Subscribe to this teams's activities
+
+.well.status_update
+  = render_markdown(@status_update.content).html_safe
+
+- content_for :title do
+  = @status_update.title

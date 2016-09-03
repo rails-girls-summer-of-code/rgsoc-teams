@@ -18,6 +18,13 @@ class Students::StatusUpdatesController < Students::BaseController
     end
   end
 
+  def preview
+    @status_update = current_team.status_updates.build(
+      status_update_params.merge(published_at: Time.now.utc)
+    )
+    render partial: "preview"
+  end
+
   def show
   end
 

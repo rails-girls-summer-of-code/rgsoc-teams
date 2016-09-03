@@ -89,7 +89,9 @@ RgsocTeams::Application.routes.draw do
   end
 
   namespace :students do
-    resources :status_updates, :except => [:new]
+    resources :status_updates, :except => [:new] do
+      post 'preview', on: :collection
+    end
   end
 
   get 'supervisor', to: 'supervisor/dashboard#index'
