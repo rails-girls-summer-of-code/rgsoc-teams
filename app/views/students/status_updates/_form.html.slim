@@ -1,14 +1,23 @@
-= f.error_notification
+ul.nav.nav-tabs
+  li.active
+    a (href="#project-pane" data-toggle="tab") Status update
+  li
+    a (href="#preview-pane" data-toggle="tab" id="preview-tab" onclick="sendPreview()" data-ajax-path="") Preview
 
-.form-inputs.clearfix
-  = f.input :title, placeholder: 'Headline of your update'
-  = f.input :content,
-            label: 'Text',
-            input_html: { rows: '7' },
-            placeholder: 'Summary of your day',
-            hint: "You can use basic #{link_to 'Markdown', "https://en.wikipedia.org/wiki/Markdown", target: :blank}.".html_safe
+.tab-content
+  .tab-pane.active#project-pane
+    = f.error_notification
 
-.alert.alert-warning Your status update will be publicly available. Please respect the privacy of others (e.g. when posting photos or names).
+    .form-inputs.clearfix
+      = f.input :title, placeholder: 'Headline of your update'
+      = f.input :content,
+                label: 'Text',
+                input_html: { rows: '7' },
+                placeholder: 'Summary of your day',
+                hint: "You can use basic #{link_to 'Markdown', "https://en.wikipedia.org/wiki/Markdown", target: :blank}.".html_safe
 
-.form-actions
-  = f.button :submit
+    .alert.alert-warning Your status update will be publicly available. Please respect the privacy of others (e.g. when posting photos or names).
+
+    .form-actions
+      = f.button :submit
+.tab-pane#preview-pane

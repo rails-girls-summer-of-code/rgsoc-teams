@@ -1,6 +1,6 @@
 h1 Edit Status Update
 
-= simple_form_for(@status_update, url: students_status_update_path(@status_update)) do |f|
+= simple_form_for(@status_update, url: students_status_update_path(@status_update)), data: { js: "project-form" } do |f|
   == render 'form', f: f
 
 br
