@@ -128,7 +128,7 @@ class User < ActiveRecord::Base
     end
 
     def non_updateable_params
-      [:github_handle]
+      :github_handle
     end
   end # class << self
 
@@ -166,11 +166,6 @@ class User < ActiveRecord::Base
     q_user_names = User.where("users.name ILIKE ?", "%#{search}%")
     q_team_names = User.with_teams.where("teams.name ILIKE ?", "%#{search}%")
     (q_user_names + q_team_names).uniq
-  end
-
-  def delete_keys_for_update(keys)
-    hash = self.dup
-    keys.each {|key|hash.delete(key)} 
   end
 
   private
