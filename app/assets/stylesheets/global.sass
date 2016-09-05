@@ -41,6 +41,10 @@ html, body
 .btn
   margin: 0 0 0 0.6rem
 
+.btn-group
+  .btn
+    margin: 0.3rem 0
+
 // For sticky footer
 #wrap
   min-height: 100%
@@ -270,14 +274,6 @@ html, body
     ul
       padding-left: 0
 
-  a.atom
-    float: right
-    font-size: .6em
-    color: $main
-    @include icon-after($rss)
-    span
-      display: none
-
   .pagination-info
     color: $gray
 
@@ -320,12 +316,24 @@ form
     input
       margin-right: 5px
 
+@media (max-width: $screen-sm)
+  .form-inline
+    .radio
+      input[type=radio]
+        position: inherit
+        margin-left: 0
+
 .filter
-  .team_filter
-    margin-top: -5px
-    float: right
   .form-control
     margin-left: 5px
+
+@media (min-width: $screen-sm)
+  .filter
+    .team_filter
+      float: right
+      margin-top: -5px
+    .form-control
+      margin-left: 0
 
 .form-btn-group
   margin: 1em 0 2em
