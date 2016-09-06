@@ -3,7 +3,7 @@ require 'spec_helper'
 describe UsersController do
   render_views
 
-  let(:valid_attributes) { build(:user).attributes.except('github_id', 'avatar_url', User.immutable_params.to_s) }
+  let(:valid_attributes) { build(:user).attributes.except('github_id', 'avatar_url', *User.immutable_attributes.map(&:to_s)) }
   let(:valid_session)    { { "warden.user.user.key" => session["warden.user.user.key"] } }
 
   describe "GET index" do

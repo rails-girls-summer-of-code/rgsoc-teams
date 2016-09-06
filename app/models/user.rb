@@ -127,8 +127,8 @@ class User < ActiveRecord::Base
       where(":interest = ANY(interested_in)", interest: interest)
     end
 
-    def immutable_params
-      :github_handle
+    def immutable_attributes
+      [:github_handle]
     end
   end # class << self
 

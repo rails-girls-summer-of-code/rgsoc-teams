@@ -14,7 +14,7 @@ FactoryGirl.define do
 
       after(:create) do |draft|
         draft.students.each do |student|
-          student_update_attributes = (attributes_for :student, :applicant).except(User.immutable_params)
+          student_update_attributes = (attributes_for :student, :applicant).except(*User.immutable_attributes)
           student.update(student_update_attributes)
         end
       end
