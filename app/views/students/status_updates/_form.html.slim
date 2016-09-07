@@ -17,7 +17,9 @@ ul.nav.nav-tabs
                 hint: "You can use basic #{link_to 'Markdown', "https://en.wikipedia.org/wiki/Markdown", target: :blank}.".html_safe
 
     .alert.alert-warning Your status update will be publicly available. Please respect the privacy of others (e.g. when posting photos or names).
-
+      
     .form-actions
       = f.button :submit
+      p
+      = links_to_status_updates
   .tab-pane#preview-pane
