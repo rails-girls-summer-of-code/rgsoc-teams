@@ -20,8 +20,7 @@ class Students::StatusUpdatesController < Students::BaseController
 
   def preview
     @status_update = current_team.status_updates.build(
-      status_update_params.merge(published_at: Time.now.utc)
-    )
+      status_update_params)
     render partial: "preview"
   end
 
