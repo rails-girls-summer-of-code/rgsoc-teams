@@ -4,7 +4,7 @@ class CommentsController < ApplicationController
   # Supervisor's comments on their teams are managed by the supervisor/comments-controller
   # We only allow comments with text (others do not make sense here)
 
-  # this might be overwritten by subclasses to prepend to the riderct path:
+  # this might be overwritten by subclasses to prepend to the redirect path:
   PATH_PARENTS = []
 
   def create
