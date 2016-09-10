@@ -3,25 +3,5 @@
 
   - activities.each do |activity|
     ul.activities
-      / TO DO: move back into partial
-      /= render partial: "activities/#{activity.kind}", object: activity, as: :activity
 
-      li class="activity #{activity.kind}"
-        div.row
-          div.avatars.hidden-xs.col-sm-4.col-md-3
-            - activity.students.each do |student|
-              = image_tag(student.avatar_url, class: "avatar")
-
-          div.text.col-sm-8.col-md-9
-            h4.title
-              = link_to(activity.title, activity_path(activity))
-            p.info
-              = link_to activity.team.display_name, activity.team
-              ' &nbsp;&mdash;
-              span.published_at = "at #{l activity.published_at, format: :long}".html_safe if activity.published_at
-            p
-              = render_markdown(activity.content).html_safe
-      - if activity.comments.any?
-        - activity.comments.each do |comment|
-          h5 = "#{ user_for_comment(comment) }, #{ format_date(comment.created_at, :short) }".html_safe
-          p = comment.text.html_safe
+      = render partial: "activities/#{activity.kind}", object: activity, as: :activity
