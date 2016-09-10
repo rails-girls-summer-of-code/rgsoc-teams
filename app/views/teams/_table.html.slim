@@ -7,8 +7,8 @@ table.table.table-striped.table-bordered.table-condensed
     th Name
     - @display_roles.each do |role|
       th = role.capitalize
-    / TODO quick fix, hiding conferences in teams view until program kick-off
-    / th Conferences
+    - if current_season.active?
+      th Conferences
     th Location
     - if current_user.try :admin?
       th Last checked
@@ -27,9 +27,8 @@ table.table.table-striped.table-bordered.table-condensed
               li.user
                 = avatar_url(user, size: 20)
                 = link_to(user.name_or_handle, user)
-      / TODO quick fix, hiding conferences in teams view until program kick-off
-      / td = links_to_conferences(team.members.map { |u| u.conferences.in_current_season }.flatten.uniq).join(', ')
-      /.html_safe
+      - if current_season.active?
+        td = links_to_conferences(team.members.map { |u| u.conferences.in_current_season }.flatten.uniq).join(', ').html_safe
       td = team.students_location
       - if current_user.try :admin?
         td = format_date(team.last_checked_at)

@@ -33,7 +33,7 @@ table.users.table.table-striped.table-bordered.table-condensed.table-hover
         td = user.interested_in.map { |key| User::INTERESTS[key].presence }.compact.join(', ')
         - if signed_in?
           td = mail_to user.email unless user.hide_email?
-        td = link_to user.github_handle, "http://github.com/#{user.github_handle}"
+        td = link_to user.github_handle, "https://github.com/#{user.github_handle}"
         td = link_to_user_roles(user)
         td = user.country
         td = user.location

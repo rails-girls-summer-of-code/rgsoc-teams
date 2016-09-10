@@ -20,13 +20,13 @@ RgsocTeams::Application.routes.draw do
   resources :conferences
   resources :attendances
   resources :contributors, only: :index
-  # resources :status_updates, only: :show
-  resources :activities, only: :show, as: :activity
+
+  resources :students, only: :index
+  resources :status_updates, only: :show
 
   resources :projects do
-    member do
-      get 'receipt', as: :receipt
-    end
+    get 'receipt', as: :receipt, on: :member
+    post 'preview', on: :collection
   end
 
   get 'rating', to: 'rating/overview#index'
