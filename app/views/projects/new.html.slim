@@ -6,7 +6,7 @@ nav.page
 
 p.well Please make sure you have read our #{link_to "mentor guide", 'http://railsgirlssummerofcode.org/guide/projects/'} before you submit your Open Source project for the upcoming Rails Girls Summer of Code.
 
-= simple_nested_form_for @project, data: { js: "form" } do |f|
+= simple_nested_form_for @project, data: { js: "form-with-preview" } do |f|
   ul.nav.nav-tabs
       li.active
         a (href="#main-pane" data-toggle="tab") Project

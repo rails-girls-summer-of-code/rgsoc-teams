@@ -1,4 +1,4 @@
 h1 Edit Status Update
 
-= simple_form_for(@status_update, url: students_status_update_path(@status_update), data: { js: "form" }) do |f|
+= simple_form_for(@status_update, url: students_status_update_path(@status_update), data: { js: "form-with-preview" }) do |f|
   == render 'form', f: f

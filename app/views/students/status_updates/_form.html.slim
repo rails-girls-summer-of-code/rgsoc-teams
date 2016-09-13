@@ -21,5 +21,5 @@ ul.nav.nav-tabs
     .form-actions
       = f.button :submit
       p
-      = links_to_status_updates
-  .tab-pane#preview-pane
+      = link_to 'Back', students_status_update_path(@status_update), class: 'btn btn-default' if controller.action_name == 'edit'
+  .tab-pane#preview-pan
