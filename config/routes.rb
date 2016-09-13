@@ -22,6 +22,7 @@ RgsocTeams::Application.routes.draw do
   resources :contributors, only: :index
   resources :students, only: :index
   resources :status_updates, only: :show
+  resources :status_update_comments, only: :create
   resources :projects do
     get 'receipt', as: :receipt, on: :member
     post 'preview', on: :collection
