@@ -9,7 +9,7 @@ class StatusUpdateCommentsController < CommentsController
     else
       flash[:alert] = "O no! We can't save an empty comment. Please try again?"
     end
-     redirect_to status_update_path(status_update)
+    redirect_to status_update_path(status_update)
   end
 
   private
@@ -18,4 +18,4 @@ class StatusUpdateCommentsController < CommentsController
     params.require(:comment).permit(:commentable_id, :commentable_type, :text).merge(user_id: current_user.id)
   end
 
-  end
+end

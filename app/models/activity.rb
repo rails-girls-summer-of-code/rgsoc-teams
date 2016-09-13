@@ -4,7 +4,6 @@ class Activity < ActiveRecord::Base
   belongs_to :team
   has_many :comments, -> { ordered }, as: :commentable, dependent: :destroy
 
-
   validates :content, :title, :team, presence: { if: ->(act) { act.kind == 'status_update' } }
 
   delegate :students, to: :team
