@@ -60,6 +60,15 @@ RSpec.describe Students::StatusUpdatesController do
       end
     end
 
+    describe 'POST preview' do
+      let(:attributes) { attributes_for :status_update }
+
+      it 'renders partial preview' do
+        xhr :post, :preview, activity: attributes
+        expect(response).to render_template(partial: '_preview')
+      end
+    end
+
     describe 'GET show' do
       it 'renders the show template' do
         get :show, id: status_update.to_param

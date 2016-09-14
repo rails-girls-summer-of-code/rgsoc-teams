@@ -1,0 +1,5 @@
+h1#preview_status_updates_title
+  = @status_update.title
+p
+.well.status_update
+  = render_markdown(@status_update.content).html_safe
