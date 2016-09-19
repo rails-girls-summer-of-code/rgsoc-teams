@@ -5,7 +5,7 @@ class StudentsController < ApplicationController
 
   def index
     @students = User.with_role("student").includes(roles: :team).
-      where("teams.season_id = ?", Season.current).
+      where("teams.season_id = ? and teams.kind IS NOT NULL", Season.current).
       references(:teams).uniq
     respond_with @students.as_json(json_params)
   end
