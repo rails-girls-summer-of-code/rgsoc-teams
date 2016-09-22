@@ -35,6 +35,8 @@ class Team < ActiveRecord::Base
     where.not(id: Activity.where(kind: ['status_update', 'feed_entry']).where("created_at > ?", 26.hours.ago).pluck(:team_id))
   }
 
+  scope :accepted, -> { where(kind: %w(sponsored voluntary)) }
+
   class << self
     def ordered(sort = {})
       order([sort[:order] || 'kind, name', sort[:direction] || 'asc'].join(' '))
