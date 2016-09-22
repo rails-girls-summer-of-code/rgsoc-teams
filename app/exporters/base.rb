@@ -5,8 +5,8 @@ module Exporters
 
     # Forward everything to a newly created instance if possible
     def self.method_missing(meth, *args, &block)
-      if instance = new and instance.respond_to?(meth)
-        instance.public_send(meth, *args, &block)
+      if public_instance_methods.include? meth
+        new.public_send(meth, *args, &block)
       else
         super
       end
