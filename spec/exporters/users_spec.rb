@@ -14,7 +14,7 @@ RSpec.describe Exporters::Users do
       create :student_role, user: new_student, team: new_team
     end
 
-    it 'exports all projects of the current season' do
+    it 'exports all students of the current season' do
       expect(described_class.current_students).to match 'NEWSTUDENT'
       expect(described_class.current_students).not_to match 'OLDSTUDENT'
     end
@@ -34,7 +34,7 @@ RSpec.describe Exporters::Users do
       create :student_role, user: new_student, team: new_team
     end
 
-    it 'exports all projects of the current season' do
+    it 'exports all students of the given season' do
       export_method = "students_#{old_season.year}"
       expect(described_class.send export_method).to match 'OLDSTUDENT'
       expect(described_class.send export_method).not_to match 'NEWSTUDENT'
