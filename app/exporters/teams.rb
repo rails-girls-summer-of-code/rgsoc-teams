@@ -2,7 +2,13 @@ module Exporters
   class Teams < Base
 
     def current
-      teams = Team.where(season: Season.current).includes(:members)
+      export_for_season(Season.current)
+    end
+
+    private
+
+    def export_for_season(season)
+      teams = Team.where(season: season).includes(:members)
 
       generate(teams, 'Team ID', 'Name', 'Location', "1st Student's Name", "1st Student's Email", "2nd Student's Name", "2nd Student's Email", "Coaches' Emails", "Coaches' Names") do |t|
         student1 = t.students[0] || Student.new
