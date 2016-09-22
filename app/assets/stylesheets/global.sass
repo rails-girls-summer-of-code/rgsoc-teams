@@ -324,6 +324,7 @@ form
   .team_filter
     margin-top: -5px
     float: right
+
   .form-control
     margin-left: 5px
 
@@ -367,6 +368,9 @@ h1.header, h2.header
 .user
   margin: 0 10px 10px 0
   display: inline-block
+  @media screen and (max-width: $screen-sm)
+    margin: 0
+
 
   img
     width: 40px
@@ -379,3 +383,7 @@ h1.header, h2.header
   h5
     font-style: italic
     margin-bottom: 0
+
+// Navbar-collapse
+#sign-in-as, #activities-body
+  z-index: -1
