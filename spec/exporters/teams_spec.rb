@@ -17,7 +17,7 @@ RSpec.describe Exporters::Teams do
   end
 
   describe '#accepted_<year>' do
-    let(:old_season) { create :season, name: %w(2014 2015).sample }
+    let(:old_season) { create :season, name: "2015" }
 
     let!(:old_team) { create :team, season: old_season, name: "OLDTEAM" }
     let!(:new_team) { create :team, :in_current_season, name: "NEWTEAM" }
