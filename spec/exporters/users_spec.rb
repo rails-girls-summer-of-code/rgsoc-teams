@@ -40,10 +40,9 @@ RSpec.describe Exporters::Users do
       expect(described_class.send export_method).not_to match 'NEWSTUDENT'
     end
 
-    it 'will not raise an exception when trying to export a nonexistent season' do
+    it 'will raise an exception when trying to export a nonexistent season' do
       export_method = "students_1970"
-      expect(described_class.send export_method).not_to match 'OLDSTUDENT'
-      expect(described_class.send export_method).not_to match 'NEWSTUDENT'
+      expect { described_class.send export_method }.to raise_error NoMethodError
     end
 
   end
