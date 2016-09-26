@@ -5,41 +5,36 @@ section#header
         = link_to image_tag("logo_subnavi.png"), root_path
       div.col-xs-5
         div.text-right
-          a href="#" class="button-burger" id="nav-toggle" data-toggle="collapse" data-target="#menu"
+          a href="#" class="button-burger navbar-toggle" data-toggle="collapse" data-target="#menu"
             = icon('reorder')
 
     div.row
-      div.col-xs-offset-7.col-xs-5.col-md-offset-4.col-md-8
-        nav class="top navbar-default" role="navigation"
-          div class="collapse navbar-collapse" id="menu"
-            ul
-              - if Season.projects_proposable?
-                li class="announcement"
-                  = link_to 'Submit your Project', new_project_path
-              - if current_season.application_period?
-                li = link_to 'Projects', projects_path
-              - if show_application_link?
-                li = application_disambiguation_link
-              - if current_user.try :current_student?
-                - if current_season.started?
-                  li = link_to 'Status Updates', [:students, :status_updates], class: params[:controller] == 'students/status_updates' ? 'active' : ''
-              - if current_user.try :supervisor?
-                li = link_to 'Dashboard', supervisor_dashboard_path
+      div.col-xs-offset-7.col-xs-5.col-sm-offset-1.col-sm-11.col-md-offset-3.col-md-9#menu_navbar
+        div class="navbar-collapse" id="menu"
+          ul class="nav navbar-nav navbar-right top navbar-default"
+            li = link_to 'Home &rarr;'.html_safe, 'http://railsgirlssummerofcode.org'
+            - if Season.projects_proposable?
+              li class="announcement"
+                = link_to 'Submit your Project', new_project_path
+            - if current_season.application_period?
+              li = link_to 'Projects', projects_path
+            - if show_application_link?
+              li = application_disambiguation_link
+            - if current_user.try :current_student?
               - if current_season.started?
-                li = link_to 'Activity',     root_path,  class: params[:controller] == 'activities' ? 'active' : ''
-              li = link_to 'Teams',        teams_path, class: params[:controller] == 'teams' ? 'active' : ''
-              li = link_to 'Community', users_path, class: params[:controller] == 'users' ? 'active' : ''
-              - if current_season.started?
-                li = link_to 'Conferences',  conferences_path,  class: params[:controller] == 'conferences' ? 'active' : ''
-              /- if signed_in? && current_user.roles.includes?('reviewer')  # TODO bring this into a reviewer dashboard
-              /  li = link_to 'Applications', applications_path
-              li = link_to 'Home &rarr;'.html_safe, 'http://railsgirlssummerofcode.org'
-    div.row
-      div.col-xs-12.col-xs-7.col-md-offset-8.col-md-4 id="sign-in-as"
-        .text-right
-          nav.user
+                li = link_to 'Status Updates', [:students, :status_updates], class: params[:controller] == 'students/status_updates' ? 'active' : ''
+            - if current_user.try :supervisor?
+              li = link_to 'Dashboard', supervisor_dashboard_path
+            - if current_season.started?
+              li = link_to 'Activity',     root_path,  class: params[:controller] == 'activities' ? 'active' : ''
+            li = link_to 'Teams',        teams_path, class: params[:controller] == 'teams' ? 'active' : ''
+            li = link_to 'Community', users_path, class: params[:controller] == 'users' ? 'active' : ''
+            - if current_season.started?
+              li = link_to 'Conferences',  conferences_path,  class: params[:controller] == 'conferences' ? 'active' : ''
+            /- if signed_in? && current_user.roles.includes?('reviewer')  # TODO bring this into a reviewer dashboard
+            /  li = link_to 'Applications', applications_path
+            li class="divider"
             - if signed_in?
-              = "Signed in as #{link_to h(current_user.name), current_user} &middot; ".html_safe
-              = link_to "Sign out", sign_out_path, method: :delete
+              li = link_to "Sign out", sign_out_path, method: :delete
             - else
-              = link_to icon('github', 'Sign in with GitHub'), user_github_omniauth_authorize_path
+              li = link_to icon('github', 'Sign in with GitHub'), user_github_omniauth_authorize_path
