@@ -126,11 +126,10 @@ module ApplicationHelper
     users.map { |user| link_to(user.name.present? ? user.name : user.github_handle, user) }
   end
 
-  # FIXME
   def links_to_attendances(conference)
-    conference.attendances.includes(:user).order('users.name || users.github_handle').map do |attendance|
+    conference.attendances.joins(:user).order('users.name || users.github_handle').map do |attendance|
       user = attendance.user
-      link_to(user.name.present? ? user.name : user.github_handle, user, class: attendance.confirmed? ? 'confirmed' : '') if user.present?
+      link_to(user.name.present? ? user.name : user.github_handle, user, class: attendance.confirmed? ? 'confirmed' : '')
     end
   end
 
