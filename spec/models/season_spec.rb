@@ -64,6 +64,15 @@ describe Season do
         end
       end
     end
+
+    context 'on the last day of the season' do
+      subject { Season.new(ends_at: Date.today) }
+      it 'returns false' do
+        Timecop.travel(subject.ends_at + 4.hours) do
+          expect(subject).not_to be_ended
+        end
+      end
+    end
   end
 
   describe '#application_period?' do
