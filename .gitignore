@@ -26,5 +26,3 @@ conferences_data.rb
 conferences_raffle.txt
 
 Gemfile
-
-config/database.yml
