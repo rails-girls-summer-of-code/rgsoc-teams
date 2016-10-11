@@ -1,0 +1,31 @@
+<table class="table-striped table-bordered table-condensed conferences">
+  <thead>
+  <tr>
+    <th> Conference </th>
+    <th> Location </th>
+    <th> Dates </th>
+    <th> Attendees </th>
+    <th> Tickets left </th>
+    <th> Lightning Talk Slots?</th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% conferences.where(round: 2).each do |conference| %>
+  <tr>
+    <td> <%= link_to conference.name , conference%></td>
+    <td> <%= conference.location %></td>
+    <td> <%= format_conference_date(conference.starts_on, conference.ends_on) %></td>
+    <td> <%= conference.attendees.any? ? links_to_attendances(conference).join(', ').html_safe : '-' %></td>
+    <td> <%= conference.tickets_left %></td>
+    <td><%= conference.lightningtalkslots? ? "yes" : "no" %></td>
+  </tr>
+      <% end %>
+    </tbody>
+</table>
+
+<br>
+<p><%= link_to "View as Calendar", calendar_path %>
+</p>
+<!--TODO first rounds-->
+<p><%= link_to "Show/Hide First Round Conferences", "#", onclick: "$('.first-conferences').toggle()" %></p>
