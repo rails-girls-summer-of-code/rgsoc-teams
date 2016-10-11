@@ -17,7 +17,7 @@ RgsocTeams::Application.routes.draw do
   resources :users, except: :new, concerns: :has_roles
   resources :sources, only: :index
   resources :comments, only: :create
-  resources :conferences
+  resources :conferences, only: [:index, :show]
   resources :attendances
   resources :contributors, only: :index
   resources :students, only: :index
@@ -85,6 +85,7 @@ RgsocTeams::Application.routes.draw do
     end
     resources :teams
     resources :seasons
+    resources :conferences
     resources :exports, only: [:index, :create]
   end
 
