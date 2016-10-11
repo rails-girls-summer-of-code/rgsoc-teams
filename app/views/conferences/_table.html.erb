@@ -27,5 +27,30 @@
 <br>
 <p><%= link_to "View as Calendar", calendar_path %>
 </p>
-<!--TODO first rounds-->
+<!--TODO translate first round to erb-->
 <p><%= link_to "Show/Hide First Round Conferences", "#", onclick: "$('.first-conferences').toggle()" %></p>
+
+<!--.first-conferences style='display:none;'-->
+<!--h1.header-->
+<!--/ = icon('group')-->
+<!--span Conferences (1st round)-->
+<!--table.table.table-striped.table-bordered.table-condensed.conferences-->
+<!--tr-->
+<!--th = sortable 'name', 'Conference'-->
+<!--th = sortable 'location', 'Location'-->
+<!--th = sortable 'starts_on', 'Date'-->
+<!--th Attendees-->
+<!--th Tickets left-->
+<!--th Lightning Talk Slots-->
+
+<!-- - conferences.where(round: 1).each do |conference|-->
+<!--tr-->
+<!--td = link_to conference.name, conference-->
+<!--td = conference.location-->
+<!--td = format_conference_date(conference.starts_on, conference.ends_on)-->
+<!--td = conference.attendees.any? ? links_to_attendances(conference).join(', ').html_safe : '-'-->
+<!--td = conference.tickets_left-->
+<!-- - if conference.lightningtalkslots?-->
+<!--td = "yes"-->
+<!-- - else-->
+<!--td = "no"-->
