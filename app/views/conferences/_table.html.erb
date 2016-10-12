@@ -13,7 +13,7 @@
   <tbody>
   <% conferences.where(round: 2).each do |conference| %>
   <tr>
-    <td> <%= link_to conference.name , conference%></td>
+    <td> <%= link_to conference.name, [namespace, conference] %></td>
     <td> <%= conference.location %></td>
     <td> <%= format_conference_date(conference.starts_on, conference.ends_on) %></td>
     <td> <%= conference.attendees.any? ? links_to_attendances(conference).join(', ').html_safe : '-' %></td>
