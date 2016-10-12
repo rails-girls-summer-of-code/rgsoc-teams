@@ -1,9 +1,9 @@
 <table class="table-striped table-bordered table-condensed conferences">
   <thead>
   <tr>
-    <th> Conference </th>
-    <th> Location </th>
-    <th> Dates </th>
+    <th> <%= sortable "Conference" %> </th>
+    <th> <%= sortable "Location" %> </th>
+    <th> <%= sortable "Dates" %> </th>
     <th> Attendees </th>
     <th> Tickets left </th>
     <th> Lightning Talk Slots?</th>
@@ -30,27 +30,35 @@
 <!--TODO translate first round to erb-->
 <p><%= link_to "Show/Hide First Round Conferences", "#", onclick: "$('.first-conferences').toggle()" %></p>
 
-<!--.first-conferences style='display:none;'-->
-<!--h1.header-->
+<div class="first-conferences" style='display:none;'>
+<h1 class=" header">
 <!--/ = icon('group')-->
-<!--span Conferences (1st round)-->
-<!--table.table.table-striped.table-bordered.table-condensed.conferences-->
-<!--tr-->
-<!--th = sortable 'name', 'Conference'-->
-<!--th = sortable 'location', 'Location'-->
-<!--th = sortable 'starts_on', 'Date'-->
-<!--th Attendees-->
-<!--th Tickets left-->
-<!--th Lightning Talk Slots-->
+<!--span -->
+Conferences (1st round)</h1>
 
-<!-- - conferences.where(round: 1).each do |conference|-->
-<!--tr-->
-<!--td = link_to conference.name, conference-->
-<!--td = conference.location-->
-<!--td = format_conference_date(conference.starts_on, conference.ends_on)-->
-<!--td = conference.attendees.any? ? links_to_attendances(conference).join(', ').html_safe : '-'-->
-<!--td = conference.tickets_left-->
-<!-- - if conference.lightningtalkslots?-->
-<!--td = "yes"-->
-<!-- - else-->
-<!--td = "no"-->
+<table class="table-striped table-bordered table-condensed conferences">
+  <thead>
+    <tr>
+      <th> <%= sortable "Conference" %> </th>
+      <th> <%= sortable "Location" %> </th>
+      <th> <%= sortable "Dates" %> </th>
+      <th> Attendees </th>
+      <th> Tickets left </th>
+      <th> Lightning Talk Slots?</th>
+    </tr>
+  </thead>
+
+  <tbody>
+  <% conferences.where(round: 1).each do |conference| %>
+      <tr>
+        <td> <%= link_to conference.name, [namespace, conference] %></td>
+        <td> <%= conference.location %></td>
+        <td> <%= format_conference_date(conference.starts_on, conference.ends_on) %></td>
+        <td> <%= conference.attendees.any? ? links_to_attendances(conference).join(', ').html_safe : '-' %></td>
+        <td> <%= conference.tickets_left %></td>
+        <td><%= conference.lightningtalkslots? ? "yes" : "no" %></td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>
+</div>
