@@ -4,35 +4,4 @@ nav.page
       li = icon('chevron-left')
       li = link_to 'All conferences', conferences_path, class: 'back'
 
-h1 class="conference" = conference.name
-
-- if can?(:crud, Conference)
-  nav.btn-group
-    = link_to 'Edit', edit_conference_path(conference), class: 'edit btn btn-default'
-    = link_to 'Delete', conference_path(conference), method: :delete, class: 'edit btn btn-default', data: { confirm: 'Are you sure?' }
-  p
-
-.conference
-  dl.dl-horizontal
-    dt Location
-    dd = conference.location
-    dt Date
-    dd = format_conference_date(conference.starts_on, conference.ends_on)
-    dt Twitter
-    dd = format_conference_twitter(conference.twitter)
-    dt Homepage
-    dd = link_to conference.url, conference.url
-    dt Tickets total
-    dd = format_conference_scholarships(conference.tickets, conference.flights, conference.accomodation)
-    dt Tickets left
-    dd = conference.tickets_left
-    dt Lightning Talk Slots
-    - if conference.lightningtalkslots?
-      		dd = "yes"
-    - else
-      		dd = "no"
-
-  h4 Attendees
-  ul.attendees
-    - conference.attendees.each do |user|
-      li = "#{link_to user.name.present? ? user.name : user.github_handle, user} #{", #{user.teams.map { |team| link_to(team.display_name, team) }.join(', ')}" if user.teams.any? }".html_safe
+= render 'conferences/details', namespace: nil
