@@ -3,8 +3,13 @@ class Orga::ConferencesController < Orga::BaseController
 
   def create
     conference.season = current_season
-    conference.save!
-    redirect_to orga_conference_path(conference)
+    respond_to do |format|
+      if conference.save
+        format.html { redirect_to orga_conference_path(conference) }
+      else
+        format.html { render action: :new }
+      end
+    end
   end
 
   def update
