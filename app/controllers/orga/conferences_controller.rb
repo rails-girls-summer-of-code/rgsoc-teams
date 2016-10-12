@@ -1,10 +1,6 @@
 class Orga::ConferencesController < Orga::BaseController
   load_and_authorize_resource except: [:index, :show]
 
-  def show
-    render 'conferences/show'
-  end
-
   def create
     conference.season = current_season
     conference.save!
