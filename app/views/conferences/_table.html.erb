@@ -27,14 +27,11 @@
 <br>
 <p><%= link_to "View as Calendar", calendar_path %>
 </p>
-<!--TODO translate first round to erb-->
+
 <p><%= link_to "Show/Hide First Round Conferences", "#", onclick: "$('.first-conferences').toggle()" %></p>
 
 <div class="first-conferences" style='display:none;'>
-<h1 class=" header">
-<!--/ = icon('group')-->
-<!--span -->
-Conferences (1st round)</h1>
+<h1 class=" header">Conferences (1st round)</h1>
 
 <table class="table-striped table-bordered table-condensed conferences">
   <thead>
