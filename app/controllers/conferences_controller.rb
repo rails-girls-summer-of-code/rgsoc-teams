@@ -1,5 +1,4 @@
 class ConferencesController < ApplicationController
-  load_and_authorize_resource except: [:index, :show]
 
   private
 
@@ -9,7 +8,8 @@ class ConferencesController < ApplicationController
     helper_method :conferences
 
     def conference
-      @conference ||= params[:id] ? Conference.find(params[:id]) : Conference.new(conference_params)
+      # @conference ||= params[:id] ? Conference.find(params[:id]) : Conference.new(conference_params)
+      @conference ||= params[:id] || Conference.find(params[:id])
     end
     helper_method :conference
 
