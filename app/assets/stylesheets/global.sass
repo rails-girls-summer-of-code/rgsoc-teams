@@ -24,8 +24,10 @@ html, body
 
   li
     list-style-type: none
+
   .text-right
     text-align: right
+
   .back-nav
     ul
       padding: 0
@@ -70,16 +72,17 @@ html, body
     margin-top: 12px
     outline: none
     text-align: center
-    @media screen and (min-width: $screen-sm)
+    @media screen and (min-width: $screen-md)
       display: none
     i
       position: relative
-      
+
   ul
     padding: 0
     text-align: right
     li
       margin-bottom: 0.5rem
+
 
   nav.user
     color: $darkgray
@@ -123,6 +126,49 @@ html, body
       .navbar-collapse.collapse.in
         display: block !important
 
+      .nav
+        li
+          a
+            padding: 10px 35px
+      .navbar-nav
+        li
+          float: none
+      .divider
+        width: 80%
+        margin-left: 0
+
+  .divider
+    @media screen and (max-width: $screen-md)
+      border: 0.1px solid red
+      width: 90%
+      margin-left: 5%
+
+  #menu-navbar
+    @media screen and (max-width: $screen-md)
+      z-index: 100
+
+  .navbar-toggle
+    @media screen and (max-width: $screen-md)
+      padding: 5px 7px
+
+  .col-xs-offset-5
+    @media screen and (max-width: 750px)
+      margin-left: 46.66666667%
+    @media (min-width: $screen-sm) and (max-width: $screen-sm-max)
+      margin-left: 70.66666667%
+
+  .nav > li > a
+    @media screen and (min-width: $screen-md)
+      position: relative
+      display: revert
+      padding: 0
+
+.navbar-default .navbar-nav
+  @media screen and (max-width: $screen-md)
+  li
+    a
+      color: $railsred
+
 #footer
   footer
     border-top: 1px solid $lightgray
@@ -144,7 +190,8 @@ html, body
         content: none
 
 #content
-  margin-top: 5rem
+  @media screen and (max-width: $screen-sm)
+    margin-top: 5rem
 
   h1
     font-size: 2rem
@@ -383,15 +430,3 @@ h1.header, h2.header
   h5
     font-style: italic
     margin-bottom: 0
-
-.divider
-  @media screen and (max-width: $screen-sm)
-    border: 0.1px solid red
-    width: 90%
-    margin-left: 5%
-
-#menu-navbar
-  z-index: 100
-
-.navbar-toggle
-  padding: 5px 7px

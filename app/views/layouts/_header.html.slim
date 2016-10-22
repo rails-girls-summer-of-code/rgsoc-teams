@@ -7,11 +7,11 @@ section#header
         div.text-right
           a href="#" class="button-burger navbar-toggle" data-toggle="collapse" data-target="#menu"
             = icon('reorder')
-      div.row
-        div.col.xs-12
-          div.col-xs-offset-7.col-xs-5.col-sm-offset-1.col-sm-11.col-md-offset-3.col-md-9#menu-navbar
+      div.col-xs-12
+        div.col-xs-offset-5.col-xs-7.col-sm-offset-5.col-sm-4.col-md-7#menu-navbar
+          nav class="top navbar-default" role="navigation"
             div class="navbar-collapse collapse" id="menu"
-              ul class="nav navbar-nav navbar-right top navbar-default"
+              ul class="nav navbar-nav navbar-right"
                 li = link_to 'Home &rarr;'.html_safe, 'http://railsgirlssummerofcode.org'
                 - if Season.projects_proposable?
                   li class="announcement"
