@@ -1,11 +1,10 @@
 class ConferencesController < ApplicationController
  before_action :redirect, except: [:index, :show]
 
-  # def new
-  # end
+  def new
+  end
 
   def redirect
-    binding.pry
     redirect_to orga_conferences_path
   end
 
