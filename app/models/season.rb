@@ -45,7 +45,7 @@ class Season < ActiveRecord::Base
   end
 
   def ended?
-    Time.now.utc >= (ends_at || Date.today.end_of_year)
+    Time.now.utc >= (ends_at || Date.today.end_of_year).end_of_day.utc
   end
 
   def year; name end

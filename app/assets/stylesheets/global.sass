@@ -43,6 +43,10 @@ html, body
 .btn
   margin: 0 0 0 0.6rem
 
+.btn-group
+  .btn
+    margin: 0.3rem 0
+
 // For sticky footer
 #wrap
   min-height: 100%
@@ -83,7 +87,12 @@ html, body
     li
       margin-bottom: 0.5rem
 
-
+  nav
+    @media screen and (min-width: $screen-md)
+      li
+        a
+          display: inline
+          padding: 0
   nav.user
     color: $darkgray
 
@@ -126,20 +135,13 @@ html, body
       .navbar-collapse.collapse.in
         display: block !important
 
-      .nav
-        li
-          a
-            padding: 10px 35px
       .navbar-nav
         li
           float: none
-      .divider
-        width: 80%
-        margin-left: 0
 
   .divider
     @media screen and (max-width: $screen-md)
-      border: 0.1px solid red
+      border: 0.1px solid $railsred
       width: 90%
       margin-left: 5%
     &:after
@@ -159,12 +161,6 @@ html, body
       margin-left: 46.66666667%
     @media (min-width: $screen-sm) and (max-width: $screen-sm-max)
       margin-left: 70.66666667%
-
-  .nav > li > a
-    @media screen and (min-width: $screen-md)
-      position: relative
-      display: revert
-      padding: 0
 
 .navbar-default .navbar-nav
   @media screen and (max-width: $screen-md)
@@ -193,8 +189,7 @@ html, body
         content: none
 
 #content
-  @media screen and (max-width: $screen-sm)
-    margin-top: 5rem
+  margin-top: 1rem
 
   h1
     font-size: 2rem
@@ -320,14 +315,6 @@ html, body
     ul
       padding-left: 0
 
-  a.atom
-    float: right
-    font-size: .6em
-    color: $main
-    @include icon-after($rss)
-    span
-      display: none
-
   .pagination-info
     color: $gray
 
@@ -370,13 +357,27 @@ form
     input
       margin-right: 5px
 
+@media (max-width: $screen-sm)
+  .form-inline
+    .radio
+      input[type=radio]
+        position: inherit
+        margin-left: 0
+
 .filter
   .team_filter
     margin-top: -5px
     float: right
-
   .form-control
     margin-left: 5px
+
+@media (min-width: $screen-sm)
+  .filter
+    .team_filter
+      float: right
+      margin-top: -5px
+    .form-control
+      margin-left: 0
 
 .form-btn-group
   margin: 1em 0 2em

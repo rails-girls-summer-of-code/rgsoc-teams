@@ -8,7 +8,7 @@ section#header
           a href="#" class="button-burger navbar-toggle" data-toggle="collapse" data-target="#menu"
             = icon('reorder')
       div.col-xs-12
-        div.col-xs-offset-5.col-xs-7.col-sm-offset-5.col-sm-4.col-md-offset-2.col-md-10#menu-navbar
+        div.col-xs-offset-5.col-xs-7.col-sm-offset-5.col-sm-4.col-md-offset-2.col-md-10.col-lrg-12#menu-navbar
           nav class="top navbar-default" role="navigation"
             div class="navbar-collapse collapse" id="menu"
               ul class="nav navbar-nav navbar-right"
@@ -25,6 +25,20 @@ section#header
                     li = link_to 'Status Updates', [:students, :status_updates], class: params[:controller] == 'students/status_updates' ? 'active' : ''
                 - if current_user.try :supervisor?
                   li = link_to 'Dashboard', supervisor_dashboard_path
+    div.row
+      div.col-xs-offset-7.col-xs-5.col-md-offset-3.col-md-9.col-lrg-8
+        nav class="top navbar-default" role="navigation"
+          div class="collapse navbar-collapse" id="menu"
+            ul
+              - if Season.projects_proposable?
+                li class="announcement"
+                  = link_to 'Submit your Project', new_project_path
+              - if current_season.application_period?
+                li = link_to 'Projects', projects_path
+              - if show_application_link?
+                li = application_disambiguation_link
+              - if current_user.try :current_student?
+>>>>>>> upstream/master
                 - if current_season.started?
                   li = link_to 'Activity',     root_path,  class: params[:controller] == 'activities' ? 'active' : ''
                 li = link_to 'Teams',        teams_path, class: params[:controller] == 'teams' ? 'active' : ''

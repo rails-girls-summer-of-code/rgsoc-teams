@@ -1,17 +1,18 @@
 h1.header User info
 
-form.filter action=request.url
-  h5 Role
-  - (['all'] + Role::ROLES).each do |role|
-    label.radio
-      = radio_button_tag :role, role == 'all' ? '' : role, params[:role] == role
-      = role.capitalize
+.selection-box
+  form.filter.form-inline action=request.url
+    h5 Role
+    - (['all'] + Role::ROLES).each do |role|
+      label.radio
+        = radio_button_tag :role, role == 'all' ? '' : role, params[:role] == role
+        = role.capitalize
 
-  h5 Type
-  - %w(all sponsored voluntary).each do |kind|
-    label.radio
-      = radio_button_tag :kind, kind == 'all' ? '' : kind, params[:kind] == kind
-      = kind.capitalize
+    h5 Type
+    - %w(all sponsored voluntary).each do |kind|
+      label.radio
+        = radio_button_tag :kind, kind == 'all' ? '' : kind, params[:kind] == kind
+        = kind.capitalize
 
 table.table.table-striped.table-bordered.table-condensed.table-hover
   thead
@@ -33,4 +34,3 @@ table.table.table-striped.table-bordered.table-condensed.table-hover
         td = user.email
         td = user.tshirt_size        
         td = simple_format user.postal_address
-

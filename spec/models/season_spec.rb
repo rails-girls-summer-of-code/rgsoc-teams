@@ -44,6 +44,37 @@ describe Season do
     end
   end
 
+  describe '#ended?' do
+    it 'returns true if ended_at is not set' do
+      expect(Season.new).not_to be_ended
+    end
+
+    context 'in the midst of the season' do
+      it 'returns false' do
+        Timecop.travel(Season.current.starts_at + 1.week) do
+          expect(Season.current).not_to be_ended
+        end
+      end
+    end
+
+    context 'after the season' do
+      it 'returns true' do
+        Timecop.travel(Season.current.ends_at + 1.week) do
+          expect(Season.current).to be_ended
+        end
+      end
+    end
+
+    context 'on the last day of the season' do
+      subject { Season.new(ends_at: Date.today) }
+      it 'returns false' do
+        Timecop.travel(subject.ends_at + 4.hours) do
+          expect(subject).not_to be_ended
+        end
+      end
+    end
+  end
+
   describe '#application_period?' do
     it 'returns true if today is between open and close date' do
       subject.applications_open_at = 1.week.ago

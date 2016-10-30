@@ -1,0 +1,50 @@
+h1#preview_project_name
+  = @project.name
+
+table.table.table-striped.table-bordered
+  tr
+    th Mentor
+    td
+      = @project.mentor_name
+      = " ("
+      = link_to @project.mentor_github_handle, "https://github.com/#{@project.mentor_github_handle}", class: 'github'
+      |)
+  tr
+    th Project Website
+    td = link_to @project.url, @project.url
+  tr
+    th Project Repository
+    td = link_to @project.source_url, @project.source_url
+  tr
+    th Suitable for Beginners?
+    td = @project.beginner_friendly? ? 'yes' : 'no'
+  tr
+    th Tags
+    td = project_tags @project
+  tr
+    th State
+    td = project_status(@project)
+  tr
+    th Applications (1st Choice)
+    td = @project.first_choice_application_drafts.count
+  tr
+    th Applications (2nd Choice)
+    td = @project.second_choice_application_drafts.count
+  tr
+    th Code of Conduct 
+    td = link_to @project.code_of_conduct, @project.code_of_conduct
+
+h2.header
+  = icon('file')
+  span Project Description
+- if @project.description
+  .projects
+    p = render_markdown(@project.description).html_safe
+
+h2.header
+  = icon('list')
+  span Issues, Features, and Milestones
+- if @project.issues_and_features
+  .projects
+    p = render_markdown(@project.issues_and_features).html_safe
+

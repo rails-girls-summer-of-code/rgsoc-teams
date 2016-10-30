@@ -45,6 +45,11 @@ class ProjectsController < ApplicationController
     end
   end
 
+  def preview
+    @project = Project.new(project_params)
+    render partial: "preview"
+  end
+  
   def receipt
     @project = Project.find(params[:id])
   end

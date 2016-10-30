@@ -2,6 +2,7 @@ class Activity < ActiveRecord::Base
   KINDS = %w(feed_entry mailing status_update)
 
   belongs_to :team
+  has_many :comments, -> { ordered }, as: :commentable, dependent: :destroy
 
   validates :content, :title, :team, presence: { if: ->(act) { act.kind == 'status_update' } }
 

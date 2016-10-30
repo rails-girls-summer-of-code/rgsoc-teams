@@ -1,13 +1,13 @@
-class ContributorsController < ApplicationController
+class StudentsController < ApplicationController
   after_action :cors_set_headers, only: :index
 
   respond_to :json
 
   def index
-    @contributors = User.with_role(Role::CONTRIBUTOR_ROLES).includes(roles: :team).
-      where("teams.season_id IS NULL OR teams.season_id = ? and teams.kind IS NOT NULL", Season.current).
+    @students = User.with_role("student").includes(roles: :team).
+      where("teams.season_id = ? and teams.kind IS NOT NULL", Season.current).
       references(:teams).uniq
-    respond_with @contributors.as_json(json_params)
+    respond_with @students.as_json(json_params)
   end
 
   private

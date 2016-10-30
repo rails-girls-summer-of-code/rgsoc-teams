@@ -70,6 +70,13 @@ RSpec.describe ProjectsController do
     end
   end
 
+  describe 'POST preview' do
+    it 'renders partial preview' do
+      xhr :post, :preview, project: project.attributes
+      expect(response).to render_template "_preview"
+    end
+  end
+
   describe 'POST create' do
     context 'with user logged in' do
       include_context 'with user logged in'
