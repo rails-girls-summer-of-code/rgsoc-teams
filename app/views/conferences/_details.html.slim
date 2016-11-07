@@ -1,0 +1,24 @@
+.conference
+  dl.dl-horizontal
+    dt Location
+    dd = conference.location
+    dt Date
+    dd = format_conference_date(conference.starts_on, conference.ends_on)
+    dt Twitter
+    dd = format_conference_twitter(conference.twitter)
+    dt Homepage
+    dd = link_to conference.url, conference.url
+    dt Tickets total
+    dd = format_conference_scholarships(conference.tickets, conference.flights, conference.accomodation)
+    dt Tickets left
+    dd = conference.tickets_left
+    dt Lightning Talk Slots
+    - if conference.lightningtalkslots?
+      dd = "yes"
+    - else
+      dd = "no"
+
+  h4 Attendees
+  ul.attendees
+    - conference.attendees.each do |user|
+      li = "#{link_to user.name.present? ? user.name : user.github_handle, user} #{", #{user.teams.map { |team| link_to(team.display_name, team) }.join(', ')}" if user.teams.any? }".html_safe

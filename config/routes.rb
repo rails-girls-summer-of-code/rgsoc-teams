@@ -85,6 +85,7 @@ RgsocTeams::Application.routes.draw do
     end
     resources :teams
     resources :seasons
+    resources :conferences
     resources :exports, only: [:index, :create]
   end
 

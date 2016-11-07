@@ -36,7 +36,6 @@ class Ability
       user.roles.organizer.any? || team.supervisors.include?(user)
     end
 
-    can :crud, Conference if user.admin?
     can :crud, Attendance do |attendance|
       user.admin? || user == attendance.user
     end
