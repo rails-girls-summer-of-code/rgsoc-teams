@@ -12,7 +12,7 @@ class Orga::ConferencesController < Orga::BaseController
   end
 
   def update
-    conference.update_attributes(conference_params)
+    conference.update_attributes!(conference_params)
     redirect_to orga_conference_path(conference)
   end
 

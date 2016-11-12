@@ -23,6 +23,27 @@ RSpec.describe Conference do
     end
   end
 
+  describe 'chronology' do
+    subject { FactoryGirl.build(:conference) }
+
+    context 'it has valid dates' do
+      it 'is valid with valid dates' do
+        subject.starts_on = '2016-11-20'
+        subject.ends_on = '2016-11-21'
+        expect(subject).to be_valid
+      end
+    end
+
+    context 'when its end date is before start date' do
+      it 'is invalid' do
+        subject.starts_on = '2016-07-15'
+        subject.ends_on = '2016-07-07'
+        expect(subject).not_to be_valid
+      end
+    end
+  end
+
+
   describe '#tickets_left' do
 
     context 'ticket value defined' do
