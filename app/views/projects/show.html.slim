@@ -59,6 +59,13 @@ h2.header
     p = render_markdown(@project.description).html_safe
 
 h2.header
+  = icon('ok')
+  span Project's Requirements
+- if @project.requirements
+  .projects
+    p = render_markdown(@project.requirements).html_safe
+
+h2.header
   = icon('list')
   span Issues, Features, and Milestones
 - if @project.issues_and_features
