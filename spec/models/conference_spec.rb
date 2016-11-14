@@ -43,7 +43,6 @@ RSpec.describe Conference do
     end
   end
 
-
   describe '#tickets_left' do
 
     context 'ticket value defined' do
@@ -63,6 +62,5 @@ RSpec.describe Conference do
         expect(subject.tickets_left).to eq(0)
       end
     end
-
   end
 end

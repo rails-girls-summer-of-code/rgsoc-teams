@@ -6,7 +6,7 @@ class Conference < ActiveRecord::Base
   has_many :attendees, through: :attendances, source: :user
 
   validates :name, :round, presence: true
-  validate :chronology # custom validator
+  validate :date_interval # custom validator
 
   accepts_nested_attributes_for :attendances
 
@@ -18,8 +18,9 @@ class Conference < ActiveRecord::Base
     tickets.to_i - confirmed_attendances.size
   end
 
-  def chronology
-    return unless starts_on.present?
-    errors.add(:end_date, "must be later than start date") if starts_on > ends_on
-  end
+  private
+
+    def date_interval
+      errors.add(:end_date, "must be later than start date") if starts_on > ends_on
+    end
 end
