@@ -21,6 +21,7 @@ class Conference < ActiveRecord::Base
   private
 
     def date_interval
+      return unless starts_on.present?
       errors.add(:end_date, "must be later than start date") if starts_on > ends_on
     end
 end
