@@ -71,6 +71,3 @@ en:
         misc_info: Additional information
       user:
         location: City
-
-      project:
-        issues_and_features: Tasks and features

@@ -49,7 +49,7 @@ class ProjectsController < ApplicationController
     @project = Project.new(project_params)
     render partial: "preview"
   end
-
+  
   def receipt
     @project = Project.find(params[:id])
   end
@@ -75,7 +75,7 @@ class ProjectsController < ApplicationController
     params.require(:project).permit(
       :name, :mentor_name, :mentor_github_handle, :mentor_email,
       :url, :code_of_conduct, :description, :issues_and_features, :beginner_friendly,
-      :taglist, :source_url, :requirements
+      :taglist, :source_url
     )
   end
 end
