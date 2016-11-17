@@ -77,7 +77,9 @@ class Orga::SeasonsController < Orga::BaseController
     params.require(:season).permit(
       :name, :starts_at, :ends_at,
       :applications_open_at, :applications_close_at,
-      :acceptance_notification_at
+      :acceptance_notification_at,
+      :project_proposals_open_at,
+      :project_proposals_close_at
     )
   end
 
