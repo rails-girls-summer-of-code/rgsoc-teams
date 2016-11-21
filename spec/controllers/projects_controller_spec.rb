@@ -23,9 +23,9 @@ RSpec.describe ProjectsController do
 
   describe 'GET new' do
     it 'requires a login' do
-      get :new
-      expect(response).to redirect_to root_path
-      expect(flash[:alert]).to be_present
+      expect { get :new  }.to \
+        change { session[:previous_url_login_required] }
+      expect(response.body).to match user_github_omniauth_authorize_path
     end
 
     context 'with user logged in' do

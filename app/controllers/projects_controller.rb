@@ -1,6 +1,6 @@
 class ProjectsController < ApplicationController
 
-  before_action :login_required, only: [:new]
+  # before_action :login_required, only: [:new]
   before_action :check_date!, only: [:new, :create]
 
   load_and_authorize_resource only: [:edit, :update, :destroy]

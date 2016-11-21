@@ -1,0 +1,36 @@
+<div id="login-required-overlay">
+
+
+  <div class="well">
+    <h1>Hello, world!</h1>
+    <p>...</p>
+    <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a></p>
+  </div>
+
+</div>
+
+<style type=text/css>
+
+#login-required-overlay {
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  left: 0;
+  top: 0;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  background-color: rgb(10,10,10); /* Black fallback color */
+  background-color: rgba(50,50,50, 0.7); /* Black w/opacity */
+  z-index: 999;
+}
+
+#login-required-overlay .well {
+  left: auto;
+  right: auto;
+  width: 400px;
+}
+</style>
+
+<script language="application/javascript">
+$('login-overlay-modal').modal('show', {keyboard: false});
+</script>
