@@ -6,10 +6,12 @@ class ProjectsController < ApplicationController
   load_and_authorize_resource only: [:edit, :update, :destroy]
 
   def new
+    submitter = current_user || User.new
+
     @project = Project.new(
-      mentor_name: current_user.name,
-      mentor_github_handle: current_user.github_handle,
-      mentor_email: current_user.email
+      mentor_name: submitter.name,
+      mentor_github_handle: submitter.github_handle,
+      mentor_email: submitter.email
     )
   end
 
