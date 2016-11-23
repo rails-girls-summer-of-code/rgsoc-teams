@@ -22,10 +22,17 @@ RSpec.describe ProjectsController do
   end
 
   describe 'GET new' do
-    it 'requires a login' do
-      expect { get :new  }.to \
-        change { session[:previous_url_login_required] }
-      expect(response.body).to match user_github_omniauth_authorize_path
+    context 'during project submission time' do
+      before do
+        allow(Season).to receive(:projects_proposable?) { true }
+      end
+
+      it 'requires a login' do
+        expect { get :new  }.to \
+          change { session[:previous_url_login_required] }
+        expect(response).to be_success
+        expect(response.body).to match user_github_omniauth_authorize_path
+      end
     end
 
     context 'with user logged in' do

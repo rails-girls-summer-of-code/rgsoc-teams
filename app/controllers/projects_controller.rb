@@ -1,6 +1,6 @@
 class ProjectsController < ApplicationController
 
-  # before_action :login_required, only: [:new]
+  before_action :soft_login_required, only: [:new]
   before_action :check_date!, only: [:new, :create]
 
   load_and_authorize_resource only: [:edit, :update, :destroy]
@@ -67,6 +67,10 @@ class ProjectsController < ApplicationController
   end
 
   private
+
+  def soft_login_required
+    store_location key: :previous_url_login_required
+  end
 
   def check_date!
     redirect_to root_path, alert: 'Project submissions are closed.' and return \
