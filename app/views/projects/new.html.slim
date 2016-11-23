@@ -1,3 +1,5 @@
+= render "login_required" unless current_user
+
 nav.page
   .back-nav
     ul
@@ -37,6 +39,9 @@ p.well Please make sure you have read our #{link_to "mentor guide", 'http://rail
       = f.input :beginner_friendly, wrapper_html: { class: 'col-md-6' }, label: 'Suitable for beginners?'
       .actions
         ul.list-inline
-          li = f.submit 'Submit', class: 'btn btn-success'
+          - if current_user
+            li = f.submit 'Submit', class: 'btn btn-success'
+          - else
+            li = f.submit 'Submit', class: 'btn btn-success', disabled: 'disabled'
     
     .tab-pane#preview-pane

@@ -1,15 +1,17 @@
 class ProjectsController < ApplicationController
 
-  before_action :login_required, only: [:new]
+  before_action :soft_login_required, only: [:new]
   before_action :check_date!, only: [:new, :create]
 
   load_and_authorize_resource only: [:edit, :update, :destroy]
 
   def new
+    submitter = current_user || User.new
+
     @project = Project.new(
-      mentor_name: current_user.name,
-      mentor_github_handle: current_user.github_handle,
-      mentor_email: current_user.email
+      mentor_name: submitter.name,
+      mentor_github_handle: submitter.github_handle,
+      mentor_email: submitter.email
     )
   end
 
@@ -65,6 +67,10 @@ class ProjectsController < ApplicationController
   end
 
   private
+
+  def soft_login_required
+    store_location key: :previous_url_login_required
+  end
 
   def check_date!
     redirect_to root_path, alert: 'Project submissions are closed.' and return \
