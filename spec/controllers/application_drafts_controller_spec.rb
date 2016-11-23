@@ -25,7 +25,7 @@ RSpec.describe ApplicationDraftsController do
     shared_examples_for 'application period is over' do
       it 'new renders applications_end template when over' do
         Timecop.travel(Season.current.applications_close_at + 2.days) do
-          text = "Applications for Rails Girls Summer of Code #{Season.current.year} are closed."
+          text = "Applications for RGSoC #{Season.current.year} are closed."
           subject
           expect(response.body).to match text
         end
