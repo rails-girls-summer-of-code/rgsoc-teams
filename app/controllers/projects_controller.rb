@@ -81,7 +81,7 @@ class ProjectsController < ApplicationController
     params.require(:project).permit(
       :name, :mentor_name, :mentor_github_handle, :mentor_email,
       :url, :code_of_conduct, :description, :issues_and_features, :beginner_friendly,
-      :taglist, :source_url, :requirements
+      :taglist, :source_url, :requirements, :license
     )
   end
 end
