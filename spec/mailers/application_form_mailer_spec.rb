@@ -9,7 +9,7 @@ describe ApplicationFormMailer do
   end
 
   it 'has a default to-header' do
-    expect(subject.to).to include('summer-of-code@railsgirls.com')
+    expect(subject.to).to include('mail@rgsoc.org')
   end
 
   it 'has a subject' do

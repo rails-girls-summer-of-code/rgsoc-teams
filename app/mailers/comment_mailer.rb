@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class CommentMailer < ActionMailer::Base
   include ActionView::Helpers::TextHelper
 
@@ -8,7 +9,7 @@ class CommentMailer < ActionMailer::Base
 
   def email(comment)
     set comment
-    mail subject: subject, to: "summer-of-code@railsgirls.com"
+    mail subject: subject, to: 'mail@rgsoc.org'
   end
 
   private
