@@ -21,6 +21,7 @@ gem 'simple_statistics'
 gem 'rails_autolink'
 gem 'slim-rails'
 gem 'jquery-rails'
+gem 'jquery-ui-rails'
 gem 'bootstrap-sass'
 gem 'font-awesome-sass-rails'
 
