@@ -50,6 +50,9 @@ table.table.table-striped.table-bordered
   tr
     th Code of Conduct 
     td = link_to @project.code_of_conduct, @project.code_of_conduct
+  tr
+    th License
+    td = @project.license
 
 h2.header
   = icon('file')
