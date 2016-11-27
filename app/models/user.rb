@@ -80,7 +80,7 @@ class User < ActiveRecord::Base
   validates :homepage, format: { with: URL_PREFIX_PATTERN }, allow_blank: true
   validate :immutable_github_handle
 
-  accepts_nested_attributes_for :attendances, allow_destroy: true
+  accepts_nested_attributes_for :attendances, allow_destroy: true, limit: 3
   accepts_nested_attributes_for :roles
 
   before_save :sanitize_location
