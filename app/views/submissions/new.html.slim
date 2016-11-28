@@ -1,6 +1,8 @@
 nav.page
-  ul
-    li = link_to 'Back', @mailing, class: 'back'
+  .back-nav
+    ul
+      li = icon('chevron-left')
+      li = link_to 'Back', @mailing, class: 'back'
 
 h1 Submit mailing
 
