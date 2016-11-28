@@ -28,6 +28,10 @@
   *border-right-width: 2px;
   *border-bottom-width: 2px;
 
+  .ui-menu-item {
+    margin-left: 10px;
+  }
+
   .ui-menu-item > a.ui-corner-all {
     display: block;
     padding: 3px 15px;
