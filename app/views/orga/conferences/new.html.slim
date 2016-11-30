@@ -1,6 +1,8 @@
 nav.page
-  ul
-    li = link_to 'Back', orga_conferences_path, class: 'back'
+  .back-nav
+    ul
+      li = icon('chevron-left')
+      li = link_to 'Back', orga_conferences_path, class: 'back'
 
 h1 New conference
 

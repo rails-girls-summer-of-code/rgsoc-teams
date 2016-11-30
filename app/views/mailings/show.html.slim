@@ -1,12 +1,14 @@
 nav.page
-  ul
-    li = link_to 'All mailings', mailings_path, class: 'back'
+  .back-nav
+    ul
+      li = icon('chevron-left')
+      li = link_to 'All mailings', mailings_path, class: 'back'
 
 - if can?(:crud, Submission)
   nav.actions
-    ul
-      li = link_to 'Edit', edit_mailing_path(@mailing), class: 'edit'
-      li = link_to 'Delete', mailing_path(@mailing), method: :delete, class: 'edit', data: { confirm: 'Are you sure?' }
+    ul.list-inline
+      li = link_to 'Edit', edit_mailing_path(@mailing), class: 'btn btn-default btn-sm edit'
+      li = link_to 'Delete', mailing_path(@mailing), method: :delete, class: 'btn btn-default btn-sm destroy', data: { confirm: 'This action cannot be undone. Are you sure?' }
 
 h1 class="mailing" = @mailing.subject
 
