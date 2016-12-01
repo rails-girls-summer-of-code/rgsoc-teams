@@ -1,8 +1,17 @@
 class Season < ActiveRecord::Base
+  include SeasonPhaseSwitcher
+
   validates :name, presence: true, uniqueness: true
 
   before_validation :set_application_dates
 
+  SUMMER_OPEN   = '7, 1'
+  SUMMER_CLOSE  = '9, 30'
+  APPL_OPEN     = '3, 1'
+  APPL_CLOSE    = '3, 31'
+  APPL_LETTER   = '5, 1'
+  PROJECTS_OPEN = '12, 1'
+  PROJECTS_CLOSE= '2, 1'
 
   class << self
     def current
@@ -50,51 +59,6 @@ class Season < ActiveRecord::Base
 
   def year; name end
 
-  # switch_phase: enables developers to easily switch
-  # between time dependent settings in views
-  def fake_proposals_phase
-    update({
-         starts_at: 6.months.from_now,
-         ends_at: 9.months.from_now,
-         applications_open_at: 3.months.from_now,
-         applications_close_at: 4.months.from_now,
-         acceptance_notification_at: 5.months.from_now,
-         project_proposals_open_at: 4.weeks.ago,
-         project_proposals_close_at: 4.weeks.from_now
-    })
-  end
-
-  def fake_application_phase
-    update({
-        starts_at: 2.months.from_now,
-        ends_at: 5.months.from_now,
-        applications_open_at: 2.weeks.ago,
-        applications_close_at: 2.weeks.from_now,
-        acceptance_notification_at: 6.weeks.from_now
-    })
-  end
-
-  def fake_coding_phase
-    update({
-        starts_at: 6.weeks.ago,
-        ends_at: 6.weeks.from_now,
-        applications_open_at: 4.months.ago,
-        applications_close_at: 3.months.ago,
-        acceptance_notification_at: 2.months.ago
-    })
-  end
-
-  def back_to_reality
-    update({
-       name: Date.today.year,
-       starts_at: Time.utc(Date.today.year, 7, 1),
-       ends_at: Time.utc(Date.today.year, 9, 30),
-       applications_open_at: Time.utc(Date.today.year, 3, 1),
-       applications_close_at: Time.utc(Date.today.year, 3, 31),
-       acceptance_notification_at: Time.utc(Date.today.year, 5, 1)
-     })
-  end
-
   def transition?
     year == Date.today.year.to_s and ended?
   end
@@ -103,13 +67,13 @@ class Season < ActiveRecord::Base
 
   def set_application_dates
     return if year.blank?
-    self.starts_at ||= Time.utc(year, 7, 1)
-    self.ends_at   ||= Time.utc(year, 9, 30)
-    self.applications_open_at  ||= Time.utc(year, 3, 1)
-    self.applications_close_at ||= Time.utc(year, 3, 31)
-    self.acceptance_notification_at ||= Time.utc(year, 5, 1)
-    self.project_proposals_open_at  ||= Time.utc(year.to_i-1, 12, 1)
-    self.project_proposals_close_at ||= Time.utc(year, 02, 1)
+    self.starts_at ||= Time.utc(year, SUMMER_OPEN) # 1 jul
+    self.ends_at   ||= Time.utc(year, SUMMER_CLOSE)  # 30 sept
+    self.applications_open_at  ||= Time.utc(year, APPL_OPEN)
+    self.applications_close_at ||= Time.utc(year, APPL_CLOSE)
+    self.acceptance_notification_at ||= Time.utc(year, APPL_LETTER) # 1 May
+    self.project_proposals_open_at  ||= Time.utc(year.to_i-1, PROJECTS_OPEN)
+    self.project_proposals_close_at ||= Time.utc(year, PROJECTS_CLOSE)
     self.acceptance_notification_at = acceptance_notification_at.utc.end_of_day
     self.project_proposals_open_at  = project_proposals_open_at.beginning_of_day
     self.project_proposals_close_at = project_proposals_close_at.end_of_day
