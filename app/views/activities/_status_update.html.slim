@@ -2,8 +2,8 @@ li class="activity #{activity.kind}"
   div.row
     div.avatars.hidden-xs.col-sm-4.col-md-3
       - activity.students.each do |student|
-        = image_tag(student.avatar_url, class: "avatar")
-    
+        = image_tag(student.avatar_url, class: "avatar") if student.avatar_url
+
     div.text.col-sm-8.col-md-9
       h4.title
         = link_to(activity.title, status_update_path(activity))
