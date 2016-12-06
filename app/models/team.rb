@@ -176,7 +176,7 @@ class Team < ActiveRecord::Base
   end
 
   def two_students_present?
-    students(true).select(&:persisted?).size == 2
+    students.reload.select(&:persisted?).size == 2
   end
 
   # def must_have_members

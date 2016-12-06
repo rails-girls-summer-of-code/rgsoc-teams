@@ -70,7 +70,7 @@ class User < ActiveRecord::Base
       where(name: 'student')
     end
   end
-  has_many :teams, -> { uniq }, through: :roles
+  has_many :teams, -> { distinct }, through: :roles
   has_many :application_drafts, through: :teams
   has_many :applications, through: :teams
   has_many :attendances
@@ -186,7 +186,7 @@ class User < ActiveRecord::Base
 
   def immutable_github_handle
     return if new_record?
-    errors[:github_handle] = 'can\'t be changed' if github_handle_changed?
+    errors.add(:github_handle, "can't be changed") if github_handle_changed?
   end
 
 end
