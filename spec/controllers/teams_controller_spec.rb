@@ -36,7 +36,7 @@ RSpec.describe TeamsController do
 
     context 'with sorting' do
       it 'sorts by created_at' do
-        get :index, sort: 'created_at'
+        get :index, params: { sort: 'created_at' }
         expect(response).to render_template 'index'
       end
     end
@@ -63,7 +63,7 @@ RSpec.describe TeamsController do
 
   describe "GET show" do
     it "assigns the requested team as @team" do
-      get :show, { id: team.to_param }
+      get :show, params: { id: team.to_param }
       expect(assigns(:team)).to eql team
     end
   end
@@ -80,7 +80,7 @@ RSpec.describe TeamsController do
       let(:team) { FactoryGirl.create(:team) }
 
       it "assigns the requested team as @team" do
-        get :edit, { id: team.to_param }
+        get :edit, params: { id: team.to_param }
         expect(assigns(:team)).to eq(team)
         expect(response).to be_success
       end
@@ -90,7 +90,7 @@ RSpec.describe TeamsController do
       let(:another_team) { FactoryGirl.create(:team) }
 
       it "redirects to the homepage" do
-        get :edit, { id: another_team.to_param }
+        get :edit, params: { id: another_team.to_param }
         expect(response).to redirect_to(root_url)
       end
     end
@@ -102,22 +102,22 @@ RSpec.describe TeamsController do
     describe "with valid params" do
       it "creates a new Team" do
         params = { team_id: team.to_param, team: valid_attributes }
-        expect { post :create, params }.to change(Team, :count).by(1)
+        expect { post :create, params: params }.to change(Team, :count).by(1)
       end
 
       it "assigns a newly created team as @team" do
-        post :create, { team_id: team.to_param, team: valid_attributes }
+        post :create, params: { team_id: team.to_param, team: valid_attributes }
         expect(assigns(:team)).to be_a(Team)
         expect(assigns(:team)).to be_persisted
       end
 
       it "redirects to the created team" do
-        post :create, { team_id: team.to_param, team: valid_attributes }
+        post :create, params: { team_id: team.to_param, team: valid_attributes }
         expect(response).to redirect_to(assigns(:team))
       end
 
       it 'sets the current season' do
-        post :create, { team_id: team.to_param, team: valid_attributes }
+        post :create, params: { team_id: team.to_param, team: valid_attributes }
         expect(assigns(:team).season.name).to eql Date.today.year.to_s
       end
 
@@ -130,7 +130,7 @@ RSpec.describe TeamsController do
         let(:valid_attributes) { build(:team).attributes.merge(roles_attributes: [{ name: 'student', github_handle: first_student.github_handle }, { name: 'student', github_handle: second_student.github_handle }]) }
 
         it 'sets the state as confirmed' do
-          post :create, { team_id: team.to_param, team: valid_attributes }
+          post :create, params: { team_id: team.to_param, team: valid_attributes }
           expect(assigns(:team)).to be_confirmed
         end
       end
@@ -145,17 +145,17 @@ RSpec.describe TeamsController do
 
       describe "with valid params" do
         it "updates the requested team" do
-          expect_any_instance_of(Team).to receive(:update_attributes).with({ 'name' => 'Blue' })
-          put :update, { id: team.to_param, team: { 'name' => 'Blue' } }
+          expect_any_instance_of(Team).to receive(:update_attributes).with(ActionController::Parameters.new({ 'name' => 'Blue' }).permit(:name))
+          put :update, params: { id: team.to_param, team: { 'name' => 'Blue' } }
         end
 
         it "assigns the requested team as @team" do
-          put :update, { id: team.to_param, team: valid_attributes }
+          put :update, params: { id: team.to_param, team: valid_attributes }
           expect(assigns(:team)).to eq(team)
         end
 
         it "redirects to the team" do
-          put :update, { id: team.to_param, team: valid_attributes }
+          put :update, params: { id: team.to_param, team: valid_attributes }
           expect(response).to redirect_to(team)
         end
       end
@@ -163,13 +163,13 @@ RSpec.describe TeamsController do
       describe "with invalid params" do
         it "assigns the team as @team" do
           allow_any_instance_of(Team).to receive(:save).and_return(false)
-          put :update, { id: team.to_param, team: { 'name' => 'invalid value' } }
+          put :update, params: { id: team.to_param, team: { 'name' => 'invalid value' } }
           expect(assigns(:team)).to eq(team)
         end
 
         it "re-renders the 'edit' template" do
           allow_any_instance_of(Team).to receive(:save).and_return(false)
-          put :update, { id: team.to_param, team: { 'name' => 'invalid value' } }
+          put :update, params: { id: team.to_param, team: { 'name' => 'invalid value' } }
           expect(response).to render_template("edit")
         end
       end
@@ -179,11 +179,11 @@ RSpec.describe TeamsController do
 
         it "does not update the requested team" do
           expect_any_instance_of(Team).not_to receive(:update_attributes)
-          put :update, { id: another_team.to_param, team: { 'name' => 'Blue' } }
+          put :update, params: { id: another_team.to_param, team: { 'name' => 'Blue' } }
         end
 
         it "redirects the team to the homepage" do
-          put :update, { id: another_team.to_param, team: valid_attributes }
+          put :update, params: { id: another_team.to_param, team: valid_attributes }
           expect(response).to redirect_to(root_url)
         end
       end
@@ -197,11 +197,11 @@ RSpec.describe TeamsController do
       let(:params) { { id: team.to_param } }
 
       it "destroys the requested team" do
-        expect { delete :destroy, params }.to change(Team, :count).by(-1)
+        expect { delete :destroy, params: params }.to change(Team, :count).by(-1)
       end
 
       it "redirects to the team list" do
-        delete :destroy, params
+        delete :destroy, params: params
         expect(response).to redirect_to(teams_url)
       end
     end
@@ -211,11 +211,11 @@ RSpec.describe TeamsController do
       let(:params)       { { id: another_team.to_param } }
 
       it "doesn't destroy the requested team" do
-        expect { delete :destroy, params }.to change(Team, :count).by(1)
+        expect { delete :destroy, params: params }.to change(Team, :count).by(1)
       end
 
       it "redirects to the homepage" do
-        delete :destroy, params
+        delete :destroy, params: params
         expect(response).to redirect_to(root_url)
       end
     end

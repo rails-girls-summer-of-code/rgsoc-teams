@@ -39,14 +39,14 @@ RSpec.describe Students::StatusUpdatesController do
 
       it 'creates a new status update' do
         expect {
-          post :create, activity: attributes
+          post :create, params: { activity: attributes }
         }.to change { team.status_updates.count }.by 1
         expect(flash[:notice]).to be_present
         expect(response).to redirect_to [:students, :status_updates]
       end
 
       it 'immediately marks the activity as published' do
-        post :create, activity: attributes
+        post :create, params: { activity: attributes }
 
         activity = team.status_updates.last
         expect(activity.published_at).to be_present
@@ -54,7 +54,7 @@ RSpec.describe Students::StatusUpdatesController do
 
       it 'fails to create status update and renders index' do
         expect {
-          post :create, activity: { title: '' }
+          post :create, params: { activity: { title: '' } }
         }.not_to change { team.status_updates.count }
         expect(response).to render_template 'index'
       end
@@ -64,28 +64,28 @@ RSpec.describe Students::StatusUpdatesController do
       let(:attributes) { attributes_for :status_update }
 
       it 'renders partial preview' do
-        xhr :post, :preview, activity: attributes
+        post :preview, xhr: true, params: { activity: attributes }
         expect(response).to render_template(partial: '_preview')
       end
     end
 
     describe 'GET show' do
       it 'renders the show template' do
-        get :show, id: status_update.to_param
+        get :show, params: { id: status_update.to_param }
         expect(assigns(:status_update)).to eql status_update
         expect(response).to render_template 'show'
       end
 
       it 'renders markdown' do
         status_update.update content: "I am **bold**"
-        get :show, id: status_update.to_param
+        get :show, params: { id: status_update.to_param }
         expect(response.body).to have_tag('strong') { with_text "bold" }
       end
     end
 
     describe 'GET edit' do
       it 'renders the edit template' do
-        get :edit, id: status_update.to_param
+        get :edit, params: { id: status_update.to_param }
         expect(assigns(:status_update)).to eql status_update
         expect(response).to render_template 'edit'
       end
@@ -94,14 +94,14 @@ RSpec.describe Students::StatusUpdatesController do
     describe 'PATCH update' do
       it 'updates the record and redirects to index' do
         expect {
-          patch :update, id: status_update.to_param, activity: { title: 'foobar' }
+          patch :update, params: { id: status_update.to_param, activity: { title: 'foobar' } }
         }.to change { status_update.reload.title }
         expect(flash[:notice]).to be_present
         expect(response).to redirect_to [:students, :status_updates]
       end
 
       it 'fails to update record and renders edit' do
-        patch :update, id: status_update.to_param, activity: { title: '' }
+        patch :update, params: { id: status_update.to_param, activity: { title: '' } }
         expect(response).to render_template 'edit'
       end
     end
@@ -111,7 +111,7 @@ RSpec.describe Students::StatusUpdatesController do
 
       it 'destroys the record and redirects to index' do
         expect {
-          delete :destroy, id: status_update.to_param
+          delete :destroy, params: { id: status_update.to_param }
         }.to change { team.status_updates.count }.by(-1)
         expect(response).to redirect_to [:students, :status_updates]
       end

@@ -10,19 +10,19 @@ describe UsersController do
     it "assigns all users that have any roles assigned as @users" do
       student  = create(:student)
       coach = create(:coach)
-      get :index, {}, valid_session
+      get :index, { params: {} }, valid_session
       expect(assigns(:users).to_a).to include(coach) && include(student)
     end
 
     it 'will not show email addresses for guests' do
       user = FactoryGirl.create(:user, hide_email: false)
-      get :index, {}, {}
+      get :index, { params: {} }, {}
       expect(response.body).not_to include user.email
     end
 
     context 'with sorting' do
       it 'sorts by team' do
-        get :index, sort: 'team'
+        get :index, params: { sort: 'team' }
         expect(response).to render_template 'index'
       end
     end
@@ -32,7 +32,7 @@ describe UsersController do
         sign_in create(:student)
         user = FactoryGirl.create(:student, hide_email: false)
         user_opted_out = FactoryGirl.create(:user, hide_email: true)
-        get :index, {}, valid_session
+        get :index, { params: {} }, valid_session
         expect(response.body).to include user.email
         expect(response.body).not_to include user_opted_out.email
       end
@@ -42,7 +42,7 @@ describe UsersController do
   describe "GET show" do
     it "assigns the requested user as @user" do
       user = create(:user)
-      get :show, { id: user.to_param }, valid_session
+      get :show, { params: { id: user.to_param } }, valid_session
       expect(assigns(:user)).to eq(user)
     end
   end
@@ -55,7 +55,7 @@ describe UsersController do
 
     context "its own profile" do
       it "assigns the requested user as @user" do
-        get :edit, { id: user.to_param }, valid_session
+        get :edit, { params: { id: user.to_param } }, valid_session
         expect(assigns(:user)).to eq(user)
       end
     end
@@ -64,7 +64,7 @@ describe UsersController do
       let(:another_user) { FactoryGirl.create(:user) }
 
       it "redirects to the homepage" do
-        get :edit, { id: another_user.to_param }, valid_session
+        get :edit, { params: { id: another_user.to_param } }, valid_session
         expect(response).to redirect_to(root_url)
       end
     end
@@ -79,17 +79,17 @@ describe UsersController do
     context "its own profile" do
       describe "with valid params" do
         it "updates the requested user" do
-          expect_any_instance_of(User).to receive(:update_attributes).with({ 'name' => 'Trung Le' })
-          put :update, { id: user.to_param, user: { 'name' => 'Trung Le' } }, valid_session
+          expect_any_instance_of(User).to receive(:update_attributes).with(ActionController::Parameters.new({ 'name' => 'Trung Le' }).permit(:name))
+          put :update, { params: { id: user.to_param, user: { 'name' => 'Trung Le' } } }, valid_session
         end
 
         it "assigns the requested user as @user" do
-          put :update, { id: user.to_param, user: valid_attributes }, valid_session
+          put :update, { params: { id: user.to_param, user: valid_attributes } }, valid_session
           expect(assigns(:user)).to eq(user)
         end
 
         it "redirects to the user" do
-          put :update, { id: user.to_param, user: valid_attributes }, valid_session
+          put :update, { params: { id: user.to_param, user: valid_attributes } }, valid_session
           expect(response).to redirect_to(user)
         end
       end
@@ -97,13 +97,13 @@ describe UsersController do
       describe "with invalid params" do
         it "assigns the user as @user" do
           allow_any_instance_of(User).to receive(:save).and_return(false)
-          put :update, { id: user.to_param, user: { 'name' => 'invalid value' } }, valid_session
+          put :update, { params: { id: user.to_param, user: { 'name' => 'invalid value' } } }, valid_session
           expect(assigns(:user)).to eq(user)
         end
 
         it "re-renders the 'edit' template" do
           allow_any_instance_of(User).to receive(:save).and_return(false)
-          put :update, { id: user.to_param, user: { 'name' => 'invalid value' } }, valid_session
+          put :update, { params: { id: user.to_param, user: { 'name' => 'invalid value' } } }, valid_session
           expect(response).to render_template("edit")
         end
       end
@@ -113,11 +113,11 @@ describe UsersController do
 
         it "does not update the requested user" do
           expect_any_instance_of(User).not_to receive(:update_attributes)
-          put :update, { id: another_user.to_param, user: { 'name' => 'Trung Le' } }, valid_session
+          put :update, { params: { id: another_user.to_param, user: { 'name' => 'Trung Le' } } }, valid_session
         end
 
         it "redirects the user to the homepage" do
-          put :update, { id: another_user.to_param, user: valid_attributes }, valid_session
+          put :update, { params: { id: another_user.to_param, user: valid_attributes } }, valid_session
           expect(response).to redirect_to(root_url)
         end
       end
@@ -133,7 +133,7 @@ describe UsersController do
 
     context 'their own profile' do
       it 'updates the profile and redirects' do
-        patch :update, id: user.id, user: valid_attributes
+        patch :update, { params: { id: user.id, user: valid_attributes } }
         expect(response).to redirect_to user
       end
     end
@@ -148,12 +148,12 @@ describe UsersController do
     context "its own profile" do
       it "destroys the requested user" do
         expect {
-          delete :destroy, { id: user.to_param }, valid_session
+          delete :destroy, { params: { id: user.to_param } }, valid_session
         }.to change(User, :count).by(-1)
       end
 
       it "redirects to the users list" do
-        delete :destroy, { id: user.to_param }, valid_session
+        delete :destroy, { params: { id: user.to_param } }, valid_session
         expect(response).to redirect_to(users_url)
       end
     end
@@ -163,12 +163,12 @@ describe UsersController do
 
       it "doesn't destroy the requested user" do
         expect {
-          delete :destroy, { id: another_user.to_param }, valid_session
+          delete :destroy, { params: { id: another_user.to_param } }, valid_session
         }.to change(User, :count).by(1)
       end
 
       it "redirects to the homepage" do
-        delete :destroy, { id: another_user.to_param }, valid_session
+        delete :destroy, { params: { id: another_user.to_param } }, valid_session
         expect(response).to redirect_to(root_url)
       end
     end

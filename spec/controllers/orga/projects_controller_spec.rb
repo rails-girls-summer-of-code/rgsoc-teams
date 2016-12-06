@@ -24,7 +24,7 @@ RSpec.describe Orga::ProjectsController do
         context 'with an accepted record' do
           let!(:project) { create :project, :"#{action}ed" }
           it 'complains and redirects to show' do
-            put action, id: project.to_param
+            put action, params: { id: project.to_param }
             expect(response).to redirect_to [:orga, :projects]
             expect(flash[:alert]).to be_present
           end
@@ -32,7 +32,7 @@ RSpec.describe Orga::ProjectsController do
 
         it "#{action}s and redirect to show" do
           expect {
-            put action, id: project.to_param
+            put action, params: { id: project.to_param }
           }.to change { project.reload.aasm_state }.to "#{action}ed"
           expect(response).to redirect_to [:orga, :projects]
           expect(flash[:notice]).to be_present
@@ -45,7 +45,7 @@ RSpec.describe Orga::ProjectsController do
 
     describe 'PUT lock' do
       it 'toggles the comments_locked boolean' do
-        expect { put :lock, id: project.to_param }.
+        expect { put :lock, params: { id: project.to_param }}.
           to change { project.reload.comments_locked? }.to true
         expect(response).to redirect_to [:orga, :projects]
       end
@@ -55,7 +55,7 @@ RSpec.describe Orga::ProjectsController do
       let!(:project) { create :project, comments_locked: true }
 
       it 'toggles the comments_unlocked boolean' do
-        expect { put :unlock, id: project.to_param }.
+        expect { put :unlock, params: { id: project.to_param } }.
           to change { project.reload.comments_locked? }.to false
         expect(response).to redirect_to [:orga, :projects]
       end

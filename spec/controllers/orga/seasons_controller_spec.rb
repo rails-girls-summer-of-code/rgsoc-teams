@@ -28,7 +28,7 @@ RSpec.describe Orga::SeasonsController do
 
     describe 'GET edit' do
       it 'renders the edit template' do
-        get :edit, id: season.to_param
+        get :edit, params: { id: season.to_param }
         expect(response).to be_success
         expect(response).to render_template 'edit'
       end
@@ -36,7 +36,7 @@ RSpec.describe Orga::SeasonsController do
 
     describe 'GET show' do
       it 'renders the show template' do
-        get :show, id: season.to_param
+        get :show, params: { id: season.to_param }
         expect(response).to be_success
         expect(response).to render_template 'show'
       end
@@ -44,7 +44,7 @@ RSpec.describe Orga::SeasonsController do
 
     describe 'PATCH update' do
       it 'updates and redirects' do
-        patch :update, id: season.to_param, season: { name: '2525' }
+        patch :update, params: { id: season.to_param, season: { name: '2525' } }
         expect(response).to redirect_to orga_seasons_path
       end
 
@@ -52,7 +52,7 @@ RSpec.describe Orga::SeasonsController do
         let!(:season) { create :season }
 
         it 'fails updates and renders the edit template' do
-          patch :update, id: season.to_param, season: { name: '' }
+          patch :update, params: { id: season.to_param, season: { name: '' } }
           expect(response).to render_template 'edit'
         end
       end

@@ -27,14 +27,14 @@ RSpec.describe Orga::TeamsController do
       end
 
       it 'assigns all teams as @teams when requested' do
-        get :index, filter: 'all'
+        get :index, params: { filter: 'all' }
         expect(assigns(:teams)).to match_array [voluntary_team, sponsored_team, team]
       end
     end
 
     describe "GET show" do
       it "assigns the requested team as @team" do
-        get :show, id: team.to_param
+        get :show, params: { id: team.to_param }
         expect(assigns(:team)).to eql team
       end
     end
@@ -48,7 +48,7 @@ RSpec.describe Orga::TeamsController do
 
     describe "GET edit" do
       it "assigns the requested team as @team" do
-        get :edit, id: team.to_param
+        get :edit, params: { id: team.to_param }
         expect(assigns(:team)).to eq(team)
       end
     end
@@ -57,22 +57,22 @@ RSpec.describe Orga::TeamsController do
       describe "with valid params" do
         it "creates a new Team" do
           params = { team_id: team.to_param, team: valid_attributes }
-          expect { post :create, params }.to change(Team, :count).by(1)
+          expect { post :create, params: params }.to change(Team, :count).by(1)
         end
 
         it "assigns a newly created team as @team" do
-          post :create, { team_id: team.to_param, team: valid_attributes }
+          post :create, params: { team_id: team.to_param, team: valid_attributes }
           expect(assigns(:team)).to be_a(Team)
           expect(assigns(:team)).to be_persisted
         end
 
         it "redirects to the created team" do
-          post :create, { team_id: team.to_param, team: valid_attributes }
+          post :create, params: { team_id: team.to_param, team: valid_attributes }
           expect(response).to redirect_to [:orga, assigns(:team)]
         end
 
         it 'sets the current season' do
-          post :create, { team_id: team.to_param, team: valid_attributes }
+          post :create, params: { team_id: team.to_param, team: valid_attributes }
           expect(assigns(:team).season.name).to eql Date.today.year.to_s
         end
       end
@@ -81,17 +81,17 @@ RSpec.describe Orga::TeamsController do
     describe "PUT update" do
       describe "with valid params" do
         it "updates the requested team" do
-          expect_any_instance_of(Team).to receive(:update_attributes).with({ 'name' => 'Blue' })
-          put :update, { id: team.to_param, team: { 'name' => 'Blue' } }
+          expect_any_instance_of(Team).to receive(:update_attributes).with(ActionController::Parameters.new({ 'name' => 'Blue' }).permit(:name))
+          put :update, params: { id: team.to_param, team: { 'name' => 'Blue' } }
         end
 
         it "assigns the requested team as @team" do
-          put :update, { id: team.to_param, team: valid_attributes }
+          put :update, params: { id: team.to_param, team: valid_attributes }
           expect(assigns(:team)).to eq(team)
         end
 
         it "redirects to the team" do
-          put :update, { id: team.to_param, team: valid_attributes }
+          put :update, params: { id: team.to_param, team: valid_attributes }
           expect(response).to redirect_to [:orga, team]
         end
       end
@@ -99,13 +99,13 @@ RSpec.describe Orga::TeamsController do
       describe "with invalid params" do
         it "assigns the team as @team" do
           allow_any_instance_of(Team).to receive(:save).and_return(false)
-          put :update, { id: team.to_param, team: { 'name' => 'invalid value' } }
+          put :update, params: { id: team.to_param, team: { 'name' => 'invalid value' } }
           expect(assigns(:team)).to eq(team)
         end
 
         it "re-renders the 'edit' template" do
           allow_any_instance_of(Team).to receive(:save).and_return(false)
-          put :update, { id: team.to_param, team: { 'name' => 'invalid value' } }
+          put :update, params: { id: team.to_param, team: { 'name' => 'invalid value' } }
           expect(response).to render_template("edit")
         end
       end
@@ -116,11 +116,11 @@ RSpec.describe Orga::TeamsController do
         let(:params) { { id: team.to_param } }
 
         it "destroys the requested team" do
-          expect { delete :destroy, params }.to change(Team, :count).by(-1)
+          expect { delete :destroy, params: params }.to change(Team, :count).by(-1)
         end
 
         it "redirects to the team list" do
-          delete :destroy, params
+          delete :destroy, params: params
           expect(response).to redirect_to orga_teams_url
         end
       end

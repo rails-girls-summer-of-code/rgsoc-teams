@@ -7,14 +7,14 @@ RSpec.describe Rating::Todos::ApplicationsController do
 
   describe 'GET show' do
     it 'requires login' do
-      get :show, id: application.to_param
+      get :show, params: { id: application.to_param }
       expect(response).to redirect_to root_path
       expect(flash[:alert]).to be_present
     end
 
     it 'requires reviewer role' do
       sign_in create(:organizer)
-      get :show, id: application.to_param
+      get :show, params: { id: application.to_param }
       expect(response).to redirect_to root_path
       expect(flash[:alert]).to be_present
     end
@@ -24,7 +24,7 @@ RSpec.describe Rating::Todos::ApplicationsController do
 
       before do
         sign_in user
-        get :show, id: application.to_param
+        get :show, params: { id: application.to_param }
       end
 
       it 'finds and assigns @application by id param' do

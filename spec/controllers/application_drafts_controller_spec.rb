@@ -87,7 +87,7 @@ RSpec.describe ApplicationDraftsController do
       let(:draft) { create :application_draft }
 
       it 'redirects if not part of a team' do
-        get :edit, id: draft.to_param
+        get :edit, params: { id: draft.to_param }
         expect(response).to redirect_to root_path
         expect(flash[:alert]).to be_present
       end
@@ -95,7 +95,7 @@ RSpec.describe ApplicationDraftsController do
       it 'will not find somebody else\'s draft' do
         create :student_role, user: user
         expect {
-          get :edit, id: draft.to_param
+          get :edit, params: { id: draft.to_param }
         }.to raise_error ActiveRecord::RecordNotFound
       end
 
@@ -104,7 +104,7 @@ RSpec.describe ApplicationDraftsController do
 
         context "as a #{role} of the team" do
           it 'renders the new template' do
-            get :edit, id: draft.to_param
+            get :edit, params: { id: draft.to_param }
             expect(response).to redirect_to root_path
           end
         end
@@ -117,7 +117,7 @@ RSpec.describe ApplicationDraftsController do
     describe 'POST create' do
       it 'creates a draft and redirects to edit' do
         create :student_role, user: user
-        expect { post :create, application_draft: { misc_info: 'Foo!' } }.to \
+        expect { post :create, { params: { application_draft: { misc_info: 'Foo!' } } } }.to \
           change { ApplicationDraft.count }.by 1
         expect(flash[:notice]).not_to be_nil
         expect(response).to redirect_to [:edit, assigns[:application_draft]]
@@ -137,12 +137,12 @@ RSpec.describe ApplicationDraftsController do
       end
 
       it_behaves_like 'application period is over' do
-        subject { patch :update, id: draft.to_param }
+        subject { patch :update, params: { id: draft.to_param } }
       end
 
       it 'sets the updated_by attibute' do
         expect {
-          patch :update, id: draft.to_param, application_draft: { misc_info: 'Foo!' }
+          patch :update, { params: { id: draft.to_param, application_draft: { misc_info: 'Foo!' } } }
         }.to change { draft.reload.updater }.from(nil).to user
         expect(response).to redirect_to [:edit, assigns[:application_draft]]
       end
@@ -153,7 +153,7 @@ RSpec.describe ApplicationDraftsController do
         draft.save
 
         expect {
-          patch :update, id: draft.to_param, application_draft: { misc_info: 'Foo!' }
+          patch :update, { params: { id: draft.to_param, application_draft: { misc_info: 'Foo!' } } }
         }.not_to change { draft.reload.misc_info }
         expect(response).to redirect_to application_drafts_path
       end
@@ -168,7 +168,7 @@ RSpec.describe ApplicationDraftsController do
 
       context 'for an invalid draft' do
         it 'displays errors' do
-          get :check, id: draft.to_param
+          get :check, params: { id: draft.to_param }
           expect(response).to render_template 'new'
           expect(flash[:alert]).to be_present
           expect(response.body).to match /About yourself \(\d{,2} errors\)/
@@ -184,7 +184,7 @@ RSpec.describe ApplicationDraftsController do
         end
 
         it 'is go' do
-          get :check, id: draft.to_param
+          get :check, params: { id: draft.to_param }
           expect(response).to render_template 'new'
           expect(flash[:notice]).to be_present
         end
@@ -201,19 +201,19 @@ RSpec.describe ApplicationDraftsController do
 
         context 'coaches confirmed' do
           it 'creates a new application' do
-            expect { put :apply, id: draft.id }.to change { Application.count }.by(1)
+            expect { put :apply, { params: { id: draft.id } } }.to change { Application.count }.by(1)
             expect(flash[:notice]).to be_present
             expect(response).to redirect_to application_drafts_path
             expect(application.application_draft).to eql draft
           end
 
           it 'sends a mail' do
-            expect { put :apply, id: draft.id }.to \
+            expect { put :apply, { params: { id: draft.id } } }.to \
               change { enqueued_jobs.size }.by(1)
           end
 
           it 'flags the draft as applied' do
-            expect { put :apply, id: draft.id }.to \
+            expect { put :apply, { params: { id: draft.id } } }.to \
               change { draft.reload.state }.to('applied')
           end
         end
@@ -224,7 +224,7 @@ RSpec.describe ApplicationDraftsController do
           end
 
           it "fails to apply" do
-            expect { put :apply, id: draft.id }.not_to change { Application.count }
+            expect { put :apply, { params: { id: draft.id } } }.not_to change { Application.count }
             expect(flash[:alert]).to be_present
             expect(response).to redirect_to application_drafts_path
           end
@@ -235,7 +235,7 @@ RSpec.describe ApplicationDraftsController do
         let!(:role) { create("#{role}_role", user: user, team: team) }
 
         it "fails to apply as a #{role}" do
-          expect { put :apply, id: draft.id }.not_to change { Application.count }
+          expect { put :apply, { params: { id: draft.id } } }.not_to change { Application.count }
           expect(flash[:alert]).to be_present
           expect(response).to redirect_to redirection_to
         end
