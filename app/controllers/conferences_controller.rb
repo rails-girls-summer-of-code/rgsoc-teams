@@ -16,18 +16,9 @@ class ConferencesController < ApplicationController
     helper_method :conferences
 
     def conference
-       @conference ||= params[:id] ? Conference.find(params[:id]) : Conference.new(conference_params)
+       @conference ||= Conference.find(params[:id])
     end
     helper_method :conference
-
-    def conference_params
-     params[:conference] ? params.require(:conference).permit(
-         :name, :url, :location, :twitter, :tickets, :flights, :accomodation,
-         :'starts_on(1i)', :'starts_on(2i)', :'starts_on(3i)', :round,
-         :'ends_on(1i)', :'ends_on(2i)', :'ends_on(3i)', :lightningtalkslots,
-         attendances_attributes: [:id, :github_handle, :_destroy]
-     ) : {}
-    end
 
     def sort_params
       {
