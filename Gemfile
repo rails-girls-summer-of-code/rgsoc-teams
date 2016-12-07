@@ -46,7 +46,6 @@ end
 
 group :development, :test do
   gem 'rspec-rails', '~> 3.0'
-  gem 'rspec-activemodel-mocks'
   gem 'factory_girl_rails'
   gem 'database_cleaner'
   gem 'byebug', require: !ENV['RM_INFO'] #require parameter is workaround for RubyMine with Rails ~> 4.1
@@ -73,4 +72,5 @@ group :test do
   gem "codeclimate-test-reporter", require: false
   gem 'rspec-collection_matchers'
   gem 'rspec-html-matchers'
+  gem 'rspec-activemodel-mocks'
 end
