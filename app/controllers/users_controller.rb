@@ -4,6 +4,11 @@ class UsersController < ApplicationController
 
   load_and_authorize_resource except: [:index, :show]
 
+  # limit is set on conference attendances
+  rescue_from ActiveRecord::NestedAttributes::TooManyRecords do |error|
+    redirect_to edit_user_path(@user), alert: error.message
+  end
+
   def index
     @filters = {
       all:        'All',
