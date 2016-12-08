@@ -28,8 +28,5 @@ module RgsocTeams
     config.action_mailer.default_url_options = { host: 'teams.railsgirlssummerofcode.org' }
 
     config.active_job.queue_adapter = :sucker_punch
-
-    # Do not swallow errors in after_commit/after_rollback callbacks.
-    config.active_record.raise_in_transactional_callbacks = true
   end
 end
