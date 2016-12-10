@@ -200,4 +200,20 @@ describe UsersController do
     end
   end
 
+  describe 'POST impersonate' do
+    let(:user) { create(:user) }
+    let(:impersonated_user) { create(:user) }
+    before { sign_in user }
+
+    it 'changes the current_user' do
+      post :impersonate, { params: { id: impersonated_user.id } }
+      expect(controller.current_user).to eq impersonated_user
+    end
+
+    it 'redirects to users#index' do
+      post :impersonate, { params: { id: impersonated_user.id } }
+      expect(response).to redirect_to users_path
+      expect(flash[:notice]).to include "Now impersonating #{impersonated_user.name}"
+    end
+  end
 end

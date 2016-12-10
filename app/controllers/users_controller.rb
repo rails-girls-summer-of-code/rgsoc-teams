@@ -1,8 +1,8 @@
 class UsersController < ApplicationController
   before_action :normalize_params, only: :index
-  before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_action :set_user, only: [:show, :edit, :update, :destroy, :impersonate]
 
-  load_and_authorize_resource except: [:index, :show]
+  load_and_authorize_resource except: [:index, :show, :impersonate]
 
   def index
     @filters = {
@@ -65,6 +65,11 @@ class UsersController < ApplicationController
       format.html { redirect_to users_url }
       format.json { head :no_content }
     end
+  end
+
+  def impersonate
+    impersonate_user(@user)
+    redirect_to users_path, notice: "Now impersonating #{@user.name}!"
   end
 
   private
