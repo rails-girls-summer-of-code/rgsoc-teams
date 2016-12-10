@@ -29,6 +29,10 @@ describe UsersController do
     it 'routes to #impersonate on development' do
       expect(post('/users/1/impersonate')).to route_to('users#impersonate', id: '1')
     end
+
+    it 'routes to #stop_impersonating on development' do
+      expect(post('/users/stop_impersonating')).to route_to('users#stop_impersonating')
+    end
   end
 
   describe 'production-specific routing' do
@@ -36,6 +40,10 @@ describe UsersController do
 
     it 'does not route to #impersonate on production' do
       expect(post('/users/1/impersonate')).not_to be_routable
+    end
+
+    it 'does not route to #stop_impersonating on production' do
+      expect(post('/users/stop_impersonating')).not_to be_routable
     end
   end
 end
