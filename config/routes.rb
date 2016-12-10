@@ -13,8 +13,12 @@ RgsocTeams::Application.routes.draw do
     resources :roles, only: [:new, :create, :destroy]
   end
 
+  concern :impersonatable do
+    post 'impersonate', on: :member
+  end
+
   get 'users/info', to: 'users_info#index'
-  resources :users, except: :new, concerns: :has_roles
+  resources :users, except: :new, concerns: [:has_roles, :impersonatable]
   resources :sources, only: :index
   resources :comments, only: :create
   resources :conferences

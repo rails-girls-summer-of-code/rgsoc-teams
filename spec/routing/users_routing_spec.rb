@@ -25,5 +25,9 @@ describe UsersController do
     it 'routes to #destroy' do
       expect(delete('/users/1')).to route_to('users#destroy', id: '1')
     end
+
+    it 'routes to #impersonate' do
+      expect(post('/users/1/impersonate')).to route_to('users#impersonate', id: '1')
+    end
   end
 end
