@@ -28,27 +28,30 @@ describe UsersController do
     end
 
     context 'with user logged in' do
-      it 'will not show email addresses of those who opted out' do
+      before(:each) do
         sign_in create(:student)
+      end
+
+      it 'will not show email addresses of those who opted out' do
         user = FactoryGirl.create(:student, hide_email: false)
         user_opted_out = FactoryGirl.create(:user, hide_email: true)
         get :index, { params: {} }, valid_session
         expect(response.body).to include user.email
         expect(response.body).not_to include user_opted_out.email
       end
-    end
 
-    it 'shows user impersonation links when in development' do
-      user = create(:student)
-      get :index, { params: {} }, {}
-      expect(response.body).to include impersonate_user_path(user)
-    end
+      it 'shows user impersonation links when in development' do
+        other_user = create(:student)
+        get :index, { params: {} }, {}
+        expect(response.body).to include impersonate_user_path(other_user)
+      end
 
-    it 'does not show user impersonation links when in production' do
-      allow(Rails).to receive(:env).and_return('production'.inquiry)
-      user = create(:student)
-      get :index, { params: {} }, {}
-      expect(response.body).not_to include impersonate_user_path(user)
+      it 'does not show user impersonation links when in production' do
+        allow(Rails).to receive(:env).and_return('production'.inquiry)
+        other_user = create(:student)
+        get :index, { params: {} }, {}
+        expect(response.body).not_to include impersonate_user_path(other_user)
+      end
     end
   end
 
@@ -59,17 +62,23 @@ describe UsersController do
       expect(assigns(:user)).to eq(user)
     end
 
-    it 'shows the user impersonation link when in development' do
-      user = create(:user)
-      get :show, { params: { id: user.to_param } }, {}
-      expect(response.body).to include impersonate_user_path(user)
-    end
+    context 'with user logged in' do
+      before(:each) do
+        sign_in create(:student)
+      end
 
-    it 'does not show the user impersonation link when in production' do
-      allow(Rails).to receive(:env).and_return('production'.inquiry)
-      user = create(:user)
-      get :show, { params: { id: user.to_param } }, {}
-      expect(response.body).not_to include impersonate_user_path(user)
+      it 'shows the user impersonation link when in development' do
+        other_user = create(:user)
+        get :show, { params: { id: other_user.to_param } }, {}
+        expect(response.body).to include impersonate_user_path(other_user)
+      end
+
+      it 'does not show the user impersonation link when in production' do
+        allow(Rails).to receive(:env).and_return('production'.inquiry)
+        other_user = create(:user)
+        get :show, { params: { id: other_user.to_param } }, {}
+        expect(response.body).not_to include impersonate_user_path(other_user)
+      end
     end
   end
 
