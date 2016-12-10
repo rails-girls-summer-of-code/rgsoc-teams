@@ -53,6 +53,17 @@ describe UsersController do
         expect(response.body).not_to include impersonate_user_path(other_user)
       end
     end
+
+    context 'when impersonating' do
+      it 'shows a Stop Impersonation link instead of Sign out' do
+        sign_in create(:student)
+        other_user = create(:student)
+        controller.impersonate_user(other_user)
+        get :index, { params: {} }, {}
+        expect(response.body).not_to include sign_out_path
+        expect(response.body).to include stop_impersonating_users_path
+      end
+    end
   end
 
   describe "GET show" do

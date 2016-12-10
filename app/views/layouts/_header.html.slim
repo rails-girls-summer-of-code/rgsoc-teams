@@ -36,6 +36,9 @@ section#header
                 li class="divider"
                 - if signed_in?
                   li = "#{link_to 'Profile', current_user}".html_safe
-                  li = link_to "Sign out", sign_out_path, method: :delete
+                  - if current_user != true_user
+                    li.announcement = link_to icon('eye-close', 'Stop'), stop_impersonating_users_path, method: :post, title: 'Stop Impersonation'
+                  - else
+                    li = link_to "Sign out", sign_out_path, method: :delete
                 - else
                   li = link_to icon('github', 'Sign in'), user_github_omniauth_authorize_path
