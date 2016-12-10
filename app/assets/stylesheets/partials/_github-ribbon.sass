@@ -1,13 +1,5 @@
 // Responsive GitHub Ribbon
 
-.wrapper
-  position: absolute
-  top: 0px
-  right: 0px
-  width: 150px
-  height: 150px
-  overflow: hidden
-
 .ribbon
   // Positioning
   position: absolute
@@ -31,7 +23,7 @@
   -o-transition: background-color .3s ease
   transition: background-color .3s ease
 
-.ribbon 
+.ribbon
   a
     display: block
     margin: 1px
@@ -49,7 +41,7 @@
   background-color: $gray
 
 @media (max-width:1313px)
-  .wrapper
+  .ribbon
     visibility: hidden
     opacity:  0
     -webkit-transition: visibility 0s linear 0.2s,  opacity 0.2s linear
@@ -59,7 +51,7 @@
     transition: visibility 0s linear 0.2s,  opacity 0.2s linear
 
 @media (min-width:1314px) and (max-width: 1360px)
-  .wrapper
+  .ribbon
     visibility: visible
     opacity:  1
     -webkit-transition: visibility 0s linear 0.2s,  opacity 0.2s linear
@@ -67,4 +59,4 @@
     -ms-transition: visibility 0s linear 0.2s,  opacity 0.2s linear
     -o-transition: visibility 0s linear 0.2s,  opacity 0.2s linear
     transition: opacity 0.2s linear
-    
+
