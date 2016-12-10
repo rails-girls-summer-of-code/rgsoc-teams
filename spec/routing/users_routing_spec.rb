@@ -26,8 +26,16 @@ describe UsersController do
       expect(delete('/users/1')).to route_to('users#destroy', id: '1')
     end
 
-    it 'routes to #impersonate' do
+    it 'routes to #impersonate on development' do
       expect(post('/users/1/impersonate')).to route_to('users#impersonate', id: '1')
+    end
+  end
+
+  describe 'production-specific routing' do
+    include_context 'with production routing'
+
+    it 'does not route to #impersonate on production' do
+      expect(post('/users/1/impersonate')).not_to be_routable
     end
   end
 end

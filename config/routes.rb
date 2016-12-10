@@ -14,7 +14,7 @@ RgsocTeams::Application.routes.draw do
   end
 
   concern :impersonatable do
-    post 'impersonate', on: :member
+    post 'impersonate', on: :member unless Rails.env.production?
   end
 
   get 'users/info', to: 'users_info#index'
