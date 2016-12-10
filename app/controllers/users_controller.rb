@@ -2,7 +2,7 @@ class UsersController < ApplicationController
   before_action :normalize_params, only: :index
   before_action :set_user, only: [:show, :edit, :update, :destroy, :impersonate]
 
-  load_and_authorize_resource except: [:index, :show, :impersonate]
+  load_and_authorize_resource except: [:index, :show, :impersonate, :stop_impersonating]
 
   def index
     @filters = {
@@ -69,7 +69,12 @@ class UsersController < ApplicationController
 
   def impersonate
     impersonate_user(@user)
-    redirect_to users_path, notice: "Now impersonating #{@user.name}!"
+    redirect_to users_path, notice: "Now impersonating #{@user.name}."
+  end
+
+  def stop_impersonating
+    stop_impersonating_user
+    redirect_to users_path, notice: "Impersonation stopped. You're back to being #{current_user.name}!"
   end
 
   private

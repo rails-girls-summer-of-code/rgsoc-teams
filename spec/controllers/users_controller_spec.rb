@@ -236,4 +236,24 @@ describe UsersController do
       expect(flash[:notice]).to include "Now impersonating #{impersonated_user.name}"
     end
   end
+
+  describe 'POST stop_impersonating' do
+    let(:user) { create(:user) }
+    let(:impersonated_user) { create(:user) }
+    before do
+      sign_in user
+      controller.impersonate_user(impersonated_user)
+    end
+
+    it 'changes the current_user' do
+      post :stop_impersonating, { params: {} }
+      expect(controller.current_user).to eq user
+    end
+
+    it 'redirects to users#index' do
+      post :stop_impersonating, { params: {} }
+      expect(response).to redirect_to users_path
+      expect(flash[:notice]).to include "Impersonation stopped"
+    end
+  end
 end
