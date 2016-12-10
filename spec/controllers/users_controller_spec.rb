@@ -37,6 +37,19 @@ describe UsersController do
         expect(response.body).not_to include user_opted_out.email
       end
     end
+
+    it 'shows user impersonation links when in development' do
+      user = create(:student)
+      get :index, { params: {} }, {}
+      expect(response.body).to include impersonate_user_path(user)
+    end
+
+    it 'does not show user impersonation links when in production' do
+      allow(Rails).to receive(:env).and_return('production'.inquiry)
+      user = create(:student)
+      get :index, { params: {} }, {}
+      expect(response.body).not_to include impersonate_user_path(user)
+    end
   end
 
   describe "GET show" do
@@ -44,6 +57,19 @@ describe UsersController do
       user = create(:user)
       get :show, { params: { id: user.to_param } }, valid_session
       expect(assigns(:user)).to eq(user)
+    end
+
+    it 'shows the user impersonation link when in development' do
+      user = create(:user)
+      get :show, { params: { id: user.to_param } }, {}
+      expect(response.body).to include impersonate_user_path(user)
+    end
+
+    it 'does not show the user impersonation link when in production' do
+      allow(Rails).to receive(:env).and_return('production'.inquiry)
+      user = create(:user)
+      get :show, { params: { id: user.to_param } }, {}
+      expect(response.body).not_to include impersonate_user_path(user)
     end
   end
 
