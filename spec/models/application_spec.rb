@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe Application do
-  subject { FactoryGirl.build_stubbed(:application) }
+  subject { FactoryGirl.build(:application) }
 
   it { is_expected.to validate_presence_of(:application_data) }
   it { is_expected.to validate_presence_of(:team) }
@@ -48,7 +48,7 @@ describe Application do
   describe 'scopes' do
     describe '.hidden' do
       it 'returns only hidden applications' do
-        expect(Application.hidden.where_values).to eq(
+        expect(Application.hidden.where_clause.send(:predicates)).to eq(
           ["applications.hidden IS NOT NULL and applications.hidden = 't'"]
         )
       end
@@ -56,7 +56,7 @@ describe Application do
 
     describe '.visible' do
       it 'returns only visible applications' do
-        expect(Application.visible.where_values).to eq(
+        expect(Application.visible.where_clause.send(:predicates)).to eq(
           ["applications.hidden IS NULL or applications.hidden = 'f'"]
         )
       end

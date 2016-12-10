@@ -58,7 +58,7 @@ RSpec.describe ProjectsController do
 
   describe 'GET show' do
     it 'returns the project page' do
-      get :show, id: project.to_param
+      get :show, params: { id: project.to_param }
       expect(response).to be_success
     end
   end
@@ -70,7 +70,7 @@ RSpec.describe ProjectsController do
       let(:current_user) { create(:user) }
 
       it 'creates a project and redirects to list' do
-        patch :update, id: project.to_param, project: { name: "This is an updated name!" }
+        patch :update, params: { id: project.to_param, project: { name: "This is an updated name!" } }
         expect(flash[:notice]).not_to be_nil
         expect(response).to redirect_to(projects_path)
       end
@@ -79,7 +79,7 @@ RSpec.describe ProjectsController do
 
   describe 'POST preview' do
     it 'renders partial preview' do
-      xhr :post, :preview, project: project.attributes
+      post :preview, xhr: true, params: { project: project.attributes }
       expect(response).to render_template "_preview"
     end
   end
@@ -102,18 +102,18 @@ RSpec.describe ProjectsController do
         end
 
         it 'creates a project and redirects to thank you message' do
-          expect { post :create, project: valid_attributes }.to \
+          expect { post :create, params: { project: valid_attributes } }.to \
             change { Project.count }.by 1
           expect(response).to redirect_to(receipt_project_path(assigns(:project)))
         end
 
         it 'sends an email to organizers' do
-          expect { post :create, project: valid_attributes }.to \
+          expect { post :create, params: { project: valid_attributes } }.to \
             change { mailer_jobs.size }.by 1
         end
 
         it 'fails to create a project from invalid parameters' do
-          expect { post :create, project: { name: '' } }.not_to \
+          expect { post :create, params: { project: { name: '' } } }.not_to \
             change { Project.count }
           expect(response.body).to include 'prohibited this project from being saved'
           expect(response).to render_template 'new'
@@ -125,7 +125,7 @@ RSpec.describe ProjectsController do
           context 'in December' do
             before do
               Timecop.travel Date.parse('2015-12-06')
-              post :create, project: valid_attributes
+              post :create, params: { project: valid_attributes }
             end
 
             it { expect(subject.season.year).to eql '2016' }
@@ -134,7 +134,7 @@ RSpec.describe ProjectsController do
           context 'in January' do
             before do
               Timecop.travel Date.parse('2016-01-10')
-              post :create, project: valid_attributes
+              post :create, params: { project: valid_attributes }
             end
 
             it { expect(subject.season.year).to eql '2016' }
@@ -146,7 +146,7 @@ RSpec.describe ProjectsController do
         before { Timecop.travel Date.parse('2016-03-01') }
 
         it 'will not create a project' do
-          expect { post :create, project: valid_attributes }.not_to \
+          expect { post :create, params: { project: valid_attributes } }.not_to \
             change { Project.count }
           expect(response).to redirect_to root_path
           expect(flash[:alert]).to be_present
@@ -163,7 +163,7 @@ RSpec.describe ProjectsController do
       let!(:project) { create(:project, submitter: current_user) }
 
       it 'deletes the project' do
-        expect { delete :destroy, id: project.to_param }.to \
+        expect { delete :destroy, params: { id: project.to_param } }.to \
           change { Project.count }.by(-1)
         expect(flash[:notice]).not_to be_nil
         expect(response).to redirect_to(projects_path)

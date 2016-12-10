@@ -17,13 +17,13 @@ RSpec.describe Orga::ConferencesController do
     describe 'POST create' do
       it 'creates a record' do
         expect {
-          post :create, conference: attributes_for(:conference)
+          post :create, params: {conference: attributes_for(:conference)}
         }.to change { Conference.count }.by 1
         expect(response).to redirect_to [:orga, Conference.last]
       end
 
       it 'sets the current season' do
-        post :create, conference: attributes_for(:conference)
+        post :create, params: {conference: attributes_for(:conference)}
         expect(assigns(:conference).season.name).to eql Date.today.year.to_s
       end
     end
@@ -33,7 +33,7 @@ RSpec.describe Orga::ConferencesController do
 
       it 'destroys the resource' do
         expect {
-          delete :destroy, id: conference
+          delete :destroy, params: {id: conference}
         }.to change { Conference.count }.by(-1)
         expect(response).to redirect_to orga_conferences_path
       end

@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 ruby '2.3.1'
 
-gem 'rails', '~> 4.2.7.1'
+gem 'rails', '~> 5.0'
 gem 'pg'
 gem 'devise'
 gem 'omniauth-github'
@@ -53,7 +53,6 @@ group :development, :test do
 end
 
 group :development do
-  gem 'quiet_assets'
   gem 'better_errors'
   # gem 'binding_of_caller'
   # gem 'jazz_hands'
@@ -64,6 +63,7 @@ group :development do
 end
 
 group :test do
+  gem 'rails-controller-testing'
   gem 'shoulda'
   gem 'shoulda-matchers'
   gem 'webmock'

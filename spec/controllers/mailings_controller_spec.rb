@@ -18,7 +18,7 @@ describe MailingsController do
       include_context 'User logged in'
 
       it 'renders the index template' do
-        get :index, {}, valid_session
+        get :index, { params: {} }, valid_session
         expect(response).to render_template 'index'
       end
     end
@@ -35,7 +35,7 @@ describe MailingsController do
   describe 'GET show' do
     shared_examples_for 'Denies Access to Mailing' do
       it 'denies access' do
-        get :show, { id: mailing.to_param }
+        get :show, params: { id: mailing.to_param }
         expect(response).to redirect_to root_path
         expect(flash[:alert]).to match 'not authorized'
       end
@@ -50,7 +50,7 @@ describe MailingsController do
 
       it 'renders the show template for user in recipients list' do
         mailing.update(to: %w(students))
-        get :show, { id: mailing.to_param }, valid_session
+        get :show, { params: { id: mailing.to_param } }, valid_session
         expect(response).to render_template 'show'
       end
 

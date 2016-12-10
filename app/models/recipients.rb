@@ -19,7 +19,7 @@ class Recipients
     return @users if @users
     @users = User.joins(:roles).where(roles: { name: roles })
     @users = @users.where('roles.team_id IN (?) OR roles.name IN (?)', teams, teamless_roles) if filter_by_teams?
-    @users = @users.uniq
+    @users = @users.distinct
     @users
   end
 

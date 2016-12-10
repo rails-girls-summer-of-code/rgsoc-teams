@@ -13,7 +13,7 @@ describe RolesController do
     let(:team) { create(:team) }
 
     it "assigns a new role as @role" do
-      get :new, { team_id: team.to_param }, valid_session
+      get :new, { params: { team_id: team.to_param } }, valid_session
       expect(assigns(:role)).to be_a_new(Role)
     end
   end
@@ -26,7 +26,7 @@ describe RolesController do
 
       it 'allows the role to be confirmed' do
         expect {
-          put :confirm, { id: role.confirmation_token }, valid_session
+          put :confirm, { params: { id: role.confirmation_token } }, valid_session
         }.to change { role.reload.state }.from('pending').to('confirmed')
         expect(response).to redirect_to(assigns(:team))
       end
@@ -42,12 +42,12 @@ describe RolesController do
 
       it "creates a new Role and a new User" do
         expect {
-          expect { post :create, params, valid_session }.to change(Role, :count).by(1)
+          expect { post :create, { params: params }, valid_session }.to change(Role, :count).by(1)
         }.to change { User.count }.by(1)
       end
 
       it "redirects to the team view" do
-        post :create, params, valid_session
+        post :create, { params: params }, valid_session
         expect(response).to redirect_to(assigns(:team))
       end
 
@@ -56,7 +56,7 @@ describe RolesController do
         role_attrs = valid_attributes.merge(github_handle: existing.github_handle)
 
         expect {
-          expect { post :create, params.merge(role: role_attrs), valid_session }.to change(Role, :count).by(1)
+          expect { post :create, { params: params.merge(role: role_attrs) }, valid_session }.to change(Role, :count).by(1)
         }.not_to change { User.count }
         expect(Role.last.user).to eql existing
       end
@@ -67,11 +67,11 @@ describe RolesController do
       let!(:role)        { create(:role, name: 'student', team: team, user: another_user) }
 
       it "does not create the Role" do
-        expect { post :create, params, valid_session }.to_not change(Role, :count)
+        expect { post :create, { params: params }, valid_session }.to_not change(Role, :count)
       end
 
       it "redirects to the root_url" do
-        post :create, params, valid_session
+        post :create, { params: params }, valid_session
         expect(response).to redirect_to(root_url)
       end
     end
@@ -85,11 +85,11 @@ describe RolesController do
       let!(:role) { create(:role, name: 'student', team: team, user: user) }
 
       it "destroys the requested role" do
-        expect { delete :destroy, params, valid_session }.to change(Role, :count).by(-1)
+        expect { delete :destroy, { params: params }, valid_session }.to change(Role, :count).by(-1)
       end
 
       it "redirects to the team view" do
-        delete :destroy, params, valid_session
+        delete :destroy, { params: params }, valid_session
         expect(response).to redirect_to(assigns(:team))
       end
     end
@@ -99,11 +99,11 @@ describe RolesController do
       let!(:role)        { create(:role, name: 'student', team: team, user: another_user) }
 
       it "does not destroy the requested role" do
-        expect { delete :destroy, params, valid_session }.to_not change(Role, :count)
+        expect { delete :destroy, { params: params }, valid_session }.to_not change(Role, :count)
       end
 
       it "redirects to the root_url" do
-        delete :destroy, params, valid_session
+        delete :destroy, { params: params }, valid_session
         expect(response).to redirect_to(root_url)
       end
     end

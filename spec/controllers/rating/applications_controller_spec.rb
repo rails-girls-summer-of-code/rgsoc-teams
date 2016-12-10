@@ -53,14 +53,14 @@ describe Rating::ApplicationsController do
     let(:application) { create :application }
 
     it 'requires login' do
-      get :show, id: application
+      get :show, params: { id: application }
       expect(response).to redirect_to root_path
       expect(flash[:alert]).to be_present
     end
 
     it 'requires reviewer role' do
       sign_in create(:organizer)
-      get :show, id: application
+      get :show, params: { id: application }
       expect(response).to redirect_to root_path
       expect(flash[:alert]).to be_present
     end
@@ -69,7 +69,7 @@ describe Rating::ApplicationsController do
       before { sign_in user }
 
       context 'when application not yet rated by user' do
-        before { get :show, id: application }
+        before { get :show, params: { id: application } }
 
         it 'assigns @application' do
           expect(assigns :application).to eq application
@@ -88,7 +88,7 @@ describe Rating::ApplicationsController do
         let!(:rating) { create :rating, :for_application, user: user, rateable: application }
 
         it 'assigns existing @rating' do
-          get :show, id: application
+          get :show, params: { id: application }
           expect(assigns :rating).to eq rating
         end
       end
@@ -98,14 +98,14 @@ describe Rating::ApplicationsController do
     let(:application) { create :application }
 
     it 'requires login' do
-      get :edit, id: application
+      get :edit, params: { id: application }
       expect(response).to redirect_to root_path
       expect(flash[:alert]).to be_present
     end
 
     it 'requires reviewer role' do
       sign_in create(:organizer)
-      get :edit, id: application
+      get :edit, params: { id: application }
       expect(response).to redirect_to root_path
       expect(flash[:alert]).to be_present
     end
@@ -113,7 +113,7 @@ describe Rating::ApplicationsController do
       let(:user) { create :reviewer }
       before do
         sign_in user
-        get :edit, id: application
+        get :edit, params: { id: application }
       end
 
       it 'assigns @application' do
@@ -129,14 +129,14 @@ describe Rating::ApplicationsController do
     let(:application) { create :application }
 
     it 'requires login' do
-      get :edit, id: application
+      get :edit, params: { id: application }
       expect(response).to redirect_to root_path
       expect(flash[:alert]).to be_present
     end
 
     it 'requires reviewer role' do
       sign_in create(:organizer)
-      get :edit, id: application
+      get :edit, params: { id: application }
       expect(response).to redirect_to root_path
       expect(flash[:alert]).to be_present
     end
@@ -148,19 +148,19 @@ describe Rating::ApplicationsController do
         let(:params) { {id: application, application: {mentor_pick: 1}} }
 
         it 'assigns @application' do
-          put :update, params
+          put :update, params: params
           expect(assigns :application).to eq application
         end
 
         it 'changes application record' do
           expect{
-            put :update, params
+            put :update, params: params
             application.reload
           }.to change{application.mentor_pick}.to true
         end
 
         it 'redirects to application' do
-          put :update, params
+          put :update, params: params
           expect(response).to redirect_to [:rating, application]
         end
       end

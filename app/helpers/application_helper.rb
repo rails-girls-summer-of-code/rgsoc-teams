@@ -190,7 +190,7 @@ module ApplicationHelper
   end
 
   def role_names(team, user)
-    team.roles(true).select{|role| role.user == user}.map do |role|
+    team.roles.reload.select{|role| role.user == user}.map do |role|
       role.name.titleize
     end.join(', ').html_safe
   end
@@ -199,7 +199,7 @@ module ApplicationHelper
   def sortable(column, title = nil)
     title ||= column.to_s.titleize
     direction = (column.to_s == params[:sort] && params[:direction] == 'asc') ? 'desc' : 'asc'
-    link_to title, params.except('action', 'controller').merge(sort: column, direction: direction)
+    link_to title, params.except('action', 'controller').permit!.merge(sort: column, direction: direction)
   end
 
   def required_helper

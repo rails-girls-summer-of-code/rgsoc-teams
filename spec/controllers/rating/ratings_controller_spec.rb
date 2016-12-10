@@ -26,12 +26,12 @@ describe Rating::RatingsController, type: :controller do
 
       it 'creates new rating record for application' do
         expect{
-          post :create, params
+          post :create, params: params
         }.to change{Rating.count}.by 1
       end
 
       it 'sets rating attribute' do
-        post :create, params
+        post :create, params: params
         rating = Rating.last
         expect(rating.diversity).to eq '5'
         expect(rating.data['diversity']).to eq '5'
@@ -39,7 +39,7 @@ describe Rating::RatingsController, type: :controller do
       end
 
       it 'redirect_to rating/applications' do
-        post :create, params
+        post :create, params: params
         expect(response).to redirect_to rating_applications_path
       end
     end
@@ -57,7 +57,7 @@ describe Rating::RatingsController, type: :controller do
 
         it 'raises RecordNotFound exception' do
           expect{
-            put :update, params
+            put :update, params: params
           }.to raise_error ActiveRecord::RecordNotFound
         end
       end
@@ -67,20 +67,20 @@ describe Rating::RatingsController, type: :controller do
 
         it 'updates rating data hash' do
           expect{
-            put :update, params
+            put :update, params: params
             rating.reload
           }.to change{rating.data}
         end
 
         it 'updates rating attribute' do
           expect{
-            put :update, params
+            put :update, params: params
             rating.reload
           }.to change{rating.diversity}.from(nil).to('5')
         end
 
         it 'redirect_to rating/applications' do
-          put :update, params
+          put :update, params: params
           expect(response).to redirect_to rating_applications_path
         end
       end
