@@ -1,4 +1,3 @@
-# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -53,13 +52,12 @@ ActiveRecord::Schema.define(version: 20161124184157) do
     t.integer  "project2_id"
     t.text     "working_together"
     t.text     "why_selected_project"
+    t.index ["project1_id"], name: "index_application_drafts_on_project1_id", using: :btree
+    t.index ["project2_id"], name: "index_application_drafts_on_project2_id", using: :btree
+    t.index ["season_id"], name: "index_application_drafts_on_season_id", using: :btree
+    t.index ["signed_off_by"], name: "index_application_drafts_on_signed_off_by", using: :btree
+    t.index ["team_id"], name: "index_application_drafts_on_team_id", using: :btree
   end
-
-  add_index "application_drafts", ["project1_id"], name: "index_application_drafts_on_project1_id", using: :btree
-  add_index "application_drafts", ["project2_id"], name: "index_application_drafts_on_project2_id", using: :btree
-  add_index "application_drafts", ["season_id"], name: "index_application_drafts_on_season_id", using: :btree
-  add_index "application_drafts", ["signed_off_by"], name: "index_application_drafts_on_signed_off_by", using: :btree
-  add_index "application_drafts", ["team_id"], name: "index_application_drafts_on_team_id", using: :btree
 
   create_table "applications", force: :cascade do |t|
     t.hstore   "application_data"
@@ -83,13 +81,12 @@ ActiveRecord::Schema.define(version: 20161124184157) do
     t.integer  "signed_off_by"
     t.datetime "signed_off_at"
     t.integer  "project_id"
+    t.index ["application_draft_id"], name: "index_applications_on_application_draft_id", using: :btree
+    t.index ["project_id"], name: "index_applications_on_project_id", using: :btree
+    t.index ["season_id"], name: "index_applications_on_season_id", using: :btree
+    t.index ["signed_off_by"], name: "index_applications_on_signed_off_by", using: :btree
+    t.index ["team_id"], name: "index_applications_on_team_id", using: :btree
   end
-
-  add_index "applications", ["application_draft_id"], name: "index_applications_on_application_draft_id", using: :btree
-  add_index "applications", ["project_id"], name: "index_applications_on_project_id", using: :btree
-  add_index "applications", ["season_id"], name: "index_applications_on_season_id", using: :btree
-  add_index "applications", ["signed_off_by"], name: "index_applications_on_signed_off_by", using: :btree
-  add_index "applications", ["team_id"], name: "index_applications_on_team_id", using: :btree
 
   create_table "attendances", force: :cascade do |t|
     t.integer  "conference_id"
@@ -106,9 +103,8 @@ ActiveRecord::Schema.define(version: 20161124184157) do
     t.datetime "updated_at",       null: false
     t.integer  "commentable_id"
     t.string   "commentable_type"
+    t.index ["commentable_id", "commentable_type"], name: "index_comments_on_commentable_id_and_commentable_type", using: :btree
   end
-
-  add_index "comments", ["commentable_id", "commentable_type"], name: "index_comments_on_commentable_id_and_commentable_type", using: :btree
 
   create_table "conferences", force: :cascade do |t|
     t.string   "name",               limit: 255
@@ -125,9 +121,8 @@ ActiveRecord::Schema.define(version: 20161124184157) do
     t.integer  "round",                          default: 1
     t.boolean  "lightningtalkslots"
     t.integer  "season_id"
+    t.index ["season_id"], name: "index_conferences_on_season_id", using: :btree
   end
-
-  add_index "conferences", ["season_id"], name: "index_conferences_on_season_id", using: :btree
 
   create_table "mailings", force: :cascade do |t|
     t.string   "from",       limit: 255
@@ -148,9 +143,8 @@ ActiveRecord::Schema.define(version: 20161124184157) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer  "user_id"
+    t.index ["user_id"], name: "index_notes_on_user_id", using: :btree
   end
-
-  add_index "notes", ["user_id"], name: "index_notes_on_user_id", using: :btree
 
   create_table "projects", force: :cascade do |t|
     t.string   "name",                 limit: 255
@@ -183,9 +177,8 @@ ActiveRecord::Schema.define(version: 20161124184157) do
     t.boolean  "pick"
     t.integer  "rateable_id"
     t.string   "rateable_type",  limit: 255
+    t.index ["rateable_id", "rateable_type"], name: "index_ratings_on_rateable_id_and_rateable_type", using: :btree
   end
-
-  add_index "ratings", ["rateable_id", "rateable_type"], name: "index_ratings_on_rateable_id_and_rateable_type", using: :btree
 
   create_table "roles", force: :cascade do |t|
     t.integer  "team_id"
@@ -248,10 +241,9 @@ ActiveRecord::Schema.define(version: 20161124184157) do
     t.boolean  "invisible",                      default: false
     t.integer  "applications_count",             default: 0,     null: false
     t.string   "project_name"
+    t.index ["applications_count"], name: "index_teams_on_applications_count", using: :btree
+    t.index ["season_id"], name: "index_teams_on_season_id", using: :btree
   end
-
-  add_index "teams", ["applications_count"], name: "index_teams_on_applications_count", using: :btree
-  add_index "teams", ["season_id"], name: "index_teams_on_season_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.integer  "github_id"
