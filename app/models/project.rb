@@ -14,6 +14,8 @@ class Project < ActiveRecord::Base
     where(season: Season.transition? ? Season.succ : Season.current)
   end
 
+  before_validation :sanitize_url
+
   include AASM
 
   aasm whiny_transitions: false do
@@ -67,5 +69,11 @@ class Project < ActiveRecord::Base
                     _mentor
                   end
                 end
+  end
+
+  private
+
+  def sanitize_url
+    self.url = "http://#{url}" unless url =~ %r{\Ahttp[s]?://}
   end
 end

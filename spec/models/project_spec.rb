@@ -17,6 +17,25 @@ RSpec.describe Project do
     it { is_expected.to validate_presence_of(:mentor_email) }
   end
 
+  context 'with callbacks' do
+    context 'sanitizing url input' do
+      it 'adds a protocol scheme when there is none' do
+        subject.url = "github.com/rails-girls-summer-of-code/rgspc-teams"
+        expect {
+          subject.valid?
+        }.to change { subject.url }.to \
+          "http://github.com/rails-girls-summer-of-code/rgspc-teams"
+      end
+
+      it 'leaves the url untouched if already fully qualified' do
+        subject.url = "http://www.example.com"
+        expect {
+          subject.valid?
+        }.not_to change { subject.url }
+      end
+    end
+  end
+
   context 'as a finite state machine' do
     it 'starts as "proposed"' do
       expect(subject).to be_proposed
