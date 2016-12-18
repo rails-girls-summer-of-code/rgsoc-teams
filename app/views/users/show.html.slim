@@ -50,8 +50,11 @@ nav.actions
     ul.conferences
       - @user.attendances.includes(:conference).order('conferences.starts_on').each do |a|
         li
-          ' #{link_to a.conference.name, a.conference}
-          ' (#{a.conference.location}#{format_conference_date(a.conference.starts_on, a.conference.ends_on)})
+          '#{link_to a.conference.name, a.conference}
+          '(
+          - if a.conference.location.present?
+            '#{a.conference.location},
+          '#{format_conference_date(a.conference.starts_on, a.conference.ends_on)})
           - if @user == current_user
             ' #{link_to "Tweet About It!", conference_tweet_link(a.conference), class: 'btn btn-default'}
           - if can?(:crud, a) and admin?
