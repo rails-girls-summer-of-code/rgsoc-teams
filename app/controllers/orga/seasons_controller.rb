@@ -48,16 +48,16 @@ class Orga::SeasonsController < Orga::BaseController
   # by opening and closing the corresponding links in the nav bar
   def switch_phase
     return if Rails.env.production?
-    @season = current_season
+    @switch = current_season.phase_switcher
       case params[:option]
       when 'Proposals'
-        @season.fake_proposals_phase
+        @switch.fake_proposals_phase
       when 'Application'
-        @season.fake_application_phase
+        @switch.fake_application_phase
       when 'CodingSummer'
-        @season.fake_coding_phase
+        @switch.fake_coding_phase
       when 'RealTime'
-        @season.back_to_reality
+        @switch.back_to_reality
       end
     redirect_to orga_seasons_path, notice: "We time travelled into the #{params[:option]} phase"
   end

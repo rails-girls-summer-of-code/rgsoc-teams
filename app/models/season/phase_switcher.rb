@@ -1,8 +1,11 @@
-module SeasonPhaseSwitcher
-  extend ActiveSupport::Concern
+class Season::PhaseSwitcher
+
+  def initialize(season)
+    @season = season
+  end
 
   def fake_coding_phase
-    update({
+    @season.update({
        starts_at: 6.weeks.ago,
        ends_at: 6.weeks.from_now,
        applications_open_at: 4.months.ago,
@@ -12,7 +15,7 @@ module SeasonPhaseSwitcher
   end
 
   def fake_proposals_phase
-    update({
+    @season.update({
        starts_at: 6.months.from_now,
        ends_at: 9.months.from_now,
        applications_open_at: 3.months.from_now,
@@ -24,7 +27,7 @@ module SeasonPhaseSwitcher
   end
 
   def fake_application_phase
-    update({
+    @season.update({
        starts_at: 2.months.from_now,
        ends_at: 5.months.from_now,
        applications_open_at: 2.weeks.ago,
@@ -35,15 +38,15 @@ module SeasonPhaseSwitcher
 
   def back_to_reality
     this_year = Date.today.year
-    update({
+    @season.update({
        name: this_year,
-       starts_at: Time.utc(this_year, Season::SUMMER_OPEN),
-       ends_at: Time.utc(this_year, Season::SUMMER_CLOSE),
-       applications_open_at: Time.utc(this_year, Season::APPL_OPEN),
-       applications_close_at: Time.utc(this_year, Season::APPL_CLOSE),
-       acceptance_notification_at: Time.utc(this_year, Season::APPL_LETTER),
-       project_proposals_open_at: Time.utc(this_year-1, Season::PROJECTS_OPEN),
-       project_proposals_close_at: Time.utc(this_year, Season::PROJECTS_CLOSE),
+       starts_at: Time.utc(this_year, *Season::SUMMER_OPEN),
+       ends_at: Time.utc(this_year, *Season::SUMMER_CLOSE),
+       applications_open_at: Time.utc(this_year, *Season::APPL_OPEN),
+       applications_close_at: Time.utc(this_year, *Season::APPL_CLOSE),
+       acceptance_notification_at: Time.utc(this_year, *Season::APPL_LETTER),
+       project_proposals_open_at: Time.utc(this_year-1, *Season::PROJECTS_OPEN),
+       project_proposals_close_at: Time.utc(this_year, *Season::PROJECTS_CLOSE),
     })
   end
 
