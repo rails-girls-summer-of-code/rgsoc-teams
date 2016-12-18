@@ -126,10 +126,12 @@ E.g. `foreman run rails server` or `foreman run rails console`.
     ``` user = User.last``` #or ```user = User.find_by(github_handle: "yourgithubhandle") ```
     ``` user.roles.create(name: "organizer") ```
     You can assign yourself other roles in the same way. If however you assign
-    yourself a student role AND another role, that may lead to unexpected behavior in the app. In that case, remove the student role.    
+    yourself a student role AND another role, that may lead to unexpected behavior in the app. In that case, remove the student role. 
     - Refresh the browser to effectuate. You should see links for organizers. 
 - Once you are an `organizer`, you can add a season and switch between season's phases at
 http://localhost:3000/orga/seasons in your browser.
+- While in development, you are also able to impersonate other users to easily test the system
+as someone else. Go to http://localhost:3000/users while logged in to do that.
 - You are good to go now. Happy coding!
 
 ## Testing
