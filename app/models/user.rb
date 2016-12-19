@@ -81,7 +81,7 @@ class User < ActiveRecord::Base
   validate :immutable_github_handle
 
   accepts_nested_attributes_for :attendances, allow_destroy: true
-  accepts_nested_attributes_for :roles
+  accepts_nested_attributes_for :roles, allow_destroy: true
 
   before_save :sanitize_location
   after_create :complete_from_github
