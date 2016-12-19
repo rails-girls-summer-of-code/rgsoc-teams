@@ -63,10 +63,6 @@ class Season < ActiveRecord::Base
     year == Date.today.year.to_s and ended?
   end
 
-  def phase_switcher
-    phase_switcher ||= PhaseSwitcher.new(self)
-  end
-
   private
 
   def set_application_dates

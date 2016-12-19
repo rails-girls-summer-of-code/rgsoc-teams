@@ -1,11 +1,11 @@
 class Season::PhaseSwitcher
 
-  def initialize(season)
-    @season = season
+  def self.season
+    Season.current
   end
 
-  def fake_coding_phase
-    @season.update({
+  def self.fake_coding_phase
+    season.update({
        starts_at: 6.weeks.ago,
        ends_at: 6.weeks.from_now,
        applications_open_at: 4.months.ago,
@@ -14,8 +14,8 @@ class Season::PhaseSwitcher
     })
   end
 
-  def fake_proposals_phase
-    @season.update({
+  def self.fake_proposals_phase
+    season.update({
        starts_at: 6.months.from_now,
        ends_at: 9.months.from_now,
        applications_open_at: 3.months.from_now,
@@ -26,8 +26,8 @@ class Season::PhaseSwitcher
     })
   end
 
-  def fake_application_phase
-    @season.update({
+  def self.fake_application_phase
+    season.update({
        starts_at: 2.months.from_now,
        ends_at: 5.months.from_now,
        applications_open_at: 2.weeks.ago,
@@ -36,9 +36,9 @@ class Season::PhaseSwitcher
     })
   end
 
-  def back_to_reality
+  def self.back_to_reality
     this_year = Date.today.year
-    @season.update({
+    season.update({
        name: this_year,
        starts_at: Time.utc(this_year, *Season::SUMMER_OPEN),
        ends_at: Time.utc(this_year, *Season::SUMMER_CLOSE),
