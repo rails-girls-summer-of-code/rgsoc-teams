@@ -186,6 +186,8 @@ GEM
       omniauth (~> 1.2)
     orm_adapter (0.5.0)
     pg (0.19.0)
+    pretender (0.2.1)
+      actionpack
     pry (0.10.4)
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
@@ -373,6 +375,7 @@ DEPENDENCIES
   newrelic_rpm
   omniauth-github
   pg
+  pretender
   pry
   rails (~> 5.0)
   rails-controller-testing

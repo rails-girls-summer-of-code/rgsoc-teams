@@ -1,0 +1,9 @@
+= link_to icon('eye-open'), impersonate_user_path(user), class: 'btn btn-warning btn-sm',
+  method: :post,
+  title: "Impersonate User (for development only)",
+  data: { \
+    toggle: :popover,
+    content: "By clicking this you'll experience the app as if you were #{user.name}. You can use this to locally test the entire application process, by becoming the second team member.",
+    trigger: :hover,
+    placement: 'right auto',
+  }

@@ -28,13 +28,40 @@ describe UsersController do
     end
 
     context 'with user logged in' do
-      it 'will not show email addresses of those who opted out' do
+      before(:each) do
         sign_in create(:student)
+      end
+
+      it 'will not show email addresses of those who opted out' do
         user = FactoryGirl.create(:student, hide_email: false)
         user_opted_out = FactoryGirl.create(:user, hide_email: true)
         get :index, { params: {} }, valid_session
         expect(response.body).to include user.email
         expect(response.body).not_to include user_opted_out.email
+      end
+
+      it 'shows user impersonation links when in development' do
+        other_user = create(:student)
+        get :index, { params: {} }, {}
+        expect(response.body).to include impersonate_user_path(other_user)
+      end
+
+      it 'does not show user impersonation links when in production' do
+        allow(Rails).to receive(:env).and_return('production'.inquiry)
+        other_user = create(:student)
+        get :index, { params: {} }, {}
+        expect(response.body).not_to include impersonate_user_path(other_user)
+      end
+    end
+
+    context 'when impersonating' do
+      it 'shows a Stop Impersonation link instead of Sign out' do
+        sign_in create(:student)
+        other_user = create(:student)
+        controller.impersonate_user(other_user)
+        get :index, { params: {} }, {}
+        expect(response.body).not_to include sign_out_path
+        expect(response.body).to include stop_impersonating_users_path
       end
     end
   end
@@ -44,6 +71,25 @@ describe UsersController do
       user = create(:user)
       get :show, { params: { id: user.to_param } }, valid_session
       expect(assigns(:user)).to eq(user)
+    end
+
+    context 'with user logged in' do
+      before(:each) do
+        sign_in create(:student)
+      end
+
+      it 'shows the user impersonation link when in development' do
+        other_user = create(:user)
+        get :show, { params: { id: other_user.to_param } }, {}
+        expect(response.body).to include impersonate_user_path(other_user)
+      end
+
+      it 'does not show the user impersonation link when in production' do
+        allow(Rails).to receive(:env).and_return('production'.inquiry)
+        other_user = create(:user)
+        get :show, { params: { id: other_user.to_param } }, {}
+        expect(response.body).not_to include impersonate_user_path(other_user)
+      end
     end
   end
 
@@ -174,4 +220,40 @@ describe UsersController do
     end
   end
 
+  describe 'POST impersonate' do
+    let(:user) { create(:user) }
+    let(:impersonated_user) { create(:user) }
+    before { sign_in user }
+
+    it 'changes the current_user' do
+      post :impersonate, { params: { id: impersonated_user.id } }
+      expect(controller.current_user).to eq impersonated_user
+    end
+
+    it 'redirects to users#index' do
+      post :impersonate, { params: { id: impersonated_user.id } }
+      expect(response).to redirect_to users_path
+      expect(flash[:notice]).to include "Now impersonating #{impersonated_user.name}"
+    end
+  end
+
+  describe 'POST stop_impersonating' do
+    let(:user) { create(:user) }
+    let(:impersonated_user) { create(:user) }
+    before do
+      sign_in user
+      controller.impersonate_user(impersonated_user)
+    end
+
+    it 'changes the current_user' do
+      post :stop_impersonating, { params: {} }
+      expect(controller.current_user).to eq user
+    end
+
+    it 'redirects to users#index' do
+      post :stop_impersonating, { params: {} }
+      expect(response).to redirect_to users_path
+      expect(flash[:notice]).to include "Impersonation stopped"
+    end
+  end
 end

@@ -20,6 +20,10 @@ class ApplicationController < ActionController::Base
 
   before_action :set_timezone
 
+  # Allow users to impersonate other uses in a non-production environment.
+  # See the `pretender` gem.
+  impersonates :user
+
   def after_sign_in_path_for(user)
     if user.just_created?
       request.env['omniauth.origin'] || edit_user_path(user, welcome: true)

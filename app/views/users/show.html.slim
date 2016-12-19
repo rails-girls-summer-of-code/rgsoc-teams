@@ -8,6 +8,8 @@ nav.actions
   ul.list-inline
     li = link_to 'Edit', edit_user_path(@user), class: 'btn btn-default btn-sm edit' if can? :edit, @user
     li = link_to 'Delete Profile', @user, data: { confirm: 'This action cannot be undone. Are you sure?' }, method: :delete, class: 'btn btn-default btn-sm destroy' if can? :destroy, @user
+    - if signed_in? && !Rails.env.production?
+      li = render 'impersonate', user: @user if @user != current_user
 
 .profile
   - if @user.avatar_url.present?
