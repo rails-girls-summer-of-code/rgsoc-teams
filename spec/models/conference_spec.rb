@@ -3,15 +3,11 @@ require 'spec_helper'
 RSpec.describe Conference do
   it_behaves_like 'HasSeason'
 
-  describe 'dependencies' do
-    subject { FactoryGirl.build(:conference) }
-
     it { is_expected.to have_many(:attendances) }
     it { is_expected.to have_many(:attendees) }
     it { is_expected.to validate_presence_of(:name) }
     it { is_expected.to validate_presence_of(:round) }
     # The custom date validator is tested in test 'chronology', below
-  end
 
   describe 'scopes' do
     subject { Conference }
