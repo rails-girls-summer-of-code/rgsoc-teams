@@ -21,6 +21,11 @@ class Conference < ActiveRecord::Base
   private
 
     def date_interval
-      errors.add(:end_date, 'must be later than start date') if starts_on > ends_on
+      if [starts_on, ends_on].count(&:nil?) == 1
+        errors.add(:base, 'Set both dates or none')
+      elsif starts_on.to_s > ends_on.to_s
+        errors.add(:ends_on, 'must be later than start date')
+      end
     end
+
 end
