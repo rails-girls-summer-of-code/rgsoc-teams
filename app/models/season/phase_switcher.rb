@@ -4,6 +4,16 @@ class Season::PhaseSwitcher
     Season.current
   end
 
+  def self.switcher(phase)
+    @phases = {
+        'Proposals' => :fake_proposals_phase,
+        'Application' => :fake_application_phase,
+        'CodingSummer' => :fake_coding_phase,
+        'Real Time' => :back_to_reality
+    }
+     self.send @phases[phase]
+  end
+
   def self.fake_coding_phase
     season.update({
        starts_at: 6.weeks.ago,
