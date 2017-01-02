@@ -118,7 +118,7 @@ class User < ActiveRecord::Base
     end
 
     def with_all_associations_joined
-      includes(:conferences).group("conferences.id").
+      includes(:conferences).group("conferences.id").references(:conferences).
       includes(:roles).group("roles.id").
       includes(roles: :team).group("teams.id")
     end
