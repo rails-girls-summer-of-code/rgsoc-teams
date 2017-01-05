@@ -6,7 +6,7 @@ class ProjectMailer < ActionMailer::Base
   def proposal(project)
     subject = "[RGSoC] New Project Proposal!"
     @project = project
-    mail subject: subject, to: 'mail@rgsoc.org'
+    mail subject: subject, to: 'contact@rgsoc.org'
   end
 
   def comment(project, comment)

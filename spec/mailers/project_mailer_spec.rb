@@ -14,7 +14,7 @@ RSpec.describe ProjectMailer do
 
     context 'with recipients' do
       it 'sends mail to every organiser' do
-        expect(subject.to).to match_array %w[mail@rgsoc.org]
+        expect(subject.to).to match_array %w[contact@rgsoc.org]
       end
     end
   end

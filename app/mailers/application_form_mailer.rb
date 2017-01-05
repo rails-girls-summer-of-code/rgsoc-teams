@@ -2,7 +2,7 @@
 class ApplicationFormMailer < ActionMailer::Base
   default from: ENV['EMAIL_FROM'] || 'summer-of-code-team@railsgirls.com'
 
-  default to: 'mail@rgsoc.org'
+  default to: 'contact@rgsoc.org'
 
   def new_application(application)
     @application = application

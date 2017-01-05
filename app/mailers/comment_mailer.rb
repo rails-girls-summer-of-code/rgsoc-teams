@@ -9,7 +9,7 @@ class CommentMailer < ActionMailer::Base
 
   def email(comment)
     set comment
-    mail subject: subject, to: 'mail@rgsoc.org'
+    mail subject: subject, to: 'contact@rgsoc.org'
   end
 
   private
