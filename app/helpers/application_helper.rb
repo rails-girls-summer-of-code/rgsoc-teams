@@ -140,7 +140,7 @@ module ApplicationHelper
     conferences.map do |conference|
       text = conference.name
       if verbose
-        extra = [conference.location, format_conference_date(conference.starts_on, conference.ends_on)].reject(&:blank?).join(', ')
+        extra = [conference.location, format_conference_date(conference.starts_on, conference.ends_on)].reject(&:blank?).join(' – ')
         text += " (#{extra})" unless extra.blank?
       end
       link_to(text, conference)

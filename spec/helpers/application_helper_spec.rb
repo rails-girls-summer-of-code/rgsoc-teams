@@ -120,10 +120,10 @@ RSpec.describe ApplicationHelper do
       end
 
       context 'with location' do
-        let(:conference) { build_stubbed :conference, location: 'Melée Island' }
+        let(:conference) { build_stubbed :conference, location: 'Melée Island, Carribean' }
 
         it 'will add the location in brackets' do
-          link_text = "#{conference.name} (Melée Island)"
+          link_text = "#{conference.name} (Melée Island, Carribean)"
           expect(subject).to eql [link_to(link_text, conference)]
         end
       end
@@ -139,11 +139,11 @@ RSpec.describe ApplicationHelper do
 
       context 'with location and and all dates present' do
         let(:conference) do
-          build_stubbed :conference, location: 'Melée Island', starts_on: '2017-03-14', ends_on: '2017-03-17'
+          build_stubbed :conference, location: 'Melée Island, Carribean', starts_on: '2017-03-14', ends_on: '2017-03-17'
         end
 
         it 'will add location and date range in brackets' do
-          link_text = "#{conference.name} (Melée Island, 14 Mar 17 - 17 Mar 17)"
+          link_text = "#{conference.name} (Melée Island, Carribean – 14 Mar 17 - 17 Mar 17)"
           expect(subject).to eql [link_to(link_text, conference)]
         end
       end
