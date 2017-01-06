@@ -113,7 +113,7 @@ RSpec.describe ApplicationHelper do
     end
 
     context 'with extra info flag' do
-      subject { links_to_conferences [conference], true }
+      subject { links_to_conferences [conference], verbose: true }
 
       it 'will not display empty brackets' do
         expect(subject).to eql [link_to(conference.name, conference)]
