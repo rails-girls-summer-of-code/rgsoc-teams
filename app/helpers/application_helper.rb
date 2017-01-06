@@ -135,8 +135,10 @@ module ApplicationHelper
 
   def links_to_conferences(conferences, extra_info = false)
     conferences.map do |conference|
-      text = conference.name
-      text += " (#{conference.location}#{format_conference_date(conference.starts_on, conference.ends_on)})" if extra_info
+      text = conference.name + " ("
+      text += "#{conference.location}, " if conference.location.present?
+      text += "#{format_conference_date(conference.starts_on, conference.ends_on)})" if
+          extra_info
       link_to(text, conference)
     end
   end
