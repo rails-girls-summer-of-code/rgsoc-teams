@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe ApplicationHelper do
+RSpec.describe ApplicationHelper do
   describe '#application_disambiguation_link' do
     let(:draft) { create :application_draft }
     let(:user)  { create :user }
@@ -101,6 +101,54 @@ describe ApplicationHelper do
         "<a href=\"/users?role=mentor\">Mentor</a> at <a href=\"/teams/#{@team.id}\">Team 29-enim (Sinatra)</a>"
       )
     end
+  end
+
+  describe '#links_to_conferences' do
+    let(:conference) { build_stubbed :conference }
+
+
+    it 'creates a simple link to a single conference' do
+      subject = links_to_conferences [conference]
+      expect(subject).to eql [link_to(conference.name, conference)]
+    end
+
+    context 'with extra info flag' do
+      subject { links_to_conferences [conference], true }
+
+      it 'will not display empty brackets' do
+        expect(subject).to eql [link_to(conference.name, conference)]
+      end
+
+      context 'with location' do
+        let(:conference) { build_stubbed :conference, location: 'Melée Island' }
+
+        it 'will add the location in brackets' do
+          link_text = "#{conference.name} (Melée Island)"
+          expect(subject).to eql [link_to(link_text, conference)]
+        end
+      end
+
+      context 'with starts_on and ends_on present' do
+        let(:conference) { build_stubbed :conference, starts_on: '2017-03-14', ends_on: '2017-03-17' }
+
+        it 'will add the date range in brackets' do
+          link_text = "#{conference.name} (14 Mar 17 - 17 Mar 17)"
+          expect(subject).to eql [link_to(link_text, conference)]
+        end
+      end
+
+      context 'with location and and all dates present' do
+        let(:conference) do
+          build_stubbed :conference, location: 'Melée Island', starts_on: '2017-03-14', ends_on: '2017-03-17'
+        end
+
+        it 'will add location and date range in brackets' do
+          link_text = "#{conference.name} (Melée Island, 14 Mar 17 - 17 Mar 17)"
+          expect(subject).to eql [link_to(link_text, conference)]
+        end
+      end
+    end
+
   end
 
   describe '.icon' do
