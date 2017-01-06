@@ -17,11 +17,13 @@ RSpec.describe Orga::ConferencesController do
     end
 
     describe 'POST create' do
+      let!(:another_conference) { create :conference }
+
       it 'creates a record' do
         expect {
           post :create, params: {conference: attributes_for(:conference)}
         }.to change { Conference.count }.by 1
-         expect(response).to redirect_to [:orga, Conference.first]
+        expect(response).to redirect_to [:orga, Conference.last]
       end
 
       it 'sets the current season' do

@@ -3,11 +3,11 @@ require 'spec_helper'
 RSpec.describe Conference do
   it_behaves_like 'HasSeason'
 
-    it { is_expected.to have_many(:attendances) }
-    it { is_expected.to have_many(:attendees) }
-    it { is_expected.to validate_presence_of(:name) }
-    it { is_expected.to validate_presence_of(:round) }
-    # The custom date validator is tested in test 'chronology', below
+  it { is_expected.to have_many(:attendances) }
+  it { is_expected.to have_many(:attendees) }
+  it { is_expected.to validate_presence_of(:name) }
+  it { is_expected.to validate_presence_of(:round) }
+  # The custom date validator is tested in test 'chronology', below
 
   describe 'scopes' do
     subject { Conference }
