@@ -13,6 +13,8 @@ class Student < SimpleDelegator
       :application_code_samples, :application_location, :application_money, :application_goals, :application_code_background
     ]
 
+  CHARACTER_LIMIT = 2000
+
   CHARACTER_LIMIT_FIELDS =
     [
       :application_about, :application_code_background, :application_skills, :application_community_engagement,
