@@ -83,6 +83,19 @@ RSpec.describe UsersController do
         expect(response).to be_success
         expect(response.body).to match conference.name
       end
+
+      context 'with attendance orphans' do
+        let!(:orphan) { create :attendance, user: user }
+
+        before { orphan.conference.delete }
+
+        # There are some stale attendance records in the system since
+        # attendences used to stick around when their conference was deleted
+        it 'will not list attendances w/o conference' do
+          get :show, params: { id: user.to_param }
+          expect(response).to be_success
+        end
+      end
     end
 
     context 'with user logged in' do

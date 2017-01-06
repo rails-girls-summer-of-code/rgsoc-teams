@@ -50,7 +50,7 @@ nav.actions
   - if @user.conferences.any?
     h4 Conferences
     ul.conferences
-      - @user.attendances.includes(:conference).order('conferences.starts_on').each do |a|
+      - @user.attendances.joins(:conference).order('conferences.starts_on').each do |a|
         li
           ' #{link_to a.conference.name, a.conference}
           ' (#{a.conference.location}#{format_conference_date(a.conference.starts_on, a.conference.ends_on)})
