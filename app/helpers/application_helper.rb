@@ -133,6 +133,9 @@ module ApplicationHelper
     end
   end
 
+  # @param conferences [Array<Conference>] list of Conference records
+  # @param extra_info [Boolean] append verbose info?
+  # @return [Array<String>] list of HTML anchor tags to conferences
   def links_to_conferences(conferences, extra_info = false)
     conferences.map do |conference|
       text = conference.name
