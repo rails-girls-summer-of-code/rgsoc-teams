@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe UsersController do
+RSpec.describe UsersController do
   render_views
 
   let(:valid_attributes) { build(:user).attributes.except('github_id', 'avatar_url', *User.immutable_attributes.map(&:to_s)) }
@@ -71,6 +71,18 @@ describe UsersController do
       user = create(:user)
       get :show, { params: { id: user.to_param } }, valid_session
       expect(assigns(:user)).to eq(user)
+    end
+
+    context 'with conferences' do
+      let!(:attendance) { create :attendance }
+      let(:user)        { attendance.user }
+      let(:conference)  { attendance.conference }
+
+      it 'lists the users conference attendances' do
+        get :show, params: { id: user.to_param }
+        expect(response).to be_success
+        expect(response.body).to match conference.name
+      end
     end
 
     context 'with user logged in' do
