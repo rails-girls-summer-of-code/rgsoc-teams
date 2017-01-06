@@ -13,6 +13,12 @@ class Student < SimpleDelegator
       :application_code_samples, :application_location, :application_money, :application_goals, :application_code_background
     ]
 
+  CHARACTER_LIMIT_FIELDS =
+    [
+      :application_about, :application_code_background, :application_skills, :application_community_engagement,
+      :application_learning_history, :application_goals, :application_motivation
+    ]
+
   attr_reader :user
 
   def initialize(user = User.new)
