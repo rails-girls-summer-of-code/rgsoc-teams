@@ -133,10 +133,16 @@ module ApplicationHelper
     end
   end
 
-  def links_to_conferences(conferences, extra_info = false)
+  # @param conferences [Array<Conference>] a list of Conference records
+  # @param verbose [Boolean] appends location and date info if true (defaults to false)
+  # @return [Array<String>] a list of HTML anchor tags to conferences
+  def links_to_conferences(conferences, verbose: false)
     conferences.map do |conference|
       text = conference.name
-      text += " (#{conference.location}#{format_conference_date(conference.starts_on, conference.ends_on)})" if extra_info
+      if verbose
+        extra = [conference.location, format_conference_date(conference.starts_on, conference.ends_on)].reject(&:blank?).join(' – ')
+        text += " (#{extra})" unless extra.blank?
+      end
       link_to(text, conference)
     end
   end
