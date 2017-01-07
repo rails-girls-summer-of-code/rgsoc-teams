@@ -1,0 +1,45 @@
+(function() {
+  const apiKey  = '<%= ENV["GOOGLE_MAPS_API_KEY"] %>'
+  const baseURL = 'https://maps.googleapis.com/maps/api/js'
+  const opts    = { types: ['(cities)'] }
+  const params  = {
+    key:       apiKey,
+    signed_in: true,
+    libraries: 'places',
+    language:  'en-US'
+  }
+
+  function init() {
+    if (Boolean(apiKey)) loadPlacesLib()
+  }
+
+  function loadPlacesLib() {
+    $.ajax({
+      cache:    true,
+      url:      baseURL,
+      data:     params,
+      dataType: 'script',
+      success:  initCityFields
+    })
+  }
+
+  function initCityFields() {
+    $(function () {
+      fields = $('[data-behavior="city-autocomplete"]')
+      if (fields.length) fields.map(function() { addAutocomplete(this) })
+    })
+  }
+
+  function addAutocomplete(field) {
+    $(field).focusin(function() { disableEnter(this) })
+    new google.maps.places.Autocomplete(field, opts)
+  }
+
+  function disableEnter(field) {
+    $(field).keypress(function(e) {
+      if (e.keyCode == 13) e.preventDefault()
+    })
+  }
+
+  init()
+})()
