@@ -73,7 +73,7 @@ class User < ActiveRecord::Base
   has_many :teams, -> { distinct }, through: :roles
   has_many :application_drafts, through: :teams
   has_many :applications, through: :teams
-  has_many :attendances
+  has_many :attendances, dependent: :destroy
   has_many :conferences, through: :attendances
 
   validates :github_handle, presence: true, uniqueness: { case_sensitive: false }
