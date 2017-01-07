@@ -46,7 +46,7 @@ class ApplicationDraft < ActiveRecord::Base
   def method_missing(method, *args, &block)
     student_proxy = StudentAttributeProxy.new(method, self)
     if student_proxy.matches?
-      student_proxy.attribute
+      student_proxy.attribute(*args)
     else
       super
     end

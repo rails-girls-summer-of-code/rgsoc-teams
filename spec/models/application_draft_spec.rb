@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'spec_helper'
 
 RSpec.describe ApplicationDraft do
@@ -236,6 +237,14 @@ RSpec.describe ApplicationDraft do
 
     end
 
+    it 'proxies the setter methods' do
+      attribute = "student0_#{Student::REQUIRED_DRAFT_FIELDS.sample}"
+      allow(subject).to receive(:students).and_return([student0])
+
+      expect {
+        subject.send("#{attribute}=", "some value")
+      }.to change { subject.send(attribute) }.to "some value"
+    end
   end
 
   describe '#role_for' do
