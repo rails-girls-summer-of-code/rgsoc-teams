@@ -176,6 +176,16 @@ RSpec.describe ApplicationDraft do
         end
       end
     end
+
+    context 'with character limits' do
+      let(:students) { build_stubbed_list :student, 2 }
+      before { allow(subject).to receive(:students).and_return(students) }
+
+      (described_class::STUDENT0_CHAR_LIMITED_FIELDS + described_class::STUDENT1_CHAR_LIMITED_FIELDS).each do |attribute|
+        it { is_expected.to allow_value("x" * (Student::CHARACTER_LIMIT + 1)).for(attribute) }
+        it { is_expected.to validate_length_of(attribute).is_at_most(Student::CHARACTER_LIMIT).on(:apply) }
+      end
+    end
   end
 
   context 'with callbacks' do
