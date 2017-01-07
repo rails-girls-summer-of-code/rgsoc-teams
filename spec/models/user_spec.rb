@@ -7,7 +7,7 @@ describe User do
 
   it { expect(subject).to have_many(:teams) }
   it { expect(subject).to have_many(:application_drafts) }
-  it { expect(subject).to have_many(:attendances) }
+  it { expect(subject).to have_many(:attendances).dependent(:destroy) }
   it { expect(subject).to have_many(:conferences) }
   it { expect(subject).to have_many(:roles) }
   it { expect(subject).to validate_presence_of(:github_handle) }
