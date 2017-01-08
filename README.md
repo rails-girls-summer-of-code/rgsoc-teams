@@ -114,8 +114,25 @@ directory the variables from `.env` will be loaded into the environment.
 
 E.g. `foreman run rails server` or `foreman run rails console`.
 
+### Google Places API (optional)
+
+To avoid accidentally exceeding the rate limit on [Google's Places API][google-places] (e.g. when heavily testing city-autocomplete fields) and thus blocking its usage for other RGSoC sites and devs:
+
+1. [Get your own key][google-places]
+
+1. Copy the `.env-example` file to `.env` and replace `YourGoogleMapsAPIKey` with your key
+
+1. Run the `foreman` command before any command
+  ```sh
+  # e.g.
+  foreman run rails server
+  # or
+  foremand run rails console
+  ```
+[google-places]: https://developers.google.com/places/javascript/
+
 ## Quick Start 
-###Beginner Friendly Tips for New Contributors
+### Beginner Friendly Tips for New Contributors
 - After forking the repo, follow the steps described above under 'Bootstrap'. Mailtrap is optional.
 - (Install and) connect to Postgres server 
 - With everything properly installed, open the browser in development environment
