@@ -10,7 +10,8 @@ class CharacterLimitedInput < SimpleForm::Inputs::TextInput
   private
 
   def counter
-    value = @builder.object.send(attribute_name).size
-    content_tag(:span, value)
+    chars_left  = Student::CHARACTER_LIMIT - @builder.object.send(attribute_name).size
+    num_element = content_tag(:span, chars_left)
+    content_tag(:p, "#{num_element} character(s) left".html_safe)
   end
 end
