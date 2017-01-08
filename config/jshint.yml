@@ -1,5 +1,7 @@
 files: ["**/*.js"] # No need to put app/assets/ or vendor/assets here
 exclude_paths: []
+exclude_files: [fullcalendar.js, nested_form.js]
+
 options:
   boss:       true
   browser:    true
