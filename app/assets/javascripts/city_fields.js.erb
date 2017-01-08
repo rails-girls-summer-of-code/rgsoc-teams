@@ -25,20 +25,45 @@
 
   function initCityFields() {
     $(function () {
-      fields = $('[data-behavior="city-autocomplete"]')
-      if (fields.length) fields.map(function() { addAutocomplete(this) })
+      var $fields = $('[data-behavior="city-autocomplete"]')
+      if ($fields.length) $fields.map(function() { addAutocomplete(this) })
     })
   }
 
   function addAutocomplete(field) {
-    $(field).focusin(function() { disableEnter(this) })
-    new google.maps.places.Autocomplete(field, opts)
+    var autocomplete  = new google.maps.places.Autocomplete(field, opts)
+    var $field        = $(field)
+    var $latField     = $field.next('[data-behavior="location-lat"]')
+    var $lngField     = $latField.next('[data-behavior="location-lng"]')
+    var place
+
+    $field.focusin(function() { disableEnter(this) })
+
+    autocomplete.addListener('place_changed', function() {
+      place = autocomplete.getPlace()
+      var location = place.geometry.location
+      $latField.val(location.lat())
+      $lngField.val(location.lng())
+    })
+
+    $field.focusout(function() {
+      validateValues(this, place, $latField, $lngField)
+    })
   }
 
   function disableEnter(field) {
     $(field).keypress(function(e) {
       if (e.keyCode == 13) e.preventDefault()
     })
+  }
+
+  function validateValues(field, place, $latField, $lngField) {
+    var currentText = $(field).val()
+    var blank       = !currentText.length
+    if (blank || (place.formatted_address != currentText)) {
+      $latField.removeAttr('value')
+      $lngField.removeAttr('value')
+    }
   }
 
   init()
