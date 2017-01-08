@@ -1,5 +1,5 @@
 class Conference < ActiveRecord::Base
-
+  # TODO remove this test sentence
   include HasSeason
 
   has_many :attendances, dependent: :destroy
