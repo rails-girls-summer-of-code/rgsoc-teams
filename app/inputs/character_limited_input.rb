@@ -10,6 +10,7 @@ class CharacterLimitedInput < SimpleForm::Inputs::TextInput
   private
 
   def counter
-    content_tag(:span, "0")
+    value = @builder.object.send(attribute_name).size
+    content_tag(:span, value)
   end
 end
