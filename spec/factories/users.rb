@@ -33,13 +33,15 @@ FactoryGirl.define do
         application_learning_period { User::MONTHS_LEARNING.sample }
         application_language_learning_period { User::MONTHS_LEARNING.sample }
         application_learning_history { FFaker::Lorem.paragraph }
-        application_skills{ FFaker::Lorem.paragraph }
-        application_code_samples{ FFaker::Lorem.paragraph }
-        application_location{ FFaker::Address.city }
+        application_skills { FFaker::Lorem.paragraph }
+        application_code_samples { FFaker::Lorem.paragraph }
+        application_location { FFaker::Address.city }
+        application_location_lat { FFaker::Geolocation.lat }
+        application_location_lng { FFaker::Geolocation.lng }
         application_minimum_money { FFaker::Lorem.paragraph } # NOTE not a required field
         application_money '850'
-        application_goals{ FFaker::Lorem.paragraph }
-        application_code_background{ FFaker::Lorem.paragraph }
+        application_goals { FFaker::Lorem.paragraph }
+        application_code_background { FFaker::Lorem.paragraph }
       end
     end
 
