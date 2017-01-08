@@ -19,5 +19,7 @@ options:
   undef:      true
   unused:     true
   globals:
-    jQuery:   true
-    "$":      true
+    jQuery:              true
+    $:                   true
+    GOOGLE_MAPS_API_KEY: true
+    google:              true
