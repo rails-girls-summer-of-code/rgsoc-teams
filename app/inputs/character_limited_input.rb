@@ -1,6 +1,6 @@
 class CharacterLimitedInput < SimpleForm::Inputs::TextInput
   def input_html_options
-    super.merge(maxlength: Student::CHARACTER_LIMIT)
+    super.merge(maxlength: Student::CHARACTER_LIMIT, data: { behaviour: 'character-limited' })
   end
 
   def input(wrapper_options)
