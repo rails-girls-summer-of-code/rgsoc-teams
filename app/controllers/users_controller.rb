@@ -109,7 +109,7 @@ class UsersController < ApplicationController
         :application_location, :application_minimum_money, :application_money, :application_goals, :application_code_background,
         interested_in: [],
         attendances_attributes: [:id, :conference_id, :_destroy],
-        roles_attributes: [:id, :name, :team_id]
+        roles_attributes: [:id, :name, :team_id, :_destroy]
       )
     end
 
