@@ -8,9 +8,12 @@
 
   = s.input :application_location, as: :string, label: 'Where do you plan to live July-September? (Please write as "City, Country")', input_html: { disabled: !may_edit?(s.object) }, wrapper_html: { class: student_field_error_class(index, application_draft, :application_location) }, hint: student_field_error_hint(index, application_draft, :application_location)
 
-  hr
 
+  hr
   h2 Background Information
+
+  p.help-block In your answers below, don't mention names (geographical features, universities, companies etc.) which
+   can point to your location, please. It could introduce bias during the selection process.
 
   = s.input :application_about, as: :text, label: 'Please tell us a little bit about yourself. What is your background?', input_html: { rows: 5, disabled: !may_edit?(s.object) }, wrapper_html: { class: student_field_error_class(index, application_draft, :application_about)}, hint: (student_field_error_hint(index, application_draft, :application_about) || 'Only share what you feel comfortable with.')
   = s.input :application_code_background, label: 'How did you get into programming?', input_html: {rows: 5, disabled: !may_edit?(s.object) }, wrapper_html: { class: student_field_error_class(index, application_draft, :application_code_background)}, hint: student_field_error_hint(index, application_draft, :application_code_background)
