@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170107110820) do
+ActiveRecord::Schema.define(version: 20170108161032) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -284,6 +284,8 @@ ActiveRecord::Schema.define(version: 20170107110820) do
     t.text     "application_goals"
     t.text     "application_language_learning_period"
     t.string   "application_money"
+    t.float    "application_location_lat"
+    t.float    "application_location_lng"
   end
 
 end
