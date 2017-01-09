@@ -132,19 +132,28 @@ To avoid accidentally exceeding the rate limit on [Google's Places API][google-p
 [google-places]: https://developers.google.com/places/javascript/
 
 ## Quick Start 
+
 ### Beginner Friendly Tips for New Contributors
+
 - After forking the repo, follow the steps described above under 'Bootstrap'. Mailtrap is optional.
 - (Install and) connect to Postgres server 
 - With everything properly installed, open the browser in development environment
 - The app should be available, with the database loaded with fake data.
 - To access all the functionality of the teams app, add yourself as an organizer.
     * In the browser: log in with your github account 
-    * In Rails Console:
-    ``` user = User.last``` #or ```user = User.find_by(github_handle: "yourgithubhandle") ```
-    ``` user.roles.create(name: "organizer") ```
-    You can assign yourself other roles in the same way. If however you assign
-    yourself a student role AND another role, that may lead to unexpected behavior in the app. In that case, remove the student role. 
-    - Refresh the browser to effectuate. You should see links for organizers. 
+    * In Rails Console:   
+      ```
+      user = User.last
+      user.roles.create(name: "organizer")
+      ```
+      Instead of using the last created User, you can also search for a
+      specific User with ```user = User.find_by(github_handle: "yourgithubhandle")```.
+
+      You can assign yourself other roles in the same way as creating the
+      organizer role. If however you assign yourself a student role AND another
+      role, that may lead to unexpected behavior in the app. In that case,
+      remove the student role. 
+    * Refresh the browser and you should see links for organizers. 
 - Once you are an `organizer`, you can add a season and switch between season's phases at
 http://localhost:3000/orga/seasons in your browser.
 - While in development, you are also able to impersonate other users to easily test the system

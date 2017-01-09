@@ -149,7 +149,6 @@ GEM
     kaminari (0.17.0)
       actionpack (>= 3.0.0)
       activesupport (>= 3.0.0)
-    kgio (2.10.0)
     libv8 (3.16.14.17)
     loofah (2.0.3)
       nokogiri (>= 1.5.9)
@@ -197,6 +196,7 @@ GEM
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
       slop (~> 3.4)
+    puma (3.6.2)
     rack (2.0.1)
     rack-test (0.6.3)
       rack (>= 1.0)
@@ -234,7 +234,6 @@ GEM
       method_source
       rake (>= 0.8.7)
       thor (>= 0.18.1, < 2.0)
-    raindrops (0.17.0)
     rake (11.3.0)
     redcarpet (3.3.4)
     ref (2.0.0)
@@ -337,9 +336,6 @@ GEM
       execjs (>= 0.3.0)
       json (>= 1.8.0)
     unicode_utils (1.4.0)
-    unicorn (5.2.0)
-      kgio (~> 2.6)
-      raindrops (~> 0.7)
     uuidtools (2.1.5)
     warden (1.2.6)
       rack (>= 1.0)
@@ -387,6 +383,7 @@ DEPENDENCIES
   pg
   pretender
   pry
+  puma
   rails (~> 5.0)
   rails-controller-testing
   rails_12factor
@@ -409,7 +406,6 @@ DEPENDENCIES
   sucker_punch
   timecop
   uglifier (~> 2.7.0)
-  unicorn
   webmock
 
 RUBY VERSION
