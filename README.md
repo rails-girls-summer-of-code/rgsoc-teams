@@ -132,8 +132,10 @@ E.g. `foreman run rails server` or `foreman run rails console`.
       Instead of using the last created User, you can also search for a
       specific User with ```user = User.find_by(github_handle: "yourgithubhandle")```.
 
-      You can assign yourself other roles in the same way. If however you assign
-      yourself a student role AND another role, that may lead to unexpected behavior in the app. In that case, remove the student role. 
+      You can assign yourself other roles in the same way as creating the
+      organizer role. If however you assign yourself a student role AND another
+      role, that may lead to unexpected behavior in the app. In that case,
+      remove the student role. 
     * Refresh the browser and you should see links for organizers. 
 - Once you are an `organizer`, you can add a season and switch between season's phases at
 http://localhost:3000/orga/seasons in your browser.
