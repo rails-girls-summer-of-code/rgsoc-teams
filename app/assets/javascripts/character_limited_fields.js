@@ -5,9 +5,12 @@ $(function() {
 
     function characterCounter() {
         var $field = $(this);
-        var maxlength = parseInt($field.attr("maxlength"));
+        var $count = $field.next().children(".character_limited_counter");
+
+        var maxlength      = parseInt($field.attr("maxlength"));
         var remainingChars = maxlength - $field.val().length;
-        console.log(remainingChars);
+
+        $count.html(remainingChars);
     }
 
 });
