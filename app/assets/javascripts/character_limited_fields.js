@@ -3,6 +3,7 @@ $(function() {
 
     $('[data-behaviour="character-limited"]').each(function() {
         $(this).on("keyup", characterCounter);
+        $(this).trigger("keyup");
     });
 
     function characterCounter() {
