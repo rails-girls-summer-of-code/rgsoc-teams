@@ -30,9 +30,6 @@ p.attention
 
   .tab-content
     #student-one-tab.tab-pane.active
-      .alert.alert-info
-        strong Info:
-        |  You can edit the fields about you in #{link_to 'your user profile', edit_user_path(current_user, anchor: 'application_specific')}, too.
       fieldset
         = render 'student_fields', f: f, student: application_draft.students[0], index: 0, application_draft: f.object
       = render 'save_draft_button', f: f if application_draft.draft?
