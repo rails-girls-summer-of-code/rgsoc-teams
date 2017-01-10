@@ -7,7 +7,6 @@ module ApplicationDraftsHelper
                     :application_code_background,
                     :application_skills,
                     :application_community_engagement,
-                    :application_learning_period,
                     :application_language_learning_period,
                     :application_learning_history,
                     :application_code_samples,

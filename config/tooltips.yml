@@ -16,7 +16,6 @@ skills: |
   - Short summary of your programming skills
   - What is your programming level?
   - For how many months have you been learning the language of your primary project?
-  - For how many months have you actively been learning after your first workshop?
   - Link to pull requests you have done or other examples of your coding on GitHub or elsewhere
 
   Give <strong>10 points</strong> to students who look highly skilled and experienced: ~ 5 level, 24+ month learning period, decent pieces of code, other evidence of skills.
@@ -48,7 +47,7 @@ ambitions: |
 ability_to_work_independently: |
   Please base your rate on the following application fields:
 
-  - What you have been doing to learn programming since your first workshop?
+  - What you have been doing to learn programming?
   - Why did you select this project?
   - Which features are you planning to work on?
   - How are you planning to work together?
@@ -75,7 +74,6 @@ motivation_for_the_program: |
 
   - How did you get into programming?
   - For how many months have you been learning the language of your primary project?
-  - For how many months have you actively been learning after your first workshop?
   - What do you want to achieve by the end of the summer?
   - Why are you applying to this program, and what do you think you can give back?
   - Why did you select this project?
