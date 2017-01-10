@@ -4,14 +4,8 @@ class Season::PhaseSwitcher
     Season.current
   end
 
-  def self.switcher(phase)
-    phases = {
-        'Proposals' => :fake_proposals_phase,
-        'Application' => :fake_application_phase,
-        'CodingSummer' => :fake_coding_phase,
-        'Real Time' => :back_to_reality
-    }
-     self.send phases[phase]
+  def self.distribute(phase)
+    self.send phases[phase]
   end
 
   def self.fake_coding_phase
@@ -58,6 +52,17 @@ class Season::PhaseSwitcher
        project_proposals_open_at: Time.utc(this_year-1, *Season::PROJECTS_OPEN),
        project_proposals_close_at: Time.utc(this_year, *Season::PROJECTS_CLOSE),
     })
+  end
+
+  private
+
+  def self.phases
+    @phases ||= {
+        'Proposals' => :fake_proposals_phase,
+        'Application' => :fake_application_phase,
+        'CodingSummer' => :fake_coding_phase,
+        'Real Time' => :back_to_reality
+    }
   end
 
 end

@@ -48,7 +48,7 @@ class Orga::SeasonsController < Orga::BaseController
   # by showing the corresponding links in the nav bar
   def switch_phase
     return if Rails.env.production?
-    Season::PhaseSwitcher.switcher(params[:option])
+    Season::PhaseSwitcher.distribute(params[:option])
     redirect_to orga_seasons_path, notice: "We time travelled into the #{params[:option]} phase"
   end
 
