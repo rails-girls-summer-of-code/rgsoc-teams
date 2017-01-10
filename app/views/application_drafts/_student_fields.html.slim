@@ -12,17 +12,17 @@
 
   h2 Background Information
 
-  = s.input :application_about, as: :text, label: 'Please tell us a little bit about yourself. What is your background?', input_html: { rows: 5, disabled: !may_edit?(s.object) }, wrapper_html: { class: student_field_error_class(index, application_draft, :application_about)}, hint: (student_field_error_hint(index, application_draft, :application_about) || 'Only share what you feel comfortable with.')
-  = s.input :application_code_background, label: 'How did you get into programming?', input_html: {rows: 5, disabled: !may_edit?(s.object) }, wrapper_html: { class: student_field_error_class(index, application_draft, :application_code_background)}, hint: student_field_error_hint(index, application_draft, :application_code_background)
+  = s.input :application_about, as: :character_limited, label: 'Please tell us a little bit about yourself. What is your background?', input_html: { rows: 5, disabled: !may_edit?(s.object) }, wrapper_html: { class: student_field_error_class(index, application_draft, :application_about)}, hint: (student_field_error_hint(index, application_draft, :application_about) || 'Only share what you feel comfortable with.')
+  = s.input :application_code_background, as: :character_limited, label: 'How did you get into programming?', input_html: {rows: 5, disabled: !may_edit?(s.object) }, wrapper_html: { class: student_field_error_class(index, application_draft, :application_code_background)}, hint: student_field_error_hint(index, application_draft, :application_code_background)
 
   h2 Community Involvement
 
-  = s.input :application_community_engagement, label: 'Tell us about your community involvement.', input_html: { disabled: !may_edit?(s.object) }, wrapper_html: { class: student_field_error_class(index, application_draft, :application_community_engagement) }, hint: (student_field_error_hint(index, application_draft, :application_community_engagement) || 'When did you attend your first Rails Girls, Railsbridge, Black Girls Code, PyLadies, or similar workshop? Have you been involved in organization/coaching/study groups since then? Tell us all about it!')
+  = s.input :application_community_engagement, as: :character_limited, label: 'Tell us about your community involvement.', input_html: { disabled: !may_edit?(s.object) }, wrapper_html: { class: student_field_error_class(index, application_draft, :application_community_engagement) }, hint: (student_field_error_hint(index, application_draft, :application_community_engagement) || 'When did you attend your first Rails Girls, Railsbridge, Black Girls Code, PyLadies, or similar workshop? Have you been involved in organization/coaching/study groups since then? Tell us all about it!')
   = s.input :application_giving_back, label: 'What do you think you could give back to the community?', input_html: { disabled: !may_edit?(s.object) }, wrapper_html: { class: student_field_error_class(index, application_draft, :application_giving_back) }
 
   hr
   h2 Your programming skills
-  = s.input :application_skills, label: 'Please give us a short summary of your programming skills', input_html: { disabled: !may_edit?(s.object) }, wrapper_html: { class: student_field_error_class(index, application_draft, :application_skills) }, hint: (student_field_error_hint(index, application_draft, :application_skills) || 'What languages, frameworks, and tech tools did you learn? What did you build?')
+  = s.input :application_skills, as: :character_limited, label: 'Please give us a short summary of your programming skills', input_html: { disabled: !may_edit?(s.object) }, wrapper_html: { class: student_field_error_class(index, application_draft, :application_skills) }, hint: (student_field_error_hint(index, application_draft, :application_skills) || 'What languages, frameworks, and tech tools did you learn? What did you build?')
 
   h4 According to these guidelines, what is your programming level (where 1 is the 'lowest')?
   p.help-block For each level, assume that the guidelines of the level(s) below it are also true, meaning that if you see yourself as a Level 2, you should be able to do most of Level 1, too.
@@ -50,9 +50,9 @@
 
   h2 Your goals and motivation
 
-  = s.input :application_goals, label: "What do you want to achieve by the end of the summer?", input_html: { rows: 4, disabled: !may_edit?(s.object) }, wrapper_html: { class: student_field_error_class(index, application_draft, :application_goals) }, hint: (student_field_error_hint(index, application_draft, :application_goals))
+  = s.input :application_goals, as: :character_limited, label: "What do you want to achieve by the end of the summer?", input_html: { rows: 4, disabled: !may_edit?(s.object) }, wrapper_html: { class: student_field_error_class(index, application_draft, :application_goals) }, hint: (student_field_error_hint(index, application_draft, :application_goals))
 
-  = s.input :application_motivation, label: 'Why are you applying to this program? (Please don\'t mention your name, age, or current location.)', input_html: { rows: 10, disabled: !may_edit?(s.object) }, wrapper_html: { class: student_field_error_class(index, application_draft, :application_motivation)}, hint: (student_field_error_hint(index, application_draft, :application_motivation) || "Write a short essay (750-1000 words) explaining your motivation. Please don't mention your name, age, or current location.")
+  = s.input :application_motivation, as: :character_limited, label: 'Why are you applying to this program? (Please don\'t mention your name, age, or current location.)', input_html: { rows: 4, disabled: !may_edit?(s.object) }, wrapper_html: { class: student_field_error_class(index, application_draft, :application_motivation)}, hint: (student_field_error_hint(index, application_draft, :application_motivation) || "Write a short essay (750-1000 words) explaining your motivation. Please don't mention your name, age, or current location.")
 
   h2 Financial matters
   = private_application_data(student) do
