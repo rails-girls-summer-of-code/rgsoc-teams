@@ -285,6 +285,7 @@ ActiveRecord::Schema.define(version: 20170110102731) do
     t.string   "application_money"
     t.float    "application_location_lat"
     t.float    "application_location_lng"
+    t.text     "application_giving_back"
   end
 
 end
