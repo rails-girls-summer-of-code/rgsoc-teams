@@ -5,7 +5,7 @@ class Season::PhaseSwitcher
   end
 
   def self.distribute(phase)
-    self.send phases[phase]
+    self.public_send(phase)
   end
 
   def self.fake_coding_phase
