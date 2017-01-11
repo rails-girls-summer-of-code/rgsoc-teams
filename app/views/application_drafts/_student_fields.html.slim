@@ -18,7 +18,7 @@
   h2 Community Involvement
 
   = s.input :application_community_engagement, as: :character_limited, label: 'Tell us about your community involvement.', input_html: { disabled: !may_edit?(s.object) }, wrapper_html: { class: student_field_error_class(index, application_draft, :application_community_engagement) }, hint: (student_field_error_hint(index, application_draft, :application_community_engagement) || 'When did you attend your first Rails Girls, Railsbridge, Black Girls Code, PyLadies, or similar workshop? Have you been involved in organization/coaching/study groups since then? Tell us all about it!')
-  = s.input :application_giving_back, label: 'What do you think you could give back to the community?', input_html: { disabled: !may_edit?(s.object) }, wrapper_html: { class: student_field_error_class(index, application_draft, :application_giving_back) }
+  = s.input :application_giving_back, as: :character_limited, label: 'What do you think you could give back to the community?', input_html: { disabled: !may_edit?(s.object) }, wrapper_html: { class: student_field_error_class(index, application_draft, :application_giving_back) }, hint: (student_field_error_hint(index, application_draft, :application_giving_back) || 'E.g. becoming a coach, maybe a regular committer, …')
 
   hr
   h2 Your programming skills
