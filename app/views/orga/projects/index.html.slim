@@ -1,6 +1,6 @@
 h1 Listing Projects
 
-table.table.table-striped.table-bordered.table-condensed
+table.table.table-striped.table-bordered.table-condensed.hidden-sm.hidden-xs
   thead
     tr
       th Name
@@ -30,5 +30,37 @@ table.table.table-striped.table-bordered.table-condensed
           - else
             = link_to 'Lock comments', [:lock, :orga, project], method: :put, class: 'btn btn-sm btn-warning'
 
-br
+- @projects.each do |project|
+  table.table.table-striped.table-bordered.table-condensed.hidden-md.hidden-lg
+    tbody
+      tr
+        td Name
+        td = link_to project.name, project
+      tr
+        td Submitted
+        td = l project.created_at, format: :shortest
+      tr
+        td Submitted by
+        td = link_to project.submitter.name, project.submitter
+      tr
+        td State
+        td = project_status project
+      tr
+        td Tags
+        td = project_tags project
+      tr
+        td Actions
+        td
+          - if project.may_accept?
+            = link_to 'Accept', [:accept, :orga, project], method: :put, class: 'btn btn-sm btn-success'
+          - if project.may_reject?
+            = link_to 'Reject', [:reject, :orga, project], method: :put, class: 'btn btn-sm btn-danger'
+      tr
+        td Comments
+        td
+          - if project.comments_locked?
+            = link_to 'Unlock comments', [:unlock, :orga, project], method: :put, class: 'btn btn-sm btn-warning'
+          - else
+            = link_to 'Lock comments', [:lock, :orga, project], method: :put, class: 'btn btn-sm btn-warning'
 
+br
