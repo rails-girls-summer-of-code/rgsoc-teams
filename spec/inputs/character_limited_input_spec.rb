@@ -20,7 +20,7 @@ RSpec.describe CharacterLimitedInput do
     end
 
     it 'does not use the html maxlength attribute' do
-      expect(subject).not_to include 'maxlengh='
+      expect(subject).not_to include ' maxlength='
     end
 
     it 'returns a counter element' do
