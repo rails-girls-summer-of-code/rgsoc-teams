@@ -4,6 +4,7 @@ ruby '2.3.1'
 
 gem 'rails', '~> 5.0'
 gem 'pg'
+gem 'puma'
 gem 'devise'
 gem 'omniauth-github'
 gem 'cancancan'
@@ -41,7 +42,6 @@ gem 'acts_as_list'
 gem 'camo'
 
 group :production do
-  gem 'unicorn'
   gem 'rails_12factor'
 end
 

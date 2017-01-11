@@ -16,6 +16,9 @@
 # Ignore the default SQLite database.
 /db/*.sqlite3
 
+# Ignore byebug history
+.byebug_history
+
 coverage/
 
 # Ignore all logfiles and tempfiles.

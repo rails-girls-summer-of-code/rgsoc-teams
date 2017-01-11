@@ -12,7 +12,7 @@ class Application < ActiveRecord::Base
       :student0_application_skills, :student1_application_skills,
       :student0_application_coding_level, :student1_application_coding_level,
       :student0_application_community_engagement, :student1_application_community_engagement,
-      :student0_application_learning_period, :student1_application_learning_period,
+      :student0_application_giving_back, :student1_application_giving_back,
       :student0_application_language_learning_period, :student1_application_language_learning_period,
       :student0_application_learning_history, :student1_application_learning_history,
       :student0_application_code_samples, :student1_application_code_samples,

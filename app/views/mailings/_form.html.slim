@@ -8,7 +8,7 @@
 
   .row
     .col-md-4
-      = f.input :seasons, as: :check_boxes, collection: Season.pluck(:name), blank: true, required: false
+      = f.input :seasons, as: :check_boxes, collection: Season.order(:name).pluck(:name), blank: true, required: false
     .col-md-4
       = f.input :group, as: :radio_buttons, collection: Mailing.groups.map { |k, v| [k.humanize, k.to_s] }, required: false
     .col-md-4

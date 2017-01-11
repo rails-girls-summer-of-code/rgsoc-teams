@@ -2,7 +2,7 @@
 class ReminderMailer < ActionMailer::Base
   include ActionView::Helpers::TextHelper
 
-  default from: ENV['EMAIL_FROM'] || 'summer-of-code@railsgirls.com'
+  default from: ENV['EMAIL_FROM'] || 'contact@rgsoc.org'
 
   def update_log(team)
     @team = team

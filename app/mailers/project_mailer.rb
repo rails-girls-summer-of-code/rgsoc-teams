@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 class ProjectMailer < ActionMailer::Base
-  default from: ENV['EMAIL_FROM'] || 'summer-of-code@railsgirls.com'
+  default from: ENV['EMAIL_FROM'] || 'contact@rgsoc.org'
   default_url_options[:protocol] = 'https'
 
   def proposal(project)

@@ -2,7 +2,7 @@
 class RoleMailer < ActionMailer::Base
   include ActionView::Helpers::TextHelper
 
-  default from: ENV['EMAIL_FROM'] || 'summer-of-code-team@railsgirls.com'
+  default from: ENV['EMAIL_FROM'] || 'contact@rgsoc.org'
 
   def user_added_to_team(role)
     return unless role.user.present? &&
