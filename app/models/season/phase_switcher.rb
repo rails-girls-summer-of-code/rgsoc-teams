@@ -5,8 +5,15 @@ class Season::PhaseSwitcher
   end
 
   def self.distribute(phase)
-    self.public_send(phase)
+    unless phase.to_sym.presence_in(whitelisted_phases)
+      raise ArgumentError
+    else
+      self.public_send(phase)
+    end
   end
+
+
+  private
 
   def self.fake_coding_phase
     season.update({
@@ -54,15 +61,12 @@ class Season::PhaseSwitcher
     })
   end
 
-  private
-
-  def self.phases
-    @phases ||= {
-        'Proposals' => :fake_proposals_phase,
-        'Application' => :fake_application_phase,
-        'CodingSummer' => :fake_coding_phase,
-        'Real Time' => :back_to_reality
-    }
+  def self.whitelisted_phases
+    @phases ||= [
+        :fake_proposals_phase,
+        :fake_application_phase,
+        :fake_coding_phase,
+        :back_to_reality
+    ]
   end
-
 end
