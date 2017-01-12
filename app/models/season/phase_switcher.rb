@@ -5,7 +5,7 @@ class Season::PhaseSwitcher
   end
 
   def self.destined(phase)
-    unless phase.to_sym.presence_in(whitelisted_phases)
+    unless phase.to_sym.in?(whitelisted_phases)
       raise ArgumentError
     else
       self.public_send(phase)
