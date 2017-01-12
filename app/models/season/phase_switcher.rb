@@ -4,7 +4,7 @@ class Season::PhaseSwitcher
     Season.current
   end
 
-  def self.distribute(phase)
+  def self.destined(phase)
     unless phase.to_sym.presence_in(whitelisted_phases)
       raise ArgumentError
     else
