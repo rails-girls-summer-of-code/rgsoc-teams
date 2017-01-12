@@ -7,6 +7,7 @@ FactoryGirl.define do
     country  { FFaker::Address.country }
     bio      { FFaker::Lorem.paragraph }
     homepage { FFaker::Internet.http_url }
+    confirmed_at { Date.yesterday }
 
     factory :coach do
       transient { team { FactoryGirl.create(:team) } }

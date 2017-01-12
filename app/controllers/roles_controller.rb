@@ -11,6 +11,7 @@ class RolesController < ApplicationController
 
   def create
     @role.user = User.where(github_handle: params[:role][:github_handle]).first_or_create
+    @role.user.github_import = true
 
     respond_to do |format|
       if @team.save

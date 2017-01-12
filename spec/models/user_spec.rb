@@ -17,6 +17,22 @@ describe User do
   it { expect(subject).to allow_value('https://example.com').for(:homepage) }
   it { expect(subject).to_not allow_value('example.com').for(:homepage) }
 
+  it { expect(subject).to validate_presence_of(:name) }
+  it { expect(subject).to validate_presence_of(:email) }
+  it { expect(subject).to validate_presence_of(:country) }
+  it { expect(subject).to validate_presence_of(:location) }
+
+  context 'during github user import' do
+    before do
+      subject.github_import = true
+    end
+
+    it { expect(subject).not_to validate_presence_of(:name) }
+    it { expect(subject).not_to validate_presence_of(:email) }
+    it { expect(subject).not_to validate_presence_of(:country) }
+    it { expect(subject).not_to validate_presence_of(:location) }
+  end
+
   describe 'immutable github handle validation' do
     context 'when creating a new user' do
       let(:new_user) { build(:user, github_handle: 'github_handle') }
@@ -128,7 +144,11 @@ describe User do
   end
 
   describe 'before_save' do
-    before { subject.github_handle = 'octocat' }
+    before do
+      subject.github_handle = 'octocat'
+      subject.confirmed_at  = Date.yesterday
+      subject.github_import = true
+    end
 
     context 'sanitizing the location' do
       before do
@@ -153,7 +173,7 @@ describe User do
   end
 
   describe 'after_create' do
-    let(:user) { User.create(github_handle: 'octocat') }
+    let(:user) { User.create(github_handle: 'octocat', confirmed_at: Date.yesterday, github_import: true) }
 
     it 'is just created' do
       expect(user.just_created?).to eql true

@@ -115,6 +115,20 @@ describe Ability do
             expect(subject).to be_able_to :crud, team
           end
         end
+
+        context 'when not confirmed' do
+          let!(:user) { create :student, confirmed_at: nil }
+          let(:team) { FactoryGirl.create(:team) }
+
+          it 'does not allow to create teams' do
+            expect(subject).not_to be_able_to :create, Team.new
+          end
+
+          it 'does not allow to join teams' do
+            expect(subject).not_to be_able_to :join, team
+          end
+        end
+
         context 'when user student' do
           let!(:user) { create :student }
 
@@ -154,7 +168,7 @@ describe Ability do
           it 'does not allow crud on existing team' do
             expect(subject).not_to be_able_to :crud, team
           end
-          
+
           it 'does not allow to create team' do
             expect(subject).not_to be_able_to :create, Team.new
           end
@@ -179,6 +193,45 @@ describe Ability do
       end
 
     end
+
+    context 'working with projects' do
+      let!(:user) { FactoryGirl.create(:user) }
+
+      context 'crud' do
+
+        it 'can be edited when I am an admin' do
+          FactoryGirl.create(:organizer_role, user: user)
+          expect(subject).to be_able_to :crud, Project.new
+        end
+
+        it 'can be edited if I am the project submitter' do
+          expect(subject).to be_able_to :crud, Project.new(submitter: user)
+        end
+
+        it 'cannot be edited if my account is not confirmed' do
+          user.confirmed_at = nil
+          user.save
+          expect(subject).not_to be_able_to :crud, Project.new(submitter: user)
+        end
+
+      end
+
+      context 'create' do
+
+        it 'can be created if I am confirmed' do
+          expect(subject).to be_able_to :create, Project.new
+        end
+
+        it 'cannot be created if I am not confirmed' do
+          user.confirmed_at = nil
+          user.save
+          expect(subject).not_to be_able_to :create, Project.new
+        end
+
+      end
+
+    end
+
   end
 
   context 'to join helpdesk team' do

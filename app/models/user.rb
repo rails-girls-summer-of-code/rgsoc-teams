@@ -51,7 +51,7 @@ class User < ActiveRecord::Base
 
   include Rateable
 
-  devise :omniauthable
+  devise :omniauthable, :confirmable
 
   has_many :roles do
     def admin
@@ -80,11 +80,18 @@ class User < ActiveRecord::Base
   validates :homepage, format: { with: URL_PREFIX_PATTERN }, allow_blank: true
   validate :immutable_github_handle
 
+  validates :name, :email, :country, :location, presence: true, unless: :github_import
+
   accepts_nested_attributes_for :attendances, allow_destroy: true
   accepts_nested_attributes_for :roles, allow_destroy: true
 
   before_save :sanitize_location
   after_create :complete_from_github
+
+  # This field is used to skip validations when creating
+  # a preliminary user, e.g. when adding a non existant person
+  # to a team using the github handle.
+  attr_accessor :github_import
 
   class << self
     def ordered(order = nil, direction = 'asc')

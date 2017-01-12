@@ -149,6 +149,23 @@ RSpec.describe UsersController do
 
     context "its own profile" do
       describe "with valid params" do
+
+        context "and unconfirmed user" do
+          let(:user) { FactoryGirl.create(:user, confirmed_at: nil) }
+
+          it "sends an confirmation email if the user isn't confirmed yet and the email wasn't changed" do
+            expect {
+              put :update, { params: { id: user.to_param, user: { 'name' => 'Trung Le' } } }, valid_session
+            }.to change { ActionMailer::Base.deliveries.count }.by(1)
+          end
+
+          it "sends only one confirmation email if the user isn't confirmed yet and the email was changed" do
+            expect {
+              put :update, { params: { id: user.to_param, user: { 'name' => 'Trung Le', email: 'newmail@example.com' } } }, valid_session
+            }.to change { ActionMailer::Base.deliveries.count }.by(1)
+          end
+        end
+
         it "updates the requested user" do
           expect_any_instance_of(User).to receive(:update_attributes).with(ActionController::Parameters.new({ 'name' => 'Trung Le' }).permit(:name))
           put :update, { params: { id: user.to_param, user: { 'name' => 'Trung Le' } } }, valid_session
