@@ -45,7 +45,7 @@
 
   = s.input :application_learning_history, label: 'Please summarize what you have been doing to learn programming', input_html: { disabled: !may_edit?(s.object) }, wrapper_html: { class: student_field_error_class(index, application_draft, :application_learning_history) }, hint: (student_field_error_hint(index, application_draft, :application_learning_history) || 'e.g. entered a study group, learning Rails by doing exercises etc.')
 
-  = s.input :application_code_samples, as: :text, label: 'Please link to pull requests you have done or other examples of your coding on GitHub or elsewhere.', input_html: { rows: 4, disabled: !may_edit?(s.object) }, wrapper_html: { class: student_field_error_class(index, application_draft, :application_code_samples) }, hint: (student_field_error_hint(index, application_draft, :application_code_samples))
+  = s.input :application_code_samples, as: :text, label: 'Please provide examples of your code.', input_html: { rows: 4, disabled: !may_edit?(s.object) }, wrapper_html: { class: student_field_error_class(index, application_draft, :application_code_samples) }, hint: (student_field_error_hint(index, application_draft, :application_code_samples) || 'e.g. Links to completed coding challenge provided by the mentor (if present), commits or pull requests on Github or other concise examples of your code. Links to GitHub profiles and repositories won\'t be considered.')
 
   hr
 
