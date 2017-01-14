@@ -9,8 +9,10 @@ class ApplicationDraft < ActiveRecord::Base
   STUDENT0_CHAR_LIMITED_FIELDS = Student::CHARACTER_LIMIT_FIELDS.map { |m| "student0_#{m}" }
   STUDENT1_CHAR_LIMITED_FIELDS = Student::CHARACTER_LIMIT_FIELDS.map { |m| "student1_#{m}" }
 
-  PROJECT1_FIELDS = %i(project1 plan_project1 why_selected_project1).freeze
-  PROJECT2_FIELDS = %i(plan_project2 why_selected_project2).freeze
+  PROJECT1_FIELDS = %i(project1 plan_project1 why_selected_project1)
+  PROJECT2_FIELDS = %i(plan_project2 why_selected_project2)
+  PROJECT_FIELDS  = %i(project1_id plan_project1 why_selected_project1) +
+                    %i(project2_id plan_project2 why_selected_project2)
 
   belongs_to :team
   belongs_to :updater, class_name: 'User'

@@ -1,5 +1,4 @@
 module ApplicationDraftsHelper
-  PROJECT_FIELDS = ApplicationDraft::PROJECT1_FIELDS + ApplicationDraft::PROJECT2_FIELDS
   STUDENT_FIELDS = [:name,
                     :application_age,
                     :application_gender_identification,
@@ -64,7 +63,7 @@ module ApplicationDraftsHelper
   end
 
   def projects_tab_errors(draft)
-    tab_errors(draft, PROJECT_FIELDS)
+    tab_errors(draft, ApplicationDraft::PROJECT_FIELDS)
   end
 
   def team_tab_errors(draft)

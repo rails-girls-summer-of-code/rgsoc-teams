@@ -1,4 +1,5 @@
 class CreatesApplicationFromDraft
+  PROJECT_FIELDS = ApplicationDraft::PROJECT_FIELDS.map(&:to_s)
   STUDENT_FIELDS = [0, 1].map { |index| User.columns.map(&:name).select{ |n| /\Aapplication_/ =~ n }.map{|n| "student#{index}_#{n}" } }.flatten
 
   delegate :team, to: :application_draft
@@ -41,7 +42,7 @@ class CreatesApplicationFromDraft
   end
 
   def project_attributes
-    %w(project1_id project2_id plan_project1 plan_project2).each_with_object({}) do |attribute, hash|
+    PROJECT_FIELDS.each_with_object({}) do |attribute, hash|
       hash[attribute] = application_draft.send(attribute)
     end
   end

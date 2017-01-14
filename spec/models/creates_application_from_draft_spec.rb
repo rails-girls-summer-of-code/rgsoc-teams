@@ -40,9 +40,7 @@ RSpec.describe CreatesApplicationFromDraft do
         end
       end
 
-      before do
-        described_class.new(application_draft).save
-      end
+      before { described_class.new(application_draft).save }
 
       subject { Application.last }
 
@@ -50,7 +48,7 @@ RSpec.describe CreatesApplicationFromDraft do
         skip
       end
 
-      it 'sets the saison' do
+      it 'sets the season' do
         expect(subject.season).to be_present
         expect(subject.season).to eql application_draft.season
       end
@@ -66,7 +64,7 @@ RSpec.describe CreatesApplicationFromDraft do
       end
 
       context 'carrying over the project related information' do
-        %w(project1_id project2_id plan_project1 plan_project2).each do |project_attribute|
+        described_class::PROJECT_FIELDS.each do |project_attribute|
           it_behaves_like 'matches corresponding attribute', project_attribute
         end
       end
