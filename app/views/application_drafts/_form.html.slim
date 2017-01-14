@@ -53,8 +53,8 @@ p.attention
 
       h2 Your project goals
 
-      = f.input :why_selected_project, label: 'Why did you select this project?', input_html: { rows: 4, disabled: !application_draft.as_student? || application_draft.applied? }
-      = f.input :project_plan, label: 'Which features are you planning to work on?', hint: "Please describe some issues and features that you want to work on this summer.".html_safe, input_html: { rows: 6, disabled: !application_draft.as_student? || application_draft.applied? }
+      = f.input :why_selected_project1, input_html: { rows: 4, disabled: !application_draft.as_student? || application_draft.applied? }
+      = f.input :plan_project1, hint: 'Please describe some issues and features that you want to work on this summer.'.html_safe, input_html: { rows: 6, disabled: !application_draft.as_student? || application_draft.applied? }
 
       = render 'save_draft_button', f: f if application_draft.draft?
 

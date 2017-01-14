@@ -55,10 +55,10 @@ RSpec.describe ApplicationDraft do
       end
 
       it_behaves_like 'proxies :apply validation', :project1
-      it_behaves_like 'proxies :apply validation', :project_plan
+      it_behaves_like 'proxies :apply validation', :plan_project1
       it_behaves_like 'proxies :apply validation', :heard_about_it
       it_behaves_like 'proxies :apply validation', :working_together
-      it_behaves_like 'proxies :apply validation', :why_selected_project
+      it_behaves_like 'proxies :apply validation', :why_selected_project1
 
       context 'required fields for voluntary mode' do
         it { is_expected.not_to validate_presence_of :voluntary_hours_per_week }
@@ -72,7 +72,6 @@ RSpec.describe ApplicationDraft do
       end
 
       context 'requiring projects to be accepted' do
-
         [:project1, :project2].each do |project_method|
           context "for #{project_method}" do
             let(:project_method) { project_method }
@@ -99,9 +98,7 @@ RSpec.describe ApplicationDraft do
             end
           end
         end
-
       end
-
     end
 
     context 'for student attributes' do
@@ -132,12 +129,11 @@ RSpec.describe ApplicationDraft do
             end
           end
         end
-
       end
 
       Student::REQUIRED_DRAFT_FIELDS.each do |attribute|
-        let(:ace_student)     { double.as_null_object }
-        let(:value)           { SecureRandom.hex(12) }
+        let(:ace_student) { double.as_null_object }
+        let(:value)       { SecureRandom.hex(12) }
 
         before do
           allow(ace_student).to receive(attribute).and_return(value)
@@ -158,7 +154,6 @@ RSpec.describe ApplicationDraft do
               expect { subject.valid? :apply }.to \
                 change { subject.errors["student0_#{attribute}"] }.to include "can't be blank"
             end
-
           end
         end
 
@@ -244,7 +239,6 @@ RSpec.describe ApplicationDraft do
         it_behaves_like 'proxies user method', :student0, attribute
         it_behaves_like 'proxies user method', :student1, attribute
       end
-
     end
 
     it 'proxies the setter methods' do
@@ -317,5 +311,4 @@ RSpec.describe ApplicationDraft do
       end
     end
   end
-
 end

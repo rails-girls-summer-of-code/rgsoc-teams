@@ -36,12 +36,12 @@ class CreatesApplicationFromDraft
       heard_about_it: application_draft.heard_about_it,
       misc_info: application_draft.misc_info,
       working_together: application_draft.working_together,
-      why_selected_project: application_draft.why_selected_project
+      why_selected_project1: application_draft.why_selected_project1
     }.merge(student_attributes).merge(project_attributes)
   end
 
   def project_attributes
-    %w(project1_id project2_id project_plan).each_with_object({}) do |attribute, hash|
+    %w(project1_id project2_id plan_project1 plan_project2).each_with_object({}) do |attribute, hash|
       hash[attribute] = application_draft.send(attribute)
     end
   end

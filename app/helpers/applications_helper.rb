@@ -19,7 +19,7 @@ module ApplicationsHelper
   end
 
   def formatted_application_data_value(key, value)
-    markdown_fields = %w(project_plan)
+    markdown_fields = %w(project_plan1 project_plan2)
     value = value.presence || 'n/a'
     formatted = case
     when markdown_fields.include?(key.to_s)

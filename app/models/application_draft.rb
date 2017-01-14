@@ -19,10 +19,10 @@ class ApplicationDraft < ActiveRecord::Base
   scope :in_current_season, -> { where(season: Season.current) }
 
   validates :team, presence: true
-  validates :project1, :project_plan, presence: true, on: :apply
+  validates :project1, :plan_project1, presence: true, on: :apply
   validates :heard_about_it, presence: true, on: :apply
   validates :working_together, presence: true, on: :apply
-  validates :why_selected_project, presence: true, on: :apply
+  validates :why_selected_project1, presence: true, on: :apply
   validates :voluntary_hours_per_week, presence: true, on: :apply, if: :voluntary?
   validate :only_one_application_draft_allowed, if: :team, on: :create
   validate :different_projects_required

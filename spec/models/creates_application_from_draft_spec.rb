@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-RSpec.describe CreatesApplicationFromDraft do
+RSpec.describe CreatesApplicationFromDraft, :focus do
   let(:application_draft) { build_stubbed :application_draft }
 
   subject { described_class.new application_draft }
@@ -29,7 +29,6 @@ RSpec.describe CreatesApplicationFromDraft do
     end
 
     context 'with application created' do
-
       shared_examples_for 'matches corresponding attribute' do |attribute|
         it "will not leave application.#{attribute} blank" do
           expect(subject.application_data[attribute]).to be_present
@@ -67,7 +66,7 @@ RSpec.describe CreatesApplicationFromDraft do
       end
 
       context 'carrying over the project related information' do
-        %w(project1_id project2_id project_plan).each do |project_attribute|
+        %w(project1_id project2_id plan_project1 plan_project2).each do |project_attribute|
           it_behaves_like 'matches corresponding attribute', project_attribute
         end
       end
