@@ -109,6 +109,10 @@ RgsocTeams::Application.routes.draw do
     resources :comments, only: [:index, :create]
   end
 
+  namespace :mentor do
+    resources :applications, only: [:index, :show]
+  end
+
   # get 'activities(.:format)', to: 'activities#index', as: :activities
   get 'activities(/page/:page)(.:format)', to: 'activities#index', as: :activities
 end
