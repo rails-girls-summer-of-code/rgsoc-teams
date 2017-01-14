@@ -6,6 +6,8 @@ class ApplicationDraft < ActiveRecord::Base
   # FIXME
   STUDENT0_REQUIRED_FIELDS = Student::REQUIRED_DRAFT_FIELDS.map { |m| "student0_#{m}" }
   STUDENT1_REQUIRED_FIELDS = Student::REQUIRED_DRAFT_FIELDS.map { |m| "student1_#{m}" }
+  STUDENT0_CHAR_LIMITED_FIELDS = Student::CHARACTER_LIMIT_FIELDS.map { |m| "student0_#{m}" }
+  STUDENT1_CHAR_LIMITED_FIELDS = Student::CHARACTER_LIMIT_FIELDS.map { |m| "student1_#{m}" }
 
   belongs_to :team
   belongs_to :updater, class_name: 'User'
@@ -28,6 +30,8 @@ class ApplicationDraft < ActiveRecord::Base
 
   validates *STUDENT0_REQUIRED_FIELDS, presence: true, on: :apply
   validates *STUDENT1_REQUIRED_FIELDS, presence: true, on: :apply
+  validates *STUDENT0_CHAR_LIMITED_FIELDS, length: { maximum: Student::CHARACTER_LIMIT }, on: :apply
+  validates *STUDENT1_CHAR_LIMITED_FIELDS, length: { maximum: Student::CHARACTER_LIMIT }, on: :apply
 
   before_validation :set_current_season
 
@@ -46,7 +50,7 @@ class ApplicationDraft < ActiveRecord::Base
   def method_missing(method, *args, &block)
     student_proxy = StudentAttributeProxy.new(method, self)
     if student_proxy.matches?
-      student_proxy.attribute
+      student_proxy.attribute(*args)
     else
       super
     end
