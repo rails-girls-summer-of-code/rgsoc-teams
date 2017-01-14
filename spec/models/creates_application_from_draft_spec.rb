@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-RSpec.describe CreatesApplicationFromDraft, :focus do
+RSpec.describe CreatesApplicationFromDraft do
   let(:application_draft) { build_stubbed :application_draft }
 
   subject { described_class.new application_draft }

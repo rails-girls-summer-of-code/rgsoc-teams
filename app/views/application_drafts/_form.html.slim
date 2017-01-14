@@ -47,14 +47,16 @@ p.attention
         strong Note:
         |  Please fill this information together as a team.
 
-      h2 Your project choice
-      = f.association :project1, collection: Project.accepted.order(:name), input_html: { disabled: !application_draft.as_student? || application_draft.applied? }
-      = f.association :project2, collection: Project.accepted.order(:name), input_html: { disabled: !application_draft.as_student? || application_draft.applied?, allow_blank: true }, hint: "Note: this serves as your secondary choice in case we cannot select your team with your first project."
-
-      h2 Your project goals
-
-      = f.input :why_selected_project1, input_html: { rows: 4, disabled: !application_draft.as_student? || application_draft.applied? }
-      = f.input :plan_project1, hint: 'Please describe some issues and features that you want to work on this summer.'.html_safe, input_html: { rows: 6, disabled: !application_draft.as_student? || application_draft.applied? }
+      h2 Your 1st project choice
+      = render 'project_fields', f: f, project: :project1
+      
+      h2
+        ' Your 2nd project choice
+        small
+          | (optional)
+          br
+          i Note: this serves as your secondary choice in case we cannot select your team with your first project.
+      = render 'project_fields', f: f, project: :project2
 
       = render 'save_draft_button', f: f if application_draft.draft?
 

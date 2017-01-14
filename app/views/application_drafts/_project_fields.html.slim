@@ -1,0 +1,5 @@
+= f.association project, collection: Project.accepted.order(:name), input_html: { disabled: !application_draft.as_student? || application_draft.applied? }
+
+h3 Your project goals
+= f.input "why_selected_#{project}", input_html: { rows: 4, disabled: !application_draft.as_student? || application_draft.applied? }
+= f.input "plan_#{project}", hint: 'Please describe some issues and features that you want to work on this summer.'.html_safe, input_html: { rows: 6, disabled: !application_draft.as_student? || application_draft.applied? }
