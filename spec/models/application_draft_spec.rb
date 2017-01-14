@@ -45,9 +45,7 @@ RSpec.describe ApplicationDraft do
     end
 
     context 'apply validations' do
-      before do
-        allow(subject).to receive(:students).and_return([])
-      end
+      before { allow(subject).to receive(:students).and_return([]) }
 
       shared_examples_for 'proxies :apply validation' do |attribute|
         it { is_expected.not_to validate_presence_of attribute }
@@ -69,6 +67,20 @@ RSpec.describe ApplicationDraft do
           it { is_expected.not_to validate_presence_of :voluntary_hours_per_week }
           it { is_expected.to validate_presence_of(:voluntary_hours_per_week).on(:apply) }
         end
+      end
+
+      context 'when only 1st choice project' do
+        it { is_expected.not_to validate_presence_of(:plan_project2)            }
+        it { is_expected.not_to validate_presence_of(:plan_project2).on(:apply) }
+        it { is_expected.not_to validate_presence_of(:why_selected_project2)            }
+        it { is_expected.not_to validate_presence_of(:why_selected_project2).on(:apply) }
+      end
+
+      context 'when 2nd choice application' do
+        before { subject.project2 = build_stubbed(:project, :accepted) }
+
+        it_behaves_like 'proxies :apply validation', :plan_project2
+        it_behaves_like 'proxies :apply validation', :why_selected_project2
       end
 
       context 'requiring projects to be accepted' do
