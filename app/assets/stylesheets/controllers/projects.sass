@@ -15,9 +15,15 @@
 
 
 #login-required-overlay .well
-  position: absolute
-  top: 20%
-  left: 50%
-  margin-left: -250px
-  width: 500px
   box-shadow: 5px 9px 36px -9px black
+  position: absolute
+  @media screen and (max-width: $screen-sm-max)
+    width: 80%
+    top: 50%
+    left: 50%
+    transform: translate(-50%, -50%)
+  @media screen and (min-width: $screen-sm)
+    top: 20%
+    left: 50%
+    margin-left: -250px
+    width: 500px
