@@ -5,9 +5,7 @@ class Season::PhaseSwitcher
   end
 
   def self.destined(phase)
-    unless phase.to_sym.in?(whitelisted_phases)
-      raise ArgumentError
-    else
+    if phase.to_sym.in?(whitelisted_phases)
       self.public_send(phase)
     end
   end
@@ -62,7 +60,7 @@ class Season::PhaseSwitcher
   end
 
   def self.whitelisted_phases
-    @phases ||= [
+    @whitelist_phases ||= [
         :fake_proposals_phase,
         :fake_application_phase,
         :fake_coding_phase,
