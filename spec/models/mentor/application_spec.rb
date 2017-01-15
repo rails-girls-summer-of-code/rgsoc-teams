@@ -13,31 +13,30 @@ describe Mentor::Application, :focus do
     it { is_expected.to respond_to :first_choice         }
   end
 
-  describe '.all_for(projects:)' do
-    subject { described_class.all_for(projects: projects).map(&:id) }
+  describe '.all_for(project_is: choice:)' do
+    context 'when first choice project' do
+      subject { described_class.all_for(project_ids: project_ids, choice: 1).map(&:id) }
 
-    context 'when single project' do
-      let!(:project)       { create(:project, :in_current_season) }
-      let!(:other_project) { create(:project, :in_current_season) }
-      let(:projects)       { Project.where(id: project.id) }
+      context 'when single project' do
+        let!(:project)       { create(:project, :in_current_season) }
+        let!(:other_project) { create(:project, :in_current_season) }
+        let(:project_ids)    { Project.where(id: project.id).ids }
+        let!(:first_choice)  { create_list(:application, 3, :in_current_season, :for_project, project1: project) }
+        let!(:second_choice) { create(:application, :in_current_season, :for_project,
+                                      project1: other_project, project2: project) }
+        let!(:for_other)     { create(:application, :in_current_season, :for_project, project1: other_project) }
 
-      let!(:first_choice)      { create_list(:application, 3, :in_current_season, :for_project,
-                                 project1: project) }
-      let!(:second_choice)     { create_list(:application, 2, :in_current_season, :for_project,
-                                 project1: other_project, project2: project) }
-      let!(:other_application) { create(:application, :in_current_season, :for_project,
-                                 project1: other_project) }
+        it 'includes all applications which chose the project as first choice' do
+          expect(subject).to match_array first_choice.map(&:id)
+        end
 
-      it 'includes all applications which chose the project as first choice' do
-        expect(subject).to include *first_choice.map(&:id)
-      end
+        it 'excludes unrelated applications' do
+          expect(subject).not_to include for_other.id
+        end
 
-      it 'excludes other applications' do
-        expect(subject).not_to include other_application.id
-      end
-
-      it 'includes all applications which chose the project as second choice' do
-        expect(subject).to include *second_choice.map(&:id)
+        it 'excludes all applications which chose the project as second choice' do
+          expect(subject).not_to include second_choice.id
+        end
       end
     end
 
