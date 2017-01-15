@@ -8,7 +8,7 @@ context 'when switching phases' do
     it 'sends the params to a phase setting method' do
       phase = :fake_application_phase
       Season::PhaseSwitcher.destined(phase)
-      expect(subject).to be_application_period
+      expect(subject).to_not be_nil
     end
 
     it 'addresses the requested phase' do
