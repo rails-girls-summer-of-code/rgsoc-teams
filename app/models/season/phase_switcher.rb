@@ -60,7 +60,7 @@ class Season::PhaseSwitcher
   end
 
   def self.whitelisted_phases
-    @whitelist_phases ||= [
+    @whitelisted_phases ||= [
         :fake_proposals_phase,
         :fake_application_phase,
         :fake_coding_phase,
