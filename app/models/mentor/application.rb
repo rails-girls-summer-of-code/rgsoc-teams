@@ -10,8 +10,8 @@ class Mentor::Application
   attr_accessor :first_choice
 
   class << self
-    def all_for(project_ids:, choice: 1)
-      params = attrs_for(choice: choice).merge(project_ids: project_ids)
+    def all_for(projects:, choice: 1, season: Season.current)
+      params = attrs_for(choice: choice).merge(project_ids: projects.ids, season_id: season.id)
       query  = [sql_statement, params]
       DB.select_all(sanitize_sql(query)).map(&mentorize)
     end
@@ -42,7 +42,8 @@ class Mentor::Application
         ON teams.id = applications.team_id
         INNER JOIN projects
         ON projects.id::text = applications.application_data -> :project_id
-        WHERE application_data -> :project_id IN (:project_ids::text);
+        WHERE (application_data -> :project_id)::int IN (:project_ids)
+        AND applications.season_id = :season_id;
       SQL
     end
 

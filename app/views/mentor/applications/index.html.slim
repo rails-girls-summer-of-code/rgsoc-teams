@@ -1,22 +1,24 @@
 ul[class=:breadcrumb]
-    li = link_to 'Applications', [:mentor, :applications]
+  li = link_to 'Applications', [:mentor, :applications]
+  
+p Get insight in certain fields of teams applying to work on your project this summer. You can take notes for youself and pick your favorite applications. Faving will make the application more likely to be accepted and having the team work on your project this summer.
 
 table.applications.table.table-striped.table-bordered.table-condensed.table-hover
+  caption Teams applying for your projects this season.
   thead
     tr
-      th Application
+      th Application (Team)
       th Project
       th Choice
       th Fav
   tbody
     - @applications.each do |application|
       tr
-        / td = application.team_name
-        / td = application.project_id
-        / td = application.first_choice
-        / td = application.project_name
         td = link_to application.team_name, mentor_application_path(application.id)
         td = link_to application.project_name, project_path(application.project_id)
         td = icon('star') if application.first_choice
         td = application.project_plan
-        
+p
+  i Teams may apply for two projects. Their second choice serves as a fallback if the do not get accepted for the first one
+  br
+  i The #{icon('star')} indicates when a ream chose the project as their first choice.

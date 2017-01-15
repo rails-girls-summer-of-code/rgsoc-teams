@@ -18,10 +18,10 @@ class Mentor::ApplicationsController < Mentor::BaseController
   end
 
   def first_choice
-    Mentor::Application.all_for(project_ids: projects.ids, choice: 1)
+    Mentor::Application.all_for(projects: projects, choice: 1)
   end
 
   def second_choice
-    Mentor::Application.all_for(project_ids: projects.ids, choice: 2)
+    Mentor::Application.all_for(projects: projects, choice: 2)
   end
 end
