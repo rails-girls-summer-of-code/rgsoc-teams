@@ -4,13 +4,17 @@ class Mentor::ApplicationsController < Mentor::BaseController
   end
 
   def show
-
+    @application = application
   end
 
   private
 
   def projects
     Project.where(submitter: current_user)
+  end
+
+  def application
+    Mentor::Application.find(id: params[:id], projects: projects, choice: params[:choice])
   end
 
   def applications

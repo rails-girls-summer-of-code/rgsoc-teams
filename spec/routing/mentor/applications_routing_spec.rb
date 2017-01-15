@@ -7,7 +7,8 @@ describe Mentor::ApplicationsController do
     end
 
     it 'routes to #show' do
-      expect(get '/mentor/applications/id').to route_to('mentor/applications#show', id: 'id')
+      expect(get '/mentor/applications/id/choice')
+        .to route_to('mentor/applications#show', id: 'id', choice: 'choice')
     end
   end
 
@@ -17,7 +18,8 @@ describe Mentor::ApplicationsController do
     end
 
     it 'routes get mentor_application_path to #show' do
-      expect(get mentor_application_path('id')).to route_to('mentor/applications#show', id: 'id')
+      expect(get mentor_application_path(id: 'id', choice: 'choice'))
+        .to route_to('mentor/applications#show', id: 'id', choice: 'choice')
     end
   end
 end

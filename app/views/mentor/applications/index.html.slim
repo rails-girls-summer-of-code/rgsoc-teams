@@ -14,7 +14,7 @@ table.applications.table.table-striped.table-bordered.table-condensed.table-hove
   tbody
     - @applications.each do |application|
       tr
-        td = link_to application.team_name, mentor_application_path(application.id)
+        td = link_to application.team_name, mentor_application_path(id: application.id, choice: application.choice)
         td = link_to application.project_name, project_path(application.project_id)
         td = icon('star') if application.first_choice
         td = application.project_plan

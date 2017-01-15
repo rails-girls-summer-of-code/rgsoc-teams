@@ -1,0 +1,16 @@
+ul[class=:breadcrumb]
+  li = link_to 'Applications', [:mentor, :applications]
+
+b id: #{@application.id}
+br
+b team_name: #{@application.team_name}
+br
+b project_id: #{@application.project_id}
+br
+b project_name: #{@application.project_name}
+br
+b project_plan: #{@application.project_plan}
+br
+b why_selected_project: #{@application.why_selected_project}
+br
+b first_choice: #{@application.first_choice}
