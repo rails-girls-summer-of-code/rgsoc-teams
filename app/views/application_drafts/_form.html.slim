@@ -72,7 +72,15 @@ p.attention
       = f.input :voluntary_hours_per_week, as: :integer, label: 'As a voluntary team, how many hours per week would you be able to work on the project?', hint: 'Please only enter a full number, e.g. 15', input_html: { disabled: !application_draft.as_student? || application_draft.applied? }
 
       h2 Miscellaneous
-      = f.input :heard_about_it, as: :text, label: 'How have you heard about the program?', input_html: { rows: 3, disabled: !application_draft.as_student? || application_draft.applied? }
+
+      h3 How have you heard about the program?
+      = f.input :heard_about_it, collection: ApplicationDraft::DIRECT_OUTREACH_CHOICES.map {|choice| [choice, choice]}, as: :check_boxes, label: "RGSoC direct outreach", :input_html => {multiple: true }
+
+      = f.input :heard_about_it, collection: ApplicationDraft::PARTNER_CHOICES.map {|choice| [choice, choice]}, as: :check_boxes, label: "Past participants or 'Partners'", :input_html => {multiple: true }
+
+      = f.input :heard_about_it, collection: ApplicationDraft::OTHER_CHOICES.map {|choice| [choice, choice]}, as: :check_boxes, label: "Other channels", :input_html => {multiple: true }
+      = f.input :heard_about_it, label: "Other (please specify)", :input_html => {multiple: true, value: (application_draft.heard_about_it - ApplicationDraft::ALL_CHOICES).first }
+
       = f.input :misc_info, as: :text, label: 'Anything else to add?', hint: 'Address anything that you feel is relevant to your application and was not covered previously. For example: Do you have a coaching company? Do you have extra remote coaches on board? etc..', input_html: { rows: 4, disabled: !application_draft.as_student? || application_draft.applied? }
 
       = render 'save_draft_button', f: f if application_draft.draft?
