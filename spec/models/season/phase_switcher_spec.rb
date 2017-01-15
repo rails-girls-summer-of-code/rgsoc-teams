@@ -4,6 +4,27 @@ require 'spec_helper'
 context 'when switching phases' do
   subject { Season.current }
 
+
+  describe 'destined' do
+    it 'sends the params to a phase setting method' do
+      phase = :fake_application_phase
+      Season::PhaseSwitcher.destined(phase)
+      expect(subject).to be_application_period
+    end
+
+    it 'addresses the requested phase' do
+      phase = :fake_proposals_phase
+      Season::PhaseSwitcher.destined(phase)
+      expect(subject).to_not be_application_period
+    end
+
+    it 'fails silently when it receives a non-whitelisted phase' do
+      phase = :bad_intentions
+      bad_call = Season::PhaseSwitcher.destined(phase)
+      expect( bad_call ).to be_nil
+    end
+  end
+
   describe '#fake_application_phase' do
     it 'timeshifts the application phase to today' do
       Timecop.travel(Season.current.applications_close_at - 1.month) do
