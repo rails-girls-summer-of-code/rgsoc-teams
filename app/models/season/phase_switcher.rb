@@ -1,3 +1,6 @@
+# The following is not a dev comment but a magic string, with the compliments of Ruby 2.3
+# frozen_string_literal: true
+
 class Season::PhaseSwitcher
 
   def self.season
@@ -5,7 +8,7 @@ class Season::PhaseSwitcher
   end
 
   def self.destined(phase)
-    if phase.to_sym.in?(whitelisted_phases)
+    if phase.in?(whitelisted_phases)
       self.public_send(phase)
     end
   end
@@ -60,11 +63,11 @@ class Season::PhaseSwitcher
   end
 
   def self.whitelisted_phases
-    @whitelisted_phases ||= [
-        :fake_proposals_phase,
-        :fake_application_phase,
-        :fake_coding_phase,
-        :back_to_reality
+    @whitelisted_phases ||= %w[
+        fake_proposals_phase
+        fake_application_phase
+        fake_coding_phase
+        back_to_reality
     ]
   end
 end
