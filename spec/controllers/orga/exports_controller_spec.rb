@@ -23,6 +23,11 @@ RSpec.describe Orga::ExportsController do
         expect(response.headers["Content-Disposition"]).to match filename_matcher
         expect(response.headers["Content-Type"]).to eq "text/csv"
       end
+
+      it 'should return a 404 if the exporter is not in the whitelist' do
+        post :create, params: { export: "Exporters::DoesNotExist#method" }
+        expect(response).to be_not_found
+      end
     end
   end
 end

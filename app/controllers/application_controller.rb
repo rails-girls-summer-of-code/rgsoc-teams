@@ -1,6 +1,5 @@
 class ApplicationController < ActionController::Base
-  protect_from_forgery
-
+  protect_from_forgery with: :exception
   after_action :store_location
 
   helper_method :current_season, :current_student
