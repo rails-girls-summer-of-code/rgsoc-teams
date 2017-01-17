@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Mentor::ApplicationsController, :focus do
+describe Mentor::ApplicationsController do
   render_views
 
   describe 'GET index' do
@@ -55,5 +55,9 @@ describe Mentor::ApplicationsController, :focus do
         end
       end
     end
+  end
+
+  describe 'GET show' do
+    skip
   end
 end

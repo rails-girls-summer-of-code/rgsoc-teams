@@ -1,5 +1,6 @@
 ul[class=:breadcrumb]
   li = link_to 'Applications', [:mentor, :applications]
+  li = link_to @application.team_name, mentor_application_path(id: @application.id, choice: @application.choice)
 
 b id: #{@application.id}
 br
@@ -14,3 +15,9 @@ br
 b why_selected_project: #{@application.why_selected_project}
 br
 b first_choice: #{@application.first_choice}
+br
+
+h2 student 0
+= render @application.student0
+h2 student 1
+= render @application.student1

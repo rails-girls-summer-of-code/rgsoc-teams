@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Mentor::Application do
+describe Mentor::Application, :focus do
   describe 'attributes' do
     subject { described_class.new }
 
@@ -92,6 +92,82 @@ describe Mentor::Application do
 
           expect(subject.map(&:id)).to contain_exactly second_choice.id
         end
+      end
+    end
+  end
+
+  describe '.find(id:, projects:, choice: 1, season: Season.current)' do
+    let!(:project1)      { create(:project, :in_current_season) }
+    let!(:project2)      { create(:project, :in_current_season) }
+    let!(:other_project) { create(:project) }
+    let(:projects)       { Project.where(id: [project1.id, project2.id]) }
+
+    subject { described_class.find(id: application.id, projects: projects) }
+
+    context 'when application exists' do
+      let!(:application) { create(:application, :in_current_season, :for_project, project1: project1) }
+
+      it 'returns the application mapped as Mentor::Application with Mentor::Students' do
+        expect(subject).to be_a(Mentor::Application)
+        expect(subject.student0).to be_a(Mentor::Student)
+        expect(subject.student1).to be_a(Mentor::Student)
+      end
+
+      it 'contains all relevant attributes' do
+        expect(subject).to have_attributes(
+          id:                   application.id,
+          project_id:           project1.id,
+          team_name:            application.team.name,
+          project_name:         project1.name,
+          project_plan:         application.application_data["plan_project1"],
+          why_selected_project: application.application_data["why_selected_project1"],
+          first_choice: true
+        )
+      end
+
+      it 'contains all relevant data for student0' do
+        expect(subject.student0).to have_attributes(
+          coding_level:     application.application_data["student0_application_coding_level"].to_i,
+          code_samples:     application.application_data["student0_application_code_samples"],
+          learning_history: application.application_data["student0_application_learning_history"],
+          code_background:  application.application_data["student0_application_code_background"],
+          skills:           application.application_data["student0_application_skills"]
+        )
+      end
+
+      it 'contains all relevant data for student1' do
+        expect(subject.student1).to have_attributes(
+          coding_level:     application.application_data["student1_application_coding_level"].to_i,
+          code_samples:     application.application_data["student1_application_code_samples"],
+          learning_history: application.application_data["student1_application_learning_history"],
+          code_background:  application.application_data["student1_application_code_background"],
+          skills:           application.application_data["student1_application_skills"]
+        )
+      end
+    end
+
+    context 'when wrong project' do
+      let(:projects)      { Project.where(id: other_project.id) }
+      let!(:application)  { create(:application, :in_current_season, :for_project, project1: project1) }
+
+      it 'raises a NotFound error' do
+        expect { subject }.to raise_error(ActiveRecord::RecordNotFound)
+      end
+    end
+
+    context 'application does not exist' do
+      let(:application) { double(id: 1) }
+
+      it 'raises a NotFound error' do
+        expect { subject }.to raise_error(ActiveRecord::RecordNotFound)
+      end
+    end
+
+    context 'when wrong choice scope' do
+      let!(:application)  { create(:application, :in_current_season, :for_project, project1: other_project, project2: project1) }
+
+      it 'raises a NotFound error' do
+        expect { subject }.to raise_error(ActiveRecord::RecordNotFound)
       end
     end
   end
