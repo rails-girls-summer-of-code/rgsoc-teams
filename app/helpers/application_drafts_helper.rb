@@ -2,6 +2,7 @@ module ApplicationDraftsHelper
   STUDENT_FIELDS = [:name,
                     :application_age,
                     :application_gender_identification,
+                    :application_diversity,
                     :application_location,
                     :application_about,
                     :application_code_background,

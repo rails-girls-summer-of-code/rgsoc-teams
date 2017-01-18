@@ -6,6 +6,7 @@ class Application < ActiveRecord::Base
       :student0_name, :student1_name,
       :student0_application_age, :student1_application_age,
       :student0_application_gender_identification, :student1_application_gender_identification,
+      :student0_application_diversity, :student1_application_diversity,
       :student0_application_location, :student1_application_location,
       :student0_application_about, :student1_application_about,
       :student0_application_code_background, :student1_application_code_background,
