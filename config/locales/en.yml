@@ -22,6 +22,8 @@ en:
         student1_application_age: Your age (2nd student)
         student0_application_gender_identification: Your gender self-identification (1st student)
         student1_application_gender_identification: Your gender self-identification (2nd student)
+        student0_application_diversity: Special circumstances (1st student)
+        student1_application_diversity: Special circumstances (2nd student)
         student0_application_location: Where do you plan to live July-September? (1st student)
         student1_application_location: Where do you plan to live July-September? (2nd student)
         student0_application_about: What is your background? (1st student)

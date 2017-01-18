@@ -290,6 +290,7 @@ ActiveRecord::Schema.define(version: 20170117233300) do
     t.float    "application_location_lat"
     t.float    "application_location_lng"
     t.text     "application_giving_back"
+    t.text     "application_diversity"
   end
 
 end

@@ -27,6 +27,7 @@ FactoryGirl.define do
         application_about { FFaker::Lorem.paragraph }
         application_motivation { FFaker::Lorem.paragraph }
         application_gender_identification 'female'
+        application_diversity { FFaker::Lorem.paragraph }
         application_age '18-21'
         application_coding_level { (1..5).to_a.sample }
         application_community_engagement { FFaker::Lorem.paragraph }
