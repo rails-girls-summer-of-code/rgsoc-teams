@@ -18,7 +18,8 @@ class Student < SimpleDelegator
   CHARACTER_LIMIT_FIELDS =
     [
       :application_about, :application_code_background, :application_skills, :application_community_engagement,
-      :application_learning_history, :application_goals, :application_motivation, :application_giving_back
+      :application_learning_history, :application_goals, :application_motivation, :application_giving_back,
+      :application_diversity
     ]
 
   attr_reader :user
