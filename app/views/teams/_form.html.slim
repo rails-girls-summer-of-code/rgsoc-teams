@@ -21,19 +21,20 @@
     h2 Members
   fieldset
     = f.simple_fields_for :roles do |r|
-      = r.input :github_handle, required: false
-      / = r.input :name, as: :radio_buttons, collection: accessible_roles.map { |r| [r.capitalize, r] }, required: false, label: false
-      .form-group
-        label.control-label.col-sm-3 Team Member Role
-        .col-sm-9
-          - accessible_roles.each do |role|
-            .radio
-              label
-                = r.radio_button :name, role, required: true, disabled: (!current_user.admin? && r.object.persisted?)
-                = role.capitalize
-          .help-block Note: Coaches will be informed via email and have to confirm their role.
-          .form-btn-group
-            = r.link_to_remove 'Remove team member', class: 'btn btn-default'
+      - unless r.object._destroy
+        = r.input :github_handle, required: false
+        / = r.input :name, as: :radio_buttons, collection: accessible_roles.map { |r| [r.capitalize, r] }, required: false, label: false
+        .form-group
+          label.control-label.col-sm-3 Team Member Role
+          .col-sm-9
+            - accessible_roles.each do |role|
+              .radio
+                label
+                  = r.radio_button :name, role, required: true, disabled: (!current_user.admin? && r.object.persisted?)
+                  = role.capitalize
+            .help-block Note: Coaches will be informed via email and have to confirm their role.
+            .form-btn-group
+              = r.link_to_remove 'Remove team member', class: 'btn btn-default'
   .form-group.form-btn-group
     = f.link_to_add 'Add another member', :roles, class: 'btn btn-primary col-sm-offset-3'
 
