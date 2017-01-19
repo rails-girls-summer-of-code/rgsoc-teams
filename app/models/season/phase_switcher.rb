@@ -1,4 +1,3 @@
-# The following is not a dev comment but a magic string, with the compliments of Ruby 2.3
 # frozen_string_literal: true
 
 class Season::PhaseSwitcher
