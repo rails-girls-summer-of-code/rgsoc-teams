@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Mentor::Application, :focus do
+describe Mentor::Application do
   describe 'attributes' do
     subject { described_class.new }
 
@@ -164,7 +164,9 @@ describe Mentor::Application, :focus do
     end
 
     context 'when wrong choice scope' do
-      let!(:application)  { create(:application, :in_current_season, :for_project, project1: other_project, project2: project1) }
+      let!(:application) do
+        create(:application, :in_current_season, :for_project, project1: other_project, project2: project1)
+      end
 
       it 'raises a NotFound error' do
         expect { subject }.to raise_error(ActiveRecord::RecordNotFound)

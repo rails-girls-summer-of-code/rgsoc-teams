@@ -58,6 +58,56 @@ describe Mentor::ApplicationsController do
   end
 
   describe 'GET show' do
-    skip
+    context 'as an unauthenticated user' do
+      it 'redirects to the landing page' do
+        get :show, params: { id: 1, choice: 1 }
+        expect(response).to redirect_to root_path
+      end
+    end
+
+    context 'as an unauthorized user' do
+      it 'redirects to the landing page' do
+        sign_in create(:developer)
+        get :show, params: { id: 1, choice: 1 }
+        expect(response).to redirect_to root_path
+      end
+    end
+
+    context 'as a mentor' do
+      let!(:mentor)  { create(:mentor) }
+      let!(:project) { create(:project, submitter: mentor) }
+
+      before { sign_in mentor }
+
+      context 'when 1st choice application for project' do
+        it 'renders the show view' do
+          application = create(:application, :in_current_season, :for_project, project1: project)
+
+          get :show, params: { id: application.id, choice: 1 }
+
+          expect(assigns :application).to be_a Mentor::Application
+          expect(response).to render_template :show
+        end
+      end
+
+      context 'when wrong choice scope' do
+        it 'returns a 404' do
+          application = create(:application, :in_current_season, :for_project, project1: project)
+          params      = { id: application.id, choice: 2 }
+
+          expect { get :show, params: params }.to raise_error(ActiveRecord::RecordNotFound)
+        end
+      end
+
+      context 'when not maintaining the project' do
+        it 'returns a 404' do
+          other_project = create(:project)
+          application   = create(:application, :in_current_season, :for_project, project1: other_project)
+          params        = { id: application.id, choice: 1 }
+
+          expect { get :show, params: params }.to raise_error(ActiveRecord::RecordNotFound)
+        end
+      end
+    end
   end
 end

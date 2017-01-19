@@ -1,11 +1,19 @@
-div.well
-  h5 coding_level
-  p #{student.coding_level}
-  h5 code_samples
-  p #{student.code_samples}
-  h5 learning_history
-  p #{student.learning_history}
-  h5 code_background
-  p #{student.code_background}
-  h5 skills
-  p #{student.skills}
+div.panel.panel-default
+  div.panel-heading #{ApplicationDraft.human_attribute_name :student_application_coding_level }
+  div.panel-body #{SkillLevel::MATRIX[student.coding_level].join('<br>').html_safe}
+
+div.panel.panel-default
+  div.panel-heading #{ApplicationDraft.human_attribute_name :student_application_code_samples }
+  div.panel-body #{auto_link simple_format(student.code_samples)}
+
+div.panel.panel-default
+  div.panel-heading #{ApplicationDraft.human_attribute_name :student_application_learning_history }
+  div.panel-body #{auto_link simple_format(student.learning_history)}
+
+div.panel.panel-default
+  div.panel-heading #{ApplicationDraft.human_attribute_name :student_application_code_background }
+  div.panel-body #{auto_link simple_format(student.code_background)}
+
+div.panel.panel-default
+  div.panel-heading #{ApplicationDraft.human_attribute_name :student_application_skills }
+  div.panel-body #{auto_link simple_format(student.skills)}

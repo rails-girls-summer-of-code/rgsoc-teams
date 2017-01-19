@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Mentor::Student, :focus do
+describe Mentor::Student do
   describe 'attributes' do
     subject { described_class.new }
 

@@ -1,23 +1,23 @@
 ul[class=:breadcrumb]
   li = link_to 'Applications', [:mentor, :applications]
   li = link_to @application.team_name, mentor_application_path(id: @application.id, choice: @application.choice)
+  
+h2
+  | Team #{@application.team_name}
+  br
+  small For #{link_to @application.project_name, project_path(@application.project_id)} #{icon('star') if @application.first_choice}
 
-b id: #{@application.id}
-br
-b team_name: #{@application.team_name}
-br
-b project_id: #{@application.project_id}
-br
-b project_name: #{@application.project_name}
-br
-b project_plan: #{@application.project_plan}
-br
-b why_selected_project: #{@application.why_selected_project}
-br
-b first_choice: #{@application.first_choice}
-br
+div.panel.panel-default
+  div.panel-heading #{ApplicationDraft.human_attribute_name :why_selected_project1}
+  div.panel-body
+    p #{@application.why_selected_project}
+    
+div.panel.panel-default
+  div.panel-heading #{ApplicationDraft.human_attribute_name :plan_project1}
+  div.panel-body
+    p #{@application.project_plan}
 
-h2 student 0
+h3 First Student
 = render @application.student0
-h2 student 1
+h3 Second Student
 = render @application.student1
