@@ -21,13 +21,21 @@ RSpec.describe Exporters::Teams do
 
     let!(:old_team) { create :team, season: old_season, name: "OLDTEAM" }
     let!(:new_team) { create :team, :in_current_season, name: "NEWTEAM" }
-    let!(:app_team) { create :team, :applying_team, season: old_season, name: "APPLYINGTEAM" }
+    let!(:app_team) { create :team, :applying_team, name: "APPLYINGTEAM" }
 
     it 'exports all accepted teams of the given season' do
       export_method = "accepted_#{old_season.year}"
       expect(described_class.send export_method).to match 'OLDTEAM'
       expect(described_class.send export_method).not_to match 'NEWSTUDENT'
       expect(described_class.send export_method).not_to match 'APPLYINGTEAM'
+    end
+
+    # This was a bug and checks that this will not
+    # occur again :)
+    it 'should still work when called twice' do
+      export_method = "accepted_#{old_season.year}"
+      expect(described_class.send export_method).to match 'OLDTEAM'
+      expect(described_class.send export_method).to match 'OLDTEAM'
     end
 
     it 'will raise an exception when trying to export a nonexistent season' do
