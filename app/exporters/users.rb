@@ -1,9 +1,9 @@
 module Exporters
   class Users < Base
 
-    (2015..Date.today.year).each do |season|
-      define_method "students_#{season}" do
-        season = Season.find_by(name: season)
+    (2015..Date.today.year).each do |year|
+      define_method "students_#{year}" do
+        season = Season.find_by(name: year)
         export_for_season(season)
       end
     end

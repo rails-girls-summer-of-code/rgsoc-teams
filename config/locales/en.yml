@@ -22,6 +22,8 @@ en:
         student1_application_age: Your age (2nd student)
         student0_application_gender_identification: Your gender self-identification (1st student)
         student1_application_gender_identification: Your gender self-identification (2nd student)
+        student0_application_diversity: Special circumstances (1st student)
+        student1_application_diversity: Special circumstances (2nd student)
         student0_application_location: Where do you plan to live July-September? (1st student)
         student1_application_location: Where do you plan to live July-September? (2nd student)
         student0_application_about: What is your background? (1st student)
@@ -40,8 +42,8 @@ en:
         student1_application_language_learning_period: For how many months have you been learning the language of your primary project? (2nd student)
         student0_application_learning_history: What you have been doing to learn programming (1st student)
         student1_application_learning_history: What you have been doing to learn programming (2nd student)
-        student0_application_code_samples: Link to pull requests you have done or other examples of your coding on GitHub or elsewhere (1st student)
-        student1_application_code_samples: Link to pull requests you have done or other examples of your coding on GitHub or elsewhere (2nd student)
+        student0_application_code_samples: Provide examples of your code (1st student)
+        student1_application_code_samples: Provide examples of your code (2nd student)
         student0_application_goals: What do you want to achieve by the end of the summer? (1st student)
         student1_application_goals: What do you want to achieve by the end of the summer? (2nd student)
         student0_application_motivation: Why are you applying to this program? (1st student)
@@ -60,7 +62,7 @@ en:
         heard_about_it: How have you heard about the program?
         misc_info: Anything else to add?
 
-        
+
         project_url: Project URL
         coaches_hours_per_week: "Coaches' Hours-per-Week"
         coaches_why_team_successful: "Coaches' Success-Statement"

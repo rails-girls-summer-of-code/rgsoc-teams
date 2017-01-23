@@ -8,10 +8,14 @@ class Orga::ExportsController < Orga::BaseController
   end
 
   def create
-    exporter, meth = params[:export].to_s.split('#', 2)
-    csv = exporter.constantize.public_send(meth)
-    filename = [exporter.parameterize, meth].join('_') + '.csv'
-    send_data csv, filename: filename
+    if available_exports.include?(params[:export])
+      exporter, meth = params[:export].to_s.split('#', 2)
+      csv = exporter.constantize.public_send(meth)
+      filename = [exporter.parameterize, meth].join('_') + '.csv'
+      send_data csv, filename: filename
+    else
+      render plain: 'Exporter not found', status: :not_found
+    end
   end
 
   protected

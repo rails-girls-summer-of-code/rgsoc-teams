@@ -3,11 +3,11 @@ class ApplicationDraft::StudentAttributeProxy
 
   def initialize(method, application_draft)
     @application_draft = application_draft
-    @match = /^student([01])_(.*)/.match(method.to_s)
+    @match = /^student([01])_(.*)$/.match(method.to_s)
   end
 
-  def attribute
-    students[index].send(field) if students[index]
+  def attribute(*args)
+    students[index].send(field, *args) if students[index]
   end
 
   def matches?

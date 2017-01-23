@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'spec_helper'
 
 RSpec.describe ApplicationDraft do
@@ -185,6 +186,16 @@ RSpec.describe ApplicationDraft do
         end
       end
     end
+
+    context 'with character limits' do
+      let(:students) { build_stubbed_list :student, 2 }
+      before { allow(subject).to receive(:students).and_return(students) }
+
+      (described_class::STUDENT0_CHAR_LIMITED_FIELDS + described_class::STUDENT1_CHAR_LIMITED_FIELDS).each do |attribute|
+        it { is_expected.to allow_value("x" * (Student::CHARACTER_LIMIT + 1)).for(attribute) }
+        it { is_expected.to validate_length_of(attribute).is_at_most(Student::CHARACTER_LIMIT).on(:apply) }
+      end
+    end
   end
 
   context 'with callbacks' do
@@ -246,6 +257,14 @@ RSpec.describe ApplicationDraft do
 
     end
 
+    it 'proxies the setter methods' do
+      attribute = "student0_#{Student::REQUIRED_DRAFT_FIELDS.sample}"
+      allow(subject).to receive(:students).and_return([student0])
+
+      expect {
+        subject.send("#{attribute}=", "some value")
+      }.to change { subject.send(attribute) }.to "some value"
+    end
   end
 
   describe '#role_for' do

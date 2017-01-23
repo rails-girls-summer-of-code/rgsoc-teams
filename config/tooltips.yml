@@ -2,6 +2,7 @@ diversity: |
   Please base your rate on the following application fields:
 
   - Your gender self-identification
+  - Special circumstances
   - What is your background?
   - How did you get into programming?
   - Anything else?
@@ -16,7 +17,7 @@ skills: |
   - Short summary of your programming skills
   - What is your programming level?
   - For how many months have you been learning the language of your primary project?
-  - Link to pull requests you have done or other examples of your coding on GitHub or elsewhere
+  - Provide examples of your code
 
   Give <strong>10 points</strong> to students who look highly skilled and experienced: ~ 5 level, 24+ month learning period, decent pieces of code, other evidence of skills.
   Give <strong>5 points</strong> to students who are somewhat experienced: ~ 3 level, 12+ month learning period, good pieces of code, other evidence of skills.
