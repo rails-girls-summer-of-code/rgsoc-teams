@@ -59,10 +59,10 @@ nav.actions
             ul.actions
               - if a.confirmed?
                 li Confirmed
-                li = link_to('Revoke', attendance_path(a, attendance: { confirmed: false }, return_to: request.url), method: :put, class: 'confirm')
+                li = link_to('Revoke', attendance_path(a, attendance: { confirmed: false }), method: :put, class: 'confirm')
               - else
-                li = link_to('Yes, I can attend', attendance_path(a, attendance: { confirmed: true }, return_to: request.url), method: :put, class: 'confirm')
-                li = link_to('No, I cannot attend', attendance_path(a, return_to: request.url), method: :delete, class: 'cancel', data: { confirm: 'Are you sure? Your ticket will go back into the pool of available tickets.' })
+                li = link_to('Yes, I can attend', attendance_path(a, attendance: { confirmed: true }), method: :put, class: 'confirm')
+                li = link_to('No, I cannot attend', attendance_path(a), method: :delete, class: 'cancel', data: { confirm: 'Are you sure? Your ticket will go back into the pool of available tickets.' })
 
   - if can_see_private_info?
     - fields = ['tshirt_size', 'postal_address']
