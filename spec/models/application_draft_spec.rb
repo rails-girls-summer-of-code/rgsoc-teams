@@ -258,7 +258,7 @@ RSpec.describe ApplicationDraft do
     end
 
     it 'proxies the setter methods' do
-      attribute = "student0_#{Student::REQUIRED_DRAFT_FIELDS.sample}"
+      attribute = "student0_#{Student::CHARACTER_LIMIT_FIELDS.sample}"
       allow(subject).to receive(:students).and_return([student0])
 
       expect {
