@@ -21,10 +21,12 @@ module Authentication
           email:         auth.info.email,
           homepage:      github_homepage(auth),
           location:      auth.extra.raw_info.location,
-          bio:           auth.extra.raw_info.bio
+          bio:           auth.extra.raw_info.bio,
+          github_import: true
         )
         user.github_id = auth.uid
         user.github_handle = auth.extra.raw_info.login
+        user.skip_confirmation_notification!
         user.save!
         user
       end

@@ -287,6 +287,11 @@ ActiveRecord::Schema.define(version: 20170115230058) do
     t.float    "application_location_lng"
     t.text     "application_giving_back"
     t.text     "application_diversity"
+    t.string   "confirmation_token"
+    t.datetime "confirmed_at"
+    t.datetime "confirmation_sent_at"
+    t.string   "unconfirmed_email"
+    t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
   end
 
 end

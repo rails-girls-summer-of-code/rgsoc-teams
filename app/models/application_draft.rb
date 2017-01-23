@@ -27,6 +27,7 @@ class ApplicationDraft < ActiveRecord::Base
   validate :only_one_application_draft_allowed, if: :team, on: :create
   validate :different_projects_required
   validate :accepted_projects_required, on: :apply
+  validate :students_confirmed?, on: :apply
 
   validates *STUDENT0_REQUIRED_FIELDS, presence: true, on: :apply
   validates *STUDENT1_REQUIRED_FIELDS, presence: true, on: :apply
@@ -144,5 +145,11 @@ class ApplicationDraft < ActiveRecord::Base
 
   def set_current_season
     self.season ||= Season.current
+  end
+
+  def students_confirmed?
+    unless team.present? && team.students.all?{|student| student.confirmed? }
+      errors.add(:base, 'Please make sure every student confirmed the email address.')
+    end
   end
 end

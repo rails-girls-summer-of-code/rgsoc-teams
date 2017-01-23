@@ -1,0 +1,12 @@
+p Hey!
+
+p
+  | You've recently logged into the RGSoC teams app with your GitHub account and
+    created a profile. In order to get the best out of the Teams app (like creating
+    a team or submitting a project), we'll need to confirm your email address. To
+    confirm your email, click 
+  = link_to 'here', confirmation_url(@resource, confirmation_token: @token)
+
+p
+  | Thanks, <br/>
+    The RGSoC Team

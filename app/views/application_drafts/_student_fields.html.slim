@@ -1,5 +1,10 @@
 = simple_fields_for (student || Student.new), index: student.id.to_i do |s|
 
+  - unless student.confirmed?
+    .has-error
+      .help-block
+        p This person hasn't confirmed the email address. You can't submit your application till it is confirmed.
+
   h2 Basics
   = s.input :name, label: 'Student Name', hint: 'Please provide your first and last name', input_html: { disabled: !may_edit?(s.object) }
   .form-inline
