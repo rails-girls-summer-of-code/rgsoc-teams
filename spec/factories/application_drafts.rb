@@ -7,7 +7,7 @@ FactoryGirl.define do
 
       association :project1, :accepted, factory: :project
       project_plan { FFaker::Lorem.paragraph }
-      heard_about_it { [FFaker::Lorem.paragraph] }
+      heard_about_it { FFaker::Lorem.paragraph }
       why_selected_project { FFaker::Lorem.paragraph }
       working_together { FFaker::Lorem.paragraph }
       misc_info { FFaker::Lorem.paragraph } # NOTE not a required field

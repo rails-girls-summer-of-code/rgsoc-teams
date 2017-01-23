@@ -3,30 +3,6 @@ class ApplicationDraft < ActiveRecord::Base
 
   include AASM
 
-  # `heard_about_it` checkbox choices
-
-  DIRECT_OUTREACH_CHOICES = [
-    'RGSoC Blog',
-    'RGSoC Twitter',
-    'RGSoC Facebook',
-    'RGSoC Newsletter',
-    'RGSoC Organisers'
-  ]
-
-  PARTNER_CHOICES = [
-    'Past RGSoC participants',
-    'Another diversity initiative outreach',
-    'Study group / Workshop',
-    'Conference'
-  ]
-
-  OTHER_CHOICES = [
-    'Friends',
-    'Mass media'
-  ]
-
-  ALL_CHOICES = DIRECT_OUTREACH_CHOICES + PARTNER_CHOICES + OTHER_CHOICES
-
   # FIXME
   STUDENT0_REQUIRED_FIELDS = Student::REQUIRED_DRAFT_FIELDS.map { |m| "student0_#{m}" }
   STUDENT1_REQUIRED_FIELDS = Student::REQUIRED_DRAFT_FIELDS.map { |m| "student1_#{m}" }
@@ -44,13 +20,13 @@ class ApplicationDraft < ActiveRecord::Base
 
   validates :team, presence: true
   validates :project1, :project_plan, presence: true, on: :apply
+  validates :heard_about_it, presence: true, on: :apply
   validates :working_together, presence: true, on: :apply
   validates :why_selected_project, presence: true, on: :apply
   validates :voluntary_hours_per_week, presence: true, on: :apply, if: :voluntary?
   validate :only_one_application_draft_allowed, if: :team, on: :create
   validate :different_projects_required
   validate :accepted_projects_required, on: :apply
-  validate :at_least_one_heard_about_it, on: :apply
 
   validates *STUDENT0_REQUIRED_FIELDS, presence: true, on: :apply
   validates *STUDENT1_REQUIRED_FIELDS, presence: true, on: :apply
@@ -58,7 +34,6 @@ class ApplicationDraft < ActiveRecord::Base
   validates *STUDENT1_CHAR_LIMITED_FIELDS, length: { maximum: Student::CHARACTER_LIMIT }, on: :apply
 
   before_validation :set_current_season
-  before_save :clean_up_heard_about_it
 
   attr_accessor :current_user
 
@@ -161,10 +136,6 @@ class ApplicationDraft < ActiveRecord::Base
     end
   end
 
-  def at_least_one_heard_about_it
-    errors.add(:heard_about_it, 'Please select at least one!') unless heard_about_it && heard_about_it.reject(&:empty?).size > 0
-  end
-
   def only_one_application_draft_allowed
     unless team.application_drafts.where(season: season).none?
       errors.add(:base, 'Only one application may be lodged')
@@ -173,9 +144,5 @@ class ApplicationDraft < ActiveRecord::Base
 
   def set_current_season
     self.season ||= Season.current
-  end
-
-  def clean_up_heard_about_it
-    self.heard_about_it = self.heard_about_it.reject(&:empty?)
   end
 end
