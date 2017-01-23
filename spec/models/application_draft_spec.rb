@@ -56,7 +56,6 @@ RSpec.describe ApplicationDraft do
 
       it_behaves_like 'proxies :apply validation', :project1
       it_behaves_like 'proxies :apply validation', :project_plan
-      it_behaves_like 'proxies :apply validation', :heard_about_it
       it_behaves_like 'proxies :apply validation', :working_together
       it_behaves_like 'proxies :apply validation', :why_selected_project
 
