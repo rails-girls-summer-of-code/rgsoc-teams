@@ -1,9 +1,9 @@
 module Exporters
   class Teams < Base
 
-    (2015..Date.today.year).each do |season|
-      define_method "accepted_#{season}" do
-        season = Season.find_by(name: season)
+    (2015..Date.today.year).each do |year|
+      define_method "accepted_#{year}" do
+        season = Season.find_by(name: year)
         teams = Team.accepted.where(season: season).includes(:members)
         export(teams)
       end
