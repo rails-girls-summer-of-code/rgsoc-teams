@@ -63,6 +63,8 @@ html, body
     margin: -3px 0 0 -15px
 
   a.button-burger
+    @media screen and (min-width: $screen-md)
+      display: none
     @include icon($reorder)
     width: 35px
     height: 35px
@@ -75,8 +77,7 @@ html, body
     margin-top: 12px
     outline: none
     text-align: center
-    @media screen and (min-width: $screen-md)
-      display: none
+    border: none
     i
       position: relative
 
@@ -86,29 +87,41 @@ html, body
     li
       margin-bottom: 0.5rem
 
-  nav
-    @media screen and (min-width: $screen-md)
-      li
-        a
-          display: inline
-          padding: 0
-  nav.user
+  .nav
     color: $darkgray
 
-  nav.top
-    margin-bottom: 5%
-    @media screen and (min-width: $screen-md)
-      ul
-        margin-top: -55px
+  .navbar
+    border-bottom: none
+    .navbar-brand
+      padding: 0px
+
+  @media screen and (min-width: $screen-md)
+    .navbar
+      background-color: $railsred
+      .navbar-header
+        background-color: $railsred
+      .navbar-collapse
+        background-color: $railsred
+    .navbar-default
+      float: right
+      background: $railsred
+      border: none !important
+      -webkit-box-shadow: none
+      box-shadow: none
+
+    .nav.top
+      margin-top: 15px
       li
-        display: inline-block
+        a
+          padding: 4px
+          display: inline-block
         &:after
           content: ''
           width: 2rem
           font-family: FontAwesome
           font-size: 0.7rem
           color: $white
-          margin: 0 0.6rem 0 0.6rem
+          margin: 0 0.4rem 0 0rem
         &:last-child:after
           content: none
       li.announcement
@@ -123,50 +136,41 @@ html, body
           color: white
           background-color: $railsred
 
+    a
+      color: $white
+      text-decoration: none
+
+  @media screen and (max-width: $screen-md)
+    .navbar-collapse,
+    .navbar-inverse
+      background-color: transparent !important
+      background-image: none !important
+    .collapsing,
+    .collapse.in
+      border: none !important
+    li
+      background-color: transparent !important
       a
-        color: white
-        text-decoration: none
+        background-color: transparent !important
+        text-shadow: none
 
-    // Changes bootstraps default collapsing breakpoint
-    @media (min-width: $screen-xs) and (max-width: $screen-sm-max)
-      .navbar-collapse.collapse
-        display: none !important
-
-      .navbar-collapse.collapse.in
-        display: block !important
-
-      .navbar-nav
+    .navbar-collapse.collapsing,
+    .navbar-collapse.collapse.in
+      border: 1px solid #ccc
+      border-right-color: #999
+      border-bottom-color: #999
+      margin-top: 10px
+      background-color: none
+      .nav
+        margin-left: auto
+        max-width: 200px
+      ul
         li
-          float: none
-
-  .divider
-    @media screen and (max-width: $screen-md)
-      border: 0.1px solid $railsred
-      width: 90%
-      margin-left: 5%
-    &:after
-      content: none !important
-
-
-  #menu-navbar
-    @media screen and (max-width: $screen-md)
-      z-index: 100
+          a
+            color: $railsred
 
   .navbar-toggle
-    @media screen and (max-width: $screen-md)
-      padding: 5px 7px
-
-  .col-xs-offset-5
-    @media screen and (max-width: 750px)
-      margin-left: 46.66666667%
-    @media (min-width: $screen-sm) and (max-width: $screen-sm-max)
-      margin-left: 70.66666667%
-
-.navbar-default .navbar-nav
-  @media screen and (max-width: $screen-md)
-  li
-    a
-      color: $railsred
+    padding: 5px 0px
 
 #footer
   footer
