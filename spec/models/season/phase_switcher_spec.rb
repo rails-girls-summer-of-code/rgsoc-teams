@@ -52,13 +52,11 @@ context 'when switching phases' do
     end
 
     it 'fails silently when it receives a non-whitelisted phase' do
-      # Just to make sure we have our season in the test DB.
-      # It creates one if it didn't already exist though some other factory:
-      Season.current
-      allow_any_instance_of(Season).to receive(:save).and_raise RuntimeError
-
       phase = 'bad_intentions'
-      expect { Season::PhaseSwitcher.destined(phase) }.not_to change { Season.current.updated_at }
+      # Season.current
+      # allow_any_instance_of(Season).to receive(:save).and_raise RuntimeError
+      expect { Season::PhaseSwitcher.destined(phase) }.not_to change { Season.current.updated_at.strftime("%Y-%m-%d
+%H:%M:%S.%6N") }
     end
   end
 end
