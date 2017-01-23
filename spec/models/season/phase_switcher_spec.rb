@@ -53,9 +53,7 @@ context 'when switching phases' do
 
     it 'fails silently when it receives a non-whitelisted phase' do
       phase = 'bad_intentions'
-      forbidden_call = Season::PhaseSwitcher.destined(phase)
-      expect { forbidden_call }.not_to change { Season.current.updated_at.to_s }
+      expect { Season::PhaseSwitcher.destined(phase) }.not_to change { Season.current.updated_at }
     end
-
   end
 end
