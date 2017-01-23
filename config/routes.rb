@@ -112,6 +112,7 @@ RgsocTeams::Application.routes.draw do
   namespace :mentor do
     resources :applications, only: [:index]
     get 'applications/:id/:choice', to: 'applications#show', as: :application
+    resources :comments, only: [:create, :update]
   end
 
   # get 'activities(.:format)', to: 'activities#index', as: :activities
