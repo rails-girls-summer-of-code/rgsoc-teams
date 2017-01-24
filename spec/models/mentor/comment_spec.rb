@@ -22,6 +22,14 @@ describe Mentor::Comment do
     end
   end
 
+  describe 'callbacks' do
+    it 'removes empty comments on update' do
+      comment = described_class.create(text: 'something')
+      expect { described_class.update(comment.id, text: '') }.
+        to change { described_class.count }.by(-1)
+    end
+  end
+
   describe 'associations' do
     it { is_expected.to belong_to :user }
     it { is_expected.not_to belong_to :commentable }

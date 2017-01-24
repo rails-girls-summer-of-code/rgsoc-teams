@@ -1,6 +1,6 @@
 ul[class=:breadcrumb]
   li = link_to 'Applications', [:mentor, :applications]
-  li = link_to @application.team_name, mentor_application_path(id: @application.id, choice: @application.choice)
+  li = link_to @application.team_name, mentor_application_path(id: @application.id)
   
 h2
   | Team #{@application.team_name}
@@ -21,3 +21,5 @@ h3 First Student
 = render @application.student0
 h3 Second Student
 = render @application.student1
+
+= render 'comment', comment: @comment
