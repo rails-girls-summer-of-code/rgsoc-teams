@@ -173,4 +173,33 @@ describe Mentor::Application do
       end
     end
   end
+
+  describe '#find_or_initialize_comment_by(mentor)' do
+    let(:mentor_application) { described_class.new(id: 1) }
+    let(:mentor)             { create(:mentor) }
+
+    subject { mentor_application.find_or_initialize_comment_by(mentor) }
+
+    it 'returns the persisted comment when one exists' do
+      comment = Mentor::Comment.create(commentable_id: mentor_application.id, user: mentor)
+      expect(subject).to eq comment
+    end
+
+    it 'has the Mentor::Application as commentable type' do
+      expect(subject).to have_attributes(
+        commentable_id:   mentor_application.id,
+        commentable_type: described_class.name,
+        user:             mentor
+      )
+    end
+
+    it 'returns a new comment if none is persisted yet' do
+      expect(subject).to be_a_new(Mentor::Comment)
+    end
+
+    it 'returns a new comment if a comment for the application is persisted' do
+      create(:comment, commentable_id: mentor_application.id, commentable_type: 'Application', user: mentor)
+      expect(subject).to be_a_new(Mentor::Comment)
+    end
+  end
 end

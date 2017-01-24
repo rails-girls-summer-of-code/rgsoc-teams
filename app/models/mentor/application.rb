@@ -24,6 +24,13 @@ module Mentor
       @student1 = Mentor::Student.new(attrs)
     end
 
+    def find_or_initialize_comment_by(mentor)
+      Mentor::Comment.find_or_initialize_by(
+        commentable_id:   id,
+        commentable_type: self.class.name,
+        user:             mentor)
+    end
+
     private
 
     def studentize
@@ -45,6 +52,11 @@ module Mentor
         data   = DB.select_one(sanitize_sql(query))
         raise ActiveRecord::RecordNotFound unless data
         data.instance_eval(&mentorize)
+      end
+
+      def primary_key
+        :id
+
       end
 
       private
