@@ -110,8 +110,7 @@ RgsocTeams::Application.routes.draw do
   end
 
   namespace :mentor do
-    resources :applications, only: [:index]
-    get 'applications/:id/:choice', to: 'applications#show', as: :application
+    resources :applications, only: [:index, :show]
     resources :comments, only: [:create, :update]
   end
 

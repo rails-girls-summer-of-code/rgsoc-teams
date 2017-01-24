@@ -96,16 +96,14 @@ describe Mentor::Application do
     end
   end
 
-  describe '.find(id:, projects:, choice: 1, season: Season.current)' do
+  describe '.find(id:, projects:, season: Season.current)' do
     let!(:project1)      { create(:project, :in_current_season) }
     let!(:project2)      { create(:project, :in_current_season) }
     let!(:other_project) { create(:project) }
     let(:projects)       { Project.where(id: [project1.id, project2.id]) }
 
-    subject { described_class.find(id: application.id, projects: projects) }
-
-    context 'when application exists' do
-      let!(:application) { create(:application, :in_current_season, :for_project, project1: project1) }
+    shared_examples :found_an_application do |choice|
+      let(:first_choice) { choice == 1 }
 
       it 'returns the application mapped as Mentor::Application with Mentor::Students' do
         expect(subject).to be_a(Mentor::Application)
@@ -119,9 +117,9 @@ describe Mentor::Application do
           project_id:           project1.id,
           team_name:            application.team.name,
           project_name:         project1.name,
-          project_plan:         application.application_data["plan_project1"],
-          why_selected_project: application.application_data["why_selected_project1"],
-          first_choice: true
+          project_plan:         application.application_data["plan_project#{choice}"],
+          why_selected_project: application.application_data["why_selected_project#{choice}"],
+          first_choice:         first_choice
         )
       end
 
@@ -146,6 +144,22 @@ describe Mentor::Application do
       end
     end
 
+    subject { described_class.find(id: application.id, projects: projects) }
+
+    context 'when application exists as first choice' do
+      let!(:application) { create(:application, :in_current_season, :for_project, project1: project1) }
+
+      it_behaves_like :found_an_application, 1
+    end
+
+    context 'when application exists as second choice' do
+      let!(:application) do
+        create(:application, :in_current_season, :for_project, project1: other_project, project2: project1)
+      end
+
+      it_behaves_like :found_an_application, 2
+    end
+
     context 'when wrong project' do
       let(:projects)      { Project.where(id: other_project.id) }
       let!(:application)  { create(:application, :in_current_season, :for_project, project1: project1) }
@@ -155,18 +169,8 @@ describe Mentor::Application do
       end
     end
 
-    context 'application does not exist' do
+    context 'when application does not exist' do
       let(:application) { double(id: 1) }
-
-      it 'raises a NotFound error' do
-        expect { subject }.to raise_error(ActiveRecord::RecordNotFound)
-      end
-    end
-
-    context 'when wrong choice scope' do
-      let!(:application) do
-        create(:application, :in_current_season, :for_project, project1: other_project, project2: project1)
-      end
 
       it 'raises a NotFound error' do
         expect { subject }.to raise_error(ActiveRecord::RecordNotFound)

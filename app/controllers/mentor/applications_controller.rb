@@ -5,6 +5,7 @@ class Mentor::ApplicationsController < Mentor::BaseController
 
   def show
     @application = application
+    @comment     = application.find_or_initialize_comment_by(current_user)
   end
 
   private
@@ -14,7 +15,7 @@ class Mentor::ApplicationsController < Mentor::BaseController
   end
 
   def application
-    Mentor::Application.find(id: params[:id], projects: projects, choice: params[:choice])
+    Mentor::Application.find(id: params[:id], projects: projects)
   end
 
   def applications
