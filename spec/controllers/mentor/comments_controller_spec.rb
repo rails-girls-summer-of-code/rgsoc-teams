@@ -22,6 +22,7 @@ describe Mentor::CommentsController do
     context 'as a mentor' do
       let(:mentor) { create(:mentor) }
       let(:params) {{ mentor_comment: { commentable_id: 1, text: 'something' } }}
+      let(:comment) { proc { Mentor::Comment.last }}
 
       before { sign_in mentor }
 
@@ -33,7 +34,7 @@ describe Mentor::CommentsController do
 
       it 'sets the user and commentable_type' do
         subject
-        expect(Mentor::Comment.last).to have_attributes(
+        expect(comment.call).to have_attributes(
           user:              mentor,
           text:              'something',
           commentable_id:   1,
@@ -42,7 +43,8 @@ describe Mentor::CommentsController do
 
       it 'redirect_to the mentor application show view' do
         subject
-        expect(response).to redirect_to mentor_application_path(id: 1, anchor: 'mentor_comment_1')
+        anchor = "mentor_comment_#{comment.call.id}"
+        expect(response).to redirect_to mentor_application_path(id: 1, anchor: anchor)
       end
     end
   end
@@ -81,7 +83,8 @@ describe Mentor::CommentsController do
 
         it 'redirect_to the mentor application show view' do
           subject
-          expect(response).to redirect_to mentor_application_path(id: 1, anchor: 'mentor_comment_1')
+          anchor = "mentor_comment_#{comment.id}"
+          expect(response).to redirect_to mentor_application_path(id: 1, anchor: anchor)
         end
       end
 
