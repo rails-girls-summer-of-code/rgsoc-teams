@@ -19,6 +19,22 @@ RSpec.describe ApplicationDraftsController do
     end
   end
 
+  context 'as a not confirmed user' do
+    describe 'GET new' do
+      let(:user) { create(:user, confirmed_at: nil) }
+
+      before do
+        allow(controller).to receive_messages(signed_in?: true)
+        allow(controller).to receive_messages(current_user: user)
+      end
+
+      it 'renders the "sign_in" template' do
+        get :new
+        expect(response).to redirect_to(root_path)
+      end
+    end
+  end
+
   context 'as an authenticated user' do
     let(:user) { create(:user) }
 

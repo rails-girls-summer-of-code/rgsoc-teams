@@ -8,5 +8,6 @@ module GithubHandle
   def github_handle=(github_handle)
     self.user = github_handle.present? && User.where(github_handle: github_handle).first || build_user
     user.github_handle = github_handle
+    user.github_import = true
   end
 end

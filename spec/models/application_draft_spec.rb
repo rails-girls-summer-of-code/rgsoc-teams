@@ -111,6 +111,15 @@ RSpec.describe ApplicationDraft do
           end
         end
       end
+
+      context 'students to be confirmed users' do
+        it 'will not allow a project where one user is not confirmed' do
+          subject.team = create :team, :applying_team
+          subject.team.students[0].update_attribute(:confirmed_at, nil)
+          subject.valid? :apply
+          expect(subject.errors[:base]).to eql ['Please make sure every student confirmed the email address.']
+        end
+      end
     end
 
     context 'for student attributes' do
@@ -254,7 +263,7 @@ RSpec.describe ApplicationDraft do
     end
 
     it 'proxies the setter methods' do
-      attribute = "student0_#{Student::REQUIRED_DRAFT_FIELDS.sample}"
+      attribute = "student0_#{Student::CHARACTER_LIMIT_FIELDS.sample}"
       allow(subject).to receive(:students).and_return([student0])
 
       expect {

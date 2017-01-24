@@ -17,11 +17,11 @@ class Ability
     end
 
     cannot :create, Team do |team|
-      on_team_for_season?(user, team.season)
+      on_team_for_season?(user, team.season) || !user.confirmed?
     end
 
     can :join, Team do |team|
-      team.helpdesk_team? and signed_in?(user) and not on_team?(user, team)
+      team.helpdesk_team? and signed_in?(user) and user.confirmed? and not on_team?(user, team)
     end
 
     can :crud, Role do |role|
@@ -50,8 +50,11 @@ class Ability
 
     can :crud, Project do |project|
       user.admin? ||
-        user == project.submitter
+        (user.confirmed? && user == project.submitter)
     end
+
+    can :create, Project if user.confirmed?
+    cannot :create, Project if !user.confirmed?
 
     # activities
     can :read, :feed_entry

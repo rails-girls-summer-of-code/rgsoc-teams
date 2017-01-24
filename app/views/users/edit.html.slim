@@ -16,6 +16,11 @@
 
   h1.page-header Edit your profile
 
+  - unless @user.valid?
+    .has-error
+      .help-block
+        p Please fill out all required fields below to complete and verify your profile.
+
 = simple_nested_form_for @user do |f|
   - if @user.errors.any?
     #error_explanation

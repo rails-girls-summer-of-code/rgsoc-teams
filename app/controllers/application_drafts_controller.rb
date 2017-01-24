@@ -14,7 +14,9 @@ class ApplicationDraftsController < ApplicationController
   end
 
   def new
-    if current_user.student?
+    if !current_user.confirmed?
+      redirect_to root_path, alert: 'You need to click on the link in the email to confirm your account before you can create an application.'
+    elsif current_user.student?
       redirect_to root_path, alert: 'You need to have a partner in your team to create an application.' unless current_team.confirmed?
     else
       redirect_to new_team_path, alert: 'You need to be in a team as a student to create an application.'
