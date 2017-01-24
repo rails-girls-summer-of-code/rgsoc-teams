@@ -24,6 +24,13 @@ module Mentor
       @student1 = Mentor::Student.new(attrs)
     end
 
+    def find_or_initialize_comment_by(mentor)
+      Mentor::Comment.find_or_initialize_by(
+        commentable_id:   id,
+        commentable_type: self.class.name,
+        user:             mentor)
+    end
+
     private
 
     def studentize
@@ -39,15 +46,20 @@ module Mentor
         DB.select_all(sanitize_sql(query)).map(&mentorize)
       end
 
-      def find(id:, projects:, choice: 1, season: Season.current)
-        params = attrs_for(choice: choice).merge(id: id, project_ids: projects.ids, season_id: season.id)
-        query  = [sql_statement_find, params]
-        data   = DB.select_one(sanitize_sql(query))
-        raise ActiveRecord::RecordNotFound unless data
+      def find(id:, projects:, season: Season.current)
+        data = data_for(id: id, choice: 1, projects: projects, season: season) ||
+               data_for(id: id, choice: 2, projects: projects, season: season) ||
+               fail(ActiveRecord::RecordNotFound)
         data.instance_eval(&mentorize)
       end
 
       private
+
+      def data_for(id:, projects:, choice:, season:)
+        params = attrs_for(choice: choice).merge(id: id, project_ids: projects.ids, season_id: season.id)
+        query  = [sql_statement_find, params]
+        DB.select_one(sanitize_sql(query))
+      end
 
       def attrs_for(choice:)
         {
