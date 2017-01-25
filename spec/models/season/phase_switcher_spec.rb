@@ -47,14 +47,16 @@ context 'when switching phases' do
 
     it 'addresses the requested phase' do
       another_phase = 'fake_proposals_phase'
+
       Season::PhaseSwitcher.destined(another_phase)
+      # Just checking, here too the error is not raised
+      Season.current
+      allow_any_instance_of(Season).to receive(:save).and_raise RuntimeError
       expect(subject).to_not be_application_period
     end
 
     it 'fails silently when it receives a non-whitelisted phase' do
       phase = 'bad_intentions'
-      # Season.current
-      # allow_any_instance_of(Season).to receive(:save).and_raise RuntimeError
       expect { Season::PhaseSwitcher.destined(phase) }.not_to change { Season.current.updated_at.strftime("%Y-%m-%d
 %H:%M:%S.%6N") }
     end
