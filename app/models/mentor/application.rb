@@ -15,12 +15,12 @@ module Mentor
     end
 
     def student0=(attrs)
-      attrs     = JSON.parse(attrs).instance_eval(&studentize)
+      attrs     = studentize(JSON.parse(attrs))
       @student0 = Mentor::Student.new(attrs)
     end
 
     def student1=(attrs)
-      attrs     = JSON.parse(attrs).instance_eval(&studentize)
+      attrs     = studentize(JSON.parse(attrs))
       @student1 = Mentor::Student.new(attrs)
     end
 
@@ -33,19 +33,36 @@ module Mentor
 
     private
 
-    def studentize
-      @studentize ||= proc do |attrs|
-        attrs.tap { |a| a.keys.each{ |k| a[k.gsub(/student(0|1)_application_/, '')] = a.delete(k) } }
-      end
+    # Converts arguments to a format suitable for initializing a Mentor::Student object.
+    #
+    # @param attrs [Hash] arguments in wrong format
+    # @return [Hash] arguments in correct format
+    def studentize(attrs)
+      attrs.tap { |a| a.keys.each{ |k| a[k.gsub(/student(0|1)_application_/, '')] = a.delete(k) } }
     end
 
     class << self
+
+      # Retrieves Mentor specific representations of Applications matching the given criteria.
+      #
+      # @param projects [Project::ActiveRecord_Relation] list of possible Projects the Applications apply for
+      # @param choice [Integer] choice a Project was within the Application (1 or 2, defaults to 1)
+      # @param season [Season] Season of the queried Applications (defaults to the current one)
+      # @return [Array<Mentor::Application, nil] matching Applications in a mentor specific format or nil if empty
       def all_for(projects:, choice: 1, season: Season.current)
         params = { project_id: "project#{choice}_id", project_ids: projects.ids, season_id: season.id }
         query  = [sql_statement_all, params]
         DB.select_all(sanitize_sql(query)).map(&mentorize)
       end
 
+      # Retrieves a Mentor specific representation of a single Application for the given criteria.
+      #
+      # @param id [Integer] Application / Mentor::Application id
+      # @param projects [Project::ActiveRecord_Relation] list of possible Projects the Application apply for
+      # @param choice [Integer] choice a Project was within the Application (1 or 2, defaults to 1)
+      # @param season [Season] Season of the queried Applications (defaults to the current one)
+      # @return [Mentor::Application] matching Application in a mentor specific format
+      # @raise [ActiveRecord::RecordNotFound] if no Application matches the given criteria
       def find(id:, projects:, season: Season.current)
         data = data_for(id: id, choice: 1, projects: projects, season: season) ||
                data_for(id: id, choice: 2, projects: projects, season: season) ||
@@ -75,6 +92,10 @@ module Mentor
         Mentor::Student::APPLICATION_KEYS.map { |key| "student#{index}#{key}" }
       end
 
+      # SQL statement to retrieve all mentor specific data for Applications for a Project
+      # as a given choide, within a given Season.
+      #
+      # @return [String] a prepared SQL statement
       def sql_statement_all
         @sql_statement_all ||=
         <<-SQL
@@ -94,6 +115,12 @@ module Mentor
         SQL
       end
 
+      # SQL statement to retrieve all mentor specific data for a specific Application
+      # applying for a given Project as a given choice, whithin a given Season.
+      # The query mainly addresses the application table's application_data field,
+      # an hstore column which contains a snapshot of the application.
+      #
+      # @return [String] a prepared SQL statement
       def sql_statement_find
         @sql_statement_find ||=
         <<-SQL
@@ -118,10 +145,16 @@ module Mentor
         SQL
       end
 
+      # Calls a private ActiveRecord function to sanitize an array of conditions into an SQL statement.
+      #
+      # @return [String] the save SQL query
       def sanitize_sql(query)
         ActiveRecord::Base.send(:sanitize_sql_array, query)
       end
 
+      # Converts a hash or arguments to a Mentor::Application object
+      #
+      # @return [Proc] the converter as an anonymous function
       def mentorize
         @mentorize ||= proc { |attrs| Mentor::Application.new(attrs) }
       end
