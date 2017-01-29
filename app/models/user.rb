@@ -58,6 +58,10 @@ class User < ActiveRecord::Base
       where(name: Role::ADMIN_ROLES)
     end
 
+    def mentor
+      where(name: 'mentor')
+    end
+
     def organizer
       where(name: 'organizer')
     end
@@ -153,6 +157,10 @@ class User < ActiveRecord::Base
 
   def admin?
     roles.admin.any?
+  end
+
+  def mentor?
+    roles.mentor.any?
   end
 
   def supervisor?

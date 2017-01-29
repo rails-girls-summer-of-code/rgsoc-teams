@@ -1,0 +1,6 @@
+ul.nav.navbar-nav.navbar-left
+  - if Season.projects_proposable?
+    li = link_to 'Submit your Project', new_project_path, class: 'announcement'
+  - if show_application_link?
+    li = application_disambiguation_link
+    li = link_to 'Projects', projects_path
