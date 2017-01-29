@@ -9,6 +9,7 @@ ul.nav.navbar-nav.navbar-right
         li = link_to 'Teams', teams_path
         li = link_to 'Conferences',  conferences_path
   li = link_to 'Community', users_path
+  li = link_to 'Help', page_path('help')
     
   - if signed_in?
     = render 'nav_signed_in'
