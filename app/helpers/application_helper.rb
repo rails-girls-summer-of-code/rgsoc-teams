@@ -121,10 +121,6 @@ module ApplicationHelper
     end.compact
   end
 
-  def links_to_users(users)
-    users.map { |user| link_to(user.name.present? ? user.name : user.github_handle, user) }
-  end
-
   def links_to_attendances(conference)
     conference.attendances.joins(:user).order('users.name || users.github_handle').map do |attendance|
       user = attendance.user
@@ -206,11 +202,6 @@ module ApplicationHelper
     direction = (column.to_s == params[:sort] && params[:direction] == 'asc') ? 'desc' : 'asc'
     link_to title, params.except('action', 'controller').permit!.merge(sort: column, direction: direction)
   end
-
-  def required_helper
-    tag('abbr', title: "required") + "*"
-  end
-
 
   def user_for_comment(comment)
     if comment.user.nil?
