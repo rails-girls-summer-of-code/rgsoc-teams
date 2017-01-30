@@ -5,3 +5,7 @@ $ ->
 
   $(".edit_application_draft input, .edit_application_draft select, .edit_application_draft textarea").change ->
     lock_validation_and_application()
+
+  input = $(".gender-form-field")
+  genders = input.data 'genders-src'
+  input.autocomplete source: genders
