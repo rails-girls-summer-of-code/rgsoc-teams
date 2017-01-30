@@ -1,4 +1,4 @@
-nav.navbar.navbar-inverse.navbar-static-top role='navigation'
+nav#navigation role='navigation'
   div.container
     div.navbar-header
       button.navbar-toggle data-target='#other-menu' data-toggle='collapse' type='button' 
@@ -8,5 +8,4 @@ nav.navbar.navbar-inverse.navbar-static-top role='navigation'
         span.icon-bar
       = link_to image_tag('logo.png'), 'http://railsgirlssummerofcode.org', class: 'navbar-brand'  
     div#other-menu.collapse.navbar-collapse
-      = render 'nav_left'
       = render 'nav_right'

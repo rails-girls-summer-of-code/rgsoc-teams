@@ -15,13 +15,14 @@ html
     link rel="apple-touch-icon" href="/images/apple-touch-icon.png"
 
   body class=controller.controller_name
-
+  
+    = render 'navigation'
     div#wrap
-      = render 'navigation'
-
+      
+    
       / div.ribbon
       /   a href="//github.com/rails-girls-summer-of-code/rgsoc-teams" Fork me on GitHub
-
+    
       section.container#content
         div.row
           div.col-xs-12
@@ -33,9 +34,9 @@ html
               p.alert.alert-danger
                 button.close data-dismiss="alert" type="button"  &times;
                 = alert
-
+    
         = yield
-
+    
     section.container#footer
       footer.footer
         ul

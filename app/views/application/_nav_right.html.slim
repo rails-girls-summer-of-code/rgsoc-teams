@@ -1,14 +1,23 @@
 ul.nav.navbar-nav.navbar-right
   li.active = link_to 'Activities', root_path
-  - if current_season.started?
-    li.dropdown
-      a.dropdown-toggle data-toggle="dropdown" href="#"
-        | Summer
-        span.caret
-      ul.dropdown-menu role="menu"
+  li.dropdown
+    a.dropdown-toggle data-toggle="dropdown" href="#"
+      | Summer of Code
+      span.caret
+    ul.dropdown-menu role="menu"
+      - if Season.projects_proposable?
+        li.divider.hidden-xs
+        li = link_to 'Submit your Project', new_project_path, class: 'announcement'
+      - if show_application_link?
+        li.divider.hidden-xs
+        li = application_disambiguation_link
+        li = link_to 'Projects', projects_path
+      - if current_season.started?
+        li.divider.hidden-xs
         li = link_to 'Teams', teams_path
         li = link_to 'Conferences',  conferences_path
-  li = link_to 'Community', users_path
+      li.divider.hidden-xs
+      li = link_to 'Community', users_path
   li = link_to 'Help', page_path('help')
     
   - if signed_in?
