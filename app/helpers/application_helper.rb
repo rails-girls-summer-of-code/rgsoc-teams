@@ -1,4 +1,3 @@
-
 require 'cgi'
 require 'uri'
 module ApplicationHelper
