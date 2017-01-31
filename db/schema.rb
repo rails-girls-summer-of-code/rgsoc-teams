@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170115230058) do
+ActiveRecord::Schema.define(version: 20170117233300) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -46,12 +46,14 @@ ActiveRecord::Schema.define(version: 20170115230058) do
     t.datetime "applied_at"
     t.integer  "updater_id"
     t.text     "state",                    default: "draft", null: false
-    t.text     "project_plan"
+    t.text     "plan_project1"
     t.integer  "signed_off_by"
     t.integer  "project1_id"
     t.integer  "project2_id"
     t.text     "working_together"
-    t.text     "why_selected_project"
+    t.text     "why_selected_project1"
+    t.text     "why_selected_project2"
+    t.text     "plan_project2"
     t.index ["project1_id"], name: "index_application_drafts_on_project1_id", using: :btree
     t.index ["project2_id"], name: "index_application_drafts_on_project2_id", using: :btree
     t.index ["season_id"], name: "index_application_drafts_on_season_id", using: :btree
@@ -81,6 +83,8 @@ ActiveRecord::Schema.define(version: 20170115230058) do
     t.integer  "signed_off_by"
     t.datetime "signed_off_at"
     t.integer  "project_id"
+    t.index "((application_data -> 'project1_id'::text))", name: "application_data_project1_id", using: :btree
+    t.index "((application_data -> 'project2_id'::text))", name: "application_data_project2_id", using: :btree
     t.index ["application_draft_id"], name: "index_applications_on_application_draft_id", using: :btree
     t.index ["project_id"], name: "index_applications_on_project_id", using: :btree
     t.index ["season_id"], name: "index_applications_on_season_id", using: :btree

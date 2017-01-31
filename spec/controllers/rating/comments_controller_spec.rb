@@ -26,7 +26,8 @@ describe Rating::CommentsController, type: :controller do
 
       it 'redirects to comment on application page' do
         post :create, { params: {comment: params.merge(valid_attributes)} }, valid_session
-        expect(response).to redirect_to([:rating, application, anchor: 'comment_1'])
+        id = Comment.last.id
+        expect(response).to redirect_to([:rating, application, anchor: "comment_#{id}"])
       end
     end
     context 'with invalid params (no text)' do

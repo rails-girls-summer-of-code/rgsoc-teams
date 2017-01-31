@@ -1,0 +1,19 @@
+div.panel.panel-default
+  div.panel-heading #{ApplicationDraft.human_attribute_name :student_application_coding_level }
+  div.panel-body #{SkillLevel::MATRIX[student.coding_level].join('<br>').html_safe}
+
+div.panel.panel-default
+  div.panel-heading #{ApplicationDraft.human_attribute_name :student_application_code_samples }
+  div.panel-body #{auto_link simple_format(student.code_samples)}
+
+div.panel.panel-default
+  div.panel-heading #{ApplicationDraft.human_attribute_name :student_application_learning_history }
+  div.panel-body #{auto_link simple_format(student.learning_history)}
+
+div.panel.panel-default
+  div.panel-heading #{ApplicationDraft.human_attribute_name :student_application_code_background }
+  div.panel-body #{auto_link simple_format(student.code_background)}
+
+div.panel.panel-default
+  div.panel-heading #{ApplicationDraft.human_attribute_name :student_application_skills }
+  div.panel-body #{auto_link simple_format(student.skills)}

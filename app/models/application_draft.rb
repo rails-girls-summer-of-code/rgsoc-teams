@@ -9,6 +9,11 @@ class ApplicationDraft < ActiveRecord::Base
   STUDENT0_CHAR_LIMITED_FIELDS = Student::CHARACTER_LIMIT_FIELDS.map { |m| "student0_#{m}" }
   STUDENT1_CHAR_LIMITED_FIELDS = Student::CHARACTER_LIMIT_FIELDS.map { |m| "student1_#{m}" }
 
+  PROJECT1_FIELDS = [:project1, :plan_project1, :why_selected_project1]
+  PROJECT2_FIELDS = [:plan_project2, :why_selected_project2]
+  PROJECT_FIELDS  = [:project1_id, :plan_project1, :why_selected_project1,
+                     :project2_id, :plan_project2, :why_selected_project2]
+
   belongs_to :team
   belongs_to :updater, class_name: 'User'
   belongs_to :project1, class_name: 'Project'
@@ -19,10 +24,10 @@ class ApplicationDraft < ActiveRecord::Base
   scope :in_current_season, -> { where(season: Season.current) }
 
   validates :team, presence: true
-  validates :project1, :project_plan, presence: true, on: :apply
+  validates *PROJECT1_FIELDS, presence: true, on: :apply
+  validates *PROJECT2_FIELDS, presence: true, on: :apply, if: :project2
   validates :heard_about_it, presence: true, on: :apply
   validates :working_together, presence: true, on: :apply
-  validates :why_selected_project, presence: true, on: :apply
   validates :voluntary_hours_per_week, presence: true, on: :apply, if: :voluntary?
   validate :only_one_application_draft_allowed, if: :team, on: :create
   validate :different_projects_required

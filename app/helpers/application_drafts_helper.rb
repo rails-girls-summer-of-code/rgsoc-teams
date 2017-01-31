@@ -64,7 +64,7 @@ module ApplicationDraftsHelper
   end
 
   def projects_tab_errors(draft)
-    tab_errors(draft, [:project1, :project2, :why_selected_project, :project_plan])
+    tab_errors(draft, ApplicationDraft::PROJECT_FIELDS)
   end
 
   def team_tab_errors(draft)
