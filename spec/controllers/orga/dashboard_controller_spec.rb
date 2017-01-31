@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-RSpec.describe Orga::DashboardController, :focus do
+RSpec.describe Orga::DashboardController do
   render_views
 
   describe '#GET index' do
