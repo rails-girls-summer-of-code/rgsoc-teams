@@ -2,6 +2,7 @@ class ApplicationDraftsController < ApplicationController
 
   before_action :checktime, only: [:new, :create, :update]
   before_action :sign_in_required
+  before_action :valid_user_profile_required, only: [:new, :create, :update]
   before_action :ensure_max_applications, only: :new
   before_action :disallow_modifications_after_submission, only: :update
   before_action -> { require_role 'student' }, except: [:new]
@@ -138,6 +139,10 @@ class ApplicationDraftsController < ApplicationController
 
   def sign_in_required
     render 'sign_in' unless signed_in?
+  end
+
+  def valid_user_profile_required
+    render 'invalid_user_profile' and return unless current_user.valid?
   end
 
 end
