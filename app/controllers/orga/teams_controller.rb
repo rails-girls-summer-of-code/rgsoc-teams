@@ -80,4 +80,8 @@ class Orga::TeamsController < Orga::BaseController
     )
   end
 
+  def set_breadcrumbs
+    super
+    @breadcrumbs << [ 'Teams', :teams]
+  end
 end

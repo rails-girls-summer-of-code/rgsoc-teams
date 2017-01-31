@@ -38,4 +38,9 @@ class Orga::ProjectsController < Orga::BaseController
   def find_resource
     @project ||= Project.find(params[:id])
   end
+
+  def set_breadcrumbs
+    super
+    @breadcrumbs << [ 'Projects', :projects]
+  end
 end

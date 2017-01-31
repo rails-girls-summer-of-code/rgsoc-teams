@@ -1,1 +1,17 @@
-h1 Hi
+= render 'orga/breadcrumbs'
+
+p Relevant places for you to go as an organizer.
+
+dl.dl-horizontal
+  dt = link_to 'Projects', [:orga, :projects]
+  dd View/accept/reject submitted Projects
+  dt = link_to 'Teams', [:orga, :teams]
+  dd Current Teams
+  dt = link_to 'Conferences', [:orga, :conferences]
+  dd Manage Conferences
+  dt = link_to 'Seasons', [:orga, :seasons]
+  dd Season management (including timetravel for test and development
+  dt &nbsp;
+  dd &nbsp;
+  dt = link_to 'Exports', [:orga, :exports]
+  dd Export data for reporting)
