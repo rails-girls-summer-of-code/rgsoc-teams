@@ -1,39 +1,99 @@
-h1 How to create an account and a team
+nav.page
+  .back-nav
+    ul
+      li = icon("chevron-left")
+      li = link_to "Help index page", page_path("help"), class: "back"
 
-h2 Create an account
+h1 Your team
 
-= image_tag(("pages/application_sign_in.png"), class: "help-image")
+ul
+  li = link_to "Creating a new team", "#creating-a-new-team"
+  li = link_to "Editing an existing team", "#editing-an-existing-team"
+  li = link_to "Deleting a team", "#deleting-a-team"
 
-p If you don't have a <a href="https://github.com" target="_blank">GitHub</a> account yet, please create one.  
+h1 Creating a new team
 
-h2 Edit / Create your team
+h2 1. Check the teams list
 
-p You'll find your team page under the menu button "Teams"
+p
+  ' On the teams list check if your team has already been added. If you're already part of a team then you can edit your team's profile.
+  ' If you haven't been added to your team, yet, then ask one of the members to sign in and add you. They will need your GitHub handle for that.
+  ' If your team hasn't been created yet, you can add it yourself.
 
-= image_tag(("pages/application_teams.png"), class: "help-image")
+p
+  i NOTE: In order to create a team, you must be logged in the Teams App (see "How to create an account").
 
-p If you don't already belong to a team, click on "+ New team" in order to create one. 
+h2 2. Add a team
 
-= image_tag(("pages/application_new_team.png"), class: "help-image")
+p
+  ' On the teams list, click on "New team" button in order to create one.
 
-h3 Add a student or coach to your team
+img
+  = image_tag(("pages/help/new-team-button.png"), class: "help-image")
 
-p In order to add someone to your team, click "add a member".
+h2 3. Add team members
 
-= image_tag(("pages/application_add_member.png"), class: "help-image")
+p
+  ' A team must have two students and at least two coaches.
+  ' You can add a team member in one of two ways:
+  ol
+    li 1. On the team's page press the "Edit" button. On the "Editing team" form press the "Add another member button" and fill out the required fields: "Github handle" and "Role"
+    li = image_tag(("pages/help/new-team-add-member-button.png"), class: "help-image")
+    li 2. On the team's page press the "Add a member" button. On the "Add Member" form press fill out the required fields:  "Github handle" and "Role".
+    li = image_tag(("pages/help/team-add-member-form.png"), class: "help-image")
 
-p Fill in the GitHub handle and select the role that the person should have. It can be a student:
+p
+  i NOTE:
+  ul
+    li You can't add more than two students.
+    li Each student can participate in one team only.
+    li One coach can coach more than one team.
+    li All coaches must be confirmed.
 
-= image_tag(("pages/application_add_member_student.png"), class: "help-image")
+h2 4. Confirm coaches
 
-p or a coach. 
+p
+  ' After you added coaches to your team, they will get a notification via email to confirm their participation.
 
-= image_tag(("pages/application_add_member_coach.png"), class: "help-image")
+p
+  i NOTE: In case your coaches didn't get the email, they can confirm their coach status on the team's page.
 
-p The coaches will get a notification via email to confirm their participation. If they confirmed, it will look say so on your teams page:
+p
+  ' Confirmed coaches look so on your team's page:
 
-= image_tag(("pages/application_coach_confirmed.png"), class: "help-image")
+img
+  = image_tag(("pages/help/team_coach_confirmed.png"), class: "help-image")
 
-p 
-  All done! Now you're ready for the next step: 
-  =link_to 'Fill out your application', page_path('fill-out-your-application')
+
+h2 5. Add resources
+
+p
+  ' If your team has a GitHub organization (you might want one and they're free for Open Source) then please add the handle. If your team has a Twitter account, then please add it, too.
+
+p
+  i NOTE: you can only add these once your team has officially been accepted as a RGSoC team.
+
+p
+  ' Your team can register "sources" from which this application will try to aggregate updates; please add any blog that is relevant for your team by registering its RSS or Atom feed URLs.
+  ' Please also add all the GitHub repository URLs that you are planning to work on as sources.  Currently this won't actually do anything yet, but we plan to aggregate information from there, too.
+
+h1 Editing an existing team
+
+p
+  ' In order to edit your team, press the "Edit" button on your profile page.
+
+p
+  i NOTE: All members of your team including the coaches have a permission to edit the team.
+
+p
+
+img
+  = image_tag(("pages/help/edit-team-form.png"), class: "help-image")
+
+h1 Deleting a team
+
+p
+  ' In order to delete your team, open the edit form (see above) and press the "Destroy" button on the top right corner.
+
+img
+  = image_tag(("pages/help/delete-team-button.png"), class: "help-image")

@@ -1,0 +1,73 @@
+nav.page
+  .back-nav
+    ul
+      li = icon("chevron-left")
+      li = link_to "Help index page", page_path("help"), class: "back"
+
+h1 Your account
+
+ul
+  li = link_to "Creating a new account", "#creating-a-new-account"
+  li = link_to "Editing an existing account", "#editing-an-existing-account"
+  li = link_to "Deleting an account", "#deleting-an-account"
+
+
+h1 Creating a new account
+
+h2 1. Sign in
+
+p
+  ' Signing in through GitHub will create a user account on our side. If your account has already been added by one of your team mates (for example, if they've added you to a team) then you'll claim your account by signing in through GitHub.
+
+p
+  ' If you don't have a <a href="https://github.com" target="_blank">GitHub</a> account yet, please create one.
+
+img
+  = image_tag(("pages/help/sign-in-link.png"), class: "help-image")
+
+h2 2. Fill out your profile
+
+p
+  ' Once signed in, you should update your profile information. There are a few mandatory fields:
+  ul
+    li Name
+    li Email
+    li County
+    li City
+  b Make sure that they are filled out, otherwise your access to the Teams app will be limited (see below).
+
+p
+  ' Besides the mandatory fields, we would like you to fill out the other fields, too. Please tell the community a little bit about you: links, interests, why are you participating, what you hope to get out of this, etc.
+
+img
+  = image_tag(("pages/help/edit-profile-form.png"), class: "help-image")
+
+h2 3. Confirm your email address
+
+p
+  ' Once you filled out and saved your profile, you will get a confirmation email. Follow the link in the email to confirm your email address.
+
+p
+  i NOTE: if you change your email address in the profile, you need to confirm it again.
+
+p
+  ' As soon as you filled out your profile and verified your email address, you have full user access to the Teams app, including the permissions to create a project, team and student application.
+
+h1 Editing an existing account
+
+p
+  ' In order to edit your profile, press the "Edit" button on your profile page.
+
+p
+  i NOTE: Your github handle cannot be changed. In order to use another Github account you need to create a new account in the Teams app.
+
+img
+  = image_tag(("pages/help/edit-profile-button.png"), class: "help-image")
+
+h1 Deleting an account
+
+p
+  ' In order to delete your account, press the "Delete Profile" button on your profile page.
+
+img
+  = image_tag(("pages/help/delete-profile-button.png"), class: "help-image")
