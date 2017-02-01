@@ -1,0 +1,8 @@
+<h1>Student Application for RGSoC <%= current_season.name %></h1>
+
+<p class="alert alert-warning">
+  <strong>Your user profile is incomplete:</strong>
+  <%= current_user.errors.full_messages.to_sentence %>.
+
+  Please <%= link_to "edit your profile", [:edit, current_user] %> before applying.
+</p>
