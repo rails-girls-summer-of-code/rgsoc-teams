@@ -7,7 +7,7 @@ ul.nav.navbar-nav.navbar-right
     ul.dropdown-menu role="menu"
       - if Season.projects_proposable?
         li.divider.hidden-xs
-        li class=active?(:projects) = link_to 'Submit your Project', new_project_path, class: 'announcement'
+        li class=active?(:projects) = link_to 'Submit your Project', new_project_path
       - if show_application_link?
         li.divider.hidden-xs
         li class=active?(:application_drafts) = application_disambiguation_link
