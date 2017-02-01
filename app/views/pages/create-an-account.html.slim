@@ -6,10 +6,11 @@ nav.page
 
 h1 Your account
 
-ul
-  li = link_to "Creating a new account", "#creating-a-new-account"
-  li = link_to "Editing an existing account", "#editing-an-existing-account"
-  li = link_to "Deleting an account", "#deleting-an-account"
+.toc
+  ul
+    li = link_to "Creating a new account", "#creating-a-new-account"
+    li = link_to "Editing an existing account", "#editing-an-existing-account"
+    li = link_to "Deleting an account", "#deleting-an-account"
 
 
 h1 Creating a new account
@@ -29,11 +30,12 @@ h2 2. Fill out your profile
 
 p
   ' Once signed in, you should update your profile information. There are a few mandatory fields:
-  ul
-    li Name
-    li Email
-    li County
-    li City
+  .basic-list
+    ul
+      li Name
+      li Email
+      li Country
+      li City
   b Make sure that they are filled out, otherwise your access to the Teams app will be limited (see below).
 
 p
