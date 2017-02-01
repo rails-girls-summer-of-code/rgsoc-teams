@@ -3,6 +3,30 @@ class ApplicationDraft < ActiveRecord::Base
 
   include AASM
 
+  # `heard_about_it` checkbox choices
+
+  DIRECT_OUTREACH_CHOICES = [
+    'RGSoC Blog',
+    'RGSoC Twitter',
+    'RGSoC Facebook',
+    'RGSoC Newsletter',
+    'RGSoC Organisers'
+  ]
+
+  PARTNER_CHOICES = [
+    'Past RGSoC participants',
+    'Another diversity initiative outreach',
+    'Study group / Workshop',
+    'Conference'
+  ]
+
+  OTHER_CHOICES = [
+    'Friends',
+    'Mass media'
+  ]
+
+  ALL_CHOICES = DIRECT_OUTREACH_CHOICES + PARTNER_CHOICES + OTHER_CHOICES
+
   # FIXME
   STUDENT0_REQUIRED_FIELDS = Student::REQUIRED_DRAFT_FIELDS.map { |m| "student0_#{m}" }
   STUDENT1_REQUIRED_FIELDS = Student::REQUIRED_DRAFT_FIELDS.map { |m| "student1_#{m}" }
@@ -40,6 +64,7 @@ class ApplicationDraft < ActiveRecord::Base
   validates *STUDENT1_CHAR_LIMITED_FIELDS, length: { maximum: Student::CHARACTER_LIMIT }, on: :apply
 
   before_validation :set_current_season
+  before_save :clean_up_heard_about_it
 
   attr_accessor :current_user
 
@@ -156,5 +181,9 @@ class ApplicationDraft < ActiveRecord::Base
     unless team.present? && team.students.all?{|student| student.confirmed? }
       errors.add(:base, 'Please make sure every student confirmed the email address.')
     end
+  end
+
+  def clean_up_heard_about_it
+    self.heard_about_it = self.heard_about_it.reject(&:empty?)
   end
 end
