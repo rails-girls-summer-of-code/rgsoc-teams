@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170117233300) do
+ActiveRecord::Schema.define(version: 20170123173604) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -35,7 +35,7 @@ ActiveRecord::Schema.define(version: 20170117233300) do
     t.text     "project_name"
     t.text     "project_url"
     t.text     "misc_info"
-    t.text     "heard_about_it"
+    t.string   "heard_about_it",           default: [],                   array: true
     t.datetime "signed_off_at"
     t.integer  "team_id"
     t.integer  "season_id"
