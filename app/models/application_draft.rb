@@ -52,6 +52,7 @@ class ApplicationDraft < ActiveRecord::Base
   validates *PROJECT2_FIELDS, presence: true, on: :apply, if: :project2
   validates :heard_about_it, presence: true, on: :apply
   validates :working_together, presence: true, on: :apply
+  validates :heard_about_it, presence: true, on: :apply
   validates :voluntary_hours_per_week, presence: true, on: :apply, if: :voluntary?
   validate :only_one_application_draft_allowed, if: :team, on: :create
   validate :different_projects_required
