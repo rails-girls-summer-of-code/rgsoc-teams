@@ -3,6 +3,8 @@ require 'spec_helper'
 RSpec.describe Orga::ConferencesController do
   render_views
 
+  it_behaves_like 'redirects for non-admins'
+
   context 'with admin logged in' do
     include_context 'with admin logged in'
 
@@ -15,6 +17,8 @@ RSpec.describe Orga::ConferencesController do
     end
 
     describe 'POST create' do
+      let!(:another_conference) { create :conference }
+
       it 'creates a record' do
         expect {
           post :create, params: {conference: attributes_for(:conference)}
@@ -37,7 +41,6 @@ RSpec.describe Orga::ConferencesController do
         }.to change { Conference.count }.by(-1)
         expect(response).to redirect_to orga_conferences_path
       end
-
     end
   end
 end
