@@ -143,12 +143,12 @@ RSpec.describe 'Navigation', type: :request do
         expect(response.body).to include page_path(:help)
         expect(response.body).to include user_path(user)
         expect(response.body).to include sign_out_path
+        expect(response.body).to include teams_path
       end
 
       it 'does not display links for other phases' do
         expect(response.body).not_to include application_drafts_path
         expect(response.body).not_to include new_project_path
-        expect(response.body).not_to include teams_path
         expect(response.body).not_to include conferences_path
       end
     end
@@ -159,6 +159,7 @@ RSpec.describe 'Navigation', type: :request do
       it 'displays sign in and links relevant for the phase' do
         expect(response.body).to include activities_path
         expect(response.body).to include apply_path
+        expect(response.body).to include teams_path
         expect(response.body).to include users_path
         expect(response.body).to include page_path(:help)
         expect(response.body).to include user_github_omniauth_authorize_path
@@ -172,7 +173,6 @@ RSpec.describe 'Navigation', type: :request do
       end
 
       it 'does not display any links for other phases' do
-        expect(response.body).not_to include teams_path
         expect(response.body).not_to include conferences_path
         expect(response.body).not_to include new_project_path
       end
