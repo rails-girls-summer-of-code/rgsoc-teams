@@ -82,6 +82,7 @@ RgsocTeams::Application.routes.draw do
 
   patch 'orga/seasons/switch_phase', to: 'orga/seasons#switch_phase', as: :switch_phase
   namespace :orga do
+    root to: 'dashboard#index', as: :dashboard
     resources :projects, only: [:index] do
       member do
         put :accept

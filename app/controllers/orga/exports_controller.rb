@@ -29,4 +29,8 @@ class Orga::ExportsController < Orga::BaseController
     end.flatten
   end
 
+  def set_breadcrumbs
+    super
+    @breadcrumbs << [ 'Exports', :exports]
+  end
 end

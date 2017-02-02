@@ -52,7 +52,7 @@ describe User do
     end
   end
 
-  describe 'scopes' do
+  describe 'scopes'do
     before do
       @user1 = create(:user)
       @user2 = create(:coach)
@@ -207,6 +207,32 @@ describe User do
     it 'returns github_handle if name is not available' do
       @user = described_class.new(github_handle: 'rails-girl')
       expect(@user.name_or_handle).to be =='rails-girl'
+    end
+  end
+
+  describe '#admin?' do
+    it 'returns false for users w/o admin role' do
+      student = FactoryGirl.create(:student)
+      expect(student).not_to be_admin
+    end
+
+    it 'returns true if user has a admin role' do
+      supervisor = FactoryGirl.create(:supervisor)
+      FactoryGirl.create(:organizer_role, user: supervisor)
+      expect(supervisor).to be_admin
+    end
+  end
+
+  describe '#mentor?' do
+    it 'returns false for users w/o mentor role' do
+      student = FactoryGirl.create(:student)
+      expect(student).not_to be_mentor
+    end
+
+    it 'returns true if user has a mentor role' do
+      mentor = FactoryGirl.create(:mentor)
+      FactoryGirl.create(:organizer_role, user: mentor)
+      expect(mentor).to be_mentor
     end
   end
 

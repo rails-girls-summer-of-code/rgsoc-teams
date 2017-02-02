@@ -82,4 +82,8 @@ class Orga::SeasonsController < Orga::BaseController
     )
   end
 
+  def set_breadcrumbs
+    super
+    @breadcrumbs << [ 'Seasons', :seasons]
+  end
 end
