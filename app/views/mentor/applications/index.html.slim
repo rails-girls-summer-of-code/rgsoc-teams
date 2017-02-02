@@ -1,7 +1,7 @@
 ul[class=:breadcrumb]
   li = link_to 'Applications', [:mentor, :applications]
   
-p Get insight in certain fields of teams applying to work on your project this summer. You can take notes for youself and pick your favorite applications. Faving will make the application more likely to be accepted and having the team work on your project this summer.
+p Get insight in certain fields of teams applying to work on your project this summer. You can take notes for yourself and pick your favorite applications; faving will make the application more likely to be accepted and having the team work on your project this summer.
 
 table.applications.table.table-striped.table-bordered.table-condensed.table-hover
   caption Teams applying for your projects this season.
@@ -19,6 +19,6 @@ table.applications.table.table-striped.table-bordered.table-condensed.table-hove
         td = icon('star') if application.first_choice
         td = application.project_plan
 p
-  i Teams may apply for two projects. Their second choice serves as a fallback if the do not get accepted for the first one
+  i Teams may apply for two projects. Their second choice serves as a fallback if they do not get accepted for the first one
   br
-  i The #{icon('star')} indicates when a ream chose the project as their first choice.
+  i The #{icon('star')} indicates when a team chose the project as their first choice.
