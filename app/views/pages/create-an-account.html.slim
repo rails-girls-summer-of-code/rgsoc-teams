@@ -8,12 +8,12 @@ h1 Your account
 
 .toc
   ul
-    li = link_to "Creating a new account", "#creating-a-new-account"
-    li = link_to "Editing an existing account", "#editing-an-existing-account"
-    li = link_to "Deleting an account", "#deleting-an-account"
+    li = link_to "Creating a new account", "#create"
+    li = link_to "Editing an existing account", "#edit"
+    li = link_to "Deleting an account", "#delete"
 
 
-h1 Creating a new account
+h1 id="create" Creating a new account
 
 h2 1. Sign in
 
@@ -55,7 +55,7 @@ p
 p
   ' As soon as you filled out your profile and verified your email address, you have full user access to the Teams app, including the permissions to create a project, team and student application.
 
-h1 Editing an existing account
+h1 id="edit" Editing an existing account
 
 p
   ' In order to edit your profile, press the "Edit" button on your profile page.
@@ -66,7 +66,7 @@ p
 img
   = image_tag(("pages/help/edit-profile-button.png"), class: "help-image")
 
-h1 Deleting an account
+h1 id="delete" Deleting an account
 
 p
   ' In order to delete your account, press the "Delete Profile" button on your profile page.
