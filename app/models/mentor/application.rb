@@ -2,8 +2,6 @@ module Mentor
   class Application
     include ActiveModel::Model
 
-    DB = ActiveRecord::Base.connection
-
     attr_accessor :id, :team_name
     attr_accessor :project_id, :project_name
     attr_accessor :project_plan, :why_selected_project
@@ -52,7 +50,7 @@ module Mentor
       def all_for(projects:, choice: 1, season: Season.current)
         params = { project_id: "project#{choice}_id", project_ids: projects.ids, season_id: season.id }
         query  = [sql_statement_all, params]
-        DB.select_all(sanitize_sql(query)).map(&mentorize)
+        ActiveRecord::Base.connection.select_all(sanitize_sql(query)).map(&mentorize)
       end
 
       # Retrieves a Mentor specific representation of a single Application for the given criteria.
@@ -75,7 +73,7 @@ module Mentor
       def data_for(id:, projects:, choice:, season:)
         params = attrs_for(choice: choice).merge(id: id, project_ids: projects.ids, season_id: season.id)
         query  = [sql_statement_find, params]
-        DB.select_one(sanitize_sql(query))
+        ActiveRecord::Base.connection.select_one(sanitize_sql(query))
       end
 
       def attrs_for(choice:)
