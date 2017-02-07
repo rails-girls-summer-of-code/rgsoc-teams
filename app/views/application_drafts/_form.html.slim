@@ -1,7 +1,9 @@
 h1 Student Application for RGSoC #{Season.current.name}
 
 - unless application_draft.team.coaches_confirmed?
-  p.alert.alert-warning Please note: Not all of your coaches have confirmed their membership. You won't be able to submit your application unless they've all confirmed — they can do so by clicking on the team link from their own profile. 
+  p.alert.alert-warning
+    strong Note:
+    |  Not all of your coaches have confirmed their membership. You won't be able to submit your application unless they've all confirmed — they can do so by clicking on the team link from their own profile.
 
 p.attention
   | Please read our
@@ -49,7 +51,7 @@ p.attention
 
       h2 Your 1st project choice
       = render 'project_fields', f: f, project: :project1
-      
+
       h2
         ' Your 2nd project choice
         small
@@ -70,8 +72,8 @@ p.attention
 
       h2 Only to be filled if you can apply as a volunteer (non-sponsored) team
       p You can read up on volunteer teams in the #{link_to 'application guide', 'http://railsgirlssummerofcode.org/students/application/#volunteer-teams', target: :blank}.
-      = f.input :voluntary, as: :boolean, hint: 'This will not exclude you from being in the running for a sponsored seat.', label: 'We could join the RGSoC as a voluntary team', input_html: { disabled: !application_draft.as_student? || application_draft.applied? }
-      = f.input :voluntary_hours_per_week, as: :integer, label: 'As a voluntary team, how many hours per week would you be able to work on the project?', hint: 'Please only enter a full number, e.g. 15', input_html: { disabled: !application_draft.as_student? || application_draft.applied? }
+      = f.input :voluntary, as: :boolean, hint: 'This will not exclude you from being in the running for a sponsored seat.', label: 'We could join the RGSoC as a volunteer team', input_html: { disabled: !application_draft.as_student? || application_draft.applied? }
+      = f.input :voluntary_hours_per_week, as: :integer, label: 'As a volunteer team, how many hours per week would you be able to work on the project?', hint: 'Please only enter a full number (e.g., 15).', input_html: { disabled: !application_draft.as_student? || application_draft.applied? }
 
       h2 Miscellaneous
 
@@ -83,7 +85,7 @@ p.attention
       = f.input :heard_about_it, collection: ApplicationDraft::OTHER_CHOICES.map {|choice| [choice, choice]}, as: :check_boxes, label: "Other channels", :input_html => {multiple: true }, error: false
       = f.input :heard_about_it, label: "Other (please specify)", :input_html => {multiple: true, value: (application_draft.heard_about_it - ApplicationDraft::ALL_CHOICES) }
 
-      = f.input :misc_info, as: :text, label: 'Anything else to add?', hint: 'Address anything that you feel is relevant to your application and was not covered previously. For example: Do you have a coaching company? Do you have extra remote coaches on board? etc..', input_html: { rows: 4, disabled: !application_draft.as_student? || application_draft.applied? }
+      = f.input :misc_info, as: :text, label: 'Anything else to add?', hint: 'Address anything that you feel is relevant to your application and was not covered previously. For example: Do you have a coaching company? Do you have extra remote coaches on board? etc.', input_html: { rows: 4, disabled: !application_draft.as_student? || application_draft.applied? }
 
       = render 'save_draft_button', f: f if application_draft.draft?
 
@@ -104,4 +106,4 @@ p.attention
               p You have unsaved changes in your application form. Please save before validating.
 
         - else
-          Please save your application first.
+          | Please save your application first.
