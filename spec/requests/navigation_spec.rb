@@ -110,10 +110,11 @@ RSpec.describe 'Navigation', type: :request do
       end
     end
 
-    context 'for mentors' do
-      let(:user) { create(:mentor) }
+    context 'for project_maintainers' do
+      let(:user) { create(:user) }
 
       before do
+        create(:project, :accepted, submitter: user)
         sign_in user
         get '/'
       end
@@ -218,10 +219,11 @@ RSpec.describe 'Navigation', type: :request do
       end
     end
 
-    context 'for mentors' do
-      let(:user) { create(:mentor) }
+    context 'for project_maintainers' do
+      let(:user) { create(:user) }
 
       before do
+        create(:project, :accepted, submitter: user)
         sign_in user
         get '/'
       end
