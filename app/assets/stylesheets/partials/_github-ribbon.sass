@@ -1,3 +1,4 @@
+// Adapted from:
 // "Fork me on GitHub" CSS ribbon v0.2.0 | MIT License
 // https://github.com/simonwhitaker/ribbon-css
 
@@ -14,15 +15,32 @@
   text-decoration: none
   text-indent: -999999px
 
+  // Animations
+  @media (max-width:1360px)
+    visibility: hidden
+    opacity:  0
+    -webkit-transition: visibility 0s linear 0.2s,  opacity 0.2s linear
+    -moz-transition: visibility 0s linear 0.2s,  opacity 0.2s linear
+    -ms-transition: visibility 0s linear 0.2s,  opacity 0.2s linear
+    -o-transition: visibility 0s linear 0.2s,  opacity 0.2s linear
+    transition: visibility 0s linear 0.2s,  opacity 0.2s linear
+
+  @media (min-width:1360px)
+    visibility: visible
+    -webkit-transition: visibility 0s linear 0.2s,  opacity 0.2s linear
+    -moz-transition: visibility 0s linear 0.2s,  opacity 0.2s linear
+    -ms-transition: visibility 0s linear 0.2s,  opacity 0.2s linear
+    -o-transition: visibility 0s linear 0.2s,  opacity 0.2s linear
+    transition: opacity 0.2s linear
+
 .ribbon:before, .ribbon:after
-  /* The right and left classes determine the side we attach our banner to */
   position: absolute
   display: block
   width: 15.38em
-  height: 1.54em
+  height: 2.2em
 
-  top: 3.23em
-  right: -3.23em
+  top: 2.70em
+  right: -3.76em
 
   -webkit-box-sizing: content-box
   -moz-box-sizing: content-box
@@ -37,21 +55,12 @@
 .ribbon:before
   content: ""
 
-  /* Add a bit of padding to give some substance outside the "stitching" */
   padding: .38em 0
 
-  /* Set the base colour */
+  // Set the base colour
   background-color: darkgray
 
-  /* Set a gradient: transparent black at the top to almost-transparent black at the bottom */
-  background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0)), to(rgba(0, 0, 0, 0.15)))
-  background-image: -webkit-linear-gradient(top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.15))
-  background-image: -moz-linear-gradient(top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.15))
-  background-image: -ms-linear-gradient(top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.15))
-  background-image: -o-linear-gradient(top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.15))
-  background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.15))
-
-  /* Add a drop shadow */
+  // Add a drop shadow
   -webkit-box-shadow: 0 .15em .23em 0 rgba(0, 0, 0, 0.5)
   -moz-box-shadow: 0 .15em .23em 0 rgba(0, 0, 0, 0.5)
   box-shadow: 0 .15em .23em 0 rgba(0, 0, 0, 0.5)
@@ -59,23 +68,20 @@
   pointer-events: auto
 
 .ribbon:after
-  /* Set the text from the title attribute */
+  // Set the text from the title attribute
   content: attr(title)
 
-  /* Set the text properties */
+  // Set the text properties
   color: white
   font: 700 1em "Helvetica Neue", Helvetica, Arial, sans-serif
-  line-height: 1.54em
+  line-height: 2.2em
   text-decoration: none
-  text-shadow: 0 -.08em rgba(0, 0, 0, 0.5)
   text-align: center
   text-indent: 0
 
-  /* Set the layout properties */
+  // Set the layout properties
   padding: .15em 0
   margin: .15em 0
-
-  /* Add "stitching" effect */
   border-width: .08em 0
-  border-style: dotted
+  border-style: solid
   border-color: lightgray
