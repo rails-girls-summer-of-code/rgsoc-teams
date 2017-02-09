@@ -22,7 +22,7 @@ table.table.table-striped.table-bordered
   tr
     th Mentor
     td
-      = @project.mentor_name
+      = link_to @project.mentor_name, @project.mentor rescue @project.mentor_name
       = " ("
       = link_to @project.mentor_github_handle, "https://github.com/#{@project.mentor_github_handle}", class: 'github'
       |)
@@ -48,7 +48,7 @@ table.table.table-striped.table-bordered
     th Applications (2nd Choice)
     td = @project.second_choice_application_drafts.count
   tr
-    th Code of Conduct 
+    th Code of Conduct
     td = link_to @project.code_of_conduct, @project.code_of_conduct
   tr
     th License
