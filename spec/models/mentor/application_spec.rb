@@ -46,10 +46,10 @@ describe Mentor::Application do
         end
       end
 
-      context 'when passing multple projects' do
+      context 'when passing multiple projects' do
         let(:projects) { Project.where(id: [project1.id, project2.id]) }
 
-        it 'returns applications of the season with chose one of the projects as first choice' do
+        it 'returns applications of the season which chose one of the projects as first choice' do
           first_choice1  = create(:application, :in_current_season, :for_project, project1: project1)
           first_choice2  = create(:application, :in_current_season, :for_project, project1: project2)
           second_choice1 = create(:application, :in_current_season, :for_project, project1: build(:project), project2: project2)
@@ -128,7 +128,7 @@ describe Mentor::Application do
           coding_level:     application.application_data["student0_application_coding_level"].to_i,
           code_samples:     application.application_data["student0_application_code_samples"],
           learning_history: application.application_data["student0_application_learning_history"],
-          code_background:  application.application_data["student0_application_code_background"],
+          language_learning_period: application.application_data["student0_application_language_learning_period"],
           skills:           application.application_data["student0_application_skills"]
         )
       end
@@ -138,7 +138,7 @@ describe Mentor::Application do
           coding_level:     application.application_data["student1_application_coding_level"].to_i,
           code_samples:     application.application_data["student1_application_code_samples"],
           learning_history: application.application_data["student1_application_learning_history"],
-          code_background:  application.application_data["student1_application_code_background"],
+          language_learning_period: application.application_data["student1_application_language_learning_period"],
           skills:           application.application_data["student1_application_skills"]
         )
       end

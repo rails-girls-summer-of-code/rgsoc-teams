@@ -31,13 +31,13 @@ FactoryGirl.define do
         "student0_application_code_samples": FFaker::Lorem.paragraph,
         "student0_application_learning_history": FFaker::Lorem.paragraph,
         "student0_application_skills": FFaker::Lorem.paragraph,
-        "student0_application_code_background": FFaker::Lorem.paragraph,
+        "student0_application_language_learning_period": FFaker::Lorem.paragraph,
 
         "student1_application_coding_level": "5",
         "student1_application_code_samples": FFaker::Lorem.paragraph,
         "student1_application_learning_history": FFaker::Lorem.paragraph,
         "student1_application_skills": FFaker::Lorem.paragraph,
-        "student1_application_code_background": FFaker::Lorem.paragraph
+        "student1_application_language_learning_period": FFaker::Lorem.paragraph
       }}
     end
   end
