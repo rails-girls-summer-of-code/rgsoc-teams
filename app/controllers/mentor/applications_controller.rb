@@ -11,7 +11,10 @@ class Mentor::ApplicationsController < Mentor::BaseController
   private
 
   def projects
-    Project.where(submitter: current_user)
+    Project.
+      in_current_season.
+      accepted.
+      where(submitter: current_user)
   end
 
   def application

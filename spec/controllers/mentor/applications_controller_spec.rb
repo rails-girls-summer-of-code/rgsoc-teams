@@ -4,6 +4,8 @@ describe Mentor::ApplicationsController do
   render_views
 
   describe 'GET index' do
+    let(:user) { create(:user) }
+
     context 'as an unauthenticated user' do
       it 'redirects to the landing page' do
         get :index
@@ -13,20 +15,18 @@ describe Mentor::ApplicationsController do
 
     context 'as an unauthorized user' do
       it 'redirects to the landing page' do
-        sign_in create(:developer)
+        sign_in user
         get :index
         expect(response).to redirect_to root_path
       end
     end
 
-    context 'as a mentor' do
-      let(:mentor)   { create(:mentor) }
-
-      before { sign_in mentor }
+    context 'as a project_maintainer' do
+      before { sign_in user }
 
       context 'with appliations for this season' do
         it 'renders and index view with applications for projects submitted by the mentor' do
-          project = create(:project, submitter: mentor)
+          project = create(:project, :in_current_season, :accepted, submitter: user)
           create(:application, :in_current_season, :for_project, project1: project)
 
           get :index
@@ -39,6 +39,8 @@ describe Mentor::ApplicationsController do
 
       context 'without projects for this season' do
         it 'renders an empty index view' do
+          project = create(:project, :accepted, submitter: user)
+
           get :index
           expect(assigns :applications).to eq []
           expect(response).to render_template :index
@@ -47,7 +49,7 @@ describe Mentor::ApplicationsController do
 
       context 'without applications for the projects' do
         it 'renders an empty index view' do
-          project = create(:project, submitter: mentor)
+          project = create(:project, :in_current_season, :accepted, submitter: user)
 
           get :index
           expect(assigns :applications).to eq []
@@ -58,6 +60,8 @@ describe Mentor::ApplicationsController do
   end
 
   describe 'GET show' do
+    let(:user) { create(:user) }
+
     context 'as an unauthenticated user' do
       it 'redirects to the landing page' do
         get :show, params: { id: 1 }
@@ -67,17 +71,16 @@ describe Mentor::ApplicationsController do
 
     context 'as an unauthorized user' do
       it 'redirects to the landing page' do
-        sign_in create(:developer)
+        sign_in user
         get :show, params: { id: 1 }
         expect(response).to redirect_to root_path
       end
     end
 
-    context 'as a mentor' do
-      let!(:mentor)  { create(:mentor) }
-      let!(:project) { create(:project, submitter: mentor) }
+    context 'as a project_maintainer of this season' do
+      let!(:project) { create(:project, :in_current_season, :accepted, submitter: user) }
 
-      before { sign_in mentor }
+      before { sign_in user }
 
       context 'when 1st choice application for project' do
         it 'renders the show view' do
@@ -104,7 +107,7 @@ describe Mentor::ApplicationsController do
 
       context 'when not maintaining the project' do
         it 'returns a 404' do
-          other_project = create(:project)
+          other_project = create(:project, :in_current_season, :accepted)
           application   = create(:application, :in_current_season, :for_project, project1: other_project)
           params        = { id: application.id, choice: 1 }
 

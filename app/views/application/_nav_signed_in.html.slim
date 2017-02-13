@@ -14,7 +14,7 @@ li.dropdown
       li = link_to 'Status Updates', [:students, :status_updates]
     - if current_user.supervisor? && current_season.started?
       li = link_to 'Supervisor Dashboard', supervisor_dashboard_path
-    - if current_user.mentor?
+    - if current_user.project_maintainer?
       li = link_to 'Mentor Dashboard', mentor_applications_path
     li.divider.hidden-xs
     - if current_user != true_user

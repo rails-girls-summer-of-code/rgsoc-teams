@@ -176,6 +176,10 @@ class User < ActiveRecord::Base
     roles.mentor.any?
   end
 
+  def project_maintainer?
+    Project.accepted.where(submitter: self).any?
+  end
+
   def supervisor?
     roles.supervisor.any?
   end

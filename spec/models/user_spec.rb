@@ -236,6 +236,30 @@ describe User do
     end
   end
 
+  describe '#project_maintainer?' do
+    let!(:maintainer) { create(:user) }
+
+    it 'returns false for users who did not submit a project' do
+      student = FactoryGirl.create(:student)
+      expect(student).not_to be_project_maintainer
+    end
+
+    it 'returns true if user has submitted an accepted project' do
+      create(:project, :accepted, submitter: maintainer)
+      expect(maintainer).to be_project_maintainer
+    end
+
+    it 'returns false if user has submitted a rejected project' do
+      create(:project, :rejected, submitter: maintainer)
+      expect(maintainer).not_to be_project_maintainer
+    end
+
+    it 'returns false if user has just proposed a project' do
+      create(:project, submitter: maintainer)
+      expect(maintainer).not_to be_project_maintainer
+    end
+  end
+
   describe '#student?' do
     it 'returns false for users w/o a role' do
       expect(subject).not_to be_student
