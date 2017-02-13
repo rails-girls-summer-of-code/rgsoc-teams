@@ -30,20 +30,19 @@ img
 h2 2. Fill out your profile
 
 p
-  ' Once signed in, you should update your profile information.
-
-img
-  = image_tag(("pages/help/nav-bar-user-profile.png"), class: "help-image")
+  ' Once signed in for the first time, you will be redirected to the "Edit your profile" section. In order to keep using the app, you
+  b MUST fill out your profile
+  '  with the mandatory fields. 
+  b Don't forget to click on the "Save" button to save your profile — otherwise you will not be able to proceed.
 
 p
-  ' There are a few mandatory fields:
+  ' The following fields are mandatory:
   .basic-list
     ul
       li Name
       li Email
       li Country
       li City
-  b Make sure that they are filled out, otherwise your access to the Teams app will be limited (see below).
 
 p
   ' Besides the mandatory fields, we would like you to fill out the other fields, too. Please tell the community a little bit about you: links, interests, why are you participating, what you hope to get out of this, etc.
@@ -67,11 +66,16 @@ h1 id="edit" Editing an existing account
 p
   ' In order to edit your profile, press the "Edit" button on your profile page.
 
-p
-  i NOTE: Your github handle cannot be changed. In order to use another Github account you need to create a new account in the Teams app.
+img
+  = image_tag(("pages/help/nav-bar-user-profile.png"), class: "help-image")
+
+br
 
 img
   = image_tag(("pages/help/user-profile-edit-button.png"), class: "help-image")
+
+p
+  i NOTE: Your github handle cannot be changed. In order to use another Github account you need to create a new account in the Teams app.
 
 h1 id="delete" Deleting an account
 
@@ -80,6 +84,7 @@ p
 
 img
   = image_tag(("pages/help/user-profile-delete-button.png"), class: "help-image")
+
 
 h1 id="troubleshoot" Troubleshooting
 
@@ -97,7 +102,7 @@ img
   = image_tag(("pages/help/notice-cannot-sign-in.png"), class: "help-image")
 
 p
-  ' This is a known bug which happen rarely. Please contact us at <a href="mailto:contact@rgsoc.org">contact@rgsoc.org</a>.
+  ' This is a known bug which happens rarely. Please contact us at <a href="mailto:contact@rgsoc.org">contact@rgsoc.org</a>.
 
 h2 2. I don't get the confirmation email
 
