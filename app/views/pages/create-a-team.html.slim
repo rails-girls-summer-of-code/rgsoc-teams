@@ -11,37 +11,63 @@ h1 Your team
     li = link_to "Creating a new team", "#create"
     li = link_to "Editing an existing team", "#edit"
     li = link_to "Deleting a team", "#delete"
+    li = link_to "Troubleshooting", "#troubleshoot"
 
 h1 id="create" Creating a new team
 
 h2 1. Check the teams list
 
 p
-  ' On the teams list check if your team has already been added. If you're already part of a team then you can edit your team's profile.
-  ' If you haven't been added to your team, yet, then ask one of the members to sign in and add you. They will need your GitHub handle for that.
-  ' If your team hasn't been created yet, you can add it yourself.
+  ' On the teams list check if your team has already been added.
+
+img
+  = image_tag(("pages/help/nav-bar-teams.png"), class: "help-image")
 
 p
-  i NOTE: In order to create a team, you must be logged in the Teams App (see "How to create an account").
+  ' If you're already part of a team, you can also see it in your <a href="create-an-account">user profile</a>.
+
+img
+  = image_tag(("pages/help/user-profile-with-team.png"), class: "help-image")
+
+p
+  ' As a team member you can <a href="#edit">edit your team's profile</a>.
+  ' If you haven't been added to your team, yet, then ask one of the members to sign in and <a href="#add-member">add you</a>. They will need your GitHub handle for that.
+
+p
+  ' If your team hasn't been created yet, you can add it yourself.
 
 h2 2. Add a team
 
 p
-  ' On the teams list, click on "New team" button in order to create one.
+  ' In order to create a team, you must be logged in the Teams App (see <a href="create-an-account">"Your account"</a>).
+
+p
+  ' On the teams list, click on the "New team" button.
 
 img
   = image_tag(("pages/help/new-team-button.png"), class: "help-image")
 
-h2 3. Add team members
+p
+  ' Fill out the basic fields and add team members.
+
+h2 id="add-member" 3. Add team members
 
 p
-  ' A team must have two students and at least two coaches.
-  ' You can add a team member in one of two ways:
-  ol
-    li 1. On the team's page press the "Edit" button. On the "Editing team" form press the "Add another member button" and fill out the required fields: "Github handle" and "Role"
-    li = image_tag(("pages/help/new-team-add-member-button.png"), class: "help-image")
-    li 2. On the team's page press the "Add a member" button. On the "Add Member" form press fill out the required fields:  "Github handle" and "Role".
-    li = image_tag(("pages/help/team-add-member-form.png"), class: "help-image")
+  ' A team must have
+  b two students and at least two coaches.
+  '  You can add a team member in one of two ways:
+
+ul
+  li 1. On the team's page press the "Edit" button. On the "Editing team" form press the "Add another member" button and fill out the required fields: "Github handle" and "Role".
+
+  img
+    = image_tag(("pages/help/new-team-add-member-button.png"), class: "help-image")
+
+ul
+  li 2. On the team's page press the "Add a member" button. On the "Add Member" form fill out the required fields: "Github handle" and "Role".
+
+  img
+    = image_tag(("pages/help/team-add-member-form.png"), class: "help-image")
 
 p
   i NOTE:
@@ -55,39 +81,44 @@ p
 h2 4. Confirm coaches
 
 p
-  ' After you added coaches to your team, they will get a notification via email to confirm their participation.
-
-p
-  i NOTE: In case your coaches didn't get the email, they can confirm their coach status on the team's page.
-
-p
-  ' Confirmed coaches look so on your team's page:
-
-img
-  = image_tag(("pages/help/team_coach_confirmed.png"), class: "help-image")
-
+  ' See <a href="confirm-a-coach">"Confirming your coach status"</a>.
 
 h2 5. Add resources
 
 p
+  ' Your team can register "sources" from which the Teams app will try to aggregate updates; it can be a blog or a repository.
+  ' To add a source, press the "Add a source" button on the action panel of the team's page.
+
+img
+  = image_tag(("pages/help/team-action-panel.png"), class: "help-image")
+
+p
+  ' Please add any blog that is relevant to your team by registering its RSS or Atom feed URLs.
+
+p
+  ' Also add all the GitHub repository URLs that you are planning to work on as sources. Currently this won't actually do anything yet, but we plan to aggregate information from there, too.
+
+img
+    = image_tag(("pages/help/team-add-source-form.png"), class: "help-image")
+
+h2 6. Fill out additional information (for accepted teams only)
+
+p
+  ' Once your team has been accepted to the program, you can fill out additional information about your team. In order to do so, press the "Edit" button on the action panel of the team's page and scroll the form down. After the list of team members you will see several new fields.
+
+img
+  = image_tag(("pages/help/edit-team-additional-info.png"), class: "help-image")
+
+p
   ' If your team has a GitHub organization (you might want one and they're free for Open Source) then please add the handle. If your team has a Twitter account, then please add it, too.
-
-p
-  i NOTE: you can only add these once your team has officially been accepted as a RGSoC team.
-
-p
-  ' Your team can register "sources" from which this application will try to aggregate updates; please add any blog that is relevant for your team by registering its RSS or Atom feed URLs.
-  ' Please also add all the GitHub repository URLs that you are planning to work on as sources.  Currently this won't actually do anything yet, but we plan to aggregate information from there, too.
 
 h1 id="edit" Editing an existing team
 
 p
-  ' In order to edit your team, press the "Edit" button on your profile page.
+  ' In order to edit your team, press the "Edit" button on the action panel of your team's page.
 
 p
   i NOTE: All members of your team including the coaches have a permission to edit the team.
-
-p
 
 img
   = image_tag(("pages/help/edit-team-form.png"), class: "help-image")
@@ -98,4 +129,9 @@ p
   ' In order to delete your team, open the edit form (see above) and press the "Destroy" button on the top right corner.
 
 img
-  = image_tag(("pages/help/delete-team-button.png"), class: "help-image")
+  = image_tag(("pages/help/edit-team-delete-button.png"), class: "help-image")
+
+h1 id="troubleshoot" Troubleshooting
+
+p
+  ' Work in progress...
