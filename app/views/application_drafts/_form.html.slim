@@ -77,6 +77,8 @@ p.attention
 
       h2 Miscellaneous
 
+      .alert.alert-warning If you've got a coaching company, you can mention that in the “Anything else to add?” field below. Please don't name the company.
+
       h3 How have you heard about the program?
       = f.input :heard_about_it, collection: ApplicationDraft::DIRECT_OUTREACH_CHOICES.map {|choice| [choice, choice]}, as: :check_boxes, label: "RGSoC direct outreach", :input_html => {multiple: true }, error: false
 
@@ -85,7 +87,7 @@ p.attention
       = f.input :heard_about_it, collection: ApplicationDraft::OTHER_CHOICES.map {|choice| [choice, choice]}, as: :check_boxes, label: "Other channels", :input_html => {multiple: true }, error: false
       = f.input :heard_about_it, label: "Other (please specify)", :input_html => {multiple: true, value: (application_draft.heard_about_it - ApplicationDraft::ALL_CHOICES) }
 
-      = f.input :misc_info, as: :text, label: 'Anything else to add?', hint: 'Address anything that you feel is relevant to your application and was not covered previously. For example: Do you have a coaching company? Do you have extra remote coaches on board? etc.', input_html: { rows: 4, disabled: !application_draft.as_student? || application_draft.applied? }
+      = f.input :misc_info, as: :text, label: 'Anything else to add?', hint: 'Address anything that you feel is relevant to your application and was not covered previously. For example: Do you have a coaching company?', input_html: { rows: 4, disabled: !application_draft.as_student? || application_draft.applied? }
 
       = render 'save_draft_button', f: f if application_draft.draft?
 
