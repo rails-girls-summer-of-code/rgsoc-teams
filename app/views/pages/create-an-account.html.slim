@@ -11,6 +11,7 @@ h1 Your account
     li = link_to "Creating a new account", "#create"
     li = link_to "Editing an existing account", "#edit"
     li = link_to "Deleting an account", "#delete"
+    li = link_to "Troubleshooting", "#troubleshoot"
 
 
 h1 id="create" Creating a new account
@@ -24,25 +25,30 @@ p
   ' If you don't have a <a href="https://github.com" target="_blank">GitHub</a> account yet, please create one.
 
 img
-  = image_tag(("pages/help/sign-in-link.png"), class: "help-image")
+  = image_tag(("pages/help/nav-bar-sign-in.png"), class: "help-image")
 
 h2 2. Fill out your profile
 
 p
-  ' Once signed in, you should update your profile information. There are a few mandatory fields:
+  ' Once signed in for the first time, you will be redirected to the "Edit your profile" section. In order to keep using the app, you
+  b MUST fill out your profile
+  '  with the mandatory fields. 
+  b Don't forget to click on the "Save" button to save your profile — otherwise you will not be able to proceed.
+
+p
+  ' The following fields are mandatory:
   .basic-list
     ul
       li Name
       li Email
       li Country
       li City
-  b Make sure that they are filled out, otherwise your access to the Teams app will be limited (see below).
 
 p
   ' Besides the mandatory fields, we would like you to fill out the other fields, too. Please tell the community a little bit about you: links, interests, why are you participating, what you hope to get out of this, etc.
 
 img
-  = image_tag(("pages/help/edit-profile-form.png"), class: "help-image")
+  = image_tag(("pages/help/edit-user-profile-form.png"), class: "help-image")
 
 h2 3. Confirm your email address
 
@@ -60,11 +66,16 @@ h1 id="edit" Editing an existing account
 p
   ' In order to edit your profile, press the "Edit" button on your profile page.
 
-p
-  i NOTE: Your github handle cannot be changed. In order to use another Github account you need to create a new account in the Teams app.
+img
+  = image_tag(("pages/help/nav-bar-user-profile.png"), class: "help-image")
+
+br
 
 img
-  = image_tag(("pages/help/edit-profile-button.png"), class: "help-image")
+  = image_tag(("pages/help/user-profile-edit-button.png"), class: "help-image")
+
+p
+  i NOTE: Your github handle cannot be changed. In order to use another Github account you need to create a new account in the Teams app.
 
 h1 id="delete" Deleting an account
 
@@ -72,4 +83,49 @@ p
   ' In order to delete your account, press the "Delete Profile" button on your profile page.
 
 img
-  = image_tag(("pages/help/delete-profile-button.png"), class: "help-image")
+  = image_tag(("pages/help/user-profile-delete-button.png"), class: "help-image")
+
+
+h1 id="troubleshoot" Troubleshooting
+
+h2 1. I can't sign in
+
+p
+  ' You press the "Sign in" link, but don't get signed in. Instead, you see the following notifications:
+
+.basic-list
+  ul
+    li Successfully authenticated from Github account.
+    li You have to confirm your account before continuing.
+
+img
+  = image_tag(("pages/help/notice-cannot-sign-in.png"), class: "help-image")
+
+p
+  ' This is a known bug which happens rarely. Please contact us at <a href="mailto:contact@rgsoc.org">contact@rgsoc.org</a>.
+
+h2 2. I don't get the confirmation email
+
+p
+  ' You've created a user account in the Teams app and signed in, but you haven't got the confirmation email.
+
+.basic-list
+  ul
+    li Make sure that you have filled out your user profile and saved changes.
+    li Make sure that the email address in your user profile is correct.
+    li Check the spam folder in your mailbox.
+    li If nothing helps, contact us at <a href="mailto:contact@rgsoc.org">contact@rgsoc.org</a>.
+
+h2 3. I click on the confirmation link, but get an internal server error
+
+p
+  ' You've filled out your profile, saved changes and got the confirmation email. However, when you follow the link, you get an internal server error (500).
+
+p
+  ' Despite the error, most likely your email has been confirmed. A quick test: press the "Apply now" link on the navigation bar. If you don't see the message below, then your profile has been confirmed.
+
+img
+  = image_tag(("pages/help/notice-need-to-verify-email.png"), class: "help-image")
+
+p
+  ' If the verification didn't work out and you still get this notification, please contact us at <a href="mailto:contact@rgsoc.org">contact@rgsoc.org</a>.
