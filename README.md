@@ -43,7 +43,7 @@ Requirements:
 ## System Requirements
 
 * PostgreSQL 9.3 or newer
-* Ruby 2.3.1
+* Ruby 2.3.3
 
 ### Setup on Ubuntu
 ```bash
@@ -141,7 +141,7 @@ To avoid accidentally exceeding the rate limit on [Google's Places API][google-p
 - The app should be available, with the database loaded with fake data.
 - To access all the functionality of the teams app, add yourself as an organizer.
     * In the browser: log in with your github account 
-    * In Rails Console:   
+    * In Rails Console:
       ```
       user = User.last
       user.roles.create(name: "organizer")
