@@ -9,9 +9,9 @@ html
       | }
   body
     p
-      ' You have been added to Team
-      a>[href=team_url(@role.team)]= @role.team.name
-      | as a #{@role.name}.
+      ' You have been added to
+      a href=team_url(@role.team) Team #{@role.team.name}
+      |  as a #{@role.name}.
 
       - if @role.name == 'coach'
         p
