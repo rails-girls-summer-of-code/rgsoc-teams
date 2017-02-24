@@ -21,6 +21,7 @@ class Project < ActiveRecord::Base
     state :proposed, initial: true
     state :accepted
     state :rejected
+    state :pending
 
     event :accept do
       transitions from: :proposed, to: :accepted
@@ -28,6 +29,10 @@ class Project < ActiveRecord::Base
 
     event :reject do
       transitions from: :proposed, to: :rejected, after: -> { self.comments_locked = true }
+    end
+    
+    event :pending do
+      transitions from: :proposed, to: :pending
     end
   end
 

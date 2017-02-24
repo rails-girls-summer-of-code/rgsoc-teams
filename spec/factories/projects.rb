@@ -14,6 +14,9 @@ FactoryGirl.define do
     trait :accepted do
       after(:create) { |record| record.accept! }
     end
+     trait :review do
+      after(:create) { |record| record.review! }
+    end
 
     trait :rejected do
       after(:create) { |record| record.reject! }

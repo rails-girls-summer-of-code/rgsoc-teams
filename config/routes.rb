@@ -86,6 +86,7 @@ RgsocTeams::Application.routes.draw do
     resources :projects, only: [:index] do
       member do
         put :accept
+        put :pending
         put :reject
         put :lock
         put :unlock
