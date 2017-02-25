@@ -50,15 +50,16 @@ class UsersController < ApplicationController
   def update
     respond_to do |format|
       if @user.update_attributes(user_params)
-        notice = 'User was successfully updated.'
+        notice = nil
         # We disabled the confirmation instruction sending in the omniauth
         # user creation and have to do it manually here. If the user
         # decides to change the email address in the form, devise is sending
         # an email confirm message automatically. Otherwise we will sent it
         # manually here
         if !@user.confirmed? && !@user.previous_changes["unconfirmed_email"].present?
-          notice = 'Please click on the link in the email we just sent to confirm your email address.'
           @user.send_confirmation_instructions
+        else
+          notice = 'User was successfully updated.'
         end
         format.html { redirect_to params[:redirect_to] || @user, notice: notice }
         format.json { head :no_content }
@@ -85,6 +86,11 @@ class UsersController < ApplicationController
   def stop_impersonating
     stop_impersonating_user
     redirect_to users_path, notice: "Impersonation stopped. You're back to being #{current_user.name}!"
+  end
+
+  def resend_confirmation_instruction
+    @user.send_confirmation_instructions
+    redirect_back fallback_location: root_path
   end
 
   private
