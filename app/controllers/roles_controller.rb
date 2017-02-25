@@ -10,8 +10,7 @@ class RolesController < ApplicationController
   end
 
   def create
-    @role.user = User.find_by("github_handle ILIKE ?", params[:role][:github_handle]) ||
-      User.create(github_handle: params[:role][:github_handle])
+    @role.user = User.find_or_initialize_by(github_handle: params[:role][:github_handle])
     @role.user.github_import = true
 
     respond_to do |format|

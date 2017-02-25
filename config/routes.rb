@@ -21,7 +21,9 @@ RgsocTeams::Application.routes.draw do
   end
 
   get 'users/info', to: 'users_info#index'
-  resources :users, except: :new, concerns: [:has_roles, :impersonatable]
+  resources :users, except: :new, concerns: [:has_roles, :impersonatable] do
+    post 'resend_confirmation_instruction', on: :member
+  end
   resources :sources, only: :index
   resources :comments, only: :create
   resources :conferences
@@ -43,8 +45,6 @@ RgsocTeams::Application.routes.draw do
       resources :comments, only: [:create]
       resources :applications, only: [:show, :edit, :update]
     end
-
-
 
     resources :applications, except: [:new, :create, :destroy]
     resources :ratings, only: [:create, :update]
