@@ -1,0 +1,16 @@
+= simple_form_for([:orga, @season]) do |f|
+  = f.error_notification
+
+  .form-inputs.clearfix
+    = f.input :name, label: 'Cear'
+    = f.input :starts_at, wrapper_html: { class: 'col-sm-2' }
+    = f.input :ends_at, wrapper_html: { class: 'col-sm-2' }
+    = f.input :applications_open_at, wrapper_html: { class: 'col-sm-2' }
+    = f.input :applications_close_at, wrapper_html: { class: 'col-sm-2' }
+    = f.input :acceptance_notification_at, wrapper_html: { class: 'col-sm-2' }
+  .form-inputs.clearfix
+    = f.input :project_proposals_open_at, wrapper_html: { class: 'col-sm-2' }
+    = f.input :project_proposals_close_at, wrapper_html: { class: 'col-sm-2' }
+
+  .form-actions
+    = f.button :submit

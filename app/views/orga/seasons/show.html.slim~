@@ -11,10 +11,7 @@ h1 Season #{@season.name}
     dt End Date
     dd = @season.ends_at
     dt Applications open at
-    dd = @season.applications_open_at
-    dt Applications close at
-    dd = @season.applications_close_at
-
+    dd = @applications_open_at
     
 
 = link_to 'Edit', [:edit, :orga, @season], class: 'btn btn-default'
