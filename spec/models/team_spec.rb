@@ -15,6 +15,7 @@ describe Team do
   it { is_expected.to have_many(:status_updates) }
   it { is_expected.to have_many(:roles).inverse_of(:team) }
 
+  it { is_expected.to validate_presence_of(:name) }
   it { is_expected.to validate_uniqueness_of(:name) }
 
   context 'multiple team memberships' do
@@ -256,8 +257,9 @@ describe Team do
   describe 'creating a new team' do
     before do
       Team.destroy_all
-      subject.save!
     end
+
+    subject { create :team }
 
     it 'sets the team number' do
       expect(subject.reload.number).to eql 1
