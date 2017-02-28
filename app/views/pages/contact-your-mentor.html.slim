@@ -1,0 +1,27 @@
+nav.page
+  .back-nav
+    ul
+      li = icon("chevron-left")
+      li = link_to "Help index page", page_path("help"), class: "back"
+
+h1 How to contact your mentor
+
+p 
+  ' Go to the 
+  a href="https://teams.railsgirlssummerofcode.org/projects" Projects overview 
+  ' and click on the project whose mentor / maintainer you wish to contact. This will take you to the project page.
+
+img 
+  = image_tag(("pages/help/mentor-project-show-view.png"), class: "help-image")
+
+p 
+  ' On the project page under mentor you will find two links: the first is the mentor's name, with a link to their user profile in the teams app, and the second is their github handle and link to their github profile. Clicking the first link (the mentor's name) will take you to their user profile.
+
+img
+  = image_tag(("pages/help/mentor-user-profile-view.png"), class: "help-image")
+
+p 
+  ' On the user profile, you can view the mentor's email address.
+
+p 
+  i Note: Some mentors / projects prefer to be contacted in other ways, such as a forum or a mailing list, and have added this to their project page. Please read the whole project description and the requirements to see if they have a preferred way of being contact by applicants before contacting them by email.
