@@ -339,17 +339,13 @@ describe Team do
   describe 'checking' do
     let(:user) { FactoryGirl.create(:user) }
 
-    it 'calls set_last_checked' do
-      expect(subject).to receive(:set_last_checked)
-      subject.checked = user
-      subject.save!
-    end
+    subject { create :team }
 
     it 'changes last_checked_*' do
-      expect do
+      expect {
         subject.checked = user
         subject.save!
-      end.to change(subject, :last_checked_by) && change(subject, :last_checked_at)
+      }.to change(subject, :last_checked_by) && change(subject, :last_checked_at)
     end
   end
 
