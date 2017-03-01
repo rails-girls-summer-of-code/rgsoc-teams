@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe RolesController do
+RSpec.describe RolesController do
   let(:user) { create(:user) }
   let(:valid_attributes) { build(:role, team: team).attributes }
   let(:valid_session)    { { "warden.user.user.key" => session["warden.user.user.key"] } }
@@ -51,9 +51,9 @@ describe RolesController do
         expect(response).to redirect_to(assigns(:team))
       end
 
-      it 'create a new Role for existing user' do
+      it 'creates a new Role for existing user with case-insensitive github_handle' do
         existing   = create(:user)
-        role_attrs = valid_attributes.merge(github_handle: existing.github_handle)
+        role_attrs = valid_attributes.merge(github_handle: existing.github_handle.upcase)
 
         expect {
           expect { post :create, { params: params.merge(role: role_attrs) }, valid_session }.to change(Role, :count).by(1)
