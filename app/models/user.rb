@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'github/user'
 
 class User < ActiveRecord::Base
