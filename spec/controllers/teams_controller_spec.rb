@@ -158,6 +158,28 @@ RSpec.describe TeamsController do
           put :update, params: { id: team.to_param, team: valid_attributes }
           expect(response).to redirect_to(team)
         end
+
+        context 'with nested role attributes' do
+          let(:github_handle) { valid_attributes[:roles_attributes].first[:github_handle] }
+
+          it 'creates a new user from github_handle' do
+            expect {
+              patch :update, params: { id: team.to_param, team: valid_attributes }
+            }.to change { User.count }.by 1
+
+            expect(User.last.github_handle).to eql github_handle
+          end
+
+          it 'finds an existing user by case-insenstive github_handle' do
+            existing_user = create :user, github_handle: github_handle.upcase
+            expect {
+              patch :update, params: { id: team.to_param, team: valid_attributes }
+            }.not_to change { User.count }
+
+            expect(Role.last.user).to eql existing_user
+          end
+
+        end
       end
 
       describe "with invalid params" do
