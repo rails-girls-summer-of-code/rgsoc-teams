@@ -38,6 +38,7 @@ RSpec.describe 'Navigation', type: :request do
       it 'hides role specific links' do
         expect(response.body).not_to include mentor_applications_path
         expect(response.body).not_to include orga_dashboard_path
+        expect(response.body).not_to include rating_path
         expect(response.body).not_to include supervisor_dashboard_path
         expect(response.body).not_to include students_status_updates_path
       end
@@ -65,6 +66,7 @@ RSpec.describe 'Navigation', type: :request do
       it 'hides other role specific links' do
         expect(response.body).not_to include mentor_applications_path
         expect(response.body).not_to include orga_dashboard_path
+        expect(response.body).not_to include rating_path
         expect(response.body).not_to include supervisor_dashboard_path
       end
     end
@@ -84,6 +86,7 @@ RSpec.describe 'Navigation', type: :request do
       it 'hides other role specific links' do
         expect(response.body).not_to include mentor_applications_path
         expect(response.body).not_to include orga_dashboard_path
+        expect(response.body).not_to include rating_path
         expect(response.body).not_to include students_status_updates_path
       end
     end
@@ -107,6 +110,30 @@ RSpec.describe 'Navigation', type: :request do
       it 'hides other role specific links' do
         expect(response.body).not_to include mentor_applications_path
         expect(response.body).not_to include students_status_updates_path
+        expect(response.body).not_to include rating_path
+      end
+    end
+
+    context 'for organizers with reviewer role' do
+      let(:user) { create(:organizer) }
+
+      before do
+        create(:reviewer_role, user: user)
+        sign_in user
+        get '/'
+      end
+
+      include_examples :user_nav_during_summer
+
+      it 'displays relevant items for orga and rating' do
+        expect(response.body).to include orga_dashboard_path
+        expect(response.body).to include rating_path
+      end
+
+      it 'hides other role specific links' do
+        expect(response.body).not_to include mentor_applications_path
+        expect(response.body).not_to include students_status_updates_path
+        expect(response.body).not_to include supervisor_dashboard_path
       end
     end
 
@@ -126,6 +153,7 @@ RSpec.describe 'Navigation', type: :request do
       it 'hides other role specific links' do
         expect(response.body).not_to include supervisor_dashboard_path
         expect(response.body).not_to include orga_dashboard_path
+        expect(response.body).not_to include rating_path
         expect(response.body).not_to include students_status_updates_path
       end
     end
@@ -169,6 +197,7 @@ RSpec.describe 'Navigation', type: :request do
       it 'hides role specific links' do
         expect(response.body).not_to include mentor_applications_path
         expect(response.body).not_to include orga_dashboard_path
+        expect(response.body).not_to include rating_path
         expect(response.body).not_to include supervisor_dashboard_path
         expect(response.body).not_to include students_status_updates_path
       end
@@ -192,6 +221,7 @@ RSpec.describe 'Navigation', type: :request do
       it 'hides other role specific links' do
         expect(response.body).not_to include mentor_applications_path
         expect(response.body).not_to include orga_dashboard_path
+        expect(response.body).not_to include rating_path
         expect(response.body).not_to include supervisor_dashboard_path
         expect(response.body).not_to include students_status_updates_path
       end
@@ -216,6 +246,30 @@ RSpec.describe 'Navigation', type: :request do
       it 'hides other role specific links' do
         expect(response.body).not_to include mentor_applications_path
         expect(response.body).not_to include students_status_updates_path
+        expect(response.body).not_to include rating_path
+      end
+    end
+
+    context 'for organizers with reviewer role' do
+      let(:user) { create(:organizer) }
+
+      before do
+        create(:reviewer_role, user: user)
+        sign_in user
+        get '/'
+      end
+
+      include_examples :user_nav_during_application_phase
+
+      it 'displays relevant items for orga and rating' do
+        expect(response.body).to include orga_dashboard_path
+        expect(response.body).to include rating_path
+      end
+
+      it 'hides other role specific links' do
+        expect(response.body).not_to include mentor_applications_path
+        expect(response.body).not_to include students_status_updates_path
+        expect(response.body).not_to include supervisor_dashboard_path
       end
     end
 
@@ -235,6 +289,7 @@ RSpec.describe 'Navigation', type: :request do
       it 'hides other role specific links' do
         expect(response.body).not_to include supervisor_dashboard_path
         expect(response.body).not_to include orga_dashboard_path
+        expect(response.body).not_to include rating_path
         expect(response.body).not_to include students_status_updates_path
       end
     end

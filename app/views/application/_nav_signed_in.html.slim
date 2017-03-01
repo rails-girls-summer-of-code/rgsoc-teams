@@ -10,6 +10,8 @@ li.dropdown
     li.divider.hidden-xs
     - if current_user.admin?
       li = link_to 'Orga Dashboard', orga_dashboard_path
+    - if current_user.reviewer?
+      li = link_to 'Rating Dashboard', rating_path
     - if current_user.current_student? && current_season.started?
       li = link_to 'Status Updates', [:students, :status_updates]
     - if current_user.supervisor? && current_season.started?
