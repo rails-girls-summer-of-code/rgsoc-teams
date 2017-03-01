@@ -11,6 +11,8 @@ class Ability
 
     can :crud, User, id: user.id
     can :crud, User if user.admin?
+    can :resend_confirmation_instruction, User, id: user.id
+    can :resend_confirmation_instruction, User if user.admin?
 
     can :crud, Team do |team|
       user.admin? or signed_in?(user) && team.new_record? or on_team?(user, team)

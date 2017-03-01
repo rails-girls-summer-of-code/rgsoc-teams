@@ -11,6 +11,8 @@ describe Ability do
       describe 'she/he is allowed to do everything on her/his account' do
         it { expect(ability).to be_able_to(:show, user) }
         it { expect(ability).not_to be_able_to(:create, User.new) } #this only happens through GitHub
+
+        it { expect(ability).to be_able_to(:resend_confirmation_instruction, user) }
       end
 
       context 'when a user is admin' do
@@ -24,6 +26,21 @@ describe Ability do
         let(:other_user) { FactoryGirl.create(:user) }
         it { expect(ability).not_to be_able_to(:show, other_user) }
       end
+
+      context 'resend_confirmation_instruction' do
+        let(:other_user) { FactoryGirl.create(:user) }
+
+        describe 'a user can only resend her/his own confirmation' do
+          it { expect(ability).to be_able_to(:resend_confirmation_instruction, user) }
+          it { expect(ability).not_to be_able_to(:resend_confirmation_instruction, other_user) }
+        end
+
+        describe 'a admin can resend all confirmation tokens' do
+          let!(:organizer_role) { FactoryGirl.create(:organizer_role, user: user) }
+          it { expect(ability).to be_able_to(:resend_confirmation_instruction, other_user) }
+        end
+      end
+
 
       describe 'a user should not be able to mark another\'s attendance to a conference' do
 
