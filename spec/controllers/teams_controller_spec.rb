@@ -170,7 +170,7 @@ RSpec.describe TeamsController do
             expect(User.last.github_handle).to eql github_handle
           end
 
-          it 'finds an existing user by case-insenstive github_handle' do
+          it 'finds an existing user by case-insensitive github_handle' do
             existing_user = create :user, github_handle: github_handle.upcase
             expect {
               patch :update, params: { id: team.to_param, team: valid_attributes }
