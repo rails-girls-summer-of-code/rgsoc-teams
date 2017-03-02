@@ -12,6 +12,14 @@ class Ability
     can :crud, User, id: user.id
     can :crud, User if user.admin?
 
+    # visibility of email address in user profile
+    can :read_email, User, id: user.id if !user.hide_email?
+    can :read_email, User if user.admin?
+    can :read_email, User do |other_user|
+      (user.confirmed? && supervises?(other_user, user)) ||
+        (user.confirmed? && !other_user.hide_email?)
+    end
+
     can :crud, Team do |team|
       user.admin? or signed_in?(user) && team.new_record? or on_team?(user, team)
     end
@@ -74,6 +82,14 @@ class Ability
 
   def on_team_for_season?(user, season)
     season && user.roles.student.joins(:team).pluck(:season_id).include?(season.id)
+  end
+
+  def supervises?(user, supervisor)
+    is_supervisor = Array.new
+    user.teams.in_current_season.each do |team|
+      is_supervisor << team.supervisors.include?(supervisor)
+    end
+    is_supervisor.any?
   end
 
 end
