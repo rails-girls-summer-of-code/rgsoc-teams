@@ -137,7 +137,7 @@ RSpec.describe TeamsController do
     end
   end
 
-  describe "PUT update" do
+  describe "PATCH update" do
     before { sign_in user }
 
     context "their own team" do
@@ -146,30 +146,58 @@ RSpec.describe TeamsController do
       describe "with valid params" do
         it "updates the requested team" do
           expect_any_instance_of(Team).to receive(:update_attributes).with(ActionController::Parameters.new({ 'name' => 'Blue' }).permit(:name))
-          put :update, params: { id: team.to_param, team: { 'name' => 'Blue' } }
+          patch :update, params: { id: team.to_param, team: { 'name' => 'Blue' } }
         end
 
         it "assigns the requested team as @team" do
-          put :update, params: { id: team.to_param, team: valid_attributes }
+          patch :update, params: { id: team.to_param, team: valid_attributes }
           expect(assigns(:team)).to eq(team)
         end
 
         it "redirects to the team" do
-          put :update, params: { id: team.to_param, team: valid_attributes }
+          patch :update, params: { id: team.to_param, team: valid_attributes }
           expect(response).to redirect_to(team)
+        end
+
+        context 'with nested role attributes' do
+          let(:github_handle) { valid_attributes[:roles_attributes].first[:github_handle] }
+
+          let(:randomize_case) do
+            ->(string) do
+              string.each_char.inject('') { |str, c| str << c.send([:downcase, :upcase][rand(2)]) }
+            end
+          end
+
+          it 'creates a new user from github_handle' do
+            expect {
+              patch :update, params: { id: team.to_param, team: valid_attributes }
+            }.to change { User.count }.by 1
+
+            expect(User.last.github_handle).to eql github_handle
+          end
+
+          it 'finds an existing user by case-insensitive github_handle' do
+            existing_user = create :user, github_handle: randomize_case.(github_handle)
+            expect {
+              patch :update, params: { id: team.to_param, team: valid_attributes }
+            }.not_to change { User.count }
+
+            expect(Role.last.user).to eql existing_user
+          end
+
         end
       end
 
       describe "with invalid params" do
         it "assigns the team as @team" do
           allow_any_instance_of(Team).to receive(:save).and_return(false)
-          put :update, params: { id: team.to_param, team: { 'name' => 'invalid value' } }
+          patch :update, params: { id: team.to_param, team: { 'name' => 'invalid value' } }
           expect(assigns(:team)).to eq(team)
         end
 
         it "re-renders the 'edit' template" do
           allow_any_instance_of(Team).to receive(:save).and_return(false)
-          put :update, params: { id: team.to_param, team: { 'name' => 'invalid value' } }
+          patch :update, params: { id: team.to_param, team: { 'name' => 'invalid value' } }
           expect(response).to render_template("edit")
         end
       end
@@ -179,11 +207,11 @@ RSpec.describe TeamsController do
 
         it "does not update the requested team" do
           expect_any_instance_of(Team).not_to receive(:update_attributes)
-          put :update, params: { id: another_team.to_param, team: { 'name' => 'Blue' } }
+          patch :update, params: { id: another_team.to_param, team: { 'name' => 'Blue' } }
         end
 
         it "redirects the team to the homepage" do
-          put :update, params: { id: another_team.to_param, team: valid_attributes }
+          patch :update, params: { id: another_team.to_param, team: valid_attributes }
           expect(response).to redirect_to(root_url)
         end
       end
