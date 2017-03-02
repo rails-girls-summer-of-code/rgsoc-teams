@@ -162,6 +162,12 @@ RSpec.describe TeamsController do
         context 'with nested role attributes' do
           let(:github_handle) { valid_attributes[:roles_attributes].first[:github_handle] }
 
+          let(:randomize_case) do
+            ->(string) do
+              string.each_char.inject('') { |str, c| str << c.send([:downcase, :upcase][rand(2)]) }
+            end
+          end
+
           it 'creates a new user from github_handle' do
             expect {
               patch :update, params: { id: team.to_param, team: valid_attributes }
@@ -171,7 +177,7 @@ RSpec.describe TeamsController do
           end
 
           it 'finds an existing user by case-insensitive github_handle' do
-            existing_user = create :user, github_handle: github_handle.upcase
+            existing_user = create :user, github_handle: randomize_case.(github_handle)
             expect {
               patch :update, params: { id: team.to_param, team: valid_attributes }
             }.not_to change { User.count }

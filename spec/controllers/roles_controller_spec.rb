@@ -40,6 +40,12 @@ RSpec.describe RolesController do
     context "on their own team" do
       let!(:role) { create(:role, name: 'student', team: team, user: user) }
 
+      let(:randomize_case) do
+        ->(string) do
+          string.each_char.inject('') { |str, c| str << c.send([:downcase, :upcase][rand(2)]) }
+        end
+      end
+
       it "creates a new Role and a new User" do
         expect {
           expect { post :create, { params: params }, valid_session }.to change(Role, :count).by(1)
@@ -53,7 +59,7 @@ RSpec.describe RolesController do
 
       it 'creates a new Role for existing user with case-insensitive github_handle' do
         existing   = create(:user)
-        role_attrs = valid_attributes.merge(github_handle: existing.github_handle.upcase)
+        role_attrs = valid_attributes.merge(github_handle: randomize_case.(existing.github_handle))
 
         expect {
           expect { post :create, { params: params.merge(role: role_attrs) }, valid_session }.to change(Role, :count).by(1)
