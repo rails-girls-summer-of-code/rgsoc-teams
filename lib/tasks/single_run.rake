@@ -13,21 +13,23 @@ namespace :single_run do
     ApplicationDraft.in_current_season.includes(project1: :season, project2: :season).each do |draft|
       if in_wrong_season.(draft.project1)
         project = Project.in_current_season.find_by(name: draft.project1.name)
-        draft.update(project1: project)
+        draft.project1 = project
+        draft.save(validate: false)
 
         if app = draft.application
           app.application_data["project1_id"] = project.id.to_s
-          app.save
+          app.save(validate: false)
         end
       end
 
       if in_wrong_season.(draft.project2)
         project = Project.in_current_season.find_by(name: draft.project2.name)
-        draft.update(project2: project)
+        draft.project2 = project
+        draft.save(validate: false)
 
         if app = draft.application
           app.application_data["project2_id"] = project.id.to_s
-          app.save
+          app.save(validate: false)
         end
       end
     end
