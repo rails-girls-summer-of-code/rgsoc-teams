@@ -8,7 +8,7 @@ module Mentor
     attr_accessor :student0, :student1
     attr_accessor :first_choice
 
-    delegate :signed_off?, to: :persisted_application
+    delegate :signed_off?, :signed_off_at, to: :persisted_application
 
     def choice
       first_choice ? 1 : 2
