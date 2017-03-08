@@ -8,6 +8,11 @@ class Mentor::ApplicationsController < Mentor::BaseController
     @comment     = application.find_or_initialize_comment_by(current_user)
   end
 
+  def signoff
+    Application.find(application.id).sign_off! as: current_user
+    redirect_to action: :index
+  end
+
   private
 
   def projects

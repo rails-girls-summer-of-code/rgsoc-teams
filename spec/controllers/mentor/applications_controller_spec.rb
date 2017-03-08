@@ -1,11 +1,11 @@
 require 'spec_helper'
 
-describe Mentor::ApplicationsController do
+RSpec.describe Mentor::ApplicationsController do
   render_views
 
-  describe 'GET index' do
-    let(:user) { create(:user) }
+  let(:user) { create(:user) }
 
+  describe 'GET index' do
     context 'as an unauthenticated user' do
       it 'redirects to the landing page' do
         get :index
@@ -112,6 +112,43 @@ describe Mentor::ApplicationsController do
           params        = { id: application.id, choice: 1 }
 
           expect { get :show, params: params }.to raise_error(ActiveRecord::RecordNotFound)
+        end
+      end
+    end
+  end
+
+  describe 'PUT signoff' do
+    context 'as a project_maintainer of this season' do
+      let!(:project) { create(:project, :in_current_season, :accepted, submitter: user) }
+
+      before { sign_in user }
+
+      context 'for an application that they are a mentor of' do
+        let(:application) { create(:application, :in_current_season, :for_project, project1: project) }
+
+        it 'sets the sign-off timestamp' do
+          expect { put :signoff, params: { id: application.id } }
+            .to change { application.reload.signed_off_at }.from nil
+        end
+
+        it 'set persists the mentor who signed-off' do
+          expect { put :signoff, params: { id: application.id } }
+            .to change { application.reload.signatory }.to user
+        end
+
+        it 'redirects back to index' do
+          put :signoff, params: { id: application.id }
+          expect(response).to redirect_to mentor_applications_path
+        end
+      end
+
+      context 'when not maintaining the project' do
+        it 'returns a 404' do
+          other_project = create(:project, :in_current_season, :accepted)
+          application   = create(:application, :in_current_season, :for_project, project1: other_project)
+
+          expect { put :signoff, params: { id: application.id } }
+            .to raise_error(ActiveRecord::RecordNotFound)
         end
       end
     end
