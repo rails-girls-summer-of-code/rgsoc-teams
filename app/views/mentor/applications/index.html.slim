@@ -9,15 +9,16 @@ table.applications.table.table-striped.table-bordered.table-condensed.table-hove
     tr
       th Application (Team)
       th Project
-      th Choice
       th Sign-off
       th Fav
   tbody
     - @applications.each do |application|
       tr
         td = link_to application.team_name, mentor_application_path(id: application.id)
-        td = link_to application.project_name, project_path(application.project_id)
-        td = icon('star') if application.first_choice
+        td
+          = link_to application.project_name, project_path(application.project_id)
+          - if application.first_choice
+            |&nbsp;#{icon('star')}
         td = link_to icon('ok') + " Sign-off", '#', class: 'btn btn-primary'
         td = link_to icon('heart') + " Favorite", '#', class: 'btn btn-success'
 p
