@@ -19,8 +19,8 @@ table.applications.table.table-striped.table-bordered.table-condensed.table-hove
           = link_to application.project_name, project_path(application.project_id)
           - if application.first_choice
             |&nbsp;#{icon('star')}
-        td = link_to icon('ok') + " Sign-off", '#', class: 'btn btn-primary'
-        td = link_to icon('heart') + " Favorite", '#', class: 'btn btn-success'
+        td = link_to icon('ok'), '#', class: 'btn btn-primary', data: { confirm: 'By signing-off this application, you deem this team fit to work on your project and that they meet the requirements. Proceed?' }
+        td = link_to icon('heart'), '#', class: 'btn btn-success', data: { confirm: 'By fav\'ing this application, you declare that this would be one of your preferred teams. You can fav more than one application. Proceed?' }
 p
   i Teams may apply for two projects. Their second choice serves as a fallback if they do not get accepted for the first one
   br
