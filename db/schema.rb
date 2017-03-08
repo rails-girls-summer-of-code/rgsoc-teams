@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170228220934) do
+ActiveRecord::Schema.define(version: 20170308224946) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -83,6 +83,7 @@ ActiveRecord::Schema.define(version: 20170228220934) do
     t.integer  "signed_off_by"
     t.datetime "signed_off_at"
     t.integer  "project_id"
+    t.boolean  "mentor_fav"
     t.index "((application_data -> 'project1_id'::text))", name: "application_data_project1_id", using: :btree
     t.index "((application_data -> 'project2_id'::text))", name: "application_data_project2_id", using: :btree
     t.index ["application_draft_id"], name: "index_applications_on_application_draft_id", using: :btree
