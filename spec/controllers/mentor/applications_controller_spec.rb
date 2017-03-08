@@ -154,4 +154,38 @@ RSpec.describe Mentor::ApplicationsController do
       end
     end
   end
+
+  describe 'PUT fav' do
+    context 'as a project_maintainer of this season' do
+      let!(:project) { create(:project, :in_current_season, :accepted, submitter: user) }
+
+      before { sign_in user }
+
+      context 'for an application that they are a mentor of' do
+        let(:application) { create(:application, :in_current_season, :for_project, project1: project) }
+
+        it 'sets the mentor_fav flag' do
+          expect { put :fav, params: { id: application.id } }
+            .to change { application.reload.mentor_fav }.to true
+        end
+
+        it 'redirects back to index' do
+          put :fav, params: { id: application.id }
+          expect(response).to redirect_to mentor_applications_path
+          expect(flash[:notice]).to be_present
+        end
+      end
+
+      context 'when not maintaining the project' do
+        it 'returns a 404' do
+          other_project = create(:project, :in_current_season, :accepted)
+          application   = create(:application, :in_current_season, :for_project, project1: other_project)
+
+          expect { put :fav, params: { id: application.id } }
+            .to raise_error(ActiveRecord::RecordNotFound)
+        end
+      end
+    end
+
+  end
 end

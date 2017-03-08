@@ -112,7 +112,10 @@ RgsocTeams::Application.routes.draw do
 
   namespace :mentor do
     resources :applications, only: [:index, :show] do
-      put :signoff, on: :member
+      member do
+        put :fav
+        put :signoff
+      end
     end
     resources :comments, only: [:create, :update]
   end

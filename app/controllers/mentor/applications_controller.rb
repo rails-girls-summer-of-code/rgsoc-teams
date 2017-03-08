@@ -15,6 +15,13 @@ class Mentor::ApplicationsController < Mentor::BaseController
     redirect_to action: :index
   end
 
+  def fav
+    @application = Application.find(application.id)
+    @application.update_attribute(:mentor_fav, true)
+    flash[:notice] = "Successfully fav'ed #{@application.team.name}'s application."
+    redirect_to action: :index
+  end
+
   private
 
   def projects
