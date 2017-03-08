@@ -29,6 +29,10 @@ module Mentor
         user:             mentor)
     end
 
+    def persisted?
+      true
+    end
+
     private
 
     # Converts arguments to a format suitable for initializing a Mentor::Student object.

@@ -206,4 +206,11 @@ describe Mentor::Application do
       expect(subject).to be_a_new(Mentor::Comment)
     end
   end
+
+  describe '#to_param' do
+    it 'returns the underlying active record id' do
+      subject.id = 4711
+      expect(subject.to_param).to eql '4711'
+    end
+  end
 end
