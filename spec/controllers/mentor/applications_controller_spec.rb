@@ -139,6 +139,7 @@ RSpec.describe Mentor::ApplicationsController do
         it 'redirects back to index' do
           put :signoff, params: { id: application.id }
           expect(response).to redirect_to mentor_applications_path
+          expect(flash[:notice]).to be_present
         end
       end
 
