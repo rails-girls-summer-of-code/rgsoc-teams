@@ -213,4 +213,20 @@ describe Mentor::Application do
       expect(subject.to_param).to eql '4711'
     end
   end
+
+  describe '#signed_off?' do
+    let!(:application) { create(:application, :in_current_season, :for_project, project1: project1) }
+    let!(:project1)    { create(:project, :in_current_season) }
+
+    subject { described_class.new id: application.id }
+
+    context 'with a signed-off application database record' do
+      before { application.sign_off! }
+      it { is_expected.to be_signed_off }
+    end
+
+    context 'when the underlying application database record is not yet sign-off' do
+      it { is_expected.not_to be_signed_off }
+    end
+  end
 end
