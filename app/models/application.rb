@@ -121,7 +121,7 @@ class Application < ActiveRecord::Base
   end
 
   def country
-    @country ||= super.present? ? super : team.students.map(&:country).reject(&:blank?).join(', ')
+    @country ||= super.present? ? super : (team || Team.new).students.map(&:country).reject(&:blank?).join(', ')
   end
 
   def location
