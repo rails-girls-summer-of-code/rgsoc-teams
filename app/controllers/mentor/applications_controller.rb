@@ -9,16 +9,16 @@ class Mentor::ApplicationsController < Mentor::BaseController
   end
 
   def signoff
-    @application = Application.find(application.id)
-    @application.sign_off! as: current_user
-    flash[:notice] = "Successfully signed-off #{@application.team.name}'s application."
+    @application = application
+    Application.find(@application.id).sign_off! as: current_user
+    flash[:notice] = "Successfully signed-off #{@application.team_name}'s application."
     redirect_to action: :index
   end
 
   def fav
-    @application = Application.find(application.id)
-    @application.update_attribute(:mentor_fav, true)
-    flash[:notice] = "Successfully fav'ed #{@application.team.name}'s application."
+    @application = application
+    Application.find(@application.id).update_attribute(:mentor_fav, true)
+    flash[:notice] = "Successfully fav'ed #{@application.team_name}'s application."
     redirect_to action: :index
   end
 
