@@ -8,6 +8,8 @@ module Mentor
     attr_accessor :student0, :student1
     attr_accessor :first_choice
 
+    delegate :mentor_fav?, :signed_off?, :signed_off_at, to: :persisted_application
+
     def choice
       first_choice ? 1 : 2
     end
@@ -29,6 +31,10 @@ module Mentor
         user:             mentor)
     end
 
+    def persisted?
+      true
+    end
+
     private
 
     # Converts arguments to a format suitable for initializing a Mentor::Student object.
@@ -37,6 +43,10 @@ module Mentor
     # @return [Hash] arguments in correct format
     def studentize(attrs)
       attrs.tap { |a| a.keys.each{ |k| a[k.gsub(/student(0|1)_application_/, '')] = a.delete(k) } }
+    end
+
+    def persisted_application
+      @persisted_application ||= ::Application.find id
     end
 
     class << self

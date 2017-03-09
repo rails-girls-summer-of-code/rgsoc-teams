@@ -9,15 +9,26 @@ table.applications.table.table-striped.table-bordered.table-condensed.table-hove
     tr
       th Application (Team)
       th Project
-      th Choice
+      th Sign-off
       th Fav
   tbody
     - @applications.each do |application|
       tr
         td = link_to application.team_name, mentor_application_path(id: application.id)
-        td = link_to application.project_name, project_path(application.project_id)
-        td = icon('star') if application.first_choice
-        td = application.project_plan
+        td
+          = link_to application.project_name, project_path(application.project_id)
+          - if application.first_choice
+            |&nbsp;#{icon('star')}
+        td
+          - if application.signed_off?
+            = content_tag :em, icon('ok'), class: 'btn btn-disabled', disabled: true, title: "Signed-off at #{l application.signed_off_at}"
+          - else
+            = link_to icon('ok'), signoff_mentor_application_path(application), method: :put, class: 'btn btn-primary', data: { confirm: 'By signing-off this application, you deem this team fit to work on your project and that they meet the requirements. This cannot be undone. Proceed?' }
+        td
+          - if application.mentor_fav?
+            = content_tag :em, icon('heart'), class: 'btn btn-disabled', disabled: true, title: "Marked as one of your favorites"
+          - else
+            = link_to icon('heart'), fav_mentor_application_path(application), method: :put, class: 'btn btn-success', data: { confirm: 'By fav\'ing this application, you declare that this would be one of your preferred teams. You can fav more than one application. This cannot be undone. Proceed?' }
 p
   i Teams may apply for two projects. Their second choice serves as a fallback if they do not get accepted for the first one
   br
