@@ -43,6 +43,7 @@ en:
         student1_application_giving_back: What do you think you could give back to the community? (2nd student)
         student0_application_language_learning_period: For how many months have you been learning the language of your primary project? (1st student)
         student1_application_language_learning_period: For how many months have you been learning the language of your primary project? (2nd student)
+        student_application_language_learning_period: For how many months have you been learning the language of your primary project?
         student_application_learning_history: What you have been doing to learn programming
         student0_application_learning_history: What you have been doing to learn programming (1st student)
         student1_application_learning_history: What you have been doing to learn programming (2nd student)

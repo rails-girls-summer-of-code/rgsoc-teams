@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'github/user'
 
 class User < ActiveRecord::Base
@@ -77,6 +78,10 @@ class User < ActiveRecord::Base
 
     def organizer
       where(name: 'organizer')
+    end
+
+    def reviewer
+      where(name: 'reviewer')
     end
 
     def supervisor
@@ -178,6 +183,10 @@ class User < ActiveRecord::Base
 
   def project_maintainer?
     Project.accepted.where(submitter: self).any?
+  end
+
+  def reviewer?
+    roles.reviewer.any?
   end
 
   def supervisor?
