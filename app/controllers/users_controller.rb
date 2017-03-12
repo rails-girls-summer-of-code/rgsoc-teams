@@ -120,6 +120,7 @@ class UsersController < ApplicationController
         interested_in: [],
         attendances_attributes: [:id, :conference_id, :_destroy],
         roles_attributes: [:id, :name, :team_id, :_destroy]
+	
       )
     end
 

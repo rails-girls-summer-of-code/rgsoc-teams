@@ -35,6 +35,7 @@ table.users.table.table-striped.table-bordered.table-condensed.table-hover
           td = mail_to user.email unless user.hide_email?
         td = link_to user.github_handle, "https://github.com/#{user.github_handle}"
         td = link_to_user_roles(user)
+	
         td = user.country
         td = user.location
         td = time_for_user(user)

@@ -50,28 +50,29 @@
   = f.input :company_name, label: 'Company name'
   = f.input :company_info, label: 'Company info', hint: 'Where is the office, how much space can you provide, etc.'
   = f.input :bio, label: 'About you', hint: 'You can use basic <a href="http://en.wikipedia.org/wiki/Markdown" target="_blank">Markdown</a> here.'.html_safe
+
+  h3.page-header Technical Skills:
+  = f.input :tags, wrapper_html: { class: 'col-md-6' }, placeholder: 'Languages, techniques, etc involved', label: 'Technical_Expertise', hint: 'Separate tags by comma.'
+  = f.input :tags1, wrapper_html: { class: 'col-md-6' }, placeholder: 'Languages, techniques, etc involved', label: 'Technical_Interests', hint: 'Separate tags by comma.'
+
   h3.page-header I am interested in:
 
   = f.collection_check_boxes :interested_in, User::INTERESTS.to_a, :first, :last, item_wrapper_tag: 'div', item_wrapper_class: 'interested_in'
 
-  - if current_season.started?
-    - if Conference.any?
-      h3.page-header Conferences
-      p.help-block Here you can select your preferred conferences (max. 3) for the conference raffle.
-      fieldset.conferences
-        .header
-          label Conference
-        = f.simple_fields_for :attendances do |s|
-          = s.input :conference_id, as: :select, collection: conferences, required: false, label: false, default: 1
+  
 
-          = s.link_to_remove 'Remove'
-        = f.link_to_add 'I want to add another conference!', :attendances, class: 'btn btn-primary form-btn-group'
+  .actions
+    ul.list-inline
+      li = f.submit 'Save', class: 'btn btn-success'
+      li = link_to 'Cancel', @user, class: 'btn btn-default'
 
-  h3.page-header Private information
+
+    h3.page-header Private information
   p.help-block This information will only be visible to yourself and the organizers.
   = f.input :tshirt_size, as: :select, collection: User::TSHIRT_SIZES.map { |k| [k, k] }, label: 'T-Shirt size', blank: false, required: false, hint: 'For sponsor T-Shirts, in case they send some.'
   = f.input :postal_address, hint: "Please give your postal address so we can send things we've received from our sponsors for you :)"
 
+  
   - if admin?
     h3.page-header Roles
     = f.simple_fields_for :roles do |r|
@@ -84,3 +85,4 @@
     ul.list-inline
       li = f.submit 'Save', class: 'btn btn-success'
       li = link_to 'Cancel', @user, class: 'btn btn-default'
+
