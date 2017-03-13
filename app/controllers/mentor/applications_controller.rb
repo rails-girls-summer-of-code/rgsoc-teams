@@ -10,8 +10,14 @@ class Mentor::ApplicationsController < Mentor::BaseController
   end
 
   def signoff
-    Application.find(@application.id).sign_off! as: current_user
-    flash[:notice] = "Successfully signed-off #{@application.team_name}'s application."
+    app = Application.find(@application.id)
+    if app.signed_off?
+      app.update!(signed_off_at: nil, signatory: nil)
+      flash[:notice] = "You revoked your sign-off of #{@application.team_name}'s application."
+    else
+      app.sign_off! as: current_user
+      flash[:notice] = "Successfully signed-off #{@application.team_name}'s application."
+    end
     redirect_to action: :index
   end
 

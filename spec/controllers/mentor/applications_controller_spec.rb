@@ -141,6 +141,20 @@ RSpec.describe Mentor::ApplicationsController do
           expect(response).to redirect_to mentor_applications_path
           expect(flash[:notice]).to be_present
         end
+
+        context 'undo\'ing the sign-off' do
+          before { application.sign_off! as: user }
+
+          it 'sets the sign-off timestamp' do
+            expect { put :signoff, params: { id: application.id } }
+              .to change { application.reload.signed_off_at }.to nil
+          end
+
+          it 'set persists the mentor who signed-off' do
+            expect { put :signoff, params: { id: application.id } }
+              .to change { application.reload.signatory }.to nil
+          end
+        end
       end
 
       context 'when not maintaining the project' do
