@@ -10,15 +10,25 @@ class Mentor::ApplicationsController < Mentor::BaseController
   end
 
   def signoff
-    Application.find(@application.id).sign_off! as: current_user
-    flash[:notice] = "Successfully signed-off #{@application.team_name}'s application."
-    redirect_to action: :index
+    app = Application.find(@application.id)
+    msg = if app.signed_off?
+            app.update!(signed_off_at: nil, signatory: nil)
+            "You revoked your sign-off of #{@application.team_name}'s application."
+          else
+            app.sign_off! as: current_user
+            "Successfully signed-off #{@application.team_name}'s application."
+          end
+    redirect_to url_for(action: :index), notice: msg
   end
 
   def fav
-    Application.find(@application.id).update_attribute(:mentor_fav, true)
-    flash[:notice] = "Successfully fav'ed #{@application.team_name}'s application."
-    redirect_to action: :index
+    app = Application.find(@application.id).tap { |a| a.toggle! :mentor_fav }
+    msg = if app.mentor_fav?
+            "Successfully fav'ed #{@application.team_name}'s application."
+          else
+            "Revoked your preference for #{@application.team_name}'s application."
+          end
+    redirect_to url_for(action: :index), notice: msg
   end
 
   private
