@@ -21,12 +21,12 @@ table.applications.table.table-striped.table-bordered.table-condensed.table-hove
             |&nbsp;#{icon('star')}
         td
           - if application.signed_off?
-            = content_tag :em, icon('ok'), class: 'btn btn-disabled', disabled: true, title: "Signed-off at #{l application.signed_off_at}"
+            = link_to icon('ok'), signoff_mentor_application_path(application), method: :put, class: 'btn', title: "Signed-off at #{l application.signed_off_at}", data: { confirm: 'You are about to undo your sign-off. Proceed?' }
           - else
-            = link_to icon('ok'), signoff_mentor_application_path(application), method: :put, class: 'btn btn-primary', data: { confirm: 'By signing-off this application, you deem this team fit to work on your project and that they meet the requirements. This cannot be undone. Proceed?' }
+            = link_to icon('ok'), signoff_mentor_application_path(application), method: :put, class: 'btn btn-primary', data: { confirm: 'By signing-off this application, you deem this team fit to work on your project and that they meet the requirements. Proceed?' }
         td
           - if application.mentor_fav?
-            = content_tag :em, icon('heart'), class: 'btn btn-disabled', disabled: true, title: "Marked as one of your favorites"
+            = link_to icon('heart'), fav_mentor_application_path(application), method: :put, class: 'btn', title: "Marked as one of your favorites", data: { confirm: 'You are about to remove your preference for this team. Proceed?' }
           - else
             = link_to icon('heart'), fav_mentor_application_path(application), method: :put, class: 'btn btn-success', data: { confirm: 'By fav\'ing this application, you declare that this would be one of your preferred teams. You can fav more than one application. This cannot be undone. Proceed?' }
 p
