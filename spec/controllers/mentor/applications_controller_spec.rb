@@ -25,15 +25,22 @@ RSpec.describe Mentor::ApplicationsController do
       before { sign_in user }
 
       context 'with appliations for this season' do
-        it 'renders and index view with applications for projects submitted by the mentor' do
-          project = create(:project, :in_current_season, :accepted, submitter: user)
-          create(:application, :in_current_season, :for_project, project1: project)
+        let!(:application) { create(:application, :in_current_season, :for_project, project1: project) }
+        let!(:project) { create(:project, :in_current_season, :accepted, submitter: user) }
 
+        it 'renders and index view with applications for projects submitted by the mentor' do
           get :index
 
           expect(assigns :applications).not_to be_empty
           expect(assigns :applications).to all( be_a(Mentor::Application) )
           expect(response).to render_template :index
+        end
+
+        it 'shows the comments' do
+          Mentor::Comment.create! commentable_id: application.id, user: user, text: "Tis a nice application indeed"
+          get :index
+
+          expect(response.body).to match "Tis a nice application indeed"
         end
       end
 
