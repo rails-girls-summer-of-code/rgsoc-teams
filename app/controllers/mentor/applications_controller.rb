@@ -16,8 +16,12 @@ class Mentor::ApplicationsController < Mentor::BaseController
   end
 
   def fav
-    Application.find(@application.id).update_attribute(:mentor_fav, true)
-    flash[:notice] = "Successfully fav'ed #{@application.team_name}'s application."
+    app = Application.find(@application.id).tap { |a| a.toggle! :mentor_fav }
+    if app.mentor_fav?
+      flash[:notice] = "Successfully fav'ed #{@application.team_name}'s application."
+    else
+      flash[:notice] = "Revoked your preference for #{@application.team_name}'s application."
+    end
     redirect_to action: :index
   end
 

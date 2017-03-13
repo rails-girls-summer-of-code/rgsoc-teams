@@ -174,6 +174,14 @@ RSpec.describe Mentor::ApplicationsController do
           expect(response).to redirect_to mentor_applications_path
           expect(flash[:notice]).to be_present
         end
+
+        it 'revokes a previous fav' do
+          application.toggle! :mentor_fav
+          expect { put :fav, params: { id: application.id } }
+            .to change { application.reload.mentor_fav }.to false
+          expect(response).to redirect_to mentor_applications_path
+          expect(flash[:notice]).to be_present
+        end
       end
 
       context 'when not maintaining the project' do
