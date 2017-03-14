@@ -45,8 +45,17 @@ class Mentor::ApplicationsController < Mentor::BaseController
   end
 
   def applications
-    first_choice + second_choice
+    @applications ||= first_choice + second_choice
   end
+
+  def comments
+    @comments ||= Mentor::Comment.where(commentable_id: applications.map(&:id))
+  end
+
+  def comment_for(application)
+    comments.find { |comment| comment.commentable_id == application.id }
+  end
+  helper_method :comment_for
 
   def first_choice
     Mentor::Application.all_for(projects: projects, choice: 1)
