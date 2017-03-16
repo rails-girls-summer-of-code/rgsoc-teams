@@ -27,17 +27,17 @@ FactoryGirl.define do
         'why_selected_project1': FFaker::Lorem.paragraph,
         'why_selected_project2': (project2.nil? ? FFaker::Lorem.paragraph : ''),
 
-        "student0_application_coding_level": "1",
-        "student0_application_code_samples": FFaker::Lorem.paragraph,
-        "student0_application_learning_history": FFaker::Lorem.paragraph,
-        "student0_application_skills": FFaker::Lorem.paragraph,
-        "student0_application_language_learning_period": User::MONTHS_LEARNING.sample,
+        'student0_application_coding_level': '1',
+        'student0_application_code_samples': FFaker::Lorem.paragraph,
+        'student0_application_learning_history': FFaker::Lorem.paragraph,
+        'student0_application_skills': FFaker::Lorem.paragraph,
+        'student0_application_language_learning_period': User::MONTHS_LEARNING.sample,
 
-        "student1_application_coding_level": "5",
-        "student1_application_code_samples": FFaker::Lorem.paragraph,
-        "student1_application_learning_history": FFaker::Lorem.paragraph,
-        "student1_application_skills": FFaker::Lorem.paragraph,
-        "student1_application_language_learning_period": User::MONTHS_LEARNING.sample
+        'student1_application_coding_level': '5',
+        'student1_application_code_samples': FFaker::Lorem.paragraph,
+        'student1_application_learning_history': FFaker::Lorem.paragraph,
+        'student1_application_skills': FFaker::Lorem.paragraph,
+        'student1_application_language_learning_period': User::MONTHS_LEARNING.sample
       }}
     end
   end
