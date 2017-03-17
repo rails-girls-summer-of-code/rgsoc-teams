@@ -1,10 +1,6 @@
 = favicon_link_tag 'favicons/favicon.ico'
 
-- %w(57 60 72 76 114 120 144 152 180).each do |size|
-  = favicon_link_tag "favicons/apple-touch-icon-#{size}x#{size}.png", rel: 'apple-touch-icon', type: 'image/png', sizes: "#{size}x#{size}"
-  
-- %w(16 32).each do |size|
-  = favicon_link_tag "favicons/favicon-#{size}x#{size}.png", rel: 'icon', type: 'image/png', sizes: "#{size}x#{size}"
-  
-- %w(36 48 72 96 144 192 256 384 512).each do |size|
-  = favicon_link_tag "favicons/android-chrome-#{size}x#{size}.png", rel: 'icon', type: 'image/png', sizes: "#{size}x#{size}"
+= favicon_link_tag 'favicons/favicon-16x16.png', rel: 'icon', type: 'image/png', sizes: '16x16'
+= favicon_link_tag 'favicons/favicon-32x32.png', rel: 'icon', type: 'image/png', sizes: '32x32'
+
+= favicon_link_tag "favicons/apple-touch-icon.png", rel: 'apple-touch-icon', type: 'image/png'
