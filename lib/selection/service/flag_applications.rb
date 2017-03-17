@@ -2,8 +2,9 @@ module Selection
   module Service
     class FlagApplications
       FLAGS           = %w(remote_team male_gender age_below_18 less_than_two_coaches)
-      LOCATION_FIELDS = %w(student0_application_location student1_application_location)
-      CITY_MATCHER    = ->(location) { location.downcase.scan(/\w+/).values_at(0, -1) }
+      STUDENT0_COORDS = %w(student0_application_location_lat student0_application_location_lng)
+      STUDENT1_COORDS = %w(student1_application_location_lat student1_application_location_lng)
+      CITY_THRESH     = 100
       GENDER_FIELDS   = %w(student0_application_gender_identification student1_application_gender_identification)
       MALE_MATCHER    = ->(a) { a =~ /\A\s*male\z|\A\s*man\z|\A\s*men\z|\A\s*guy\z/i }
       AGE_FIELDS      = %w(student0_application_age student1_application_age)
@@ -37,8 +38,13 @@ module Selection
         FLAGS.map { |flag| flag if send(flag) }.compact
       end
 
+      # Checks if the distance between the students' locations.
+      # Skip checking if the data for one of them is missing.
       def remote_team
-        data.values_at(*LOCATION_FIELDS).uniq(&CITY_MATCHER).size > 1
+        location0 = data.values_at(*STUDENT0_COORDS).compact
+        location1 = data.values_at(*STUDENT1_COORDS).compact
+        return false if location0.empty? || location1.empty?
+        Distance.new(location0, location1).to_km > CITY_THRESH
       end
 
       def male_gender

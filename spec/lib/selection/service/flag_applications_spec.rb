@@ -4,12 +4,14 @@ require 'selection/service/flag_applications'
 describe Selection::Service::FlagApplications do
   let(:valid_data) do
     {
-      'student0_application_location':              'Melbourne, Australia',
-      'student1_application_location':              'Melbourne, Australia',
+      'student0_application_location_lat':          '30.1279442',
+      'student0_application_location_lng':          '31.3300184',
+      'student1_application_location_lat':          '30.0444196',
+      'student1_application_location_lng':          '31.2357116',
       'student0_application_gender_identification': 'Female',
       'student1_application_gender_identification': 'Female',
-      'student0_application_age': '22-30',
-      'student1_application_age': '22-30',
+      'student0_application_age':                   '22-30',
+      'student1_application_age':                   '22-30',
     }
   end
 
@@ -18,7 +20,7 @@ describe Selection::Service::FlagApplications do
 
   subject { described_class.new.call }
 
-  context 'when valid application' do
+  context 'when data matches requirements' do
     let!(:application) { create(:application, :in_current_season, team: team, application_data: valid_data) }
 
     it 'does not flag application' do
@@ -26,26 +28,28 @@ describe Selection::Service::FlagApplications do
     end
   end
 
-  context 'when students in different cities' do
-    context 'in the same country' do
-      let(:data)         { valid_data.tap { |d| d['student1_application_location'] = 'Sydney, Australia' } }
-      let!(:application) { create(:application, :in_current_season, team: team, application_data: data) }
+  context 'when locations too far from each other' do
+    let(:data)         { valid_data.tap { |d| d['student0_application_location_lat'] = '31' } }
+    let!(:application) { create(:application, :in_current_season, team: team, application_data: data) }
 
-      it 'flags application as remote' do
-        expect { subject }
-          .to change { application.reload.flags }
-          .from([]).to contain_exactly('remote_team')
+    it 'flags application as remote' do
+      expect { subject }
+        .to change { application.reload.flags }
+        .from([]).to contain_exactly('remote_team')
+    end
+  end
+
+  context 'when location data missing' do
+    let(:data) do
+      valid_data.tap do |d|
+        d['student0_application_location_lat'] = nil
+        d['student0_application_location_lng'] = nil
       end
     end
-    context 'in different countries' do
-      let(:data)         { valid_data.tap { |d| d['student1_application_location'] = 'Melbourne, Aus, USA' } }
-      let!(:application) { create(:application, :in_current_season, team: team, application_data: data) }
+    let!(:application) { create(:application, :in_current_season, team: team, application_data: data) }
 
-      it 'flags application as remote' do
-        expect { subject }
-          .to change { application.reload.flags }
-          .from([]).to contain_exactly('remote_team')
-      end
+    it 'does not flag application as remote' do
+      expect { subject }.not_to change { application.reload.flags }
     end
   end
 
@@ -87,12 +91,14 @@ describe Selection::Service::FlagApplications do
     let!(:application) { create(:application, :in_current_season, team: team, application_data: data) }
     let(:data) do
       {
-        'student0_application_location':              'random',
-        'student1_application_location':              'Melbourne, Australia',
+        'student0_application_location_lat':          '31.0',
+        'student0_application_location_lng':          '31.',
+        'student1_application_location_lat':          '30.',
+        'student1_application_location_lng':          '31.',
         'student0_application_gender_identification': 'Female',
         'student1_application_gender_identification': 'Male',
-        'student0_application_age': '40-50',
-        'student1_application_age': '22-30',
+        'student0_application_age':                   '22-30',
+        'student1_application_age':                   '70-80',
       }
     end
 
