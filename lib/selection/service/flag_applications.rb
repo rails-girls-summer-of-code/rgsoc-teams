@@ -1,3 +1,5 @@
+require 'selection/distance'
+
 module Selection
   module Service
     class FlagApplications
