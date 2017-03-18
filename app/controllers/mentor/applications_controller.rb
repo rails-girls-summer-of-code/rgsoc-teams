@@ -21,11 +21,12 @@ class Mentor::ApplicationsController < Mentor::BaseController
   end
 
   def fav
-    app = Application.find(@application.id).tap { |a| a.toggle! :mentor_fav }
-    msg = if app.mentor_fav?
-            "Successfully fav'ed #{@application.team_name}'s application."
+    msg = if application.mentor_fav?
+            application.revoke_mentor_fav!
+            "Revoked your preference for #{application.team_name}'s application."
           else
-            "Revoked your preference for #{@application.team_name}'s application."
+            application.mentor_fav!
+            "Successfully fav'ed #{application.team_name}'s application."
           end
     redirect_to url_for(action: :index), notice: msg
   end

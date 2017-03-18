@@ -5,8 +5,8 @@ module Mentor
     attr_accessor :id, :team_name
     attr_accessor :project_id, :project_name
     attr_accessor :project_plan, :why_selected_project
-    attr_accessor :signed_off_by, :mentor_fav
-    attr_reader   :signed_off_at
+    attr_accessor :signed_off_by
+    attr_reader   :signed_off_at, :mentor_fav
     attr_accessor :student0, :student1
     attr_accessor :first_choice
 
@@ -31,10 +31,26 @@ module Mentor
         user:             mentor)
     end
 
-    alias mentor_fav? mentor_fav
+    def mentor_fav?
+      !!mentor_fav
+    end
+
+    def mentor_fav=(value)
+      @mentor_fav = %w(1 true t).include?(value)
+    end
 
     def signed_off?
       !!signed_off_at
+    end
+
+    def mentor_fav!
+      self.mentor_fav = persisted_application.application_data["mentor_fav_project#{choice}"] = true
+      persisted_application.save!
+    end
+
+    def revoke_mentor_fav!
+      self.mentor_fav = persisted_application.application_data["mentor_fav_project#{choice}"] = false
+      persisted_application.save!
     end
 
     def sign_off!(as: nil)
