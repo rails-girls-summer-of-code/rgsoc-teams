@@ -37,6 +37,18 @@ module Mentor
       !!signed_off_at
     end
 
+    def sign_off!(as: nil)
+      persisted_application.application_data["signed_off_at_project#{choice}"] = Time.now.utc
+      persisted_application.application_data["signed_off_by_project#{choice}"] = as
+      persisted_application.save
+    end
+
+    def revoke_sign_off!
+      persisted_application.application_data["signed_off_at_project#{choice}"] = nil
+      persisted_application.application_data["signed_off_by_project#{choice}"] = nil
+      persisted_application.save
+    end
+
     def signed_off_at=(time)
       @signed_off_at = case time
                        when String then DateTime.parse(time)
