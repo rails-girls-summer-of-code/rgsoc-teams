@@ -49,7 +49,7 @@ class Mentor::ApplicationsController < Mentor::BaseController
   end
 
   def comments
-    @comments ||= Mentor::Comment.where(commentable_id: applications.map(&:id))
+    @comments ||= Mentor::Comment.where(commentable_id: applications.map(&:id), user: current_user)
   end
 
   def comment_for(application)
