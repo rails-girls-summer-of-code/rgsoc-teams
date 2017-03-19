@@ -2,13 +2,14 @@ module Mentor
   class Application
     include ActiveModel::Model
 
-    attr_accessor :id, :team_name
-    attr_accessor :project_id, :project_name
-    attr_accessor :project_plan, :why_selected_project
-    attr_accessor :signed_off_by
-    attr_reader   :signed_off_at, :mentor_fav
-    attr_accessor :student0, :student1
-    attr_accessor :first_choice
+    attr_accessor :id,
+                  :team_name,
+                  :project_id, :project_name,
+                  :project_plan, :why_selected_project,
+                  :signed_off_by,
+                  :student0, :student1,
+                  :first_choice
+    attr_reader :signed_off_at, :mentor_fav
 
     def choice
       first_choice ? 1 : 2
@@ -53,9 +54,9 @@ module Mentor
       persisted_application.save!
     end
 
-    def sign_off!(as: nil)
+    def sign_off!(as:)
       persisted_application.application_data["signed_off_at_project#{choice}"] = Time.now.utc
-      persisted_application.application_data["signed_off_by_project#{choice}"] = as
+      persisted_application.application_data["signed_off_by_project#{choice}"] = as.id
       persisted_application.save
     end
 
@@ -72,10 +73,6 @@ module Mentor
                        end
     end
 
-    def signatory
-      @signatory ||= User.find(signed_off_by) if signed_off_by.present?
-    end
-
     def persisted?
       true
     end
@@ -87,7 +84,7 @@ module Mentor
     # @param attrs [Hash] arguments in wrong format
     # @return [Hash] arguments in correct format
     def studentize(attrs)
-      attrs.tap { |a| a.keys.each{ |k| a[k.gsub(/student(0|1)_application_/, '')] = a.delete(k) } }
+      attrs.tap { |a| a.keys.each{ |k| a[k.sub(/student(0|1)_application_/, '')] = a.delete(k) } }
     end
 
     def persisted_application
