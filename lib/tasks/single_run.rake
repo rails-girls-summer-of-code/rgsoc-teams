@@ -34,4 +34,22 @@ namespace :single_run do
       end
     end
   end
+
+  desc '2017-03-20: Remap mentor sign-offs to the right project'
+  task remap_mentor_sign_offs_to_the_right_project: :environment do
+    applications = Application
+      .where(season: Season.current)
+      .where.not(team: nil, signed_off_at: nil)
+
+    applications.find_each do |application|
+      project1_id = application.application_data['project1_id'].to_i
+      mentor_id   = application.signed_off_by
+      project_ids = Project.in_current_season.where(submitter_id: mentor_id).ids
+      choice      = project_ids.include?(project1_id) ? 1 : 2
+
+      application.application_data["signed_off_at_project#{choice}"] = application.signed_off_at
+      application.application_data["signed_off_by_project#{choice}"] = mentor_id
+      application.save
+    end
+  end
 end
