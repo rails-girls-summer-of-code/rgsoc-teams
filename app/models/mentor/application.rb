@@ -163,7 +163,7 @@ module Mentor
           projects.name AS project_name,
           (application_data -> :project_id)::int AS project_id,
           application_data -> :signed_off_at AS signed_off_at,
-          application_data -> :signed_off_by AS signed_off_by,
+          (application_data -> :signed_off_by)::int AS signed_off_by,
           application_data -> :mentor_fav AS mentor_fav,
           CASE WHEN :project_id::text = 'project1_id' THEN TRUE ELSE FALSE END AS first_choice
           FROM applications
@@ -193,7 +193,7 @@ module Mentor
           application_data -> :project_plan AS project_plan,
           application_data -> :why_selected_project AS why_selected_project,
           application_data -> :signed_off_at AS signed_off_at,
-          application_data -> :signed_off_by AS signed_off_by,
+          (application_data -> :signed_off_by)::int AS signed_off_by,
           application_data -> :mentor_fav AS mentor_fav,
           CASE WHEN :project_id::text = 'project1_id' THEN TRUE ELSE FALSE END AS first_choice,
           hstore_to_json_loose(slice(application_data, ARRAY[:student0_attrs])) AS student0,
