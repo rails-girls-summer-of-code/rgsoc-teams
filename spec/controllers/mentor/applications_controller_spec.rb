@@ -132,7 +132,7 @@ RSpec.describe Mentor::ApplicationsController do
 
       context 'for an application that they are a mentor of' do
         let(:application)   { create(:application, :in_current_season, :for_project, project1: project) }
-        let(:m_application) { Mentor::Application.new(id: application.id, first_choice: true) }
+        let(:m_application) { Mentor::Application.new(id: application.id, choice: 1) }
 
         subject { put :signoff, params: { id: application.id } }
 
@@ -191,7 +191,7 @@ RSpec.describe Mentor::ApplicationsController do
 
       context 'for an application that they are a mentor of' do
         let(:application)   { create(:application, :in_current_season, :for_project, project1: project) }
-        let(:m_application) { Mentor::Application.new(id: application.id, first_choice: true) }
+        let(:m_application) { Mentor::Application.new(id: application.id, choice: 1) }
 
         subject { put :fav, params: { id: application.id } }
 

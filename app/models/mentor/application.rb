@@ -8,11 +8,11 @@ module Mentor
                   :project_plan, :why_selected_project,
                   :signed_off_by,
                   :student0, :student1,
-                  :first_choice
+                  :choice
     attr_reader :signed_off_at, :mentor_fav
 
-    def choice
-      first_choice ? 1 : 2
+    def first_choice?
+      choice == 1
     end
 
     def student0=(attrs)
@@ -165,7 +165,7 @@ module Mentor
           application_data -> :signed_off_at AS signed_off_at,
           (application_data -> :signed_off_by)::int AS signed_off_by,
           application_data -> :mentor_fav AS mentor_fav,
-          CASE WHEN :project_id::text = 'project1_id' THEN TRUE ELSE FALSE END AS first_choice
+          CASE WHEN :project_id::text = 'project1_id' THEN 1 ELSE 2 END AS choice
           FROM applications
           INNER JOIN teams
           ON teams.id = applications.team_id
@@ -195,7 +195,7 @@ module Mentor
           application_data -> :signed_off_at AS signed_off_at,
           (application_data -> :signed_off_by)::int AS signed_off_by,
           application_data -> :mentor_fav AS mentor_fav,
-          CASE WHEN :project_id::text = 'project1_id' THEN TRUE ELSE FALSE END AS first_choice,
+          CASE WHEN :project_id::text = 'project1_id' THEN 1 ELSE 2 END AS choice,
           hstore_to_json_loose(slice(application_data, ARRAY[:student0_attrs])) AS student0,
           hstore_to_json_loose(slice(application_data, ARRAY[:student1_attrs])) AS student1
           FROM applications
