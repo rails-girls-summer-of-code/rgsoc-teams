@@ -3,7 +3,7 @@ require 'spec_helper'
 RSpec.describe ProjectsController do
   render_views
 
-  let(:project) { FactoryGirl.create(:project) }
+  let(:project) { create(:project) }
 
   describe 'GET index' do
     before { Timecop.travel Date.parse('2015-12-15') }
@@ -153,7 +153,6 @@ RSpec.describe ProjectsController do
         end
       end
     end
-
   end
 
   describe 'DELETE destroy' do
@@ -170,5 +169,4 @@ RSpec.describe ProjectsController do
       end
     end
   end
-
 end

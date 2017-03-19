@@ -3,7 +3,6 @@ require 'spec_helper'
 describe Supervisor::CommentsController do
   render_views
   let(:valid_attributes) { { "text" => FFaker::Lorem.paragraph } }
-  let(:valid_session) { {} }
   let(:user) { FactoryGirl.create(:user) }
   let(:team) { FactoryGirl.create(:team) }
 
@@ -18,12 +17,12 @@ describe Supervisor::CommentsController do
       context 'team comment' do
         it 'creates a new Comment' do
           expect {
-            post :create, { params: {:comment => valid_attributes.merge(commentable_id: team.id, commentable_type: 'Team')} }, valid_session
+            post :create, params: { comment: valid_attributes.merge(commentable_id: team.id, commentable_type: 'Team') }
           }.to change(Comment, :count).by(1)
         end
 
         it 'redirects to the dashboard page' do
-          post :create, { params: {:comment => valid_attributes.merge(commentable_id: team.id, commentable_type: 'Team')} }, valid_session
+          post :create, params: { comment: valid_attributes.merge(commentable_id: team.id, commentable_type: 'Team') }
           expect(response).to redirect_to supervisor_path
         end
 
@@ -42,8 +41,7 @@ describe Supervisor::CommentsController do
 
         subject do
           post :create,
-               { params: { comment: valid_attributes.merge(commentable_id: team.id, commentable_type: 'Team') }},
-               valid_session
+               params: { comment: valid_attributes.merge(commentable_id: team.id, commentable_type: 'Team') }
         end
 
         before do

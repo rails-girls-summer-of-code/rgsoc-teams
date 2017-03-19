@@ -1,6 +1,6 @@
 require 'spec_helper'
 describe Rating do
-  let(:application) { FactoryGirl.build_stubbed(:application) }
+  let(:application) { build(:application) }
 
   describe 'associations' do
     it { is_expected.to belong_to(:user) }
