@@ -5,7 +5,7 @@ ul[class=:breadcrumb]
 h2
   | Team #{@application.team_name}
   br
-  small For #{link_to @application.project_name, project_path(@application.project_id)} #{icon('star') if @application.first_choice}
+  small For #{link_to @application.project_name, project_path(@application.project_id)} #{icon('star') if @application.first_choice?}
 
 div.panel.panel-default
   div.panel-heading #{ApplicationDraft.human_attribute_name :why_selected_project1}
