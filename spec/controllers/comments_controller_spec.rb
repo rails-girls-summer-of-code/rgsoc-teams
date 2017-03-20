@@ -3,7 +3,6 @@ require 'spec_helper'
 describe CommentsController do
   render_views
   let(:valid_attributes) { { "text" => FFaker::CheesyLingo.sentence } }
-  let(:valid_session) { {} }
   let(:user) { create(:user) }
 
   before do
@@ -19,24 +18,24 @@ describe CommentsController do
       context 'with valid params' do
         it 'creates a new Comment' do
           expect {
-            post :create, { params: {comment: params.merge(valid_attributes)} }, valid_session
+            post :create, params: { comment: params.merge(valid_attributes) }
           }.to change(Comment, :count).by 1
         end
 
         it 'redirects to comment on project page' do
-          post :create, { params: {comment: params.merge(valid_attributes)} }, valid_session
+          post :create, params: { comment: params.merge(valid_attributes) }
           expect(response).to redirect_to [project, anchor: 'comment_1']
         end
       end
       context 'with invalid params (no text)' do
         it 'does not create new Comment' do
           expect {
-            post :create, { params: {comment: params} }, valid_session
+            post :create, params: { comment: params }
           }.not_to change(Comment, :count)
         end
 
         it 'redirects to project page' do
-          post :create, { params: {comment: params} }, valid_session
+          post :create, params: { comment: params }
           expect(flash[:alert]).to be_present
           expect(response).to redirect_to project
         end

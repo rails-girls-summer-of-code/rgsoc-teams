@@ -21,7 +21,7 @@ RSpec.describe ApplicationDraftsController do
 
   context 'as a not confirmed user' do
     describe 'GET new' do
-      let(:user) { create(:user, confirmed_at: nil) }
+      let(:user) { FactoryGirl.create(:user, confirmed_at: nil) }
 
       before do
         allow(controller).to receive_messages(signed_in?: true)
@@ -36,7 +36,7 @@ RSpec.describe ApplicationDraftsController do
   end
 
   context 'as an authenticated user' do
-    let(:user) { create(:user) }
+    let(:user) { FactoryGirl.create(:user) }
 
     shared_examples_for 'application period is over' do
       it 'new renders applications_end template when over' do
@@ -208,12 +208,12 @@ RSpec.describe ApplicationDraftsController do
     end
 
     describe 'PUT apply' do
-      let(:team)  { create(:team, :applying_team) }
-      let(:draft) { create :application_draft, :appliable, team: team }
+      let(:team)  { FactoryGirl.create(:team, :applying_team) }
+      let(:draft) { FactoryGirl.create(:application_draft, :appliable, team: team) }
       let(:application) { Application.last }
 
       context 'as a student' do
-        let!(:student_role) { create(:student_role, user: user, team: team) }
+        let!(:student_role) { FactoryGirl.create(:student_role, user: user, team: team) }
 
         context 'coaches confirmed' do
           it 'creates a new application' do

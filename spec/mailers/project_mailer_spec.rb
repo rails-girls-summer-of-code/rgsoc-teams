@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 RSpec.describe ProjectMailer do
-  let(:project) { build_stubbed :project }
+  let(:project) { build :project }
 
   describe '#proposal' do
     subject { described_class.proposal(project) }
