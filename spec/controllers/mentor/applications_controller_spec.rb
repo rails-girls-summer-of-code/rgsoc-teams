@@ -126,40 +126,47 @@ RSpec.describe Mentor::ApplicationsController do
 
   describe 'PUT signoff' do
     context 'as a project_maintainer of this season' do
-      let!(:project) { create(:project, :in_current_season, :accepted, submitter: user) }
+      let!(:project)   { create(:project, :in_current_season, :accepted, submitter: user) }
 
       before { sign_in user }
 
       context 'for an application that they are a mentor of' do
-        let(:application) { create(:application, :in_current_season, :for_project, project1: project) }
+        let(:application)   { create(:application, :in_current_season, :for_project, project1: project) }
+        let(:m_application) { Mentor::Application.new(id: application.id, choice: 1) }
 
-        it 'sets the sign-off timestamp' do
-          expect { put :signoff, params: { id: application.id } }
-            .to change { application.reload.signed_off_at }.from nil
+        subject { put :signoff, params: { id: application.id } }
+
+        it 'sets the sign-off timestamp for the project choice' do
+          expect { subject }
+            .to change { application.reload.application_data['signed_off_at_project1'] }
+            .from nil
         end
 
-        it 'set persists the mentor who signed-off' do
-          expect { put :signoff, params: { id: application.id } }
-            .to change { application.reload.signatory }.to user
+        it 'persists the mentor id who signed-off' do
+          expect { subject }
+            .to change { application.reload.application_data['signed_off_by_project1'] }
+            .to(user.id.to_s)
         end
 
         it 'redirects back to index' do
-          put :signoff, params: { id: application.id }
+          subject
           expect(response).to redirect_to mentor_applications_path
           expect(flash[:notice]).to be_present
         end
 
         context 'undo\'ing the sign-off' do
-          before { application.sign_off! as: user }
+          before { m_application.sign_off! as: user }
 
-          it 'sets the sign-off timestamp' do
-            expect { put :signoff, params: { id: application.id } }
-              .to change { application.reload.signed_off_at }.to nil
+          it 'resets the sign-off timestamp' do
+            expect { subject }
+              .to change { application.reload.application_data['signed_off_at_project1'] }
+              .to nil
           end
 
-          it 'set persists the mentor who signed-off' do
-            expect { put :signoff, params: { id: application.id } }
-              .to change { application.reload.signatory }.to nil
+          it 'resets the mentor who signed-off' do
+            expect { subject }
+              .to change { application.reload.application_data['signed_off_by_project1'] }
+              .to nil
           end
         end
       end
@@ -183,23 +190,28 @@ RSpec.describe Mentor::ApplicationsController do
       before { sign_in user }
 
       context 'for an application that they are a mentor of' do
-        let(:application) { create(:application, :in_current_season, :for_project, project1: project) }
+        let(:application)   { create(:application, :in_current_season, :for_project, project1: project) }
+        let(:m_application) { Mentor::Application.new(id: application.id, choice: 1) }
+
+        subject { put :fav, params: { id: application.id } }
 
         it 'sets the mentor_fav flag' do
-          expect { put :fav, params: { id: application.id } }
-            .to change { application.reload.mentor_fav }.to true
+          expect { subject }
+            .to change { application.reload.application_data['mentor_fav_project1'] }
+            .to 'true'
         end
 
         it 'redirects back to index' do
-          put :fav, params: { id: application.id }
+          subject
           expect(response).to redirect_to mentor_applications_path
           expect(flash[:notice]).to be_present
         end
 
         it 'revokes a previous fav' do
-          application.toggle! :mentor_fav
-          expect { put :fav, params: { id: application.id } }
-            .to change { application.reload.mentor_fav }.to false
+          m_application.mentor_fav!
+          expect { subject }
+            .to change { application.reload.application_data['mentor_fav_project1'] }
+            .to 'false'
           expect(response).to redirect_to mentor_applications_path
           expect(flash[:notice]).to be_present
         end
@@ -207,7 +219,7 @@ RSpec.describe Mentor::ApplicationsController do
 
       context 'when not maintaining the project' do
         it 'returns a 404' do
-          other_project = create(:project, :in_current_season, :accepted)
+          other_project = create(:project, :in_current_season, :accepted, submitter: build(:user))
           application   = create(:application, :in_current_season, :for_project, project1: other_project)
 
           expect { put :fav, params: { id: application.id } }
@@ -215,6 +227,5 @@ RSpec.describe Mentor::ApplicationsController do
         end
       end
     end
-
   end
 end
