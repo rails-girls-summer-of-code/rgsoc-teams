@@ -83,6 +83,7 @@ ActiveRecord::Schema.define(version: 20170319180638) do
     t.integer  "signed_off_by"
     t.datetime "signed_off_at"
     t.integer  "project_id"
+    t.boolean  "deprecated_mentor_fav"
     t.index "((application_data -> 'project1_id'::text))", name: "application_data_project1_id", using: :btree
     t.index "((application_data -> 'project2_id'::text))", name: "application_data_project2_id", using: :btree
     t.index ["application_draft_id"], name: "index_applications_on_application_draft_id", using: :btree
