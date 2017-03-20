@@ -11,7 +11,7 @@ gem 'cancancan'
 gem 'redcarpet'
 gem 'simple_form'
 gem 'nested_form'
-gem 'gh', '~> 0.14'
+gem 'gh'
 gem 'feedjira', '~> 1.6.0'
 gem 'kaminari'
 gem 'bootstrap-kaminari-views'
@@ -29,7 +29,7 @@ gem 'pretender'
 
 gem 'sass-rails'
 gem 'coffee-rails'
-gem 'uglifier', '~> 2.7.0'
+gem 'uglifier'
 gem 'sprockets-rails'
 
 gem 'newrelic_rpm'
@@ -46,11 +46,11 @@ group :production do
 end
 
 group :development, :test do
-  gem 'rspec-rails', '~> 3.0'
+  gem 'rspec-rails'
   gem 'factory_girl_rails'
   gem 'database_cleaner'
   gem 'byebug', require: !ENV['RM_INFO'] #require parameter is workaround for RubyMine with Rails ~> 4.1
-  gem 'ffaker', '~> 2.2.0'
+  gem 'ffaker'
   gem 'jshint'
 end
 

@@ -1,6 +1,6 @@
 require 'spec_helper'
 describe Rating do
-  let(:application) { FactoryGirl.build_stubbed(:application) }
+  let(:application) { FactoryGirl.build(:application) }
 
   describe 'associations' do
     it { is_expected.to belong_to(:user) }
@@ -15,7 +15,7 @@ describe Rating do
     # https://github.com/thoughtbot/shoulda-matchers/issues/535
     # that's why we do it "by hand"
     it 'should only allow for one rating per user and rateable' do
-      user = create :user
+      user = FactoryGirl.create :user
       Rating.create(rateable: application, user: user)
       expect{ Rating.create!(rateable: application, user: user) }.to raise_error(ActiveRecord::RecordInvalid)
     end
@@ -23,14 +23,14 @@ describe Rating do
   describe 'scopes' do
     describe 'by' do
       it 'should return the rating for the given user' do
-        user = create(:user)
-        rating = create(:rating, user: user, rateable: application)
+        user = FactoryGirl.create(:user)
+        rating = FactoryGirl.create(:rating, user: user, rateable: application)
         expect(Rating.by(user).first).to eq(rating)
       end
     end
   end
   describe '.user_names' do
-    let!(:users) { create_list :reviewer, 3 }
+    let!(:users) { FactoryGirl.create_list :reviewer, 3 }
     let(:user_names) { users.map(&:name) }
 
     it 'returns names of all reviewers' do
@@ -44,7 +44,7 @@ describe Rating do
   end
   describe '#points' do
     it 'should add up some points given through valid fields' do
-      rating = create(:rating, rateable: application)
+      rating = FactoryGirl.create(:rating, rateable: application)
       rating.diversity = 1
       rating.save
 
