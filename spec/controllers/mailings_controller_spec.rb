@@ -41,7 +41,7 @@ describe MailingsController do
     end
 
     context 'with user logged in' do
-      let(:user) { create(:student) }
+      let(:user) { FactoryGirl.create(:student) }
 
       include_context 'User logged in'
 

@@ -7,14 +7,14 @@ RSpec.describe UsersController do
 
   describe "GET index" do
     it "assigns all users that have any roles assigned as @users" do
-      student  = create(:student)
-      coach = create(:coach)
+      student  = FactoryGirl.create(:student)
+      coach = FactoryGirl.create(:coach)
       get :index
       expect(assigns(:users).to_a).to include(coach) && include(student)
     end
 
     it 'will not show email addresses for guests' do
-      user = create(:user, hide_email: false)
+      user = FactoryGirl.create(:user, hide_email: false)
       get :index
       expect(response.body).not_to include user.email
     end
@@ -28,26 +28,26 @@ RSpec.describe UsersController do
 
     context 'with user logged in' do
       before(:each) do
-        sign_in create(:student)
+        sign_in FactoryGirl.create(:student)
       end
 
       it 'will not show email addresses of those who opted out' do
-        user = create(:student, hide_email: false)
-        user_opted_out = create(:user, hide_email: true)
+        user = FactoryGirl.create(:student, hide_email: false)
+        user_opted_out = FactoryGirl.create(:user, hide_email: true)
         get :index
         expect(response.body).to include user.email
         expect(response.body).not_to include user_opted_out.email
       end
 
       it 'shows user impersonation links when in development' do
-        other_user = create(:student)
+        other_user = FactoryGirl.create(:student)
         get :index
         expect(response.body).to include impersonate_user_path(other_user)
       end
 
       it 'does not show user impersonation links when in production' do
         allow(Rails).to receive(:env).and_return('production'.inquiry)
-        other_user = create(:student)
+        other_user = FactoryGirl.create(:student)
         get :index
         expect(response.body).not_to include impersonate_user_path(other_user)
       end
@@ -55,8 +55,8 @@ RSpec.describe UsersController do
 
     context 'when impersonating' do
       it 'shows a Stop Impersonation link instead of Sign out' do
-        sign_in create(:student)
-        other_user = create(:student)
+        sign_in FactoryGirl.create(:student)
+        other_user = FactoryGirl.create(:student)
         controller.impersonate_user(other_user)
         get :index
         expect(response.body).not_to include sign_out_path
@@ -67,13 +67,13 @@ RSpec.describe UsersController do
 
   describe "GET show" do
     it "assigns the requested user as @user" do
-      user = create(:user)
+      user = FactoryGirl.create(:user)
       get :show, params: { id: user.to_param }
       expect(assigns(:user)).to eq(user)
     end
 
     context 'with conferences' do
-      let!(:attendance) { create :attendance }
+      let!(:attendance) { FactoryGirl.create :attendance }
       let(:user)        { attendance.user }
       let(:conference)  { attendance.conference }
 
@@ -84,7 +84,7 @@ RSpec.describe UsersController do
       end
 
       context 'with attendance orphans' do
-        let!(:orphan) { create :attendance, user: user }
+        let!(:orphan) { FactoryGirl.create :attendance, user: user }
 
         before { orphan.conference.delete }
 
@@ -99,18 +99,18 @@ RSpec.describe UsersController do
 
     context 'with user logged in' do
       before(:each) do
-        sign_in create(:student)
+        sign_in FactoryGirl.create(:student)
       end
 
       it 'shows the user impersonation link when in development' do
-        other_user = create(:user)
+        other_user = FactoryGirl.create(:user)
         get :show, params: { id: other_user.to_param }
         expect(response.body).to include impersonate_user_path(other_user)
       end
 
       it 'does not show the user impersonation link when in production' do
         allow(Rails).to receive(:env).and_return('production'.inquiry)
-        other_user = create(:user)
+        other_user = FactoryGirl.create(:user)
         get :show, params: { id: other_user.to_param }
         expect(response.body).not_to include impersonate_user_path(other_user)
       end
@@ -118,7 +118,7 @@ RSpec.describe UsersController do
   end
 
   describe "GET edit" do
-    let(:user) { create(:user) }
+    let(:user) { FactoryGirl.create(:user) }
     before :each do
       sign_in user
     end
@@ -131,7 +131,7 @@ RSpec.describe UsersController do
     end
 
     context "another user's profile" do
-      let(:another_user) { create(:user) }
+      let(:another_user) { FactoryGirl.create(:user) }
 
       it "redirects to the homepage" do
         get :edit, params: { id: another_user.to_param }
@@ -141,7 +141,7 @@ RSpec.describe UsersController do
   end
 
   describe "PUT update" do
-    let(:user) { create(:user) }
+    let(:user) { FactoryGirl.create(:user) }
     before :each do
       sign_in user
     end
@@ -150,7 +150,7 @@ RSpec.describe UsersController do
       describe "with valid params" do
 
         context "and unconfirmed user" do
-          let(:user) { create(:user, confirmed_at: nil) }
+          let(:user) { FactoryGirl.create(:user, confirmed_at: nil) }
 
           it "sends an confirmation email if the user isn't confirmed yet and the email wasn't changed" do
             expect {
@@ -196,7 +196,7 @@ RSpec.describe UsersController do
       end
 
       context "another user's profile" do
-        let!(:another_user) { create(:user) }
+        let!(:another_user) { FactoryGirl.create(:user) }
 
         it "does not update the requested user" do
           expect_any_instance_of(User).not_to receive(:update_attributes)
@@ -215,7 +215,7 @@ RSpec.describe UsersController do
 
     let(:valid_attributes) { { application_about: "lorem ipsum" } }
 
-    let(:user) { create(:user) }
+    let(:user) { FactoryGirl.create(:user) }
     before { sign_in user }
 
     context 'their own profile' do
@@ -227,7 +227,7 @@ RSpec.describe UsersController do
   end
 
   describe "DELETE destroy" do
-    let(:user) { create(:user) }
+    let(:user) { FactoryGirl.create(:user) }
     before :each do
       sign_in user
     end
@@ -246,7 +246,7 @@ RSpec.describe UsersController do
     end
 
     context "another user's profile" do
-      let(:another_user) { create(:user) }
+      let(:another_user) { FactoryGirl.create(:user) }
 
       it "doesn't destroy the requested user" do
         expect {
@@ -262,8 +262,8 @@ RSpec.describe UsersController do
   end
 
   describe 'POST impersonate' do
-    let(:user) { create(:user) }
-    let(:impersonated_user) { create(:user) }
+    let(:user) { FactoryGirl.create(:user) }
+    let(:impersonated_user) { FactoryGirl.create(:user) }
     before { sign_in user }
 
     it 'changes the current_user' do
@@ -279,8 +279,8 @@ RSpec.describe UsersController do
   end
 
   describe 'POST stop_impersonating' do
-    let(:user) { create(:user) }
-    let(:impersonated_user) { create(:user) }
+    let(:user) { FactoryGirl.create(:user) }
+    let(:impersonated_user) { FactoryGirl.create(:user) }
     before do
       sign_in user
       controller.impersonate_user(impersonated_user)
