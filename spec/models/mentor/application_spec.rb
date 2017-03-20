@@ -287,7 +287,7 @@ describe Mentor::Application do
       before { Timecop.freeze(now) }
       after { Timecop.return       }
 
-      it 'add the signoff time and user id to the application' do
+      it 'adds the signoff time and user id to the application' do
         expect { subject }
           .to change { application.reload.application_data.values_at(*keys_for(choice)) }
           .from([nil, nil])
@@ -373,7 +373,7 @@ describe Mentor::Application do
       expect(application).to be_mentor_fav
     end
 
-    it 'returns false if signed_off_at was not set' do
+    it 'returns false if mentor_fav was not set' do
       application = described_class.new
       expect(subject).not_to be_mentor_fav
     end

@@ -142,7 +142,7 @@ RSpec.describe Mentor::ApplicationsController do
             .from nil
         end
 
-        it 'set persists the mentor id who signed-off' do
+        it 'persists the mentor id who signed-off' do
           expect { subject }
             .to change { application.reload.application_data['signed_off_by_project1'] }
             .to(user.id.to_s)
