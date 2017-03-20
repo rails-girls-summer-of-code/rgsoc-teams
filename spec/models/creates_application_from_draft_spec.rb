@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 RSpec.describe CreatesApplicationFromDraft do
-  let(:application_draft) { build_stubbed :application_draft }
+  let(:application_draft) { build :application_draft }
 
   subject { described_class.new application_draft }
 
@@ -70,7 +70,7 @@ RSpec.describe CreatesApplicationFromDraft do
       end
 
       context 'carrying over the voluntary team information' do
-        let(:application_draft) { build_stubbed(:application_draft, :appliable, :voluntary) }
+        let(:application_draft) { build(:application_draft, :appliable, :voluntary) }
 
         %w(voluntary voluntary_hours_per_week).each do |voluntary_attribute|
           it_behaves_like 'matches corresponding attribute', voluntary_attribute
