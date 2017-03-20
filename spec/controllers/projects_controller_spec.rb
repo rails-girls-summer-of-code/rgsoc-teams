@@ -8,9 +8,9 @@ RSpec.describe ProjectsController do
   describe 'GET index' do
     before { Timecop.travel Date.parse('2015-12-15') }
 
-    let!(:proposed) { create :project, season: Season.succ, name: 'proposed project' }
-    let!(:accepted) { create :project, :accepted, season: Season.succ, name: 'accepted project' }
-    let!(:rejected) { create :project, :rejected, season: Season.succ, name: 'rejected project' }
+    let!(:proposed) { FactoryGirl.create(:project, season: Season.succ, name: 'proposed project') }
+    let!(:accepted) { FactoryGirl.create(:project, :accepted, season: Season.succ, name: 'accepted project') }
+    let!(:rejected) { FactoryGirl.create(:project, :rejected, season: Season.succ, name: 'rejected project') }
 
     it 'hides rejected projects' do
       get :index
@@ -64,10 +64,10 @@ RSpec.describe ProjectsController do
   end
 
   describe 'PATCH update' do
-    let!(:project) { create(:project, submitter: current_user) }
+    let!(:project) { FactoryGirl.create(:project, submitter: current_user) }
     context 'with user logged in' do
       include_context 'with user logged in'
-      let(:current_user) { create(:user) }
+      let(:current_user) { FactoryGirl.create(:user) }
 
       it 'creates a project and redirects to list' do
         patch :update, params: { id: project.to_param, project: { name: "This is an updated name!" } }
@@ -153,14 +153,13 @@ RSpec.describe ProjectsController do
         end
       end
     end
-
   end
 
   describe 'DELETE destroy' do
     context 'with user logged in' do
       include_context 'with user logged in'
-      let(:current_user) { create :user }
-      let!(:project) { create(:project, submitter: current_user) }
+      let(:current_user) { FactoryGirl.create(:user) }
+      let!(:project) { FactoryGirl.create(:project, submitter: current_user) }
 
       it 'deletes the project' do
         expect { delete :destroy, params: { id: project.to_param } }.to \
@@ -170,5 +169,4 @@ RSpec.describe ProjectsController do
       end
     end
   end
-
 end

@@ -5,7 +5,6 @@ describe MailingsController do
 
   let(:mailing)        { FactoryGirl.create(:mailing) }
   let(:user)           { FactoryGirl.create(:user) }
-  let(:valid_session)  { { "warden.user.user.key" => session["warden.user.user.key"] } }
 
   shared_context 'User logged in' do
     before { sign_in user }
@@ -18,7 +17,7 @@ describe MailingsController do
       include_context 'User logged in'
 
       it 'renders the index template' do
-        get :index, { params: {} }, valid_session
+        get :index
         expect(response).to render_template 'index'
       end
     end
@@ -50,7 +49,7 @@ describe MailingsController do
 
       it 'renders the show template for user in recipients list' do
         mailing.update(to: %w(students))
-        get :show, { params: { id: mailing.to_param } }, valid_session
+        get :show, params: { id: mailing.to_param }
         expect(response).to render_template 'show'
       end
 
