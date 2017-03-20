@@ -8,13 +8,12 @@ module Mentor
       '_application_learning_history',
       '_application_language_learning_period',
       '_application_skills'
-      
+
     ]
 
-    attr_accessor :coding_level, :code_samples
-    attr_accessor :learning_history
-    attr_accessor :language_learning_period
-    attr_accessor :skills
-    
+    attr_accessor :coding_level, :code_samples,
+                  :learning_history, :language_learning_period,
+                  :skills
+
   end
 end

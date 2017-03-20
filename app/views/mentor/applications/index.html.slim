@@ -18,7 +18,7 @@ table.applications.table.table-striped.table-bordered.table-condensed.table-hove
         td = link_to application.team_name, mentor_application_path(id: application.id)
         td
           = link_to application.project_name, project_path(application.project_id)
-          - if application.first_choice
+          - if application.first_choice?
             |&nbsp;#{icon('star')}
         td
           - if comment = comment_for(application)
