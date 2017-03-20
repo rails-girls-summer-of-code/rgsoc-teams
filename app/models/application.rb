@@ -65,7 +65,6 @@ class Application < ActiveRecord::Base
   belongs_to :application_draft
   belongs_to :team, inverse_of: :applications, counter_cache: true
   belongs_to :project
-  belongs_to :signatory, class_name: 'User', foreign_key: :signed_off_by
 
   has_many :ratings, as: :rateable
 
@@ -171,16 +170,6 @@ class Application < ActiveRecord::Base
       flags_will_change!
       value.to_s != '0' ? flags.concat([flag.to_s]).uniq : flags.delete(flag.to_s)
     end
-  end
-
-  def signed_off?
-    !!signed_off_at
-  end
-
-  def sign_off!(as: nil)
-    self.signatory = as
-    self.signed_off_at = Time.now.utc
-    save!
   end
 
   def student_skill_level
