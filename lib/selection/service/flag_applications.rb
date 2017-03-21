@@ -6,7 +6,7 @@ module Selection
       FLAGS           = %w(remote_team male_gender age_below_18 less_than_two_coaches)
       STUDENT0_COORDS = %w(student0_application_location_lat student0_application_location_lng)
       STUDENT1_COORDS = %w(student1_application_location_lat student1_application_location_lng)
-      CITY_THRESH     = 100
+      CITY_THRESH     = 60
       GENDER_FIELDS   = %w(student0_application_gender_identification student1_application_gender_identification)
       MALE_MATCHER    = ->(a) { a =~ /\A\s*(male|man|men|guy)\s*\z/i }
       AGE_FIELDS      = %w(student0_application_age student1_application_age)
