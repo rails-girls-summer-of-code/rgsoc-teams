@@ -8,7 +8,7 @@ module Selection
       STUDENT1_COORDS = %w(student1_application_location_lat student1_application_location_lng)
       CITY_THRESH     = 100
       GENDER_FIELDS   = %w(student0_application_gender_identification student1_application_gender_identification)
-      MALE_MATCHER    = ->(a) { a =~ /\A\s*male\z|\A\s*man\z|\A\s*men\z|\A\s*guy\z/i }
+      MALE_MATCHER    = ->(a) { a =~ /\A\s*(male|man|men|guy)\s*\z/i }
       AGE_FIELDS      = %w(student0_application_age student1_application_age)
       UNDER18         = "under 18"
 
