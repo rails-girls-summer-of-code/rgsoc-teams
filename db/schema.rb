@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170320212253) do
+ActiveRecord::Schema.define(version: 20170320223310) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -36,7 +36,7 @@ ActiveRecord::Schema.define(version: 20170320212253) do
     t.text     "project_url"
     t.text     "misc_info"
     t.string   "heard_about_it",           default: [],                   array: true
-    t.datetime "signed_off_at"
+    t.datetime "deprecated_signed_off_at"
     t.integer  "team_id"
     t.integer  "season_id"
     t.boolean  "voluntary"
@@ -47,17 +47,17 @@ ActiveRecord::Schema.define(version: 20170320212253) do
     t.integer  "updater_id"
     t.text     "state",                    default: "draft", null: false
     t.text     "plan_project1"
-    t.integer  "signed_off_by"
+    t.integer  "deprecated_signed_off_by"
     t.integer  "project1_id"
     t.integer  "project2_id"
     t.text     "working_together"
     t.text     "why_selected_project1"
     t.text     "why_selected_project2"
     t.text     "plan_project2"
+    t.index ["deprecated_signed_off_by"], name: "index_application_drafts_on_deprecated_signed_off_by", using: :btree
     t.index ["project1_id"], name: "index_application_drafts_on_project1_id", using: :btree
     t.index ["project2_id"], name: "index_application_drafts_on_project2_id", using: :btree
     t.index ["season_id"], name: "index_application_drafts_on_season_id", using: :btree
-    t.index ["signed_off_by"], name: "index_application_drafts_on_signed_off_by", using: :btree
     t.index ["team_id"], name: "index_application_drafts_on_team_id", using: :btree
   end
 

@@ -30,10 +30,5 @@ FactoryGirl.define do
       voluntary true
       voluntary_hours_per_week 20
     end
-
-    trait :signed_off do
-      signed_off_at { Time.now.utc }
-      signed_off_by { 99 }
-    end
   end
 end
