@@ -45,8 +45,9 @@ module Selection
       def remote_team
         location0 = data.values_at(*STUDENT0_COORDS).compact
         location1 = data.values_at(*STUDENT1_COORDS).compact
-        return false if location0.empty? || location1.empty?
         Distance.new(location0, location1).to_km > CITY_THRESH
+      rescue NoMethodError, TypeError
+        false
       end
 
       def male_gender
