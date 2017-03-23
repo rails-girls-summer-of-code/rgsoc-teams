@@ -74,7 +74,6 @@ class Application < ActiveRecord::Base
   COACHING_COMPANY_WEIGHT = ENV['COACHING_COMPANY_WEIGHT'] || 2
   MENTOR_PICK_WEIGHT = ENV['MENTOR_PICK_WEIGHT'] || 2
   FLAGS = [:remote_team,
-          :mentor_pick,
           :volunteering_team,
           :selected,
           :male_gender,
