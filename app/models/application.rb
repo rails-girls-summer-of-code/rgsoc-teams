@@ -79,7 +79,8 @@ class Application < ActiveRecord::Base
           :male_gender,
           :zero_community,
           :age_below_18,
-          :less_than_two_coaches]
+          :less_than_two_coaches,
+          :less_than_40_hours_a_week]
 
   FIELDS_REMOVED_IN_BLIND = [:student0_name,
                              :student1_name,
