@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-RSpec.describe Todo, :wip, type: :model do
+RSpec.describe Todo, type: :model do
   describe 'associations' do
     it { is_expected.to belong_to(:user)                                    }
     it { is_expected.to belong_to(:application)                             }
