@@ -2,15 +2,17 @@
 
 h1 Todo
 
-p Rated applications: #{@applications.select{ |a| rating(a).try(:updated_at) }.count} of #{@applications.count}
+p Rated applications: #{@todos.select { |t| t.done? }.size} of #{@todos.count}
 
 table.table
   thead
     tr
       th scope="col" Application
+      th Eligible
       th scope="col" Rated at
   tbody
-    - @applications.each do |application|
+    - @todos.each do |todo|
       tr
-        td= link_to application.name, rating_todos_application_path(application)
-        td= rating(application).try(:updated_at) || 'Never'
+        td= link_to todo.application.team_name, rating_todos_application_path(todo.application)
+        td= todo.eligible? ? icon('ok') : 'ban icon when font-awesomes'
+        td= todo.rating&.updated_at || 'Never'
