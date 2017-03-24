@@ -67,7 +67,6 @@ class Application < ActiveRecord::Base
   belongs_to :project
 
   has_many :todos, dependent: :destroy
-  has_many :ratings, as: :rateable
 
   validates :team, :application_data, presence: true
 
@@ -150,13 +149,5 @@ class Application < ActiveRecord::Base
       flags_will_change!
       value.to_s != '0' ? flags.concat([flag.to_s]).uniq : flags.delete(flag.to_s)
     end
-  end
-
-  def student_skill_level
-    application_data['student0_application_coding_level'].try(:to_i)
-  end
-
-  def pair_skill_level
-    application_data['student1_application_coding_level'].try(:to_i)
   end
 end
