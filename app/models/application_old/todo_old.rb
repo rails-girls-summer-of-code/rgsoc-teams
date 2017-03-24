@@ -1,5 +1,5 @@
-class Application
-  class Todo < Struct.new(:user, :subject)
+class ApplicationOld
+  class TodoOld < Struct.new(:user, :subject)
     class TeamNotFound < StandardError
       def initialize(subject)
         super("Could not find team for #{subject.inspect}")

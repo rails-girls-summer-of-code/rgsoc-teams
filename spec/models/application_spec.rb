@@ -12,6 +12,7 @@ describe Application do
     it { is_expected.to belong_to(:application_draft) }
     it { is_expected.to belong_to(:application_draft) }
     it { is_expected.to have_many(:comments).dependent(:destroy).order(:created_at) }
+    it { is_expected.to have_many(:todos).dependent(:destroy) }
     it { is_expected.to have_many(:ratings) }
   end
 
