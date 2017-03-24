@@ -148,17 +148,6 @@ RSpec.describe ApplicationHelper do
         end
       end
     end
-
-  end
-
-  describe '.icon' do
-    it 'should generate empty icons' do
-      expect(icon('edit')).to eq('<i class="icon-edit"></i>')
-    end
-
-    it 'should generate icons with text' do
-      expect(icon('edit', 'Edit')).to eq('<i class="icon-edit"></i> Edit')
-    end
   end
 
   describe '#role_names' do

@@ -24,7 +24,7 @@ gem 'slim-rails'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'bootstrap-sass'
-gem 'font-awesome-sass-rails'
+gem 'font-awesome-sass'
 gem 'pretender'
 
 gem 'sass-rails'

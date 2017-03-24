@@ -14,5 +14,5 @@ table.table
     - @todos.each do |todo|
       tr
         td= link_to todo.application.team_name, rating_todos_application_path(todo.application)
-        td= todo.eligible? ? icon('ok') : 'ban icon when font-awesomes'
+        td= todo.eligible? ? icon('check') : icon('ban')
         td= todo.rating&.updated_at || 'Never'
