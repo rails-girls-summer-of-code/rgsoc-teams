@@ -9,10 +9,12 @@ table.table
     tr
       th scope="col" Application
       th Eligible
+      th Signed Off
       th scope="col" Rated at
   tbody
     - @todos.each do |todo|
       tr
         td= link_to todo.application.team_name, rating_todos_application_path(todo.application)
         td= todo.eligible? ? icon('check') : icon('ban')
+        td= todo.sign_offs?.map { |s| s ? icon('check') : icon('ban') }.join(' ').html_safe
         td= todo.rating&.updated_at || 'Never'

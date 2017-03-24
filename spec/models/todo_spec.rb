@@ -1,10 +1,11 @@
 require 'spec_helper'
 
-RSpec.describe Todo, type: :model do
+RSpec.describe Todo, :wip, type: :model do
   describe 'associations' do
-    it { is_expected.to belong_to(:user)                          }
-    it { is_expected.to belong_to(:application)                   }
-    it { is_expected.to delegate_method(:season).to(:application) }
+    it { is_expected.to belong_to(:user)                                    }
+    it { is_expected.to belong_to(:application)                             }
+    it { is_expected.to delegate_method(:season).to(:application)           }
+    it { is_expected.to delegate_method(:application_data).to(:application) }
   end
 
   describe '.for_current_season' do
@@ -82,6 +83,15 @@ RSpec.describe Todo, type: :model do
 
     it 'returns false if application not rated yet' do
       expect(todo).not_to be_done
+    end
+  end
+
+  describe '#sign_offs?' do
+    let(:todo) { FactoryGirl.build(:todo) }
+
+    it 'returns an array of booleans for the application sign_offs' do
+      todo.application.application_data = { "signed_off_at_project1": Time.now.utc.to_s }
+      expect(todo.sign_offs?).to eq [true, false]
     end
   end
 end
