@@ -60,10 +60,10 @@ en:
         student1_application_minimum_money: Break down your costs, or point out any special circumstances which require a higher budget than what you've selected above or than what is usual for your city (2nd student)
         project1_id: Project (1st choice)
         project2_id: Project (2nd choice)
-        why_selected_project1: Why did you select this project?
-        why_selected_project2: Why did you select this project?
-        plan_project1: Which features are you planning to work on?
-        plan_project2: Which features are you planning to work on?
+        why_selected_project1: Why did you select this project? (1st project)
+        why_selected_project2: Why did you select this project? (2nd project)
+        plan_project1: Which features are you planning to work on? (1st project)
+        plan_project2: Which features are you planning to work on? (2nd project)
         working_together: How are you planning to work together?
         voluntary: Voluntary team
         voluntary_hours_per_week: How many hours per week would you be able to work on the project?
