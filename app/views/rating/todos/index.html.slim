@@ -7,10 +7,10 @@ p Rated applications: #{@todos.select { |t| t.done? }.size} of #{@todos.count}
 table.table
   thead
     tr
-      th scope="col" Application
+      th Application
       th Eligible
       th.text-center colspan="2" Signed Off (Project 1 and 2)
-      th scope="col" Rated at
+      th Rated at
   tbody
     - @todos.each do |todo|
       tr
