@@ -13,7 +13,7 @@ tr class=application_classes_for(application)
   td.coaching_company
     = application.coaching_company
   td = format_application_money(application)
-  td = format_boolean(application.application_data["voluntary"])
+  td = format_boolean(application.application_data["voluntary"] == 'true')
   td = application.application_data["voluntary_hours_per_week"]
   td = application.total_picks
   td = rounded_points_for application
