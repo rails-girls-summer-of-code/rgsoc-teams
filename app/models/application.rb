@@ -151,6 +151,10 @@ class Application < ActiveRecord::Base
     !skill_levels.empty? ? skill_levels.inject(:+) / skill_levels.size : 0
   end
 
+  def total_likes
+    ratings.where(like: true).count
+  end
+
   def total_picks
     ratings.where(pick: true).count
   end
