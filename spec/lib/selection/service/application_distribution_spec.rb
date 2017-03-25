@@ -13,7 +13,7 @@ describe Selection::Service::ApplicationDistribution do
       Selection::Service::ApplicationDistribution.new(application: application).distribute
     end
 
-    first_distribution = Todo.all.to_a
+    first_distribution = Todo.all.map {|t| [t.user_id, t.application_id] }.flatten
 
     Todo.destroy_all
 
@@ -21,7 +21,7 @@ describe Selection::Service::ApplicationDistribution do
       Selection::Service::ApplicationDistribution.new(application: application).distribute
     end
 
-    second_distribution = Todo.all.to_a
+    second_distribution = Todo.all.map {|t| [t.user_id, t.application_id] }.flatten
 
     expect(first_distribution).not_to eq(second_distribution)
   end
