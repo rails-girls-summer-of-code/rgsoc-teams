@@ -105,5 +105,8 @@ personal_impression: |
   Give <strong>1-9 points</strong> to teams you liked in this or that way.
   Give <strong>0 points</strong> to teams which didn't show any outstanding qualities and left you unimpressed.
 
+like: |
+  A way to say that you like this team (you may like as many applications as you want).
+
 pick: |
-  My pick is a way to promote teams which you liked especially.
+  A way to fave a team (you can pick only one or maximum two favourite teams).
