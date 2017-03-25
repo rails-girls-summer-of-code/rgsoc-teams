@@ -26,25 +26,3 @@ describe Selection::Service::ApplicationDistribution do
     expect(first_distribution).not_to eq(second_distribution)
   end
 end
-
-
-
-__END__
-require 'selection/service/application_distribution'
-Application.where(season: Season.current).shuffle.each do |application|
-  Selection::Service::ApplicationDistribution.new(application: application).distribute
-end
-
-Todo.find_each do |todo|
-  p [todo.user_id, todo.application_id]
-end
-
-
-
-SELECT
-  user_id,
-  COUNT(*) AS assigned_applications
-FROM
-  todos
-GROUP BY user_id
-ORDER BY COUNT(*);
