@@ -4,6 +4,10 @@ module ApplicationHelper
 
   TIMEZONES = ActiveSupport::TimeZone.all.map{|t| t.tzinfo.name}.uniq.sort
 
+  def format_boolean(boolean)
+    boolean ? 'Yes' : 'No'
+  end
+
   def show_application_link?
     current_season.application_period? ||
       (Time.now.utc.between? current_season.applications_close_at, current_season.acceptance_notification_at)
