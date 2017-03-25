@@ -52,4 +52,19 @@ namespace :single_run do
       application.save
     end
   end
+
+  require 'selection/service/application_distribution'
+  desc '2017-03-25: Distribute Applications to Reviewers'
+  task distribute_applications_to_reviewers: :environment do
+    # need to filter eligible applications
+    applications = Application.where(season: Season.current).shuffle
+
+    applications.each do |application|
+      begin
+        Selection::Service::ApplicationDistribution.new(application: application).distribute
+      rescue ActiveRecord::RecordInvalid => e
+        puts "Error assigning Reviewers #{e}"
+      end
+    end
+  end
 end
