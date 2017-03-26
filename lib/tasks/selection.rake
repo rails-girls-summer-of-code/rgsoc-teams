@@ -21,5 +21,3 @@ namespace :selection do
     end
   end
 end
-
-
