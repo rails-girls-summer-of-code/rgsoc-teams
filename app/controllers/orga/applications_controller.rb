@@ -71,7 +71,7 @@ class Orga::ApplicationsController < ApplicationController
 
   def application_params
     if params[:action] == 'update'
-      params.require(:application).permit(:misc_info, :project_visibility,
+      params.require(:application).permit(:misc_info,
                                           :project_name, :city, :country, :coaching_company, Application::FLAGS)
     else
       {
