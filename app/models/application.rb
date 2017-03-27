@@ -147,7 +147,7 @@ class Application < ActiveRecord::Base
     d.sort(cleaned_application_data)
   end
 
-  def blinded_application_data
+  def blinded_application_data_for_view
     allowed_keys =  application_data_for_view.keys.map(&:to_sym) - FIELDS_REMOVED_IN_BLIND
     allowed_keys.inject({}) { |result, key| result.merge(key => application_data[key.to_s]) }
   end
