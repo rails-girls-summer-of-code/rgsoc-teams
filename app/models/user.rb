@@ -63,8 +63,6 @@ class User < ActiveRecord::Base
   include Authentication::ActiveRecordHelpers
   include ProfilesHelper
 
-  include Rateable
-
   devise :omniauthable, :confirmable
 
   has_many :roles do
