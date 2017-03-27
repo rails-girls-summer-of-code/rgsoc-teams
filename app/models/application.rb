@@ -66,6 +66,7 @@ class Application < ActiveRecord::Base
   belongs_to :team, inverse_of: :applications, counter_cache: true
   belongs_to :project
 
+  has_many :todos, dependent: :destroy
   has_many :ratings, as: :rateable
 
   validates :team, :application_data, presence: true
