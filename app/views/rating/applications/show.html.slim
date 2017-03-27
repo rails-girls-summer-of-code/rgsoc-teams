@@ -44,8 +44,8 @@
 
 
   h2 Submitted Application
-  - @application.sorted_application_data.each do |title, value|
-    h4 = Application.data_label(title)
+  - @application.application_data_for_view.each do |title, value|
+    b = Application.data_label(title)
     p  = formatted_application_data_value(title, value)
 
   #comments

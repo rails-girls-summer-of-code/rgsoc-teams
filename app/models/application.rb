@@ -119,11 +119,18 @@ class Application < ActiveRecord::Base
     Data.new(application_data, role, subject).extract || {}
   end
 
-  def sorted_application_data
+  def application_data_for_view
+    fields_to_delete = [
+      "student0_application_location_lng", "student0_application_location_lat",
+      "student1_application_location_lng", "student1_application_location_lat",
+    ]
     d = Data.new
-    d.sort(application_data)
-  end
+    cleaned_application_data = application_data.clone
+    fields_to_delete.each { |field| cleaned_application_data.delete(field)}
 
+    d.sort(cleaned_application_data)
+  end
+  
   def average_skill_level
     skill_levels = ratings.map {|rating| rating.data['skill_level'] }.compact
     !skill_levels.empty? ? skill_levels.inject(:+) / skill_levels.size : 0
