@@ -7,6 +7,8 @@ class Todo < ApplicationRecord
   delegate   :season, to: :application
   delegate   :application_data, to: :application
 
+  validate :validate_number_of_reviewers
+
   def self.for_current_season
     includes(:user, application: [:team, :ratings, :season])
       .where(applications: { season: Season.current })
@@ -27,5 +29,9 @@ class Todo < ApplicationRecord
 
   def sign_offs?
     application_data.values_at(*SIGN_OFFS).map(&:present?)
+  end
+
+  def validate_number_of_reviewers
+    errors.add(:user, "too many reviewers") if self.application.todos.size > 3
   end
 end
