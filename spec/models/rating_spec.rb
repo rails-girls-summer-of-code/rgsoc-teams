@@ -1,4 +1,5 @@
 require 'spec_helper'
+
 describe Rating do
   let(:application) { FactoryGirl.build(:application) }
 
@@ -7,6 +8,7 @@ describe Rating do
     it { is_expected.to belong_to(:application) }
     it { is_expected.to belong_to(:rateable) }
   end
+
   describe 'validations' do
     it { is_expected.to validate_presence_of :rateable }
     it { is_expected.to validate_presence_of :user_id }
@@ -20,6 +22,7 @@ describe Rating do
       expect{ Rating.create!(rateable: application, user: user) }.to raise_error(ActiveRecord::RecordInvalid)
     end
   end
+
   describe 'scopes' do
     describe 'by' do
       it 'should return the rating for the given user' do
@@ -29,6 +32,7 @@ describe Rating do
       end
     end
   end
+
   describe '.user_names' do
     let!(:users) { FactoryGirl.create_list :reviewer, 3 }
     let(:user_names) { users.map(&:name) }
@@ -42,6 +46,7 @@ describe Rating do
       expect(Rating.user_names).not_to include user.name
     end
   end
+
   describe '#points' do
     it 'should add up some points given through valid fields' do
       rating = FactoryGirl.create(:rating, rateable: application)
@@ -50,6 +55,16 @@ describe Rating do
 
       # after weights this should be:
       expect(rating.points).to be > 0
+    end
+  end
+
+  describe '#to_s' do
+    it 'returns the rounded points and the reviever name' do
+      user   = FactoryGirl.build(:user)
+      rating = FactoryGirl.build(:rating, user: user)
+      expect(rating).to receive(:points)
+        .and_return(6.66)
+      expect(rating.to_s).to eq "#{user.name}: 6.7"
     end
   end
 end

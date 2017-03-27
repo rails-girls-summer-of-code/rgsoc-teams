@@ -150,4 +150,12 @@ class Application < ActiveRecord::Base
       value.to_s != '0' ? flags.concat([flag.to_s]).uniq : flags.delete(flag.to_s)
     end
   end
+
+  def project1
+    Project.find_by(id: application_data['project1_id'])
+  end
+
+  def project2
+    Project.find_by(id: application_data['project2_id'])
+  end
 end
