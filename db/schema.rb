@@ -69,7 +69,6 @@ ActiveRecord::Schema.define(version: 20170324095215) do
     t.string   "gender_identification_pair",    limit: 255
     t.text     "misc_info"
     t.string   "sponsor_pick",                  limit: 255
-    t.integer  "project_visibility"
     t.boolean  "hidden"
     t.text     "flags",                                     default: [], array: true
     t.string   "country",                       limit: 255

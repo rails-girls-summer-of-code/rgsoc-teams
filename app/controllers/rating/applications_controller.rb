@@ -50,7 +50,6 @@ class Rating::ApplicationsController < Rating::BaseController
   def application_params
     params.require(:application).
       permit(:misc_info,
-            :project_visibility,
             :project_id,
             :city,
             :country,

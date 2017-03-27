@@ -55,7 +55,6 @@ module ApplicationsHelper
   def link_to_application_project(application)
     if project = application.project
       link_txt = project.name
-      link_txt += " (#{application.project_visibility})" if application.project_visibility
       link_to link_txt, project
     end
   end
