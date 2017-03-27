@@ -69,7 +69,6 @@ ActiveRecord::Schema.define(version: 20170324225335) do
     t.string   "gender_identification_pair",    limit: 255
     t.text     "misc_info"
     t.string   "sponsor_pick",                  limit: 255
-    t.integer  "project_visibility"
     t.boolean  "hidden"
     t.text     "flags",                                     default: [], array: true
     t.string   "country",                       limit: 255
@@ -249,6 +248,14 @@ ActiveRecord::Schema.define(version: 20170324225335) do
     t.string   "project_name"
     t.index ["applications_count"], name: "index_teams_on_applications_count", using: :btree
     t.index ["season_id"], name: "index_teams_on_season_id", using: :btree
+  end
+
+  create_table "todos", force: :cascade do |t|
+    t.integer  "application_id"
+    t.integer  "user_id"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.index ["user_id", "application_id"], name: "index_todos_on_user_id_and_application_id", unique: true, using: :btree
   end
 
   create_table "users", force: :cascade do |t|

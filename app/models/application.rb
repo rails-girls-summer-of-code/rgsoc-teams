@@ -66,7 +66,7 @@ class Application < ActiveRecord::Base
   belongs_to :team, inverse_of: :applications, counter_cache: true
   belongs_to :project
 
-  has_many :ratings, as: :rateable
+  has_many :todos, dependent: :destroy
 
   validates :team, :application_data, presence: true
 
@@ -74,29 +74,13 @@ class Application < ActiveRecord::Base
   COACHING_COMPANY_WEIGHT = ENV['COACHING_COMPANY_WEIGHT'] || 2
   MENTOR_PICK_WEIGHT = ENV['MENTOR_PICK_WEIGHT'] || 2
   FLAGS = [:remote_team,
-          :mentor_pick,
           :volunteering_team,
           :selected,
           :male_gender,
           :zero_community,
           :age_below_18,
-          :less_than_two_coaches]
-
-  FIELDS_REMOVED_IN_BLIND = [:student0_name,
-                             :student1_name,
-                             :student0_application_minimum_money,
-                             :student1_application_minimum_money,
-                             :student0_application_money,
-                             :student1_application_money,
-                             :student0_application_location,
-                             :student1_application_location,
-                             :student0_application_age,
-                             :student1_application_age,
-                             :voluntary,
-                             :voluntary_hours_per_week,
-                             :heard_about_it,
-                             :student0_application_location,
-                             :student1_application_location]
+          :less_than_two_coaches,
+          :less_than_40_hours_a_week]
 
   has_many :comments, -> { order(:created_at) }, as: :commentable, dependent: :destroy
 
@@ -146,12 +130,7 @@ class Application < ActiveRecord::Base
 
     d.sort(cleaned_application_data)
   end
-
-  def blinded_application_data_for_view
-    allowed_keys =  application_data_for_view.keys.map(&:to_sym) - FIELDS_REMOVED_IN_BLIND
-    allowed_keys.inject({}) { |result, key| result.merge(key => application_data[key.to_s]) }
-  end
-
+  
   def average_skill_level
     skill_levels = ratings.map {|rating| rating.data['skill_level'] }.compact
     !skill_levels.empty? ? skill_levels.inject(:+) / skill_levels.size : 0
@@ -181,13 +160,5 @@ class Application < ActiveRecord::Base
       flags_will_change!
       value.to_s != '0' ? flags.concat([flag.to_s]).uniq : flags.delete(flag.to_s)
     end
-  end
-
-  def student_skill_level
-    application_data['student0_application_coding_level'].try(:to_i)
-  end
-
-  def pair_skill_level
-    application_data['student1_application_coding_level'].try(:to_i)
   end
 end

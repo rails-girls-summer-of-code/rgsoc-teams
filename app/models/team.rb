@@ -1,5 +1,5 @@
 class Team < ActiveRecord::Base
-  include ProfilesHelper, HasSeason, Rateable
+  include ProfilesHelper, HasSeason
 
   delegate :sponsored?, :voluntary?, to: :kind
 
