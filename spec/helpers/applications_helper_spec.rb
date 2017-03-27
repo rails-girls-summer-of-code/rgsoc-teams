@@ -64,12 +64,6 @@ describe ApplicationsHelper do
       it 'returns link to project' do
         expect(project_link).to eq link_to(project.name, project)
       end
-
-      it 'returns link to project with visiblity when visiblity set' do
-        allow(application).to receive(:project_visibility){ 3 }
-        link_to_project = link_to("#{project.name} (3)", project)
-        expect(project_link).to eq link_to_project
-      end
     end
   end
   describe '.format_application_projects' do
