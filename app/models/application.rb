@@ -74,13 +74,13 @@ class Application < ActiveRecord::Base
   COACHING_COMPANY_WEIGHT = ENV['COACHING_COMPANY_WEIGHT'] || 2
   MENTOR_PICK_WEIGHT = ENV['MENTOR_PICK_WEIGHT'] || 2
   FLAGS = [:remote_team,
-          :mentor_pick,
           :volunteering_team,
           :selected,
           :male_gender,
           :zero_community,
           :age_below_18,
-          :less_than_two_coaches]
+          :less_than_two_coaches,
+          :less_than_40_hours_a_week]
 
   FIELDS_REMOVED_IN_BLIND = [:student0_name,
                              :student1_name,

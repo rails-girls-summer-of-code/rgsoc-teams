@@ -145,7 +145,7 @@ describe Rating::ApplicationsController do
       before { sign_in user }
 
       context 'with valid params' do
-        let(:params) { {id: application, application: {mentor_pick: 1}} }
+        let(:params) { {id: application, application: {less_than_two_coaches: 1}} }
 
         it 'assigns @application' do
           put :update, params: params
@@ -156,7 +156,7 @@ describe Rating::ApplicationsController do
           expect{
             put :update, params: params
             application.reload
-          }.to change{application.mentor_pick}.to true
+          }.to change{application.less_than_two_coaches}.to true
         end
 
         it 'redirects to application' do
