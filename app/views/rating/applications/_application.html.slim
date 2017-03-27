@@ -13,6 +13,7 @@ tr class=application_classes_for(application)
   td.coaching_company
     = application.coaching_company
   td = format_application_money(application)
+  td = application.total_likes
   td = application.total_picks
   td = rounded_points_for application
   - row.ratings.each do |rating|
