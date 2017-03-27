@@ -10,10 +10,10 @@ class Application < ActiveRecord::Base
       :student0_application_location, :student1_application_location,
       :student0_application_about, :student1_application_about,
       :student0_application_code_background, :student1_application_code_background,
-      :student0_application_skills, :student1_application_skills,
-      :student0_application_coding_level, :student1_application_coding_level,
       :student0_application_community_engagement, :student1_application_community_engagement,
       :student0_application_giving_back, :student1_application_giving_back,
+      :student0_application_skills, :student1_application_skills,
+      :student0_application_coding_level, :student1_application_coding_level,
       :student0_application_language_learning_period, :student1_application_language_learning_period,
       :student0_application_learning_history, :student1_application_learning_history,
       :student0_application_code_samples, :student1_application_code_samples,
@@ -127,6 +127,10 @@ class Application < ActiveRecord::Base
   def average_skill_level
     skill_levels = ratings.map {|rating| rating.data['skill_level'] }.compact
     !skill_levels.empty? ? skill_levels.inject(:+) / skill_levels.size : 0
+  end
+
+  def total_likes
+    ratings.where(like: true).count
   end
 
   def total_picks

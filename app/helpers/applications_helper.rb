@@ -24,6 +24,12 @@ module ApplicationsHelper
     formatted = case
     when markdown_fields.include?(key.to_s)
       render_markdown value
+    when /student._application_coding_level/ =~ key.to_s
+      value + '/5'
+    when /student._application_language_learning_period/ =~ key.to_s
+      value + ' months'
+    when /student._application_money/ =~ key.to_s
+      value + ' USD'
     when /project._id/ =~ key.to_s
       project = Project.find_by_id value
       link_to_if project, project.try(:name), project

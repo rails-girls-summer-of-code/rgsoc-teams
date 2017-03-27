@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170324095215) do
+ActiveRecord::Schema.define(version: 20170324225335) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -182,6 +182,7 @@ ActiveRecord::Schema.define(version: 20170324095215) do
     t.boolean  "pick"
     t.integer  "rateable_id"
     t.string   "rateable_type",  limit: 255
+    t.boolean  "like"
     t.index ["rateable_id", "rateable_type"], name: "index_ratings_on_rateable_id_and_rateable_type", using: :btree
   end
 

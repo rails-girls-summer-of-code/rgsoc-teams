@@ -5,8 +5,8 @@ class Rating::Table
     extend Forwardable
 
     def_delegators :application, :id, :flags, :location, :team_name,
-      :project_name, :student_name, :total_picks, :average_points, :coaching_company,
-      :misc_info
+      :project_name, :student_name, :total_likes, :total_picks, :average_points,
+      :coaching_company, :misc_info
 
     attr_reader :names, :application, :options
 
@@ -45,12 +45,25 @@ class Rating::Table
 
   def sort(rows)
     case order = options[:order].try(:to_sym)
+    when :likes
+      sort_by_likes(rows).reverse
     when :picks
       sort_by_picks(rows).reverse
     when :average_points
       rows.sort_by { |row| row.average_points }.reverse
     else
       rows.select(&order).sort_by(&order) + rows.reject(&order)
+    end
+  end
+
+  def sort_by_likes(rows)
+    rows.sort do |lft, rgt|
+      if lft.total_likes == rgt.total_likes
+        result = lft.average_points <=> rgt.average_points
+        result
+      else
+        lft.total_likes <=> rgt.total_likes
+      end
     end
   end
 
@@ -64,4 +77,5 @@ class Rating::Table
       end
     end
   end
+
 end
