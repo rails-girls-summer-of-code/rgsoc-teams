@@ -91,6 +91,14 @@ class Application < ActiveRecord::Base
     ApplicationDraft.human_attribute_name(key)
   end
 
+  def self.rateable
+    joins("LEFT JOIN projects p1 ON p1.id::text = applications.application_data -> 'project1_id'")
+      .joins("LEFT JOIN projects p2 ON p2.id::text = applications.application_data -> 'project2_id'")
+      .includes(:ratings, :team)
+      .where(season: Season.current)
+      .where.not(team: nil)
+  end
+
   def name
     [team.try(:name), project.try(:name)].reject(&:blank?).join(' - ')
   end

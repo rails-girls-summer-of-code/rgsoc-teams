@@ -1,26 +1,26 @@
 = render 'rating/breadcrumbs'
 
 form id='applications-filter' class='filter' action=request.url
-  - Application::FLAGS.each do |flag|
+  - Rating::Table::FLAGS.each do |flag|
     label
       = hidden_field_tag "filter[hide_#{flag}]", false
-      = check_box_tag "filter[hide_#{flag}]", true, send("hide_#{flag.to_s}?")
+      = check_box_tag "filter[hide_#{flag}]", true, send("hide_#{flag}?")
       = " Hide #{flag.to_s.humanize}"
 
 table#applications.table.table-striped.table-bordered.table-condensed.table-hover
   thead
     tr
-      th ID
+      th = link_to_ordered 'ID', :id
       th = link_to_ordered 'Application', :team_name
       th.text-center colspan="2" Projects
-      th = link_to_ordered 'Location', :location
+      th Location
       th = link_to_ordered 'Coaching Company', :coaching_company
       th.text-center colspan="2" Money
       th.text-center colspan="2" Volunteer (h per week)
       th.text-center Flags
       th = link_to_ordered 'Average Points', :average_points
-      th = link_to_ordered 'Picks', :picks
-      th = link_to_ordered 'Likes', :likes
+      th = link_to_ordered 'Picks', :total_picks
+      th = link_to_ordered 'Likes', :total_likes
       th.text-center colspan="2" Mentor Signoffs
       th.text-center colspan="2" Mentor Favs
       th Ratings
