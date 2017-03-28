@@ -34,9 +34,18 @@ module ApplicationsHelper
       project = Project.find_by_id value
       link_to_if project, project.try(:name), project
     else
-      auto_link simple_format(value)
+      auto_link(simple_format(value))
     end
     content_tag :p, formatted.html_safe
+  end
+
+  def show_student_names(application)
+    output = ""
+    output << content_tag(:b, Application.data_label("student0_name"))
+    output << content_tag(:p, simple_format(application.team.students.first.name))
+    output << content_tag(:b, Application.data_label("student1_name"))
+    output << content_tag(:p, simple_format(application.team.students.last.name))
+    output.html_safe
   end
 
   def format_application_location(application)
