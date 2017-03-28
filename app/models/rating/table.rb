@@ -4,9 +4,9 @@ class Rating::Table
   def initialize(applications:, options: {})
     @options      = DEFAULT_OPTS.merge(options)
     @applications = applications
-      .to_a
-      .delete_if { |a| hide?(a) }
-      .sort_by(&order)
+      # .to_a
+      # .delete_if { |a| hide?(a) }
+      # .sort_by(&order)
   end
 
   attr_reader :applications, :options

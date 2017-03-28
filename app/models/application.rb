@@ -115,10 +115,6 @@ class Application < ActiveRecord::Base
     application_data['minimum_money']
   end
 
-  def data_for(role, subject)
-    Data.new(application_data, role, subject).extract || {}
-  end
-
   def application_data_for_view
     fields_to_delete = [
       "student0_application_location_lng", "student0_application_location_lat",
@@ -129,15 +125,6 @@ class Application < ActiveRecord::Base
     fields_to_delete.each { |field| cleaned_application_data.delete(field)}
 
     d.sort(cleaned_application_data)
-  end
-
-  def average_skill_level
-    skill_levels = ratings.map {|rating| rating.data['skill_level'] }.compact
-    !skill_levels.empty? ? skill_levels.inject(:+) / skill_levels.size : 0
-  end
-
-  def combined_ratings
-    ratings.to_a + team.combined_ratings
   end
 
   def sponsor_pick?

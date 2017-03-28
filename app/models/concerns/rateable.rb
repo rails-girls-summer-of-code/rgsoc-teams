@@ -6,11 +6,8 @@ module Rateable
 
   # public: Averagepoints that this rateable object got from reviewers.
   def average_points
-    if ratings.count > 0
-      ratings.collect(&:points).sum / ratings.count
-    else
-      0
-    end
+    return 0 unless ratings.present?
+    ratings.map(&:points).sum / ratings.count
   end
 
   def ratings_short

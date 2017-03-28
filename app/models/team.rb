@@ -79,10 +79,6 @@ class Team < ActiveRecord::Base
     two_students_present?
   end
 
-  def combined_ratings
-    ratings.to_a + students.map { |student| student.ratings }.flatten
-  end
-
   def set_number
     self.number = Team.count + 1
   end

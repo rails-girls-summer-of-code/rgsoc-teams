@@ -13,7 +13,8 @@ class Rating::ApplicationsController < Rating::BaseController
   end
 
   def index
-    @table = applications_table
+    # @table = applications_table
+    @table = Rating::Table.new(applications: applications)
   end
 
   def show
@@ -80,11 +81,11 @@ class Rating::ApplicationsController < Rating::BaseController
       .where.not(team: nil)
   end
 
-  def applications_table
-    options = { order: order, hide_flags: [] }
-    Application::FLAGS.each do |flag|
-      options[:hide_flags] << flag.to_s if session[:"hide_#{flag}"]
-    end
-    Rating::Table.new(applications: applications, options: options)
-  end
+  # def applications_table
+  #   options = { order: order, hide_flags: [] }
+  #   Application::FLAGS.each do |flag|
+  #     options[:hide_flags] << flag.to_s if session[:"hide_#{flag}"]
+  #   end
+  #   Rating::Table.new(applications: applications, options: options)
+  # end
 end
