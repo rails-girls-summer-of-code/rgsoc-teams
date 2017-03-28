@@ -130,18 +130,10 @@ class Application < ActiveRecord::Base
 
     d.sort(cleaned_application_data)
   end
-  
+
   def average_skill_level
     skill_levels = ratings.map {|rating| rating.data['skill_level'] }.compact
     !skill_levels.empty? ? skill_levels.inject(:+) / skill_levels.size : 0
-  end
-
-  def total_likes
-    ratings.where(like: true).count
-  end
-
-  def total_picks
-    ratings.where(pick: true).count
   end
 
   def combined_ratings
@@ -160,5 +152,13 @@ class Application < ActiveRecord::Base
       flags_will_change!
       value.to_s != '0' ? flags.concat([flag.to_s]).uniq : flags.delete(flag.to_s)
     end
+  end
+
+  def project1
+    Project.find_by(id: application_data['project1_id'])
+  end
+
+  def project2
+    Project.find_by(id: application_data['project2_id'])
   end
 end

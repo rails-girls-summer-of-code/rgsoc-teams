@@ -1,28 +1,25 @@
-- application = row.application
-
-tr class=application_classes_for(application)
-  td = row_counter + 1
-  td.id
-    = link_to application.id, [:rating, application]
-  td.team
-    = link_to application.team.name, [application.team]
-  td.project
-    = format_application_projects(application)
-  td.location
-    = format_application_location(application)
-  td.coaching_company
-    = application.coaching_company
-  td = format_application_money(application)
-  td = application.total_likes
+tr
+  td = application.id
+  td = link_to application.team_name, [:rating, application]
+  - if application.project1
+    td.text-right = link_to application.project1.name, application.project1
+  - else
+    td -
+  - if application.project2
+    td.text-left = link_to application.project2.name, application.project2
+  - else
+    td -
+  td = application.application_data['student0_application_location']
+  td = application.coaching_company
+  td.text-right = application.application_data['student0_application_money']
+  td.text-left = application.application_data['student1_application_money']
+  td.text-center = icon('check') if application.application_data['voluntary'] == 'true'
+  td.text-center = application.application_data['voluntary_hours_per_week']
+  td = application.average_points
   td = application.total_picks
-  td = rounded_points_for application
-  - row.ratings.each do |rating|
-    td class=rating_classes_for(rating, current_user)
-      = rounded_points_for rating
-
-  - Application::FLAGS.each do |flag|
-    - if !respond_to?(:"display_#{flag}s?") || send(:"display_#{flag}s?")
-      td = application.send(:"#{flag}?") ? 'x' : ''
-
-  td.misc_info
-    = application.misc_info
+  td = application.total_likes
+  td.text-center = icon('check') if application.application_data['signed_off_at_project1']
+  td.text-center = icon('check') if application.application_data['signed_off_at_project2']
+  td.text-center = icon('check') if application.application_data['mentor_fav_project1']
+  td.text-center = icon('check') if application.application_data['mentor_fav_project2']
+  td = application.ratings_short.join(', ')

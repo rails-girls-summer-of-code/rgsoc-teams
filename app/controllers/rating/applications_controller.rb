@@ -13,7 +13,7 @@ class Rating::ApplicationsController < Rating::BaseController
   end
 
   def index
-    @applications = applications_table
+    @table = applications_table
   end
 
   def show
@@ -72,14 +72,19 @@ class Rating::ApplicationsController < Rating::BaseController
   end
 
   def applications
-    Application.includes(:ratings).where(season: current_season).where.not(team: nil)
+    Application
+      .joins("INNER JOIN projects p1 ON p1.id::text = applications.application_data -> 'project1_id'")
+      .joins("INNER JOIN projects p2 ON p2.id::text = applications.application_data -> 'project2_id'")
+      .includes(:ratings, :team)
+      .where(season: current_season)
+      .where.not(team: nil)
   end
 
   def applications_table
     options = { order: order, hide_flags: [] }
     Application::FLAGS.each do |flag|
-      options[:hide_flags] << flag.to_s if send(:"hide_#{flag}?")
+      options[:hide_flags] << flag.to_s if session[:"hide_#{flag}"]
     end
-    Rating::Table.new(Rating.user_names, applications, options)
+    Rating::Table.new(applications: applications, options: options)
   end
 end
