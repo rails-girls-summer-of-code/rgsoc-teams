@@ -9,12 +9,13 @@ tr
     td.text-left = link_to application.project2.name, application.project2
   - else
     td -
-  td = application.application_data['student0_application_location']
+  td = application.application_data.values_at('student0_application_location', 'student1_application_location').uniq.join('<br>').html_safe
   td = application.coaching_company
   td.text-right = application.application_data['student0_application_money']
   td.text-left = application.application_data['student1_application_money']
   td.text-center = icon('check') if application.application_data['voluntary'] == 'true'
   td.text-center = application.application_data['voluntary_hours_per_week']
+  td.text-center = application.flags.size
   td = application.average_points
   td = application.total_picks
   td = application.total_likes
