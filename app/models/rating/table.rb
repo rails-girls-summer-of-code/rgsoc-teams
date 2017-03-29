@@ -15,9 +15,11 @@ class Rating::Table
       .sort(&sort_order)
   end
 
-  attr_reader :applications, :options
+  attr_reader :applications
 
   private
+
+  attr_reader :options
 
   def sort_order
     case options[:order]
