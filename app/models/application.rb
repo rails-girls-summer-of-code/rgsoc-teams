@@ -10,10 +10,10 @@ class Application < ActiveRecord::Base
       :student0_application_location, :student1_application_location,
       :student0_application_about, :student1_application_about,
       :student0_application_code_background, :student1_application_code_background,
-      :student0_application_community_engagement, :student1_application_community_engagement,
-      :student0_application_giving_back, :student1_application_giving_back,
       :student0_application_skills, :student1_application_skills,
       :student0_application_coding_level, :student1_application_coding_level,
+      :student0_application_community_engagement, :student1_application_community_engagement,
+      :student0_application_giving_back, :student1_application_giving_back,
       :student0_application_language_learning_period, :student1_application_language_learning_period,
       :student0_application_learning_history, :student1_application_learning_history,
       :student0_application_code_samples, :student1_application_code_samples,
@@ -136,10 +136,6 @@ class Application < ActiveRecord::Base
     !skill_levels.empty? ? skill_levels.inject(:+) / skill_levels.size : 0
   end
 
-  def total_likes
-    ratings.where(like: true).count
-  end
-
   def total_picks
     ratings.where(pick: true).count
   end
@@ -160,5 +156,13 @@ class Application < ActiveRecord::Base
       flags_will_change!
       value.to_s != '0' ? flags.concat([flag.to_s]).uniq : flags.delete(flag.to_s)
     end
+  end
+
+  def project1
+    Project.find_by(id: application_data['project1_id'])
+  end
+
+  def project2
+    Project.find_by(id: application_data['project2_id'])
   end
 end

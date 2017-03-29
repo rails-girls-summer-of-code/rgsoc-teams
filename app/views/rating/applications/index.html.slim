@@ -10,26 +10,18 @@ form id='applications-filter' class='filter' action=request.url
 table#applications.table.table-striped.table-bordered.table-condensed.table-hover
   thead
     tr
-      th #
-      th = link_to_ordered 'ID', :id
-      th = link_to_ordered 'Team', :team_name
-      th = link_to_ordered 'Projects', :project_name
-      th = link_to_ordered 'Locations', :location
+      th ID
+      th = link_to_ordered 'Application', :team_name
+      th.text-center colspan="2" Projects
+      th = link_to_ordered 'Location', :location
       th = link_to_ordered 'Coaching Company', :coaching_company
-      th = 'Money'
-      th = link_to_ordered 'Likes', :likes
-      th = link_to_ordered 'Picks', :picks
+      th.text-center colspan="2" Money
+      th.text-center colspan="2" Volunteer (h per week)
       th = link_to_ordered 'Average Points', :average_points
-
-      - @applications.names.each do |name|
-        th = name.split.first
-
-      - Application::FLAGS.each do |flag|
-        th = flag.to_s.humanize
-
-      th = 'Misc info'
-
+      th = link_to_ordered 'Picks', :picks
+      th = link_to_ordered 'Likes', :likes
+      th.text-center colspan="2" Mentor Signoffs
+      th.text-center colspan="2" Mentor Favs
+      th Ratings
   tbody
-    = render partial: 'application', collection: @applications.rows, as: :row
-
-= link_to "Show hidden", "?show_hidden=true"
+    = render partial: 'application', collection: @table.applications

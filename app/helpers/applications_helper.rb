@@ -4,19 +4,12 @@ module ApplicationsHelper
     define_method(:"hide_#{flag}?")    { session[:"hide_#{flag}"] }
   end
 
-  def rating_classes_for(rating, user)
-    classes = []
-    classes << "pick" if rating.pick?
-    classes << 'own_rating' if rating.user == user
-    classes.join(' ')
-  end
-
-  def application_classes_for(application)
-    classes = [cycle(:even, :odd)]
-    classes << 'selected' if application.selected?
-    classes << 'volunteering_team' if application.volunteering_team?
-    classes.join(' ')
-  end
+  # def application_classes_for(application)
+  #   classes = [cycle(:even, :odd)]
+  #   classes << 'selected' if application.selected?
+  #   classes << 'volunteering_team' if application.volunteering_team?
+  #   classes.join(' ')
+  # end
 
   def formatted_application_data_value(key, value)
     markdown_fields = %w(project_plan1 project_plan2)
@@ -24,12 +17,6 @@ module ApplicationsHelper
     formatted = case
     when markdown_fields.include?(key.to_s)
       render_markdown value
-    when /student._application_coding_level/ =~ key.to_s
-      value + '/5'
-    when /student._application_language_learning_period/ =~ key.to_s
-      value + ' months'
-    when /student._application_money/ =~ key.to_s
-      value + ' USD'
     when /project._id/ =~ key.to_s
       project = Project.find_by_id value
       link_to_if project, project.try(:name), project

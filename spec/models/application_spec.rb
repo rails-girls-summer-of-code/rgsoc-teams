@@ -21,11 +21,6 @@ describe Application do
     it { is_expected.to be_present }
   end
 
-  describe '#total_likes' do
-    subject { super().total_likes }
-    it { is_expected.to be_present }
-  end
-
   describe '#total_picks' do
     subject { super().total_picks }
     it { is_expected.to be_present }

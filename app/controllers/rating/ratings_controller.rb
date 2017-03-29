@@ -17,11 +17,11 @@ class Rating::RatingsController < Rating::BaseController
 
   private
     def new_rating_params
-      params.require(:rating).permit(:rateable_id, :rateable_type, :like, :pick, Rating::FIELDS.keys)
+      params.require(:rating).permit(:rateable_id, :rateable_type, :pick, Rating::FIELDS.keys)
     end
 
     def rating_attr_params
-      params.require(:rating).permit(:like, :pick, Rating::FIELDS.keys)
+      params.require(:rating).permit(:pick, Rating::FIELDS.keys)
     end
 
     def find_or_create_rating

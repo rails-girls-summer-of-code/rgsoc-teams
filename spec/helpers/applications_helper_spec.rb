@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe ApplicationsHelper do
+xdescribe ApplicationsHelper do
   describe '.rating_classes_for' do
     let(:user) { mock_model(User) }
     let(:rating) { mock_model(Rating) }

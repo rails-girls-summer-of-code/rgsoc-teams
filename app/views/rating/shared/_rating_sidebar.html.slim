@@ -6,6 +6,6 @@
     - Rating::FIELDS.keys.each do |key|
       = f.input key, collection: Rating.send("#{key}_options"), include_blank: false, selected: rating.send(key), input_html: field_tooltip(key)
 
-    = f.input :like, label: "Like", label_html: field_tooltip(:like)
+
     = f.input :pick, label: "My Pick", label_html: field_tooltip(:pick)
     = f.submit 'Save'
