@@ -117,8 +117,8 @@ class User < ActiveRecord::Base
   # This informs devise that this user does not
   # need a confirmation notification for now
   def github_import=(import)
+    skip_confirmation_notification! if import
     @github_import = import
-    skip_confirmation_notification! if @github_import
   end
 
   class << self

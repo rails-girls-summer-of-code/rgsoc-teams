@@ -11,7 +11,7 @@ module Authentication
 
       def find_and_update_for_github_oauth(auth)
         user = find_for_github_oauth(auth)
-        update_user(user, auth) if user && user.email.nil? && user.unconfirmed_email.nil?
+        update_user(user, auth) if unconfirmed_user?(user)
         user
       end
 
@@ -40,6 +40,10 @@ module Authentication
       end
 
       private
+
+      def unconfirmed_user?(user)
+        user && user.email.nil? && user.unconfirmed_email.nil?
+      end
 
       def github_homepage(auth)
         homepage = auth.extra.raw_info.blog
