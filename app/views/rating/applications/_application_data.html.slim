@@ -3,101 +3,167 @@
 b = Application.data_label("student0_application_age")
 p = auto_link(show_or_na(ad["student0_application_age"]))
 
+hr
+
 b = Application.data_label("student1_application_age")
 p = auto_link(show_or_na(ad["student1_application_age"]))
+
+hr
 
 b = Application.data_label("student0_application_gender_identification")
 p = auto_link(show_or_na(ad["student0_application_gender_identification"]))
 
+hr
+
 b = Application.data_label("student1_application_gender_identification")
 p = auto_link(show_or_na(ad["student1_application_gender_identification"]))
+
+hr
 
 b = Application.data_label("student0_application_diversity")
 p = auto_link(show_or_na(ad["student0_application_diversity"]))
 
+hr
+
 b = Application.data_label("student1_application_diversity")
 p = auto_link(show_or_na(ad["student1_application_diversity"]))
+
+hr
 
 b = Application.data_label("student0_application_location")
 p = auto_link(show_or_na(ad["student0_application_location"]))
 
+hr
+
 b = Application.data_label("student1_application_location")
 p = auto_link(show_or_na(ad["student1_application_location"]))
+
+hr
 
 b = Application.data_label("student0_application_about")
 p = auto_link(show_or_na(ad["student0_application_about"]))
 
+hr
+
 b = Application.data_label("student1_application_about")
 p = auto_link(show_or_na(ad["student1_application_about"]))
+
+hr
 
 b = Application.data_label("student0_application_code_background")
 p = auto_link(show_or_na(ad["student0_application_code_background"]))
 
+hr
+
 b = Application.data_label("student1_application_code_background")
 p = auto_link(show_or_na(ad["student1_application_code_background"]))
+
+hr
 
 b = Application.data_label("student0_application_community_engagement")
 p = auto_link(show_or_na(ad["student0_application_community_engagement"]))
 
+hr
+
 b = Application.data_label("student1_application_community_engagement")
 p = auto_link(show_or_na(ad["student1_application_community_engagement"]))
+
+hr
 
 b = Application.data_label("student0_application_giving_back")
 p = auto_link(show_or_na(ad["student0_application_giving_back"]))
 
+hr
+
 b = Application.data_label("student1_application_giving_back")
 p = auto_link(show_or_na(ad["student1_application_giving_back"]))
+
+hr
 
 b = Application.data_label("student0_application_skills")
 p = auto_link(show_or_na(ad["student0_application_skills"]))
 
+hr
+
 b = Application.data_label("student1_application_skills")
 p = auto_link(show_or_na(ad["student1_application_skills"]))
+
+hr
 
 b = Application.data_label("student0_application_coding_level")
 p = auto_link(show_or_na(ad["student0_application_coding_level"]) + "/5")
 
+hr
+
 b = Application.data_label("student1_application_coding_level")
 p = auto_link(show_or_na(ad["student1_application_coding_level"]) + "/5")
+
+hr
 
 b = Application.data_label("student0_application_language_learning_period")
 p = auto_link(show_or_na(ad["student0_application_language_learning_period"] )+ " months")
 
+hr
+
 b = Application.data_label("student1_application_language_learning_period")
 p = auto_link(show_or_na(ad["student1_application_language_learning_period"] )+ " months")
+
+hr
 
 b = Application.data_label("student0_application_learning_history")
 p = auto_link(show_or_na(ad["student0_application_learning_history"]))
 
+hr
+
 b = Application.data_label("student1_application_learning_history")
 p = auto_link(show_or_na(ad["student1_application_learning_history"]))
+
+hr
 
 b = Application.data_label("student0_application_code_samples")
 p = auto_link(show_or_na(ad["student0_application_code_samples"]))
 
+hr
+
 b = Application.data_label("student1_application_code_samples")
 p = auto_link(show_or_na(ad["student1_application_code_samples"]))
+
+hr
 
 b = Application.data_label("student0_application_goals")
 p = auto_link(show_or_na(ad["student0_application_goals"]))
 
+hr
+
 b = Application.data_label("student1_application_goals")
 p = auto_link(show_or_na(ad["student1_application_goals"]))
+
+hr
 
 b = Application.data_label("student0_application_motivation")
 p = auto_link(show_or_na(ad["student0_application_motivation"]))
 
+hr
+
 b = Application.data_label("student1_application_motivation")
 p = auto_link(show_or_na(ad["student1_application_motivation"]))
+
+hr
 
 b = Application.data_label("student0_application_money")
 p = auto_link(show_or_na(ad["student0_application_money"]) + " USD")
 
+hr
+
 b = Application.data_label("student1_application_money")
 p = auto_link(show_or_na(ad["student1_application_money"]) + " USD")
 
+hr
+
 b = Application.data_label("student0_application_minimum_money")
 p = auto_link(show_or_na(ad["student0_application_minimum_money"]))
+
+hr
 
 b = Application.data_label("student1_application_minimum_money")
 p = auto_link(show_or_na(ad["student1_application_minimum_money"]))
@@ -105,38 +171,60 @@ p = auto_link(show_or_na(ad["student1_application_minimum_money"]))
 - project1 = Project.find_by(id: ad["project1_id"])
 - link_to_if project1, project1.try(:name), project1
 
+hr
+
 b = Application.data_label("project1_id")
 p = link_to_if project1, project1.try(:name), project1
 
 - project2 = Project.find_by(id: ad["project2_id"])
 - link_to_if project2, project2.try(:name), project2
 
+hr
+
 b = Application.data_label("project2_id")
 p = link_to_if project2, project2.try(:name), project2
+
+hr
 
 b = Application.data_label("why_selected_project1")
 p = auto_link(show_or_na(ad["why_selected_project1"]))
 
+hr
+
 b = Application.data_label("why_selected_project2")
 p = auto_link(show_or_na(ad["why_selected_project2"]))
+
+hr
 
 b = Application.data_label("plan_project1")
 p = auto_link(show_or_na(render_markdown(ad["plan_project1"])))
 
+hr
+
 b = Application.data_label("plan_project2")
 p = auto_link(show_or_na(render_markdown(ad["plan_project2"])))
+
+hr
 
 b = Application.data_label("working_together")
 p = auto_link(show_or_na(ad["working_together"]))
 
+hr
+
 b = Application.data_label("voluntary")
 p = auto_link(show_or_na(ad["voluntary"]))
+
+hr
 
 b = Application.data_label("voluntary_hours_per_week")
 p = auto_link(show_or_na(ad["voluntary_hours_per_week"]))
 
+hr
+
 b = Application.data_label("heard_about_it")
 p = auto_link(show_or_na(ad["heard_about_it"]))
+
+hr
 
 b = Application.data_label("misc_info")
 p = auto_link(show_or_na(ad["misc_info"]))
