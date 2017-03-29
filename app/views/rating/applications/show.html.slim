@@ -43,11 +43,7 @@
         td = format_application_flags(@application)
 
   h2 Submitted Application
-  = show_student_names(@application)
-
-  - @application.application_data_for_view.each do |title, value|
-    b = Application.data_label(title)
-    p  = formatted_application_data_value(title, value)
+  = render partial: 'application_data', locals: { application: @application }
 
   #comments
     h2 Comments

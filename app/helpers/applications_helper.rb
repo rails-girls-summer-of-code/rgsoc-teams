@@ -18,34 +18,8 @@ module ApplicationsHelper
     classes.join(' ')
   end
 
-  def formatted_application_data_value(key, value)
-    markdown_fields = %w(project_plan1 project_plan2)
-    value = value.presence || 'n/a'
-    formatted = case
-    when markdown_fields.include?(key.to_s)
-      render_markdown value
-    when /student._application_coding_level/ =~ key.to_s
-      value + '/5'
-    when /student._application_language_learning_period/ =~ key.to_s
-      value + ' months'
-    when /student._application_money/ =~ key.to_s
-      value + ' USD'
-    when /project._id/ =~ key.to_s
-      project = Project.find_by_id value
-      link_to_if project, project.try(:name), project
-    else
-      auto_link(simple_format(value))
-    end
-    content_tag :p, formatted.html_safe
-  end
-
-  def show_student_names(application)
-    output = ""
-    output << content_tag(:b, Application.data_label("student0_name"))
-    output << content_tag(:p, simple_format(application.team.students.first.name))
-    output << content_tag(:b, Application.data_label("student1_name"))
-    output << content_tag(:p, simple_format(application.team.students.last.name))
-    output.html_safe
+  def show_or_na(value)
+    value.presence || "n/a"
   end
 
   def format_application_location(application)
