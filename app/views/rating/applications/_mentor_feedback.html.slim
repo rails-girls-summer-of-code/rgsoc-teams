@@ -1,0 +1,23 @@
+- ad = application.application_data
+
+b = Application.data_label("signed_off_at_project1")
+p = ad["signed_off_at_project1"]
+
+- project1_sign_off = User.find_by(id: ad["signed_off_by_project1"])
+
+b = Application.data_label("signed_off_by_project1")
+p = project1_sign_off.try(:name)
+
+b = Application.data_label("mentor_fav_project1")
+p = ad["mentor_fav_project1"]
+
+b = Application.data_label("signed_off_at_project2")
+p = ad["signed_off_at_project2"]
+
+- project2_sign_off = User.find_by(id: ad["signed_off_by_project2"])
+
+b = Application.data_label("signed_off_by_project2")
+p = project2_sign_off.try(:name)
+
+b = Application.data_label("mentor_fav_project2")
+p = ad["mentor_fav_project2"]

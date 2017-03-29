@@ -42,6 +42,9 @@
         td Flags
         td = format_application_flags(@application)
 
+  h2 Mentors' feedback
+  = render partial: 'mentor_feedback', locals: { application: @application }
+
   h2 Submitted Application
   = render partial: 'application_data', locals: { application: @application }
 
