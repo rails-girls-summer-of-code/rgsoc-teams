@@ -18,6 +18,7 @@ describe Rating::ApplicationsController do
           expect(response).to redirect_to root_path
         end
       end
+
       context 'as a reviewer' do
         let(:user) { create(:reviewer_role).user }
         let(:application_draft) { create :application_draft, :appliable }
@@ -49,8 +50,15 @@ describe Rating::ApplicationsController do
       end
     end
   end
+
   describe 'GET show' do
-    let(:application) { create :application }
+    let(:application) { FactoryGirl.create(:application) }
+
+    before do
+      # create students for teams
+      FactoryGirl.create(:student, team: application.team)
+      FactoryGirl.create(:student, team: application.team)
+    end
 
     it 'requires login' do
       get :show, params: { id: application }
@@ -64,6 +72,7 @@ describe Rating::ApplicationsController do
       expect(response).to redirect_to root_path
       expect(flash[:alert]).to be_present
     end
+
     context 'when reviewer' do
       let(:user) { create :reviewer }
       before { sign_in user }
@@ -84,6 +93,7 @@ describe Rating::ApplicationsController do
           expect(response).to render_template 'rating/applications/show'
         end
       end
+
       context 'when application already rated by user' do
         let!(:rating) { create :rating, :for_application, user: user, rateable: application }
 
@@ -94,6 +104,7 @@ describe Rating::ApplicationsController do
       end
     end
   end
+
   describe 'GET edit' do
     let(:application) { create :application }
 
@@ -109,6 +120,7 @@ describe Rating::ApplicationsController do
       expect(response).to redirect_to root_path
       expect(flash[:alert]).to be_present
     end
+
     context 'when reviewer' do
       let(:user) { create :reviewer }
       before do
@@ -125,6 +137,7 @@ describe Rating::ApplicationsController do
       end
     end
   end
+
   describe 'PUT update' do
     let(:application) { create :application }
 
@@ -140,6 +153,7 @@ describe Rating::ApplicationsController do
       expect(response).to redirect_to root_path
       expect(flash[:alert]).to be_present
     end
+
     context 'when reviewer' do
       let(:user) { create :reviewer }
       before { sign_in user }

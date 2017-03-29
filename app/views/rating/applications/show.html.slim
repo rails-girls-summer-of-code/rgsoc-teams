@@ -26,6 +26,7 @@
   h2 Additional Info
 
   p = link_to 'Edit additional Info', edit_rating_application_path(@application)
+  b Misc info:
   p = @application.misc_info
   table.misc_info
     tbody
@@ -36,16 +37,14 @@
         td Coaching Company
         td = @application.coaching_company
       tr
-        td Location
-        td = "#{@application.city} #{@application.country}"
-      tr
         td Flags
         td = format_application_flags(@application)
 
+  h2 Mentors' feedback
+  = render partial: 'mentor_feedback', locals: { application: @application }
+
   h2 Submitted Application
-  - @application.application_data_for_view.each do |title, value|
-    b = Application.data_label(title)
-    p  = formatted_application_data_value(title, value)
+  = render partial: 'application_data', locals: { application: @application }
 
   #comments
     h2 Comments
