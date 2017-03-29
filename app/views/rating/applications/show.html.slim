@@ -40,10 +40,11 @@
         td Flags
         td = format_application_flags(@application)
 
+  h2 Mentors' feedback
+  = render partial: 'mentor_feedback', locals: { application: @application }
+
   h2 Submitted Application
-  - @application.application_data_for_view.each do |title, value|
-    b = Application.data_label(title)
-    p  = formatted_application_data_value(title, value)
+  = render partial: 'application_data', locals: { application: @application }
 
   #comments
     h2 Comments
