@@ -4,10 +4,8 @@ module Rateable
     has_many :ratings, as: :rateable
   end
 
-  # public: Averagepoints that this rateable object got from reviewers.
   def average_points
-    return 0 unless ratings.present?
-    ratings.map(&:points).sum / ratings.count
+    total_points.round(2)
   end
 
   def ratings_short
@@ -20,5 +18,12 @@ module Rateable
 
   def total_likes
     ratings.where(like: true).count
+  end
+
+  private
+
+  def total_points
+    return 0 unless ratings.present?
+    ratings.map(&:points).sum / ratings.count
   end
 end

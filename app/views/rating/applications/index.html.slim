@@ -15,14 +15,15 @@ table#applications.table.table-striped.table-bordered.table-condensed.table-hove
       th.text-center colspan="2" Projects
       th Location
       th = link_to_ordered 'Coaching Company', :coaching_company
-      th.text-center colspan="2" Money
+      th.text-center colspan="2" Money ($)
       th.text-center colspan="2" Volunteer (h per week)
       th.text-center Flags
-      th = link_to_ordered 'Average Points', :average_points
-      th = link_to_ordered 'Picks', :total_picks
-      th = link_to_ordered 'Likes', :total_likes
       th.text-center colspan="2" Mentor Signoffs
       th.text-center colspan="2" Mentor Favs
+      th = link_to_ordered 'Picks', :total_picks
+      th = link_to_ordered 'Likes', :total_likes
+      th = link_to_ordered 'Average Points', :average_points
       th Ratings
+      th Misc
   tbody
     = render partial: 'application', collection: @table.applications
