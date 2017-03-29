@@ -10,6 +10,8 @@ describe User do
   it { expect(subject).to have_many(:attendances).dependent(:destroy) }
   it { expect(subject).to have_many(:conferences) }
   it { expect(subject).to have_many(:roles) }
+  it { expect(subject).to have_many(:todos).dependent(:destroy) }
+
   it { expect(subject).to validate_presence_of(:github_handle) }
   it { is_expected.to validate_uniqueness_of(:github_handle).case_insensitive }
 

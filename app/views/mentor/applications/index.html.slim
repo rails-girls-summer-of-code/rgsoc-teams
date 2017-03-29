@@ -25,9 +25,9 @@ table.applications.table.table-striped.table-bordered.table-condensed.table-hove
             = simple_format comment.text
         td
           - if application.signed_off?
-            = link_to icon('ok'), signoff_mentor_application_path(application), method: :put, class: 'btn', title: "Signed-off at #{l application.signed_off_at}", data: { confirm: 'You are about to undo your sign-off. Proceed?' }
+            = link_to icon('check'), signoff_mentor_application_path(application), method: :put, class: 'btn', title: "Signed-off at #{l application.signed_off_at}", data: { confirm: 'You are about to undo your sign-off. Proceed?' }
           - else
-            = link_to icon('ok'), signoff_mentor_application_path(application), method: :put, class: 'btn btn-primary', data: { confirm: 'By signing-off this application, you deem this team fit to work on your project and that they meet the requirements. Proceed?' }
+            = link_to icon('check'), signoff_mentor_application_path(application), method: :put, class: 'btn btn-primary', data: { confirm: 'By signing-off this application, you deem this team fit to work on your project and that they meet the requirements. Proceed?' }
         td
           - if application.mentor_fav?
             = link_to icon('heart'), fav_mentor_application_path(application), method: :put, class: 'btn', title: "Marked as one of your favorites", data: { confirm: 'You are about to remove your preference for this team. Proceed?' }
