@@ -15,7 +15,7 @@ tr
   td.text-left = application.application_data['student1_application_money']
   td.text-center = icon('check') if application.application_data['voluntary'] == 'true'
   td.text-center = application.application_data['voluntary_hours_per_week']
-  td.text-center = application.flags.size
+  td.text-left = application.flags.map { |f| content_tag(:span, f, class: 'label label-default') }.join('<br>').html_safe
   td = application.average_points
   td = application.total_picks
   td = application.total_likes
