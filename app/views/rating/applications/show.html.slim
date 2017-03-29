@@ -26,6 +26,7 @@
   h2 Additional Info
 
   p = link_to 'Edit additional Info', edit_rating_application_path(@application)
+  b Misc info:
   p = @application.misc_info
   table.misc_info
     tbody
@@ -35,9 +36,6 @@
       tr
         td Coaching Company
         td = @application.coaching_company
-      tr
-        td Location
-        td = "#{@application.city} #{@application.country}"
       tr
         td Flags
         td = format_application_flags(@application)
