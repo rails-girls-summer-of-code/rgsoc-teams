@@ -1,13 +1,5 @@
 class Feed
   class S3
-    class << self
-      def setup(options)
-        Aws.config.update(
-          access_key_id: options[:access_key_id], secret_access_key: options[:secret_access_key]
-        )
-      end
-    end
-
     attr_reader :s3, :url, :logger
 
     def initialize(url, options = {})
