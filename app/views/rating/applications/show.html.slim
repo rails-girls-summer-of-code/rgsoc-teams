@@ -2,6 +2,7 @@
 
 #application
   h1 = "Application: #{@application.name}"
+
   ul
     li
       span = "Team: "
@@ -23,6 +24,8 @@
       span = "Coaches:"
       span = link_to_team_members(@application.team, :coach)
 
+  hr
+
   h2 Additional Info
 
   p = link_to 'Edit additional Info', edit_rating_application_path(@application)
@@ -40,11 +43,17 @@
         td Flags
         td = format_application_flags(@application)
 
+  hr
+
   h2 Mentors' feedback
   = render partial: 'mentor_feedback', locals: { application: @application }
 
+  hr
+
   h2 Submitted Application
   = render partial: 'application_data', locals: { application: @application }
+
+  hr
 
   #comments
     h2 Comments
