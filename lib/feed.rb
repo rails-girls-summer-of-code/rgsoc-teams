@@ -19,7 +19,6 @@ class Feed
   def initialize(source, options = {})
     @source = source
     @logger = options[:logger] || Logger.new(STDOUT)
-    Feed::S3.setup(access_key_id: ENV['AWS_ACCESS_KEY_ID'], secret_access_key: ENV['AWS_SECRET_ACCESS_KEY'])
   end
 
   def update

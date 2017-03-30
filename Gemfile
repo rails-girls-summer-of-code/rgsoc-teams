@@ -33,7 +33,7 @@ gem 'uglifier'
 gem 'sprockets-rails'
 
 gem 'newrelic_rpm'
-gem 'aws-sdk', '~> 1.38.0'
+gem 'aws-sdk'
 
 gem 'rollbar'
 
