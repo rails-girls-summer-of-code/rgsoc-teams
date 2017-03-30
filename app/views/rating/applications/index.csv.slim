@@ -1,0 +1,43 @@
+= CSV.generate_line(\
+    ['ID',
+      'Application',
+      'Project1',
+      'Project2',
+      'Location',
+      'CoachingCompany',
+      'Money1',
+      'Money2',
+      'Voluneer',
+      'VolunteerHours',
+      'Flags',
+      'Picks1',
+      'Picks2',
+      'Likes1',
+      'Likes2',
+      'AveragePoints',
+      'Ratings Misc'],
+    force_quotes: true\
+  ).html_safe
+
+- @table.applications.each do |a|
+  = CSV.generate_line(\
+      [a.id,
+        a.team_name, a.project1&.name,
+        a.project2&.name,
+        a.application_data.values_at('student0_application_location', 'student1_application_location').uniq.join(' / '),
+        a.coaching_company,
+        a.application_data['student0_application_money'],
+        a.application_data['student1_application_money'],
+        a.application_data['voluntary'],
+        a.application_data['voluntary_hours_per_week'],
+        a.flags.join(' / '),
+        a.application_data['signed_off_at_project1'].present?,
+        a.application_data['signed_off_at_project2'].present?,
+        a.application_data['mentor_fav_project1'].present?,
+        a.application_data['mentor_fav_project2'].present?,
+        a.total_picks,
+        a.total_likes,
+        a.ratings_short.join(' / '),
+        a.misc_info],
+      force_quotes: true\
+    ).html_safe

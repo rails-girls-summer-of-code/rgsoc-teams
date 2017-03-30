@@ -5,7 +5,7 @@ class Rating::Table
                     zero_community
                     age_below_18
                     less_than_two_coaches
-                    less_than_40_hours_a_week)
+                    less_than_40_hours_a_week).freeze
 
   def initialize(applications:, options: {})
     @options      = DEFAULT_OPTS.merge(options)

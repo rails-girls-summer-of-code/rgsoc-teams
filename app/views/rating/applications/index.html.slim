@@ -1,5 +1,10 @@
 = render 'rating/breadcrumbs'
 
+p
+  | Rating overview for season #{Season.current.name}.
+  br
+  small You can download this table as a CSV file (filtering and ordering will be the same - see button at the bottom of the table).
+
 form id='applications-filter' class='filter' action=request.url
   - Rating::Table::FLAGS.each do |flag|
     label
@@ -27,3 +32,9 @@ table#applications.table.table-striped.table-bordered.table-condensed.table-hove
       th Misc
   tbody
     = render partial: 'application', collection: @table.applications
+    
+= button_to 'Download as CSV',
+    rating_applications_path(format: :csv),
+    method: :get,
+    class:  'btn btn-default',
+    data:   { disable_with: 'crunching data...' }

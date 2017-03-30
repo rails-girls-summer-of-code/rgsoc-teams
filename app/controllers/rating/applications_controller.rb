@@ -1,3 +1,5 @@
+require 'csv'
+
 class Rating::ApplicationsController < Rating::BaseController
   before_action :store_filters, only: :index
   before_action :persist_order, only: :index
@@ -12,6 +14,13 @@ class Rating::ApplicationsController < Rating::BaseController
 
   def index
     @table = applications_table
+    respond_to do |format|
+      format.html
+      format.csv do
+        headers['Content-Disposition'] = 'attachment; filename="rating-applications.csv"'
+        headers['Content-Type']        = 'text/csv'
+      end
+    end
   end
 
   def show
