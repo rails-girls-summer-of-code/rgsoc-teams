@@ -66,6 +66,12 @@ describe Rating::ApplicationsController do
   describe 'GET show' do
     let(:application) { FactoryGirl.create(:application) }
 
+    before do
+      # create students for teams
+      FactoryGirl.create(:student, team: application.team)
+      FactoryGirl.create(:student, team: application.team)
+    end
+
     it 'requires login' do
       get :show, params: { id: application }
       expect(response).to redirect_to root_path

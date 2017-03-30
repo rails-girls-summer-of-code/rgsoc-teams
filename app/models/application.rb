@@ -123,16 +123,8 @@ class Application < ActiveRecord::Base
     application_data['minimum_money']
   end
 
-  def application_data_for_view
-    fields_to_delete = [
-      "student0_application_location_lng", "student0_application_location_lat",
-      "student1_application_location_lng", "student1_application_location_lat",
-    ]
-    d = Data.new
-    cleaned_application_data = application_data.clone
-    fields_to_delete.each { |field| cleaned_application_data.delete(field)}
-
-    d.sort(cleaned_application_data)
+  def data_for(role, subject)
+    Data.new(application_data, role, subject).extract || {}
   end
 
   def sponsor_pick?
