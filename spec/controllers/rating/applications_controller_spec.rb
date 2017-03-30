@@ -33,7 +33,7 @@ describe Rating::ApplicationsController do
 
       context 'when applying filters and sorting' do
         it 'passes the filter and default order to the table' do
-          options = { hide_flags: ['remote_team'], order: :id }
+          options = { hide_flags: [:remote_team], order: nil }
 
           expect(Application).to receive(:rateable)
             .with(no_args)
@@ -42,12 +42,12 @@ describe Rating::ApplicationsController do
             .with(applications: applications, options: options)
             .and_call_original
 
-          get :index, params: { filter: { hide_remote_team: true } }
+          get :index, params: { filter: { remote_team: true } }
           expect(response).to render_template :index
         end
 
         it 'passes the filter and order to the table' do
-          options = { hide_flags: ['remote_team'], order: 'average_points' }
+          options = { hide_flags: [:remote_team], order: :average_points }
 
           expect(Application).to receive(:rateable)
             .with(no_args)
@@ -56,7 +56,7 @@ describe Rating::ApplicationsController do
             .with(applications: applications, options: options)
             .and_call_original
 
-          get :index, params: { filter: { hide_remote_team: true }, order: :average_points }
+          get :index, params: { filter: { remote_team: true }, order: :average_points }
           expect(response).to render_template :index
         end
       end

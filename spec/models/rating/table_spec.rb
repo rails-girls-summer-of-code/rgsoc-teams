@@ -22,7 +22,7 @@ describe Rating::Table do
 
     context 'with default sorting' do
       context 'with hide_flag options are set' do
-        let(:options) { { hide_flags: %w(remote_team male_gender) } }
+        let(:options) { { hide_flags: %i(remote_team male_gender) } }
 
         it 'does not return flagged applications ordered by id' do
           expect(subject.applications).to eq [less_coaches, blank]
@@ -39,7 +39,7 @@ describe Rating::Table do
     end
 
     context 'sorting by average_points' do
-      let(:options) { { hide_flags: %w(less_than_two_coaches), order: 'average_points' } }
+      let(:options) { { hide_flags: %i(less_than_two_coaches), order: :average_points } }
 
       before do
         allow(male).to receive(:average_points) { 5.0 }

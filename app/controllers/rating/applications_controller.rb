@@ -61,24 +61,19 @@ class Rating::ApplicationsController < Rating::BaseController
 
   def store_filters
     Rating::Table::FLAGS.each do |key|
-      key = :"hide_#{key}"
-      session[key] = params[:filter][key] == 'true' if params[:filter] && params[:filter].key?(key)
+      session[key] = params[:filter][key] == 'true' if params.dig(:filter, key)
     end
-  end
-
-  def order
-    params[:order] || session[:order] || :id
   end
 
   def persist_order
-    session[:order] = params[:order] if params[:order]
+    session[:order] = params[:order].to_sym if params[:order]
   end
 
   def applications_table
-    options = { order: order, hide_flags: [] }
-    Rating::Table::FLAGS.each do |flag|
-      options[:hide_flags] << flag.to_s if session[:"hide_#{flag}"]
-    end
+    options = {
+      order:      session[:order],
+      hide_flags: Rating::Table::FLAGS.select { |f| session[f] }
+    }
     Rating::Table.new(applications: Application.rateable, options: options)
   end
 end
