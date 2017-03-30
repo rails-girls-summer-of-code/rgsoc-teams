@@ -1,6 +1,4 @@
 class Rating::ApplicationsController < Rating::BaseController
-  include ApplicationsHelper
-
   before_action :store_filters, only: :index
   before_action :persist_order, only: :index
   respond_to :html
