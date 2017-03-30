@@ -127,10 +127,6 @@ class Application < ActiveRecord::Base
     Data.new(application_data, role, subject).extract || {}
   end
 
-  def sponsor_pick?
-    sponsor_pick.present?
-  end
-
   FLAGS.each do |flag|
     define_method(flag) { flags.include?(flag.to_s) }
     alias_method :"#{flag}?", flag

@@ -36,8 +36,6 @@ describe Application do
     end
   end
 
-  it { is_expected.to respond_to(:sponsor_pick?) }
-
   describe 'scopes' do
     describe '.hidden' do
       it 'returns only hidden applications' do
@@ -98,13 +96,6 @@ describe Application do
         it { expect(subject.send(key)).to be_present }
         it { expect(subject.send(key)).to eq subject.application_data[key] }
       end
-    end
-  end
-
-  describe 'sponsor pick' do
-    application = FactoryGirl.create(:application)
-    it 'does not have a sponsor' do
-      expect(application.sponsor_pick?).to eql false
     end
   end
 
