@@ -40,7 +40,7 @@ describe Rating::RatingsController, type: :controller do
 
       it 'redirect_to rating/applications' do
         post :create, params: params
-        expect(response).to redirect_to rating_applications_path
+        expect(response).to redirect_to rating_todos_path
       end
     end
   end
@@ -81,7 +81,7 @@ describe Rating::RatingsController, type: :controller do
 
         it 'redirect_to rating/applications' do
           put :update, params: params
-          expect(response).to redirect_to rating_applications_path
+          expect(response).to redirect_to rating_todos_path
         end
       end
     end

@@ -4,6 +4,7 @@ class Todo < ApplicationRecord
 
   belongs_to :user
   belongs_to :application
+
   delegate   :season, to: :application
   delegate   :application_data, to: :application
 
@@ -16,7 +17,7 @@ class Todo < ApplicationRecord
   end
 
   def rating
-    Rating.find_by(user: user, application: application)
+    Rating.find_by(user: user, rateable_type: "Application", rateable_id: application)
   end
 
   def eligible?
