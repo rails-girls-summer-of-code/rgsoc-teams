@@ -97,7 +97,6 @@ GEM
       tins (~> 1.6)
     crack (0.4.3)
       safe_yaml (~> 1.0.0)
-    curb (0.9.3)
     database_cleaner (1.5.3)
     devise (4.2.1)
       bcrypt (~> 3.0)
@@ -116,10 +115,13 @@ GEM
       railties (>= 3.0.0)
     faraday (0.11.0)
       multipart-post (>= 1.2, < 3)
-    feedjira (1.6.0)
-      curb (~> 0.8)
-      loofah (~> 2.0)
-      sax-machine (~> 1.0)
+    faraday_middleware (0.11.0.1)
+      faraday (>= 0.7.4, < 1.0)
+    feedjira (2.1.2)
+      faraday (>= 0.9)
+      faraday_middleware (>= 0.9)
+      loofah (>= 2.0)
+      sax-machine (>= 1.0)
     ffaker (2.5.0)
     font-awesome-sass (4.7.0)
       sass (>= 3.2)
@@ -380,7 +382,7 @@ DEPENDENCIES
   database_cleaner
   devise
   factory_girl_rails
-  feedjira (~> 1.6.0)
+  feedjira
   ffaker
   font-awesome-sass
   foreman
