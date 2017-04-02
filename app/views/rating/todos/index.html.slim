@@ -14,7 +14,7 @@ table.table
   tbody
     - @todos.each do |todo|
       tr
-        td= link_to todo.application.team_name, [:rating, todo.application]
+        td= link_to(todo.application.team_name, [:rating, todo.application])
         td= todo.eligible? ? icon('check') : icon('ban')
         td.text-right= todo.sign_offs?.first ? icon('check') : icon('ban')
         td.text-left= todo.sign_offs?.second ? icon('check') : icon('ban')
