@@ -27,5 +27,4 @@
 #   [0,  'project undecided']
 # ]
 
-SPONSOR_PICK = 20
 MENTOR_PICK = 10

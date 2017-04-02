@@ -6,6 +6,11 @@ describe Application do
   it { is_expected.to validate_presence_of(:application_data) }
   it { is_expected.to validate_presence_of(:team) }
 
+  it_behaves_like 'HasSeason'
+  it_behaves_like 'Rateable' do
+    let(:rateable) { FactoryGirl.create(:application) }
+  end
+
   context 'with associations' do
     it { is_expected.to belong_to(:team).inverse_of(:applications).counter_cache(true) }
     it { is_expected.to belong_to(:project) }
@@ -14,21 +19,6 @@ describe Application do
     it { is_expected.to have_many(:comments).dependent(:destroy).order(:created_at) }
     it { is_expected.to have_many(:todos).dependent(:destroy) }
     it { is_expected.to have_many(:ratings) }
-  end
-
-  describe '#average_skill_level' do
-    subject { super().average_skill_level }
-    it { is_expected.to be_present }
-  end
-
-  describe '#total_likes' do
-    subject { super().total_likes }
-    it { is_expected.to be_present }
-  end
-
-  describe '#total_picks' do
-    subject { super().total_picks }
-    it { is_expected.to be_present }
   end
 
   describe '#name' do
@@ -45,10 +35,6 @@ describe Application do
       expect(subject.name).to eql 'Foobar - Hello World'
     end
   end
-
-  it { is_expected.to respond_to(:sponsor_pick?) }
-
-  it_behaves_like 'HasSeason'
 
   describe 'scopes' do
     describe '.hidden' do
@@ -113,10 +99,25 @@ describe Application do
     end
   end
 
-  describe 'sponsor pick' do
-    application = FactoryGirl.create(:application)
-    it 'does not have a sponsor' do
-      expect(application.sponsor_pick?).to eql false
+  describe '#project1, project2' do
+    let(:application) { FactoryGirl.create(:application) }
+
+    shared_examples :projectnr do |nr|
+      context 'when project set' do
+        let(:project) { FactoryGirl.create(:project) }
+
+        before do
+          application.application_data["project#{nr}_id"] = project.id
+          application.save
+        end
+
+        it 'returns the project record' do
+          expect(application.public_send("project#{nr}")).to eq project
+        end
+      end
     end
+
+    it_behaves_like :projectnr, 1
+    it_behaves_like :projectnr, 2
   end
 end

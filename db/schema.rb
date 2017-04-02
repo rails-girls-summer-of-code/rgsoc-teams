@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170324225335) do
+ActiveRecord::Schema.define(version: 20170330225217) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -68,7 +68,6 @@ ActiveRecord::Schema.define(version: 20170324225335) do
     t.string   "gender_identification_student", limit: 255
     t.string   "gender_identification_pair",    limit: 255
     t.text     "misc_info"
-    t.string   "sponsor_pick",                  limit: 255
     t.boolean  "hidden"
     t.text     "flags",                                     default: [], array: true
     t.string   "country",                       limit: 255

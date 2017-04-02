@@ -91,6 +91,14 @@ class Application < ActiveRecord::Base
     ApplicationDraft.human_attribute_name(key)
   end
 
+  def self.rateable
+    joins("LEFT JOIN projects p1 ON p1.id::text = applications.application_data -> 'project1_id'")
+      .joins("LEFT JOIN projects p2 ON p2.id::text = applications.application_data -> 'project2_id'")
+      .includes(:ratings, :team)
+      .where(season: Season.current)
+      .where.not(team: nil)
+  end
+
   def name
     [team.try(:name), project.try(:name)].reject(&:blank?).join(' - ')
   end
@@ -119,27 +127,6 @@ class Application < ActiveRecord::Base
     Data.new(application_data, role, subject).extract || {}
   end
 
-  def average_skill_level
-    skill_levels = ratings.map {|rating| rating.data['skill_level'] }.compact
-    !skill_levels.empty? ? skill_levels.inject(:+) / skill_levels.size : 0
-  end
-
-  def total_likes
-    ratings.where(like: true).count
-  end
-
-  def total_picks
-    ratings.where(pick: true).count
-  end
-
-  def combined_ratings
-    ratings.to_a + team.combined_ratings
-  end
-
-  def sponsor_pick?
-    sponsor_pick.present?
-  end
-
   FLAGS.each do |flag|
     define_method(flag) { flags.include?(flag.to_s) }
     alias_method :"#{flag}?", flag
@@ -148,5 +135,13 @@ class Application < ActiveRecord::Base
       flags_will_change!
       value.to_s != '0' ? flags.concat([flag.to_s]).uniq : flags.delete(flag.to_s)
     end
+  end
+
+  def project1
+    Project.find_by(id: application_data['project1_id'])
+  end
+
+  def project2
+    Project.find_by(id: application_data['project2_id'])
   end
 end

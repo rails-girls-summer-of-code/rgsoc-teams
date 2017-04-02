@@ -3,49 +3,61 @@ require 'spec_helper'
 describe Rating::ApplicationsController do
   render_views
 
-  before do
-    Timecop.travel(Time.utc(2013, 3, 15))
-  end
-
   describe 'GET index' do
-    context 'as an authenticated user' do
-      let(:user) { create :user }
-      before { sign_in user }
-
-      context 'as a non-reviewer' do
-        it 'disallows access to the list of applications' do
-          get :index
-          expect(response).to redirect_to root_path
-        end
+    context 'as a non reviewer' do
+      before do
+        sign_in FactoryGirl.create(:user)
+        get :index
       end
 
-      context 'as a reviewer' do
-        let(:user) { create(:reviewer_role).user }
-        let(:application_draft) { create :application_draft, :appliable }
-        let!(:application) do
-          CreatesApplicationFromDraft.new(application_draft).tap { |c| c.save }.application
+      it 'redirects to the root path' do
+        expect(response).to redirect_to root_path
+      end
+    end
+
+    context 'as a reviewer' do
+      let(:applications) { FactoryGirl.build_list(:application, 3) }
+
+      before { sign_in FactoryGirl.create(:reviewer) }
+
+      it 'assigns an application table and renders the index view' do
+        expect(Application).to receive(:rateable)
+          .with(no_args)
+          .and_return(applications)
+
+        get :index
+
+        expect(assigns :table).to be_a Rating::Table
+        expect(response).to render_template :index
+      end
+
+      context 'when applying filters and sorting' do
+        it 'passes the filter and default order to the table' do
+          options = { hide_flags: [:remote_team], order: nil }
+
+          expect(Application).to receive(:rateable)
+            .with(no_args)
+            .and_return(applications)
+          expect(Rating::Table).to receive(:new)
+            .with(applications: applications, options: options)
+            .and_call_original
+
+          get :index, params: { filter: { remote_team: true } }
+          expect(response).to render_template :index
         end
 
-        it 'initializes @applications as a new Application::Table' do
-          get :index
-          expect(assigns :applications).to be_a Rating::Table
-        end
+        it 'passes the filter and order to the table' do
+          options = { hide_flags: [:remote_team], order: :average_points }
 
-        it 'lists all available applications' do
-          get :index
-          expect(response).to be_success
-        end
+          expect(Application).to receive(:rateable)
+            .with(no_args)
+            .and_return(applications)
+          expect(Rating::Table).to receive(:new)
+            .with(applications: applications, options: options)
+            .and_call_original
 
-        context 'team deletes their profile' do
-
-          before do
-            application.team.destroy
-          end
-
-          it 'does not list their application' do
-            get :index
-            expect(assigns(:applications).rows).to be_empty
-          end
+          get :index, params: { filter: { remote_team: true }, order: :average_points }
+          expect(response).to render_template :index
         end
       end
     end
