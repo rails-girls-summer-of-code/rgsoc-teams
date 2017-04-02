@@ -63,17 +63,18 @@ module ApplicationsHelper
   end
 
   def format_application_money(application)
-    money = application.application_data.
-      values_at('student0_application_money', 'student1_application_money').
-      reject(&:blank?)
+    money = [
+      application.data.student0_application_money,
+      application.data.student1_application_money
+    ].reject(&:blank?)
     safe_join(money.map{|m| number_to_currency m, precision: 0}, "\n")
   end
 
   private
 
   def links_to_application_projects(application)
-    projects = Project.where id: application.application_data.values_at('project1_id')
-    projects += Project.where id: application.application_data.values_at('project2_id')
+    projects = Project.where(id: application.data.project1_id)
+    projects += Project.where(id: application.data.project2_id)
     safe_join(projects.map{|p| link_to(p.name, p)}, "<br/>".html_safe)
   end
 end
