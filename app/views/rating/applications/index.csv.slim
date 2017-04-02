@@ -10,12 +10,15 @@
       'Voluneer',
       'VolunteerHours',
       'Flags',
-      'Picks1',
-      'Picks2',
-      'Likes1',
-      'Likes2',
+      'Signoff Project1',
+      'Signoff Project2',
+      'Fav Project1',
+      'Fav Project1',
+      'Picks',
+      'Likes',
       'AveragePoints',
-      'Ratings Misc'],
+      'Ratings',
+      'Misc'],
     force_quotes: true\
   ).html_safe
 
@@ -37,6 +40,7 @@
         a.application_data['mentor_fav_project2'].present?,
         a.total_picks,
         a.total_likes,
+        a.average_points,
         a.ratings_short.join(' / '),
         a.misc_info],
       force_quotes: true\
