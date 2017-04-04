@@ -28,5 +28,13 @@ module RgsocTeams
     config.action_mailer.default_url_options = { host: 'teams.railsgirlssummerofcode.org' }
 
     config.active_job.queue_adapter = :sucker_punch
+
+    # Sentry config
+    Raven.configure do |config|
+      config.dsn = 'https://744f7c7520bf4217ac2d5cc60e5ef202:eee47d2a388b4d56b61b11536e8f9726@sentry.io/153582'
+    end
+
+    config.action_dispatch.show_exceptions = false
+
   end
 end
