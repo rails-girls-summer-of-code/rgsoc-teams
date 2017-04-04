@@ -3,6 +3,10 @@ module ApplicationsHelper
     value.presence || "n/a"
   end
 
+  def heart_or_na(value)
+    value ? icon('heart', class: 'strong').html_safe : 'n/a'
+  end
+
   def link_to_ordered(text, type)
     link_to text, rating_applications_path(order: type)
   end
