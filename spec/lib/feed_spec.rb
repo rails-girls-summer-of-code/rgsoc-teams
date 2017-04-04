@@ -1,17 +1,29 @@
 require 'spec_helper'
 require 'feed'
 require 'stringio'
+require 'webrick'
 
 describe Feed do
   let(:out)    { StringIO.new }
   let(:logger) { Logger.new(out) }
+
+  before :all do
+    # serve the local directory for faraday
+    root = File.expand_path("spec/stubs/feeds")
+    @server = WEBrick::HTTPServer.new :Port => 8000, :DocumentRoot => root
+    @thread = Thread.new { @server.start }
+  end
+
+  after :all do
+    @server.stop
+  end
 
   before :each do
     stub_request(:get, %r(http://api.page2images.com)).to_return(status: 200, body: '', headers: {})
   end
 
   def source_url(name)
-    "file://#{File.expand_path("spec/stubs/feeds/#{name}")}"
+    "http://localhost:8000/#{name}"
   end
 
   def source(name)

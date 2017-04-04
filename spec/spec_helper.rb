@@ -47,7 +47,10 @@ RSpec.configure do |config|
   config.infer_spec_type_from_file_location!
 
   config.before(:suite) do
-    WebMock.disable_net_connect! allow: 'codeclimate.com'
+    WebMock.disable_net_connect!(
+      allow: 'codeclimate.com',
+      allow_localhost: true
+    )
   end
 
   config.after(:each) do
