@@ -50,7 +50,7 @@ module Mentor
     end
 
     def revoke_mentor_fav!
-      self.mentor_fav = persisted_application.application_data["mentor_fav_project#{choice}"] = false
+      self.mentor_fav = persisted_application.application_data.delete("mentor_fav_project#{choice}")
       persisted_application.save!
     end
 
@@ -61,8 +61,8 @@ module Mentor
     end
 
     def revoke_sign_off!
-      persisted_application.application_data["signed_off_at_project#{choice}"] = nil
-      persisted_application.application_data["signed_off_by_project#{choice}"] = nil
+      persisted_application.application_data.delete("signed_off_at_project#{choice}")
+      persisted_application.application_data.delete("signed_off_by_project#{choice}")
       persisted_application.save
     end
 

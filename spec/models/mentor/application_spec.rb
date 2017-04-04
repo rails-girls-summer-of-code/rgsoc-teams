@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Mentor::Application do
+describe Mentor::Application, :wip do
   describe 'attributes' do
     subject { described_class.new }
 
@@ -240,17 +240,24 @@ describe Mentor::Application do
   end
 
   describe '#revoke_mentor_fav!' do
-    let(:application) { create(:application) }
+    let(:application) do
+      create(:application,
+        application_data: {
+          'mentor_fav_project1': 'true',
+          'mentor_fav_project2': 'true'
+        }
+      )
+    end
 
     subject { m_application.revoke_mentor_fav! }
 
     shared_examples :a_mentor_fav do |choice|
       let(:other) { (choice % 2) + 1 }
 
-      it 'sets the fav for the chosen project to false' do
+      it 'removes the fav for the chosen project' do
         expect { subject }
           .to change { application.reload.application_data["mentor_fav_project#{choice}"] }
-          .from(nil).to('false')
+          .from('true').to(nil)
       end
 
       it 'does not change the mentor_fav for the other project' do
