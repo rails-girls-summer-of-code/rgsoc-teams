@@ -44,7 +44,7 @@ describe Ability do
             end
           end
 
-          context 'when user\'s supervisor in current season (confirmed)' do
+          context "when user's supervisor in current season (confirmed)" do
             before do
               allow(user).to receive(:admin?).and_return(false)
               allow(ability).to receive(:supervises?).with(other_user, user).and_return(true)
@@ -98,7 +98,7 @@ describe Ability do
         let(:other_user) { FactoryGirl.create(:user) }
 
         context 'when email address is hidden' do
-          context 'when not an admin or user\'s supervisor in current season' do
+          context "when not an admin or user's supervisor in current season" do
             before do
               allow(user).to receive(:admin?).and_return(false)
               allow(ability).to receive(:supervises?).with(other_user, user).and_return(false)
@@ -126,7 +126,7 @@ describe Ability do
       end
 
 
-      describe 'a user should not be able to mark another\'s attendance to a conference' do
+      describe "a user should not be able to mark another's attendance to a conference" do
 
         context 'when same user' do
           let!(:attendance) { FactoryGirl.create(:attendance, user: user)}

@@ -16,8 +16,7 @@ class Ability
     can :read_email, User, id: user.id if !user.hide_email?
     can :read_email, User if user.admin?
     can :read_email, User do |other_user|
-      (user.confirmed? && supervises?(other_user, user)) ||
-        (user.confirmed? && !other_user.hide_email?)
+      user.confirmed? && (supervises?(other_user, user) || !other_user.hide_email?)
     end
 
     can :crud, Team do |team|
@@ -85,11 +84,7 @@ class Ability
   end
 
   def supervises?(user, supervisor)
-    is_supervisor = Array.new
-    user.teams.in_current_season.each do |team|
-      is_supervisor << team.supervisors.include?(supervisor)
-    end
-    is_supervisor.any?
+    user.teams.in_current_season.any? { |team| team.supervisors.include?(supervisor) }
   end
 
 end
