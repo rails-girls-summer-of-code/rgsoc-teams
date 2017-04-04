@@ -1,9 +1,8 @@
 require 'spec_helper'
 
-describe RolesController do
+RSpec.describe RolesController do
   let(:user) { create(:user) }
   let(:valid_attributes) { build(:role, team: team).attributes }
-  let(:valid_session)    { { "warden.user.user.key" => session["warden.user.user.key"] } }
 
   before :each do
     sign_in user
@@ -13,7 +12,7 @@ describe RolesController do
     let(:team) { create(:team) }
 
     it "assigns a new role as @role" do
-      get :new, { params: { team_id: team.to_param } }, valid_session
+      get :new, params: { team_id: team.to_param }
       expect(assigns(:role)).to be_a_new(Role)
     end
   end
@@ -26,7 +25,7 @@ describe RolesController do
 
       it 'allows the role to be confirmed' do
         expect {
-          put :confirm, { params: { id: role.confirmation_token } }, valid_session
+          put :confirm, params: { id: role.confirmation_token }
         }.to change { role.reload.state }.from('pending').to('confirmed')
         expect(response).to redirect_to(assigns(:team))
       end
@@ -40,23 +39,29 @@ describe RolesController do
     context "on their own team" do
       let!(:role) { create(:role, name: 'student', team: team, user: user) }
 
+      let(:randomize_case) do
+        ->(string) do
+          string.each_char.inject('') { |str, c| str << c.send([:downcase, :upcase][rand(2)]) }
+        end
+      end
+
       it "creates a new Role and a new User" do
         expect {
-          expect { post :create, { params: params }, valid_session }.to change(Role, :count).by(1)
+          expect { post :create, params: params }.to change(Role, :count).by(1)
         }.to change { User.count }.by(1)
       end
 
       it "redirects to the team view" do
-        post :create, { params: params }, valid_session
+        post :create, params: params
         expect(response).to redirect_to(assigns(:team))
       end
 
-      it 'create a new Role for existing user' do
+      it 'creates a new Role for existing user with case-insensitive github_handle' do
         existing   = create(:user)
-        role_attrs = valid_attributes.merge(github_handle: existing.github_handle)
+        role_attrs = valid_attributes.merge(github_handle: randomize_case.(existing.github_handle))
 
         expect {
-          expect { post :create, { params: params.merge(role: role_attrs) }, valid_session }.to change(Role, :count).by(1)
+          expect { post :create, params: params.merge(role: role_attrs) }.to change(Role, :count).by(1)
         }.not_to change { User.count }
         expect(Role.last.user).to eql existing
       end
@@ -67,11 +72,11 @@ describe RolesController do
       let!(:role)        { create(:role, name: 'student', team: team, user: another_user) }
 
       it "does not create the Role" do
-        expect { post :create, { params: params }, valid_session }.to_not change(Role, :count)
+        expect { post :create, params: params }.to_not change(Role, :count)
       end
 
       it "redirects to the root_url" do
-        post :create, { params: params }, valid_session
+        post :create, params: params
         expect(response).to redirect_to(root_url)
       end
     end
@@ -85,11 +90,11 @@ describe RolesController do
       let!(:role) { create(:role, name: 'student', team: team, user: user) }
 
       it "destroys the requested role" do
-        expect { delete :destroy, { params: params }, valid_session }.to change(Role, :count).by(-1)
+        expect { delete :destroy, params: params }.to change(Role, :count).by(-1)
       end
 
       it "redirects to the team view" do
-        delete :destroy, { params: params }, valid_session
+        delete :destroy, params: params
         expect(response).to redirect_to(assigns(:team))
       end
     end
@@ -99,14 +104,13 @@ describe RolesController do
       let!(:role)        { create(:role, name: 'student', team: team, user: another_user) }
 
       it "does not destroy the requested role" do
-        expect { delete :destroy, { params: params }, valid_session }.to_not change(Role, :count)
+        expect { delete :destroy, params: params }.to_not change(Role, :count)
       end
 
       it "redirects to the root_url" do
-        delete :destroy, { params: params }, valid_session
+        delete :destroy, params: params
         expect(response).to redirect_to(root_url)
       end
     end
   end
 end
-

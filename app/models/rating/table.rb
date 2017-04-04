@@ -1,67 +1,42 @@
-require 'forwardable'
-
 class Rating::Table
-  class Row
-    extend Forwardable
+  DEFAULT_OPTS = { hide_flags: [] }
+  FLAGS        = %i(remote_team
+                    male_gender
+                    zero_community
+                    age_below_18
+                    less_than_two_coaches
+                    less_than_40_hours_a_week).freeze
 
-    def_delegators :application, :id, :flags, :location, :team_name,
-      :project_name, :student_name, :total_picks, :average_points, :coaching_company,
-      :misc_info
-
-    attr_reader :names, :application, :options
-
-    def initialize(names, application, options)
-      @names = names
-      @application = application
-      @options = default_options.merge options
-    end
-
-    def default_options
-      { hide_flags: [] }
-    end
-
-    def ratings
-      @ratings ||= names.map do |name|
-        ratings = application.ratings
-        rating = ratings.find { |rating| rating.user.name == name }
-        rating || Hashr.new(value: '-')
-      end
-    end
-
-    def display?
-      (options[:hide_flags] & flags).empty?
-    end
+  def initialize(applications:, options: {})
+    @options      = DEFAULT_OPTS.merge(options)
+    @applications = applications
+      .to_a
+      .delete_if { |a| hide?(a) }
+      .sort(&sort_order)
   end
 
-  attr_reader :names, :rows, :order, :options
+  attr_reader :applications
 
-  def initialize(names, applications, options)
-    @names = names
-    @options = options
-    @rows = applications.map { |application| Row.new(names, application, options) }
-    @rows = rows.select { |row| row.display? }
-    @rows = sort(rows)
-  end
+  private
 
-  def sort(rows)
-    case order = options[:order].try(:to_sym)
-    when :picks
-      sort_by_picks(rows).reverse
+  attr_reader :options
+
+  def sort_order
+    case options[:order]
+    when :team_name
+      ->(a,b) { a.team_name <=> b.team_name }
+    when :total_likes
+      ->(a,b) { b.total_likes <=> a.total_likes }
+    when :total_picks
+      ->(a,b) { b.total_picks <=> a.total_picks }
     when :average_points
-      rows.sort_by { |row| row.average_points }.reverse
+      ->(a,b) { b.average_points <=> a.average_points }
     else
-      rows.select(&order).sort_by(&order) + rows.reject(&order)
+      ->(a,b) { a.id <=> b.id }
     end
   end
 
-  def sort_by_picks(rows)
-    rows.sort do |lft, rgt|
-      if lft.total_picks == rgt.total_picks
-        result = lft.average_points <=> rgt.average_points
-        result
-      else
-        lft.total_picks <=> rgt.total_picks
-      end
-    end
+  def hide?(application)
+    (options[:hide_flags].map(&:to_s) & application.flags).any?
   end
 end

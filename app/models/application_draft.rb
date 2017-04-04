@@ -43,7 +43,6 @@ class ApplicationDraft < ActiveRecord::Base
   belongs_to :project1, class_name: 'Project'
   belongs_to :project2, class_name: 'Project'
   has_one    :application
-  belongs_to :signatory, class_name: 'User', foreign_key: :signed_off_by
 
   scope :in_current_season, -> { where(season: Season.current) }
 
@@ -126,7 +125,6 @@ class ApplicationDraft < ActiveRecord::Base
   aasm :column => :state, :no_direct_assignment => true do
     state :draft, :initial => true
     state :applied
-    state :signed_off
 
     event :submit_application do
       after do |applied_at_time = nil|
@@ -136,25 +134,9 @@ class ApplicationDraft < ActiveRecord::Base
 
       transitions :from => :draft, :to => :applied, :guard => :ready?
     end
-
-    event :sign_off, :guard => :can_sign_off? do
-      after do
-        update(
-          signed_off_by: current_user.id,
-          signed_off_at: Time.now.utc
-        )
-        application.sign_off! as: current_user
-      end
-
-      transitions :from => :applied, :to => :signed_off
-    end
   end
 
   private
-
-  def can_sign_off?
-    current_user.present? and as_mentor?
-  end
 
   def different_projects_required
     if project1 && project1 == project2

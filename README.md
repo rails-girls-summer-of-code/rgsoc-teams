@@ -43,7 +43,7 @@ Requirements:
 ## System Requirements
 
 * PostgreSQL 9.3 or newer
-* Ruby 2.3.1
+* Ruby 2.4.1
 
 ### Setup on Ubuntu
 ```bash
@@ -114,6 +114,8 @@ directory the variables from `.env` will be loaded into the environment.
 
 E.g. `foreman run rails server` or `foreman run rails console`.
 
+**NOTE:** In case you did everything described above and your Mailtrap still doesn't work, it might happen because the `.env` doesn't set the `InboxUsername` and `InboxPassword` environment variables. To fix it, execute `export MAILTRAP_USER='your_user_code'` and `export MAILTRAP_PASSWORD='your_pass_code'` in your terminal and then run the server as usually: `./bin/rails server`. The user and pass codes should be copied from your Mailtrap account (they look like this: `94a5agb6c4c47d`).
+
 ### Google Places API (optional)
 
 To avoid accidentally exceeding the rate limit on [Google's Places API][google-places] (e.g. when heavily testing city-autocomplete fields) and thus blocking its usage for other RGSoC sites and devs:
@@ -141,7 +143,7 @@ To avoid accidentally exceeding the rate limit on [Google's Places API][google-p
 - The app should be available, with the database loaded with fake data.
 - To access all the functionality of the teams app, add yourself as an organizer.
     * In the browser: log in with your github account 
-    * In Rails Console:   
+    * In Rails Console:
       ```
       user = User.last
       user.roles.create(name: "organizer")

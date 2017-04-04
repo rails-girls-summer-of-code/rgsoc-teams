@@ -2,7 +2,7 @@ language: ruby
 cache: bundler
 sudo: false
 rvm:
-- 2.3.1
+- 2.4.1
 bundler_args: "-j4 --without development production --quiet"
 notifications:
   notifications:
@@ -22,7 +22,7 @@ deploy:
     secure: pYiwd56UVWKPYDO1057KBIfZYfKKpPZ69kHIbDG1s1C/GY6mrfGRvchYGobguNw0fvhYdGkIlgZrpmwerC/EPkamKBxLjbKoL851ps+Ng7iREEPwT+t9HB1kV8yvjTsQVYHfXHtR12qi4NO3sqYTwxvkW/0cNXYgj//5+osc6/k=
   app:
     master: rgsoc-teams-production
-    application-process-2016: rgsoc-teams-staging
+    fix/sign-off-per-project: rgsoc-teams-staging
   run:
   - rake db:migrate
   - restart

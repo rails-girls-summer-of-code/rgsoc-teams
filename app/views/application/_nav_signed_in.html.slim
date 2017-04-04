@@ -10,6 +10,8 @@ li.dropdown
     li.divider.hidden-xs
     - if current_user.admin?
       li = link_to 'Orga Dashboard', orga_dashboard_path
+    - if current_user.reviewer?
+      li = link_to 'Rating Dashboard', rating_path
     - if current_user.current_student? && current_season.started?
       li = link_to 'Status Updates', [:students, :status_updates]
     - if current_user.supervisor? && current_season.started?
@@ -18,11 +20,11 @@ li.dropdown
       li = link_to 'Mentor Dashboard', mentor_applications_path
     li.divider.hidden-xs
     - if current_user != true_user
-      li.hidden-xs = link_to icon('eye-close', 'Stop'), stop_impersonating_users_path, method: :post
+      li.hidden-xs = link_to icon('eye-slash', 'Stop'), stop_impersonating_users_path, method: :post
     - else
       li.hidden-xs = link_to 'Sign out', sign_out_path, method: :delete
 li.divider.hidden-xs
   - if current_user != true_user
-    li.visible-xs-block = link_to icon('eye-close', 'Stop'), stop_impersonating_users_path, method: :post
+    li.visible-xs-block = link_to icon('eye-slash', 'Stop'), stop_impersonating_users_path, method: :post
   - else
     li.visible-xs-block = link_to 'Sign out', sign_out_path, method: :delete

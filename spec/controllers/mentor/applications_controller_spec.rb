@@ -1,11 +1,11 @@
 require 'spec_helper'
 
-describe Mentor::ApplicationsController do
+RSpec.describe Mentor::ApplicationsController do
   render_views
 
-  describe 'GET index' do
-    let(:user) { create(:user) }
+  let(:user) { create(:user) }
 
+  describe 'GET index' do
     context 'as an unauthenticated user' do
       it 'redirects to the landing page' do
         get :index
@@ -25,15 +25,22 @@ describe Mentor::ApplicationsController do
       before { sign_in user }
 
       context 'with appliations for this season' do
-        it 'renders and index view with applications for projects submitted by the mentor' do
-          project = create(:project, :in_current_season, :accepted, submitter: user)
-          create(:application, :in_current_season, :for_project, project1: project)
+        let!(:application) { create(:application, :in_current_season, :for_project, project1: project) }
+        let!(:project) { create(:project, :in_current_season, :accepted, submitter: user) }
 
+        it 'renders and index view with applications for projects submitted by the mentor' do
           get :index
 
           expect(assigns :applications).not_to be_empty
           expect(assigns :applications).to all( be_a(Mentor::Application) )
           expect(response).to render_template :index
+        end
+
+        it 'shows the comments' do
+          Mentor::Comment.create! commentable_id: application.id, user: user, text: "Tis a nice application indeed"
+          get :index
+
+          expect(response.body).to match "Tis a nice application indeed"
         end
       end
 
@@ -112,6 +119,111 @@ describe Mentor::ApplicationsController do
           params        = { id: application.id, choice: 1 }
 
           expect { get :show, params: params }.to raise_error(ActiveRecord::RecordNotFound)
+        end
+      end
+    end
+  end
+
+  describe 'PUT signoff' do
+    context 'as a project_maintainer of this season' do
+      let!(:project)   { create(:project, :in_current_season, :accepted, submitter: user) }
+
+      before { sign_in user }
+
+      context 'for an application that they are a mentor of' do
+        let(:application)   { create(:application, :in_current_season, :for_project, project1: project) }
+        let(:m_application) { Mentor::Application.new(id: application.id, choice: 1) }
+
+        subject { put :signoff, params: { id: application.id } }
+
+        it 'sets the sign-off timestamp for the project choice' do
+          expect { subject }
+            .to change { application.reload.application_data['signed_off_at_project1'] }
+            .from nil
+        end
+
+        it 'persists the mentor id who signed-off' do
+          expect { subject }
+            .to change { application.reload.application_data['signed_off_by_project1'] }
+            .to(user.id.to_s)
+        end
+
+        it 'redirects back to index' do
+          subject
+          expect(response).to redirect_to mentor_applications_path
+          expect(flash[:notice]).to be_present
+        end
+
+        context 'undo\'ing the sign-off' do
+          before { m_application.sign_off! as: user }
+
+          it 'resets the sign-off timestamp' do
+            expect { subject }
+              .to change { application.reload.application_data['signed_off_at_project1'] }
+              .to nil
+          end
+
+          it 'resets the mentor who signed-off' do
+            expect { subject }
+              .to change { application.reload.application_data['signed_off_by_project1'] }
+              .to nil
+          end
+        end
+      end
+
+      context 'when not maintaining the project' do
+        it 'returns a 404' do
+          other_project = create(:project, :in_current_season, :accepted)
+          application   = create(:application, :in_current_season, :for_project, project1: other_project)
+
+          expect { put :signoff, params: { id: application.id } }
+            .to raise_error(ActiveRecord::RecordNotFound)
+        end
+      end
+    end
+  end
+
+  describe 'PUT fav' do
+    context 'as a project_maintainer of this season' do
+      let!(:project) { create(:project, :in_current_season, :accepted, submitter: user) }
+
+      before { sign_in user }
+
+      context 'for an application that they are a mentor of' do
+        let(:application)   { create(:application, :in_current_season, :for_project, project1: project) }
+        let(:m_application) { Mentor::Application.new(id: application.id, choice: 1) }
+
+        subject { put :fav, params: { id: application.id } }
+
+        it 'sets the mentor_fav flag' do
+          expect { subject }
+            .to change { application.reload.application_data['mentor_fav_project1'] }
+            .to 'true'
+        end
+
+        it 'redirects back to index' do
+          subject
+          expect(response).to redirect_to mentor_applications_path
+          expect(flash[:notice]).to be_present
+        end
+
+        it 'revokes a previous fav' do
+          m_application.mentor_fav!
+          expect { subject }
+            .to change { application.reload.application_data['mentor_fav_project1'] }
+            .to 'false'
+          expect(response).to redirect_to mentor_applications_path
+          expect(flash[:notice]).to be_present
+        end
+      end
+
+      context 'when not maintaining the project' do
+        it 'returns a 404' do
+          other_project = create(:project, :in_current_season, :accepted, submitter: build(:user))
+          application   = create(:application, :in_current_season, :for_project, project1: other_project)
+
+          expect { put :fav, params: { id: application.id } }
+            .to raise_error(ActiveRecord::RecordNotFound)
         end
       end
     end

@@ -7,7 +7,6 @@ class Rating::TodosController < Rating::BaseController
   end
 
   def index
-    @applications = Application.includes(:ratings, :team).
-      where(season: current_season)
+    @todos = current_user.todos.for_current_season
   end
 end

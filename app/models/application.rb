@@ -10,10 +10,10 @@ class Application < ActiveRecord::Base
       :student0_application_location, :student1_application_location,
       :student0_application_about, :student1_application_about,
       :student0_application_code_background, :student1_application_code_background,
-      :student0_application_skills, :student1_application_skills,
-      :student0_application_coding_level, :student1_application_coding_level,
       :student0_application_community_engagement, :student1_application_community_engagement,
       :student0_application_giving_back, :student1_application_giving_back,
+      :student0_application_skills, :student1_application_skills,
+      :student0_application_coding_level, :student1_application_coding_level,
       :student0_application_language_learning_period, :student1_application_language_learning_period,
       :student0_application_learning_history, :student1_application_learning_history,
       :student0_application_code_samples, :student1_application_code_samples,
@@ -65,9 +65,8 @@ class Application < ActiveRecord::Base
   belongs_to :application_draft
   belongs_to :team, inverse_of: :applications, counter_cache: true
   belongs_to :project
-  belongs_to :signatory, class_name: 'User', foreign_key: :signed_off_by
 
-  has_many :ratings, as: :rateable
+  has_many :todos, dependent: :destroy
 
   validates :team, :application_data, presence: true
 
@@ -75,29 +74,13 @@ class Application < ActiveRecord::Base
   COACHING_COMPANY_WEIGHT = ENV['COACHING_COMPANY_WEIGHT'] || 2
   MENTOR_PICK_WEIGHT = ENV['MENTOR_PICK_WEIGHT'] || 2
   FLAGS = [:remote_team,
-          :mentor_pick,
           :volunteering_team,
           :selected,
           :male_gender,
           :zero_community,
           :age_below_18,
-          :less_than_two_coaches]
-
-  FIELDS_REMOVED_IN_BLIND = [:student0_name,
-                             :student1_name,
-                             :student0_application_minimum_money,
-                             :student1_application_minimum_money,
-                             :student0_application_money,
-                             :student1_application_money,
-                             :student0_application_location,
-                             :student1_application_location,
-                             :student0_application_age,
-                             :student1_application_age,
-                             :voluntary,
-                             :voluntary_hours_per_week,
-                             :heard_about_it,
-                             :student0_application_location,
-                             :student1_application_location]
+          :less_than_two_coaches,
+          :less_than_40_hours_a_week]
 
   has_many :comments, -> { order(:created_at) }, as: :commentable, dependent: :destroy
 
@@ -106,6 +89,14 @@ class Application < ActiveRecord::Base
 
   def self.data_label(key)
     ApplicationDraft.human_attribute_name(key)
+  end
+
+  def self.rateable
+    joins("LEFT JOIN projects p1 ON p1.id::text = applications.application_data -> 'project1_id'")
+      .joins("LEFT JOIN projects p2 ON p2.id::text = applications.application_data -> 'project2_id'")
+      .includes(:ratings, :team)
+      .where(season: Season.current)
+      .where.not(team: nil)
   end
 
   def name
@@ -121,7 +112,7 @@ class Application < ActiveRecord::Base
   end
 
   def country
-    @country ||= super.present? ? super : team.students.map(&:country).reject(&:blank?).join(', ')
+    @country ||= super.present? ? super : (team || Team.new).students.map(&:country).reject(&:blank?).join(', ')
   end
 
   def location
@@ -136,33 +127,6 @@ class Application < ActiveRecord::Base
     Data.new(application_data, role, subject).extract || {}
   end
 
-  def sorted_application_data
-    d = Data.new
-    d.sort(application_data)
-  end
-
-  def blinded_sorted_application_data
-    allowed_keys =  sorted_application_data.keys.map(&:to_sym) - FIELDS_REMOVED_IN_BLIND
-    allowed_keys.inject({}) { |result, key| result.merge(key => application_data[key.to_s]) }
-  end
-
-  def average_skill_level
-    skill_levels = ratings.map {|rating| rating.data['skill_level'] }.compact
-    !skill_levels.empty? ? skill_levels.inject(:+) / skill_levels.size : 0
-  end
-
-  def total_picks
-    ratings.where(pick: true).count
-  end
-
-  def combined_ratings
-    ratings.to_a + team.combined_ratings
-  end
-
-  def sponsor_pick?
-    sponsor_pick.present?
-  end
-
   FLAGS.each do |flag|
     define_method(flag) { flags.include?(flag.to_s) }
     alias_method :"#{flag}?", flag
@@ -173,21 +137,11 @@ class Application < ActiveRecord::Base
     end
   end
 
-  def signed_off?
-    !!signed_off_at
+  def project1
+    Project.find_by(id: application_data['project1_id'])
   end
 
-  def sign_off!(as: nil)
-    self.signatory = as
-    self.signed_off_at = Time.now.utc
-    save!
-  end
-
-  def student_skill_level
-    application_data['student0_application_coding_level'].try(:to_i)
-  end
-
-  def pair_skill_level
-    application_data['student1_application_coding_level'].try(:to_i)
+  def project2
+    Project.find_by(id: application_data['project2_id'])
   end
 end

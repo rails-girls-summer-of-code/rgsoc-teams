@@ -1,4 +1,4 @@
-= f.association project, collection: Project.accepted.order(:name), input_html: { disabled: !application_draft.as_student? || application_draft.applied? }
+= f.association project, collection: Project.in_current_season.accepted.order(:name), input_html: { disabled: !application_draft.as_student? || application_draft.applied? }
 
 h3 Your project goals
 = f.input "why_selected_#{project}", input_html: { rows: 4, disabled: !application_draft.as_student? || application_draft.applied? }

@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby '2.3.1'
+ruby '2.4.1'
 
 gem 'rails', '~> 5.0'
 gem 'pg'
@@ -11,29 +11,27 @@ gem 'cancancan'
 gem 'redcarpet'
 gem 'simple_form'
 gem 'nested_form'
-gem 'gh', '~> 0.14'
+gem 'gh'
 gem 'feedjira', '~> 1.6.0'
 gem 'kaminari'
 gem 'bootstrap-kaminari-views'
 gem 'sucker_punch'
 gem 'country_select'
-gem 'hashr'
-gem 'simple_statistics'
 gem 'rails_autolink'
 gem 'slim-rails'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'bootstrap-sass'
-gem 'font-awesome-sass-rails'
+gem 'font-awesome-sass'
 gem 'pretender'
 
 gem 'sass-rails'
 gem 'coffee-rails'
-gem 'uglifier', '~> 2.7.0'
+gem 'uglifier'
 gem 'sprockets-rails'
 
 gem 'newrelic_rpm'
-gem 'aws-sdk', '~> 1.38.0'
+gem 'aws-sdk'
 
 gem 'rollbar'
 
@@ -46,11 +44,11 @@ group :production do
 end
 
 group :development, :test do
-  gem 'rspec-rails', '~> 3.0'
+  gem 'rspec-rails'
   gem 'factory_girl_rails'
   gem 'database_cleaner'
   gem 'byebug', require: !ENV['RM_INFO'] #require parameter is workaround for RubyMine with Rails ~> 4.1
-  gem 'ffaker', '~> 2.2.0'
+  gem 'ffaker'
   gem 'jshint'
 end
 

@@ -10,6 +10,8 @@ describe User do
   it { expect(subject).to have_many(:attendances).dependent(:destroy) }
   it { expect(subject).to have_many(:conferences) }
   it { expect(subject).to have_many(:roles) }
+  it { expect(subject).to have_many(:todos).dependent(:destroy) }
+
   it { expect(subject).to validate_presence_of(:github_handle) }
   it { is_expected.to validate_uniqueness_of(:github_handle).case_insensitive }
 
@@ -52,54 +54,55 @@ describe User do
     end
   end
 
-  describe 'scopes'do
-    before do
-      @user1 = create(:user)
-      @user2 = create(:coach)
+  describe 'scopes' do
+    context 'role scopes' do
+      describe '.organizer' do
+        let!(:user) { create(:organizer) }
+        let(:role)  { Role.find_by(name: 'organizer', user_id: user.id) }
 
-      Role.find_by(name: 'coach', user_id: @user2.id).team.update_attribute(:kind, 'Charity')
-    end
+        it 'returns admin role for user' do
+          expect(user.roles.admin).to contain_exactly(role)
+        end
 
-    describe 'roles scopes and methods' do
-      before do
-        @organizer = create(:organizer)
-        @role = Role.find_by(name: 'organizer', user_id: @organizer.id)
-      end
-
-      context 'admin scope' do
-        it 'returns admin roles of the user' do
-          expect(@organizer.roles.admin).to eq([@role])
+        it 'returns orga role for user' do
+          expect(user.roles.organizer).to contain_exactly(role)
         end
       end
 
-      context 'organizer check' do
-        it 'checks if organizer' do
-          expect(@organizer.roles.organizer).to eq([@role])
+      describe '.supervisor' do
+        let!(:user) { create(:supervisor) }
+        let(:role)  { Role.find_by(name: 'supervisor', user_id: user.id) }
+
+        it 'does not return admin role for user' do
+          expect(user.roles.admin).to be_empty
+        end
+
+        it 'returns supervisor role for user' do
+          expect(user.roles.supervisor).to contain_exactly(role)
         end
       end
 
-      it 'returns true for roles.includes?' do
-        expect(@organizer.roles.includes?('organizer')).to eql true
-      end
-    end
+      describe '.reviewer' do
+        let!(:user) { create(:reviewer) }
+        let(:role)  { Role.find_by(name: 'reviewer', user_id: user.id) }
 
-    describe 'supervisor check' do
-      before do
-        @supervisor = create(:supervisor)
-        @role = Role.find_by(name: 'supervisor', user_id: @supervisor.id)
-      end
+        it 'does not return admin role for user' do
+          expect(user.roles.admin).to be_empty
+        end
 
-      context 'supervisor check' do
-        it 'expects to be supervisor' do
-          expect(@supervisor.roles.supervisor).to eq([@role])
+        it 'returns reviewer role for user' do
+          expect(user.roles.reviewer).to contain_exactly(role)
         end
       end
     end
 
-    describe '.find_for_github_oauth' do
-      context 'with github_handle' do
+    context 'user scopes' do
+      let!(:coach) { create(:coach) }
+      let!(:user)  { create(:user) }
+
+      describe '.find_for_github_oauth' do
         let(:handle) { "Foobar_#{SecureRandom.hex(8)}" }
-        let!(:user) { create :user, github_handle: handle }
+        let!(:user)  { create :user, github_handle: handle }
 
         it 'finds user case-insensitively' do
           auth = double('Fake auth', uid: 1234)
@@ -108,37 +111,36 @@ describe User do
           expect(described_class.find_for_github_oauth(auth)).to eql user
         end
       end
-    end
 
-    describe '.with_assigned_roles' do
-      it 'returns users that have any roles assigned' do
-        expect(described_class.with_assigned_roles).to be ==[@user2]
-      end
-    end
-
-    describe '.with_role' do
-      it 'returns users that have matching role name' do
-        expect(described_class.with_role('coach')).to be ==[@user2]
+      describe '.with_interest' do
+        it 'returns users matching one out of many interests' do
+          user.update interested_in: %w(coaches pairs helpdesk)
+          expect(User.with_interest('helpdesk')).to contain_exactly(user)
+        end
       end
 
-      it 'allows a list of roles' do
-        organizer = create(:organizer)
-        expect(described_class.with_role('coach', 'organizer')).to be ==[@user2, organizer]
+      describe '.with_assigned_roles' do
+        it 'returns users that have any roles assigned' do
+          expect(described_class.with_assigned_roles).to contain_exactly(coach)
+        end
       end
-    end
 
-    describe '.with_team_kind' do
-      it 'returns users that have matching team kind' do
-        expect(described_class.with_team_kind('Charity')).to be ==[@user2]
+      describe '.with_role' do
+        it 'returns users that have matching role name' do
+          expect(described_class.with_role('coach')).to contain_exactly(coach)
+        end
+
+        it 'allows a list of roles' do
+          organizer = create(:organizer)
+          expect(described_class.with_role('coach', 'organizer')).to contain_exactly(coach, organizer)
+        end
       end
-    end
 
-    describe '.with_interest' do
-      let(:user) { create(:user) }
-
-      it 'returns users matching one out of many interests' do
-        user.update interested_in: %w(coaches pairs helpdesk)
-        expect(User.with_interest('helpdesk')).to eq [user]
+      describe '.with_team_kind' do
+        it 'returns users that have matching team kind' do
+          Role.find_by(name: 'coach', user_id: coach.id).team.update_attribute(:kind, 'Charity')
+          expect(described_class.with_team_kind('Charity')).to contain_exactly(coach)
+        end
       end
     end
   end
@@ -260,6 +262,17 @@ describe User do
     end
   end
 
+  describe '#reviewer?' do
+    it 'returns false for users w/o a role' do
+      expect(subject).not_to be_reviewer
+    end
+
+    it 'returns true if user has a reviewer role' do
+      reviewer = FactoryGirl.create(:reviewer)
+      expect(reviewer).to be_reviewer
+    end
+  end
+
   describe '#student?' do
     it 'returns false for users w/o a role' do
       expect(subject).not_to be_student
@@ -334,8 +347,6 @@ describe User do
       expect(User.search("").count).to be == 3
     end
   end
-
-
 
   context 'with roles' do
     let!(:user) { FactoryGirl.create(:user) }

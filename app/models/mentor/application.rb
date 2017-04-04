@@ -2,14 +2,17 @@ module Mentor
   class Application
     include ActiveModel::Model
 
-    attr_accessor :id, :team_name
-    attr_accessor :project_id, :project_name
-    attr_accessor :project_plan, :why_selected_project
-    attr_accessor :student0, :student1
-    attr_accessor :first_choice
+    attr_accessor :id,
+                  :team_name,
+                  :project_id, :project_name,
+                  :project_plan, :why_selected_project,
+                  :signed_off_by,
+                  :student0, :student1,
+                  :choice
+    attr_reader :signed_off_at, :mentor_fav
 
-    def choice
-      first_choice ? 1 : 2
+    def first_choice?
+      choice == 1
     end
 
     def student0=(attrs)
@@ -29,6 +32,51 @@ module Mentor
         user:             mentor)
     end
 
+    def mentor_fav?
+      !!mentor_fav
+    end
+
+    def mentor_fav=(value)
+      @mentor_fav = %w(1 true t).include?(value)
+    end
+
+    def signed_off?
+      !!signed_off_at
+    end
+
+    def mentor_fav!
+      self.mentor_fav = persisted_application.application_data["mentor_fav_project#{choice}"] = true
+      persisted_application.save!
+    end
+
+    def revoke_mentor_fav!
+      self.mentor_fav = persisted_application.application_data["mentor_fav_project#{choice}"] = false
+      persisted_application.save!
+    end
+
+    def sign_off!(as:)
+      persisted_application.application_data["signed_off_at_project#{choice}"] = Time.now.utc
+      persisted_application.application_data["signed_off_by_project#{choice}"] = as.id
+      persisted_application.save
+    end
+
+    def revoke_sign_off!
+      persisted_application.application_data["signed_off_at_project#{choice}"] = nil
+      persisted_application.application_data["signed_off_by_project#{choice}"] = nil
+      persisted_application.save
+    end
+
+    def signed_off_at=(time)
+      @signed_off_at = case time
+                       when String then DateTime.parse(time)
+                       else time
+                       end
+    end
+
+    def persisted?
+      true
+    end
+
     private
 
     # Converts arguments to a format suitable for initializing a Mentor::Student object.
@@ -36,7 +84,11 @@ module Mentor
     # @param attrs [Hash] arguments in wrong format
     # @return [Hash] arguments in correct format
     def studentize(attrs)
-      attrs.tap { |a| a.keys.each{ |k| a[k.gsub(/student(0|1)_application_/, '')] = a.delete(k) } }
+      attrs.tap { |a| a.keys.each{ |k| a[k.sub(/student(0|1)_application_/, '')] = a.delete(k) } }
+    end
+
+    def persisted_application
+      @persisted_application ||= ::Application.find id
     end
 
     class << self
@@ -49,7 +101,7 @@ module Mentor
       # @return [Array<Mentor::Application, nil] matching Applications in a mentor specific format or nil if empty
       def all_for(projects:, choice: 1, season: Season.current)
         params = { project_id: "project#{choice}_id", project_ids: projects.ids, season_id: season.id }
-        query  = [sql_statement_all, params]
+        query  = [sql_statement_all, params.merge(sign_off_and_fav_attrs(choice: choice))]
         ActiveRecord::Base.connection.select_all(sanitize_sql(query)).map(&mentorize)
       end
 
@@ -83,6 +135,14 @@ module Mentor
           why_selected_project: "why_selected_project#{choice}",
           student0_attrs:       student_attrs(index: 0),
           student1_attrs:       student_attrs(index: 1)
+        }.merge(sign_off_and_fav_attrs(choice: choice))
+      end
+
+      def sign_off_and_fav_attrs(choice:)
+        {
+          signed_off_at:        "signed_off_at_project#{choice}",
+          signed_off_by:        "signed_off_by_project#{choice}",
+          mentor_fav:           "mentor_fav_project#{choice}",
         }
       end
 
@@ -102,7 +162,10 @@ module Mentor
           teams.name AS team_name,
           projects.name AS project_name,
           (application_data -> :project_id)::int AS project_id,
-          CASE WHEN :project_id::text = 'project1_id' THEN TRUE ELSE FALSE END AS first_choice
+          application_data -> :signed_off_at AS signed_off_at,
+          (application_data -> :signed_off_by)::int AS signed_off_by,
+          application_data -> :mentor_fav AS mentor_fav,
+          CASE WHEN :project_id::text = 'project1_id' THEN 1 ELSE 2 END AS choice
           FROM applications
           INNER JOIN teams
           ON teams.id = applications.team_id
@@ -129,7 +192,10 @@ module Mentor
           (application_data -> :project_id)::int AS project_id,
           application_data -> :project_plan AS project_plan,
           application_data -> :why_selected_project AS why_selected_project,
-          CASE WHEN :project_id::text = 'project1_id' THEN TRUE ELSE FALSE END AS first_choice,
+          application_data -> :signed_off_at AS signed_off_at,
+          (application_data -> :signed_off_by)::int AS signed_off_by,
+          application_data -> :mentor_fav AS mentor_fav,
+          CASE WHEN :project_id::text = 'project1_id' THEN 1 ELSE 2 END AS choice,
           hstore_to_json_loose(slice(application_data, ARRAY[:student0_attrs])) AS student0,
           hstore_to_json_loose(slice(application_data, ARRAY[:student1_attrs])) AS student1
           FROM applications

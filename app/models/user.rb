@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'github/user'
 
 class User < ActiveRecord::Base
@@ -62,8 +63,6 @@ class User < ActiveRecord::Base
   include Authentication::ActiveRecordHelpers
   include ProfilesHelper
 
-  include Rateable
-
   devise :omniauthable, :confirmable
 
   has_many :roles do
@@ -79,6 +78,10 @@ class User < ActiveRecord::Base
       where(name: 'organizer')
     end
 
+    def reviewer
+      where(name: 'reviewer')
+    end
+
     def supervisor
       where(name: 'supervisor')
     end
@@ -92,6 +95,7 @@ class User < ActiveRecord::Base
   has_many :applications, through: :teams
   has_many :attendances, dependent: :destroy
   has_many :conferences, through: :attendances
+  has_many :todos, dependent: :destroy
 
   validates :github_handle, presence: true, uniqueness: { case_sensitive: false }
   validates :homepage, format: { with: URL_PREFIX_PATTERN }, allow_blank: true
@@ -178,6 +182,10 @@ class User < ActiveRecord::Base
 
   def project_maintainer?
     Project.accepted.where(submitter: self).any?
+  end
+
+  def reviewer?
+    roles.reviewer.any?
   end
 
   def supervisor?
