@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Mentor::Application, :wip do
+describe Mentor::Application do
   describe 'attributes' do
     subject { described_class.new }
 
