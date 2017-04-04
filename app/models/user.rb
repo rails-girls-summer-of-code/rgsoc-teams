@@ -112,7 +112,14 @@ class User < ActiveRecord::Base
   # This field is used to skip validations when creating
   # a preliminary user, e.g. when adding a non existant person
   # to a team using the github handle.
-  attr_accessor :github_import
+  attr_reader :github_import
+
+  # This informs devise that this user does not
+  # need a confirmation notification for now
+  def github_import=(import)
+    skip_confirmation_notification! if import
+    @github_import = import
+  end
 
   class << self
     def ordered(order = nil, direction = 'asc')

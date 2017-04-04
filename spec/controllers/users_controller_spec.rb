@@ -297,4 +297,16 @@ RSpec.describe UsersController do
       expect(flash[:notice]).to include "Impersonation stopped"
     end
   end
+
+  describe 'POST resend_confirmation_instruction' do
+    let(:user) { create(:user) }
+    before do
+      sign_in user
+    end
+
+    it 'resends the confirmation instruction' do
+      expect_any_instance_of(User).to receive :send_confirmation_instructions
+      post :resend_confirmation_instruction, params: { id: user.id }
+    end
+  end
 end
