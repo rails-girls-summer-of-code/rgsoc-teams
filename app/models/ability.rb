@@ -11,6 +11,8 @@ class Ability
 
     can :crud, User, id: user.id
     can :crud, User if user.admin?
+    can :resend_confirmation_instruction, User, id: user.id
+    can :resend_confirmation_instruction, User if user.admin?
 
     # visibility of email address in user profile
     can :read_email, User, id: user.id if !user.hide_email?

@@ -33,6 +33,15 @@ describe User do
     it { expect(subject).not_to validate_presence_of(:email) }
     it { expect(subject).not_to validate_presence_of(:country) }
     it { expect(subject).not_to validate_presence_of(:location) }
+
+    it 'should not send a confirmation email' do
+      expect {
+        subject.github_handle = "example"
+        subject.github_import = true
+        subject.save!
+      }.not_to change { ActionMailer::Base.deliveries.count }
+      subject.reload
+    end
   end
 
   describe 'immutable github handle validation' do
