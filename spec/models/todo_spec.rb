@@ -39,7 +39,8 @@ RSpec.describe Todo, type: :model do
     it 'returns rating if user rated application' do
       rating = FactoryGirl.build(:rating,
         user:        todo.user,
-        application: todo.application
+        rateable_id: todo.application.id,
+        rateable_type: "Application"
       )
       rating.save(validate: false) # TODO: remove this once rating is updated
       expect(subject).to eq rating
@@ -74,8 +75,9 @@ RSpec.describe Todo, type: :model do
 
     it 'returns true if application has been rated' do
       rating = FactoryGirl.build(:rating,
-        application: todo.application,
-        user:        todo.user
+        user:        todo.user,
+        rateable_id: todo.application.id,
+        rateable_type: "Application"
       )
       rating.save(validate: false) # TODO: tmp solution
       expect(todo).to be_done

@@ -102,19 +102,20 @@
   b = Application.data_label("student1_application_motivation")
   p = auto_link(show_or_na(ad.student1_application_motivation))
 
-  h3 Financial matters
+  / Temporarily hiding the financial info from the application view
+  / h3 Financial matters
 
-  b = Application.data_label("student0_application_money")
-  p = auto_link(show_or_na(ad.student0_application_money) + " USD")
+  / b = Application.data_label("student0_application_money")
+  / p = auto_link(show_or_na(ad.student0_application_money) + " USD")
 
-  b = Application.data_label("student1_application_money")
-  p = auto_link(show_or_na(ad.student1_application_money) + " USD")
+  / b = Application.data_label("student1_application_money")
+  / p = auto_link(show_or_na(ad.student1_application_money) + " USD")
 
-  b = Application.data_label("student0_application_minimum_money")
-  p = auto_link(show_or_na(ad.student0_application_minimum_money))
+  / b = Application.data_label("student0_application_minimum_money")
+  / p = auto_link(show_or_na(ad.student0_application_minimum_money))
 
-  b = Application.data_label("student1_application_minimum_money")
-  p = auto_link(show_or_na(ad.student1_application_minimum_money))
+  / b = Application.data_label("student1_application_minimum_money")
+  / p = auto_link(show_or_na(ad.student1_application_minimum_money))
 
   - project1 = Project.find_by(id: ad.project1_id)
   - link_to_if project1, project1.try(:name), project1

@@ -22,18 +22,19 @@ nav.actions
       - each_handle(@user, :github, :twitter, :irc) do |name, handle, url|
         dt = name.capitalize
         dd = url ? link_to(handle, url) : handle
+      - if @user.homepage.present?
+        dt Homepage
+        dd = link_to(@user.homepage, @user.homepage)
+      - if can? :read_email, @user
+        dt E-Mail
+        dd = link_to @user.email, "mailto:#{@user.email}" if @user.email.present?
       - if @user.country.present?
         dt = User.human_attribute_name(:country)
         dd = @user.country
       - if @user.location.present?
         dt = User.human_attribute_name(:location)
         dd = @user.location
-      - if @user.homepage.present?
-        dt Homepage
-        dd = link_to(@user.homepage, @user.homepage)
-      - if can? :read, :users_info
-        dt E-Mail
-        dd = link_to @user.email, "mailto:#{@user.email}" if @user.email.present?
+      - if @user.timezone.present?
         dt Timezone
         dd = @user.timezone
 

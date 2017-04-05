@@ -1,18 +1,16 @@
 class Rating::RatingsController < Rating::BaseController
-  PATH_PARENTS = [:rating, :applications]
-
   # In order to get the rating data persisted, FIRST create the rating record,
   # then update it to actually set the values.
   def create
     rating = find_or_create_rating
     rating.update new_rating_params
-    redirect_to self.class::PATH_PARENTS
+    redirect_to rating_todos_path
   end
 
   def update
     rating = Rating.by(current_user).find(params[:id])
     rating.update(rating_attr_params)
-    redirect_to self.class::PATH_PARENTS
+    redirect_to rating_todos_path
   end
 
   private
