@@ -30,7 +30,7 @@
 
   p = link_to 'Edit additional Info', edit_rating_application_path(@application)
   b Misc info:
-  p = @application.misc_info
+  = simple_format(@application.misc_info)
   table.misc_info
     tbody
       tr
