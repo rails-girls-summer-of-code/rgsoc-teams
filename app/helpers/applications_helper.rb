@@ -1,6 +1,11 @@
 module ApplicationsHelper
   def show_or_na(value)
-    value.presence || "n/a"
+    value.presence || 'n/a'
+  end
+
+  def heart_or_na(value)
+    return 'n/a' unless value.to_s == 'true'
+    icon('heart', class: 'strong').html_safe
   end
 
   def heart_or_na(value)
