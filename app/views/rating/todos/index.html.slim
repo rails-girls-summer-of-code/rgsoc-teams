@@ -13,7 +13,7 @@ table.table
       th Rated at
   tbody
     - @todos.each do |todo|
-      tr
+      tr.todo class=(todo.rating&.updated_at ? 'todo--rated' : '')
         td= link_to(todo.application.team_name, [:rating, todo.application])
         td= todo.eligible? ? icon('check') : icon('ban')
         td.text-right= todo.sign_offs?.first ? icon('check') : icon('ban')
