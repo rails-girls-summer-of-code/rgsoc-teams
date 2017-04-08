@@ -255,8 +255,6 @@ GEM
     ref (2.0.0)
     responders (2.3.0)
       railties (>= 4.2.0, < 5.1)
-    rollbar (2.14.1)
-      multi_json
     rspec (3.5.0)
       rspec-core (~> 3.5.0)
       rspec-expectations (~> 3.5.0)
@@ -403,7 +401,6 @@ DEPENDENCIES
   rails_12factor
   rails_autolink
   redcarpet
-  rollbar
   rspec-activemodel-mocks
   rspec-collection_matchers
   rspec-html-matchers

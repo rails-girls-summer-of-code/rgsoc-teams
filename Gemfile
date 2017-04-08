@@ -33,7 +33,6 @@ gem 'sprockets-rails'
 gem 'newrelic_rpm'
 gem 'aws-sdk'
 
-gem 'rollbar'
 gem 'sentry-raven'
 
 gem 'aasm'
