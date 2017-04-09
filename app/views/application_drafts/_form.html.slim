@@ -97,7 +97,7 @@ p.attention
       - if application_draft.draft?
         - if application_draft.ready? && application_draft.as_student?
           .actions
-            = link_to 'Apply', apply_application_draft_path(application_draft), class: 'btn btn-success', id: 'apply_application_draft',data: { confirm: 'Are you sure? Applications once submitted can not be edited !!'}, method: :put
+            = link_to 'Apply', apply_application_draft_path(application_draft), class: 'btn btn-success', id: 'apply_application_draft',data: { confirm: 'Are you sure? Once your application is submitted, it cannot be edited anymore.'}, method: :put
             .hidden.unsaved_application_changes_notice.help-block
               p You have unsaved changes in your application form. Please save before applying.
 
