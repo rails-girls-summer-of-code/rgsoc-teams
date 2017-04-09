@@ -138,13 +138,13 @@ RSpec.describe Mentor::ApplicationsController do
 
         it 'sets the sign-off timestamp for the project choice' do
           expect { subject }
-            .to change { application.reload.application_data['signed_off_at_project1'] }
+            .to change { application.reload.data.signed_off_at_project1 }
             .from nil
         end
 
         it 'persists the mentor id who signed-off' do
           expect { subject }
-            .to change { application.reload.application_data['signed_off_by_project1'] }
+            .to change { application.reload.data.signed_off_by_project1 }
             .to(user.id.to_s)
         end
 
@@ -159,13 +159,13 @@ RSpec.describe Mentor::ApplicationsController do
 
           it 'resets the sign-off timestamp' do
             expect { subject }
-              .to change { application.reload.application_data['signed_off_at_project1'] }
+              .to change { application.reload.data.signed_off_at_project1 }
               .to nil
           end
 
           it 'resets the mentor who signed-off' do
             expect { subject }
-              .to change { application.reload.application_data['signed_off_by_project1'] }
+              .to change { application.reload.data.signed_off_by_project1 }
               .to nil
           end
         end
@@ -197,7 +197,7 @@ RSpec.describe Mentor::ApplicationsController do
 
         it 'sets the mentor_fav flag' do
           expect { subject }
-            .to change { application.reload.application_data['mentor_fav_project1'] }
+            .to change { application.reload.data.mentor_fav_project1 }
             .to 'true'
         end
 
@@ -210,7 +210,7 @@ RSpec.describe Mentor::ApplicationsController do
         it 'revokes a previous fav' do
           m_application.mentor_fav!
           expect { subject }
-            .to change { application.reload.application_data['mentor_fav_project1'] }
+            .to change { application.reload.data.mentor_fav_project1 }
             .to 'false'
           expect(response).to redirect_to mentor_applications_path
           expect(flash[:notice]).to be_present
