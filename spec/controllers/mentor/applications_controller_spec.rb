@@ -210,8 +210,8 @@ RSpec.describe Mentor::ApplicationsController do
         it 'revokes a previous fav' do
           m_application.mentor_fav!
           expect { subject }
-            .to change { application.reload.data.mentor_fav_project1 }
-            .to 'false'
+            .to change { application.reload.application_data['mentor_fav_project1'] }
+            .to nil
           expect(response).to redirect_to mentor_applications_path
           expect(flash[:notice]).to be_present
         end
