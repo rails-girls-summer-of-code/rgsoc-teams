@@ -12,7 +12,7 @@ module Exporters
       def headers
         @headers ||= ["Team ID"] +
           keys.map { |key| Application.data_label key } +
-          ["Coaching Company", "Misc. Info", "City", "Country", "Project Visibility"] +
+          ["Coaching Company", "Misc. Info", "City", "Country"] +
           Application::FLAGS.map(&:to_s).map(&:titleize)
       end
 
@@ -23,9 +23,33 @@ module Exporters
       end
     end
 
+    (2015..Date.today.year).each do |year|
+      define_method "applications_#{year}" do
+        season = Season.find_by(name: year)
+        applications = Application.where(season: season)
+        export_applications(season, applications)
+      end
+    end
+
+    (2015..Date.today.year).each do |year|
+      define_method "accepted_applications_#{year}" do
+        season       = Season.find_by(name: year)
+        applications = Application.where(season: season).select do |application|
+          application.team&.accepted?
+        end
+        export_applications(season, applications)
+      end
+    end
+
     def current
-      applications     = Application.where(season: Season.current)
-      keys_and_headers = KeysAndHeaders.new(Season.current)
+      applications = Application.where(season: Season.current)
+      export_applications(Season.current, applications)
+    end
+
+    private
+
+    def export_applications(season, applications)
+      keys_and_headers = KeysAndHeaders.new(season)
       application_keys = keys_and_headers.keys
       csv_headers      = keys_and_headers.headers
 
@@ -33,10 +57,9 @@ module Exporters
         application_data_values = application_keys.map{ |k| app.application_data[k] }
         [app.team_id] +
           application_data_values +
-          [:coaching_company, :misc_info, :city, :country, :project_visibility].map { |attribute| app.send attribute } +
+          [:coaching_company, :misc_info, :city, :country].map { |attribute| app.send attribute } +
           Application::FLAGS.map { |flag| app.send flag }
       end
     end
-
   end
 end

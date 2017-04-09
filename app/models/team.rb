@@ -1,11 +1,11 @@
 class Team < ActiveRecord::Base
-  include ProfilesHelper, HasSeason, Rateable
+  include ProfilesHelper, HasSeason
 
   delegate :sponsored?, :voluntary?, to: :kind
 
   KINDS = %w(sponsored voluntary)
 
-  validates :name, uniqueness: true, allow_blank: true
+  validates :name, presence: true, uniqueness: true
   # validate :must_have_members
   validate :disallow_multiple_student_roles
   validate :disallow_duplicate_members
@@ -77,10 +77,6 @@ class Team < ActiveRecord::Base
 
   def confirmed?
     two_students_present?
-  end
-
-  def combined_ratings
-    ratings.to_a + students.map { |student| student.ratings }.flatten
   end
 
   def set_number

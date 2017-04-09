@@ -43,7 +43,7 @@ Requirements:
 ## System Requirements
 
 * PostgreSQL 9.3 or newer
-* Ruby 2.3.3
+* Ruby 2.4.1
 
 ### Setup on Ubuntu
 ```bash
@@ -113,6 +113,8 @@ Now when running the command `foreman` *before* any command in this project
 directory the variables from `.env` will be loaded into the environment.
 
 E.g. `foreman run rails server` or `foreman run rails console`.
+
+**NOTE:** In case you did everything described above and your Mailtrap still doesn't work, it might happen because the `.env` doesn't set the `InboxUsername` and `InboxPassword` environment variables. To fix it, execute `export MAILTRAP_USER='your_user_code'` and `export MAILTRAP_PASSWORD='your_pass_code'` in your terminal and then run the server as usually: `./bin/rails server`. The user and pass codes should be copied from your Mailtrap account (they look like this: `94a5agb6c4c47d`).
 
 ### Google Places API (optional)
 

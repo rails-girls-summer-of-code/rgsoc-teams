@@ -11,6 +11,8 @@ describe Ability do
       describe 'she/he is allowed to do everything on her/his account' do
         it { expect(ability).to be_able_to(:show, user) }
         it { expect(ability).not_to be_able_to(:create, User.new) } #this only happens through GitHub
+
+        it { expect(ability).to be_able_to(:resend_confirmation_instruction, user) }
       end
 
       context 'when a user is admin' do
@@ -25,7 +27,124 @@ describe Ability do
         it { expect(ability).not_to be_able_to(:show, other_user) }
       end
 
-      describe 'a user should not be able to mark another\'s attendance to a conference' do
+
+      describe 'who is allowed to see email address in user profile' do
+
+        # email address is hidden: admin, user's supervisor in current season (confirmed)
+        # email address is not hidden: admin, confirmed user, user him/herself
+
+        let(:other_user) { FactoryGirl.create(:user) }
+
+        context 'when email address is hidden' do
+          context 'when an admin' do
+            before do
+              allow(user).to receive(:admin?).and_return(true)
+              allow(ability).to receive(:supervises?).with(other_user, user).and_return(false)
+            end
+            it 'allows to see hidden email address' do
+              other_user.hide_email = true
+              expect(ability).to be_able_to(:read_email, other_user)
+            end
+          end
+
+          context "when user's supervisor in current season (confirmed)" do
+            before do
+              allow(user).to receive(:admin?).and_return(false)
+              allow(ability).to receive(:supervises?).with(other_user, user).and_return(true)
+              allow(user).to receive(:confirmed?).and_return(true)
+            end
+            it 'allows to see hidden email address' do
+              other_user.hide_email = true
+              expect(ability).to be_able_to(:read_email, other_user)
+            end
+          end
+        end
+
+        context 'when email address is not hidden' do
+          context 'when an admin' do
+            before do
+              allow(user).to receive(:admin?).and_return(true)
+              allow(user).to receive(:confirmed?).and_return(false)
+            end
+            it 'allows to see not hidden email address' do
+              other_user.hide_email = false
+              expect(ability).to be_able_to(:read_email, other_user)
+            end
+          end
+
+          context 'when a confirmed user' do
+            before do
+              allow(user).to receive(:admin?).and_return(false)
+              allow(user).to receive(:confirmed?).and_return(true)
+            end
+            it 'allows to see not hidden email address' do
+              other_user.hide_email = false
+              expect(ability).to be_able_to(:read_email, other_user)
+            end
+          end
+
+          context 'when the user him/herself' do
+            it 'allows to see not hidden email address' do
+              user.hide_email = false
+              expect(ability).to be_able_to(:read_email, user)
+            end
+          end
+        end
+
+      end
+
+      describe 'who is disallowed to see email address in user profile' do
+
+        # email address is hidden: not admin, not user's supervisor in current season
+        # email address is not hidden: not admin, not confirmed user, not user him/herself
+
+        let(:other_user) { FactoryGirl.create(:user) }
+
+        context 'when email address is hidden' do
+          context "when not an admin or user's supervisor in current season" do
+            before do
+              allow(user).to receive(:admin?).and_return(false)
+              allow(ability).to receive(:supervises?).with(other_user, user).and_return(false)
+            end
+            it 'disallows to see hidden email address' do
+              other_user.hide_email = true
+              expect(ability).not_to be_able_to(:read_email, other_user)
+            end
+          end
+        end
+
+        context 'when email address is not hidden' do
+          context 'when not an admin or confirmed user or user him/herself' do
+            before do
+              allow(user).to receive(:admin?).and_return(false)
+              allow(user).to receive(:confirmed?).and_return(false)
+            end
+            it 'disallows to see not hidden email address' do
+              other_user.hide_email = false
+              expect(ability).not_to be_able_to(:read_email, other_user)
+            end
+          end
+        end
+
+      end
+
+
+      context 'resend_confirmation_instruction' do
+        let(:other_user) { FactoryGirl.create(:user) }
+
+        describe 'a user can only resend her/his own confirmation' do
+          it { expect(ability).to be_able_to(:resend_confirmation_instruction, user) }
+          it { expect(ability).not_to be_able_to(:resend_confirmation_instruction, other_user) }
+        end
+
+        describe 'a admin can resend all confirmation tokens' do
+          let!(:organizer_role) { FactoryGirl.create(:organizer_role, user: user) }
+          it { expect(ability).to be_able_to(:resend_confirmation_instruction, other_user) }
+        end
+      end
+
+
+      describe "a user should not be able to mark another's attendance to a conference" do
 
         context 'when same user' do
           let!(:attendance) { FactoryGirl.create(:attendance, user: user)}
@@ -51,6 +170,7 @@ describe Ability do
         end
       end
 
+      
       describe 'to read user info' do
         context 'if not an admin or supervisor' do
           before do
@@ -80,6 +200,7 @@ describe Ability do
         end
 
       end
+
 
       describe 'access to mailings' do
         let!(:mailing) { Mailing.new }

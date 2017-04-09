@@ -4,7 +4,7 @@
       li = link_to icon('plus', 'Submit a Project'), new_project_path, class: 'btn btn-default btn-sm' if can? :create, Project.new
 
 h1.header
-  = icon('group')
+  = icon('users')
   span Projects
 
 table.table.table-striped.table-bordered.table-condensed.hidden-sm.hidden-xs
@@ -23,9 +23,9 @@ table.table.table-striped.table-bordered.table-condensed.hidden-sm.hidden-xs
         - if can? :crud, project
           .project-actions
             = link_to [:edit, project] do
-              = icon('edit')
+              = icon('pencil')
             = link_to project, data: { confirm: 'This action cannot be undone. Are you sure?' }, method: :delete do
-              = icon('minus-sign')
+              = icon('minus')
       td = project_tags project
       td
         - if project.comments.any?
@@ -51,9 +51,9 @@ table.table.table-striped.table-bordered.table-condensed.hidden-sm.hidden-xs
         td 
           .project-actions
             = link_to [:edit, project] do
-              = icon('edit')
+              = icon('pencil')
             = link_to project, data: { confirm: 'This action cannot be undone. Are you sure?' }, method: :delete do
-              = icon('minus-sign')
+              = icon('minus')
     tr
       th Tags
       td = project_tags project

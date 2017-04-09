@@ -7,7 +7,7 @@ html
       title RGSoC - Teams App
     meta name="viewport" content="width=device-width, initial-scale=1.0"
     = stylesheet_link_tag    'application', media: 'all'
-    = favicon_link_tag 'favicon.png'
+    = render 'favicons'
     = csrf_meta_tags
     = javascript_include_tag 'application'
     = yield :head if content_for?(:head)
@@ -16,9 +16,9 @@ html
 
   body class=controller.controller_name
     = render 'navigation'
-    
+
     a.ribbon href='//github.com/rails-girls-summer-of-code/rgsoc-teams' title='Fork me on GitHub'
-      
+
     div#wrap
       section.container#content
         div.row
@@ -31,9 +31,14 @@ html
               p.alert.alert-danger
                 button.close data-dismiss="alert" type="button"  &times;
                 = alert
-    
+            - if current_user && !current_user.confirmed? && !params['welcome']
+              p.alert.alert-warning
+                button.close data-dismiss="alert" type="button"  &times;
+                span> Please click on the link in the email we just sent to confirm your email address. Haven't received it?
+                = link_to 'Click here to resend the email.', resend_confirmation_instruction_user_path(current_user), method: :post
+
         = yield
-    
+
     section.container#footer
       footer.footer
         ul

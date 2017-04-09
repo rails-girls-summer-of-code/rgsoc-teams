@@ -11,26 +11,26 @@ describe Rating::TodosController, type: :controller do
     end
 
     it 'requires reviewer role' do
-      sign_in create(:organizer)
+      sign_in FactoryGirl.create(:organizer)
       get :index
       expect(response).to redirect_to root_path
       expect(flash[:alert]).to be_present
     end
 
     context 'when reviewer' do
-      let(:user) { create :reviewer }
-      let(:current_season) { Season.create name: Date.today.year }
-      let(:last_season) { Season.create name: Date.today.year-1 }
-      let!(:applications_from_current_season) { create_list :application, 3, season: current_season }
-      let!(:application_from_last_season) { create :application, season: last_season }
+      let(:user)  { FactoryGirl.create :reviewer }
+      let(:todos) { FactoryGirl.build_list(:todo, 10, user: user) }
 
       before do
         sign_in user
+        allow(controller.current_user.todos)
+          .to receive(:for_current_season)
+          .and_return(todos)
         get :index
       end
 
-      it 'assigns @applications with applications from current season' do
-        expect(assigns :applications).to match_array applications_from_current_season
+      it 'assigns the users @todos' do
+        expect(assigns :todos).to match_array todos
       end
 
       it 'renders :index' do

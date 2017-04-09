@@ -21,7 +21,9 @@ RgsocTeams::Application.routes.draw do
   end
 
   get 'users/info', to: 'users_info#index'
-  resources :users, except: :new, concerns: [:has_roles, :impersonatable]
+  resources :users, except: :new, concerns: [:has_roles, :impersonatable] do
+    post 'resend_confirmation_instruction', on: :member
+  end
   resources :sources, only: :index
   resources :comments, only: :create
   resources :conferences
@@ -37,15 +39,7 @@ RgsocTeams::Application.routes.draw do
 
   get 'rating', to: 'rating/overview#index'
   namespace :rating do
-    resources 'todos', controller: 'todos', only: [:index]
-    namespace 'todos' do
-      resources :ratings, only: [:create, :update]
-      resources :comments, only: [:create]
-      resources :applications, only: [:show, :edit, :update]
-    end
-
-
-
+    resources :todos, only: [:index]
     resources :applications, except: [:new, :create, :destroy]
     resources :ratings, only: [:create, :update]
     resources :comments, only: [:create]
@@ -111,7 +105,12 @@ RgsocTeams::Application.routes.draw do
   end
 
   namespace :mentor do
-    resources :applications, only: [:index, :show]
+    resources :applications, only: [:index, :show] do
+      member do
+        put :fav
+        put :signoff
+      end
+    end
     resources :comments, only: [:create, :update]
   end
 

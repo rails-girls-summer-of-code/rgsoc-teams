@@ -1,34 +1,40 @@
 = render 'rating/breadcrumbs'
 
+p
+  | Rating overview for season #{Season.current.name}.
+  br
+  small You can download this table as a CSV file (filtering and ordering will be the same - see button at the bottom of the table).
+
 form id='applications-filter' class='filter' action=request.url
-  - Application::FLAGS.each do |flag|
+  - Rating::Table::FLAGS.each do |flag|
     label
-      = hidden_field_tag "filter[hide_#{flag}]", false
-      = check_box_tag "filter[hide_#{flag}]", true, send("hide_#{flag.to_s}?")
+      = hidden_field_tag "filter[#{flag}]", false
+      = check_box_tag "filter[#{flag}]", true, session[flag]
       = " Hide #{flag.to_s.humanize}"
 
 table#applications.table.table-striped.table-bordered.table-condensed.table-hover
   thead
     tr
-      th #
       th = link_to_ordered 'ID', :id
-      th = link_to_ordered 'Team', :team_name
-      th = link_to_ordered 'Projects', :project_name
-      th = link_to_ordered 'Locations', :location
+      th = link_to_ordered 'Application', :team_name
+      th.text-center colspan="2" Projects
+      th Location
       th = link_to_ordered 'Coaching Company', :coaching_company
-      th = 'Money'
-      th = link_to_ordered 'Picks', :picks
+      th.text-center colspan="2" Money ($)
+      th.text-center colspan="2" Volunteer (h per week)
+      th.text-center Flags
+      th.text-center colspan="2" Mentor Signoffs
+      th.text-center colspan="2" Mentor Favs
+      th = link_to_ordered 'Picks', :total_picks
+      th = link_to_ordered 'Likes', :total_likes
       th = link_to_ordered 'Average Points', :average_points
-
-      - @applications.names.each do |name|
-        th = name.split.first
-
-      - Application::FLAGS.each do |flag|
-        th = flag.to_s.humanize
-
-      th = 'Misc info'
-
+      th Ratings
+      th Misc
   tbody
-    = render partial: 'application', collection: @applications.rows, as: :row
-
-= link_to "Show hidden", "?show_hidden=true"
+    = render partial: 'application', collection: @table.applications
+    
+= button_to 'Download as CSV',
+    rating_applications_path(format: :csv),
+    method: :get,
+    class:  'btn btn-default',
+    data:   { disable_with: 'crunching data...' }

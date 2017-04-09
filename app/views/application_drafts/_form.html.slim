@@ -47,7 +47,7 @@ p.attention
     #project-tab.tab-pane
       .alert.alert-info
         strong Note:
-        |  Please fill this information together as a team.
+        |  Please fill this information together as a team. Also note that this information will be visible to the respective project maintainers of the projects you are applying for.
 
       h2 Your 1st project choice
       = render 'project_fields', f: f, project: :project1
@@ -97,7 +97,7 @@ p.attention
       - if application_draft.draft?
         - if application_draft.ready? && application_draft.as_student?
           .actions
-            = link_to 'Apply', apply_application_draft_path(application_draft), class: 'btn btn-success', id: 'apply_application_draft', method: :put
+            = link_to 'Apply', apply_application_draft_path(application_draft), class: 'btn btn-success', id: 'apply_application_draft',data: { confirm: 'Are you sure? Once your application is submitted, it cannot be edited anymore.'}, method: :put
             .hidden.unsaved_application_changes_notice.help-block
               p You have unsaved changes in your application form. Please save before applying.
 

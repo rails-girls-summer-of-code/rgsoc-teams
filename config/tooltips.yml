@@ -2,7 +2,7 @@ diversity: |
   Please base your rate on the following application fields:
 
   - Your gender self-identification
-  - Special circumstances
+  - Your special circumstances
   - What is your background?
   - How did you get into programming?
   - Anything else?
@@ -17,7 +17,7 @@ skills: |
   - Short summary of your programming skills
   - What is your programming level?
   - For how many months have you been learning the language of your primary project?
-  - Provide examples of your code
+  - Code examples
 
   Give <strong>10 points</strong> to students who look highly skilled and experienced: ~ 5 level, 24+ month learning period, decent pieces of code, other evidence of skills.
   Give <strong>5 points</strong> to students who are somewhat experienced: ~ 3 level, 12+ month learning period, good pieces of code, other evidence of skills.
@@ -32,16 +32,17 @@ community_involvement: |
   Give <strong>6-9 points</strong> to students who have <em>some</em> community experience: several workshops, study groups or other events which require <em>active</em> participation.
   Give <strong>5 points</strong> to students who have attended one workshop, study group or another event which requires <em>active</em> participation.
   Give <strong>1-4 points</strong> to students who have experience attending at least conferences or meetups.
-  Give <strong>0 points</strong> to students who have <em>zero</em> community involvement.
+  Give <strong>0 points</strong> to students who have <em>zero</em> community involvement (note that teams which have zero community involvement will be disqualified anyway).
 
 ambitions: |
   Please base your rate on the following application fields:
 
   - What do you want to achieve by the end of the summer?
-  - Why are you applying to this program?
   - Which features are you planning to work on?
+  - Why are you applying to this program?
+  - What do you think you can give back [to the community]?
 
-  Give <strong>10 points</strong> to teams which have selected challenging project features (features which will be visible in the project community) and set up ambitious goals on the personal level (both students).
+  Give <strong>10 points</strong> to teams which have selected challenging project features (features which will be visible in the project community), set ambitious goals on a personal level (both students) and are willing to be active community members (both students).
   Give <strong>1-9 points</strong> to teams which defined <em>some</em> decent issues and goals.
   Give <strong>0 points</strong> to teams which didn't bother setting clear goals.
 
@@ -60,11 +61,8 @@ ability_to_work_independently: |
 ability_to_finish_projects: |
   Please base your rate on the following application fields:
 
-  - Short summary of your programming skills
-  - Link to pull requests you have done or other examples of your coding on GitHub or elsewhere
-  - What do you want to achieve by the end of the summer?
-  - Why are you applying to this program?
-  - Why did you select this project?
+  - Short summary of your programming skills (what did you build?)
+  - Code examples
 
   Give <strong>10 points</strong> to students who have multiple accomplishments or at least one significant accomplishment (few months of work). It can be workings projects on Github, solid contributions to existing projects, Uni projects or any other achievements.
   Give <strong>1-9 points</strong> to students who have <em>some</em> visible accomplishments.
@@ -77,6 +75,7 @@ motivation_for_the_program: |
   - For how many months have you been learning the language of your primary project?
   - What do you want to achieve by the end of the summer?
   - Why are you applying to this program?
+  - What do you think you can give back [to the community]?
   - Why did you select this project?
   - How well the application is filled out
 
@@ -87,17 +86,18 @@ motivation_for_the_program: |
 support: |
   Please base your rate on the following application fields:
 
-  - Number of coaches
+  - Number of coaches, how many of them are local, optionally: how cool they are (see coaches' profiles)
+  - Do they have a coaching company?
   - Personal impression
 
   Give <strong>10 points</strong> to teams which have a really strong extra support: more than 3 coaches, coaching company or any other special circumstances providing extra support.
   Give <strong>1-9 points</strong> to teams which have <em>some</em> extra support: more than 2 coaches, 2 strong or dedicated coaches etc.
-  Give <strong>0 points</strong> to teams which have the minimal support: 2 coaches or even less (note that teams which have less than 2 coaches will be disqualified later anyway).
+  Give <strong>0 points</strong> to teams which have the minimal support: 2 coaches or even less (note that teams which have less than 2 coaches will be disqualified anyway).
 
 personal_impression: |
   Please base your rate on the following team's qualities:
 
-  - Communication skills
+  - Communication skills (incl. English skills)
   - Good role-model story
   - Any other quality you consider important
 
@@ -105,5 +105,8 @@ personal_impression: |
   Give <strong>1-9 points</strong> to teams you liked in this or that way.
   Give <strong>0 points</strong> to teams which didn't show any outstanding qualities and left you unimpressed.
 
+like: |
+  A way to say that you like this team (you may like as many applications as you want).
+
 pick: |
-  My pick is a way to promote teams which you liked especially.
+  A way to fave a team (you can pick only one or maximum two favourite teams).

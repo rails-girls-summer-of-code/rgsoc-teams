@@ -36,10 +36,6 @@ module ApplicationHelper
     render template: "layouts/#{layout}"
   end
 
-  def icon(type, text = nil)
-    %Q{<i class="icon-#{type}"></i>#{text == nil ? '' : " #{text}"}}.html_safe
-  end
-
   def admin?
     current_user.try(:admin?)
   end

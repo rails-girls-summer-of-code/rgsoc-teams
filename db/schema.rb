@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170123173604) do
+ActiveRecord::Schema.define(version: 20170330225217) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -36,7 +36,7 @@ ActiveRecord::Schema.define(version: 20170123173604) do
     t.text     "project_url"
     t.text     "misc_info"
     t.string   "heard_about_it",           default: [],                   array: true
-    t.datetime "signed_off_at"
+    t.datetime "deprecated_signed_off_at"
     t.integer  "team_id"
     t.integer  "season_id"
     t.boolean  "voluntary"
@@ -47,17 +47,17 @@ ActiveRecord::Schema.define(version: 20170123173604) do
     t.integer  "updater_id"
     t.text     "state",                    default: "draft", null: false
     t.text     "plan_project1"
-    t.integer  "signed_off_by"
+    t.integer  "deprecated_signed_off_by"
     t.integer  "project1_id"
     t.integer  "project2_id"
     t.text     "working_together"
     t.text     "why_selected_project1"
     t.text     "why_selected_project2"
     t.text     "plan_project2"
+    t.index ["deprecated_signed_off_by"], name: "index_application_drafts_on_deprecated_signed_off_by", using: :btree
     t.index ["project1_id"], name: "index_application_drafts_on_project1_id", using: :btree
     t.index ["project2_id"], name: "index_application_drafts_on_project2_id", using: :btree
     t.index ["season_id"], name: "index_application_drafts_on_season_id", using: :btree
-    t.index ["signed_off_by"], name: "index_application_drafts_on_signed_off_by", using: :btree
     t.index ["team_id"], name: "index_application_drafts_on_team_id", using: :btree
   end
 
@@ -68,8 +68,6 @@ ActiveRecord::Schema.define(version: 20170123173604) do
     t.string   "gender_identification_student", limit: 255
     t.string   "gender_identification_pair",    limit: 255
     t.text     "misc_info"
-    t.string   "sponsor_pick",                  limit: 255
-    t.integer  "project_visibility"
     t.boolean  "hidden"
     t.text     "flags",                                     default: [], array: true
     t.string   "country",                       limit: 255
@@ -80,15 +78,16 @@ ActiveRecord::Schema.define(version: 20170123173604) do
     t.integer  "team_id"
     t.integer  "application_draft_id"
     t.json     "team_snapshot"
-    t.integer  "signed_off_by"
-    t.datetime "signed_off_at"
+    t.integer  "deprecated_signed_off_by"
+    t.datetime "deprecated_signed_off_at"
     t.integer  "project_id"
+    t.boolean  "deprecated_mentor_fav"
     t.index "((application_data -> 'project1_id'::text))", name: "application_data_project1_id", using: :btree
     t.index "((application_data -> 'project2_id'::text))", name: "application_data_project2_id", using: :btree
     t.index ["application_draft_id"], name: "index_applications_on_application_draft_id", using: :btree
+    t.index ["deprecated_signed_off_by"], name: "index_applications_on_deprecated_signed_off_by", using: :btree
     t.index ["project_id"], name: "index_applications_on_project_id", using: :btree
     t.index ["season_id"], name: "index_applications_on_season_id", using: :btree
-    t.index ["signed_off_by"], name: "index_applications_on_signed_off_by", using: :btree
     t.index ["team_id"], name: "index_applications_on_team_id", using: :btree
   end
 
@@ -181,6 +180,7 @@ ActiveRecord::Schema.define(version: 20170123173604) do
     t.boolean  "pick"
     t.integer  "rateable_id"
     t.string   "rateable_type",  limit: 255
+    t.boolean  "like"
     t.index ["rateable_id", "rateable_type"], name: "index_ratings_on_rateable_id_and_rateable_type", using: :btree
   end
 
@@ -247,6 +247,14 @@ ActiveRecord::Schema.define(version: 20170123173604) do
     t.string   "project_name"
     t.index ["applications_count"], name: "index_teams_on_applications_count", using: :btree
     t.index ["season_id"], name: "index_teams_on_season_id", using: :btree
+  end
+
+  create_table "todos", force: :cascade do |t|
+    t.integer  "application_id"
+    t.integer  "user_id"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.index ["user_id", "application_id"], name: "index_todos_on_user_id_and_application_id", unique: true, using: :btree
   end
 
   create_table "users", force: :cascade do |t|

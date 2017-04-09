@@ -1,0 +1,165 @@
+.application_view
+
+  - ad = application.data
+
+  h3 Basics
+
+  b = Application.data_label("student0_application_age")
+  p = auto_link(show_or_na(ad.student0_application_age))
+
+  b = Application.data_label("student1_application_age")
+  p = auto_link(show_or_na(ad.student1_application_age))
+
+  b = Application.data_label("student0_application_gender_identification")
+  p = auto_link(show_or_na(ad.student0_application_gender_identification))
+
+  b = Application.data_label("student1_application_gender_identification")
+  p = auto_link(show_or_na(ad.student1_application_gender_identification))
+
+  b = Application.data_label("student0_application_diversity")
+  = simple_format(auto_link(show_or_na(ad.student0_application_diversity)))
+
+  b = Application.data_label("student1_application_diversity")
+  = simple_format(auto_link(show_or_na(ad.student1_application_diversity)))
+
+  b = Application.data_label("student0_application_location")
+  p = auto_link(show_or_na(ad.student0_application_location))
+
+  b = Application.data_label("student1_application_location")
+  p = auto_link(show_or_na(ad.student1_application_location))
+
+  h3 Background Information
+
+  b = Application.data_label("student0_application_about")
+  = simple_format(auto_link(show_or_na(ad.student0_application_about)))
+
+  b = Application.data_label("student1_application_about")
+  = simple_format(auto_link(show_or_na(ad.student1_application_about)))
+
+  b = Application.data_label("student0_application_code_background")
+  = simple_format(auto_link(show_or_na(ad.student0_application_code_background)))
+
+  b = Application.data_label("student1_application_code_background")
+  = simple_format(auto_link(show_or_na(ad.student1_application_code_background)))
+
+  h3 Community Involvement
+
+  b = Application.data_label("student0_application_community_engagement")
+  = simple_format(auto_link(show_or_na(ad.student0_application_community_engagement)))
+
+  b = Application.data_label("student1_application_community_engagement")
+  = simple_format(auto_link(show_or_na(ad.student1_application_community_engagement)))
+
+  b = Application.data_label("student0_application_giving_back")
+  = simple_format(auto_link(show_or_na(ad.student0_application_giving_back)))
+
+  b = Application.data_label("student1_application_giving_back")
+  = simple_format(auto_link(show_or_na(ad.student1_application_giving_back)))
+
+  h3 Programming skills
+
+  b = Application.data_label("student0_application_skills")
+  = simple_format(auto_link(show_or_na(ad.student0_application_skills)))
+
+  b = Application.data_label("student1_application_skills")
+  = simple_format(auto_link(show_or_na(ad.student1_application_skills)))
+
+  b = Application.data_label("student0_application_coding_level")
+  p = auto_link(show_or_na(ad.student0_application_coding_level) + "/5")
+
+  b = Application.data_label("student1_application_coding_level")
+  p = auto_link(show_or_na(ad.student1_application_coding_level) + "/5")
+
+  b = Application.data_label("student0_application_language_learning_period")
+  p = auto_link(show_or_na(ad.student0_application_language_learning_period )+ " months")
+
+  b = Application.data_label("student1_application_language_learning_period")
+  p = auto_link(show_or_na(ad.student1_application_language_learning_period )+ " months")
+
+  b = Application.data_label("student0_application_learning_history")
+  = simple_format(auto_link(show_or_na(ad.student0_application_learning_history)))
+
+  b = Application.data_label("student1_application_learning_history")
+  = simple_format(auto_link(show_or_na(ad.student1_application_learning_history)))
+
+  b = Application.data_label("student0_application_code_samples")
+  = simple_format(auto_link(show_or_na(ad.student0_application_code_samples)))
+
+  b = Application.data_label("student1_application_code_samples")
+  = simple_format(auto_link(show_or_na(ad.student1_application_code_samples)))
+
+  h3 Goals and motivation
+
+  b = Application.data_label("student0_application_goals")
+  = simple_format(auto_link(show_or_na(ad.student0_application_goals)))
+
+  b = Application.data_label("student1_application_goals")
+  = simple_format(auto_link(show_or_na(ad.student1_application_goals)))
+
+  b = Application.data_label("student0_application_motivation")
+  = simple_format(auto_link(show_or_na(ad.student0_application_motivation)))
+
+  b = Application.data_label("student1_application_motivation")
+  = simple_format(auto_link(show_or_na(ad.student1_application_motivation)))
+
+  / Temporarily hiding the financial info from the application view
+  / h3 Financial matters
+
+  / b = Application.data_label("student0_application_money")
+  / p = auto_link(show_or_na(ad.student0_application_money) + " USD")
+
+  / b = Application.data_label("student1_application_money")
+  / p = auto_link(show_or_na(ad.student1_application_money) + " USD")
+
+  / b = Application.data_label("student0_application_minimum_money")
+  / p = auto_link(show_or_na(ad.student0_application_minimum_money))
+
+  / b = Application.data_label("student1_application_minimum_money")
+  / p = auto_link(show_or_na(ad.student1_application_minimum_money))
+
+  - project1 = Project.find_by(id: ad.project1_id)
+  - link_to_if project1, project1.try(:name), project1
+
+  h3 Projects
+
+  b = Application.data_label("project1_id")
+  p = link_to_if project1, project1.try(:name), project1
+
+  - project2 = Project.find_by(id: ad.project2_id)
+  - link_to_if project2, project2.try(:name), project2
+
+  b = Application.data_label("project2_id")
+  p = link_to_if project2, project2.try(:name), project2
+
+  b = Application.data_label("why_selected_project1")
+  = simple_format(auto_link(show_or_na(ad.why_selected_project1)))
+
+  b = Application.data_label("why_selected_project2")
+  = simple_format(auto_link(show_or_na(ad.why_selected_project2)))
+
+  b = Application.data_label("plan_project1")
+  = simple_format(auto_link(show_or_na(render_markdown(ad.plan_project1))))
+
+  b = Application.data_label("plan_project2")
+  = simple_format(auto_link(show_or_na(render_markdown(ad.plan_project2))))
+
+  h3 Team
+
+  b = Application.data_label("working_together")
+  = simple_format(auto_link(show_or_na(ad.working_together)))
+
+  h3 Volunteering
+
+  b = Application.data_label("voluntary")
+  p = auto_link(show_or_na(ad.voluntary))
+
+  b = Application.data_label("voluntary_hours_per_week")
+  p = auto_link(show_or_na(ad.voluntary_hours_per_week))
+
+  h3 Miscellaneous
+
+  b = Application.data_label("heard_about_it")
+  p = auto_link(show_or_na(ad.heard_about_it))
+
+  b = Application.data_label("misc_info")
+  = simple_format(auto_link(show_or_na(ad.misc_info)))

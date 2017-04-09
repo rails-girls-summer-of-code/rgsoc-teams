@@ -29,6 +29,11 @@
 
   hr
   h2 Your programming skills
+
+  p.alert.alert-info
+    strong Note: 
+    |  The answers to the questions in this section of the application form will be visible to the project maintainers of the projects you are applying for.
+
   = s.input :application_skills, as: :character_limited, label: 'Please give us a short summary of your programming skills', input_html: { disabled: !may_edit?(s.object) }, wrapper_html: { class: student_field_error_class(index, application_draft, :application_skills) }, hint: (student_field_error_hint(index, application_draft, :application_skills) || 'What languages, frameworks, and tech tools did you learn? What did you build?')
 
   h4 According to these guidelines, what is your programming level (where 1 is the 'lowest')?
