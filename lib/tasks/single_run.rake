@@ -42,7 +42,7 @@ namespace :single_run do
       .where.not(team: nil, signed_off_at: nil)
 
     applications.find_each do |application|
-      project1_id = application.application_data['project1_id'].to_i
+      project1_id = application.data.project1_id.to_i
       mentor_id   = application.signed_off_by
       project_ids = Project.in_current_season.where(submitter_id: mentor_id).ids
       choice      = project_ids.include?(project1_id) ? 1 : 2

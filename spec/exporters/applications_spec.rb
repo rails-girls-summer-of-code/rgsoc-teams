@@ -22,7 +22,7 @@ RSpec.describe Exporters::Applications do
     application
   end
 
-  let!(:new_application)           { create :application, :in_current_season }
+  let!(:new_application)  { create :application, :in_current_season }
 
 
   describe '#current' do

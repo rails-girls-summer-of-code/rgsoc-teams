@@ -1,65 +1,4 @@
 class Application < ActiveRecord::Base
-  class Data < Struct.new(:data, :role, :subject)
-    ORDER = [
-      nil,
-
-      :student0_name, :student1_name,
-      :student0_application_age, :student1_application_age,
-      :student0_application_gender_identification, :student1_application_gender_identification,
-      :student0_application_diversity, :student1_application_diversity,
-      :student0_application_location, :student1_application_location,
-      :student0_application_about, :student1_application_about,
-      :student0_application_code_background, :student1_application_code_background,
-      :student0_application_community_engagement, :student1_application_community_engagement,
-      :student0_application_giving_back, :student1_application_giving_back,
-      :student0_application_skills, :student1_application_skills,
-      :student0_application_coding_level, :student1_application_coding_level,
-      :student0_application_language_learning_period, :student1_application_language_learning_period,
-      :student0_application_learning_history, :student1_application_learning_history,
-      :student0_application_code_samples, :student1_application_code_samples,
-      :student0_application_goals, :student1_application_goals,
-      :student0_application_motivation, :student1_application_motivation,
-      :student0_application_money, :student1_application_money,
-      :student0_application_minimum_money, :student1_application_minimum_money,
-      :project1_id, :project2_id,
-      :why_selected_project1, :why_selected_project2,
-      :plan_project1, :plan_project2,
-      :working_together,
-      :voluntary, :voluntary_hours_per_week,
-      :heard_about_it,
-      :misc_info,
-
-    ]
-
-    def extract
-      sort(data.slice(*keys))
-    end
-
-    def keys
-      case role
-      when :student     then data.keys.grep(/^#{role}#{student_ix}/)
-      when :team        then data.keys.grep(/(voluntary|heard_about|coaches_hours|team)/)
-      when :application then data.keys.grep(/(project)/)
-      else raise("Unknown role for Application::Data: #{role}")
-      end
-    end
-
-    def student_ix
-      handle = subject.github_handle.downcase.gsub(/\d/, '')
-      name = subject.name.downcase.gsub(/\d/, '')
-      key = ['student0_name', 'student1_name'].detect do |key|
-        value = data[key].downcase
-        handle.include?(value) || name.include?(value) || value.include?(handle) || value.include?(name)
-      end
-      key.gsub(/\D/, '') if key
-    end
-
-    def sort(data)
-      keys = data.keys.map(&:to_sym).sort { |lft, rgt| (ORDER.index(lft) || 99) <=> (ORDER.index(rgt) || 99) }
-      keys.map(&:to_s).inject({}) { |result, key| result.merge(key => data[key]) }
-    end
-  end
-
   include HasSeason, Rateable
 
   belongs_to :application_draft
@@ -91,6 +30,10 @@ class Application < ActiveRecord::Base
     ApplicationDraft.human_attribute_name(key)
   end
 
+  def data
+    ApplicationData.new(self.application_data)
+  end
+  
   def self.rateable
     joins("LEFT JOIN projects p1 ON p1.id::text = applications.application_data -> 'project1_id'")
       .joins("LEFT JOIN projects p2 ON p2.id::text = applications.application_data -> 'project2_id'")
@@ -116,15 +59,11 @@ class Application < ActiveRecord::Base
   end
 
   def location
-    application_data['location']
+    data.location
   end
 
   def minimum_money
-    application_data['minimum_money']
-  end
-
-  def data_for(role, subject)
-    Data.new(application_data, role, subject).extract || {}
+    data.minimum_money
   end
 
   FLAGS.each do |flag|

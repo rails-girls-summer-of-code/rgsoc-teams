@@ -118,29 +118,29 @@ describe Mentor::Application do
           project_id:           project1.id,
           team_name:            application.team.name,
           project_name:         project1.name,
-          project_plan:         application.application_data["plan_project#{choice}"],
-          why_selected_project: application.application_data["why_selected_project#{choice}"],
+          project_plan:         application.data.send("plan_project#{choice}"),
+          why_selected_project: application.data.send("why_selected_project#{choice}"),
           choice:               choice
         )
       end
 
       it 'contains all relevant data for student0' do
         expect(subject.student0).to have_attributes(
-          coding_level:     application.application_data['student0_application_coding_level'].to_i,
-          code_samples:     application.application_data['student0_application_code_samples'],
-          learning_history: application.application_data['student0_application_learning_history'],
-          language_learning_period: application.application_data['student0_application_language_learning_period'],
-          skills:           application.application_data['student0_application_skills']
+          coding_level:     application.data.student0_application_coding_level.to_i,
+          code_samples:     application.data.student0_application_code_samples,
+          learning_history: application.data.student0_application_learning_history,
+          language_learning_period: application.data.student0_application_language_learning_period,
+          skills:           application.data.student0_application_skills
         )
       end
 
       it 'contains all relevant data for student1' do
         expect(subject.student1).to have_attributes(
-          coding_level:     application.application_data['student1_application_coding_level'].to_i,
-          code_samples:     application.application_data['student1_application_code_samples'],
-          learning_history: application.application_data['student1_application_learning_history'],
-          language_learning_period: application.application_data['student1_application_language_learning_period'],
-          skills:           application.application_data['student1_application_skills']
+          coding_level:     application.data.student1_application_coding_level.to_i,
+          code_samples:     application.data.student1_application_code_samples,
+          learning_history: application.data.student1_application_learning_history,
+          language_learning_period: application.data.student1_application_language_learning_period,
+          skills:           application.data.student1_application_skills
         )
       end
     end
@@ -218,13 +218,13 @@ describe Mentor::Application do
 
       it 'adds a fav for the chosen project to the persisted application record' do
         expect { subject }
-          .to change { application.reload.application_data["mentor_fav_project#{choice}"] }
+          .to change { application.reload.data.send("mentor_fav_project#{choice}") }
           .from(nil).to('true')
       end
 
       it 'does not change the mentor_fav for the other project' do
         expect { subject }
-          .not_to change { application.reload.application_data["mentor_fav_project#{other}"] }
+          .not_to change { application.reload.data.send("mentor_fav_project#{other}") }
       end
     end
 
@@ -262,7 +262,7 @@ describe Mentor::Application do
 
       it 'does not change the mentor_fav for the other project' do
         expect { subject }
-          .not_to change { application.reload.application_data["mentor_fav_project#{other}"] }
+          .not_to change { application.reload.data.send("mentor_fav_project#{other}") }
       end
     end
 
