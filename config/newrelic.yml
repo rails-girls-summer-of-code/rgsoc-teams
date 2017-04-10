@@ -3,9 +3,9 @@
 # Ruby, Java, .NET, PHP, and Python applications with deep visibility and low overhead.
 # For more information, visit www.newrelic.com.
 #
-# Generated August 03, 2013
+# Generated March 14, 2014
 #
-# This configuration file is custom generated for app16340158@heroku.com
+# This configuration file is custom generated for app22451067@heroku.com
 
 
 # Here are the settings that are common to all environments
@@ -15,7 +15,7 @@ common: &default_settings
   # You must specify the license key associated with your New Relic
   # account.  This key binds your Agent's data to your account in the
   # New Relic service.
-  license_key:  '<%= ENV["NEW_RELIC_LICENSE_KEY"] %>'
+  license_key: '<%= ENV['NEW_RELIC_LICENSE_KEY'] %>'
 
   # Agent Enabled (Ruby/Rails Only)
   # Use this setting to force the agent to run or not run.
@@ -42,7 +42,7 @@ common: &default_settings
   #       - Ajax Service
   #       - All Services
   #
-  app_name: <%= ENV["NEW_RELIC_APP_NAME"] %>
+  app_name: rgsoc-teams-production
 
   # When "true", the agent collects performance data about your
   # application and reports this data to the New Relic service at
@@ -53,10 +53,6 @@ common: &default_settings
   # Developer mode should be off in every environment but
   # development as it has very high overhead in memory.
   developer_mode: false
-
-  # XXX: See https://github.com/newrelic/rpm/pull/128
-  disable_curb: true
-
 
   # The newrelic agent generates its own log file to keep its logging
   # information separate from that of your application. Specify its
