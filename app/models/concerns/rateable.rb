@@ -6,7 +6,7 @@ module Rateable
 
   def average_points
     return 0 if rating_points.empty?
-    mean(rating_points)
+    mean(rating_points).round(2)
   end
 
   def median_points
