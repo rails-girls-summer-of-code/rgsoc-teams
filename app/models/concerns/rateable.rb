@@ -5,7 +5,19 @@ module Rateable
   end
 
   def average_points
-    total_points.round(2)
+    return 0 if rating_points.empty?
+    mean(rating_points)
+  end
+
+  def median_points
+    return 0 if rating_points.empty?
+    m_pos = rating_points.size / 2
+
+    if rating_points.size % 2 == 1
+      rating_points[m_pos].round(2)
+    else
+      mean(rating_points[m_pos-1..m_pos]).round(2)
+    end
   end
 
   def ratings_short
@@ -22,8 +34,11 @@ module Rateable
 
   private
 
-  def total_points
-    return 0 unless ratings.present?
-    ratings.map(&:points).sum / ratings.count
+  def rating_points
+    ratings.map(&:points).sort
+  end
+
+  def mean(array)
+    array.inject(0) { |sum, x| sum += x } / array.size.to_f
   end
 end

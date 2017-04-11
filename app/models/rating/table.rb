@@ -31,6 +31,8 @@ class Rating::Table
       ->(a,b) { b.total_picks <=> a.total_picks }
     when :average_points
       ->(a,b) { b.average_points <=> a.average_points }
+    when :median_points
+      ->(a,b) { b.median_points <=> a.median_points }
     else
       ->(a,b) { a.id <=> b.id }
     end

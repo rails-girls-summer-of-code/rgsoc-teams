@@ -24,6 +24,52 @@ RSpec.shared_examples 'Rateable' do
     end
   end
 
+  describe '#median_points' do
+    subject { rateable.median_points }
+
+    context 'when no rating' do
+      it 'returns zero' do
+        expect(subject).to be_zero
+      end
+    end
+
+    context 'when even ratings' do
+      before do
+        FactoryGirl.create_list(:rating, 2,
+          rateable: rateable,
+          data:     { 'diversity' => 1 }
+        )
+
+        FactoryGirl.create_list(:rating, 2,
+          rateable: rateable,
+          data:     { 'diversity' => 5 }
+        )
+      end
+
+      it 'retuns the average of points' do
+        expect(subject).to eq 0.15
+      end
+    end
+
+    context 'when odd ratings' do
+      before do
+        FactoryGirl.create_list(:rating, 2,
+          rateable: rateable,
+          data:     { 'diversity' => 1 }
+        )
+
+        FactoryGirl.create_list(:rating, 1,
+          rateable: rateable,
+          data:     { 'diversity' => 4 }
+        )
+      end
+
+      it 'retuns the average of points' do
+        expect(subject).to eq 0.05
+      end
+    end
+  end
+
   describe '#ratings_short' do
     subject { rateable.ratings_short }
 

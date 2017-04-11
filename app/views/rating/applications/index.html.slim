@@ -28,11 +28,12 @@ table#applications.table.table-striped.table-bordered.table-condensed.table-hove
       th = link_to_ordered 'Picks', :total_picks
       th = link_to_ordered 'Likes', :total_likes
       th = link_to_ordered 'Average Points', :average_points
+      th = link_to_ordered 'Median Points', :median_points
       th Ratings
       th Misc
   tbody
     = render partial: 'application', collection: @table.applications
-    
+
 = button_to 'Download as CSV',
     rating_applications_path(format: :csv),
     method: :get,
