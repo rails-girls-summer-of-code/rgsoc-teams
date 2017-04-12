@@ -18,6 +18,7 @@
       'Likes',
       'AveragePoints',
       'MedianPoints',
+      'StrictnessCorrectedPoints',
       'Ratings',
       'Misc'],
     force_quotes: true\
@@ -43,6 +44,7 @@
         a.total_likes,
         a.average_points,
         a.median_points,
+        @strictness[a.id],
         a.ratings_short.join(' / '),
         a.misc_info],
       force_quotes: true\
