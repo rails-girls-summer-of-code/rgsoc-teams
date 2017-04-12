@@ -16,6 +16,8 @@ class Rating::Strictness
     end
   end
 
+  alias to_h adjusted_points_for_applications
+
   private
 
   def ratings
@@ -54,7 +56,6 @@ class Rating::Strictness
       map[id] = average_points_per_reviewer / individual_points_for_reviewer(id)
     end
   end
-  alias to_h strictness_per_reviewer
 
   def strictness
     ->(rating) { (rating.points * strictness_per_reviewer[rating.user_id]).to_f }
