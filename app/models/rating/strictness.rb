@@ -2,6 +2,14 @@
 class Rating::Strictness
   attr_reader :season
 
+  class << self
+    # Returns the strictness-adjusted rating points for each rated
+    # application id of the current season.
+    #
+    # @return [Hash{Integer => Float}]
+    def in_current_season; new.to_h end
+  end
+
   def initialize(season = Season.current)
     @season = season
   end
