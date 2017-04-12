@@ -16,11 +16,12 @@ class Rating::Strictness
     @average_points_per_reviewer ||= ratings.sum(&:points) / reviewer_ids.size.to_f
   end
 
-  def to_h
-    @strictness ||= reviewer_ids.each_with_object({}) do |id, map|
+  def strictness_per_reviewer
+    @strictness_per_reviewer ||= reviewer_ids.each_with_object({}) do |id, map|
       map[id] = average_points_per_reviewer / individual_points_for_reviewer(id)
     end
   end
+  alias to_h strictness_per_reviewer
 
   private
 
