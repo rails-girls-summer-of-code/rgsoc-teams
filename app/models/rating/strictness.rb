@@ -12,4 +12,20 @@ class Rating::Strictness
     @reviewer_ids ||= ratings.map(&:user_id).uniq
   end
 
+  def average_points_per_reviewer
+    @average_points_per_reviewer ||= ratings.sum(&:points) / reviewer_ids.size.to_f
+  end
+
+  def to_h
+    @strictness ||= reviewer_ids.each_with_object({}) do |id, map|
+      map[id] = average_points_per_reviewer / individual_points_for_reviewer(id)
+    end
+  end
+
+  private
+
+  def individual_points_for_reviewer(id)
+    ratings.select{|r| r.user_id == id}.sum(&:points)
+  end
+
 end
