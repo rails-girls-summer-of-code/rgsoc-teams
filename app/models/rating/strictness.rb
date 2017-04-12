@@ -6,6 +6,18 @@ class Rating::Strictness
     @season = season
   end
 
+  # Returns a datastructure that maps each application to its
+  # strictness-adjusted rating points.
+  #
+  # @return [Hash{Integer => Float}]
+  def adjusted_points_for_applications
+    applications.each_with_object({}) do |application, map|
+      map[application.id] = application.ratings.sum(&strictness) / application.ratings.count.to_f
+    end
+  end
+
+  private
+
   def ratings
     @ratings ||= Rating
                   .joins('JOIN applications ON ratings.rateable_id = applications.id')
@@ -33,16 +45,6 @@ class Rating::Strictness
     @average_points_per_reviewer ||= ratings.sum(&:points) / reviewer_ids.size.to_f
   end
 
-  # Returns a datastructure that maps each application to its
-  # strictness-adjusted rating points.
-  #
-  # @return [Hash{Integer => Float}]
-  def adjusted_points_for_applications
-    applications.each_with_object({}) do |application, map|
-      map[application.id] = application.ratings.sum(&strictness) / application.ratings.count.to_f
-    end
-  end
-
   # Returns a datastructure that maps each reviewer_id to their individually
   # calculated strictness.
   #
@@ -53,8 +55,6 @@ class Rating::Strictness
     end
   end
   alias to_h strictness_per_reviewer
-
-  private
 
   def strictness
     ->(rating) { (rating.points * strictness_per_reviewer[rating.user_id]).to_f }
