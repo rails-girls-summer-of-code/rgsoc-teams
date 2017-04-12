@@ -26,9 +26,7 @@ class Rating::Strictness
 
   def adjusted_points_for_applications
     applications.each_with_object({}) do |application, map|
-      map[application.id] = application.ratings.sum do |rating|
-        rating.points * strictness_per_reviewer[rating.user_id]
-      end.to_f / application.ratings.count.to_f
+      map[application.id] = application.ratings.sum(&strictness) / application.ratings.count.to_f
     end
   end
 
@@ -40,6 +38,10 @@ class Rating::Strictness
   alias to_h strictness_per_reviewer
 
   private
+
+  def strictness
+    ->(rating) { (rating.points * strictness_per_reviewer[rating.user_id]).to_f }
+  end
 
   def individual_points_for_reviewer(id)
     ratings.select{|r| r.user_id == id}.sum(&:points)
