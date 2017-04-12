@@ -38,7 +38,7 @@ class Rating::Strictness
 
   # @return [Array<Integer>] list of IDs for all rated applications
   def application_ids
-    @application_ids ||= ratings.map(&:rateable_id)
+    @application_ids ||= ratings.pluck(:rateable_id)
   end
 
   # @return [Array<Application>] all rated applications
@@ -48,7 +48,7 @@ class Rating::Strictness
 
   # @return [Array<Integer>] list of IDs for all participating reviewers
   def reviewer_ids
-    @reviewer_ids ||= ratings.map(&:user_id).uniq
+    @reviewer_ids ||= ratings.pluck(:user_id).uniq
   end
 
   # @return [Float] overall rating average
