@@ -5,7 +5,7 @@ class Rating::Strictness
     @ratings ||= Rating
                   .joins('JOIN applications ON ratings.rateable_id = applications.id')
                   .where(rateable_type: 'Application')
-                  .where(season_id: Season.current.id)
+                  .where('applications.season_id' => Season.current.id)
   end
 
   def reviewer_ids
