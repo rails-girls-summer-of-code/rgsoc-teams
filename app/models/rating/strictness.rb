@@ -1,11 +1,16 @@
 # frozen_string_literal: true
 class Rating::Strictness
+  attr_reader :season
+
+  def initialize(season = Season.current)
+    @season = season
+  end
 
   def ratings
     @ratings ||= Rating
                   .joins('JOIN applications ON ratings.rateable_id = applications.id')
                   .where(rateable_type: 'Application')
-                  .where('applications.season_id' => Season.current.id)
+                  .where('applications.season_id' => season.id)
   end
 
   def application_ids
