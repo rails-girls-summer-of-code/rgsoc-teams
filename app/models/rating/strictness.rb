@@ -13,28 +13,40 @@ class Rating::Strictness
                   .where('applications.season_id' => season.id)
   end
 
+  # @return [Array<Integer>] list of IDs for all rated applications
   def application_ids
     @application_ids ||= ratings.map(&:rateable_id)
   end
 
+  # @return [Array<Application>] all rated applications
   def applications
     @applications ||= Application.includes(:ratings).where(id: application_ids)
   end
 
+  # @return [Array<Integer>] list of IDs for all participating reviewers
   def reviewer_ids
     @reviewer_ids ||= ratings.map(&:user_id).uniq
   end
 
+  # @return [Float] overall rating average
   def average_points_per_reviewer
     @average_points_per_reviewer ||= ratings.sum(&:points) / reviewer_ids.size.to_f
   end
 
+  # Returns a datastructure that maps each application to its
+  # strictness-adjusted rating points.
+  #
+  # @return [Hash{Integer => Float}]
   def adjusted_points_for_applications
     applications.each_with_object({}) do |application, map|
       map[application.id] = application.ratings.sum(&strictness) / application.ratings.count.to_f
     end
   end
 
+  # Returns a datastructure that maps each reviewer_id to their individually
+  # calculated strictness.
+  #
+  # @return [Hash{Integer => Float}]
   def strictness_per_reviewer
     @strictness_per_reviewer ||= reviewer_ids.each_with_object({}) do |id, map|
       map[id] = average_points_per_reviewer / individual_points_for_reviewer(id)
