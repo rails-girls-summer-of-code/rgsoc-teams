@@ -20,7 +20,8 @@ class Rating::Strictness
   # @return [Hash{Integer => Float}]
   def adjusted_points_for_applications
     applications.each_with_object({}) do |application, map|
-      map[application.id] = application.ratings.sum(&strictness) / application.ratings.count.to_f
+      map[application.id] = \
+        application.ratings.sum(&strictness_adjusted_points) / application.ratings.count.to_f
     end
   end
 
@@ -65,7 +66,7 @@ class Rating::Strictness
     end
   end
 
-  def strictness
+  def strictness_adjusted_points
     ->(rating) { (rating.points * strictness_per_reviewer[rating.user_id]).to_f }
   end
 
