@@ -22,7 +22,7 @@ class Rating::Strictness
     applications.each_with_object({}) do |application, map|
       map[application.id] = \
         # OPTIMIZE `application.ratings.count` causes an n+1 problem
-        application.ratings.sum(&strictness_adjusted_points) / application.ratings.count.to_f
+        (application.ratings.sum(&strictness_adjusted_points) / application.ratings.count.to_f).round(2)
     end
   end
 
