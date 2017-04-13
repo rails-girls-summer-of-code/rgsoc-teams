@@ -28,6 +28,16 @@ class Rating::Strictness
 
   alias to_h adjusted_points_for_applications
 
+  # Returns a datastructure that maps each reviewer_id to their individually
+  # calculated strictness.
+  #
+  # @return [Hash{Integer => Float}]
+  def strictness_per_reviewer
+    @strictness_per_reviewer ||= reviewer_ids.each_with_object({}) do |id, map|
+      map[id] = average_points_per_reviewer / individual_points_for_reviewer(id)
+    end
+  end
+
   private
 
   def ratings
@@ -55,16 +65,6 @@ class Rating::Strictness
   # @return [Float] overall rating average
   def average_points_per_reviewer
     @average_points_per_reviewer ||= ratings.sum(&:points) / reviewer_ids.size.to_f
-  end
-
-  # Returns a datastructure that maps each reviewer_id to their individually
-  # calculated strictness.
-  #
-  # @return [Hash{Integer => Float}]
-  def strictness_per_reviewer
-    @strictness_per_reviewer ||= reviewer_ids.each_with_object({}) do |id, map|
-      map[id] = average_points_per_reviewer / individual_points_for_reviewer(id)
-    end
   end
 
   def strictness_adjusted_points
