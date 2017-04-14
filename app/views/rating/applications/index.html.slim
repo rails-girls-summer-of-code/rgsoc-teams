@@ -29,6 +29,7 @@ table#applications.table.table-striped.table-bordered.table-condensed.table-hove
       th = link_to_ordered 'Likes', :total_likes
       th = link_to_ordered 'Average Points', :average_points
       th = link_to_ordered 'Median Points', :median_points
+      th Strictness Corrected
       th Ratings
       th Misc
   tbody
@@ -38,4 +39,4 @@ table#applications.table.table-striped.table-bordered.table-condensed.table-hove
     rating_applications_path(format: :csv),
     method: :get,
     class:  'btn btn-default',
-    data:   { disable_with: 'crunching data...' }
+    data:   { disable_with: 'crunching data…' }

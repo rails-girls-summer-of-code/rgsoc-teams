@@ -14,6 +14,7 @@ class Rating::ApplicationsController < Rating::BaseController
 
   def index
     @table = applications_table
+    @strictness = Rating::Strictness.in_current_season
     respond_to do |format|
       format.html
       format.csv do
