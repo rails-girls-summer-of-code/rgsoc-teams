@@ -2,7 +2,6 @@ require 'spec_helper'
 
 RSpec.describe Rating::Strictness do
 
-
   describe '#adjusted_points_for_applications' do
     subject { described_class.new.adjusted_points_for_applications }
 
@@ -35,7 +34,7 @@ RSpec.describe Rating::Strictness do
       end
     end
 
-    context 'with more than one application and two reviewers' do
+    context 'with two applications rated by two reviewers' do
       let!(:application1) { create :application, :in_current_season }
       let!(:application2) { create :application, :in_current_season }
 
@@ -65,11 +64,10 @@ RSpec.describe Rating::Strictness do
 
       before { allow_any_instance_of(Rating).to receive(:points, &points) }
 
-
       # Ensure monotony: Both reviewers rated application2 higher
       it { expect(subject[application2.id]).to be > subject[application1.id] }
 
-      it '' do
+      it 'both penalizes and bumps the original rating' do
         untainted_arithmetic_mean_for_application1 = \
           ratings_for_application1.sum(&:points) / ratings_for_application1.size.to_f
         untainted_arithmetic_mean_for_application2 = \
