@@ -196,7 +196,7 @@ RSpec.describe ApplicationDraftsController do
 
       context 'for a valid draft' do
         before do
-          allow_any_instance_of(ApplicationDraft).to receive(:valid?).with(:apply).and_return(true)
+          allow_any_instance_of(ApplicationDraft).to receive(:ready?).and_return(true)
         end
 
         it 'is go' do
