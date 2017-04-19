@@ -55,19 +55,7 @@
 
   hr
 
-  #comments
-    h2 Comments
-
-    - @application.comments.each do |comment|
-      hr(id="#{dom_id comment}")
-      h5 = "#{ user_for_comment(comment) }, #{ l(comment.created_at, format: :short) }".html_safe
-      p = render_markdown(comment.text).html_safe
-
-    = simple_form_for [:rating, Comment.new(commentable: @application)] do |f|
-      = f.input :commentable_id, as: :hidden
-      = f.input :commentable_type, as: :hidden
-      = f.input :text
-      = f.submit 'Add comment'
+  = render 'comments/comments', commentable: @application, new_comment: [:rating, Comment.new(commentable: @application)]
 
 
 = render '/rating/shared/rating_sidebar', rating: @rating, application: @application, path_parents: [:rating]
