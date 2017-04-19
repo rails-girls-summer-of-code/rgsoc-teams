@@ -85,6 +85,12 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  # we are using devise with OmniAuth without other authentications, so we need to define this ourselfes
+  # https://github.com/plataformatec/devise/wiki/OmniAuth%3A-Overview#using-omniauth-without-other-authentications
+  def new_session_path(scope)
+    user_github_omniauth_authorize_path
+  end
+
   # Sentry config
   before_action :set_raven_context
 
@@ -96,5 +102,4 @@ class ApplicationController < ActionController::Base
     end
     Raven.extra_context(params: params.to_unsafe_h, url: request.url)
   end
-
 end
