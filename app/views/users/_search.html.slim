@@ -1,6 +1,8 @@
-= form_tag users_path, method: :get, id: "search-form" do |f|
-  = text_field_tag :search, params[:search], placeholder: "Search user or team"
-  = submit_tag "Go", class: "btn btn-success"
-  = link_to_if(params[:search].present?, "Clear search results", users_path, class: "btn btn-default")  do
-   a
-   end
+= form_tag users_path, method: :get, id: "search-form", class: "form-inline" do |f|
+  .form-group
+    = text_field_tag :search, params[:search], placeholder: "Search user or team", class: "form-control"
+  .form-group
+    = submit_tag "Go", class: "form-control btn btn-default"
+  - if params[:search].present?
+    .form-group
+      = link_to "Clear search results", users_path, class: "btn btn-default"

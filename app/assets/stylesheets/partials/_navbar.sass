@@ -1,15 +1,15 @@
 nav#navigation
   @extend .navbar, .navbar-inverse, .navbar-static-top
 
-  a.nav-dropdown-img-toggle
-    @extend .dropdown-toggle, .hidden-xs, .btn, .navbar-btn
-    padding-top: 0 !important
-    padding-bottom: 0 !important
+  a.dropdown-toggle-img
+    @extend .dropdown-toggle
+    padding: 2px
+    margin: 0
 
     img
       @extend .img-rounded, .hidden-xs
       padding: 2px
-      max-width: 50px
+      max-height: 46px
 
   li.divider + li.divider
     display: none
