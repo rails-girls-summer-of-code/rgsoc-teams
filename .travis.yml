@@ -1,6 +1,7 @@
 language: ruby
 cache: bundler
-sudo: false
+sudo: required
+dist: precise
 rvm:
 - 2.4.1
 bundler_args: "-j4 --without development production --quiet"
