@@ -48,9 +48,7 @@ context 'when switching phases' do
       another_phase = :fake_proposals_phase
 
       Season::PhaseSwitcher.destined(phase: another_phase)
-      # Just checking, here too the error is not raised
       Season.current
-      allow_any_instance_of(Season).to receive(:save).and_raise RuntimeError
       expect(subject).to_not be_application_period
     end
 
