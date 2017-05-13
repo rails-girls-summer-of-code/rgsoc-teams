@@ -54,10 +54,15 @@ context 'when switching phases' do
       expect(subject).to_not be_application_period
     end
 
-    it 'fails silently when it receives a non-whitelisted phase' do
+    context 'it does not accept malicious input' do
       phase = :bad_intentions
-      expect { Season::PhaseSwitcher.destined(phase: phase) }.not_to change { Season.current.updated_at.strftime("%Y-%m-%d
-%H:%M:%S.%6N") }
+
+      it 'raises an error when it receives a non-whitelisted phase' do
+        expect { Season::PhaseSwitcher.destined(phase: phase) }.to raise_error(ArgumentError)
+      end
+      it 'does not change the subject' do
+        expect { Season::PhaseSwitcher.destined(phase: phase) rescue ArgumentError }.not_to change { subject.reload }
+      end
     end
   end
 end
