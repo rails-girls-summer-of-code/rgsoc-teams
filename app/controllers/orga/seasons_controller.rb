@@ -48,7 +48,7 @@ class Orga::SeasonsController < Orga::BaseController
   # by showing the corresponding links in the nav bar
   def switch_phase
     return if Rails.env.production?
-    Season::PhaseSwitcher.destined(params[:phase])
+    Season::PhaseSwitcher.destined(phase)
     redirect_to orga_seasons_path, notice: "We time travelled into the #{params[:phase].humanize.titlecase}"
   end
 
@@ -70,6 +70,10 @@ class Orga::SeasonsController < Orga::BaseController
       :project_proposals_open_at,
       :project_proposals_close_at
     )
+  end
+
+  def phase
+    params[:phase].to_sym
   end
 
   def set_breadcrumbs
