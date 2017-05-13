@@ -2,21 +2,19 @@
 
 class Season::PhaseSwitcher
 
-  WHITELISTED_PHASES = %i[
-        fake_proposals_phase
-        fake_application_phase
-        fake_coding_phase
-        back_to_reality
-    ]
+  PHASES = %i(
+    fake_proposals_phase
+    fake_application_phase
+    fake_coding_phase
+    back_to_reality
+    ).freeze
 
   def self.season
     Season.current
   end
 
   def self.destined(phase: phase)
-    if phase.in?(WHITELISTED_PHASES)
-      self.public_send(phase)
-    end
+    self.public_send(phase) if phase.in?(PHASES)
   end
 
   private
