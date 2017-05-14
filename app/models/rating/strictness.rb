@@ -65,19 +65,12 @@ class Rating::Strictness
     @reviewer_ids ||= ratings.pluck(:user_id).uniq
   end
 
-  # @return [Float] overall rating average
-  def average_points_per_reviewer
-    @average_points_per_reviewer ||= ratings.sum(&:points) / reviewer_ids.size.to_f
-  end
-
   def strictness_adjusted_points
     ->(rating) { (rating.points * strictness_per_reviewer[rating.user_id]).to_f }
   end
 
-  def individual_points_for_reviewer(id)
-    ratings.select{|r| r.user_id == id}.sum(&:points)
-  end
-
+  # @return [Float] for expected value for application raring of
+  # given set of reviewers
   def expected_value_for(ids)
     distribution = {}
 
