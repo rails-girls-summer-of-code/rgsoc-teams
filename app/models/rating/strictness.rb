@@ -76,8 +76,8 @@ class Rating::Strictness
     # given reviewer_ids only
     rating_subgroup = ratings.where(user_id: ids)
 
-    # Count the frequencies: How often has a specific
-    # reviewer assigned a specic point value? The
+    # Count the frequencies: How often has the group
+    # of reviewers assigned a specic point value? The
     # distribution hash stores the absolute frequencies
     distribution = rating_subgroup.each_with_object({}) do |rating, hash|
       hash[rating.points] ||= 0
