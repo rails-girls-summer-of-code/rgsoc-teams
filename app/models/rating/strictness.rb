@@ -84,8 +84,9 @@ class Rating::Strictness
       hash[rating.points]  += 1
     end
 
-    # Calculate the expected value by sum over the
-    # product of value multiplied by its probablity
+    # Calculate the expected value, which is defined
+    # as the sum over the products of rating point values multiplied by their
+    # probablity
     distribution.sum { |x, frequency_of_x| x.to_f * (frequency_of_x.to_f / rating_subgroup.count.to_f) }
   end
 end
