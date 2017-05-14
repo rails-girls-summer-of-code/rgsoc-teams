@@ -80,8 +80,8 @@ class Rating::Strictness
     # reviewer assigned a specic point value? The
     # distribution hash stores the absolute frequencies
     distribution = rating_subgroup.each_with_object({}) do |rating, hash|
-      hash[rating.points.to_s] ||= 0
-      hash[rating.points.to_s]  += 1
+      hash[rating.points] ||= 0
+      hash[rating.points]  += 1
     end
 
     # Calculate the expected value by sum over the
