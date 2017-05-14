@@ -72,8 +72,6 @@ class Rating::Strictness
   # @return [Float] for expected value for application raring of
   # given set of reviewers
   def expected_value_for(ids)
-    distribution = {}
-
     # We are working with the ratings of
     # given reviewer_ids only
     rating_subgroup = ratings.where(user_id: ids)
@@ -81,9 +79,9 @@ class Rating::Strictness
     # Count the frequencies: How often did a specific
     # reviewer given a specic value? The relative frequencies
     # are used as probabilities
-    rating_subgroup.each do |rating|
-      distribution[rating.points.to_s] ||= 0
-      distribution[rating.points.to_s]  += 1
+    distribution = rating_subgroup.each_with_object({}) do |rating, hash|
+      hash[rating.points.to_s] ||= 0
+      hash[rating.points.to_s]  += 1
     end
 
     # Calculate the expected value by sum over the
