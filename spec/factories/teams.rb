@@ -15,6 +15,10 @@ FactoryGirl.define do
       season { Season.find_or_create_by name: (Date.today.year - 1) }
     end
 
+    trait :skip_validations do
+      to_create {|instance| instance.save(validate: false) }
+    end
+
     trait :supervise do
       name 'supervise'
     end

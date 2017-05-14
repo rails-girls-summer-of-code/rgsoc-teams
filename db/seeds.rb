@@ -1,10 +1,10 @@
 # Teams
-FactoryGirl.create_list(:team, 5, :in_current_season, kind: "sponsored")
-FactoryGirl.create(:team, :in_current_season, kind: "voluntary")
-FactoryGirl.create(:team, :in_current_season) #not accepted
+FactoryGirl.create_list(:team, 5, :in_current_season, :skip_validations, kind: "sponsored")
+FactoryGirl.create(:team, :in_current_season, :skip_validations, kind: "voluntary")
+FactoryGirl.create(:team, :in_current_season, :skip_validations) # rejected application
 
-FactoryGirl.create(:team, :last_season, kind: "sponsored")
-FactoryGirl.create(:team, :last_season, kind: "voluntary")
+FactoryGirl.create(:team, :last_season, :skip_validations, kind: "sponsored")
+FactoryGirl.create(:team, :last_season, :skip_validations, kind: "voluntary")
 
 # Users with different roles
 FactoryGirl.create_list(:team, 5, :in_current_season, kind: "sponsored")
@@ -19,7 +19,6 @@ FactoryGirl.create(:supervisor)
 # To explore use cases where user has no role yet
 FactoryGirl.create_list(:user, 3)
 
-
 # Status updates for different teams
 5.times do
   FactoryGirl.create(:status_update, published_at: Time.now, team: Team.all.sample)
@@ -32,3 +31,12 @@ FactoryGirl.create(:application_draft, :appliable)
 FactoryGirl.create(:project, :in_current_season) #proposed
 FactoryGirl.create(:project, :accepted, :in_current_season)
 FactoryGirl.create(:project, :rejected, :in_current_season)
+
+# Conferences
+2.times do
+  FactoryGirl.create(:conference, :in_current_season, round: 1)
+end
+2.times do
+  FactoryGirl.create(:conference, :in_current_season, round: 2)
+end
+FactoryGirl.create_list(:conference, 2) # without season
