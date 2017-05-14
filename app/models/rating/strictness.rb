@@ -69,7 +69,7 @@ class Rating::Strictness
     ->(rating) { (rating.points * strictness_per_reviewer[rating.user_id]).to_f }
   end
 
-  # @return [Float] for expected value for application raring of
+  # @return [Float] for expected value for application rating of
   # given set of reviewers
   def expected_value_for(ids)
     # We are working with the ratings of
@@ -86,7 +86,7 @@ class Rating::Strictness
 
     # Calculate the expected value, which is defined
     # as the sum over the products of rating point values multiplied by their
-    # probablity
+    # probability
     distribution.sum { |x, frequency_of_x| x.to_f * (frequency_of_x.to_f / rating_subgroup.count.to_f) }
   end
 end
