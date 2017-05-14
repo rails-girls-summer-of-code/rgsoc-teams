@@ -1,13 +1,8 @@
 require 'spec_helper'
 
 describe Season::PhaseSwitcher do
-
-  it "is available as described class" do
-    expect(described_class).to eq Season::PhaseSwitcher
-  end
-
-  context 'when switching phases' do
-    season = Season.current
+  context '.destined' do
+    let(:season) { Season.current }
 
     context 'when the input is valid' do
       it 'gets called on the season object' do
@@ -26,17 +21,12 @@ describe Season::PhaseSwitcher do
     end
 
     context 'when the input is malicious' do
-      phase = :bad_intentions
-
-      it 'raises an error when it receives a non-whitelisted phase' do
+      it 'does not change the season dates' do
+        phase = :bad_intentions
+        RSpec::Matchers.define_negated_matcher :not_change, :change
         expect {
           described_class.destined(phase)
-        }.to raise_error(ArgumentError)
-      end
-      it 'does not change the season dates' do
-        expect {
-          described_class.destined(phase) rescue ArgumentError
-        }.not_to change { Season.current.reload }
+        }.to raise_error(ArgumentError).and not_change { Season.current.reload }
       end
     end
   end

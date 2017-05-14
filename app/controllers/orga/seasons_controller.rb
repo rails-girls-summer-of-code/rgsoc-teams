@@ -73,7 +73,7 @@ class Orga::SeasonsController < Orga::BaseController
   end
 
   def phase
-    params[:phase].to_sym if phase.in? PHASES
+    params[:phase].to_sym
   end
 
   def set_breadcrumbs
