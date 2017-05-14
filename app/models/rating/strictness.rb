@@ -34,7 +34,10 @@ class Rating::Strictness
   # @return [Hash{Integer => Float}]
   def strictness_per_reviewer
     @strictness_per_reviewer ||= reviewer_ids.each_with_object({}) do |id, map|
-      map[id] = average_points_per_reviewer / individual_points_for_reviewer(id)
+      expected_value_for_all             = expected_value_for(reviewer_ids).to_f
+      expected_value_for_single_reviewer = expected_value_for([id]).to_f
+
+      map[id] = expected_value_for_all / expected_value_for_single_reviewer
     end
   end
 
@@ -75,4 +78,23 @@ class Rating::Strictness
     ratings.select{|r| r.user_id == id}.sum(&:points)
   end
 
+  def expected_value_for(ids)
+    distribution = {}
+
+    # We are working with the ratings of
+    # given reviewer_ids only
+    rating_subgroup = ratings.where(user_id: ids)
+
+    # Count the frequencies: How often did a specific
+    # reviewer given a specic value? The relative frequencies
+    # are used as probabilities
+    rating_subgroup.each do |rating|
+      distribution[rating.points.to_s] ||= 0
+      distribution[rating.points.to_s]  += 1
+    end
+
+    # Calculate the expected value by sum over the
+    # product of value multiplied by its probablity
+    distribution.sum { |x, frequency_of_x| x.to_f * (frequency_of_x.to_f / rating_subgroup.count.to_f) }
+  end
 end
