@@ -3,6 +3,8 @@ require 'spec_helper'
 RSpec.describe Orga::ConferencesController do
   render_views
 
+  it_behaves_like 'redirects for non-admins'
+
   context 'with admin logged in' do
     include_context 'with admin logged in'
 
