@@ -1,34 +1,32 @@
 require 'spec_helper'
 
+describe Season::PhaseSwitcher do
+  context '.destined' do
+    let(:season) { Season.current }
 
-context 'when switching phases' do
-  subject { Season.current }
+    context 'when the input is valid' do
+      it 'gets called on the season object' do
+        phase = :fake_application_phase
+        described_class.destined(phase)
+        season.reload
+        expect(season).to be_application_period
+      end
 
-  describe '#fake_application_phase' do
-    it 'timeshifts the application phase to today' do
-      Timecop.travel(Season.current.applications_close_at - 1.month) do
-        Season::PhaseSwitcher.fake_application_phase
-        expect(subject).to be_application_period
+      it 'changes also when real time happens to be within application_period' do
+        phase = :fake_proposals_phase
+        described_class.destined(phase)
+        season.reload
+        expect(season).not_to be_application_period
       end
     end
-  end
 
-  describe '#fake_coding_phase' do
-    it 'timeshifts the coding phase to today' do
-      Timecop.travel(Season.current.ends_at - 1.week) do
-        Season::PhaseSwitcher.fake_coding_phase
-        expect(subject).to be_started
-      end
-    end
-  end
-
-  describe '#fake_proposals_phase' do
-    it 'timeshifts the proposal period to today' do
-      Timecop.travel(Season.current.project_proposals_close_at - 2.weeks) do
-        fake_time = Time.now #as returned by Timecop
-        Season::PhaseSwitcher.fake_proposals_phase
-        expect(subject.project_proposals_open_at).to be < fake_time
-        expect(subject.project_proposals_close_at).to be > fake_time
+    context 'when the input is malicious' do
+      it 'does not change the season dates' do
+        phase = :bad_intentions
+        RSpec::Matchers.define_negated_matcher :not_change, :change
+        expect {
+          described_class.destined(phase)
+        }.to raise_error(ArgumentError).and not_change { Season.current.reload }
       end
     end
   end

@@ -45,22 +45,12 @@ class Orga::SeasonsController < Orga::BaseController
   end
 
   # # switch_phase: enables developers to easily switch between time dependent settings in views
-  # by opening and closing the corresponding links in the nav bar
+  # by showing the corresponding links in the nav bar
   def switch_phase
     return if Rails.env.production?
-      case params[:option]
-      when 'Proposals'
-        Season::PhaseSwitcher.fake_proposals_phase
-      when 'Application'
-        Season::PhaseSwitcher.fake_application_phase
-      when 'CodingSummer'
-        Season::PhaseSwitcher.fake_coding_phase
-      when 'RealTime'
-        Season::PhaseSwitcher.back_to_reality
-      end
-    redirect_to orga_seasons_path, notice: "We time travelled into the #{params[:option]} phase"
+    Season::PhaseSwitcher.destined(phase)
+    redirect_to orga_seasons_path, notice: "We time travelled into the #{params[:phase].humanize.titlecase}"
   end
-
 
   private
 
@@ -80,6 +70,10 @@ class Orga::SeasonsController < Orga::BaseController
       :project_proposals_open_at,
       :project_proposals_close_at
     )
+  end
+
+  def phase
+    params[:phase].to_sym
   end
 
   def set_breadcrumbs
