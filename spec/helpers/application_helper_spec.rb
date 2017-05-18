@@ -105,14 +105,9 @@ RSpec.describe ApplicationHelper do
 
   describe '#links_to_conferences' do
     let(:conference) { build_stubbed :conference }
-    
-    it 'creates a simple link to a single conference' do
-      subject = links_to_conferences [conference]
-      expect(subject).to eql [link_to(conference.name, conference)]
-    end
 
     context 'without location' do
-      subject { links_to_conferences [conference], verbose: true }
+      subject { links_to_conferences [conference] }
 
       it 'will show the dates in brackets' do
         link_text = "#{conference.name} (#{format_conference_date(conference.starts_on, conference.ends_on)})"

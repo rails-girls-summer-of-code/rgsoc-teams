@@ -16,12 +16,7 @@ module ApplicationHelper
       link_to 'Apply now', apply_path
     end
   end
-
-  def conference_tweet_link(conference)
-    tweet = "I really want to go to #{conference.name} this year! #{conference.twitter} @Railsgirlssoc"
-    "https://twitter.com/intent/tweet?text=#{URI.escape(tweet)}"
-  end
-
+  
   def avatar_url(user, size: 200)
     image = if user_avatar = user.avatar_url.presence
               "#{user_avatar}&s=#{size}"
@@ -67,10 +62,11 @@ module ApplicationHelper
     date && l(date.to_date, format: format) || '-'
   end
 
+  ## Conferences
   def format_conference_date(starts_on, ends_on)
-    return unless [starts_on, ends_on].all?(&:present?)
-    starts_on = starts_on.strftime('%d %b %y')
-    ends_on = ends_on.strftime('%d %b %y')
+    return unless starts_on && ends_on
+    starts_on = starts_on.strftime("%d %b %y")
+    ends_on = ends_on.strftime("%d %b %y")
     starts_on == ends_on ? starts_on : [starts_on, ends_on].join(' - ')
   end
 
@@ -86,10 +82,28 @@ module ApplicationHelper
     result
   end
 
+  def conference_tweet_link(conference)
+    tweet = "I really want to go to #{conference.name} this year! #{conference.twitter} @Railsgirlssoc"
+    "https://twitter.com/intent/tweet?text=#{URI.escape(tweet)}"
+  end
+
   def format_conference_twitter(twitter)
     twitter.to_s.starts_with?('@') ? link_to(twitter, "http://twitter.com/#{twitter.gsub('@', '')}") : twitter
   end
 
+  # @param conferences [Array<Conference>] a list of Conference records
+  # @return [Array<String>] a list of HTML anchor tags to conferences
+  def links_to_conferences(conferences)
+    conferences.map do |conference|
+      text = conference.name
+      extra = [conference.location, format_conference_date(conference.starts_on, conference.ends_on)].reject(&:blank?).join(' – ')
+      text += " (#{extra})" unless extra.blank?
+      link_to(text, conference)
+    end
+  end
+  
+  ## end Conferences
+  
   def if_present?(user, *attrs)
     yield if attrs.any? { |attr| user.send(attr).present? }
   end
@@ -123,21 +137,7 @@ module ApplicationHelper
       link_to(user.name.present? ? user.name : user.github_handle, user, class: attendance.confirmed? ? 'confirmed' : '')
     end
   end
-
-  # @param conferences [Array<Conference>] a list of Conference records
-  # @param verbose [Boolean] appends location and date info if true (defaults to false)
-  # @return [Array<String>] a list of HTML anchor tags to conferences
-  def links_to_conferences(conferences, verbose: false)
-    conferences.map do |conference|
-      text = conference.name
-      if verbose
-        extra = [conference.location, format_conference_date(conference.starts_on, conference.ends_on)].reject(&:blank?).join(' – ')
-        text += " (#{extra})" unless extra.blank?
-      end
-      link_to(text, conference)
-    end
-  end
-
+  
   def links_to_user_teams(user)
     user.teams.map do |team|
       link_to(team.name || team.project, team, class: "team #{team.sponsored? ? 'sponsored' : ''}")
