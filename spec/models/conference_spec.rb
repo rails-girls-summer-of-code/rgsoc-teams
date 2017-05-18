@@ -10,17 +10,20 @@ RSpec.describe Conference do
   it { is_expected.to validate_presence_of(:starts_on) }
   it { is_expected.to validate_presence_of(:ends_on) }
 
-  describe 'it checks the chronological order of dates' do
+  describe 'validates chronological dates' do
     subject { FactoryGirl.build(:conference) }
-    it 'raises an error with an incorrect order of dates' do
-      subject.starts_on = '2017-07-15'
-      subject.ends_on = '2017-07-07'
-      expect(subject).to have(1).error_on(:ends_on)
+    let(:start_date) { subject.starts_on }
+
+    it 'with an incorrect order of dates it raises an error' do
+      subject.ends_on = start_date - 1.week
+      expect(subject).not_to be_valid
+      expect(subject.errors[:ends_on]).not_to be_empty
     end
 
-    it 'accepts the dates when in the right order' do
-      subject.starts_on = '2017-07-07'
-      subject.ends_on = '2017-07-07'
+    it 'when in the right order' do
+      subject.ends_on = start_date + 1.week
+      expect(subject).to be_valid
+      expect(subject.errors[:ends_on]).to be_empty
     end
   end
 

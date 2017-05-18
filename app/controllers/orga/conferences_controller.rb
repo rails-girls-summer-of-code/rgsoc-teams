@@ -12,7 +12,7 @@ class Orga::ConferencesController < Orga::BaseController
   end
 
   def update
-    if conference.update_attributes(conference_params)
+    if conference.update(conference_params)
       redirect_to orga_conference_path(conference)
     else
       render action: :edit

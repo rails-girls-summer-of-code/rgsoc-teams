@@ -6,7 +6,7 @@ FactoryGirl.create(:team, :in_current_season) #not accepted
 FactoryGirl.create(:team, :last_season, kind: "sponsored")
 FactoryGirl.create(:team, :last_season, kind: "voluntary")
 
-# Users with different roles
+# # Users with different roles
 FactoryGirl.create_list(:team, 5, :in_current_season, kind: "sponsored")
 FactoryGirl.create(:team, :in_current_season, kind: "voluntary")
 
@@ -16,7 +16,7 @@ FactoryGirl.create_list(:organizer, 2)
 FactoryGirl.create(:mentor)
 FactoryGirl.create(:supervisor)
 
-# To explore use cases where user has no role yet
+# # To explore use cases where user has no role yet
 FactoryGirl.create_list(:user, 3)
 
 
@@ -32,3 +32,15 @@ FactoryGirl.create(:application_draft, :appliable)
 FactoryGirl.create(:project, :in_current_season) #proposed
 FactoryGirl.create(:project, :accepted, :in_current_season)
 FactoryGirl.create(:project, :rejected, :in_current_season)
+
+# Conferences
+4.times do
+  FactoryGirl.create(:conference, :in_current_season,
+    location: FFaker::Venue.name,
+    starts_on: rand(1.year).seconds.from_now,
+    lightningtalkslots: rand < 0.5,
+    tickets: [2,4,6].sample,
+    accomodation: 2,
+    flights: 0
+  )
+end

@@ -8,6 +8,5 @@ FactoryGirl.define do
     trait :in_current_season do
       season { Season.current }
     end
-
   end
 end
