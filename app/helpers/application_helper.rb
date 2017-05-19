@@ -62,9 +62,8 @@ module ApplicationHelper
     date && l(date.to_date, format: format) || '-'
   end
 
-  ## Conferences
+  # Conferences
   def format_conference_date(starts_on, ends_on)
-    return unless starts_on && ends_on
     starts_on = starts_on.strftime("%d %b %y")
     ends_on = ends_on.strftime("%d %b %y")
     starts_on == ends_on ? starts_on : [starts_on, ends_on].join(' - ')
@@ -96,13 +95,13 @@ module ApplicationHelper
   def links_to_conferences(conferences)
     conferences.map do |conference|
       text = conference.name
-      extra = [conference.location, format_conference_date(conference.starts_on, conference.ends_on)].reject(&:blank?).join(' – ')
-      text += " (#{extra})" unless extra.blank?
+      details = [conference.location, format_conference_date(conference.starts_on, conference.ends_on)].reject(&:blank?).join(' – ')
+      text += " (#{details})"
       link_to(text, conference)
     end
   end
   
-  ## end Conferences
+  # end Conferences
   
   def if_present?(user, *attrs)
     yield if attrs.any? { |attr| user.send(attr).present? }
