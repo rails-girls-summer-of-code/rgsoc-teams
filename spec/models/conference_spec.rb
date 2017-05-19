@@ -7,6 +7,25 @@ RSpec.describe Conference do
   it { is_expected.to have_many(:attendees) }
   it { is_expected.to validate_presence_of(:name) }
   it { is_expected.to validate_presence_of(:round) }
+  it { is_expected.to validate_presence_of(:starts_on) }
+  it { is_expected.to validate_presence_of(:ends_on) }
+
+  describe 'validates chronological dates' do
+    subject { FactoryGirl.build(:conference) }
+    let(:start_date) { subject.starts_on }
+
+    it 'with an incorrect order of dates it raises an error' do
+      subject.ends_on = start_date - 1.week
+      expect(subject).not_to be_valid
+      expect(subject.errors[:ends_on]).not_to be_empty
+    end
+
+    it 'when in the right order' do
+      subject.ends_on = start_date + 1.week
+      expect(subject).to be_valid
+      expect(subject.errors[:ends_on]).to be_empty
+    end
+  end
 
   describe 'scopes' do
     subject { Conference }
@@ -42,6 +61,5 @@ RSpec.describe Conference do
         expect(subject.tickets_left).to eq(0)
       end
     end
-
   end
 end

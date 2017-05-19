@@ -106,38 +106,15 @@ RSpec.describe ApplicationHelper do
   describe '#links_to_conferences' do
     let(:conference) { build_stubbed :conference }
 
+    context 'without location' do
+      subject { links_to_conferences [conference] }
 
-    it 'creates a simple link to a single conference' do
-      subject = links_to_conferences [conference]
-      expect(subject).to eql [link_to(conference.name, conference)]
-    end
-
-    context 'with extra info flag' do
-      subject { links_to_conferences [conference], verbose: true }
-
-      it 'will not display empty brackets' do
-        expect(subject).to eql [link_to(conference.name, conference)]
+      it 'will show the dates in brackets' do
+        link_text = "#{conference.name} (#{format_conference_date(conference.starts_on, conference.ends_on)})"
+        expect(subject).to eql [link_to(link_text, conference)]
       end
-
-      context 'with location' do
-        let(:conference) { build_stubbed :conference, location: 'Melée Island, Carribean' }
-
-        it 'will add the location in brackets' do
-          link_text = "#{conference.name} (Melée Island, Carribean)"
-          expect(subject).to eql [link_to(link_text, conference)]
-        end
-      end
-
-      context 'with starts_on and ends_on present' do
-        let(:conference) { build_stubbed :conference, starts_on: '2017-03-14', ends_on: '2017-03-17' }
-
-        it 'will add the date range in brackets' do
-          link_text = "#{conference.name} (14 Mar 17 - 17 Mar 17)"
-          expect(subject).to eql [link_to(link_text, conference)]
-        end
-      end
-
-      context 'with location and and all dates present' do
+      
+      context 'with location present' do
         let(:conference) do
           build_stubbed :conference, location: 'Melée Island, Carribean', starts_on: '2017-03-14', ends_on: '2017-03-17'
         end

@@ -53,9 +53,9 @@ nav.actions
     ul.conferences
       - @user.attendances.joins(:conference).order('conferences.starts_on').each do |a|
         li
-          = links_to_conferences([a.conference], verbose: true).first
+          = links_to_conferences([a.conference]).first
           - if @user == current_user
-            ' #{link_to "Tweet About It!", conference_tweet_link(a.conference), class: 'btn btn-default'}
+            '#{link_to "Tweet About It!", conference_tweet_link(a.conference), class: 'btn btn-default'}
           - if can?(:crud, a) and admin?
             ul.actions
               - if a.confirmed?
