@@ -12,12 +12,16 @@ class Conference < ActiveRecord::Base
   scope :ordered, ->(sort = {}) { order([sort[:order] || 'starts_on, name', sort[:direction] || 'asc'].join(' ')) }
   scope :in_current_season, -> { where(season: Season.current) }
 
+  def dates
+    DateRange.new(starts_on, ends_on)
+  end
+  
   def chronological_dates
     unless starts_on <= ends_on
       errors.add(:ends_on, 'must be a later date than start date')
     end
   end
-
+  
   def tickets_left
     confirmed_attendances = attendances.select { |attendance| attendance.confirmed }
     tickets.to_i - confirmed_attendances.size
