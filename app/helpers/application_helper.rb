@@ -63,10 +63,10 @@ module ApplicationHelper
   end
 
   # Conferences
-  def format_conference_date(starts_on, ends_on)
-    starts_on = starts_on.strftime("%d %b %y")
-    ends_on = ends_on.strftime("%d %b %y")
-    starts_on == ends_on ? starts_on : [starts_on, ends_on].join(' - ')
+  def format_conference_dates(dates)
+    start_date = dates.start_date.strftime("%d %b '%y")
+    end_date= dates.end_date.strftime("%d %b '%y")
+    start_date == end_date ? start_date : [start_date, end_date].join(' - ')
   end
 
   def format_conference_scholarships(tickets, flights, accomodation)
@@ -95,7 +95,7 @@ module ApplicationHelper
   def links_to_conferences(conferences)
     conferences.map do |conference|
       text = conference.name
-      details = [conference.location, format_conference_date(conference.starts_on, conference.ends_on)].reject(&:blank?).join(' – ')
+      details = [conference.location, format_conference_dates(conference.dates)].reject(&:blank?).join(' – ')
       text += " (#{details})"
       link_to(text, conference)
     end
