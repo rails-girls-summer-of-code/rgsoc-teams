@@ -23,9 +23,9 @@ describe Rating::TodosController, type: :controller do
 
       before do
         sign_in user
-        allow(controller.current_user.todos)
-          .to receive(:for_current_season)
-          .and_return(todos)
+        allow(controller.current_user)
+          .to receive(:todos)
+          .and_return(double(for_current_season: todos))
         get :index
       end
 
