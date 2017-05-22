@@ -63,12 +63,7 @@ module ApplicationHelper
   end
 
   # Conferences
-  def format_conference_dates(dates)
-    start_date = dates.start_date.strftime("%d %b '%y")
-    end_date= dates.end_date.strftime("%d %b '%y")
-    start_date == end_date ? start_date : [start_date, end_date].join(' - ')
-  end
-
+  
   def format_conference_scholarships(tickets, flights, accomodation)
     result = "#{tickets} #{tickets == 1 ? 'ticket' : 'tickets'}"
     if flights && accomodation
@@ -94,10 +89,8 @@ module ApplicationHelper
   # @return [Array<String>] a list of HTML anchor tags to conferences
   def links_to_conferences(conferences)
     conferences.map do |conference|
-      text = conference.name
-      details = [conference.location, format_conference_dates(conference.dates)].reject(&:blank?).join(' – ')
-      text += " (#{details})"
-      link_to(text, conference)
+      details = [conference.location, conference.dates.compact].reject(&:blank?).join(' – ')
+      link_to("#{conference.name} (#{details})", conference)
     end
   end
   

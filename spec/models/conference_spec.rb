@@ -41,6 +41,16 @@ RSpec.describe Conference do
       end
     end
   end
+  
+  describe '#dates' do
+    subject { FactoryGirl.build_stubbed(:conference) }
+    
+    it 'has a date range' do
+      expect(subject.dates.start_date).to eq subject.starts_on
+      expect(subject.dates.end_date).to eq subject.ends_on
+    end
+    
+  end
 
   describe '#tickets_left' do
 
