@@ -12,10 +12,10 @@ RSpec.describe DateRange do
   
   describe '#compact' do
     let (:conference)  { FactoryGirl.build_stubbed(:conference) }
-    subject { described_class.new(Date.parse('2015-12-30'), Date.parse('2015-12-30')) }
+    subject { described_class.new(Date.parse('2015-12-31'), Date.parse('2015-12-31')) }
 
-    it 'returns a formatted dates string' do
-      expect(conference.dates.respond_to? :compact).to be true
+    it 'responds to other models' do
+      expect(conference.dates.compact).to be
     end
 
     context 'depending on date range' do
