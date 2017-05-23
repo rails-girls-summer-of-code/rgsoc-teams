@@ -21,10 +21,10 @@ class DateRange
     
     same_years = @start_date.year == @end_date.year
     same_months = (@start_date.month == @end_date.month) && same_years
-    elements = elements.gsub(' %Y', '') if same_years
-    elements = elements.gsub(' %b', '') if same_months
-    
+    elements = elements.chomp(' %Y') if same_years
+    elements = elements.chomp(' %b') if same_months
     first_day = @start_date.strftime(elements)
+    
     first_day << ' - ' << last_day
   end
 end
