@@ -20,7 +20,7 @@ class DateRange
     return last_day if @start_date == @end_date
     
     same_years = @start_date.year == @end_date.year
-    same_months = (@start_date.month == @end_date.month) && same_years
+    same_months = @start_date.month == @end_date.month
     elements = elements.chomp(' %Y') if same_years
     elements = elements.chomp(' %b') if same_months
     first_day = @start_date.strftime(elements)
