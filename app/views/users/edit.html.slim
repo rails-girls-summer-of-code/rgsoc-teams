@@ -38,7 +38,7 @@
   = f.input :twitter_handle, wrapper_html: { class: 'col-md-6' }
   = f.input :irc_handle, wrapper_html: { class: 'col-md-6' }
   = f.input :homepage, as: :url, wrapper_html: { class: 'col-md-6' }
-  = f.input :country, as: :country, label: "Country", prompt: "Select your country", wrapper_html: { class: 'col-md-6' }
+  = f.input :country, required: true, as: :country, label: "Country", prompt: "Select your country", wrapper_html: { class: 'col-md-6' }
   = f.input :timezone, as: :select, collection: list_all_timezones, label: "Timezone", prompt: "Select your timezone", wrapper_html: { class: 'col-md-6' }
   = f.input :location, wrapper_html: { class: 'col-md-6' }
   div.clearfix
