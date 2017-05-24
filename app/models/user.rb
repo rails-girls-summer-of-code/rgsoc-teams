@@ -105,22 +105,23 @@ class User < ActiveRecord::Base
 
   validates :name, :email, :country, :location, presence: true, unless: :github_import
 
-  accepts_nested_attributes_for :attendances, allow_destroy: true, reject_if: :too_many_attendances
-  # , reject_if: -> (attendance) {attendances.conferences Conference.in_current_season.include? attendance.conference}
+  accepts_nested_attributes_for :attendances, allow_destroy: true,
+    reject_if: :too_many_attendances
   accepts_nested_attributes_for :roles, allow_destroy: true
 
   before_save :sanitize_location
   after_create :complete_from_github
 
   def too_many_attendances
-    this_round_attendances = attendances.collect {
+    # TODO add round?
+    attendances = attendances.collect {
       |attendance| attendance.conference.in?(Conference.in_current_season)
     }.count
-    this_round_attendances > MAX_ATTENDANCES_PER_ROUND
+    attendances >= MAX_ATTENDANCES_PER_ROUND
   end
 
   # This field is used to skip validations when creating
-  # a preliminary user, e.g. when adding a non existant person
+  # a preliminary user, e.g. when adding a non existent person
   # to a team using the github handle.
   attr_reader :github_import
 
