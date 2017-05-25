@@ -6,7 +6,7 @@ class Rating < ActiveRecord::Base
   belongs_to :user
   belongs_to :rateable, polymorphic: true
 
-  FIELDS = HashWithIndifferentAccess.new({
+  FIELDS = ActiveSupport::HashWithIndifferentAccess.new({
     diversity:
       RatingCriterium.new( 0.05, {
                            10 => "minority group",
@@ -145,9 +145,9 @@ class Rating < ActiveRecord::Base
   end
 
   private
-  
+
   def set_data
-    new_data = HashWithIndifferentAccess.new
+    new_data = ActiveSupport::HashWithIndifferentAccess.new
     FIELDS.keys.each do |name|
       points = self.send(name)
       new_data = new_data.merge({ name => points })
