@@ -87,7 +87,7 @@ class TeamsController < ApplicationController
   def role_attributes_list
     unless current_user.admin? ||
       # If it contains an ID, the user is updating an existing role
-      params.fetch(:roles_attributes, {}).to_h.none? { |_, attributes| attributes.has_key? 'id' }
+      params.fetch(:roles_attributes, {}).to_unsafe_h.none? { |_, attributes| attributes.has_key? 'id' }
       [:id, :github_handle, :_destroy] # do not allow to update the actual role
     else
       [:id, :name, :github_handle, :_destroy]

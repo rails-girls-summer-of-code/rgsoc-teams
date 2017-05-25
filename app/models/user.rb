@@ -233,7 +233,7 @@ class User < ActiveRecord::Base
 
   def immutable_github_handle
     return if new_record?
-    errors.add(:github_handle, "can't be changed") if github_handle_changed?
+    errors.add(:github_handle, "can't be changed") if changes_include?(:github_handle)
   end
 
 end
