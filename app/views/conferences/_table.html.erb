@@ -1,3 +1,4 @@
+<h1 class=" header">Conferences (1st round)</h1>
 <table class="table-striped table-bordered table-condensed conferences">
   <thead>
   <tr>
@@ -11,7 +12,7 @@
   </thead>
 
   <tbody>
-  <% conferences.where(round: 2).each do |conference| %>
+  <% conferences.where(round: 1).each do |conference| %>
   <tr>
     <td> <%= link_to conference.name, [namespace, conference] %></td>
     <td> <%= conference.location %></td>
@@ -28,10 +29,10 @@
 <p><%= link_to "View as Calendar", calendar_path %>
 </p>
 
-<p><%= link_to "Show/Hide First Round Conferences", "#", onclick: "$('.first-conferences').toggle()" %></p>
+<p><%= link_to "Show/Hide Other Round Conferences", "#", onclick: "$('.next-conferences').toggle()" %></p>
 
-<div class="first-conferences" style='display:none;'>
-<h1 class=" header">Conferences (1st round)</h1>
+<div class="next-conferences" style='display:none;'>
+<h1 class=" header">Conferences (2nd round)</h1>
 
 <table class="table-striped table-bordered table-condensed conferences">
   <thead>
@@ -46,7 +47,7 @@
   </thead>
 
   <tbody>
-  <% conferences.where(round: 1).each do |conference| %>
+  <% conferences.where(round: 2).each do |conference| %>
       <tr>
         <td> <%= link_to conference.name, [namespace, conference] %></td>
         <td> <%= conference.location %></td>
