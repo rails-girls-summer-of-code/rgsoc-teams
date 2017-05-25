@@ -5,7 +5,7 @@ class DateRange
   # Validated in Conference: presence and chronological order
   #  because the input is done there.
   
-  def initialize(start_date, end_date)
+  def initialize(start_date: start_date, end_date: end_date)
     @start_date = start_date
     @end_date = end_date
   end

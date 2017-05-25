@@ -13,7 +13,7 @@ class Conference < ActiveRecord::Base
   scope :in_current_season, -> { where(season: Season.current) }
 
   def dates
-    DateRange.new(starts_on, ends_on)
+    DateRange.new(start_date: starts_on, end_date: ends_on)
   end
   
   def chronological_dates
