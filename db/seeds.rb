@@ -1,10 +1,10 @@
 # Teams
-FactoryGirl.create_list(:team, 5, :in_current_season, :skip_validations, kind: "sponsored")
-FactoryGirl.create(:team, :in_current_season, :skip_validations, kind: "voluntary")
-FactoryGirl.create(:team, :in_current_season, :skip_validations) # rejected application
+FactoryGirl.create_list(:team, 5, :in_current_season, kind: "sponsored")
+FactoryGirl.create(:team, :in_current_season, kind: "voluntary")
+FactoryGirl.create(:team, :in_current_season) # rejected application
 
-FactoryGirl.create(:team, :last_season, :skip_validations, kind: "sponsored")
-FactoryGirl.create(:team, :last_season, :skip_validations, kind: "voluntary")
+FactoryGirl.create(:team, :last_season, kind: "sponsored")
+FactoryGirl.create(:team, :last_season, kind: "voluntary")
 
 # Users with different roles
 FactoryGirl.create_list(:team, 5, :in_current_season, kind: "sponsored")
@@ -33,10 +33,16 @@ FactoryGirl.create(:project, :accepted, :in_current_season)
 FactoryGirl.create(:project, :rejected, :in_current_season)
 
 # Conferences
-2.times do
-  FactoryGirl.create(:conference, :in_current_season, round: 1)
+6.times do
+  random_date = rand(1.year).seconds.from_now
+  FactoryGirl.create(:conference, :in_current_season,
+    location: FFaker::Venue.name,
+    starts_on: random_date,
+    ends_on: random_date + 2.days,
+    lightningtalkslots: rand < 0.5,
+    tickets: [2,4,6].sample,
+    accomodation: 2,
+    flights: 0,
+    round: [1,2].sample
+  )
 end
-2.times do
-  FactoryGirl.create(:conference, :in_current_season, round: 2)
-end
-FactoryGirl.create_list(:conference, 2) # without season
