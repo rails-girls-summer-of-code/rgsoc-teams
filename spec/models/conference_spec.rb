@@ -48,8 +48,8 @@ RSpec.describe Conference do
     it 'has a date range' do
       expect(subject.dates.start_date).to eq subject.starts_on
       expect(subject.dates.end_date).to eq subject.ends_on
+      expect(subject.dates).to be_an_instance_of DateRange
     end
-    
   end
 
   describe '#tickets_left' do
