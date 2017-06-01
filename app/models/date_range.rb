@@ -1,5 +1,4 @@
 class DateRange
-  attr_reader :start_date, :end_date
   
   # Step 1: only in use with Conference date range.
   # Validated in Conference: presence and chronological order
@@ -27,4 +26,7 @@ class DateRange
     
     first_day << ' - ' << last_day
   end
+
+  private
+  attr_reader :start_date, :end_date
 end
