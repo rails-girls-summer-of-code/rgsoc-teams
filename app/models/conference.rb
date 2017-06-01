@@ -12,8 +12,8 @@ class Conference < ActiveRecord::Base
   scope :ordered, ->(sort = {}) { order([sort[:order] || 'starts_on, name', sort[:direction] || 'asc'].join(' ')) }
   scope :in_current_season, -> { where(season: Season.current) }
 
-  def dates
-    DateRange.new(start_date: starts_on, end_date: ends_on)
+  def date_range
+    @date_range ||= DateRange.new(start_date: starts_on, end_date: ends_on).compact
   end
   
   def chronological_dates

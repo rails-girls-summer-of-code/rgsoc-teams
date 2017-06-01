@@ -110,7 +110,7 @@ RSpec.describe ApplicationHelper do
       subject { links_to_conferences [conference] }
 
       it 'will show the dates in brackets' do
-        link_text = "#{conference.name} (#{conference.dates.compact})"
+        link_text = "#{conference.name} (#{conference.date_range})"
         expect(subject).to eql [link_to(link_text, conference)]
       end
       

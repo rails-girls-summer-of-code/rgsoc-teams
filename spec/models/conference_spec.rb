@@ -45,8 +45,8 @@ RSpec.describe Conference do
   describe '#dates' do
     subject { FactoryGirl.build_stubbed(:conference) }
     
-    it 'has a date range' do
-      expect(subject.dates).to be_an_instance_of DateRange
+    xit 'has a date range' do
+      expect(subject.date_range).to be_an_instance_of DateRange
     end
   end
 
@@ -55,6 +55,7 @@ RSpec.describe Conference do
     context 'ticket value defined' do
       let(:attendance)    { FactoryGirl.build(:attendance, confirmed: true) }
       subject { FactoryGirl.build_stubbed(:conference, tickets: 2) }
+      
       it 'subtracts attendances' do
         allow(subject).to receive(:attendances).and_return([attendance])
         left_tickets = subject.tickets - subject.attendances.size

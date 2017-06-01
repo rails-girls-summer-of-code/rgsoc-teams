@@ -89,7 +89,7 @@ module ApplicationHelper
   # @return [Array<String>] a list of HTML anchor tags to conferences
   def links_to_conferences(conferences)
     conferences.map do |conference|
-      details = [conference.location, conference.dates.compact].reject(&:blank?).join(' – ')
+      details = [conference.location, conference.date_range].reject(&:blank?).join(' – ')
       link_to("#{conference.name} (#{details})", conference)
     end
   end
