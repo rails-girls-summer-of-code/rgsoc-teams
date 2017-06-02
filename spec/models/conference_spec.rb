@@ -45,8 +45,8 @@ RSpec.describe Conference do
   describe '#dates' do
     subject { FactoryGirl.build_stubbed(:conference) }
     
-    xit 'has a date range' do
-      expect(subject.date_range).to be_an_instance_of DateRange
+    it 'has a date range' do
+      expect(subject.date_range).to be_present
     end
   end
 
