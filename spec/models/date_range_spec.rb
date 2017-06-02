@@ -5,7 +5,7 @@ RSpec.describe DateRange do
   describe '#compact' do
     let(:start_date) { Date.parse('2015-12-31') }
     let(:end_date)   { Date.parse('2015-12-31') }
-    subject { described_class.new(start_date: start_date, end_date: end_date).compact }
+    subject { described_class.new(start_date: start_date, end_date: end_date).display }
     
     context 'depending on date range' do
       it 'returns a single day' do

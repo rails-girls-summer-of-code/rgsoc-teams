@@ -10,10 +10,11 @@ class DateRange
   end
   
   # Accepts dates
-  # Returns a string with one date or a formatted range:
+  # Returns a string with one or more dates, with
+  # the following formats:
   # 12 - 13 Jul 2017 or 30 Jul - 1 Aug 2017 or
   # 31 Dec 2017 - 5 Jan 2018 or 1 Dec 2017 - 12 Dec 2018
-  def compact
+  def display
     elements = "%-d %b %Y" # 1 Jul 2017
     last_day = @end_date.strftime(elements)
     return last_day if @start_date == @end_date
