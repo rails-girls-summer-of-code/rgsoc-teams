@@ -42,11 +42,11 @@ RSpec.describe Conference do
     end
   end
   
-  describe '#dates' do
+  describe '#date_range' do
     subject { FactoryGirl.build_stubbed(:conference) }
     
     it 'has a date range' do
-      expect(subject.date_range).to be_present
+      expect(subject.date_range).to be_a(DateRange)
     end
   end
 
@@ -65,6 +65,7 @@ RSpec.describe Conference do
 
     context 'tickets value not defined' do
       subject { FactoryGirl.build_stubbed(:conference, tickets: nil) }
+      
       it 'returns 0' do
         allow(subject).to receive(:attendances).and_return([])
         expect(subject.tickets_left).to eq(0)
