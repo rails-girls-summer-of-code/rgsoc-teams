@@ -16,8 +16,8 @@ class DateRange
   # 31 Dec 2017 - 5 Jan 2018 or 1 Dec 2017 - 12 Dec 2018
   def to_s
     elements = "%-d %b %Y" # 1 Jul 2017
-    last_day = @end_date.strftime(elements)
-    return last_day if @start_date == @end_date
+    last_day = end_date.strftime(elements)
+    return last_day if start_date == end_date
     
     same_years = start_date.year == end_date.year
     same_months = start_date.month == end_date.month
