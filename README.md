@@ -49,10 +49,9 @@ Requirements:
 ```bash
 # Install required packages
 $ sudo apt-get install postgresql libpq-dev libcurl3 libcurl3-gnutls libcurl4-openssl-dev postgresql-contrib-9.3
-# Create database user rgsoc with password rgsoc
-$ sudo -u postgres createuser -P -s rgsoc
-Enter password for new role: rgsoc
-Enter it again: rgsoc
+
+# optional: create a database user for your local user with all access rights
+$ createuser <your-name-on-your-computer> --superuser
 ```
 
 ### Setup on OS X
@@ -63,40 +62,18 @@ $ gem install bundler
 $ brew install postgres
 # Make sure to follow the instructions printed on the screen for postgres
 
-# Create database user rgsoc with password rgsoc
-$ createuser -P -s rgsoc
-Enter password for new role: rgsoc
-Enter it again: rgsoc
+# optional: create a database user for your local user with all access rights
+$ createuser <your-name-on-your-computer> --superuser
 ```
 
 ## Bootstrap
-
-Copy `config/database.yml.example` to `config/database.yml`. Then make sure you
-modify the settings so it could connect to your postgres server.
-
-Inside database.yml add username and password for development and test:
-```
-development:
-  adapter: postgresql
-  database: rgsocteams_development
-  host: localhost
-  username: rgsoc
-  password: rgsoc
-```
-Then install all dependencies:
-
 ```bash
+# Install dependencies
 bundle install
-bundle exec rake db:drop db:setup
+
+# Setup the test and development datbases
+rails db:setup
 ```
-
-**Note for OS X:** There is a bug where on OS X you need to force 64bit mode for `bundle install`:
-
-```bash
-ARCHFLAGS="-arch x86_64" bundle install
-```
-
-Otherwise pg gem installation will fail.
 
 ### Mailtrap (optional)
 

@@ -11,7 +11,6 @@ notifications:
   slack:
     secure: pEbxQLQakbPpZkU2p+FdHxSOw7BlXHrOMdJlh8g7fK2oGiOMrpU0wbRUHUxNWzxTnkqWmwq37cIFXPGLel3yWkDzDO0+EuBBFPyoiQ2THxC8/pdpIO3I6jAuH7Zqra4jIdfHWw0UkN4Z+Yqnc+Y90rf9SC7mRGucbcy5aCGEIkY=
 before_script:
-- cp config/database.yml.travis config/database.yml
 - bundle exec rake db:create db:schema:load RAILS_ENV=test
 script:
 - bundle exec rake spec
