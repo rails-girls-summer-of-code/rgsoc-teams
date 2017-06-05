@@ -29,6 +29,6 @@ deploy:
   on:
     repo: rails-girls-summer-of-code/rgsoc-teams
 addons:
-  postgresql: '9.5'
+  postgresql: '9.3'
 after_success:
 - bundle exec codeclimate-test-reporter
