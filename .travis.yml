@@ -1,6 +1,7 @@
 language: ruby
 cache: bundler
 sudo: false
+dist: trusty
 rvm:
 - 2.4.1
 bundler_args: "-j4 --without development production --quiet"
@@ -29,6 +30,6 @@ deploy:
   on:
     repo: rails-girls-summer-of-code/rgsoc-teams
 addons:
-  postgresql: '9.3'
+  postgresql: '9.5'
 after_success:
 - bundle exec codeclimate-test-reporter
