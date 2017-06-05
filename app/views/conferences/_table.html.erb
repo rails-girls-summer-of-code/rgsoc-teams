@@ -15,7 +15,7 @@
   <tr>
     <td> <%= link_to conference.name, [namespace, conference] %></td>
     <td> <%= conference.location %></td>
-    <td> <%= format_conference_date(conference.starts_on, conference.ends_on) %></td>
+    <td> <%= conference.date_range %></td>
     <td> <%= conference.attendees.any? ? links_to_attendances(conference).join(', ').html_safe : '-' %></td>
     <td> <%= conference.tickets_left %></td>
     <td><%= conference.lightningtalkslots? ? "yes" : "no" %></td>
@@ -50,7 +50,7 @@
       <tr>
         <td> <%= link_to conference.name, [namespace, conference] %></td>
         <td> <%= conference.location %></td>
-        <td> <%= format_conference_date(conference.starts_on, conference.ends_on) %></td>
+        <td> <%= conference.date_range %></td>
         <td> <%= conference.attendees.any? ? links_to_attendances(conference).join(', ').html_safe : '-' %></td>
         <td> <%= conference.tickets_left %></td>
         <td><%= conference.lightningtalkslots? ? "yes" : "no" %></td>

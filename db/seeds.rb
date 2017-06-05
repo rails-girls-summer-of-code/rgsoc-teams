@@ -34,13 +34,16 @@ FactoryGirl.create(:project, :accepted, :in_current_season)
 FactoryGirl.create(:project, :rejected, :in_current_season)
 
 # Conferences
-4.times do
+6.times do
+  random_date = rand(1.year).seconds.from_now
   FactoryGirl.create(:conference, :in_current_season,
     location: FFaker::Venue.name,
-    starts_on: rand(1.year).seconds.from_now,
+    starts_on: random_date,
+    ends_on: random_date + rand(2.days),
     lightningtalkslots: rand < 0.5,
     tickets: [2,4,6].sample,
     accomodation: 2,
-    flights: 0
+    flights: 0,
+    round: [1,2].sample
   )
 end
