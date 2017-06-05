@@ -62,10 +62,10 @@
         .header
           label Conference
         = f.simple_fields_for :attendances do |s|
-          = s.input :conference_id, as: :select, collection: conferences, required: false, label: false, default: 1
-
+          = s.input :conference_id, as: :select, collection: conferences, required: false, label: false
           = s.link_to_remove 'Remove'
-        = f.link_to_add 'I want to add another conference!', :attendances, class: 'btn btn-primary form-btn-group'
+        - if @user.attendances.size < 3
+           = f.link_to_add 'I want to add another conference!', :attendances, class: 'btn btn-primary form-btn-group'
 
   h3.page-header Private information
   p.help-block This information will only be visible to yourself and the organizers.

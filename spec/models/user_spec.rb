@@ -8,6 +8,7 @@ describe User do
   it { expect(subject).to have_many(:teams) }
   it { expect(subject).to have_many(:application_drafts) }
   it { expect(subject).to have_many(:attendances).dependent(:destroy) }
+  it { expect(subject).to accept_nested_attributes_for(:attendances) }
   it { expect(subject).to have_many(:conferences) }
   it { expect(subject).to have_many(:roles) }
   it { expect(subject).to have_many(:todos).dependent(:destroy) }
@@ -327,14 +328,13 @@ describe User do
       expect(student).to be_current_student
     end
   end
-
+  
   describe 'Search for user names and team names' do
     before do
       @cruyff = FactoryGirl.create(:user, name: "Johan Cruyff")
       @eesy = FactoryGirl.create(:user, name: "Eesy Peesy")
       @team = FactoryGirl.create(:team, name: "Cheesy")
       @cheesy = FactoryGirl.create(:student, team: @team)
-
     end
 
     it 'returns user with matching name' do
