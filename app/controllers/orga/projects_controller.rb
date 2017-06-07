@@ -14,6 +14,15 @@ class Orga::ProjectsController < Orga::BaseController
     redirect_to [:orga, :projects]
   end
 
+  def pending
+    if @project.pending!
+      flash[:notice] = "Project review still in progress!"
+    else
+      flash[:alert]  = "There has been an error accepting this project."
+    end
+    redirect_to [:orga, :projects]
+  end
+
   def reject
     if @project.reject!
       flash[:notice] = "Project has been rejected!"
