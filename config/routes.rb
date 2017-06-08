@@ -20,7 +20,6 @@ Rails.application.routes.draw do
     end
   end
 
-  get 'users/info', to: 'users_info#index'
   resources :users, except: :new, concerns: [:has_roles, :impersonatable] do
     post 'resend_confirmation_instruction', on: :member
   end
@@ -74,6 +73,7 @@ Rails.application.routes.draw do
     resources :submissions
   end
 
+  get 'orga/users/info', to: 'orga/users_info#index', as: :orga_users_info
   patch 'orga/seasons/switch_phase', to: 'orga/seasons#switch_phase', as: :switch_phase
   namespace :orga do
     root to: 'dashboard#index', as: :dashboard

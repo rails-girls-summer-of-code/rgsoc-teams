@@ -1,7 +1,6 @@
-class UsersInfoController < ApplicationController
+class Orga::UsersInfoController < Orga::BaseController
   before_action :normalize_params, only: :index
-  before_action { authorize!(:read, :users_info) if cannot?(:read, :users_info) }
-
+  
   private
 
     def users
