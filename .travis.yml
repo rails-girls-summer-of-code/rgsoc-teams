@@ -18,12 +18,19 @@ script:
 - bundle exec rake spec
 - bundle exec rake jshint
 deploy:
-  provider: heroku
+- provider: heroku
   api_key:
     secure: ZtYE7hK2EyNWYhkxWSGSrmCNvYZrT7dmxRvi4rg82uHFOtzbEiThjkmwKKD3EK75syGFos3fJszW8GRwJqY9Id6L1Ieg+GpHDMBYJqsLbSRqJ6Mj1vzxbDqV2XsDFkr2e3MTrgNPRX+qmcKnsP9PTwxtey8pAUZFQFTz0i0gxcc=
-  app:
-    master: rgsoc-teams-production
-    fix/sign-off-per-project: rgsoc-teams-staging
+  app: rgsoc-teams-staging
+  run:
+  - rake db:migrate
+  - restart
+  on:
+    repo: rails-girls-summer-of-code/rgsoc-teams
+- provider: heroku
+  api_key:
+    secure: ZtYE7hK2EyNWYhkxWSGSrmCNvYZrT7dmxRvi4rg82uHFOtzbEiThjkmwKKD3EK75syGFos3fJszW8GRwJqY9Id6L1Ieg+GpHDMBYJqsLbSRqJ6Mj1vzxbDqV2XsDFkr2e3MTrgNPRX+qmcKnsP9PTwxtey8pAUZFQFTz0i0gxcc=
+  app: rgsoc-teams-production
   run:
   - rake db:migrate
   - restart
