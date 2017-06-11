@@ -42,13 +42,13 @@ Requirements:
 
 ## System Requirements
 
-* PostgreSQL 9.3 or newer
+* PostgreSQL 9.5 or newer
 * Ruby 2.4.1
 
 ### Setup on Ubuntu
 ```bash
 # Install required packages
-$ sudo apt-get install postgresql libpq-dev libcurl3 libcurl3-gnutls libcurl4-openssl-dev postgresql-contrib-9.3
+$ sudo apt-get install postgresql libpq-dev libcurl3 libcurl3-gnutls libcurl4-openssl-dev postgresql-contrib-9.5
 # Create database user rgsoc with password rgsoc
 $ sudo -u postgres createuser -P -s rgsoc
 Enter password for new role: rgsoc
