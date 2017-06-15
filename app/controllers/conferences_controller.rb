@@ -9,7 +9,6 @@ class ConferencesController < ApplicationController
   end
 
   private
-
     def conferences
       @conferences ||= Conference.ordered(sort_params).in_current_season
     end
@@ -22,7 +21,7 @@ class ConferencesController < ApplicationController
 
     def sort_params
       {
-        order: %w(name location starts_on).include?(params[:sort]) ? params[:sort] : nil,
+        order: %w(name location starts_on round).include?(params[:sort]) ? params[:sort] : nil,
         direction: %w(asc desc).include?(params[:direction]) ? params[:direction] : nil
       }
     end

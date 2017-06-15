@@ -47,7 +47,7 @@ class Orga::ConferencesController < Orga::BaseController
 
   def sort_params
     {
-      order: %w(name location starts_on).include?(params[:sort]) ? params[:sort] : nil,
+      order: %w(name location starts_on round).include?(params[:sort]) ? params[:sort] : nil,
       direction: %w(asc desc).include?(params[:direction]) ? params[:direction] : nil
     }
   end
