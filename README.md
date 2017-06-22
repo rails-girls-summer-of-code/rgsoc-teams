@@ -5,14 +5,19 @@
 
 **Looking for your help!**
 
-For Rails Girls Summer of Code we are planning to build a simple app that
-aggregates daily status updates, commit activity, GitHub issues and other
-things into an activity stream.
+For Rails Girls Summer of Code building an app that
+aggregates daily status updates, commit activity, GitHub issues, and other
+things into an activity stream. The app also supports coaches and organizers
+in centralizing the information they need to have to help keep RGSoC
+running along smoothly.
 
 Main goals are:
 
-* make it easy to get an overview of activity/progress for each of the teams for supervision
-* make it easy for interested remote coaches to find opportunities to give support/help
+* make it easy to get an overview of activity/progress for each of the teams
+for supervision:
+* make it easy for interested remote coaches to find opportunities to give
+support/help
+* keep administrative information and processes in one place
 * display to the world how much amazing stuff is happening
 
 We are planning to require teams to keep a daily log of short updates about
@@ -20,59 +25,95 @@ their work. Our idea is to allow any sort of blog type tool for that (maybe
 recommend a few) and aggregate things through RSS in a central app. This app
 could then act as a webhook target for GitHub events.
 
-Since we still are somewhat overwhelmed with the amount of work we'd like to
-ask the community for help with this. The app would need to be available
-(initial, basic version) on 1st of July, ideally a few days earlier.
+We're really excited at how much this app has grown and developed, and are really
+grateful for all of the community help along the way. There's still plenty to do
+here - and we'd love to have your contributions! Hop on over to the
+[issues](https://github.com/rails-girls-summer-of-code/rgsoc-teams/issues)
+and have a look around, or open up a
+[new issue](https://github.com/rails-girls-summer-of-code/rgsoc-teams/issues/new).
 
 Features:
 
 * Users can sign in through GitHub Oauth
-* They can create and update teams
-* Teams have members (students, coaches, mentors aka project maintainers), GitHub repositories, a log URL
+* Users can create and update teams (assuming they have the
+right access rights)
+* Teams have members (students, coaches, mentors aka project maintainers),
+ GitHub repositories, a log URL
 
 * RSS feeds are fetched from all teams' logs regularly and aggregated
-* There is a webhook endpoint for GitHub events that aggregates information about issues, pull requests and such
+* There is a webhook endpoint for GitHub events that aggregates
+information about issues, pull requests and such
 
-Requirements:
+* Organizers can process new projects for submission, review new teams
+for selection, keep track of information on conferences for students
+
+Contribution requirements:
 
 * Keep it simple, so Rails Girls students can get involved, too
-* By contributing, you agree to adhere to our [Code of Conduct](CODE_OF_CONDUCT.md)
-* Make sure to check our [Contribution Guide](CONTRIBUTING.md)
 
-## System Requirements
+In order to run the teams application locally so you can contribute,
+you will need to have the following dependencies already installed.
+
 
 * PostgreSQL 9.5 or newer
 * Ruby 2.5.1
 * [Chromedriver](https://sites.google.com/a/chromium.org/chromedriver/)
 
-### Setup on Ubuntu
+Instructions are given for Ubuntu or macOS. If you use macOS, we also
+strongly recommending installing/using [Homebrew](https://brew.sh/) for
+managing dependencies.
+
+# Contributing
+
+Thanks so much for your contribution! To get setup to develop the RGSoC
+teams app, please follow the steps below. Here's some handy links within
+this section of the README:
+ * [**Quick Start**](#quick-start) - gives a high-level overview
+of the required steps
+ * [**Detailed Instructions**](#detailed-instructions) - gives
+this same information, but includes more notes about the individual
+commands and prompts to expect
+* [**Optional Configs**](#optional-configs) - gives instructions for
+setting up other tools, such as Google Places API and Mailtrap which
+may be helpful
+
+### Quick Start
+0. [Setup System Requirements](#setup-system-requirements)
+1. [Configure Database](#configure-database) - Create a postgres user with superuser rights called `rgsoc`
+with password `rgsoc`. Setup your `config/database.yml` per the example:
+`config/database.yml.example`
+2. [Other dependencies & Sample Data](#other-dependencies--sample-data) - install with bundler, configure other services
+3. [Run the app](#run-the-app) - run your rails server and console. The application will
+launch at [`http://localhost:3000/`](http://localhost:3000/).
+
+## Detailed Instructions
+
+### 0. Setup System Requirements
+
+**Setup on Ubuntu**
 ```bash
 # Install required packages
-$ sudo apt-get install postgresql libpq-dev libcurl3 libcurl3-gnutls libcurl4-openssl-dev postgresql-contrib-9.5 chromium-chromedriver
-# Create database user rgsoc with password rgsoc
-$ sudo -u postgres createuser -P -s rgsoc
-Enter password for new role: rgsoc
-Enter it again: rgsoc
 ```
-
-### Setup on macOS
+**Setup on OS X**
 ```bash
 # Install required packages
 $ brew install ruby postgres chromedriver
 # Make sure to follow the instructions printed on the screen for postgres
 $ gem install bundler
+```
 
+#### 1. Configure Database
+
+1. Create your database (if you have a new install of postgres)
+2. Start server
+
+```bash
 # Create database user rgsoc with password rgsoc
-$ createuser -P -s rgsoc
+$ sudo -u postgres createuser -P -s rgsoc
 Enter password for new role: rgsoc
 Enter it again: rgsoc
 ```
-
-💁 Ran into problems with the setup? Check our **[Troubleshooting Guide](TROUBLESHOOTING.md)**.
-
-## Bootstrap
-
-Copy `config/database.yml.example` to `config/database.yml`. Then make sure you
+3. Copy `config/database.yml.example` to `config/database.yml`. Then make sure you
 modify the settings so it could connect to your postgres server.
 
 Inside database.yml add username and password for development and test:
@@ -84,12 +125,31 @@ Inside database.yml add username and password for development and test:
       username: rgsoc
       password: rgsoc
 
-Then install all dependencies:
+#### 2. Other Dependencies & Sample Data
 
-    bundle install
-    bundle exec rails db:setup
+**Install Project Dependencies & Setup Sample Data**
+1. All project dependencies are managed with bundler:
 
-### Mailtrap (optional)
+```bash
+bundle install
+```
+
+2. Also, a rake task can be used to initalize data into the `rgsoc` database:
+```bash
+bundle exec rake db:setup
+```
+
+_Note for OS X:_ There may be a bug on OS X which requires 64bit mode for `bundle install`.
+If you find this bug, try:
+
+```bash
+ARCHFLAGS="-arch x86_64" bundle install
+```
+**Other Dependencies**
+_Note:_If you configure any of these optional dependencies, it is important to
+ run the `foreman run` command before any command in this probject.
+
+**_Mailtrap (optional)_**
 
 To avoid accidentally sending out mails to real addresses we suggest
 [Mailtrap](https://mailtrap.io).
@@ -100,16 +160,20 @@ Copy the `.env-example` to `.env` and replace `InboxUsername` and
 `InboxPassword` with your own username and password from your mailtrap
 inbox.
 
-Now when running the command `foreman` *before* any command in this project
-directory the variables from `.env` will be loaded into the environment.
+*Note:* In case you did everything described above and your Mailtrap still
+doesn't work, it might happen because the `.env` doesn't set the `InboxUsername`
+and `InboxPassword` environment variables. To fix it, execute
+`export MAILTRAP_USER='your_user_code'` and
+`export MAILTRAP_PASSWORD='your_pass_code'` in your terminal and then run the
+server as usual: `./bin/rails server`. The user and pass codes should be
+copied from your Mailtrap account (they look like this: `94a5agb6c4c47d`).
 
-E.g. `foreman run rails server` or `foreman run rails console`.
+**_Google Places API (optional)_**
 
-**NOTE:** In case you did everything described above and your Mailtrap still doesn't work, it might happen because the `.env` doesn't set the `InboxUsername` and `InboxPassword` environment variables. To fix it, execute `export MAILTRAP_USER='your_user_code'` and `export MAILTRAP_PASSWORD='your_pass_code'` in your terminal and then run the server as usually: `./bin/rails server`. The user and pass codes should be copied from your Mailtrap account (they look like this: `94a5agb6c4c47d`).
-
-### Google Places API (optional)
-
-To avoid accidentally exceeding the rate limit on [Google's Places API][google-places] (e.g. when heavily testing city-autocomplete fields) and thus blocking its usage for other RGSoC sites and devs:
+To avoid accidentally exceeding the rate limit on
+[Google's Places API][google-places] (e.g. when heavily testing
+city-autocomplete fields) and thus blocking its usage for other RGSoC sites
+and devs:
 
 1. [Get your own key][google-places]
 
@@ -124,17 +188,31 @@ To avoid accidentally exceeding the rate limit on [Google's Places API][google-p
   ```
 [google-places]: https://developers.google.com/places/javascript/
 
-## Quick Start 
+#### 3. Run the App
+To run the application use:
+```bash
+rails server
+```
+and
+```bash
+rails console
+```
+If you setup any optional dependencies (Mailtrap, Google Places API),
+preappend project commands with `foreman run`:
+```bash
+foreman rails server
+```
+and
+```bash
+foreman rails console
+```
 
-### Beginner Friendly Tips for New Contributors
+The project will run at [http://localhost:3000](http://localhost:3000)
 
-- After forking the repo, follow the steps described above under 'Bootstrap'. Mailtrap is optional.
-- (Install and) connect to Postgres server 
-- With everything properly installed, open the browser in development environment
-- The app should be available, with the database loaded with fake data.
-- To access all the functionality of the teams app, add yourself as an organizer.
-    * In the browser: log in with your github account 
-    * In Rails Console:
+**For first-time setup after initializing your database, add yourself as an
+`organizer` in your local app:
+
+In Rails Console:
       ```
       user = User.last
       user.roles.create(name: "organizer")
@@ -151,7 +229,12 @@ To avoid accidentally exceeding the rate limit on [Google's Places API][google-p
 http://localhost:3000/organizers/seasons in your browser.
 - While in development, you are also able to impersonate other users to easily test the system
 as someone else. Go to http://localhost:3000/users while logged in to do that.
-- You are good to go now. Happy coding!
+
+---
+
+You are good to go now. Happy coding!
+
+--
 
 ## Testing
 
