@@ -1,9 +1,14 @@
 class Orga::ConferencesController < Orga::BaseController
 
+  def new
+    @conference = Conference.new
+  end
+  
   def create
-    conference.season = current_season
+    @conference = Conference.new(conference_params)
+    @conference.season = current_season
     respond_to do |format|
-      if conference.save
+      if @conference.save
         format.html { redirect_to orga_conference_path(conference) }
       else
         format.html { render action: :new }
@@ -30,19 +35,19 @@ class Orga::ConferencesController < Orga::BaseController
     @conferences ||= Conference.ordered(sort_params).in_current_season
   end
   helper_method :conferences
-
+  
   def conference
-    @conference ||= params[:id] ? Conference.find(params[:id]) : Conference.new(conference_params)
+    @conference ||= Conference.find(params[:id])
   end
   helper_method :conference
 
   def conference_params
-    params[:conference] ? params.require(:conference).permit(
+    params.require(:conference).permit(
       :name, :url, :location, :twitter,
       :tickets, :flights, :accomodation,
       :starts_on, :ends_on, :round, :lightningtalkslots,
       attendances_attributes: [:id, :github_handle, :_destroy]
-    ) : {}
+    )
   end
 
   def sort_params
