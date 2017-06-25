@@ -3,6 +3,14 @@ class ConferencesController < ApplicationController
 
   def new
   end
+ 
+  def index
+    @conferences = conferences
+  end
+ 
+  def show
+    @conference = Conference.find(params[:id])
+  end
 
   def redirect
     redirect_to orga_conferences_path
@@ -11,14 +19,8 @@ class ConferencesController < ApplicationController
   private
  
   def conferences
-    @conferences ||= Conference.ordered(sort_params).in_current_season
+    Conference.ordered(sort_params).in_current_season
   end
-  helper_method :conferences
-
-  def conference
-     @conference ||= Conference.find(params[:id])
-  end
-  helper_method :conference
 
   def sort_params
     {

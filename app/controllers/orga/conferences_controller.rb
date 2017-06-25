@@ -1,45 +1,45 @@
 class Orga::ConferencesController < Orga::BaseController
+  before_action :find_resource, only: [:show, :edit, :update, :destroy]
 
+  def index
+    @conferences = conferences
+  end
+  
   def new
     @conference = Conference.new
   end
   
   def create
-    @conference = Conference.new(conference_params)
-    @conference.season = current_season
-    respond_to do |format|
-      if @conference.save
-        format.html { redirect_to orga_conference_path(conference) }
-      else
-        format.html { render action: :new }
-      end
+    @conference = Conference.new(conference_params.merge(season: current_season))
+    if @conference.save
+     redirect_to orga_conference_path(@conference)
+    else
+      render action: :new
     end
   end
-
+  
   def update
-    if conference.update(conference_params)
-      redirect_to orga_conference_path(conference)
+    if @conference.update(conference_params)
+      redirect_to orga_conference_path(@conference)
     else
       render action: :edit
     end
   end
 
   def destroy
-    conference.destroy!
+    @conference.destroy!
     redirect_to orga_conferences_path, notice: 'The conference has been deleted.'
   end
 
   private
 
-  def conferences
-    @conferences ||= Conference.ordered(sort_params).in_current_season
-  end
-  helper_method :conferences
-  
-  def conference
+  def find_resource
     @conference ||= Conference.find(params[:id])
   end
-  helper_method :conference
+  
+  def conferences
+    Conference.ordered(sort_params).in_current_season
+  end
 
   def conference_params
     params.require(:conference).permit(

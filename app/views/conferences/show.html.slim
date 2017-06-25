@@ -4,6 +4,6 @@ nav.page
       li = icon('chevron-left')
       li = link_to 'All conferences', conferences_path, class: 'back'
 
-h1 class="conference" = conference.name
+h1 class="conference" = @conference.name
 
-= render 'conferences/details', namespace: nil
+= render 'conferences/details', namespace: nil, conferences: @conferences
