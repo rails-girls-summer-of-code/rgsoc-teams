@@ -10,17 +10,14 @@ class Orga::ConferencesController < Orga::BaseController
   end
   
   def create
-    @conference = Conference.new(conference_params)
-    @conference.season = current_season
-    respond_to do |format|
-      if @conference.save
-        format.html { redirect_to orga_conference_path(conference) }
-      else
-        format.html { render action: :new }
-      end
+    @conference = Conference.new(conference_params.merge(season: current_season))
+    if @conference.save
+     redirect_to orga_conference_path(@conference)
+    else
+      render action: :new
     end
   end
-
+  
   def update
     if @conference.update(conference_params)
       redirect_to orga_conference_path(@conference)
