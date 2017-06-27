@@ -88,6 +88,9 @@ Rails.application.routes.draw do
     resources :teams
     resources :seasons
     resources :conferences
+    resources :conferences do
+      collection { post :import }
+    end
     resources :exports, only: [:index, :create]
   end
 
