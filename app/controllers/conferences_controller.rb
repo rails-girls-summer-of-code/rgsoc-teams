@@ -1,3 +1,4 @@
+require 'csv'
 class ConferencesController < ApplicationController
  before_action :redirect, except: [:index, :show]
 
@@ -24,7 +25,7 @@ class ConferencesController < ApplicationController
 
   def sort_params
     {
-      order: %w(name location starts_on round).include?(params[:sort]) ? params[:sort] : nil,
+      order: %w(name gid starts_on city country region).include?(params[:sort]) ? params[:sort] : nil,
       direction: %w(asc desc).include?(params[:direction]) ? params[:direction] : nil
     }
   end
