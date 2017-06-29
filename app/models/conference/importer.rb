@@ -1,12 +1,21 @@
 require 'csv'
 class Conference::Importer
   
+  ## This importer is depending on agreed-upon input format.
+  ## Input file:
+  # - Dates should be formatted with dd mm yyyy
+  # - UID should be unique and formatted with 'current season' + id: 2107001
+  # - The headers should not be changed
+  # Output:
+  # Conferences will be updated or created
+  # Conferences deleted in the input file, will not be removed from the table
+  
   class << self
     def import(file)
       check_valid(file)
-      imports_logger.info "\n***** Start importing #{file}"
+      imports_logger.info "\n*** Started importing file #{file.original_filename} ***"
       process_csv(file)
-      imports_logger.info "\n******* Finished importing :-) ******"
+      imports_logger.info "\n*** Finished updating/creating #{count_conferences_in(file)} conferences ***"
     end
     
     private
@@ -19,10 +28,15 @@ class Conference::Importer
       raise "Oops! I can upload .csv only :-(" unless file.content_type == "text/csv"
     end
     
+    def count_conferences_in(file)
+      CSV.foreach(file.path, headers: true).count
+    end
+    
     def process_csv(file)
       CSV.foreach(file.path, headers: true, col_sep: ';' ) do |row|
         begin
           conference = Conference.find_or_initialize_by(gid: row['UID'])
+          # TODO check: when extra columns are added in the Google Doc, what happens?
           conference_hash = {
             gid: row['UID'].to_i,
             name: row['Name'],
@@ -33,13 +47,18 @@ class Conference::Importer
             region: row['Region'],
             url: row['Website'],
             notes: row['Notes'],
-            season_id: Season.current.id
           }
-          conference.update(conference_hash)
+          fetch_season_id(row['UID'])
+          conference.update!(conference_hash.merge(season_id: @season_id))
         rescue => e
-          imports_logger.error "Error: #{e.message}"
+          imports_logger.error "Error in #{row['UID']}: #{e.message}"
         end
       end
     end
-  end # class << self
+    
+    def fetch_season_id(uid)
+      year = uid.to_s[0,4]
+      @season_id = Season.find_by(name: year).id
+    end
+  end
 end
