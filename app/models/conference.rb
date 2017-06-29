@@ -1,14 +1,13 @@
 require 'csv'
 class Conference < ActiveRecord::Base
-
   include HasSeason
-
+  
   has_many :attendances, dependent: :destroy
   has_many :attendees, through: :attendances, source: :user
   # date validation disabled because of Conference imports: not all conferences have dates.
   # See PR for Issue #762
   # validates :name, :starts_on, :ends_on, presence: true
-  #validate :chronological_dates, if: proc { |conf| conf.starts_on && conf.ends_on }
+  validate :chronological_dates, if: proc { |conf| conf.starts_on && conf.ends_on }
 
   accepts_nested_attributes_for :attendances
 
@@ -29,4 +28,5 @@ class Conference < ActiveRecord::Base
     confirmed_attendances = attendances.select { |attendance| attendance.confirmed }
     tickets.to_i - confirmed_attendances.size
   end
+  
 end

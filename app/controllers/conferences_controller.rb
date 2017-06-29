@@ -1,4 +1,3 @@
-require 'csv'
 class ConferencesController < ApplicationController
  before_action :redirect, except: [:index, :show]
 
