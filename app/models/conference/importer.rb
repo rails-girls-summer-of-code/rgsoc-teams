@@ -8,18 +8,27 @@ class Conference::Importer
   # - The headers should not be changed
   # Output:
   # Conferences will be updated or created
-  # Conferences deleted in the input file, will not be removed from the table
+  # Conferences deleted in the input file, are not removed from the table
+  # Import errors are logged in a separate 'imports_logger' file
   
   class << self
     def import(file)
       check_valid(file)
-      imports_logger.info "\n*** Started importing file #{file.original_filename} ***"
+      info_log(:started, file)
       process_csv(file)
-      imports_logger.info "\n*** Finished updating/creating #{count_conferences_in(file)} conferences ***"
+      info_log(:finished, file)
     end
     
     private
     
+    def info_log(arg, file)
+      notices = {
+        started: "Started importing file #{file.original_filename}",
+        finished: "Finished updating/creating #{count_conferences_in(file)} conferences"
+      }
+      imports_logger.info "\n***" + notices[arg] + "***"
+    end
+   
     def imports_logger
       Logger.new("#{Rails.root}/log/imports_logger.log")
     end
