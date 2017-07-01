@@ -4,7 +4,7 @@ class Conference::Importer
   ## This importer is depending on agreed-upon input format.
   ## Input file:
   # - Dates should be formatted with dd mm yyyy
-  # - UID should be unique and formatted with 'current season' + id: 2107001
+  # - UID should be unique and formatted with 'current season' + id: 2017001
   # - The headers should not be changed
   # Output:
   # Conferences will be updated or created
