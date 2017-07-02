@@ -2,24 +2,24 @@
 <table class="table-striped table-bordered table-condensed conferences">
   <thead>
     <tr>
-      <th> <%= sortable :name, "Conference" %> </th>
-      <th> <%= sortable :location %> </th>
-      <th> <%= sortable :starts_on, "Dates" %> </th>
-      <th> <%= sortable :round %> </th>
-      <th> Attendees </th>
-      <th> Tickets left </th>
-      <th> Lightning Talk Slots?</th>
+      <th><%= sortable :name, "Conference" %></th>
+      <th><%= sortable :location %></th>
+      <th><%= sortable :starts_on, "Dates" %></th>
+      <th><%= sortable :round %></th>
+      <th>Attendees</th>
+      <th>Tickets left</th>
+      <th>Lightning Talk Slots?</th>
     </tr>
   </thead>
   <tbody>
     <% conferences.each do |conference| %>
       <tr>
-        <td> <%= link_to conference.name, [namespace, conference] %></td>
-        <td> <%= conference.location %></td>
-        <td> <%= conference.date_range %></td>
-        <td> <%= conference.round %></td>
-        <td> <%= conference.attendees.any? ? links_to_attendances(conference).join(', ').html_safe : '-' %></td>
-        <td> <%= conference.tickets_left %></td>
+        <td><%= link_to conference.name, [namespace, conference] %></td>
+        <td><%= conference.location %></td>
+        <td><%= conference.date_range %></td>
+        <td><%= conference.round %></td>
+        <td><%= conference.attendees.any? ? links_to_attendances(conference).join(', ').html_safe : '-' %></td>
+        <td><%= conference.tickets_left %></td>
         <td><%= conference.lightningtalkslots? ? "yes" : "no" %></td>
       </tr>
     <% end %>

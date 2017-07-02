@@ -1,4 +1,4 @@
-= simple_nested_form_for ([:orga, @conference]) do |f|
+= simple_nested_form_for([:orga, @conference]) do |f|
   - if @conference.errors.any?
     #error_explanation
       h2 = "#{pluralize(@conference.errors.count, "error")} prohibited this conference from being saved:"

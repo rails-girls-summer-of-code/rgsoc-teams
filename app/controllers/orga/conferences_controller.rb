@@ -1,5 +1,5 @@
 class Orga::ConferencesController < Orga::BaseController
-  before_action :find_resource, only: [:show, :edit, :update, :destroy]
+  before_action :find_conference, only: [:show, :edit, :update, :destroy]
 
   def index
     @conferences = conferences
@@ -33,8 +33,8 @@ class Orga::ConferencesController < Orga::BaseController
 
   private
 
-  def find_resource
-    @conference ||= Conference.find(params[:id])
+  def find_conference
+    Conference.find(params[:id])
   end
   
   def conferences
