@@ -9,7 +9,6 @@ nav.page
 h1 class="conference" = @conference.name
 
 nav.btn-group
-  = link_to 'Edit', edit_orga_conference_path(@conference), class: 'edit btn btn-default'
   = link_to 'Delete', orga_conference_path(@conference), method: :delete, class: 'edit btn btn-default', data: { confirm: 'Are you sure?' }
 
 = render 'conferences/details', namespace: :orga

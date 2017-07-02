@@ -8,9 +8,8 @@
       <th> <%= sortable :country %> </th>
       <th> <%= sortable :region %> </th>
       <th> <%= :url %> </th>
-      <th> <%= :notes%> </th>
+      <th> <%= :notes %> </th>
       <th> <%= sortable :gid%> </th>
-
     </tr>
   </thead>
   <tbody>
@@ -24,8 +23,6 @@
         <td> <%= link_to conference.url %></td>
         <td> <%= conference.notes %></td>
         <td> <%= conference.gid %></td>
-
-
       </tr>
     <% end %>
   </tbody>
