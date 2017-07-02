@@ -6,10 +6,10 @@ nav.page
       li = icon('chevron-left')
       li = link_to 'All conferences', orga_conferences_path, class: 'back'
 
-h1 class="conference" = conference.name
+h1 class="conference" = @conference.name
 
 nav.btn-group
-  = link_to 'Edit', edit_orga_conference_path(conference), class: 'edit btn btn-default'
-  = link_to 'Delete', orga_conference_path(conference), method: :delete, class: 'edit btn btn-default', data: { confirm: 'Are you sure?' }
+  = link_to 'Edit', edit_orga_conference_path(@conference), class: 'edit btn btn-default'
+  = link_to 'Delete', orga_conference_path(@conference), method: :delete, class: 'edit btn btn-default', data: { confirm: 'Are you sure?' }
 
 = render 'conferences/details', namespace: :orga
