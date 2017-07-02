@@ -34,7 +34,7 @@ class Orga::ConferencesController < Orga::BaseController
   private
 
   def find_conference
-    Conference.find(params[:id])
+    @conference ||= Conference.find(params[:id])
   end
   
   def conferences
