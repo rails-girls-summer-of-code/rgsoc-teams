@@ -44,6 +44,12 @@ RSpec.describe Project do
     context 'with a proposed project' do
       subject { create :project }
 
+      it 'can be start review' do 
+        expect(subject).to be_may_start_review
+        expect { subject.start_review! }.to \
+          change { subject.pending?}.to true
+      end
+
       it 'can be accepted' do
         expect(subject).to be_may_accept
         expect { subject.accept! }.to \
