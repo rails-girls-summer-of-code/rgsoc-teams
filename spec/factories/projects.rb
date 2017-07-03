@@ -15,6 +15,10 @@ FactoryGirl.define do
       after(:create) { |record| record.accept! }
     end
 
+    trait :pending do
+      after(:create) { |record| record.start_review! }
+    end
+
     trait :rejected do
       after(:create) { |record| record.reject! }
     end
@@ -22,5 +26,7 @@ FactoryGirl.define do
     trait :in_current_season do
       season { Season.current }
     end
+
+    factory :project_pending, traits: [:pending]
   end
 end
