@@ -16,14 +16,6 @@ class Orga::ConferencesController < Orga::BaseController
   def create
   end
   
-  def update
-    if @conference.update(conference_params)
-      redirect_to orga_conference_path(@conference)
-    else
-      render action: :edit
-    end
-  end
-
   def destroy
     @conference.destroy!
     redirect_to orga_conferences_path, notice: 'The conference has been deleted.'

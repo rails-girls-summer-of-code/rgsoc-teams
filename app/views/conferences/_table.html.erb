@@ -1,30 +1,30 @@
 <h1 class="header">Conferences</h1>
 <table class="table-striped table-bordered table-condensed conferences">
   <thead>
-    <tr>
-      <th> <%= sortable :name, "Conference" %> </th>
-      <th> <%= sortable :starts_on, "Dates" %> </th>
-      <th> <%= sortable :city %> </th>
-      <th> <%= sortable :country %> </th>
-      <th> <%= sortable :region %> </th>
-      <th> <%= :url %> </th>
-      <th> <%= :notes %> </th>
-      <th> <%= sortable :gid%> </th>
-    </tr>
+  <tr>
+    <th><%= sortable :name, "Conference" %></th>
+    <th><%= sortable :starts_on, "Dates" %></th>
+    <th><%= sortable :city %></th>
+    <th><%= sortable :country %></th>
+    <th><%= sortable :region %></th>
+    <th><%= :url %></th>
+    <th><%= :notes%></th>
+    <th><%= sortable :gid%></th>
+  </tr>
   </thead>
   <tbody>
-    <% conferences.each do |conference| %>
+  <% conferences.each do |conference| %>
       <tr>
-        <td> <%= link_to conference.name, [namespace, conference] %></td>
-        <td> <%= conference.date_range %></td>
-        <td> <%= conference.city %></td>
-        <td> <%= conference.country %></td>
-        <td> <%= conference.region %></td>
-        <td> <%= link_to conference.url %></td>
-        <td> <%= conference.notes %></td>
-        <td> <%= conference.gid %></td>
+        <td><%= link_to conference.name, [namespace, conference] %></td>
+        <td><%= conference.date_range %></td>
+        <td><%= conference.city %></td>
+        <td><%= conference.country %></td>
+        <td><%= conference.region %></td>
+        <td><%= link_to conference.url %></td>
+        <td><%= conference.notes %></td>
+        <td><%= conference.gid %></td>
       </tr>
-    <% end %>
+  <% end %>
   </tbody>
 </table>
 <br>

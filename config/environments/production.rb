@@ -75,6 +75,9 @@ Rails.application.configure do
 
   # Use default logging formatter so that PID and timestamp are not suppressed.
   config.log_formatter = ::Logger::Formatter.new
+  
+  # MEMO: check if imports_logger gives output if this is not set?
+  # config.log_level = :info
 
   # Use a different logger for distributed setups.
   # require 'syslog/logger'
