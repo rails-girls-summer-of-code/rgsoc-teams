@@ -52,7 +52,7 @@ RSpec.describe Project do
     end
 
     context 'with a pending project' do
-      subject { create :project_pending }
+      subject { create :project, :pending }
 
       it 'can be accepted' do
         expect(subject).to be_may_accept
