@@ -11,16 +11,23 @@ FactoryGirl.define do
     description { FFaker::HipsterIpsum.paragraph }
     issues_and_features { FFaker::Internet.email }
     beginner_friendly true
-    trait :accepted do
-      after(:create) { |record| record.accept! }
-    end
 
     trait :pending do
       after(:create) { |record| record.start_review! }
     end
 
+    trait :accepted do
+      after(:create) do |record|
+        record.start_review!
+        record.accept!
+      end
+    end
+    
     trait :rejected do
-      after(:create) { |record| record.reject! }
+      after(:create) do |record|
+        record.start_review!
+        record.reject!
+      end
     end
 
     trait :in_current_season do

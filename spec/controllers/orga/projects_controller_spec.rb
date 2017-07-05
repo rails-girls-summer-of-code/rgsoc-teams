@@ -20,7 +20,7 @@ RSpec.describe Orga::ProjectsController do
 
   
     describe 'PUT pending' do
-      it 'start review for accept or reject project' do
+      it 'start review before accept or reject a project' do
         expect { put :pending, params: { id: project.to_param }}.
           to change { project.reload.aasm_state }.to "pending"
         expect(response).to redirect_to [:orga, :projects]
