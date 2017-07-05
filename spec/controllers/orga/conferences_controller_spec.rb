@@ -16,20 +16,20 @@ RSpec.describe Orga::ConferencesController do
       end
     end
 
-    describe 'POST create' do
-      it 'creates a record' do
-        expect {
-          post :create, params: {conference: attributes_for(:conference)}
-        }.to change { Conference.count }.by 1
-        expect(response).to redirect_to [:orga, Conference.last]
+    describe 'POST import' do
+      it 'does all this cool things' do
+        self.class.respond_to?(:fixture_path)
+        # but how do I test them? >> under investigation
       end
-
-      it 'sets the current season' do
-        post :create, params: {conference: attributes_for(:conference)}
-        expect(assigns(:conference).season.name).to eql Date.today.year.to_s
-      end
+      
+      # let(:file) { fixture_file_upload("spec/fixtures/files/test.csv") }
+      #
+      # it 'posts a .csv file' do
+      #   post :import, params: { file: file  }
+      # end
+      
     end
-
+    
     describe 'DELETE destroy' do
       let!(:conference) { create :conference }
 
@@ -39,7 +39,6 @@ RSpec.describe Orga::ConferencesController do
         }.to change { Conference.count }.by(-1)
         expect(response).to redirect_to orga_conferences_path
       end
-
     end
   end
 end
