@@ -11,7 +11,6 @@ FactoryGirl.define do
     description { FFaker::HipsterIpsum.paragraph }
     issues_and_features { FFaker::Internet.email }
     beginner_friendly true
-
     trait :pending do
       after(:create) { |record| record.start_review! }
     end
