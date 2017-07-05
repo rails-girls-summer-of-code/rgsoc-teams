@@ -87,7 +87,7 @@ Rails.application.routes.draw do
     end
     resources :teams
     resources :seasons
-    resources :conferences
+    resources :conferences, only: :show
     resources :conferences do
       collection { post :import }
     end
