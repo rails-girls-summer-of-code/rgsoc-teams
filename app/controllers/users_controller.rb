@@ -38,7 +38,7 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if @user.save
-        format.html { redirect_to params[:redirect_to].blank? ? @user : params[:redirect_to], notice: 'User was successfully created.' }
+        format.html { redirect_to params[:redirect_to].presence || @user, notice: 'User was successfully created.' }
         format.json { render action: :show, status: :created, location: @user }
       else
         format.html { render action: :new }
@@ -61,7 +61,7 @@ class UsersController < ApplicationController
         else
           notice = 'User was successfully updated.'
         end
-        format.html { redirect_to params[:redirect_to].blank? ? @user : params[:redirect_to], notice: 'User was successfully created.' }
+        format.html { redirect_to params[:redirect_to].presence || @user, notice: notice }
         format.json { head :no_content }
       else
         format.html { render action: :edit }
