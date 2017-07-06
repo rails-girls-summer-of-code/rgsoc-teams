@@ -70,6 +70,16 @@
       .form-group.form-btn-group
         = f.link_to_add 'Add another source', :sources, class: 'btn btn-primary col-sm-offset-3'
 
+    .page-header
+      h2 Conferences
+
+    p.help-block
+      | The team can choose 2 options for conference tickets (change the text)
+
+    fieldset
+      = f.simple_fields_for :conferences do |c|
+        = c.input :first_option, as: :country, label: "First option", prompt: "Select one conference", wrapper_html: { class: 'col-md-6' }
+        = c.input :second_option, as: :country, label: "Second option", prompt: "Select one conference", wrapper_html: { class: 'col-md-6' }
   .actions
     ul.list-inline
       li  = f.submit 'Save', class: 'btn btn-success'
