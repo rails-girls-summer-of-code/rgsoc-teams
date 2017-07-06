@@ -32,7 +32,6 @@ class DateRange
   attr_reader :start_date, :end_date
   
   def last_day
-    # &. is because of imported Conferences without dates
-    end_date&.strftime(ELEMENTS)
+    end_date&.strftime(ELEMENTS) || "TBA"
   end
 end
