@@ -10,7 +10,7 @@ class Conference::Importer
   # - Conferences will be updated or created
   # - Conferences deleted in the input file, are not removed from the table
   # - Import errors are logged in a Rails Logger
-  # - UID is mapped to 'gid' ('google-id'), and has the format: 2017001
+  # - UID is mapped to 'gid' ('google-id' LOL), and has the format: 2017001
   
   class << self
     def call_with(file)
@@ -35,7 +35,7 @@ class Conference::Importer
     end
     
     def check_valid(file)
-      raise "Oops! I can upload .csv only :-(" unless file.content_type == "text/csv"
+      raise ArgumentError, "Oops! I can upload .csv only :-(" unless file.content_type == "text/csv"
     end
     
     def count_conferences_in(file)
