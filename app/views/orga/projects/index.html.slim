@@ -22,13 +22,11 @@ table.table.table-striped.table-bordered.table-condensed.hidden-sm.hidden-xs
         td = project_tags project
         td
           - if project.may_start_review?
-            = link_to 'Start Review', [:pending, :orga, project], method: :put, class: 'btn btn-sm btn-warning'
-        td
+            = link_to 'Start review', [:start_review, :orga, project], method: :put, class: 'btn btn-sm btn-warning'
           - if project.may_accept?
             = link_to 'Accept', [:accept, :orga, project], method: :put, class: 'btn btn-sm btn-success'
-        td
           - if project.may_reject?
-            = link_to 'Reject', [:reject, :orga, project], method: :put, class: 'btn btn-sm btn-danger'
+            = link_to 'Reject', [:reject, :orga, project], method: :put, class: 'btn btn-sm btn-danger space_btns'
         td
           - if project.comments_locked?
             = link_to 'Unlock comments', [:unlock, :orga, project], method: :put, class: 'btn btn-sm btn-warning'
@@ -58,7 +56,7 @@ table.table.table-striped.table-bordered.table-condensed.hidden-sm.hidden-xs
         - if project.may_accept?
           = link_to 'Accept', [:accept, :orga, project], method: :put, class: 'btn btn-sm btn-success'
         - if project.may_start_review?
-          = link_to 'Pending', [:pending, :orga, project], method: :put, class: 'btn btn-sm btn-warning'
+          = link_to 'Start review', [:start_review, :orga, project], method: :put, class: 'btn btn-sm btn-warning'
         - if project.may_reject?
           = link_to 'Reject', [:reject, :orga, project], method: :put, class: 'btn btn-sm btn-danger'
     tr
