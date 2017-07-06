@@ -2,8 +2,7 @@ class DateRange
   # Step 1: only in use with Conference date range.
   # Validation is supposed to be in input (e.g. Conference.rb), but
   # with the new Importer for adding conferences, the presence validation
-  # of the dates is disabled. Validation of chronological order is still present.
-  # Importing a Conference without dates will log an error in the imports_logger file
+  # of the dates is removed.
   
   ELEMENTS = "%-d %b %Y" # "1 juli 2017"
   
