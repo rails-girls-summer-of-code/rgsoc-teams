@@ -13,7 +13,7 @@ class Conference::Importer
   # - UID is mapped to 'gid' ('google-id' LOL), and has the format: 2017001
   
   class << self
-    def call_with(file)
+    def call(file)
       check_valid(file)
       info_log(:started, file)
       process_csv(file)

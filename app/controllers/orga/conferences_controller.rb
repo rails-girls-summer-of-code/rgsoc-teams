@@ -2,7 +2,7 @@ class Orga::ConferencesController < Orga::BaseController
   before_action :find_conference, only: [:show, :destroy]
 
   def import
-    Conference::Importer.call_with(params[:file])
+    Conference::Importer.call(params[:file])
     redirect_to orga_conferences_path, notice: "Import finished! Check log for errors."
   end
 
