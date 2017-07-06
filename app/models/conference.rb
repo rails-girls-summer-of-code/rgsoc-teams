@@ -4,9 +4,6 @@ class Conference < ActiveRecord::Base
   
   has_many :attendances, dependent: :destroy
   has_many :attendees, through: :attendances, source: :user
-  # date validation disabled because of Conference imports: not all conferences have dates.
-  # See PR for Issue #762
-  # validates :starts_on, :ends_on, presence: true
   validates :name, presence: true
   validate :chronological_dates, if: proc { |conf| conf.starts_on && conf.ends_on }
 
