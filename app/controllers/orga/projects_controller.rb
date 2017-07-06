@@ -14,7 +14,7 @@ class Orga::ProjectsController < Orga::BaseController
     redirect_to [:orga, :projects]
   end
 
-  def pending
+  def start_review
     if @project.start_review!
       flash[:notice] = "Successfully marked project as pending!"
     else
