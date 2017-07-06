@@ -3,7 +3,7 @@ class ConferencesController < ApplicationController
 
   def new
   end
- 
+
   def index
     @conferences = conferences
   end

@@ -1,21 +1,15 @@
 class Orga::ConferencesController < Orga::BaseController
-  before_action :find_conference, only: [:show, :edit, :update, :destroy]
+  before_action :find_conference, only: [:show, :destroy]
 
   def import
     Conference::Importer.import(params[:file])
     redirect_to orga_conferences_path, notice: "Import finished! Check log for errors."
   end
-  
+
   def index
     @conferences = conferences
   end
-  
-  def new
-  end
-  
-  def create
-  end
-  
+
   def destroy
     @conference.destroy!
     redirect_to orga_conferences_path, notice: 'The conference has been deleted.'
