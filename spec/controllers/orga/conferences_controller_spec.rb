@@ -25,7 +25,7 @@ RSpec.describe Orga::ConferencesController do
       # let(:file) { fixture_file_upload("spec/fixtures/files/test.csv") }
       #
       # it 'posts a .csv file' do
-      #   post :import, params: { file: file  }
+      #   post :call_with, params: { file: file  }
       # end
       
     end

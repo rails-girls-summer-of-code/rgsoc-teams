@@ -12,7 +12,7 @@ class Conference::Importer
   # Import errors are logged in a separate 'imports_logger' file
   
   class << self
-    def import(file)
+    def call_with(file)
       check_valid(file)
       info_log(:started, file)
       process_csv(file)
