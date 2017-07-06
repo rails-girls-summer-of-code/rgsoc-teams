@@ -80,6 +80,7 @@ Rails.application.routes.draw do
     resources :projects, only: [:index] do
       member do
         put :accept
+        put :start_review
         put :reject
         put :lock
         put :unlock

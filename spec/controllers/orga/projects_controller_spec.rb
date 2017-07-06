@@ -18,30 +18,40 @@ RSpec.describe Orga::ProjectsController do
       end
     end
 
-    shared_examples_for 'deals with proposals' do |action|
+  
+    describe 'PUT start_review' do
+      it 'start review before accept or reject a project' do
+        expect { put :start_review, params: { id: project.to_param }}.
+          to change { project.reload.aasm_state }.to "pending"
+        expect(response).to redirect_to [:orga, :projects]
+        expect(flash[:notice]).to be_present
+      end
+    end
+
+    shared_examples_for 'deals with pending' do |action, state|
+      let(:project) { create :project, :pending }
 
       describe "PUT #{action}" do
-        context 'with an accepted record' do
-          let!(:project) { create :project, :"#{action}ed" }
+        context 'with an pending record' do
           it 'complains and redirects to show' do
             put action, params: { id: project.to_param }
             expect(response).to redirect_to [:orga, :projects]
-            expect(flash[:alert]).to be_present
+            expect(flash[:notice]).to be_present
           end
         end
 
         it "#{action}s and redirect to show" do
           expect {
             put action, params: { id: project.to_param }
-          }.to change { project.reload.aasm_state }.to "#{action}ed"
+          }.to change { project.reload.aasm_state }.to "#{state}"
           expect(response).to redirect_to [:orga, :projects]
           expect(flash[:notice]).to be_present
         end
       end
     end
 
-    it_behaves_like 'deals with proposals', :accept
-    it_behaves_like 'deals with proposals', :reject
+    it_behaves_like 'deals with pending', :accept, :accepted
+    it_behaves_like 'deals with pending', :reject, :rejected
 
     describe 'PUT lock' do
       it 'toggles the comments_locked boolean' do

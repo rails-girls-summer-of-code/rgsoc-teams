@@ -8,6 +8,8 @@ module ProjectsHelper
                     'label-success'
                   when 'rejected'
                     'label-danger'
+                  when 'pending'
+                    'label-warning'
                   end
     content_tag :span, project.aasm_state, class: "label #{label_class}"
   end
