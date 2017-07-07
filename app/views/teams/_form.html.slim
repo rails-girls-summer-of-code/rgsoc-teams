@@ -77,7 +77,7 @@
       | The team can choose 2 options for conference tickets (change the text)
 
     fieldset
-      = f.simple_fields_for :conferences do |c|
+      = f.simple_fields_for :attendances do |c|
         = c.input :first_option, as: :country, label: "First option", prompt: "Select one conference", wrapper_html: { class: 'col-md-6' }
         = c.input :second_option, as: :country, label: "Second option", prompt: "Select one conference", wrapper_html: { class: 'col-md-6' }
   .actions
