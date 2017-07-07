@@ -27,11 +27,11 @@ class Conference::Importer
         started: "Started importing file #{file.original_filename}",
         finished: "Finished updating/creating #{count_conferences_in(file)} conferences"
       }
-      logger.tagged("Importer") { logger.info "\n***" + notices[arg] + "***" }
+      logger { logger.info "\n***" + notices[arg] + "***" }
     end
    
-    def logger
-      Rails.logger
+    def logger(&block)
+      Rails.logger.tagged("Importer") { block }
     end
     
     def check_valid(file)
@@ -59,7 +59,7 @@ class Conference::Importer
           }
           conference.update!(conference_hash.merge(season_id: fetch_season_id(row['UID'])))
         rescue => e
-        logger.tagged("Importer")  { logger.error "Error in #{row['UID']}: #{e.message}" }
+        logger  { logger.error "Error in #{row['UID']}: #{e.message}" }
         end
       end
     end
