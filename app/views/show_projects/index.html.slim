@@ -1,0 +1,15 @@
+h1.header
+  = icon('users')
+  span Projects
+
+table.table.table-striped.table-bordered.table-condensed.hidden-sm.hidden-xs
+  tr
+    th Title
+    th Website
+    th Tags
+
+  - @projects.each do |project|
+    tr
+      td = project.name
+      td = link_to project.url, project.url
+      td = project_tags project

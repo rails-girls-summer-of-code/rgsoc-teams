@@ -3,6 +3,8 @@ Rails.application.routes.draw do
 
   root to: 'activities#index'
 
+  get 'projects', to: 'show_projects#index'
+
   devise_for :users, controllers: { omniauth_callbacks: 'omniauth_callbacks' }
 
   devise_scope :user do
