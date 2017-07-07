@@ -46,7 +46,7 @@ class Ability
     end
 
     can :crud, Attendance do |attendance|
-      user.admin? || user == attendance.user
+      user.admin? || Role.where(team_id: attendance.team.id, user_id: user.id, name: 'student').present?
     end
 
     can :read, Mailing do |mailing|

@@ -93,8 +93,6 @@ class User < ActiveRecord::Base
   has_many :teams, -> { distinct }, through: :roles
   has_many :application_drafts, through: :teams
   has_many :applications, through: :teams
-  has_many :attendances, dependent: :destroy
-  has_many :conferences, through: :attendances
   has_many :todos, dependent: :destroy
 
   validates :github_handle, presence: true, uniqueness: { case_sensitive: false }
@@ -103,7 +101,6 @@ class User < ActiveRecord::Base
 
   validates :name, :email, :country, :location, presence: true, unless: :github_import
 
-  accepts_nested_attributes_for :attendances, allow_destroy: true
   accepts_nested_attributes_for :roles, allow_destroy: true
 
   before_save :sanitize_location

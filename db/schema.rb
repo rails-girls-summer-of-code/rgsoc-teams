@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170610162757) do
+ActiveRecord::Schema.define(version: 20170707145722) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -85,11 +85,13 @@ ActiveRecord::Schema.define(version: 20170610162757) do
   end
 
   create_table "attendances", id: :serial, force: :cascade do |t|
-    t.integer "conference_id"
-    t.integer "user_id"
     t.boolean "confirmed"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "team_id"
+    t.bigint "conference_id"
+    t.index ["conference_id"], name: "index_attendances_on_conference_id"
+    t.index ["team_id"], name: "index_attendances_on_team_id"
   end
 
   create_table "comments", id: :serial, force: :cascade do |t|
@@ -299,4 +301,6 @@ ActiveRecord::Schema.define(version: 20170610162757) do
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
   end
 
+  add_foreign_key "attendances", "conferences"
+  add_foreign_key "attendances", "teams"
 end

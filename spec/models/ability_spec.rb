@@ -8,6 +8,8 @@ describe Ability do
   context 'ability' do
     context 'when a user is connected' do
       let!(:user) { FactoryGirl.create(:user) }
+      let!(:team) { FactoryGirl.create(:team) }
+
       describe 'she/he is allowed to do everything on her/his account' do
         it { expect(ability).to be_able_to(:show, user) }
         it { expect(ability).not_to be_able_to(:create, User.new) } #this only happens through GitHub
@@ -143,29 +145,28 @@ describe Ability do
         end
       end
 
+      describe "team's students or admin should be able to mark attendance to a conference" do
+        context 'when user is a student from a team and try to update attendance' do
 
-      describe "a user should not be able to mark another's attendance to a conference" do
-
-        context 'when same user' do
-          let!(:attendance) { FactoryGirl.create(:attendance, user: user)}
+          let!(:user) { FactoryGirl.create(:student) }
+          let!(:attendance) { FactoryGirl.create(:attendance, team_id: user.teams.first.id) }
 
           it 'allows marking of attendance' do
-            expect(ability).to be_able_to(:crud, attendance)
+            expect(ability).to be_able_to(:crud, user)
           end
-
 
           context 'when user is admin' do
             let!(:organiser_role) { FactoryGirl.create(:organizer_role, user: user)}
             it "should be able to crud attendance" do
-              expect(subject).to be_able_to :crud, attendance
+              expect(subject).to be_able_to(:crud, organiser_role)
             end
           end
         end
 
         context 'when different users' do
           let!(:other_user) { FactoryGirl.create(:user)}
-          let!(:attendance) { FactoryGirl.create(:attendance, user: user)}
-          it { expect(ability).not_to be_able_to(:crud, other_user.attendances) }
+          let!(:attendance) { FactoryGirl.create(:attendance, team: team)}
+          it { expect(ability).not_to be_able_to(:crud, other_user) }
 
         end
       end
