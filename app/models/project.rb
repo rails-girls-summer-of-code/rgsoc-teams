@@ -36,13 +36,6 @@ class Project < ActiveRecord::Base
     end
   end
 
-  def self.selected
-    appls = Application
-      .where(project: Project.in_current_season.accepted)
-      .where(team: Team.in_current_season.accepted)
-    appls.collect { |appl| appl.project }
-  end
-
   def taglist
     tags.join(', ')
   end
