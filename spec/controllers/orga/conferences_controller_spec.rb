@@ -17,17 +17,14 @@ RSpec.describe Orga::ConferencesController do
     end
 
     describe 'POST import' do
-      it 'does all this cool things' do
-        self.class.respond_to?(:fixture_path)
-        # but how do I test them? >> under investigation
+
+      let(:file) { fixture_file_upload("spec/fixtures/files/test.csv", 'text/csv') }
+
+      it 'posts a .csv file' do
+        post :import, params: { file: file  }
+        expect(response).to redirect_to (orga_conferences_path)
+        expect(flash[:notice]).to match(/Import finished/)
       end
-      
-      # let(:file) { fixture_file_upload("spec/fixtures/files/test.csv") }
-      #
-      # it 'posts a .csv file' do
-      #   post :call_with, params: { file: file  }
-      # end
-      
     end
     
     describe 'DELETE destroy' do
