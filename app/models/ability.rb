@@ -25,6 +25,10 @@ class Ability
       user.admin? or signed_in?(user) && team.new_record? or on_team?(user, team)
     end
 
+    can :update, Team do |team|
+      user.student? && (team.students.include? user)
+    end
+
     cannot :create, Team do |team|
       on_team_for_season?(user, team.season) || !user.confirmed?
     end

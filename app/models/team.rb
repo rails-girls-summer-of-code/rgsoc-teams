@@ -25,8 +25,8 @@ class Team < ActiveRecord::Base
   has_one :last_activity, -> { order('id DESC') }, class_name: 'Activity'
   has_many :comments, as: :commentable
   has_many :status_updates, -> { where(kind: 'status_update') }, class_name: 'Activity'
-  has_many :conferences, through: :attendances
   has_many :attendances, dependent: :destroy
+  has_many :conferences, through: :attendances
 
   accepts_nested_attributes_for :attendances, allow_destroy: true
   accepts_nested_attributes_for :roles, :sources, allow_destroy: true

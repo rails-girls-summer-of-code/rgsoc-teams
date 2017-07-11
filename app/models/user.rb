@@ -150,7 +150,6 @@ class User < ActiveRecord::Base
     end
 
     def with_all_associations_joined
-      includes(:conferences).group("conferences.id").references(:conferences).
       includes(:roles).group("roles.id").
       includes(roles: :team).group("teams.id")
     end
@@ -210,6 +209,10 @@ class User < ActiveRecord::Base
     q_user_names = User.where("users.name ILIKE ?", "%#{search}%")
     q_team_names = User.with_teams.where("teams.name ILIKE ?", "%#{search}%")
     (q_user_names + q_team_names).uniq
+  end
+
+  def student_team
+    self.teams.first if self.student?
   end
 
   private

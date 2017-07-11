@@ -15,13 +15,13 @@ class Conference < ActiveRecord::Base
   def date_range
     @date_range ||= DateRange.new(start_date: starts_on, end_date: ends_on)
   end
-  
+
   def chronological_dates
     unless starts_on <= ends_on
       errors.add(:ends_on, 'must be a later date than start date')
     end
   end
-  
+
   def tickets_left
     confirmed_attendances = attendances.select { |attendance| attendance.confirmed }
     tickets.to_i - confirmed_attendances.size
