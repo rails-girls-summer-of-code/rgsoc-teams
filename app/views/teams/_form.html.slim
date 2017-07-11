@@ -74,10 +74,12 @@
       h2 Conference preferences
 
     fieldset
-      = f.simple_fields_for :attendance do |c|
-        = c.input :region, collection: @regions, required: false, label: "Conference region", prompt: "Region", wrapper_html: { id: "region_selected", class: 'col-md-8'}
-        = c.input :first_option, collection: @conferences, label: "Primary choice", prompt: "Conference", wrapper_html: { class: 'col-md-8' }
-        = c.input :second_option, collection: @conferences, label: "Secondary choice", prompt: "Conference", wrapper_html: { class: 'col-md-8' }
+      = f.simple_fields_for :attendances do |c|
+        = c.hidden_field :option, value: 1
+        = c.input :conference_id, collection: @conferences, label: "Primary choice", prompt: "Conference", wrapper_html: { class: 'col-md-8' }
+      = f.simple_fields_for :attendances do |c|
+        = c.hidden_field :option, value: 2
+        = c.input :conference_id, collection: @conferences, label: "Secondary choice", prompt: "Conference", wrapper_html: { class: 'col-md-8' }
   .actions
     ul.list-inline
       li  = f.submit 'Save', class: 'btn btn-success'

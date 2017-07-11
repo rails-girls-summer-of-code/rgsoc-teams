@@ -20,5 +20,5 @@
 
   h4 Attendees
   ul.attendees
-    - @conference.attendees.each do |user|
-      li = "#{link_to user.name.present? ? user.name : user.github_handle, user} #{", #{user.teams.map { |team| link_to(team.display_name, team) }.join(', ')}" if user.teams.any? }".html_safe
+    - @conference.attendees.each do |team|
+      li = "#{link_to team.display_name, team}".html_safe
