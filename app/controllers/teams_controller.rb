@@ -21,10 +21,13 @@ class TeamsController < ApplicationController
     @team = Team.new
     @team.roles.build(name: 'student', github_handle: current_user.github_handle)
     @team.sources.build(kind: 'blog')
+    @team.attendances.build
   end
 
   def edit
     @team.sources.build(kind: 'blog') unless @team.sources.any?
+    @conferences = conference_list
+    @regions = regions_list
   end
 
   def create
@@ -80,8 +83,17 @@ class TeamsController < ApplicationController
         :'finishes_on(1i)', :'finishes_on(2i)', :'finishes_on(3i)', :invisible,
         :project_name,
         roles_attributes: role_attributes_list,
+        attendances_attributes: [:id, :conference_id, :_destroy],
         sources_attributes: [:id, :kind, :url, :_destroy]
       )
+    end
+
+    def conference_list
+      Conference.in_current_season
+    end
+
+    def regions_list
+      ['Africa', 'Asia Pacific', 'Europe', 'North America', 'South America']
     end
 
   def role_attributes_list

@@ -13,7 +13,7 @@ class AttendancesController < ApplicationController
   private
 
     def attendance
-      current_user.attendances.find(params[:id])
+      current_user.student_team.attendances.find(params[:id])
     end
 
     def attendance_params

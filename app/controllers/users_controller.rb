@@ -24,7 +24,6 @@ class UsersController < ApplicationController
   end
 
   def new
-    @user.attendances.build
   end
 
   def edit
