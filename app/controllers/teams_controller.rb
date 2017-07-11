@@ -26,7 +26,6 @@ class TeamsController < ApplicationController
   def edit
     @team.sources.build(kind: 'blog') unless @team.sources.any?
     @conferences = conference_list
-    @regions = regions_list
     @team.attendances.build()
   end
 
@@ -90,10 +89,6 @@ class TeamsController < ApplicationController
 
     def conference_list
       Conference.in_current_season
-    end
-
-    def regions_list
-      ['Africa', 'Asia Pacific', 'Europe', 'North America', 'South America']
     end
 
   def role_attributes_list
