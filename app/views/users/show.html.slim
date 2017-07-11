@@ -48,10 +48,10 @@ nav.actions
       - @user.teams.each do |team|
         li #{link_to team.display_name, team} &ndash; #{role_names(team, @user)}
 
-  - if @user.conferences.any?
+  - if @user&.student_team&.conferences&.any?
     h4 Conferences
     ul.conferences
-      - @user.attendances.joins(:conference).order('conferences.starts_on').each do |a|
+      - @user.student_team.attendances.joins(:conference).order('conferences.starts_on').each do |a|
         li
           = links_to_conferences([a.conference]).first
           - if @user == current_user
