@@ -73,8 +73,8 @@ RSpec.describe UsersController do
     end
 
     context 'with conferences' do
-      let!(:attendance) { FactoryGirl.create :attendance }
-      let(:user)        { attendance.user }
+      let!(:attendance) { FactoryGirl.create :attendance, :student_attendance }
+      let(:user)        { attendance.team.members.first }
       let(:conference)  { attendance.conference }
 
       it 'lists the users conference attendances' do
@@ -84,15 +84,18 @@ RSpec.describe UsersController do
       end
 
       context 'with attendance orphans' do
-        let!(:orphan) { FactoryGirl.create :attendance, user: user }
+        let!(:orphan) { FactoryGirl.create :attendance, :student_attendance }
+        let!(:conference) { orphan.conference }
+        let!(:user) { attendance.team.members.first }
 
-        before { orphan.conference.delete }
+        before { orphan.conference.destroy }
 
         # There are some stale attendance records in the system since
         # attendences used to stick around when their conference was deleted
         it 'will not list attendances w/o conference' do
           get :show, params: { id: user.to_param }
           expect(response).to be_success
+          expect(response.body).not_to match conference.name
         end
       end
     end
