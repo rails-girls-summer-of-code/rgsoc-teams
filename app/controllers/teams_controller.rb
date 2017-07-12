@@ -26,7 +26,8 @@ class TeamsController < ApplicationController
   def edit
     @team.sources.build(kind: 'blog') unless @team.sources.any?
     @conferences = conference_list
-    @team.attendances.build()
+    @team.attendances.build(option: 1) unless @team.attendances.find_by(option: 1)
+    @team.attendances.build(option: 2) unless @team.attendances.find_by(option: 2)
   end
 
   def create
