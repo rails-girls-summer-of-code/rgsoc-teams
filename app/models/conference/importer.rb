@@ -43,7 +43,7 @@ class Conference::Importer
     end
     
     def process_csv(file)
-      CSV.foreach(file.path, headers: true, col_sep: ';' ) do |row|
+      CSV.foreach(file.path, { headers: true, col_sep: ';' }) do |row|
         begin
           conference = Conference.find_or_initialize_by(gid: row['UID'])
           conference_hash = {
@@ -59,7 +59,7 @@ class Conference::Importer
           }
           conference.update!(conference_hash.merge(season_id: fetch_season_id(row['UID'])))
         rescue => e
-        logger  { logger.error "Error in #{row['UID']}: #{e.message}" }
+          logger  { logger.error "Error in #{row['UID']}: #{e.message}" }
         end
       end
     end

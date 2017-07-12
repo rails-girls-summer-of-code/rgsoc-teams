@@ -25,6 +25,11 @@ RSpec.describe Orga::ConferencesController do
         expect(response).to redirect_to (orga_conferences_path)
         expect(flash[:notice]).to match(/Import finished/)
       end
+
+      it 'refuses other formats' do
+        post :import, format: :json, params: { file: file}
+        expect(response).not_to be_success
+      end
     end
     
     describe 'DELETE destroy' do
