@@ -149,7 +149,7 @@ describe Ability do
         context 'when user is a student from a team and try to update attendance' do
 
           let!(:user) { FactoryGirl.create(:student) }
-          let!(:attendance) { FactoryGirl.create(:attendance, team_id: user.teams.first.id) }
+          let!(:attendance) { FactoryGirl.create(:attendance, team_id: user.student_team.id) }
 
           it 'allows marking of attendance' do
             expect(ability).to be_able_to(:crud, user)

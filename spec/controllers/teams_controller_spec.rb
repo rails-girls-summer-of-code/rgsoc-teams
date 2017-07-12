@@ -184,7 +184,29 @@ RSpec.describe TeamsController do
 
             expect(Role.last.user).to eql existing_user
           end
+        end
 
+      #TODO: refactor this test
+      context 'selecting the conference options' do
+        let(:conference_1) { FactoryGirl.create(:conference, :in_current_season)}
+        let(:conference_2) { FactoryGirl.create(:conference, :in_current_season)}
+        let(:team)         { FactoryGirl.create(:team, :in_current_season) }
+        let(:conferences) do
+          build(:team).attributes.merge(:attendances_attributes=>{
+            '0'=>{
+              option: 1, conference_id: conference_1.id
+            },
+            '1'=>{
+              option: 2, conference_id: conference_2.id
+            }
+          })
+        end
+
+          it 'team student user' do
+            expect {
+              patch :update, params: { id: team.to_param, team: conferences }
+            }.to change { team.attendances.count }.by 2
+          end
         end
       end
 

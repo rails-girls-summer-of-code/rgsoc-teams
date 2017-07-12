@@ -326,6 +326,14 @@ describe User do
     end
   end
 
+  describe '#student_team' do
+     it 'return student current team' do
+      team    = FactoryGirl.create(:team)
+      student = FactoryGirl.create(:student, team: team)
+      expect(student.student_team).to eql team
+    end
+  end
+
   describe 'Search for user names and team names' do
     before do
       @cruyff = FactoryGirl.create(:user, name: "Johan Cruyff")
