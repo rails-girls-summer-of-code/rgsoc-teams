@@ -275,6 +275,14 @@ describe Ability do
               expect(subject).to be_able_to :crud, student_team
             end
 
+            it 'allows select conferences on own team' do
+              expect(subject).to be_able_to :update_conferences, student_team
+            end
+
+            it 'does not allow select conferences on own team' do
+              expect(subject).not_to be_able_to :update_conferences, Team.new
+            end
+
             it 'allows to create team for different season' do
               expect(subject).to be_able_to :create, Team.new
             end
