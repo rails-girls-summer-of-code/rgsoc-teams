@@ -13,21 +13,18 @@ class Conference::Importer
   # - UID is mapped to 'gid' ('google-id' LOL), and has the format: 2017001
   
   class << self
+
     def call(file)
       check_valid(file)
-      info_log(:started, file)
-      process_csv(file)
-      info_log(:finished, file)
+      with_log(file) { process_csv(file) }
     end
-    
+
     private
-    
-    def info_log(arg, file)
-      notices = {
-        started: "Started importing file #{file.original_filename}",
-        finished: "Finished updating/creating #{count_conferences_in(file)} conferences"
-      }
-      logger.tagged("Importer") { logger.info notices[arg] }
+
+    def with_log(file)
+      logger.tagged("Importer") { logger.info "Started importing file #{file.original_filename}" }
+      yield
+      logger.tagged("Importer") { logger.info "Finished updating/creating #{count_conferences_in(file)} conferences" }
     end
 
     def logger
