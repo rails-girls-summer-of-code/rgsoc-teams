@@ -77,7 +77,8 @@ nav.btn-group
 - if @team.conferences.in_current_season.any?
   h4 Conferences
   ul.conferences
-  li = "#{link_to @team.name, @team}: #{links_to_conferences(@team.conferences.in_current_season).join(', ')}".html_safe
+  - @team.conferences.in_current_season.each do |conference|
+     li = "#{link_to conference.name, conference}: #{link_to(conference.location, conference)}".html_safe
 
 - if @team.activities.any?
   h3 Activities

@@ -76,8 +76,15 @@
   - if admin?
     = f.input :season_id, as: :select, collection: Season.order('name DESC') { |e| [s.name, s.id] }
 
+  .page-header
+    h2 Conference preferences
+
+    fieldset
+      = f.simple_fields_for :attendances do |c|
+       = c.hidden_field :option, value: c.object.option
+       = c.input :conference_id, collection: @conferences, label: c.object.option == 1 ? "Primary choice" : "Secondary Choice", prompt: "Conference", wrapper_html: { class: 'col-md-12' }
+
   .actions
     ul.list-inline
       li  = f.submit 'Save', class: 'btn btn-success'
       li = link_to 'Cancel', [:orga, @team], class: 'btn btn-default'
-
