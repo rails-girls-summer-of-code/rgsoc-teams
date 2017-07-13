@@ -49,8 +49,7 @@ class Conference::Importer
       CSV.foreach(file.path, headers: true, col_sep: ';' ) do |row|
         begin
           conference = Conference.find_or_initialize_by(gid: row['UID'])
-          conference_hash = {
-            gid: row['UID'].to_i,
+          conference_attributes = {
             name: row['Name'],
             starts_on: row['Start date'],
             ends_on: row['End date'],
@@ -59,10 +58,8 @@ class Conference::Importer
             region: row['Region'],
             url: row['Website'],
             notes: row['Notes'],
-          }
-          # conference.update!(conference_hash).merge(season_id: fetch_season_id(conference.gid))
-          conference.update!(conference_hash)
-          conference.update(season_id: fetch_season_id(conference.gid))
+          }.merge(season_id: fetch_season_id(conference.gid))
+          conference.update!(conference_attributes)
         rescue => e
           logger.tagged("Importer") { logger.error "Error in #{row['UID']}: #{e.message}" }
         end
