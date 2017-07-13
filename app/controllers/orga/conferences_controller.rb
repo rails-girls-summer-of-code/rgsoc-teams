@@ -20,7 +20,7 @@ class Orga::ConferencesController < Orga::BaseController
   def find_conference
     @conference ||= Conference.find(params[:id])
   end
-  
+
   def conferences
     Conference.ordered(sort_params).in_current_season
   end

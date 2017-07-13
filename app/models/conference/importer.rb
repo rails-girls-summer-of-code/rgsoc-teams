@@ -1,6 +1,6 @@
 require 'csv'
 class Conference::Importer
-  
+
   ## This importer is depending on agreed-upon input format.
   ## Input file:
   # - Dates should be formatted with dd mm yyyy
