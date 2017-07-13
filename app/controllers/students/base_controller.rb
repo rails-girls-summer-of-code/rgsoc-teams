@@ -8,8 +8,7 @@ class Students::BaseController < ApplicationController
   end
 
   def current_team
-    @current_team ||= current_user.teams.first
+    @current_team ||= current_user.teams.last
   end
 
 end
-

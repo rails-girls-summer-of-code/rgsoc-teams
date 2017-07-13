@@ -34,7 +34,7 @@ class Student < SimpleDelegator
   end
 
   def current_team
-    @current_team ||= user.roles.student.first.try :team
+    @current_team ||= user.roles.student.last.try :team
   end
 
   def current_drafts
