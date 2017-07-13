@@ -6,9 +6,6 @@ RSpec.describe Conference do
   it { is_expected.to have_many(:attendances).dependent(:destroy) }
   it { is_expected.to have_many(:attendees) }
   it { is_expected.to validate_presence_of(:name) }
-  it { is_expected.to validate_presence_of(:round) }
-  it { is_expected.to validate_presence_of(:starts_on) }
-  it { is_expected.to validate_presence_of(:ends_on) }
 
   describe 'validates chronological dates' do
     subject { FactoryGirl.build(:conference) }
