@@ -1,7 +1,8 @@
 class DateRange
   # Step 1: only in use with Conference date range.
-  # Validated in Conference: presence and chronological order
-  #  because the input is done there.
+  # Validation is supposed to be in input (e.g. Conference.rb), but
+  # with the new Importer for adding conferences, the presence validation
+  # of the dates is removed.
   
   ELEMENTS = "%-d %b %Y" # "1 juli 2017"
   
@@ -30,6 +31,6 @@ class DateRange
   attr_reader :start_date, :end_date
   
   def last_day
-    end_date.strftime(ELEMENTS)
+    end_date&.strftime(ELEMENTS) || "TBA"
   end
 end
