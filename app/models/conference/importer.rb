@@ -45,11 +45,11 @@ class Conference::Importer
     def fetch_season_id(uid)
       # uid format : 2017001
       year = uid.to_s[0,4]
-      Season.find_or_create_by(name: year).id
+      Season.find_or_create_by!(name: year).id
     end
     
     def process_csv(file)
-      CSV.foreach(file.path, { headers: true, col_sep: ';' }) do |row|
+      CSV.foreach(file.path, headers: true, col_sep: ';' ) do |row|
         begin
           conference = Conference.find_or_initialize_by(gid: row['UID'])
           conference_hash = {
@@ -63,6 +63,7 @@ class Conference::Importer
             url: row['Website'],
             notes: row['Notes'],
           }
+          # conference.update!(conference_hash).merge(season_id: fetch_season_id(conference.gid))
           conference.update!(conference_hash)
           conference.update(season_id: fetch_season_id(conference.gid))
         rescue => e

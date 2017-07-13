@@ -16,8 +16,7 @@ RSpec.describe Conference::Importer do
     context 'with valid file' do
 
       it 'imports the valid conferences' do
-        expect(Conference.count).to eq 0
-        expect{subject}.to change { Conference.count }.by(4)
+        expect{subject}.to change { Conference.count }.from(0).to(4)
       end
 
       it 'updates an existing conference' do
@@ -58,7 +57,7 @@ RSpec.describe Conference::Importer do
       let(:file) { fixture_file_upload("spec/fixtures/files/test.csv", 'json') }
 
       it 'raises an error with other mime_type' do
-        allow(described_class).to receive(:call).with(file).and_raise(ArgumentError)
+        expect { subject }.to raise_error ArgumentError
       end
     end
   end
