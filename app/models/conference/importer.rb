@@ -15,9 +15,9 @@ class Conference::Importer
   class << self
     def call(file)
       check_valid(file)
-      # info_log(:started, file)
+      info_log(:started, file)
       process_csv(file)
-      # info_log(:finished, file)
+      info_log(:finished, file)
     end
     
     private
@@ -27,11 +27,11 @@ class Conference::Importer
         started: "Started importing file #{file.original_filename}",
         finished: "Finished updating/creating #{count_conferences_in(file)} conferences"
       }
-      logger { logger.info "\n***" + notices[arg] + "***" }
+      logger.tagged("Importer") { logger.info notices[arg] }
     end
-   
-    def logger(&block)
-      Rails.logger.tagged("Importer") { block }
+
+    def logger
+      Rails.logger
     end
     
     def check_valid(file)
@@ -66,7 +66,7 @@ class Conference::Importer
           conference.update!(conference_hash)
           conference.update(season_id: fetch_season_id(conference.gid))
         rescue => e
-          logger  { logger.error "Error in #{row['UID']}: #{e.message}" }
+          logger.tagged("Importer") { logger.error "Error in #{row['UID']}: #{e.message}" }
         end
       end
     end

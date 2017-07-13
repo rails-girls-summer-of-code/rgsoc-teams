@@ -31,7 +31,7 @@ RSpec.describe Conference::Importer do
       end
 
       it 'neglects a conference without a name' do
-        # gid 2017003 is invalid
+        # gid 2017003
         expect {subject}.not_to change{Conference.find_by(gid: 2017003)}
       end
 
@@ -76,6 +76,3 @@ end
 # 2017004;GHC India 2017;17/11/2017;15/11/2017;Bangalore;India;Asia Pacific;https://ghcindia.anitaborg.org/;They have student scholarship applications. Deadline: June 30, 2017
 # 2018005;PyCon Pune 2018;;;Pune;India;Asia Pacific;https://pune.pycon.org/;Dates are to be defined
 # 2017006;CheesyRuby;07/07/2017;15/07/2017;Amsterdam;NL;Europe;www.example.com;Duly Noted
-
-
-
