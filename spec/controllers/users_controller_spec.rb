@@ -74,14 +74,8 @@ RSpec.describe UsersController do
 
     context 'with conferences' do
       let!(:attendance) { FactoryGirl.create :attendance, :student_attendance }
-      let(:user)        { attendance.team.members.first }
+      let(:user)        { attendance.team.students.first }
       let(:conference)  { attendance.conference }
-
-      it 'lists the users conference attendances' do
-        get :show, params: { id: user.to_param }
-        expect(response).to be_success
-        expect(response.body).to match conference.name
-      end
 
       context 'with attendance orphans' do
         let!(:orphan) { FactoryGirl.create :attendance, :student_attendance }
