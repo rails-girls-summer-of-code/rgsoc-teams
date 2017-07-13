@@ -5,22 +5,19 @@ RSpec.describe Conference::Importer do
   include ActionDispatch::TestProcess
 
   describe "#call" do
+    # 6 sample conferences in test.csv, 4 valid
+    # valid: 2017001, 2017002, *2018*005 and 2017006 .
+    # invalid: 2017003: no name, 2017004: start date later than end date
+
+    # file is now an ActionDispatch tempfile
     let!(:file) { fixture_file_upload("spec/fixtures/files/test.csv", 'text/csv') }
-    subject { described_class.call(file) } # file is now a ActionDispatch tempfile
-
-    it { puts file_fixture_path } # => spec/fixtures/files
-
-    it 'works' do
-      expect { subject }.not_to raise_error
-      expect(CSV.foreach(file.path, { headers: true}).count).to eq 6
-    end
+    subject { described_class.call(file) }
 
     context 'with valid file' do
 
       it 'imports the valid conferences' do
-        # 6 sample conferences in test.csv, 3 invalid
         expect(Conference.count).to eq 0
-        expect{subject}.to change { Conference.count }.by(3)
+        expect{subject}.to change { Conference.count }.by(4)
       end
 
       it 'updates an existing conference' do
@@ -36,8 +33,8 @@ RSpec.describe Conference::Importer do
       end
 
       it 'does not add a conference with invalid dates' do
-        # gid 2017002 has an start_date later than end_date
-        expect {subject}.not_to change{Conference.find_by(gid: 2017002)}
+        # gid 2017004 has an start_date later than end_date
+        expect {subject}.not_to change{Conference.find_by(gid: 2017004)}
       end
 
       it "will not destroy conferences" do
@@ -66,13 +63,3 @@ RSpec.describe Conference::Importer do
     end
   end
 end
-
-# Content of test.csv ~ Only 2017001, 005, 006 are valid
-
-# UID;Name;Start date;End date;City;Country;Region;Website;Notes
-# 2017001;Deccan RubyConf 2017;Aug 12, 17;Aug 12, 17;Gent;Belgium;Europe;http://www.deccanrubyconf.org/;
-# 2017002;JSFoo 2017;Sep 15, 17;Sep 14, 17;Bangalore;India;Asia Pacific;https://jsfoo.in/2017/;
-# 2017003;;;;Delhi;India;Asia Pacific;https://in.pycon.org/;1st week of Nov (dates are to be defined)
-# 2017004;GHC India 2017;17/11/2017;15/11/2017;Bangalore;India;Asia Pacific;https://ghcindia.anitaborg.org/;They have student scholarship applications. Deadline: June 30, 2017
-# 2018005;PyCon Pune 2018;;;Pune;India;Asia Pacific;https://pune.pycon.org/;Dates are to be defined
-# 2017006;CheesyRuby;07/07/2017;15/07/2017;Amsterdam;NL;Europe;www.example.com;Duly Noted

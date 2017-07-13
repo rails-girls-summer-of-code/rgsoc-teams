@@ -45,7 +45,7 @@ class Conference::Importer
     def fetch_season_id(uid)
       # uid format : 2017001
       year = uid.to_s[0,4]
-      Season.find_or_create_by(name: year).id #Q: can I do that here?
+      Season.find_or_create_by(name: year).id
     end
     
     def process_csv(file)
