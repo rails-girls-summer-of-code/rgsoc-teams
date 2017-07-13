@@ -15,9 +15,9 @@ class Conference::Importer
   class << self
     def call(file)
       check_valid(file)
-      info_log(:started, file)
+      # info_log(:started, file)
       process_csv(file)
-      info_log(:finished, file)
+      # info_log(:finished, file)
     end
     
     private
@@ -41,6 +41,12 @@ class Conference::Importer
     def count_conferences_in(file)
       CSV.foreach(file.path, headers: true).count
     end
+
+    def fetch_season_id(uid)
+      # uid format : 2017001
+      year = uid.to_s[0,4]
+      Season.find_or_create_by(name: year).id #Q: can I do that here?
+    end
     
     def process_csv(file)
       CSV.foreach(file.path, { headers: true, col_sep: ';' }) do |row|
@@ -57,17 +63,12 @@ class Conference::Importer
             url: row['Website'],
             notes: row['Notes'],
           }
-          conference.update!(conference_hash.merge(season_id: fetch_season_id(row['UID'])))
+          conference.update!(conference_hash)
+          conference.update(season_id: fetch_season_id(conference.gid))
         rescue => e
           logger  { logger.error "Error in #{row['UID']}: #{e.message}" }
         end
       end
-    end
-    
-    def fetch_season_id(uid)
-      # uid format : 2017001
-      year = uid.to_s[0,4]
-      Season.find_by(name: year).id
     end
   end
 end

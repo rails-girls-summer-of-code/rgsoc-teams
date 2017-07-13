@@ -16,47 +16,44 @@ RSpec.describe Conference::Importer do
     end
 
     context 'with valid file' do
-      before do
-        #   CSV.stub(:foreach).with(file.path, {headers: true}).and_yield([headers]).and_call_original
-        # OR ???
-        # allow(described_class).to receive(:call).with(file.path, {headers: true }).and_ return/yield/call???
-      end
 
-      xit 'imports the valid conferences' do
-        # 6 sample conferences in test.csv, 2 invalid
+      it 'imports the valid conferences' do
+        # 6 sample conferences in test.csv, 3 invalid
         expect(Conference.count).to eq 0
-        expect(subject).to change { Conference.count }.by(4)
+        expect{subject}.to change { Conference.count }.by(3)
       end
 
-      xit 'updates an existing conference' do
-        existing = FactoryGirl.create(:conference, gid: 2017001, city: "Bangalore", country: "Belgium")
-        expect(subject).to change(existing, :city).from("Bangalore").to("Gent")
-        expect(subject).not_to change(existing, :country)
+      it 'updates an existing conference' do
+        FactoryGirl.create(:conference, gid: 2017001, city: "Bangalore", country: "Belgium")
+
+        expect{subject}.to change{Conference.find_by(gid: 2017001).city}.from("Bangalore").to("Gent")
+        expect{subject}.not_to change{Conference.find_by(gid: 2017001).country}
       end
 
-      xit 'neglects a conference without a name' do
+      it 'neglects a conference without a name' do
         # gid 2017003 is invalid
-        expect(subject).not_to change(Conference.find_by(gid: 2017003))
-        expect(Rails.logger).to receive(:error).with(/can't be blank/).and_call_original
+        expect {subject}.not_to change{Conference.find_by(gid: 2017003)}
       end
 
-      xit 'raises an for invalid dates' do
+      it 'does not add a conference with invalid dates' do
         # gid 2017002 has an start_date later than end_date
-        expect(subject).not_to change(Conference.find_by(gid: 2017002))
-
-        # leave this out? logger receiving the message is tested ^, and validation is tested in conference.rb
-        expect(Rails.logger).to receive(:error).with(/must be later/).and_call_original
+        expect {subject}.not_to change{Conference.find_by(gid: 2017002)}
       end
 
-      xit "will not destroy conferences" do
+      it "will not destroy conferences" do
         # gid 2017010 is not in the .csv file
-        deleted = FactoryGirl.create(:conference, gid: 2017010)
-        expect(subject).not_to change {deleted}
+        FactoryGirl.create(:conference, gid: 2017010)
+        expect {subject}.not_to change{Conference.find_by(gid: 2017010)}
       end
 
-      xit 'computes the season_id' do
-        expect(Conference.find_by(gid: 2017001).season.name).to eq "2017"
-        expect(Conference.find_by(gid: 2018004).season.name).to eq "2018"
+      it 'assign the season_id' do
+        FactoryGirl.create(:conference, gid: 2017001, season_id: nil)
+        FactoryGirl.create(:conference, gid: 2018005, season_id: nil)
+        s_2017 = FactoryGirl.create(:season, name: "2017")
+        s_2018 = FactoryGirl.create(:season, name: "2018")
+
+        expect{subject}.to change{Conference.find_by(gid: 2017001).season_id}.to(s_2017.id)
+        expect(Conference.find_by(gid: 2018005).season_id).to eq s_2018.id
       end
     end
 
@@ -69,3 +66,16 @@ RSpec.describe Conference::Importer do
     end
   end
 end
+
+# Content of test.csv ~ Only 2017001, 005, 006 are valid
+
+# UID;Name;Start date;End date;City;Country;Region;Website;Notes
+# 2017001;Deccan RubyConf 2017;Aug 12, 17;Aug 12, 17;Gent;Belgium;Europe;http://www.deccanrubyconf.org/;
+# 2017002;JSFoo 2017;Sep 15, 17;Sep 14, 17;Bangalore;India;Asia Pacific;https://jsfoo.in/2017/;
+# 2017003;;;;Delhi;India;Asia Pacific;https://in.pycon.org/;1st week of Nov (dates are to be defined)
+# 2017004;GHC India 2017;17/11/2017;15/11/2017;Bangalore;India;Asia Pacific;https://ghcindia.anitaborg.org/;They have student scholarship applications. Deadline: June 30, 2017
+# 2018005;PyCon Pune 2018;;;Pune;India;Asia Pacific;https://pune.pycon.org/;Dates are to be defined
+# 2017006;CheesyRuby;07/07/2017;15/07/2017;Amsterdam;NL;Europe;www.example.com;Duly Noted
+
+
+
