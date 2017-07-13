@@ -2,18 +2,18 @@ require 'spec_helper'
 require 'csv'
 
 RSpec.describe Conference::Importer do
-  include ActionDispatch::TestProcess
 
   describe "#call" do
     # 6 sample conferences in test.csv, 4 valid
     # valid: 2017001, 2017002, *2018*005 and 2017006 .
     # invalid: 2017003: no name, 2017004: start date later than end date
 
-    # file is now an ActionDispatch tempfile
-    let!(:file) { fixture_file_upload("spec/fixtures/files/test.csv", 'text/csv') }
-    subject { described_class.call(file) }
+    let!(:file) { "spec/fixtures/files/test.csv" }
+
+    subject { described_class.call(file, content_type: content_type) }
 
     context 'with valid file' do
+      let(:content_type) { 'text/csv' }
 
       it 'imports the valid conferences' do
         expect{subject}.to change { Conference.count }.from(0).to(4)
@@ -54,7 +54,7 @@ RSpec.describe Conference::Importer do
     end
 
     context 'with non-csv file' do
-      let(:file) { fixture_file_upload("spec/fixtures/files/test.csv", 'json') }
+      let(:content_type) { 'application/json' }
 
       it 'raises an error with other mime_type' do
         expect { subject }.to raise_error ArgumentError

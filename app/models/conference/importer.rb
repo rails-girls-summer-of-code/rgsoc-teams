@@ -14,29 +14,29 @@ class Conference::Importer
   
   class << self
 
-    def call(file)
-      check_valid(file)
-      with_log(file) { process_csv(file) }
+    def call(filename, content_type:)
+      check_valid(content_type)
+      with_log(filename) { process_csv(filename) }
     end
 
     private
 
-    def with_log(file)
-      logger.tagged("Importer") { logger.info "Started importing file #{file.original_filename}" }
+    def with_log(filename)
+      logger.tagged("Importer") { logger.info "Started importing conference file" }
       yield
-      logger.tagged("Importer") { logger.info "Finished updating/creating #{count_conferences_in(file)} conferences" }
+      logger.tagged("Importer") { logger.info "Finished updating/creating #{count_conferences_in(filename)} conferences" }
     end
 
     def logger
       Rails.logger
     end
-    
-    def check_valid(file)
-      raise ArgumentError, "Oops! I can upload .csv only :-(" unless file.content_type == "text/csv"
+
+    def check_valid(content_type)
+      raise ArgumentError, "Oops! I can upload .csv only :-(" unless content_type == "text/csv"
     end
-    
-    def count_conferences_in(file)
-      CSV.foreach(file.path, headers: true).count
+
+    def count_conferences_in(filename)
+      CSV.foreach(filename, headers: true).count
     end
 
     def fetch_season_id(uid)
@@ -44,9 +44,9 @@ class Conference::Importer
       year = uid.to_s[0,4]
       Season.find_or_create_by!(name: year).id
     end
-    
-    def process_csv(file)
-      CSV.foreach(file.path, headers: true, col_sep: ';' ) do |row|
+
+    def process_csv(filename)
+      CSV.foreach(filename, headers: true, col_sep: ';' ) do |row|
         begin
           conference = Conference.find_or_initialize_by(gid: row['UID'])
           conference_attributes = {
