@@ -212,7 +212,7 @@ class User < ActiveRecord::Base
   end
 
   def student_team
-    self.teams.last if self.student?
+    teams.in_current_season.last if student?
   end
 
   private
