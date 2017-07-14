@@ -71,7 +71,6 @@ RSpec.describe TeamsController do
 
     it 'lists the team conference attendances' do
       get :show, params: { id: attendance.team.to_param }
-      byebug
       expect(response).to be_success
       expect(response.body).to match attendance.conference.name
     end
