@@ -120,6 +120,11 @@ ActiveRecord::Schema.define(version: 20170711171153) do
     t.integer "round", default: 1
     t.boolean "lightningtalkslots"
     t.integer "season_id"
+    t.integer "gid"
+    t.string "city"
+    t.string "country"
+    t.string "region"
+    t.text "notes"
     t.index ["season_id"], name: "index_conferences_on_season_id"
   end
 

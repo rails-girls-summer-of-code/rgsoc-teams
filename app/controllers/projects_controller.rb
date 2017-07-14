@@ -24,7 +24,11 @@ class ProjectsController < ApplicationController
   end
 
   def index
-    @projects = Project.in_current_season.where(aasm_state: %w(accepted proposed))
+    if Season.current.active?
+      @projects = Project.selected
+    else
+      @projects = Project.in_current_season.where(aasm_state: %w(accepted proposed))
+    end
   end
 
   def destroy

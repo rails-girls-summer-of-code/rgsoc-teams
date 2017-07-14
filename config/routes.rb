@@ -80,6 +80,7 @@ Rails.application.routes.draw do
     resources :projects, only: [:index] do
       member do
         put :accept
+        put :start_review
         put :reject
         put :lock
         put :unlock
@@ -87,7 +88,9 @@ Rails.application.routes.draw do
     end
     resources :teams
     resources :seasons
-    resources :conferences
+    resources :conferences, except: [:new, :edit, :create] do
+      collection { post :import }
+    end
     resources :exports, only: [:index, :create]
   end
 

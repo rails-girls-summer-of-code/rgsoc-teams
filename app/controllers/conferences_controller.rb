@@ -3,7 +3,7 @@ class ConferencesController < ApplicationController
 
   def new
   end
- 
+
   def index
     @conferences = conferences
   end
@@ -24,7 +24,7 @@ class ConferencesController < ApplicationController
 
   def sort_params
     {
-      order: %w(name location starts_on round).include?(params[:sort]) ? params[:sort] : nil,
+      order: %w(name gid starts_on city country region).include?(params[:sort]) ? params[:sort] : nil,
       direction: %w(asc desc).include?(params[:direction]) ? params[:direction] : nil
     }
   end

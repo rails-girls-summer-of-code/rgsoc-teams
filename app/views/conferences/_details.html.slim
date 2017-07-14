@@ -1,24 +1,13 @@
 .conference
   dl.dl-horizontal
     dt Location
-    dd = @conference.location
+    dd #{@conference.city}, #{@conference.country}
     dt Date
     dd = @conference.date_range
     dt Twitter
     dd = format_conference_twitter(@conference.twitter)
     dt Homepage
     dd = link_to @conference.url, @conference.url
-    dt Tickets total
-    dd = format_conference_scholarships(@conference.tickets, @conference.flights, @conference.accomodation)
-    dt Tickets left
-    dd = @conference.tickets_left
-    dt Lightning Talk Slots
-    - if @conference.lightningtalkslots?
-      dd = "yes"
-    - else
-      dd = "no"
 
-  h4 Attendees
-  ul.attendees
-    - @conference.attendees.each do |team|
-      li = "#{link_to team.display_name, team}".html_safe
+    dt Notes
+    dd = @conference.notes

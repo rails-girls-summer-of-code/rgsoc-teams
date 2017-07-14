@@ -1,7 +1,3 @@
 = render 'orga/breadcrumbs'
-
-nav.actions
-  ul.list-inline
-    li = link_to icon('plus', 'New Conference'), new_orga_conference_path, class: 'btn btn-default btn-sm'
-
+= render 'form'
 = render 'conferences/table', namespace: :orga, conferences: @conferences

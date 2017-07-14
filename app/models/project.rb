@@ -21,14 +21,24 @@ class Project < ActiveRecord::Base
     state :proposed, initial: true
     state :accepted
     state :rejected
+    state :pending
+
+    event :start_review do
+      transitions from: :proposed, to: :pending
+    end
 
     event :accept do
-      transitions from: :proposed, to: :accepted
+      transitions from: :pending, to: :accepted
     end
 
     event :reject do
-      transitions from: :proposed, to: :rejected, after: -> { self.comments_locked = true }
+      transitions from: :pending, to: :rejected, after: -> { self.comments_locked = true }
     end
+  end
+
+  def self.selected
+    project_names = Team.in_current_season.accepted.pluck(:project_name).uniq
+    Project.in_current_season.where(name: project_names)
   end
 
   def taglist

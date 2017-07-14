@@ -1,10 +1,10 @@
+require 'csv'
 class Conference < ActiveRecord::Base
-
   include HasSeason
 
   has_many :attendances, dependent: :destroy
   has_many :attendees, through: :attendances, source: :team
-  validates :name, :round, :starts_on, :ends_on, presence: true
+  validates :name, presence: true
   validate :chronological_dates, if: proc { |conf| conf.starts_on && conf.ends_on }
 
   accepts_nested_attributes_for :attendances
