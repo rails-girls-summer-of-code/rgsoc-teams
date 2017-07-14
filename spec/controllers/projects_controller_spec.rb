@@ -27,11 +27,11 @@ RSpec.describe ProjectsController do
       before { allow(Season).to receive(:active?) { true } }
 
       let!(:proposed) { FactoryGirl.create(:project, season: Season.succ, name: 'proposed project') }
-      let!(:selected) { FactoryGirl.create(:project, :accepted, season: Season.current, name: "selected by a team") }
-      let!(:no_team) { FactoryGirl.create(:project, :in_current_season, :accepted, name: "project without team") }
+      let!(:selected) { FactoryGirl.create(:project, :accepted, :in_current_season, name: "selected by a team") }
+      let!(:no_team) { FactoryGirl.create(:project, :accepted, :in_current_season, name: "project without team") }
       let!(:team) { FactoryGirl.create(:team, :in_current_season, project_name: selected.name) }
 
-      it 'shows selected projects during active Season (≈ May - Sept)' do
+      it 'shows selected projects only' do
         get :index
         expect(response).to be_success
         expect(response.body).to include "selected by a team"
