@@ -25,7 +25,7 @@ class Ability
       user.admin? or signed_in?(user) && team.new_record? or on_team?(user, team)
     end
 
-    can :update_conferences, Team do |team|
+    can :update_attendances, Team do |team|
       user.student? && (team.students.include? user)
     end
 

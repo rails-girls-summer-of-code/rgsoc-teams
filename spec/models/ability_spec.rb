@@ -152,13 +152,13 @@ describe Ability do
           let!(:user) { attendance.team.students.first }
 
           it 'allows marking of attendance' do
-            expect(ability).to be_able_to(:crud, user)
+            expect(ability).to be_able_to(:crud, attendance)
           end
 
           context 'when user is admin' do
             let!(:organiser_role) { FactoryGirl.create(:organizer_role, user: user)}
             it "should be able to crud attendance" do
-              expect(subject).to be_able_to(:crud, organiser_role)
+              expect(subject).to be_able_to(:crud, attendance)
             end
           end
         end
@@ -275,12 +275,12 @@ describe Ability do
               expect(subject).to be_able_to :crud, student_team
             end
 
-            it 'allows select conferences on own team' do
-              expect(subject).to be_able_to :update_conferences, student_team
+            it 'allows update conferences on own team' do
+              expect(subject).to be_able_to :update_attendances, student_team
             end
 
-            it 'does not allow select conferences on own team' do
-              expect(subject).not_to be_able_to :update_conferences, Team.new
+            it 'does not allow update attendances for other teams' do
+              expect(subject).not_to be_able_to :update_attendances, Team.new
             end
 
             it 'allows to create team for different season' do
