@@ -6,18 +6,38 @@ RSpec.describe ProjectsController do
   let(:project) { FactoryGirl.create(:project) }
 
   describe 'GET index' do
-    before { Timecop.travel Date.parse('2015-12-15') }
 
-    let!(:proposed) { FactoryGirl.create(:project, season: Season.succ, name: 'proposed project') }
-    let!(:accepted) { FactoryGirl.create(:project, :accepted, season: Season.succ, name: 'accepted project') }
-    let!(:rejected) { FactoryGirl.create(:project, :rejected, season: Season.succ, name: 'rejected project') }
+    context 'between seasons' do
+      before { Timecop.travel Date.parse('2015-12-15') }
 
-    it 'hides rejected projects' do
-      get :index
-      expect(response).to be_success
-      expect(response.body).to include 'proposed project'
-      expect(response.body).to include 'accepted project'
-      expect(response.body).not_to include 'rejected project'
+      let!(:proposed) { FactoryGirl.create(:project, season: Season.succ, name: 'proposed project') }
+      let!(:accepted) { FactoryGirl.create(:project, :accepted, season: Season.succ, name: 'accepted project') }
+      let!(:rejected) { FactoryGirl.create(:project, :rejected, season: Season.succ, name: 'rejected project') }
+
+      it 'hides rejected projects' do
+        get :index
+        expect(response).to be_success
+        expect(response.body).to include 'proposed project'
+        expect(response.body).to include 'accepted project'
+        expect(response.body).not_to include 'rejected project'
+      end
+    end
+
+    context 'during active Season' do
+      before { allow(Season).to receive(:active?) { true } }
+
+      let!(:proposed) { FactoryGirl.create(:project, season: Season.succ, name: 'proposed project') }
+      let!(:selected) { FactoryGirl.create(:project, :accepted, season: Season.current, name: "selected by a team") }
+      let!(:no_team) { FactoryGirl.create(:project, :in_current_season, :accepted, name: "project without team") }
+      let!(:team) { FactoryGirl.create(:team, :in_current_season, project_name: selected.name) }
+
+      it 'shows selected projects during active Season (≈ May - Sept)' do
+        get :index
+        expect(response).to be_success
+        expect(response.body).to include "selected by a team"
+        expect(response.body).not_to include 'project without team'
+        expect(response.body).not_to include 'proposed project'
+      end
     end
   end
 
