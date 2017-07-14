@@ -148,8 +148,8 @@ describe Ability do
       describe "team's students or admin should be able to mark attendance to a conference" do
         context 'when user is a student from a team and try to update attendance' do
 
-          let!(:user) { FactoryGirl.create(:student) }
-          let!(:attendance) { FactoryGirl.create(:attendance, team_id: user.student_team.id) }
+          let!(:attendance) { FactoryGirl.create(:attendance, :student_attendance) }
+          let!(:user) { attendance.team.students.first }
 
           it 'allows marking of attendance' do
             expect(ability).to be_able_to(:crud, user)
@@ -171,7 +171,7 @@ describe Ability do
         end
       end
 
-      
+
       describe 'to read user info' do
         context 'if not an admin or supervisor' do
           before do
