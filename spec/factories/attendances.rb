@@ -1,13 +1,11 @@
 FactoryGirl.define do
   factory :attendance do
-	  team
-	  conference
+	  team { FactoryGirl.create(:team, :in_current_season) }
+	  conference { FactoryGirl.create(:conference, :in_current_season) }
 
     trait :student_attendance do
       after(:create) do |attendance|
         attendance.team.roles.create name: "student", user: create(:user)
-        attendance.conference.season_id = Season.current.id
-        attendance.save!
         attendance
       end
     end

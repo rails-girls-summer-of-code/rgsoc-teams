@@ -63,14 +63,15 @@ RSpec.describe TeamsController do
 
   describe "GET show" do
     let!(:attendance) { FactoryGirl.create :attendance, :student_attendance }
+    let(:team) { attendance.team }
 
     it "assigns the requested team as @team" do
-      get :show, params: { id: team.to_param }
+      get :show, params: { id: team.id }
       expect(assigns(:team)).to eql team
     end
 
     it 'lists the team conference attendances' do
-      get :show, params: { id: attendance.team.to_param }
+      get :show, params: { id: team.id }
       expect(response).to be_success
       expect(response.body).to match attendance.conference.name
     end
@@ -211,7 +212,7 @@ RSpec.describe TeamsController do
 
           it 'team student user' do
             expect {
-              patch :update, params: { id: team.to_param, team: team_attributes }
+              patch :update, params: { id: team.to_param, team: team_params }
             }.to change { team.attendances.count }.by 2
           end
         end
