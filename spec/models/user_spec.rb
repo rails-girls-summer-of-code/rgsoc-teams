@@ -327,11 +327,24 @@ describe User do
   end
 
   describe '#student_team' do
-     it 'return student current team' do
-      team    = FactoryGirl.create(:team, :in_current_season)
-      student = FactoryGirl.create(:student, team: team)
-      expect(student.student_team).to eql team
+    before do
+      @user_not_student = FactoryGirl.create(:user)
+      @student = FactoryGirl.create(:student)
+      @student_team = @student.teams.first
     end
+
+     it 'the method student_team return the student current team' do
+       expect(@student.student_team).to eql @student_team
+     end
+
+     it 'does not return student_team if when a user is not a student' do
+       expect(@user_not_student.student_team).to eql nil
+     end
+
+     it 'does not return student_team if student does not have a team' do
+       @student.teams.first.destroy
+       expect(@student.student_team).to eql nil
+     end
   end
 
   describe 'Search for user names and team names' do
