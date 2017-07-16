@@ -2,13 +2,12 @@ nav.page
   .back-nav
     ul
       li = icon('chevron-left')
-      li = link_to 'All mailings', mailings_path, class: 'back'
+      li = link_to 'All mailings', orga_mailings_path, class: 'back'
 
-- if can?(:crud, Submission)
-  nav.actions
-    ul.list-inline
-      li = link_to 'Edit', edit_mailing_path(@mailing), class: 'btn btn-default btn-sm edit'
-      li = link_to 'Delete', mailing_path(@mailing), method: :delete, class: 'btn btn-default btn-sm destroy', data: { confirm: 'This action cannot be undone. Are you sure?' }
+nav.actions
+  ul.list-inline
+    li = link_to 'Edit', edit_orga_mailing_path(@mailing), class: 'btn btn-default btn-sm edit'
+    li = link_to 'Delete', orga_mailing_path(@mailing), method: :delete, class: 'btn btn-default btn-sm destroy', data: { confirm: 'This action cannot be undone. Are you sure?' }
 
 h1 class="mailing" = @mailing.subject
 
@@ -30,5 +29,4 @@ dl.dl-horizontal
   .body
     = render_markdown(@mailing.body).html_safe
 
-- if can?(:read, Submission)
-  = render partial: 'submissions', locals: { mailing: @mailing, submissions: @mailing.submissions }
+= render partial: 'submissions', locals: { mailing: @mailing, submissions: @mailing.submissions }

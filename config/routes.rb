@@ -62,15 +62,12 @@ Rails.application.routes.draw do
   resources :roles, only: [] do
     put :confirm, on: :member
   end
+  resources :mailings, only: [:index, :show]
 
   get 'calendar/index', as: :calendar
   get 'calendar/events', to: 'calendar#events'
 
   get 'pages/:page', to: 'pages#show', as: :page
-
-  resources :mailings do
-    resources :submissions
-  end
 
   get 'orga/users/info', to: 'orga/users_info#index', as: :orga_users_info
   patch 'orga/seasons/switch_phase', to: 'orga/seasons#switch_phase', as: :switch_phase
@@ -91,6 +88,9 @@ Rails.application.routes.draw do
       collection { post :import }
     end
     resources :exports, only: [:index, :create]
+    resources :mailings do
+      resources :submissions
+    end
   end
 
   namespace :students do

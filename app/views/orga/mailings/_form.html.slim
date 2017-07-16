@@ -1,4 +1,4 @@
-= simple_nested_form_for @mailing do |f|
+= simple_nested_form_for ([:orga, @mailing ])do |f|
   - if @mailing.errors.any?
     #error_explanation
       h2 = "#{pluralize(@mailing.errors.count, "error")} prohibited this mailing from being saved:"

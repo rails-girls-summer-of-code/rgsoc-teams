@@ -1,0 +1,19 @@
+h1 Mailings
+
+p.pagination-info
+  /= page_entries_info @mailings
+
+- if @mailings.any?
+  table.table.table-striped.table-bordered.table-condensed
+    thead
+      tr
+        th Sent
+        th Subject
+        th Seasons
+        th Group
+        th To
+        th From
+    tbody
+      = render @mailings
+
+  = paginate @mailings, theme: 'twitter-bootstrap-3', pagination_class: 'pagination-sm'
