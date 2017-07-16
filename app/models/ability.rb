@@ -53,11 +53,11 @@ class Ability
       user.admin? || (preference.team.students.include? user)
     end
 
+    #todo add mailing controller and view for users in their namespace, where applicable
     can :read, Mailing do |mailing|
       mailing.recipient? user
     end
-    can :crud, Mailing    if user.admin?
-    can :crud, Submission if user.admin?
+
     can :crud, :comments  if user.admin?
     can :read, :users_info if user.admin? || user.supervisor?
 
