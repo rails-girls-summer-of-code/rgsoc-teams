@@ -6,17 +6,14 @@ describe MailingsController do
   let(:mailing)        { FactoryGirl.create(:mailing) }
   let(:user)           { FactoryGirl.create(:user) }
 
-  shared_context 'User logged in' do
-    before { sign_in user }
-  end
-
   describe 'GET index' do
     before { mailing }
 
     context 'with user logged in' do
-      include_context 'User logged in'
+      # include_context 'with user logged in' # => red
+      before { sign_in user }                 # => green
 
-      it 'renders the index template' do
+      it 'renders the index' do
         get :index
         expect(response).to render_template 'index'
       end
@@ -26,38 +23,21 @@ describe MailingsController do
       it 'denies access' do
         get :index
         expect(response).to redirect_to root_path
-        expect(flash[:alert]).to match 'not authorized'
+        expect(flash[:alert]).to match /not authorized/
       end
     end
   end
 
   describe 'GET show' do
-    shared_examples_for 'Denies Access to Mailing' do
-      it 'denies access' do
-        get :show, params: { id: mailing.to_param }
-        expect(response).to redirect_to root_path
-        expect(flash[:alert]).to match 'not authorized'
-      end
-    end
 
-    context 'with user logged in' do
-      let(:user) { FactoryGirl.create(:student) }
+    context 'with student user logged in' do
+      include_context 'with student logged in'
 
-      include_context 'User logged in'
-
-      it_behaves_like 'Denies Access to Mailing'
-
-      it 'renders the show template for user in recipients list' do
+      it 'renders the show template for student recipient' do
         mailing.update(to: %w(students))
         get :show, params: { id: mailing.to_param }
         expect(response).to render_template 'show'
       end
-
-    end
-
-    context 'as guest user' do
-      it_behaves_like 'Denies Access to Mailing'
     end
   end
-
 end
