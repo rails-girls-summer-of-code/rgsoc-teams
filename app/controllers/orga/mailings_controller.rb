@@ -59,4 +59,9 @@ class Orga::MailingsController < Orga::BaseController
       { from: ENV['EMAIL_FROM'], to: 'teams', seasons: [Season.current.name] }
     end
   end
+
+  def set_breadcrumbs
+    super
+    @breadcrumbs << [ 'Mailings', :mailings]
+  end
 end
