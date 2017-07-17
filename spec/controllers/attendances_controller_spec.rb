@@ -1,8 +1,8 @@
 require 'spec_helper'
 
 RSpec.describe AttendancesController do
-  let!(:user) { FactoryGirl.create(:student)}
-  let!(:attendance) { FactoryGirl.create(:attendance, team: user.teams.first, confirmed: false) }
+  let!(:attendance) { FactoryGirl.create(:attendance, :student_attendance, confirmed: false) }
+  let!(:user) { attendance.team.students.first }
 
   before :each do
     sign_in user

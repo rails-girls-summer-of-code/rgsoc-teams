@@ -309,7 +309,7 @@ describe User do
     end
 
     it 'returns false if user has a random student role' do
-      student = FactoryGirl.create(:student)
+      student = FactoryGirl.build(:student)
       expect(student).not_to be_current_student
     end
 
