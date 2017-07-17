@@ -25,38 +25,13 @@ describe Orga::MailingsController do
         expect(response).to render_template 'show'
       end
     end
+
+    describe 'GET edit' do
+      it 'renders the edit template' do
+        get :edit, params: { id: mailing.to_param }
+        expect(response).to be_success
+        expect(response).to render_template 'edit'
+      end
+    end
   end
-
-
-
-
-
-    # shared_examples_for 'Denies Access to Mailing' do
-    #   it 'denies access' do
-    #     get :show, params: { id: mailing.to_param }
-    #     expect(response).to redirect_to root_path
-    #     expect(flash[:alert]).to match 'not authorized'
-    #   end
-    # end
-
-    # context 'with user logged in' do
-    #   let(:user) { FactoryGirl.create(:student) }
-    #
-    #   include_context 'User logged in'
-    #
-    #   # it_behaves_like 'Denies Access to Mailing'
-    #
-    #   it 'renders the show template for user in recipients list' do
-    #     mailing.update(to: %w(students))
-    #     get :show, params: { id: mailing.to_param }
-    #     expect(response).to render_template 'show'
-    #   end
-    #
-    # end
-
-    # context 'as guest user' do
-    #   it_behaves_like 'Denies Access to Mailing'
-    # end
-  # end
-
 end

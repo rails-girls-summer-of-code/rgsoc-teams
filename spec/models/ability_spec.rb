@@ -202,16 +202,9 @@ describe Ability do
 
       end
 
-
       describe 'access to mailings' do
         let!(:mailing) { Mailing.new }
         let!(:user) { FactoryGirl.create(:student) }
-
-        context 'when user is admin' do
-          let(:user) { FactoryGirl.create(:organizer) }
-
-          it { expect(subject).to be_able_to :crud, mailing }
-        end
 
         context 'when user is a recipient' do
           it 'allows to read' do
