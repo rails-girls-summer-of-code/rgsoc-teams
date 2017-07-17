@@ -76,7 +76,7 @@
     fieldset.conferences_fieldset
       = f.simple_fields_for :attendances do |c|
         = c.hidden_field :option, value: c.object.option
-        = c.input :conference_id, collection: @conferences, label: c.object.option == 1 ? "Primary choice" : "Secondary Choice", prompt: "Conference", wrapper_html: { class: 'col-md-8' }
+        = c.input :conference_id, collection: @conferences.group_by(&:region), as: :grouped_select, group_method: :last, label: c.object.option == 1 ? "Primary choice" : "Secondary Choice", prompt: "Conference", wrapper_html: { class: 'col-md-8' }
 
   .actions
     ul.list-inline
