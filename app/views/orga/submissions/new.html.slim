@@ -10,7 +10,6 @@ p The email "#{@mailing.subject}" will be sent to the following recipients:
 
 p = @mailing.emails.join(', ')
 
-= simple_nested_form_for @submission, url: orga_mailing_submissions_path([:orga, @mailing]) do |f|
+= simple_nested_form_for @submission, url: orga_mailing_submissions_path(@mailing) do |f|
   .actions
     = f.submit 'Submit now', class: 'btn'
-
