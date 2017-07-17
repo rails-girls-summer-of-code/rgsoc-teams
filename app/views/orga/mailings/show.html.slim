@@ -9,24 +9,5 @@ nav.actions
     li = link_to 'Edit', edit_orga_mailing_path(@mailing), class: 'btn btn-default btn-sm edit'
     li = link_to 'Delete', orga_mailing_path(@mailing), method: :delete, class: 'btn btn-default btn-sm destroy', data: { confirm: 'This action cannot be undone. Are you sure?' }
 
-h1 class="mailing" = @mailing.subject
-
-dl.dl-horizontal
-  dt Seasons
-  dd = @mailing.seasons.any? ? @mailing.seasons.join(', ') : '-'
-  dt Group
-  dd = @mailing.group.humanize
-  dt To
-  dd = Array(@mailing.to).map(&:capitalize).join(', ')
-  dt Recipients count
-  dd = @mailing.recipients.users.count
-  dt From
-  dd = @mailing.from
-  dt Sent at
-  dd = @mailing.sent_at ? @mailing.sent_at.to_formatted_s(:short) : '-'
-
-.mailing
-  .body
-    = render_markdown(@mailing.body).html_safe
-
+= render 'mailings/details', namespace: :orga, mailings: @mailing
 = render partial: 'submissions', locals: { mailing: @mailing, submissions: @mailing.submissions }

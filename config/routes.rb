@@ -62,7 +62,7 @@ Rails.application.routes.draw do
   resources :roles, only: [] do
     put :confirm, on: :member
   end
-  resources :mailings, only: [:index, :show]
+  resources :mailings
 
   get 'calendar/index', as: :calendar
   get 'calendar/events', to: 'calendar#events'

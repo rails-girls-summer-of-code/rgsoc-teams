@@ -1,9 +1,11 @@
 class MailingsController < ApplicationController
+  before_action :redirect, except: [:index, :show]
   before_action :normalize_params, only: [:create, :update]
   before_action :set_mailings, only: :index
   before_action :set_mailing, only: :show
 
-  load_and_authorize_resource
+  def new
+  end
 
   def index
     authorize! :read, :mailing
@@ -13,13 +15,8 @@ class MailingsController < ApplicationController
     authorize! :read, :mailing
   end
 
-  def create
-  end
-
-  def update
-  end
-
-  def destroy
+  def redirect
+    redirect_to orga_mailings_path
   end
 
   private

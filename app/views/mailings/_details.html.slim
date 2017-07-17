@@ -1,0 +1,19 @@
+h1 class="mailing" = @mailing.subject
+
+dl.dl-horizontal
+  dt Seasons
+  dd = @mailing.seasons.any? ? @mailing.seasons.join(', ') : '-'
+  dt Group
+  dd = @mailing.group.humanize
+  dt To
+  dd = Array(@mailing.to).map(&:capitalize).join(', ')
+  dt Recipients count
+  dd = @mailing.recipients.users.count
+  dt From
+  dd = @mailing.from
+  dt Sent at
+  dd = @mailing.sent_at ? @mailing.sent_at.to_formatted_s(:short) : '-'
+
+.mailing
+  .body
+    = render_markdown(@mailing.body).html_safe
