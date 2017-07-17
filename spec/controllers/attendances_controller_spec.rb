@@ -25,6 +25,25 @@ RSpec.describe AttendancesController do
       expect(attendance.reload.confirmed).to be_falsy
     end
 
+    context 'when the user is not a student' do
+      let!(:user) { FactoryGirl.create(:user) }
+
+      it 'throw  a not found status' do
+        expect {
+          post :update, params: { id: attendance.id, attendance: { confirmed: true } }
+        }.to raise_error ActiveRecord::RecordNotFound
+      end
+    end
+
+    context 'when the user is a student from another team' do
+      let!(:user) { FactoryGirl.create(:student) }
+
+      it 'throw a not found status' do
+        expect {
+          post :update, params: { id: attendance.id, attendance: { confirmed: true } }
+        }.to raise_error ActiveRecord::RecordNotFound
+      end
+    end
   end
 
   describe 'DELETE destroy' do
