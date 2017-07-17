@@ -6,7 +6,8 @@
     dd = @conference.date_range
     dt Twitter
     dd = format_conference_twitter(@conference.twitter)
-    dt Homepage
-    dd = link_to @conference.url, @conference.url
+    -if @conference.url
+      dt Homepage
+      dd = link_to @conference.url, @conference.url
     dt Notes
     dd = @conference.notes
