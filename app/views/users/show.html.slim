@@ -48,23 +48,6 @@ nav.actions
       - @user.teams.each do |team|
         li #{link_to team.display_name, team} &ndash; #{role_names(team, @user)}
 
-  - if @user&.student_team&.conferences&.any?
-    h4 Conferences
-    ul.conferences
-      - @user.student_team.attendances.joins(:conference).order('conferences.starts_on').each do |a|
-        li
-          = links_to_conferences([a.conference]).first
-          - if @user == current_user
-            '#{link_to "Tweet About It!", conference_tweet_link(a.conference), class: 'btn btn-default'}
-          - if can?(:crud, a) and admin?
-            ul.actions
-              - if a.confirmed?
-                li Confirmed
-                li = link_to('Revoke', attendance_path(a, attendance: { confirmed: false }), method: :put, class: 'confirm')
-              - else
-                li = link_to('Yes, I can attend', attendance_path(a, attendance: { confirmed: true }), method: :put, class: 'confirm')
-                li = link_to('No, I cannot attend', attendance_path(a), method: :delete, class: 'cancel', data: { confirm: 'Are you sure? Your ticket will go back into the pool of available tickets.' })
-
   - if can_see_private_info?
     - fields = ['tshirt_size', 'postal_address']
     .well.private-info
