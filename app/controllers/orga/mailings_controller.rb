@@ -4,7 +4,7 @@ class Orga::MailingsController < Orga::BaseController
 
   def index
     authorize! :read, :mailing
-    @mailings = mailings
+    @mailings = Mailing.order('id DESC').page(params[:page])
   end
 
   def show
@@ -41,10 +41,6 @@ class Orga::MailingsController < Orga::BaseController
 
   def find_mailing
     @mailing = Mailing.find(params[:id])
-  end
-
-  def mailings
-    Mailing.order('id DESC').page(params[:page])
   end
 
   def normalize_params
