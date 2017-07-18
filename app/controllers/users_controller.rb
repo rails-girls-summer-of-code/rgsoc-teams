@@ -27,9 +27,6 @@ class UsersController < ApplicationController
   end
 
   def edit
-    if current_user.admin?
-      @user.attendances.build unless @user.attendances.any?
-    end
   end
 
   def create
