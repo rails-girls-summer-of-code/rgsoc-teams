@@ -46,6 +46,7 @@ class TeamsController < ApplicationController
   end
 
   def update
+    @conferences = conference_list
     respond_to do |format|
       if @team.update_attributes(team_params)
         format.html { redirect_to @team, notice: 'Team was successfully updated.' }
