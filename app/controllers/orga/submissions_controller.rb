@@ -1,6 +1,5 @@
 class Orga::SubmissionsController < Orga::BaseController
   before_action :find_mailing
-  before_action :set_submission, only: :update
 
   def new
     @submission = Submission.new(mailing: @mailing)
@@ -12,6 +11,7 @@ class Orga::SubmissionsController < Orga::BaseController
   end
 
   def update
+    @submission = @mailing.submissions.find(params[:id])
     @submission.enqueue
     redirect_to orga_mailing_path(@mailing), flash: { notice: 'Resubmitting.' }
   end
@@ -20,10 +20,6 @@ class Orga::SubmissionsController < Orga::BaseController
 
   def find_mailing
     @mailing = Mailing.find(params[:mailing_id])
-  end
-
-  def set_submission
-    @submission = @mailing.submissions.find(params[:id])
   end
 end
 

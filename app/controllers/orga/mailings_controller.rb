@@ -40,7 +40,7 @@ class Orga::MailingsController < Orga::BaseController
   private
 
   def find_mailing
-    @mailing ||= Mailing.find(params[:id])
+    @mailing = Mailing.find(params[:id])
   end
 
   def mailings

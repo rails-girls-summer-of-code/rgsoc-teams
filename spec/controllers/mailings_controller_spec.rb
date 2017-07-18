@@ -3,8 +3,8 @@ require 'spec_helper'
 describe MailingsController do
   render_views
 
-  let(:mailing)        { FactoryGirl.create(:mailing) }
-  let(:user)           { FactoryGirl.create(:user) }
+  let!(:mailing) { FactoryGirl.create(:mailing) }
+  let!(:user) { FactoryGirl.create(:user) }
 
   describe 'GET index' do
     before { mailing }
@@ -13,6 +13,7 @@ describe MailingsController do
       # include_context 'with user logged in' # => red
       before { sign_in user }                 # => green
 
+      it { puts user.pretty_print_inspect }
       it 'renders the index' do
         get :index
         expect(response).to render_template 'index'
