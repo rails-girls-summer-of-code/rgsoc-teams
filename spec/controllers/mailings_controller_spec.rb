@@ -7,13 +7,20 @@ describe MailingsController do
   let!(:user) { FactoryGirl.create(:user) }
 
   describe 'GET index' do
-    before { mailing }
-
     context 'with user logged in' do
-      # include_context 'with user logged in' # => red
+
+      # I wanted to use the shared_context 'with user logged in'
+      # If I do that, instead of the `before { sign_in user }`,
+      # it throws the following error:
+      # " MailingsController GET index with user logged in renders the index
+      # " Failure/Error: expect(response).to render_template 'index'
+      # " expecting <"index"> but was a redirect to <http://test.host/>
+        #" ./spec/controllers/mailings_controller_spec.rb:20:in `block (4 levels) in <top (required)>'
+      #
+      #include_context 'with user logged in' # => red
+
       before { sign_in user }                 # => green
 
-      it { puts user.pretty_print_inspect }
       it 'renders the index' do
         get :index
         expect(response).to render_template 'index'

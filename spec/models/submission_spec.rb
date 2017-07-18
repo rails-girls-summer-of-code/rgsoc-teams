@@ -1,23 +1,25 @@
 require 'spec_helper'
 
+# MEMO I replaced the original specs with specs that address the
+#  public methods.
+
 describe Submission do
-  let(:submission) { FactoryGirl.create(:submission) }
+  let(:submission) { FactoryGirl.build(:submission) }
+  let(:unsent) { FactoryGirl.create(:submission, sent_at: nil)}
 
-  context 'valid' do
-    it 'should not give an error' do
-      expect(submission.errored?).to eql false
-    end
-  end
-
-  context 'sent' do
-    it 'should have been sent' do
-      expect(Submission.unsent).not_to eql nil
+  describe '#sent?' do
+    it 'lists unsent submissions' do
+      expect(Submission.unsent).to include(unsent)
+      expect(Submission.unsent).not_to include(submission)
     end
   end
 
   describe '#enqueue' do
-    it 'sent into delivery' do
-
+    it 'submission is lined up for delivery' do
+      ActiveJob::Base.queue_adapter = :test
+      expect {
+        Submission.create
+      }.to have_enqueued_job.on_queue('mailers')
     end
   end
 end
