@@ -1,6 +1,6 @@
 h1 Mailings
 
-- if @mailings.any?
+- if mailings.any?
   table.table.table-striped.table-bordered.table-condensed
     thead
       tr
@@ -14,5 +14,5 @@ h1 Mailings
       = render @mailings
 
 p.pagination-info
-  = page_entries_info @mailings
-  = paginate @mailings, theme: 'twitter-bootstrap-3', pagination_class: 'pagination-sm'
+  = page_entries_info mailings
+  = paginate mailings, theme: 'twitter-bootstrap-3', pagination_class: 'pagination-sm'
