@@ -92,8 +92,6 @@ nav.page
   - @team.attendances.each do |a|
     li
       = links_to_conferences([a.conference]).first
-      - if @user == current_user
-      '#{link_to "Tweet About It!", conference_tweet_link(a.conference), class: 'btn btn-default'}
       - if can?(:crud, a) and admin?
         ul.actions
           - if a.confirmed?
