@@ -26,7 +26,7 @@ class Ability
     end
 
     can :update_attendances, Team do |team|
-      user.student? && (team.students.include? user)
+      user.admin? or (user.student? && (team.students.include? user))
     end
 
     cannot :create, Team do |team|
