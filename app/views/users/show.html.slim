@@ -66,7 +66,7 @@ nav.actions
                 li = link_to('No, I cannot attend', attendance_path(a), method: :delete, class: 'cancel', data: { confirm: 'Are you sure? Your ticket will go back into the pool of available tickets.' })
 
   - if can_see_private_info?
-    - fields = ['tshirt_size', 'postal_address']
+    - fields = ['tshirt_size', 'tshirt_cut', 'postal_address']
     .well.private-info
       h3 Private info
       - fields.each do |field|
