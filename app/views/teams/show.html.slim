@@ -92,7 +92,7 @@ nav.page
   - @team.attendances.each do |a|
     li
       = links_to_conferences([a.conference]).first
-      - if can?(:crud, a) and admin?
+      - if can?(:confirm_attendance, @team)
         ul.actions
           - if a.confirmed?
             li Confirmed

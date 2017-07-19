@@ -29,6 +29,10 @@ class Ability
       user.admin? or (user.student? && (team.students.include? user))
     end
 
+    can :confirm_attendance, Team do |team|
+      team.students.include? user
+    end
+
     cannot :create, Team do |team|
       on_team_for_season?(user, team.season) || !user.confirmed?
     end

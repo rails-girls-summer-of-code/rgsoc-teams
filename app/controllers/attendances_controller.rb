@@ -1,12 +1,8 @@
 class AttendancesController < ApplicationController
 
   def update
-    if current_user.student_team
-      attendance.update_attributes!(attendance_params)
-      redirect_back fallback_location: user_path(current_user), notice: 'Ok, successfully updated'
-    else
-      raise ActiveRecord::RecordNotFound
-    end
+    attendance.update_attributes!(attendance_params)
+    redirect_back fallback_location: user_path(current_user), notice: 'Ok, successfully updated'
   end
 
   def destroy
