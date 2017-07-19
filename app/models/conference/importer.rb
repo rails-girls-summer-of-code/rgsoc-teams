@@ -3,18 +3,19 @@ class Conference::Importer
 
   ## This importer is depending on agreed-upon input format.
   ## Input file:
+  # - Input format should be .tsv tab separated values
   # - Dates should be formatted with dd mm yyyy
   # - UID should be unique and formatted with season + id: 2017001
-  # - The headers should not be changed
+  # - The column names should not be changed (extra columns are neglected)
   # Output:
   # - Conferences will be updated or created
-  # - Conferences deleted in the input file, are not removed from the table
-  # - Import errors are logged in a Rails Logger
+  # - Conferences deleted in the input file, will not be removed from the table
+  # - Import errors are logged in Rails Logger
   # - UID is mapped to 'gid' ('google-id' LOL), and has the format: 2017001
 
   class << self
     def call(filename, content_type:)
-      raise ArgumentError, "Oops! I can upload .csv only :-(" unless content_type == "text/csv"
+      raise ArgumentError, "Oops! I can upload .tsv only :-(" unless content_type == "text/tab-separated-values"
       new(filename)
     end
 
@@ -49,7 +50,7 @@ class Conference::Importer
   end
 
   def process_csv
-    CSV.foreach(filename, headers: true, col_sep: ';' ) do |row|
+    CSV.foreach(filename, headers: true, col_sep: '/t' ) do |row|
       begin
         conference = Conference.find_or_initialize_by(gid: row['UID'])
         conference_attributes = {

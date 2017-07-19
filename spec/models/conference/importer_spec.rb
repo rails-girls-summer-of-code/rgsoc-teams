@@ -8,12 +8,12 @@ RSpec.describe Conference::Importer do
     # valid: 2017001, 2017002, *2018*005 and 2017006 .
     # invalid: 2017003: no name, 2017004: start date later than end date
 
-    let!(:file) { "spec/fixtures/files/test.csv" }
+    let!(:file) { "spec/fixtures/files/test.tsv" }
 
     subject { described_class.call(file, content_type: content_type) }
 
     context 'with valid file' do
-      let(:content_type) { 'text/csv' }
+      let(:content_type) { 'text/tab-separated-values' }
 
       it 'imports the valid conferences' do
         expect{subject}.to change { Conference.count }.from(0).to(4)
@@ -53,7 +53,7 @@ RSpec.describe Conference::Importer do
       end
     end
 
-    context 'with non-csv file' do
+    context 'with non-tsv file' do
       let(:content_type) { 'application/json' }
 
       it 'raises an error with other mime_type' do
