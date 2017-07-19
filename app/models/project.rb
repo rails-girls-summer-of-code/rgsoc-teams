@@ -37,8 +37,8 @@ class Project < ActiveRecord::Base
   end
 
   def self.selected
-    project_names = Team.in_current_season.accepted.pluck(:project_name).uniq
-    Project.in_current_season.where(name: project_names)
+    project_names = Team.in_current_season.accepted.pluck(:project_name)
+    Project.in_current_season.accepted.where(name: project_names)
   end
 
   def taglist
