@@ -195,7 +195,6 @@ RSpec.describe TeamsController do
           end
         end
 
-      #TODO: refactor this test
       context 'selecting the conference options' do
         let(:conference_1) { FactoryGirl.create(:conference, :in_current_season)}
         let(:conference_2) { FactoryGirl.create(:conference, :in_current_season)}
