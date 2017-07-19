@@ -1,8 +1,6 @@
 class MailingsController < ApplicationController
-  before_action :redirect, except: [:index, :show]
 
-  def new
-  end
+  load_and_authorize_resource
 
   def index
     @mailings = Mailing.order('id DESC').page(params[:page])
@@ -14,9 +12,8 @@ class MailingsController < ApplicationController
     authorize! :read, :mailing
   end
 
-  def redirect
-    redirect_to orga_mailings_path
-  end
+  def new; end
+  def edit; end
 
   private
 
