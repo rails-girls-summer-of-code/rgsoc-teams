@@ -20,7 +20,7 @@
         <td><%= conference.city %></td>
         <td><%= conference.country %></td>
         <td><%= conference.region %></td>
-        <td><%= link_to conference.url, conference.url %></td>
+        <td><%= link_to conference.url, conference.url if conference.url.present? %></td>
         <td><%= conference.notes %></td>
         <td><%= conference.gid %></td>
       </tr>
