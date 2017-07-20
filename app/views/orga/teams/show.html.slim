@@ -75,7 +75,7 @@ nav.btn-group
   p = @team.supervisors.any? ? link_to_team_members(@team, :supervisor) : content_tag(:em, 'Will be added by RGSoC Organizers')
 
 - if @team.conferences.in_current_season.any?
-  h4 Conferences
+  h4 Conference preferences
   ul.conferences
   - @team.conferences.in_current_season.each do |conference|
      li = link_to "#{conference.name}: #{conference.location}", conference
