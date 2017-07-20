@@ -92,14 +92,6 @@ nav.page
   - @team.attendances.each do |a|
     li
       = links_to_conferences([a.conference]).first
-      - if can?(:confirm_attendance, @team)
-        ul.actions
-          - if a.confirmed?
-            li Confirmed
-            li = link_to('Revoke', attendance_path(a, attendance: { confirmed: false }), method: :put, class: 'confirm')
-          - else
-            li = link_to('Yes, I can attend', attendance_path(a, attendance: { confirmed: true }), method: :put, class: 'confirm')
-            li = link_to('No, I cannot attend', attendance_path(a), method: :delete, class: 'cancel', data: { confirm: 'Are you sure? Your ticket will go back into the pool of available tickets.' })
 
 - if @team.activities.any?
   h3
