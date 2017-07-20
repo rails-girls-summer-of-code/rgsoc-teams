@@ -49,7 +49,7 @@ nav.actions
         li #{link_to team.display_name, team} &ndash; #{role_names(team, @user)}
 
   - if can_see_private_info?
-    - fields = ['tshirt_size', 'postal_address']
+    - fields = ['tshirt_size', 'tshirt_cut', 'postal_address']
     .well.private-info
       h3 Private info
       - fields.each do |field|
