@@ -54,8 +54,8 @@ RSpec.describe Conference do
       subject { FactoryGirl.build_stubbed(:conference, tickets: 2) }
       
       it 'subtracts conference preferences' do
-        allow(subject).to receive(:conference_preferences).and_return([attendance])
-        left_tickets = subject.tickets - subject.attendances.size
+        allow(subject).to receive(:conference_preferences).and_return([conference_preference])
+        left_tickets = subject.tickets - subject.conference_preferences.size
         expect(subject.tickets_left).to eq(left_tickets)
       end
     end
