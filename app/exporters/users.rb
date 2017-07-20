@@ -18,8 +18,8 @@ module Exporters
       students = User.with_role('student').with_team_kind(%w(sponsored voluntary)).
         where("teams.season_id" => season)
 
-      generate(students, 'User ID', 'Name', 'Email', 'Country', 'Locality', 'Address', 'T-shirt size') do |u|
-        [u.id, u.name, u.email, u.country, u.location, u.postal_address, u.tshirt_size]
+      generate(students, 'User ID', 'Name', 'Email', 'Country', 'Locality', 'Address', 'T-shirt size', 'T-shirt cut') do |u|
+        [u.id, u.name, u.email, u.country, u.location, u.postal_address, u.tshirt_size, u.tshirt_cut]
       end
     end
 
