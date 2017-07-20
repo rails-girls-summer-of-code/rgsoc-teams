@@ -94,15 +94,15 @@ ActiveRecord::Schema.define(version: 20170720135154) do
     t.index ["commentable_id", "commentable_type"], name: "index_comments_on_commentable_id_and_commentable_type"
   end
 
-  create_table "conferencePreferences", id: :serial, force: :cascade do |t|
+  create_table "conference_preferences", id: :serial, force: :cascade do |t|
     t.boolean "confirmed"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "team_id"
     t.bigint "conference_id"
     t.integer "option"
-    t.index ["conference_id"], name: "index_conferencePreferences_on_conference_id"
-    t.index ["team_id"], name: "index_conferencePreferences_on_team_id"
+    t.index ["conference_id"], name: "index_conference_preferences_on_conference_id"
+    t.index ["team_id"], name: "index_conference_preferences_on_team_id"
   end
 
   create_table "conferences", id: :serial, force: :cascade do |t|
@@ -307,6 +307,6 @@ ActiveRecord::Schema.define(version: 20170720135154) do
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
   end
 
-  add_foreign_key "conferencePreferences", "conferences"
-  add_foreign_key "conferencePreferences", "teams"
+  add_foreign_key "conference_preferences", "conferences"
+  add_foreign_key "conference_preferences", "teams"
 end
