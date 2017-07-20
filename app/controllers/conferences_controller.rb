@@ -1,7 +1,8 @@
 class ConferencesController < ApplicationController
- before_action :redirect, except: [:index, :show]
+ before_action :redirect, except: [:index, :show, :new]
 
   def new
+    @conference = Conference.new
   end
 
   def index
