@@ -57,6 +57,7 @@
   h3.page-header Private information
   p.help-block This information will only be visible to yourself and the organizers.
   = f.input :tshirt_size, as: :select, collection: User::TSHIRT_SIZES.map { |k| [k, k] }, label: 'T-Shirt size', blank: false, required: false, hint: 'For sponsor T-Shirts, in case they send some.'
+  = f.input :tshirt_cut, as: :select, collection: User::TSHIRT_CUTS.map { |s| [s, s] }, label: 'T-Shirt cut', include_blank: true
   = f.input :postal_address, hint: "Please give your postal address, including your full name, so we can send things we've received from our sponsors for you :)"
 
   - if admin?
