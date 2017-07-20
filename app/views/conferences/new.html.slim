@@ -1,0 +1,45 @@
+nav.page
+  .back-nav
+    ul
+      li = icon('chevron-left')
+      li = link_to 'Back', class: 'back'
+nav.actions
+  ul.list-inline
+    li = link_to 'Cancel', class: 'btn btn-default btn-sm'
+
+h1.page-header Create a new conference
+
+= simple_nested_form_for @conference do |f|
+  - if @conference.errors.any?
+    .alert.alert-danger
+      h4 = "#{pluralize(@conference.errors.count, "error")} prohibited this conference from being saved:"
+      ul
+        - @conference.errors.full_messages.each do |message|
+          li = message
+
+  .page-header
+   h2 Conference info
+  fieldset
+   = f.input :name, wrapper_html: { class: 'col-md-6' }
+   = f.input :twitter, placeholder: '@', wrapper_html: { class: 'col-md-6' }
+   = f.input :starts_on, as: :string, input_html: {type: :date}, label: 'Conference start date', wrapper_html: { class: 'col-md-6' }
+   = f.input :ends_on, as: :string, input_html: {type: :date}, label: 'Conference end date', wrapper_html: { class: 'col-md-6' }
+   = f.input :notes, placeholder: 'Conference notes', label: 'Conference notes', wrapper_html: { class: 'col-md-12' }
+
+  .page-header
+   h2 Conference location
+  fieldset
+    = f.input :location, placeholder: 'Conference location', wrapper_html: { class: 'col-md-6' }
+    = f.input :city, placeholder: 'Conference city', wrapper_html: { class: 'col-md-6' }
+    = f.input :country, required: true, as: :country, prompt: "Select the country", wrapper_html: { class: 'col-md-6' }
+    = f.input :region, placeholder: 'Conference region', wrapper_html: { class: 'col-md-6' }
+
+  .page-header
+   h2 Conference details
+  fieldset
+   = f.input :url, placeholder: 'Conference page', wrapper_html: { class: 'col-md-12' }
+
+  .actions
+    ul.list-inline
+      li = f.submit 'Save', class: 'btn btn-success'
+      li = link_to 'Cancel', @conference, class: 'btn btn-default'
