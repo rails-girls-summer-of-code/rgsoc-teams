@@ -73,20 +73,20 @@ RSpec.describe UsersController do
     end
 
     context 'with conferences' do
-      let!(:attendance) { FactoryGirl.create :attendance, :student_attendance }
-      let(:user)        { attendance.team.students.first }
-      let(:conference)  { attendance.conference }
+      let!(:preference) { FactoryGirl.create :conference_preference, :student_preference }
+      let(:user)        { preference.team.students.first }
+      let(:conference)  { preference.conference }
 
-      context 'with attendance orphans' do
-        let!(:orphan) { FactoryGirl.create :attendance, :student_attendance }
+      context 'with conferences preferences orphans' do
+        let!(:orphan) { FactoryGirl.create :conference_preference, :student_preference }
         let!(:conference) { orphan.conference }
-        let!(:user) { attendance.team.members.first }
+        let!(:user) { preference.team.members.first }
 
         before { orphan.conference.destroy }
 
-        # There are some stale attendance records in the system since
+        # There are some stale conferences preferences records in the system since
         # attendences used to stick around when their conference was deleted
-        it 'will not list attendances w/o conference' do
+        it 'will not list conferences preferences w/o conference' do
           get :show, params: { id: user.to_param }
           expect(response).to be_success
           expect(response.body).not_to match conference.name

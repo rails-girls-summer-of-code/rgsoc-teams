@@ -69,12 +69,12 @@
               = s.link_to_remove 'Remove', class: 'btn btn-default'
       .form-group.form-btn-group
         = f.link_to_add 'Add another source', :sources, class: 'btn btn-primary col-sm-offset-3'
-  -if can?(:update_attendances, @team)
+  -if can?(:update_conference_preferences, @team)
     .page-header
       h2 Conference preferences
 
     fieldset.conferences_fieldset
-      = f.simple_fields_for :attendances do |c|
+      = f.simple_fields_for :conference_preferences do |c|
         = c.hidden_field :option, value: c.object.option
         = c.input :conference_id, collection: @conferences.group_by(&:region), as: :grouped_select, group_method: :last, label: c.object.option == 1 ? "Primary choice" : "Secondary Choice", prompt: "Conference", wrapper_html: { class: 'col-md-8' }
 

@@ -89,7 +89,7 @@ nav.page
 - if @team.conferences.in_current_season.any?
   h4 Conference preferences
   ul.conferences
-  - @team.attendances.each do |a|
+  - @team.conference_preferences.each do |a|
     li
       = links_to_conferences([a.conference]).first
 

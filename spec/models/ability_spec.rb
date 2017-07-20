@@ -145,27 +145,27 @@ describe Ability do
         end
       end
 
-      describe "team's students or admin should be able to mark attendance to a conference" do
-        context 'when user is a student from a team and try to update attendance' do
+      describe "team's students or admin should be able to mark preferences to a conference" do
+        context 'when user is a student from a team and try to update conference preferences' do
 
-          let!(:attendance) { FactoryGirl.create(:attendance, :student_attendance) }
-          let!(:user) { attendance.team.students.first }
+          let!(:conference_preference) { FactoryGirl.create(:conference_preference, :student_preference) }
+          let!(:user) { conference_preference.team.students.first }
 
-          it 'allows marking of attendance' do
-            expect(ability).to be_able_to(:crud, attendance)
+          it 'allows marking of conference preference' do
+            expect(ability).to be_able_to(:crud, conference_preference)
           end
 
           context 'when user is admin' do
             let!(:organiser_role) { FactoryGirl.create(:organizer_role, user: user)}
-            it "should be able to crud attendance" do
-              expect(subject).to be_able_to(:crud, attendance)
+            it "should be able to crud conference preference" do
+              expect(subject).to be_able_to(:crud, conference_preference)
             end
           end
         end
 
         context 'when different users' do
           let!(:other_user) { FactoryGirl.create(:user)}
-          let!(:attendance) { FactoryGirl.create(:attendance, team: team)}
+          let!(:conference_preference) { FactoryGirl.create(:conference_preference, team: team)}
           it { expect(ability).not_to be_able_to(:crud, other_user) }
 
         end
@@ -276,11 +276,11 @@ describe Ability do
             end
 
             it 'allows update conferences on own team' do
-              expect(subject).to be_able_to :update_attendances, student_team
+              expect(subject).to be_able_to :update_conference_preferences, student_team
             end
 
-            it 'does not allow update attendances for other teams' do
-              expect(subject).not_to be_able_to :update_attendances, Team.new
+            it 'does not allow update conference preferences for other teams' do
+              expect(subject).not_to be_able_to :update_conference_preferences, Team.new
             end
 
             it 'allows to create team for different season' do

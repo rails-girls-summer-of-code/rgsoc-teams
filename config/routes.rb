@@ -26,7 +26,7 @@ Rails.application.routes.draw do
   resources :sources, only: :index
   resources :comments, only: :create
   resources :conferences
-  resources :attendances
+  resources :conference_preferences
   resources :contributors, only: :index
   resources :students, only: :index
   resources :status_updates, only: :show
