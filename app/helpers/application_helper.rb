@@ -123,13 +123,6 @@ module ApplicationHelper
     end.compact
   end
 
-  def links_to_attendances(conference)
-    conference.attendances.joins(:team).map do |attendance|
-      team = attendance.team
-      link_to(team.name, team, class: attendance.confirmed? ? 'confirmed' : '')
-    end
-  end
-
   def links_to_user_teams(user)
     user.teams.map do |team|
       link_to(team.name || team.project, team, class: "team #{team.sponsored? ? 'sponsored' : ''}")
