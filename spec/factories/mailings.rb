@@ -2,5 +2,6 @@
 
 FactoryGirl.define do
   factory :mailing do
+    to 'students'
   end
 end

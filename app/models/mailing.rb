@@ -1,5 +1,8 @@
 class Mailing < ActiveRecord::Base
+
   TO = %w(teams students coaches helpdesk organizers supervisors developers mentors)
+
+  validates :to, presence: true
 
   serialize :to
 
