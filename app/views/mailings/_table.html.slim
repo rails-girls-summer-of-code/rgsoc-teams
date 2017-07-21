@@ -11,7 +11,7 @@ h1 Mailings
         th To
         th From
     tbody
-      = render mailings
+      = render partial: 'mailings/mailing', collection: mailings, as: :mailing
 
 p.pagination-info
   = page_entries_info mailings
