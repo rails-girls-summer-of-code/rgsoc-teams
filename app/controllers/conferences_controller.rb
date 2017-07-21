@@ -1,5 +1,5 @@
 class ConferencesController < ApplicationController
- before_action :redirect, except: [:index, :show, :new]
+ before_action :redirect, except: [:index, :show, :new, :create]
 
   def new
     @conference = Conference.new
@@ -13,14 +13,37 @@ class ConferencesController < ApplicationController
     @conference = Conference.find(params[:id])
   end
 
+  def create
+    @conference = Conference.new(conference_params)
+    respond_to do |format|
+      if @conference.save
+        format.html { redirect_to params[:redirect_to].presence || @conference, notice: 'Conference was successfully created.' }
+        format.json { render action: :show, status: :created, location: @conference }
+      else
+        format.html { render action: :new }
+        format.json { render json: @conference.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
   def redirect
     redirect_to orga_conferences_path
   end
 
   private
+
+  def generate_gid(conference)
+    conference.gid = year + 
+  end
  
   def conferences
     Conference.ordered(sort_params).in_current_season
+  end
+
+  def conference_params
+    params.require(:conference).permit(
+      :name, :twitter, :starts_on, :ends_on, :notes, :country, :region, :location, :city, :url
+    )
   end
 
   def sort_params

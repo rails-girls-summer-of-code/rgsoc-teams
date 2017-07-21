@@ -2,6 +2,14 @@ require 'csv'
 class Conference < ActiveRecord::Base
   include HasSeason
 
+  REGION_LIST = [
+    "Africa",
+    "South America",
+    "North America",
+    "Europe",
+    "Asia Pacific"
+  ]
+
   has_many :attendances, dependent: :destroy
   has_many :attendees, through: :attendances, source: :user
   validates :name, presence: true
