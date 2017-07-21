@@ -3,9 +3,6 @@ nav.page
     ul
       li = icon('chevron-left')
       li = link_to 'Back', class: 'back'
-nav.actions
-  ul.list-inline
-    li = link_to 'Cancel', class: 'btn btn-default btn-sm'
 
 h1.page-header Create a new conference
 
@@ -29,10 +26,11 @@ h1.page-header Create a new conference
   .page-header
    h2 Conference location
   fieldset
-    = f.input :location, placeholder: 'Conference location', wrapper_html: { class: 'col-md-6' }
-    = f.input :city, placeholder: 'Conference city', wrapper_html: { class: 'col-md-6' }
     = f.input :country, required: true, as: :country, prompt: "Select the country", wrapper_html: { class: 'col-md-6' }
-    = f.input :region, placeholder: 'Conference region', wrapper_html: { class: 'col-md-6' }
+    = f.input :region, required: true, collection: Conference::REGION_LIST, prompt: 'Select the conference region', wrapper_html: { class: 'col-md-6' }
+    = f.input :location, required: true, placeholder: 'Conference location', wrapper_html: { class: 'col-md-6' }
+    = f.input :city, required: true, placeholder: 'Conference city', wrapper_html: { class: 'col-md-6' }
+   
 
   .page-header
    h2 Conference details

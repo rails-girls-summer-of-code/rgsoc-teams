@@ -4,6 +4,14 @@ class Conference < ActiveRecord::Base
 
   has_many :conference_preferences, dependent: :destroy
   has_many :attendees, through: :conference_preferences, source: :team
+  REGION_LIST = [
+    "Africa",
+    "South America",
+    "North America",
+    "Europe",
+    "Asia Pacific"
+  ]
+
   validates :name, presence: true
   validate :chronological_dates, if: proc { |conf| conf.starts_on && conf.ends_on }
 
