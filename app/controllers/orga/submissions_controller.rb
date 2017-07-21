@@ -7,7 +7,7 @@ class Orga::SubmissionsController < Orga::BaseController
 
   def create
     @mailing.submit
-    redirect_to @mailing, flash: { notice: 'Submitting.' }
+    redirect_to orga_mailing_path(@mailing), flash: { notice: 'Submitting.' }
   end
 
   def update
