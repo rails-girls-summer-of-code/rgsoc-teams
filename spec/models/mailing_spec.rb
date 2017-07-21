@@ -10,6 +10,7 @@ describe Mailing do
     body: '# body'
   ) }
 
+  it { is_expected.to validate_presence_of(:to) }
   it { is_expected.to have_many(:submissions).dependent(:destroy) }
 
   describe '#sent?' do
@@ -20,7 +21,7 @@ describe Mailing do
     end
 
     it 'returns true after submitting' do
-      mailing.save! # I need to save the parent (mailing) before I can submit (mailing.submit fires submission.create).
+      mailing.save!
       mailing.submit
       expect(mailing.sent_at).not_to be_nil
       expect(mailing.submissions).not_to be_nil
@@ -39,6 +40,7 @@ describe Mailing do
     let(:student) { FactoryGirl.create(:student) }
 
     it 'returns false for a an empty recipients list' do
+      subject.to = nil
       expect(subject.recipient? student).to be_falsey
     end
 

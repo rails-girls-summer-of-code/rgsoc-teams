@@ -1,8 +1,5 @@
 require 'spec_helper'
 
-# MEMO I replaced the original specs with specs that address the
-#  public methods.
-
 describe Submission do
   let(:submission) { FactoryGirl.build(:submission) }
   let(:unsent) { FactoryGirl.create(:submission, sent_at: nil)}
