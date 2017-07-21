@@ -89,9 +89,10 @@ nav.page
 - if @team.conferences.in_current_season.any?
   h4 Conference preferences
   ul.conferences
-  - @team.conference_preferences.each do |a|
+  - @team.conference_preferences.each do |preference|
     li
-      = links_to_conferences([a.conference]).first
+      = links_to_conferences([preference.conference]).first
+      = preference_option(preference)
 
 - if @team.activities.any?
   h3
