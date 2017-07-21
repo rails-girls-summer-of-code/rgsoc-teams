@@ -4,7 +4,6 @@ describe MailingsController do
   render_views
 
   let!(:mailing) { create(:mailing) }
-  let!(:user) { create(:user) }
 
   describe 'GET index' do
     context 'with user logged in' do
