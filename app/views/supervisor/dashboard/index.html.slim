@@ -53,7 +53,7 @@ div.row
           - if t.activities.any?
             p = "Their latest update is from #{ time_ago_in_words(t.last_activity.created_at) } ago."
             h5 = t.last_activity.title
-            p = (t.last_activity.content).html_safe
+            p = t.last_activity.content.html_safe
             = link_to "Show all", activities_path(team_id: t.id)
           - else
             p Your team hasn't written any status updates yet.
