@@ -1,6 +1,7 @@
 class Mailing < ActiveRecord::Base
 
   TO = %w(teams students coaches helpdesk organizers supervisors developers mentors)
+  FROM = ENV['EMAIL_FROM'] || 'contact@rgsoc.org'
 
   validates :subject, :to, presence: true
 
@@ -29,6 +30,10 @@ class Mailing < ActiveRecord::Base
       Activity.create!(kind: 'mailing', guid: id, author: from, title: subject, content: body, published_at: sent_at)
     end
   end
+
+  # def prefill_from
+  #   ENV['EMAIL_FROM'] || 'contact@rgsoc.org'
+  # end
 
   def recipients
     @recipients ||= Recipients.new(self)

@@ -13,7 +13,7 @@
       = f.input :group, as: :radio_buttons, collection: Mailing.groups.map { |k, v| [k.humanize, k.to_s] }, required: false
     .col-md-4
       = f.input :to, as: :check_boxes, collection: Mailing::TO.map { |k| [k.capitalize, k] }, blank: false, required: false
-  = f.input :from, placeholder: 'From'
+  = f.input :from, placeholder: 'From', input_html: { value: Mailing::FROM }
   = f.input :cc, placeholder: 'cc'
   = f.input :subject, placeholder: 'Subject'
   = f.input :body, hint: 'You can use basic <a href="http://en.wikipedia.org/wiki/Markdown">Markdown</a> here.'.html_safe

@@ -43,12 +43,7 @@ class Orga::MailingsController < Orga::BaseController
   end
 
   def mailing_params
-    if params[:mailing]
-      self.params.require(:mailing)
-        .permit(:group, :from, :cc, :bcc, :subject, :body, to: [], seasons: [])
-    else
-      { from: ENV['EMAIL_FROM'], to: 'teams', seasons: [Season.current.name] }
-    end
+    params.require(:mailing).permit(:group, :from, :cc, :bcc, :subject, :body, to: [], seasons: [])
   end
 
   def set_breadcrumbs
