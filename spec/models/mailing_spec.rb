@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Mailing do
   let(:mailing) { Mailing.new(
-    from: 'from@email.com',
+    from: Mailing::FROM,
     to: 'coaches',
     cc: 'cc@email.com',
     bcc: 'bcc@email.com',
@@ -11,6 +11,7 @@ describe Mailing do
   ) }
 
   it { is_expected.to validate_presence_of(:to) }
+  it { is_expected.to validate_presence_of(:subject) }
   it { is_expected.to have_many(:submissions).dependent(:destroy) }
 
   describe '#sent?' do
@@ -33,6 +34,10 @@ describe Mailing do
     it 'delivers emails to all recipients' do
       expect(mailing.recipients.emails).to eq(["cc@email.com", "bcc@email.com"])
       expect(mailing.recipients.to).to eq "coaches"
+    end
+
+    it 'has a default sender' do
+      expect(mailing.from).not_to be_nil
     end
   end
 

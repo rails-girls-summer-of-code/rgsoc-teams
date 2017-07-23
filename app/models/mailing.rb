@@ -31,10 +31,6 @@ class Mailing < ActiveRecord::Base
     end
   end
 
-  # def prefill_from
-  #   ENV['EMAIL_FROM'] || 'contact@rgsoc.org'
-  # end
-
   def recipients
     @recipients ||= Recipients.new(self)
   end
