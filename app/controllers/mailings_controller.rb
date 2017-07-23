@@ -9,7 +9,6 @@ class MailingsController < ApplicationController
 
   def show
     @mailing = Mailing.find(params[:id])
-    authorize! :read, :mailing
   end
 
   def new; end

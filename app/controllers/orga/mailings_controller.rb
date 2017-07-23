@@ -3,12 +3,7 @@ class Orga::MailingsController < Orga::BaseController
   before_action :find_mailing, only: [:show, :edit, :update, :destroy]
 
   def index
-    authorize! :read, :mailing
     @mailings = Mailing.order('id DESC').page(params[:page])
-  end
-
-  def show
-    authorize! :read, :mailing
   end
 
   def new
