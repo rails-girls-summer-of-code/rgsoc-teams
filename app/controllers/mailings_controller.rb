@@ -4,7 +4,7 @@ class MailingsController < ApplicationController
 
   def index
     @mailings = Mailing.order('id DESC').page(params[:page])
-    authorize! :read, @mailing
+    authorize! :read, :mailing
   end
 
   def show
