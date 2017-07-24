@@ -33,7 +33,7 @@ class Orga::ConferencesController < Orga::BaseController
       :round, :lightningtalkslots, :tickets, :flights, :accomodation,
       :gid, #id in orga's Google Spreadsheet (format: 2017001)
       :notes,
-      conference_preferences_attributes: [:id, :github_handle, :_destroy]
+      conference_preferences_attributes: [:id, :_destroy]
     )
   end
 
