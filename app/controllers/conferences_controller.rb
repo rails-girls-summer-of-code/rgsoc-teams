@@ -15,6 +15,8 @@ class ConferencesController < ApplicationController
 
   def create
     @conference = Conference.new(conference_params)
+    generate_gid(@conference)
+
     respond_to do |format|
       if @conference.save
         format.html { redirect_to params[:redirect_to].presence || @conference, notice: 'Conference was successfully created.' }
@@ -33,7 +35,7 @@ class ConferencesController < ApplicationController
   private
 
   def generate_gid(conference)
-    conference.gid = year + 
+    conference.gid = Time.now.getutc
   end
  
   def conferences
@@ -41,8 +43,9 @@ class ConferencesController < ApplicationController
   end
 
   def conference_params
+    byebug
     params.require(:conference).permit(
-      :name, :twitter, :starts_on, :ends_on, :notes, :country, :region, :location, :city, :url
+      :name, :twitter, :starts_on, :ends_on, :notes, :country, :region, :location, :city, :url, :season_id
     )
   end
 
