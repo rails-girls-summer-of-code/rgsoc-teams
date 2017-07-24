@@ -1,5 +1,6 @@
 class ConferencesController < ApplicationController
- before_action :redirect, except: [:index, :show, :new, :create]
+  before_action :authenticate_user!, except: [:index, :show]
+  before_action :confirm_role, except: [:index, :show]
 
   def new
     @conference = Conference.new
@@ -46,6 +47,10 @@ class ConferencesController < ApplicationController
     params.require(:conference).permit(
       :name, :twitter, :starts_on, :ends_on, :notes, :country, :region, :location, :city, :url, :season_id
     )
+  end
+
+  def confirm_role
+    redirect unless current_user.admin? || current_user.student?
   end
 
   def sort_params
