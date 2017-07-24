@@ -28,7 +28,7 @@ class Team < ActiveRecord::Base
   has_many :conference_preferences, dependent: :destroy
   has_many :conferences, through: :conference_preferences
 
-  accepts_nested_attributes_for :conference_preferences, allow_destroy: true
+  accepts_nested_attributes_for :conference_preferences, allow_destroy: true, reject_if: :without_preferences?
   accepts_nested_attributes_for :roles, :sources, allow_destroy: true
 
   before_create :set_number
@@ -176,6 +176,10 @@ class Team < ActiveRecord::Base
 
   def two_students_present?
     students.reload.select(&:persisted?).size == 2
+  end
+
+  def without_preferences?(att)
+    att[:conference_id].blank?
   end
 
   # def must_have_members
