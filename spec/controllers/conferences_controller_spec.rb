@@ -24,10 +24,30 @@ RSpec.describe ConferencesController do
   end
 
   describe 'new' do
-    it 'redirects unauthorized users' do
-      get :new
-      expect(response).to redirect_to orga_conferences_path
-      expect(Conference).to_not receive(:create)
+    context 'unauthenticated users' do
+      it 'cannot create new conference' do
+        get :new
+        expect(response).to redirect_to(root_url)
+      end
+    end
+
+    context 'student logged in' do
+      let!(:student) { FactoryGirl.create(:student) }
+      before :each do
+        sign_in student
+      end
+
+      it 'are allowed to visit a new conference view' do
+        get :new
+        expect(response).to render_template("new")
+      end
+
+      it 'are allowed to create a new conference' do
+        expect{
+          post :create, params: { conference: {name: 'name', country: 'country', region: 'region', location: 'location', city: 'city', season_id:'1'}}
+        }.to change { Conference.count }.by(1)
+        expect(response).to redirect_to(conference_path(1))
+      end
     end
   end
 end
