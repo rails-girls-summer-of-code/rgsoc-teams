@@ -43,7 +43,6 @@ class ConferencesController < ApplicationController
   end
 
   def conference_params
-    byebug
     params.require(:conference).permit(
       :name, :twitter, :starts_on, :ends_on, :notes, :country, :region, :location, :city, :url, :season_id
     )

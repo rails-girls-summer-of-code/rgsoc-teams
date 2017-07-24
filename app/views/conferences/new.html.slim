@@ -18,10 +18,10 @@ h1.page-header Create a new conference
    h2 Conference info
   fieldset
    = f.hidden_field :season_id, value: current_season.id
-   = f.input :name, wrapper_html: { class: 'col-md-6' }
-   = f.input :twitter, placeholder: '@', wrapper_html: { class: 'col-md-6' }
-   = f.input :starts_on, as: :string, input_html: {type: :date}, label: 'Conference start date', wrapper_html: { class: 'col-md-6' }
-   = f.input :ends_on, as: :string, input_html: {type: :date}, label: 'Conference end date', wrapper_html: { class: 'col-md-6' }
+   = f.input :name, required: true, wrapper_html: { class: 'col-md-12' }
+   = f.input :twitter, placeholder: '@', wrapper_html: { class: 'col-md-12' }
+   = f.input :starts_on, as: :date, html5: true, required: true, label: 'Conference start date', wrapper_html: { class: 'col-md-6' }
+   = f.input :ends_on, as: :date, html5: true, required: true, label: 'Conference end date', wrapper_html: { class: 'col-md-6' }
    = f.input :notes, placeholder: 'Conference notes', label: 'Conference notes', wrapper_html: { class: 'col-md-12' }
 
   .page-header
