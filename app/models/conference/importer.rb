@@ -49,7 +49,7 @@ class Conference::Importer
   end
 
   def process_csv
-    CSV.foreach(filename, headers: true, col_sep: ';' ) do |row|
+    CSV.foreach(filename, headers: true, col_sep: ',' ) do |row|
       begin
         conference = Conference.find_or_initialize_by(gid: row['UID'])
         conference_attributes = {
