@@ -28,7 +28,7 @@ table.table.table-striped.table-bordered.table-condensed
                 = avatar_url(user, size: 20)
                 = link_to(user.name_or_handle, user)
       - if current_season.active?
-        td = links_to_conferences(team.members.map { |u| u.conferences.in_current_season }.flatten.uniq).join(', ').html_safe
+        td = links_to_conferences(team.conferences.in_current_season).join(', ').html_safe
       td = team.students_location
       - if current_user.try :admin?
         td = format_date(team.last_checked_at)

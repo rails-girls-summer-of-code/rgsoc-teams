@@ -25,6 +25,10 @@ class Ability
       user.admin? or signed_in?(user) && team.new_record? or on_team?(user, team)
     end
 
+    can :update_conference_preferences, Team do |team|
+      user.admin? or (user.student? && (team.students.include? user))
+    end
+
     cannot :create, Team do |team|
       on_team_for_season?(user, team.season) || !user.confirmed?
     end
@@ -45,8 +49,8 @@ class Ability
       user.roles.organizer.any? || team.supervisors.include?(user)
     end
 
-    can :crud, Attendance do |attendance|
-      user.admin? || user == attendance.user
+    can :crud, ConferencePreference do |preference|
+      user.admin? || (preference.team.students.include? user)
     end
 
     can :read, Mailing do |mailing|

@@ -94,8 +94,6 @@ class User < ActiveRecord::Base
   has_many :teams, -> { distinct }, through: :roles
   has_many :application_drafts, through: :teams
   has_many :applications, through: :teams
-  has_many :attendances, dependent: :destroy
-  has_many :conferences, through: :attendances
   has_many :todos, dependent: :destroy
 
   validates :github_handle, presence: true, uniqueness: { case_sensitive: false }
@@ -104,7 +102,6 @@ class User < ActiveRecord::Base
 
   validates :name, :email, :country, :location, presence: true, unless: :github_import
 
-  accepts_nested_attributes_for :attendances, allow_destroy: true
   accepts_nested_attributes_for :roles, allow_destroy: true
 
   before_save :sanitize_location
@@ -154,7 +151,6 @@ class User < ActiveRecord::Base
     end
 
     def with_all_associations_joined
-      includes(:conferences).group("conferences.id").references(:conferences).
       includes(:roles).group("roles.id").
       includes(roles: :team).group("teams.id")
     end
@@ -214,6 +210,10 @@ class User < ActiveRecord::Base
     q_user_names = User.where("users.name ILIKE ?", "%#{search}%")
     q_team_names = User.with_teams.where("teams.name ILIKE ?", "%#{search}%")
     (q_user_names + q_team_names).uniq
+  end
+
+  def student_team
+    teams.in_current_season.last if student?
   end
 
   private
