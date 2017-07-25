@@ -18,26 +18,20 @@ h1.page-header Create a new conference
    h2 Conference info
   fieldset
    = f.hidden_field :season_id, value: current_season.id
-   = f.input :name, required: true, wrapper_html: { class: 'col-md-12' }
+   = f.input :name, required: true,placeholder: 'Conference name', wrapper_html: { class: 'col-md-12' }
+   = f.input :url, required: true, placeholder: 'Conference website', wrapper_html: { class: 'col-md-12' }
    = f.input :twitter, placeholder: '@', wrapper_html: { class: 'col-md-12' }
    = f.input :starts_on, as: :date, html5: true, required: true, label: 'Conference start date', wrapper_html: { class: 'col-md-6' }
    = f.input :ends_on, as: :date, html5: true, required: true, label: 'Conference end date', wrapper_html: { class: 'col-md-6' }
-   = f.input :notes, placeholder: 'Conference notes', label: 'Conference notes', wrapper_html: { class: 'col-md-12' }
+   = f.input :notes, label: 'Conference notes', wrapper_html: { class: 'col-md-12' }
 
   .page-header
    h2 Conference location
   fieldset
-    = f.input :country, required: true, as: :country, prompt: "Select the country", wrapper_html: { class: 'col-md-6' }
-    = f.input :region, required: true, collection: Conference::REGION_LIST, prompt: 'Select the conference region', wrapper_html: { class: 'col-md-6' }
-    = f.input :location, required: true, placeholder: 'Conference location', wrapper_html: { class: 'col-md-6' }
-    = f.input :city, required: true, placeholder: 'Conference city', wrapper_html: { class: 'col-md-6' }
+    = f.input :country, required: true, as: :country, prompt: "Conference country", wrapper_html: { class: 'col-md-12' }
+    = f.input :region, required: true, collection: Conference::REGION_LIST, prompt: 'Conference region', wrapper_html: { class: 'col-md-12' }
+    = f.input :city, required: true, placeholder: 'Conference city', wrapper_html: { class: 'col-md-12' }
    
-
-  .page-header
-   h2 Conference details
-  fieldset
-   = f.input :url, placeholder: 'Conference page', wrapper_html: { class: 'col-md-12' }
-
   .actions
     ul.list-inline
       li = f.submit 'Save', class: 'btn btn-success'
