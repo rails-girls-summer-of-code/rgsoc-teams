@@ -3,6 +3,7 @@ class ConferencesController < ApplicationController
   before_action :confirm_role, except: [:index, :show]
 
   def new
+    @team_id = params[:team]
     @conference = Conference.new
   end
 
@@ -17,11 +18,12 @@ class ConferencesController < ApplicationController
   def create
     @conference = Conference.new(conference_params)
     generate_gid(@conference)
+    @team = Team.find(params[:team_id])
 
     respond_to do |format|
       if @conference.save
-        format.html { redirect_to params[:redirect_to].presence || @conference, notice: 'Conference was successfully created.' }
-        format.json { render action: :show, status: :created, location: @conference }
+        format.html { redirect_to params[:redirect_to].presence || edit_team_path(@team), notice: 'Conference was successfully created.' }
+        format.json { render action: :edit, status: :created, location: @team }
       else
         format.html { render action: :new }
         format.json { render json: @conference.errors, status: :unprocessable_entity }
