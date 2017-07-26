@@ -1,0 +1,18 @@
+h1 Mailings
+
+- if mailings.any?
+  table.table.table-striped.table-bordered.table-condensed
+    thead
+      tr
+        th Sent
+        th Subject
+        th Seasons
+        th Group
+        th To
+        th From
+    tbody
+      = render partial: 'mailings/mailing', collection: mailings, as: :mailing
+
+p.pagination-info
+  = page_entries_info mailings
+  = paginate mailings, theme: 'twitter-bootstrap-3', pagination_class: 'pagination-sm'
