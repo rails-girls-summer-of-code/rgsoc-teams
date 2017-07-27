@@ -35,8 +35,8 @@ class ConferencesController < ApplicationController
 
   private
 
-  def generate_gid(conference)
-    conference.gid = Time.now.getutc
+  def generate_gid(team)
+    "2017-#{Time.now.getutc.to_i}-#{team.id}"
   end
  
   def conferences
