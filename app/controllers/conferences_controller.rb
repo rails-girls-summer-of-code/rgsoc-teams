@@ -3,7 +3,6 @@ class ConferencesController < ApplicationController
   before_action :confirm_role, except: [:index, :show]
 
   def new
-    @team_id = params[:team_id]
     @conference = Conference.new
   end
 
@@ -16,7 +15,7 @@ class ConferencesController < ApplicationController
   end
 
   def create
-    team = Team.find(params[:team_id])
+    team = current_user.student_team
     @conference = Conference.new(conference_params)
     @conference.season_id = current_season.id
     @conference.gid = generate_gid(team)
