@@ -20,14 +20,10 @@ class ConferencesController < ApplicationController
     generate_gid(@conference)
     @team = Team.find(params[:team_id])
 
-    respond_to do |format|
-      if @conference.save
-        format.html { redirect_to params[:redirect_to].presence || edit_team_path(@team), notice: 'Conference was successfully created.' }
-        format.json { render action: :edit, status: :created, location: @team }
-      else
-        format.html { render action: :new }
-        format.json { render json: @conference.errors, status: :unprocessable_entity }
-      end
+    if @conference.save
+      redirect_to edit_team_path(@team), notice: 'Conference was successfully created.'
+    else
+      render action: :new
     end
   end
 
