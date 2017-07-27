@@ -16,13 +16,14 @@ class ConferencesController < ApplicationController
   end
 
   def create
+    team = Team.find(params[:team_id])
     @conference = Conference.new(conference_params)
-    generate_gid(@conference)
-    @team = Team.find(params[:team_id])
+    @conference.gid = generate_gid(team)
 
     if @conference.save
-      redirect_to edit_team_path(@team), notice: 'Conference was successfully created.'
+      redirect_to edit_team_path(team), notice: 'Conference was successfully created.'
     else
+      @team_id = team.id
       render action: :new
     end
   end
