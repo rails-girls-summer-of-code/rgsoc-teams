@@ -34,6 +34,8 @@ RSpec.describe ConferencesController do
     context 'student logged in' do
       let!(:student) { FactoryGirl.create(:student) }
       let(:team) { student.student_team }
+      let(:params) { { name: 'name', country: 'country', region: 'region', location: 'location', city: 'city', season_id:'1', url: 'www.conference.com' } }
+
       before :each do
         sign_in student
       end
@@ -46,12 +48,7 @@ RSpec.describe ConferencesController do
       it 'are allowed to create a new conference' do
         expect{
           post :create,
-          params: {
-            team_id: team.id,
-            conference: {
-              name: 'name', country: 'country', region: 'region', location: 'location', city: 'city', season_id:'1', url: 'www.conference.com'
-              }
-            }
+          params: { conference: params }
         }.to change { Conference.count }.by(1)
         expect(response).to redirect_to(edit_team_path(team.id))
       end
