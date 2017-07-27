@@ -3,7 +3,7 @@ class ConferencesController < ApplicationController
   before_action :confirm_role, except: [:index, :show]
 
   def new
-    @team_id = params[:team]
+    @team_id = params[:team_id]
     @conference = Conference.new
   end
 
