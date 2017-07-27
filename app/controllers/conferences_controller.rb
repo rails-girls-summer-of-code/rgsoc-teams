@@ -18,6 +18,7 @@ class ConferencesController < ApplicationController
   def create
     team = Team.find(params[:team_id])
     @conference = Conference.new(conference_params)
+    @conference.season_id = current_season.id
     @conference.gid = generate_gid(team)
 
     if @conference.save
@@ -44,7 +45,7 @@ class ConferencesController < ApplicationController
 
   def conference_params
     params.require(:conference).permit(
-      :name, :twitter, :starts_on, :ends_on, :notes, :country, :region, :location, :city, :url, :season_id
+      :name, :twitter, :starts_on, :ends_on, :notes, :country, :region, :location, :city, :url
     )
   end
 

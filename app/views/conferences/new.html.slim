@@ -18,7 +18,6 @@ h1.page-header Create a new conference
    h2 Conference info
   fieldset
    = hidden_field_tag :team_id, @team_id
-   = f.hidden_field :season_id, value: current_season.id
    = f.input :name, required: true,placeholder: 'Conference name', wrapper_html: { class: 'col-md-12' }
    = f.input :url, required: true, placeholder: 'Conference website', wrapper_html: { class: 'col-md-12' }
    = f.input :twitter, placeholder: '@', wrapper_html: { class: 'col-md-12' }
