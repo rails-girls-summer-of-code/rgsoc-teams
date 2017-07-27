@@ -45,7 +45,13 @@ RSpec.describe ConferencesController do
 
       it 'are allowed to create a new conference' do
         expect{
-          post :create, params: { team_id: team.id ,conference: {name: 'name', country: 'country', region: 'region', location: 'location', city: 'city', season_id:'1'}}
+          post :create,
+          params: {
+            team_id: team.id,
+            conference: {
+              name: 'name', country: 'country', region: 'region', location: 'location', city: 'city', season_id:'1', url: 'www.conference.com'
+              }
+            }
         }.to change { Conference.count }.by(1)
         expect(response).to redirect_to(edit_team_path(team.id))
       end

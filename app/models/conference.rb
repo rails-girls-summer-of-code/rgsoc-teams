@@ -12,7 +12,8 @@ class Conference < ActiveRecord::Base
     "Asia Pacific"
   ]
 
-  validates :name, presence: true
+  validates :name, :url, :city, :country, :region, presence: true
+
   validate :chronological_dates, if: proc { |conf| conf.starts_on && conf.ends_on }
 
   accepts_nested_attributes_for :conference_preferences

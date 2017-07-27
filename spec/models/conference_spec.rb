@@ -6,6 +6,10 @@ RSpec.describe Conference do
   it { is_expected.to have_many(:conference_preferences).dependent(:destroy) }
   it { is_expected.to have_many(:attendees) }
   it { is_expected.to validate_presence_of(:name) }
+  it { is_expected.to validate_presence_of(:url) }
+  it { is_expected.to validate_presence_of(:city) }
+  it { is_expected.to validate_presence_of(:country) }
+  it { is_expected.to validate_presence_of(:region) }
 
   describe 'validates chronological dates' do
     subject { FactoryGirl.build(:conference) }
