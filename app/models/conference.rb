@@ -3,7 +3,8 @@ class Conference < ActiveRecord::Base
   include HasSeason
 
   has_many :conference_preferences, dependent: :destroy
-  has_many :attendees, through: :conference_preferences, source: :team
+  has_many :conference_preference_info, through: :conference_preferences
+  has_many :attendees, through: :conference_preference_info, source: :team
   validates :name, presence: true
   validate :chronological_dates, if: proc { |conf| conf.starts_on && conf.ends_on }
 

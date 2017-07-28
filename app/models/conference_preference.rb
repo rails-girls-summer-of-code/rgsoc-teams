@@ -1,5 +1,7 @@
-class ConferencePreference < ActiveRecord::Base
+# frozen_sring_literal: true
 
-  belongs_to :team, inverse_of: :conference_preferences
-  belongs_to :conference, inverse_of: :conference_preferences
+# nodoc
+class ConferencePreference < ActiveRecord::Base
+  belongs_to :conference_preference_info
+  belongs_to :conference
 end

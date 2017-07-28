@@ -1,13 +1,14 @@
 FactoryGirl.define do
   factory :conference_preference do
-    team { FactoryGirl.create(:team, :in_current_season) }
+    conference_preference_info { FactoryGirl.create(:conference_preference_info) }
     conference { FactoryGirl.create(:conference, :in_current_season) }
 
-    trait :student_preference do
-      after(:create) do |preference|
-        preference.team.roles.create name: "student", user: create(:user)
-        preference
-      end
+    trait :first_choice do
+      option 1
+    end
+
+    trait :second_choice do
+      option 2
     end
   end
 end
