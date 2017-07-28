@@ -15,8 +15,11 @@ module Exporters
     private
 
     def export_for_season(season)
-      students = User.with_role('student').with_team_kind(%w(sponsored voluntary)).
-        where("teams.season_id" => season)
+      students = User.joins(roles: :team)
+        .references(:roles, :teams)
+        .where('roles.name' => 'student')
+        .where('teams.kind' => %w(sponsored voluntary))
+        .where('teams.season_id' => season)
 
       generate(students, 'User ID', 'Name', 'Email', 'Country', 'Locality', 'Address', 'T-shirt size', 'T-shirt cut') do |u|
         [u.id, u.name, u.email, u.country, u.location, u.postal_address, u.tshirt_size, u.tshirt_cut]

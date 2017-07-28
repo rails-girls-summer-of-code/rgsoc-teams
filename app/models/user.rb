@@ -135,11 +135,11 @@ class User < ActiveRecord::Base
     end
 
     def with_role(*names)
-      joins(:roles).where('roles.name' => names.flatten)
+      joins(:roles).references(:roles).where('roles.name' => names.flatten)
     end
 
     def with_assigned_roles
-      joins(:roles).where('roles.id IS NOT NULL')
+      joins(:roles).references(:roles).where('roles.id IS NOT NULL')
     end
 
     def with_teams
@@ -147,7 +147,7 @@ class User < ActiveRecord::Base
     end
 
     def with_team_kind(kind)
-      joins(:teams).where('teams.kind' => kind)
+      joins(:teams).references(:teams).where('teams.kind' => kind)
     end
 
     def with_all_associations_joined
