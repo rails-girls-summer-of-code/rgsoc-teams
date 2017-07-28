@@ -1,5 +1,5 @@
 $(function() {
-  $('#team_conference_preferences_attributes_0_conference_id').on("change", function() {
+  $('#team_conference_preference_info_attributes_conference_preferences_attributes_0_conference_id').on("change", function() {
       $("select option").attr("disabled",false);
       disableOptions();
     });
