@@ -62,8 +62,8 @@ RSpec.describe TeamsController do
   end
 
   describe "GET show" do
-    let!(:preference) { FactoryGirl.create :conference_preference, :student_preference }
-    let(:team) { preference.team }
+    let!(:preferences_info) { FactoryGirl.create :conference_preference_info, :with_preferences }
+    let(:team) { preferences_info.team }
 
     it "assigns the requested team as @team" do
       get :show, params: { id: team.id }
@@ -73,7 +73,8 @@ RSpec.describe TeamsController do
     it 'lists the team conference preferences' do
       get :show, params: { id: team.id }
       expect(response).to be_success
-      expect(response.body).to match preference.conference.name
+      expect(response.body).to match preferences_info.conference_preferences.first.conference.name
+      expect(response.body).to match preferences_info.conference_preferences.last.conference.name
     end
   end
 
@@ -199,20 +200,65 @@ RSpec.describe TeamsController do
           let(:conference_1) { FactoryGirl.create(:conference, :in_current_season)}
           let(:conference_2) { FactoryGirl.create(:conference, :in_current_season)}
           let(:team_params) do
-            build(:team).attributes.merge(:conference_preferences_attributes=>{
-              '0'=>{
-                option: 1, conference_id: conference_1.id
-              },
-              '1'=>{
-                option: 2, conference_id: conference_2.id
+            build(:team).attributes.merge(:conference_preference_info_attributes=>{
+              lightning_talk: true, condition_term_ticket: true, condition_term_cost: true, comment: "comment1", :conference_preferences_attributes=>{
+                '0'=>{
+                  option: 1, conference_id: conference_1.id
+                },
+                '1'=>{
+                  option: 2, conference_id: conference_2.id
+                }
               }
             })
           end
 
           it 'student can set two options of conferences for her team' do
-            expect {
-              patch :update, params: { id: team.to_param, team: team_params }
-            }.to change { team.conference_preferences.count }.by 2
+            patch :update, params: { id: team.to_param, team: team_params }
+            expect(team.conference_preference_info.conference_preferences.count).to eql 2
+          end
+        end
+
+        context 'team fill the conference preferences' do 
+          let(:conference_1) { FactoryGirl.create(:conference, :in_current_season)}
+          let(:conference_2) { FactoryGirl.create(:conference, :in_current_season)}
+          let(:team_params) do
+            build(:team).attributes.merge(:conference_preference_info_attributes=>{
+              lightning_talk: true, condition_term_ticket: true, condition_term_cost: true, comment: "comment1", 
+              :conference_preferences_attributes=>{
+                '0'=>{
+                  option: 1, conference_id: conference_1.id
+                },
+                '1'=>{
+                  option: 2, conference_id: conference_2.id
+                }
+              }
+            })
+          end
+
+          it 'should have accept the terms' do
+            patch :update, params: { id: team.to_param, team: team_params }
+            expect(team.conference_preference_info.condition_term_ticket).to be_truthy
+            expect(team.conference_preference_info.condition_term_ticket).to be_truthy
+          end
+
+          it 'should have a comment filled' do
+            patch :update, params: { id: team.to_param, team: team_params }
+            expect(team.conference_preference_info.comment).to eq "comment1"
+          end
+
+          it 'should have the lightning talk set to true' do
+            patch :update, params: { id: team.to_param, team: team_params }
+            expect(team.conference_preference_info.lightning_talk).to be_truthy
+          end
+
+          it 'first choice for conference preference was recorded' do
+            patch :update, params: { id: team.to_param, team: team_params }
+            expect(team.conference_preference_info.conference_preferences.first.conference.name).to eq conference_1.name
+          end
+
+          it 'second choice for conference preference was recorded' do
+            patch :update, params: { id: team.to_param, team: team_params }
+            expect(team.conference_preference_info.conference_preferences.last.conference.name).to eq conference_2.name
           end
         end
       end

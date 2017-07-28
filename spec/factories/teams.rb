@@ -19,6 +19,15 @@ FactoryGirl.define do
       name 'supervise'
     end
 
+    trait :with_students do
+      after(:create) do |team|
+        %w(student student).each do |role|
+          team.roles.create name: role, user: create(:user)
+          team
+        end
+      end
+    end
+
     trait :applying_team do
       name { FFaker::Product.brand }
 

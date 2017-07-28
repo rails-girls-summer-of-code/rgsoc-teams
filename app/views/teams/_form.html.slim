@@ -74,11 +74,16 @@
       h2 Conference preferences
 
     fieldset.conferences_fieldset
-      = f.simple_fields_for :conference_preferences, f.object.conference_preferences.sort{ |a,b| a.option <=> b.option} do |c|
-        = c.hidden_field :option, value: c.object.option
-        = c.input :conference_id, collection: @conferences.group_by(&:region), as: :grouped_select, group_method: :last, label: c.object.option == 1 ? "Primary choice" : "Secondary Choice", prompt: "Conference", wrapper_html: { class: 'col-md-8' }
+      = f.simple_fields_for :conference_preference_info do |cp_info|  
+        = cp_info.simple_fields_for :conference_preferences, f.object.conference_preference_info.conference_preferences.sort{ |a,b| a.option <=> b.option} do |cp|
+          = cp.hidden_field :option, value: cp.object.option
+          = cp.input :conference_id, collection: @conferences.group_by(&:region), as: :grouped_select, group_method: :last, label: cp.object.option == 1 ? "Primary choice" : "Secondary Choice", prompt: "Conference"
 
-  .actions
+        = cp_info.input :comment, label: "Comments", placeholder:'', input_html: { rows: 5 }, hint: "E.g. 'We would attend conference X only in they provide scholarships / have a LT session' or 'We have already applied for the conference X ourselves' etc."
+        = cp_info.input :lightning_talk, label: "We would like to give a lightning talk if possible"
+        = cp_info.input :condition_term_ticket, label: "I accept tickect terms and conditions", hint: "We understand that RGSoC doesn't guarantee tickets to the conferences of our choice"
+        = cp_info.input :condition_term_cost, label: "I accept cost terms and conditions", hint: "We understand that all travel and accommodation costs will have to be covered by us; hereby we confirm that we are choosing conferences which we can afford"
+  .actions1
     ul.list-inline
       li  = f.submit 'Save', class: 'btn btn-success'
       li = link_to 'Cancel', @team, class: 'btn btn-default'
