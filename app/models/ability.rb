@@ -49,8 +49,8 @@ class Ability
       user.roles.organizer.any? || team.supervisors.include?(user)
     end
 
-    can :crud, ConferencePreference do |preference|
-      user.admin? || (preference.team.students.include? user)
+    can :crud, ConferencePreferenceInfo do |cp_info|
+      user.admin? || (cp_info.team.students.include? user)
     end
 
     can :read, Mailing do |mailing|

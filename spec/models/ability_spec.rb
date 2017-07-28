@@ -148,26 +148,25 @@ describe Ability do
       describe "team's students or admin should be able to mark preferences to a conference" do
         context 'when user is a student from a team and try to update conference preferences' do
 
-          let!(:conference_preference) { FactoryGirl.create(:conference_preference, :student_preference) }
-          let!(:user) { conference_preference.team.students.first }
+          let!(:conference_preference_info) { FactoryGirl.create(:conference_preference_info, :with_preferences) }
+          let!(:user) { conference_preference_info.team.students.first }
 
           it 'allows marking of conference preference' do
-            expect(ability).to be_able_to(:crud, conference_preference)
+            expect(ability).to be_able_to(:crud, conference_preference_info)
           end
 
           context 'when user is admin' do
             let!(:organiser_role) { FactoryGirl.create(:organizer_role, user: user)}
             it "should be able to crud conference preference" do
-              expect(subject).to be_able_to(:crud, conference_preference)
+              expect(subject).to be_able_to(:crud, conference_preference_info)
             end
           end
         end
 
         context 'when different users' do
           let!(:other_user) { FactoryGirl.create(:user)}
-          let!(:conference_preference) { FactoryGirl.create(:conference_preference, team: team)}
-          it { expect(ability).not_to be_able_to(:crud, other_user) }
-
+          let!(:conference_preference_info) { FactoryGirl.create(:conference_preference_info, team: team)}
+          it { expect(ability).not_to be_able_to(:crud, conference_preference_info) }
         end
       end
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170720135154) do
+ActiveRecord::Schema.define(version: 20170726185654) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -94,15 +94,26 @@ ActiveRecord::Schema.define(version: 20170720135154) do
     t.index ["commentable_id", "commentable_type"], name: "index_comments_on_commentable_id_and_commentable_type"
   end
 
+  create_table "conference_preference_infos", force: :cascade do |t|
+    t.boolean "condition_term_ticket", default: false
+    t.boolean "condition_term_cost", default: false
+    t.boolean "lightning_talk", default: false
+    t.text "comment"
+    t.bigint "team_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["team_id"], name: "index_conference_preference_infos_on_team_id"
+  end
+
   create_table "conference_preferences", id: :serial, force: :cascade do |t|
     t.boolean "confirmed"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "team_id"
     t.bigint "conference_id"
     t.integer "option"
+    t.bigint "conference_preference_info_id"
     t.index ["conference_id"], name: "index_conference_preferences_on_conference_id"
-    t.index ["team_id"], name: "index_conference_preferences_on_team_id"
+    t.index ["conference_preference_info_id"], name: "index_conference_preferences_on_conference_preference_info_id"
   end
 
   create_table "conferences", id: :serial, force: :cascade do |t|
@@ -308,6 +319,6 @@ ActiveRecord::Schema.define(version: 20170720135154) do
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
   end
 
+  add_foreign_key "conference_preference_infos", "teams"
   add_foreign_key "conference_preferences", "conferences"
-  add_foreign_key "conference_preferences", "teams"
 end
