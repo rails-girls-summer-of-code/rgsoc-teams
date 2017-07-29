@@ -82,8 +82,7 @@ class TeamsController < ApplicationController
         :name, :twitter_handle, :github_handle, :description, :post_info, :event_id,
         :checked, :'starts_on(1i)', :'starts_on(2i)', :'starts_on(3i)',
         :'finishes_on(1i)', :'finishes_on(2i)', :'finishes_on(3i)', :invisible,
-        :project_name,
-        roles_attributes: role_attributes_list,
+        :project_name, roles_attributes: role_attributes_list,
         conference_preferences_attributes: [:id, :option, :conference_id, :_destroy],
         sources_attributes: [:id, :kind, :url, :_destroy]
       )

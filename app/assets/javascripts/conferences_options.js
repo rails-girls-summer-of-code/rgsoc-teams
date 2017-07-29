@@ -1,7 +1,9 @@
 $(function() {
-  $('#team_conference_preferences_attributes_0_conference_id').on("change", function() {
+  $('.selected_conference').on("change", function() {
+    var selected = $(this);
       $("select option").attr("disabled",false);
       disableOptions();
+      verifyNoneSelected(selected);
     });
 
   function disableOptions(){
@@ -9,7 +11,7 @@ $(function() {
       var bSuccess=false;
       var selectedEl=$(this);
       $("select option:selected").each(function(){
-        if($(this).val()===selectedEl.val()){
+        if($(this).val()===selectedEl.val() && $(this).val() != ''){
           bSuccess=true;
           return false;
         }
@@ -17,4 +19,10 @@ $(function() {
         return bSuccess;
       }).css("display","none");
     }
+
+  function verifyNoneSelected($select){
+    var $optionSelected = $select.find('option:selected');
+    var $parent = $select.parent('.fields');
+    $parent.find('.destroy_option').val($optionSelected.val() === '');
+  }
 });
