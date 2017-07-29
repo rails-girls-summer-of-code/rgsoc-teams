@@ -165,7 +165,7 @@ describe User do
           to receive(:attrs).and_return({ location: '' })
       end
 
-      it 'leaves an undefiend location untouched' do
+      it 'leaves an undefined location untouched' do
         expect { subject.save }.not_to change { subject.location }.from(nil)
       end
 
@@ -177,6 +177,16 @@ describe User do
       it 'unsets a blank location' do
         subject.location = '  '
         expect { subject.save }.to change { subject.location }.to(nil)
+      end
+
+      it 'unifies the location format' do
+        subject.location = "nEw yorK"
+        expect { subject.save }.to change { subject.location }.to("New York")
+      end
+
+      it 'cannot correct invalid input' do
+        subject.location = "Asterdam"
+        expect { subject.save }.not_to change { subject.location }
       end
     end
   end
