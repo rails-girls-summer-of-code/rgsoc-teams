@@ -104,7 +104,7 @@ class User < ActiveRecord::Base
 
   accepts_nested_attributes_for :roles, allow_destroy: true
 
-  before_save :sanitize_location
+  before_save :normalize_location
   after_create :complete_from_github
 
   # This field is used to skip validations when creating
@@ -218,10 +218,9 @@ class User < ActiveRecord::Base
 
   private
 
-  # Ensures that the location column either contains non-whitespace text, or is NULL
-  # This ensures that sorting by location yields useful results
-  def sanitize_location
-    self.location = nil if self.location.blank?
+  # normalization to prevent duplication, NULL for sorting
+  def normalize_location
+    self.location = location.to_s.strip.downcase.titlecase.presence
   end
 
   def complete_from_github
