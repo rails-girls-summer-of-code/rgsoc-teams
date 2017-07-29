@@ -11,7 +11,7 @@ $(function() {
       var bSuccess=false;
       var selectedEl=$(this);
       $("select option:selected").each(function(){
-        if($(this).val()===selectedEl.val() && $(this).val() != ''){
+        if($(this).val()===selectedEl.val() && $(this).val() !== ''){
           bSuccess=true;
           return false;
         }
