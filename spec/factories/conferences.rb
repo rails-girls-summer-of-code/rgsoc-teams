@@ -6,7 +6,7 @@ FactoryGirl.define do
     ends_on { Time.utc(Date.today.year, 7, 15) }
     city { FFaker::Address.city }
     country { FFaker::Address.country }
-    region { 'Africa' }
+    region 'Africa'
     round 1
 
     trait :in_current_season do
