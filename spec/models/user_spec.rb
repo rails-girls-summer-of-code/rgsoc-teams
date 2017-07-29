@@ -180,8 +180,13 @@ describe User do
       end
 
       it 'unifies the location format' do
-        subject.location = "nEw yorK"
+        subject.location = "nEw york"
         expect { subject.save }.to change { subject.location }.to("New York")
+      end
+
+      it 'does not separate words with foul caps' do
+        subject.location = "AMSterdam"
+        expect { subject.save }.to change { subject.location }.to("Amsterdam")
       end
 
       it 'cannot correct invalid input' do
