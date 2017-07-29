@@ -23,7 +23,6 @@ class ConferencesController < ApplicationController
     if @conference.save
       redirect_to edit_team_path(team), notice: 'Conference was successfully created.'
     else
-      @team_id = team.id
       render action: :new
     end
   end
