@@ -10,16 +10,13 @@ class Conference < ActiveRecord::Base
 
   include HasSeason
 
-  has_many :conference_preferences, foreign_key: :first_conference_id, dependent: :destroy
-  has_many :conference_preferences, foreign_key: :second_conference_id, dependent: :destroy
-
-  has_many :attendees, through: :conference_preferences, source: :team
+  has_many :preferences_first_conferences, :class_name => 'ConferencePreference', :foreign_key => 'first_conference_id'
+  has_many :preferences_second_conferences, :class_name => 'ConferencePreference', :foreign_key => 'second_conference_id'
+  has_many :attendees, through: :preferences_first_conferences, source: :team
+  has_many :attendees, through: :preferences_second_conferences, source: :team
 
   validates :name, :url, :city, :country, :region, presence: true
-
   validate :chronological_dates, if: proc { |conf| conf.starts_on && conf.ends_on }
-
-  accepts_nested_attributes_for :conference_preferences
 
   scope :ordered, ->(sort = {}) { order([sort[:order] || 'starts_on, name', sort[:direction] || 'asc'].join(' ')) }
   scope :in_current_season, -> { where(season: Season.current) }
@@ -35,7 +32,7 @@ class Conference < ActiveRecord::Base
   end
 
   def tickets_left
-    confirmed_attendances = conference_preferences.select { |conference_preferences| conference_preferences.confirmed }
+    confirmed_attendances = conference_preference.select { |conference_preference| conference_preference.confirmed }
     tickets.to_i - confirmed_attendances.size
   end
 end

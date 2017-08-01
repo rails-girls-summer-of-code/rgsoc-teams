@@ -86,14 +86,21 @@ nav.page
     h3 Supervisors
     p = @team.supervisors.any? ? link_to_team_members(@team, :supervisor) : content_tag(:em, 'Will be added by RGSoC Organizers')
 
-- if @team.conferences.in_current_season.any?
+- if @team.conference_preference.present?
   h4 Conference preferences
   ul.conferences
-  - @team.conference_preferences.sort_by(&:option).each do |preference|
     li
-      = links_to_conferences([preference.conference]).first
-      = preference_option(preference)
+      = links_to_conferences([@team.conference_preference.first_conference]).first
+      = content_tag :span, 'First conference', class: "label label-primary"
+    li
+      = links_to_conferences([@team.conference_preference.second_conference]).first
+      = content_tag :span, 'Secondary conference' , class: "label label-primary"
 
+- if @team.activities.any?
+  h3
+    span Activities
+    = link_to '<span>Atom Feed</span>'.html_safe, activities_path(format: :atom, team_id: @team.id), class: 'atom'
+  = render 'activities/activities', object: @team.activities.ordered
 - if @team.activities.any?
   h3
     span Activities

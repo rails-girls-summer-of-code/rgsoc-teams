@@ -1,10 +1,11 @@
 require 'spec_helper'
 
-RSpec.describe Conference do
+describe Conference do
   it_behaves_like 'HasSeason'
 
-  it { is_expected.to have_many(:conference_preferences).dependent(:destroy) }
-  it { is_expected.to have_many(:attendees) }
+  it { is_expected.to have_many(:preferences_first_conferences) }
+  it { is_expected.to have_many(:preferences_second_conferences) }
+  it { is_expected.to have_many(:attendees).through(:preferences_second_conferences) }
   it { is_expected.to validate_presence_of(:name) }
   it { is_expected.to validate_presence_of(:url) }
   it { is_expected.to validate_presence_of(:city) }
@@ -58,8 +59,8 @@ RSpec.describe Conference do
       subject { FactoryGirl.build_stubbed(:conference, tickets: 2) }
       
       it 'subtracts conference preferences' do
-        allow(subject).to receive(:conference_preferences).and_return([conference_preference])
-        left_tickets = subject.tickets - subject.conference_preferences.size
+        allow(subject).to receive(:conference_preference).and_return([conference_preference])
+        left_tickets = subject.tickets - subject.conference_preference.size
         expect(subject.tickets_left).to eq(left_tickets)
       end
     end
@@ -68,7 +69,7 @@ RSpec.describe Conference do
       subject { FactoryGirl.build_stubbed(:conference, tickets: nil) }
       
       it 'returns 0' do
-        allow(subject).to receive(:conference_preferences).and_return([])
+        allow(subject).to receive(:conference_preference).and_return([])
         expect(subject.tickets_left).to eq(0)
       end
     end

@@ -74,13 +74,15 @@ nav.btn-group
   h3 Supervisors
   p = @team.supervisors.any? ? link_to_team_members(@team, :supervisor) : content_tag(:em, 'Will be added by RGSoC Organizers')
 
-- if @team.conferences.in_current_season.any?
+- if @team.conference_preference
   h4 Conference preferences
   ul.conferences
-  - @team.conference_preferences.sort_by(&:option).each do |preference|
     li
-      = links_to_conferences([preference.conference]).first
-      = preference_option(preference)
+      = links_to_conferences([@team.conference_preference.first_choice]).first
+      = content_tag :span, 'First choice', class: "label label-primary"
+    li
+      = links_to_conferences([@team.conference_preference.second_choice]).first
+      = content_tag :span, 'Secondary choice' , class: "label label-primary"
 
 
 - if @team.activities.any?

@@ -75,14 +75,14 @@ RSpec.describe UsersController do
     context 'with conferences' do
       let!(:preference) { FactoryGirl.create :conference_preference, :student_preference }
       let(:user)        { preference.team.students.first }
-      let(:conference)  { preference.conference }
+      let(:conference)  { preference.first_conference }
 
       context 'with conferences preferences orphans' do
         let!(:orphan) { FactoryGirl.create :conference_preference, :student_preference }
-        let!(:conference) { orphan.conference }
+        let!(:conference) { orphan.first_conference }
         let!(:user) { preference.team.members.first }
 
-        before { orphan.conference.destroy }
+        before { orphan.first_conference.destroy }
 
         # There are some stale conferences preferences records in the system since
         # attendences used to stick around when their conference was deleted

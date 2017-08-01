@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170731185453) do
+ActiveRecord::Schema.define(version: 20170801141914) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -98,13 +98,14 @@ ActiveRecord::Schema.define(version: 20170731185453) do
     t.boolean "confirmed"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "option"
     t.text "comment"
     t.boolean "lightning_talk", default: false
     t.bigint "first_conference_id"
     t.bigint "second_conference_id"
+    t.bigint "team_id"
     t.index ["first_conference_id"], name: "index_conference_preferences_on_first_conference_id"
     t.index ["second_conference_id"], name: "index_conference_preferences_on_second_conference_id"
+    t.index ["team_id"], name: "index_conference_preferences_on_team_id"
   end
 
   create_table "conferences", id: :serial, force: :cascade do |t|
@@ -309,5 +310,4 @@ ActiveRecord::Schema.define(version: 20170731185453) do
     t.string "tshirt_cut"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
   end
-
 end
