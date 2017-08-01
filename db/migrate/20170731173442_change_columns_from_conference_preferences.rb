@@ -4,6 +4,6 @@ class ChangeColumnsFromConferencePreferences < ActiveRecord::Migration[5.1]
   end
 
   def self.down
-    add_reference :conference_preferences, :conf
+    add_reference :conference_preferences, :conference
   end
 end
