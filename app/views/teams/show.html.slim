@@ -89,12 +89,14 @@ nav.page
 - if @team.conference_preference.present?
   h4 Conference preferences
   ul.conferences
-    li
-      = links_to_conferences([@team.conference_preference.first_conference]).first
-      = content_tag :span, 'First conference', class: "label label-primary"
-    li
-      = links_to_conferences([@team.conference_preference.second_conference]).first
-      = content_tag :span, 'Secondary conference' , class: "label label-primary"
+    - if @team.conference_preference.first_conference.present?
+      li
+        = links_to_conferences([@team.conference_preference.try(:first_conference)]).first
+        = content_tag :span, 'First conference', class: "label label-primary"
+    - if @team.conference_preference.second_conference.present?
+      li
+        = links_to_conferences([@team.conference_preference.second_conference]).first if @team.conference_preference.second_conference.present?
+        = content_tag :span, 'Secondary conference' , class: "label label-primary"
 
 - if @team.activities.any?
   h3
