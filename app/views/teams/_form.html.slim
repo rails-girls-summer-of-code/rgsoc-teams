@@ -78,7 +78,7 @@
         = c.hidden_field :option, value: c.object.option
         = c.hidden_field :id, value: c.object.id
         = c.hidden_field :_destroy, class:'destroy_option'
-        = c.input :conference_id, collection: @conferences.group_by(&:region), as: :grouped_select, group_method: :last, label: c.object.option == 1 ? "Primary choice" : "Secondary Choice", prompt: "Conference", :include_blank => 'None', wrapper_html: { class: 'col-md-8 selected_conference' }
+        = c.input :conference_id, collection: @conferences.group_by(&:region), as: :grouped_select, group_method: :last, label: c.object.option == 1 ? "Primary choice" : "Secondary Choice", :include_blank => 'None', wrapper_html: { class: 'col-md-8 selected_conference' }
     = link_to 'I want to suggest another conference!', new_conference_path, data: { confirm: 'You are leaving the page, all your alterations will be lost. Do you want to continue?' }, class: 'btn btn-primary col-sm-offset-3'
 
   .actions
