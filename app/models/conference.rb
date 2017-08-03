@@ -10,10 +10,10 @@ class Conference < ActiveRecord::Base
 
   include HasSeason
 
-  has_many :preferences_first_conferences, :class_name => 'ConferencePreference', :foreign_key => 'first_conference_id'
-  has_many :preferences_second_conferences, :class_name => 'ConferencePreference', :foreign_key => 'second_conference_id'
-  has_many :attendees, through: :preferences_first_conferences, source: :team
-  has_many :attendees, through: :preferences_second_conferences, source: :team
+  has_many :first_choice_conference_preferences, :class_name => 'ConferencePreference', :foreign_key => 'first_conference_id'
+  has_many :second_choice_conference_preferences, :class_name => 'ConferencePreference', :foreign_key => 'second_conference_id'
+  has_many :attendees, through: :first_choice_conference_preferences, source: :team
+  has_many :attendees, through: :second_choice_conference_preferences, source: :team
 
   validates :name, :url, :city, :country, :region, presence: true
   validate :chronological_dates, if: proc { |conf| conf.starts_on && conf.ends_on }

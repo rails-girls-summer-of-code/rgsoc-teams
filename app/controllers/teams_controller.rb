@@ -47,7 +47,7 @@ class TeamsController < ApplicationController
   def update
     @conferences = conference_list
     respond_to do |format|
-      if @team.update_attributes(team_params) && terms_accepted?
+      if @team.update_attributes(team_params)
         format.html { redirect_to @team, notice: 'Team was successfully updated.' }
         format.json { head :no_content }
       else
@@ -83,7 +83,7 @@ class TeamsController < ApplicationController
         :'finishes_on(1i)', :'finishes_on(2i)', :'finishes_on(3i)', :invisible,
         :project_name,
         roles_attributes: role_attributes_list,
-        conference_preference_attributes: [:id, :first_conference_id, :second_conference_id, :lightning_talk, :comment, :_destroy],
+        conference_preference_attributes: [:id, :terms_of_ticket, :terms_of_travel, :first_conference_id, :second_conference_id, :lightning_talk, :comment, :_destroy],
         sources_attributes: [:id, :kind, :url, :_destroy]
       )
     end
@@ -91,25 +91,19 @@ class TeamsController < ApplicationController
     def conference_list
       Conference.in_current_season
     end
-
-    def terms_accepted?
-      return true unless (!params[:terms_ticket].present? || !params[:terms_travel].present?) && team_params[:conference_preference_attributes].present?
-      @team.errors.add(:team, "You must accept the terms")
-      false
+    
+    def role_attributes_list
+      unless current_user.admin? ||
+        # If it contains an ID, the user is updating an existing role
+        params.fetch(:roles_attributes, {}).to_unsafe_h.none? { |_, attributes| attributes.has_key? 'id' }
+        [:id, :github_handle, :_destroy] # do not allow to update the actual role
+      else
+        [:id, :name, :github_handle, :_destroy]
+      end
     end
 
-  def role_attributes_list
-    unless current_user.admin? ||
-      # If it contains an ID, the user is updating an existing role
-      params.fetch(:roles_attributes, {}).to_unsafe_h.none? { |_, attributes| attributes.has_key? 'id' }
-      [:id, :github_handle, :_destroy] # do not allow to update the actual role
-    else
-      [:id, :name, :github_handle, :_destroy]
+    def set_display_roles
+      @display_roles = ['student']
+      @display_roles.map!(&:pluralize)
     end
-  end
-
-  def set_display_roles
-    @display_roles = ['student']
-    @display_roles.map!(&:pluralize)
-  end
 end
