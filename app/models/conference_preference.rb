@@ -14,8 +14,8 @@ class ConferencePreference < ActiveRecord::Base
       terms_checkbox = terms_of_ticket == '1' && terms_of_travel == '1'
       first_case = conference.present? && terms_checkbox.present?
       second_case = conference.blank? && terms_checkbox.blank?
-      errors.add(:team, "You must accept the terms") if conference && !terms_checkbox
-      errors.add(:team, "You must choose the conferences") if !conference && terms_checkbox
+      errors.add(:team, "If you choose any conference you must accept the terms") if conference && !terms_checkbox
+      errors.add(:team, "If you accept terms you must choose any conference") if !conference && terms_checkbox
       first_case || second_case
     end
 end
