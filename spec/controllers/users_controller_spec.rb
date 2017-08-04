@@ -73,12 +73,12 @@ RSpec.describe UsersController do
     end
 
     context 'with conferences' do
-      let!(:preference) { FactoryGirl.create :conference_preference, :student_preference }
+      let!(:preference) { FactoryGirl.create :conference_preference, :student_preference, :with_terms_checked }
       let(:user)        { preference.team.students.first }
       let(:conference)  { preference.first_conference }
 
       context 'with conferences preferences orphans' do
-        let!(:orphan) { FactoryGirl.create :conference_preference, :student_preference }
+        let!(:orphan) { FactoryGirl.create :conference_preference, :student_preference, :with_terms_checked }
         let!(:conference) { orphan.first_conference }
         let!(:user) { preference.team.members.first }
 

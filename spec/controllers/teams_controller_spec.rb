@@ -62,7 +62,7 @@ RSpec.describe TeamsController do
   end
 
   describe "GET show" do
-    let!(:preference) { FactoryGirl.create :conference_preference, :student_preference }
+    let!(:preference) { FactoryGirl.create :conference_preference, :student_preference, :with_terms_checked }
     let(:team) { preference.team }
 
     it "assigns the requested team as @team" do
@@ -202,7 +202,9 @@ RSpec.describe TeamsController do
           let(:team_params) do
             build(:team).attributes.merge(:conference_preference_attributes=>{
               first_conference_id: conference_1.id,
-              second_conference_id: conference_2.id
+              second_conference_id: conference_2.id,
+              terms_of_ticket: '1',
+              terms_of_travel: '1'
             })
           end
 

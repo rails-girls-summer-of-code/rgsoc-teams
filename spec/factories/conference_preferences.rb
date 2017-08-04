@@ -6,9 +6,14 @@ FactoryGirl.define do
 
     trait :student_preference do
       after(:create) do |preference|
-        preference.team.roles.create name: "student", user: create(:user)
+        preference.team.roles.create name: 'student', user: create(:user)
         preference
       end
+    end
+
+    trait :with_terms_checked do
+      terms_of_ticket '1'
+      terms_of_travel '1'
     end
   end
 end

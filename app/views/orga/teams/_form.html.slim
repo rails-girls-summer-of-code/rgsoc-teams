@@ -83,7 +83,7 @@
       = f.simple_fields_for :conference_preference do |c|
         = c.input :first_conference_id, collection: @conferences.group_by(&:region), as: :grouped_select, group_method: :last, label: "Primary choice", prompt: "Conference"
         = c.input :second_conference_id, collection: @conferences.group_by(&:region), as: :grouped_select, group_method: :last, label: "Secondary choice", prompt: "Conference"
-        = c.input :comment, prompt: "Comments"
+        = c.input :comment, placeholder: "Comments"
         .form-group
           label.control-label.col-sm-3 Lightning talk
           .col-sm-9
@@ -95,11 +95,11 @@
           .col-sm-9
             .checkbox
               label
-                = check_box_tag :terms_ticket, 0, false
+                = c.check_box :terms_of_ticket, checked: conference_exists?, as: :boolean
                 | We understand that RGSoC doesn't guarantee tickets to the conferences of our choice
             .checkbox
               label
-                = check_box_tag :terms_travel, 0, false
+                = c.check_box :terms_of_travel, checked: conference_exists?, as: :boolean
                 | We understand that all travel and accommodation costs will have to be covered by us; hereby we confirm that we are choosing conferences which we can afford
 
   .actions
