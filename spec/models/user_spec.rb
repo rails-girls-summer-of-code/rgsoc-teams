@@ -7,8 +7,6 @@ describe User do
 
   it { expect(subject).to have_many(:teams) }
   it { expect(subject).to have_many(:application_drafts) }
-  it { expect(subject).to have_many(:attendances).dependent(:destroy) }
-  it { expect(subject).to have_many(:conferences) }
   it { expect(subject).to have_many(:roles) }
   it { expect(subject).to have_many(:todos).dependent(:destroy) }
 
@@ -167,7 +165,7 @@ describe User do
           to receive(:attrs).and_return({ location: '' })
       end
 
-      it 'leaves an undefiend location untouched' do
+      it 'leaves an undefined location untouched' do
         expect { subject.save }.not_to change { subject.location }.from(nil)
       end
 
@@ -179,6 +177,21 @@ describe User do
       it 'unsets a blank location' do
         subject.location = '  '
         expect { subject.save }.to change { subject.location }.to(nil)
+      end
+
+      it 'unifies the location format' do
+        subject.location = "nEw york"
+        expect { subject.save }.to change { subject.location }.to("New York")
+      end
+
+      it 'does not separate words with foul caps' do
+        subject.location = "AMSterdam"
+        expect { subject.save }.to change { subject.location }.to("Amsterdam")
+      end
+
+      it 'cannot correct invalid input' do
+        subject.location = "Asterdam"
+        expect { subject.save }.not_to change { subject.location }
       end
     end
   end
@@ -311,7 +324,7 @@ describe User do
     end
 
     it 'returns false if user has a random student role' do
-      student = FactoryGirl.create(:student)
+      student = FactoryGirl.build(:student)
       expect(student).not_to be_current_student
     end
 
@@ -326,6 +339,27 @@ describe User do
       student = FactoryGirl.create(:student, team: team)
       expect(student).to be_current_student
     end
+  end
+
+  describe '#student_team' do
+    before do
+      @user_not_student = FactoryGirl.create(:user)
+      @student = FactoryGirl.create(:student)
+      @student_team = @student.teams.first
+    end
+
+     it 'the method student_team return the student current team' do
+       expect(@student.student_team).to eql @student_team
+     end
+
+     it 'does not return student_team if when a user is not a student' do
+       expect(@user_not_student.student_team).to eql nil
+     end
+
+     it 'does not return student_team if student does not have a team' do
+       @student.teams.first.destroy
+       expect(@student.student_team).to eql nil
+     end
   end
 
   describe 'Search for user names and team names' do

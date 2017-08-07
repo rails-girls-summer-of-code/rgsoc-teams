@@ -3,6 +3,7 @@ require 'github/user'
 
 class User < ActiveRecord::Base
   TSHIRT_SIZES = %w(XXS XS S M L XL 2XL 3XL)
+  TSHIRT_CUTS = %w(Straight Fitted)
   URL_PREFIX_PATTERN = /\A(http|https).*\z/i
 
   GENDER_LIST = [
@@ -93,8 +94,6 @@ class User < ActiveRecord::Base
   has_many :teams, -> { distinct }, through: :roles
   has_many :application_drafts, through: :teams
   has_many :applications, through: :teams
-  has_many :attendances, dependent: :destroy
-  has_many :conferences, through: :attendances
   has_many :todos, dependent: :destroy
 
   validates :github_handle, presence: true, uniqueness: { case_sensitive: false }
@@ -103,10 +102,9 @@ class User < ActiveRecord::Base
 
   validates :name, :email, :country, :location, presence: true, unless: :github_import
 
-  accepts_nested_attributes_for :attendances, allow_destroy: true
   accepts_nested_attributes_for :roles, allow_destroy: true
 
-  before_save :sanitize_location
+  before_save :normalize_location
   after_create :complete_from_github
 
   # This field is used to skip validations when creating
@@ -137,11 +135,11 @@ class User < ActiveRecord::Base
     end
 
     def with_role(*names)
-      joins(:roles).where('roles.name' => names.flatten)
+      joins(:roles).references(:roles).where('roles.name' => names.flatten)
     end
 
     def with_assigned_roles
-      joins(:roles).where('roles.id IS NOT NULL')
+      joins(:roles).references(:roles).where('roles.id IS NOT NULL')
     end
 
     def with_teams
@@ -149,11 +147,10 @@ class User < ActiveRecord::Base
     end
 
     def with_team_kind(kind)
-      joins(:teams).where('teams.kind' => kind)
+      joins(:teams).references(:teams).where('teams.kind' => kind)
     end
 
     def with_all_associations_joined
-      includes(:conferences).group("conferences.id").references(:conferences).
       includes(:roles).group("roles.id").
       includes(roles: :team).group("teams.id")
     end
@@ -215,12 +212,15 @@ class User < ActiveRecord::Base
     (q_user_names + q_team_names).uniq
   end
 
+  def student_team
+    teams.in_current_season.last if student?
+  end
+
   private
 
-  # Ensures that the location column either contains non-whitespace text, or is NULL
-  # This ensures that sorting by location yields useful results
-  def sanitize_location
-    self.location = nil if self.location.blank?
+  # normalization to prevent duplication, NULL for sorting
+  def normalize_location
+    self.location = location.to_s.strip.downcase.titlecase.presence
   end
 
   def complete_from_github

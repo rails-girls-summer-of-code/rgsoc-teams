@@ -86,12 +86,13 @@ nav.page
     h3 Supervisors
     p = @team.supervisors.any? ? link_to_team_members(@team, :supervisor) : content_tag(:em, 'Will be added by RGSoC Organizers')
 
-- if @team.members.any? { |user| user.conferences.in_current_season.any? }
-  h4 Conferences
+- if @team.conferences.in_current_season.any?
+  h4 Conference preferences
   ul.conferences
-    - @team.members.each do |user|
-      - if user.conferences.in_current_season.any?
-        li = "#{link_to user.name, user}: #{links_to_conferences(user.conferences.in_current_season).join(', ')}".html_safe
+  - @team.conference_preferences.sort_by(&:option).each do |preference|
+    li
+      = links_to_conferences([preference.conference]).first
+      = preference_option(preference)
 
 - if @team.activities.any?
   h3

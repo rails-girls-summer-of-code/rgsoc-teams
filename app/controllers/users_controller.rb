@@ -24,13 +24,9 @@ class UsersController < ApplicationController
   end
 
   def new
-    @user.attendances.build
   end
 
   def edit
-    if current_user.admin?
-      @user.attendances.build unless @user.attendances.any?
-    end
   end
 
   def create
@@ -115,7 +111,7 @@ class UsersController < ApplicationController
       params.require(:user).permit(
         :github_handle, :twitter_handle, :irc_handle,
         :name, :email, :homepage, :location, :bio,
-        :tshirt_size, :postal_address, :timezone,
+        :tshirt_size, :tshirt_cut, :postal_address, :timezone,
         :country,
         :hide_email,
         :is_company, :company_name, :company_info,
@@ -124,7 +120,6 @@ class UsersController < ApplicationController
         :application_learning_history, :application_skills, :application_code_samples,
         :application_location, :application_minimum_money, :application_money, :application_goals, :application_code_background,
         interested_in: [],
-        attendances_attributes: [:id, :conference_id, :_destroy],
         roles_attributes: [:id, :name, :team_id, :_destroy]
       )
     end

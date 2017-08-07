@@ -18,7 +18,7 @@ FactoryGirl.define do
     end
 
     factory :student do
-      transient { team { FactoryGirl.create(:team) } }
+      transient { team { FactoryGirl.create(:team, :in_current_season) } }
 
       after(:create) do |user, evaluator|
         FactoryGirl.create(:student_role, user: user, team: evaluator.team)

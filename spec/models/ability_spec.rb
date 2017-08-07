@@ -8,6 +8,8 @@ describe Ability do
   context 'ability' do
     context 'when a user is connected' do
       let!(:user) { FactoryGirl.create(:user) }
+      let!(:team) { FactoryGirl.create(:team) }
+
       describe 'she/he is allowed to do everything on her/his account' do
         it { expect(ability).to be_able_to(:show, user) }
         it { expect(ability).not_to be_able_to(:create, User.new) } #this only happens through GitHub
@@ -143,34 +145,33 @@ describe Ability do
         end
       end
 
+      describe "team's students or admin should be able to mark preferences to a conference" do
+        context 'when user is a student from a team and try to update conference preferences' do
 
-      describe "a user should not be able to mark another's attendance to a conference" do
+          let!(:conference_preference) { FactoryGirl.create(:conference_preference, :student_preference) }
+          let!(:user) { conference_preference.team.students.first }
 
-        context 'when same user' do
-          let!(:attendance) { FactoryGirl.create(:attendance, user: user)}
-
-          it 'allows marking of attendance' do
-            expect(ability).to be_able_to(:crud, attendance)
+          it 'allows marking of conference preference' do
+            expect(ability).to be_able_to(:crud, conference_preference)
           end
-
 
           context 'when user is admin' do
             let!(:organiser_role) { FactoryGirl.create(:organizer_role, user: user)}
-            it "should be able to crud attendance" do
-              expect(subject).to be_able_to :crud, attendance
+            it "should be able to crud conference preference" do
+              expect(subject).to be_able_to(:crud, conference_preference)
             end
           end
         end
 
         context 'when different users' do
           let!(:other_user) { FactoryGirl.create(:user)}
-          let!(:attendance) { FactoryGirl.create(:attendance, user: user)}
-          it { expect(ability).not_to be_able_to(:crud, other_user.attendances) }
+          let!(:conference_preference) { FactoryGirl.create(:conference_preference, team: team)}
+          it { expect(ability).not_to be_able_to(:crud, other_user) }
 
         end
       end
 
-      
+
       describe 'to read user info' do
         context 'if not an admin or supervisor' do
           before do
@@ -201,16 +202,9 @@ describe Ability do
 
       end
 
-
       describe 'access to mailings' do
         let!(:mailing) { Mailing.new }
         let!(:user) { FactoryGirl.create(:student) }
-
-        context 'when user is admin' do
-          let(:user) { FactoryGirl.create(:organizer) }
-
-          it { expect(subject).to be_able_to :crud, mailing }
-        end
 
         context 'when user is a recipient' do
           it 'allows to read' do
@@ -272,6 +266,14 @@ describe Ability do
 
             it 'allows crud on own team' do
               expect(subject).to be_able_to :crud, student_team
+            end
+
+            it 'allows update conferences on own team' do
+              expect(subject).to be_able_to :update_conference_preferences, student_team
+            end
+
+            it 'does not allow update conference preferences for other teams' do
+              expect(subject).not_to be_able_to :update_conference_preferences, Team.new
             end
 
             it 'allows to create team for different season' do

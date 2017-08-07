@@ -18,6 +18,17 @@ RSpec.describe Exporters::Users do
       expect(described_class.current_students).to match 'NEWSTUDENT'
       expect(described_class.current_students).not_to match 'OLDSTUDENT'
     end
+
+    context 'with alumni' do
+      before do
+        create :supervisor_role, user: old_student, team: new_team
+      end
+
+      it 'excludes users who have been a student before but are now otherwise involved' do
+        expect(described_class.current_students).to match 'NEWSTUDENT'
+        expect(described_class.current_students).not_to match 'OLDSTUDENT'
+      end
+    end
   end
 
   describe '#students_<year>' do

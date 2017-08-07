@@ -38,6 +38,7 @@ FactoryGirl.create(:project, :rejected, :in_current_season)
   random_date = rand(1.year).seconds.from_now
   FactoryGirl.create(:conference, :in_current_season,
     location: FFaker::Venue.name,
+    region: ["Africa", "South America", "North America", "Europe", "Asia Pacific"].sample,
     starts_on: random_date,
     ends_on: random_date + rand(2.days),
     lightningtalkslots: rand < 0.5,

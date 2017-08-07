@@ -10,7 +10,7 @@ class Submission < ActiveRecord::Base
   after_commit :enqueue, on: :create
 
   def enqueue
-    logger.info "Enqueueing submission: #{id}"
+    Rails.logger.info "Enqueueing submission: #{id}"
     Mailer.email(self).deliver_later
   end
 

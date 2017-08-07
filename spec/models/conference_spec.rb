@@ -3,9 +3,13 @@ require 'spec_helper'
 RSpec.describe Conference do
   it_behaves_like 'HasSeason'
 
-  it { is_expected.to have_many(:attendances).dependent(:destroy) }
+  it { is_expected.to have_many(:conference_preferences).dependent(:destroy) }
   it { is_expected.to have_many(:attendees) }
   it { is_expected.to validate_presence_of(:name) }
+  it { is_expected.to validate_presence_of(:url) }
+  it { is_expected.to validate_presence_of(:city) }
+  it { is_expected.to validate_presence_of(:country) }
+  it { is_expected.to validate_presence_of(:region) }
 
   describe 'validates chronological dates' do
     subject { FactoryGirl.build(:conference) }
@@ -50,12 +54,12 @@ RSpec.describe Conference do
   describe '#tickets_left' do
 
     context 'ticket value defined' do
-      let(:attendance)    { FactoryGirl.build(:attendance, confirmed: true) }
+      let(:conference_preference)    { FactoryGirl.build(:conference_preference, confirmed: true) }
       subject { FactoryGirl.build_stubbed(:conference, tickets: 2) }
       
-      it 'subtracts attendances' do
-        allow(subject).to receive(:attendances).and_return([attendance])
-        left_tickets = subject.tickets - subject.attendances.size
+      it 'subtracts conference preferences' do
+        allow(subject).to receive(:conference_preferences).and_return([conference_preference])
+        left_tickets = subject.tickets - subject.conference_preferences.size
         expect(subject.tickets_left).to eq(left_tickets)
       end
     end
@@ -64,7 +68,7 @@ RSpec.describe Conference do
       subject { FactoryGirl.build_stubbed(:conference, tickets: nil) }
       
       it 'returns 0' do
-        allow(subject).to receive(:attendances).and_return([])
+        allow(subject).to receive(:conference_preferences).and_return([])
         expect(subject.tickets_left).to eq(0)
       end
     end

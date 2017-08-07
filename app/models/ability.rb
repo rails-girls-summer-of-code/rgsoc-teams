@@ -25,6 +25,10 @@ class Ability
       user.admin? or signed_in?(user) && team.new_record? or on_team?(user, team)
     end
 
+    can :update_conference_preferences, Team do |team|
+      user.admin? or (user.student? && (team.students.include? user))
+    end
+
     cannot :create, Team do |team|
       on_team_for_season?(user, team.season) || !user.confirmed?
     end
@@ -45,15 +49,15 @@ class Ability
       user.roles.organizer.any? || team.supervisors.include?(user)
     end
 
-    can :crud, Attendance do |attendance|
-      user.admin? || user == attendance.user
+    can :crud, ConferencePreference do |preference|
+      user.admin? || (preference.team.students.include? user)
     end
 
+    #todo add mailing controller and view for users in their namespace, where applicable
     can :read, Mailing do |mailing|
       mailing.recipient? user
     end
-    can :crud, Mailing    if user.admin?
-    can :crud, Submission if user.admin?
+
     can :crud, :comments  if user.admin?
     can :read, :users_info if user.admin? || user.supervisor?
 
