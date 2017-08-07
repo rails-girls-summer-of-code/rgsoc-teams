@@ -88,12 +88,6 @@ class Orga::TeamsController < Orga::BaseController
     Conference.in_current_season
   end
 
-  def terms_accepted?
-    return true unless (!params[:terms_ticket].present? || !params[:terms_travel].present?) && team_params[:conference_preference_attributes].present?
-    @team.errors.add(:team, "You must accept the terms")
-    false
-  end
-
   def set_breadcrumbs
     super
     @breadcrumbs << [ 'Teams', :teams]
