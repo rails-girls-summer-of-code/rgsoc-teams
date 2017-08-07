@@ -29,6 +29,10 @@ class Ability
       user.admin? or (user.student? && (team.students.include? user))
     end
 
+    can :see_offered_conferences, Team do |team|
+      user.admin? or (team.students.include? user) or user.supervisor?
+    end
+
     cannot :create, Team do |team|
       on_team_for_season?(user, team.season) || !user.confirmed?
     end

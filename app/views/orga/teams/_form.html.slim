@@ -86,11 +86,11 @@
       = c.input :conference_id, collection: @conferences.group_by(&:region), as: :grouped_select, group_method: :last, label: c.object.option == 1 ? "Primary choice" : "Secondary Choice", prompt: "Conference", wrapper_html: { class: 'col-md-8' }
 
   .page-header
-    h3 Offered conferences
+    h3 Conference offers
 
   fieldset
     = f.simple_fields_for :conference_attendances do |c|
-      = c.input :conference_id, collection: @conferences.group_by(&:region), as: :grouped_select, group_method: :last, label: "Offered conferences"
+      = c.input :conference_id, collection: @conferences.group_by(&:region), as: :grouped_select, group_method: :last, label: "Offered conference"
       = c.input :orga_comment, label: "Comment"
 
     .form-group.form-btn-group
