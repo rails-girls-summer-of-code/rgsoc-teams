@@ -29,6 +29,7 @@ class Team < ActiveRecord::Base
   has_many :conferences, through: :conference_preferences
   has_many :conference_attendances, dependent: :destroy
 
+  accepts_nested_attributes_for :conference_attendances, allow_destroy: true
   accepts_nested_attributes_for :conference_preferences, allow_destroy: true, reject_if: :without_preferences?
   accepts_nested_attributes_for :roles, :sources, allow_destroy: true
 
