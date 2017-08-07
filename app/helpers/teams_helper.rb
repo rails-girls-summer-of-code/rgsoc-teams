@@ -1,6 +1,11 @@
 module TeamsHelper
 
-  def conference_exists_for(team)
-    team&.conference_preference&.persisted? && team&.conference_preference&.first_conference_id.present? || team&.conference_preference&.second_conference_id.present?
+  def conference_exists_for?(team)
+    conference_preference = team.conference_preference
+    return false unless conference_preference.persisted?
+    [
+      conference_preference.first_conference_id,
+      conference_preference.second_conference_id
+    ].any?
   end
 end
