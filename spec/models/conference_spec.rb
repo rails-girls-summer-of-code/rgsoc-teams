@@ -3,6 +3,7 @@ require 'spec_helper'
 RSpec.describe Conference do
   it_behaves_like 'HasSeason'
 
+  it { is_expected.to have_many(:conference_attendances).dependent(:destroy) }
   it { is_expected.to have_many(:conference_preferences).dependent(:destroy) }
   it { is_expected.to have_many(:attendees) }
   it { is_expected.to validate_presence_of(:name) }
