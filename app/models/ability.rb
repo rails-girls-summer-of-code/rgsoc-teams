@@ -30,7 +30,7 @@ class Ability
     end
 
     can :see_offered_conferences, Team do |team|
-      user.admin? or (team.students.include? user) or user.supervisor?
+      user.admin? or (team.students.include? user) or team.supervisors.include?(user)
     end
 
     cannot :create, Team do |team|
