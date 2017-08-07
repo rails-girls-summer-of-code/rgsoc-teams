@@ -12,6 +12,7 @@ class Conference < ActiveRecord::Base
 
   has_many :conference_preferences, dependent: :destroy
   has_many :attendees, through: :conference_preferences, source: :team
+  has_many :conference_attendances, dependent: :destroy
 
   validates :name, :url, :city, :country, :region, presence: true
 
