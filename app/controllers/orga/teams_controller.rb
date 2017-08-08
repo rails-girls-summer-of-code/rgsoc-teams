@@ -26,8 +26,7 @@ class Orga::TeamsController < Orga::BaseController
   def edit
     @team.sources.build(kind: 'blog') unless @team.sources.any?
     @conferences = conference_list
-    @team.conference_preferences.build(option: 1) unless @team.conference_preferences.find_by(option: 1)
-    @team.conference_preferences.build(option: 2) unless @team.conference_preferences.find_by(option: 2)
+    @team.build_conference_preference unless @team.conference_preference.present?
   end
 
   def create
@@ -78,9 +77,9 @@ class Orga::TeamsController < Orga::BaseController
       :name, :twitter_handle, :github_handle, :description, :post_info, :event_id,
       :checked, :'starts_on(1i)', :'starts_on(2i)', :'starts_on(3i)',
       :'finishes_on(1i)', :'finishes_on(2i)', :'finishes_on(3i)', :invisible,
-      :season_id, :kind, :project_name,
+      :project_name, :season_id, :kind,
+      conference_preference_attributes: [:id, :terms_of_ticket, :terms_of_travel, :first_conference_id, :second_conference_id, :lightning_talk, :comment, :_destroy],
       roles_attributes: [:id, :name, :github_handle, :_destroy],
-      conference_preferences_attributes: [:id, :option, :conference_id, :_destroy],
       sources_attributes: [:id, :kind, :url, :_destroy]
     )
   end

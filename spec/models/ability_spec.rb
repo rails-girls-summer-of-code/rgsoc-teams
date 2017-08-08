@@ -148,7 +148,7 @@ describe Ability do
       describe "team's students or admin should be able to mark preferences to a conference" do
         context 'when user is a student from a team and try to update conference preferences' do
 
-          let!(:conference_preference) { FactoryGirl.create(:conference_preference, :student_preference) }
+          let!(:conference_preference) { FactoryGirl.create(:conference_preference, :student_preference, :with_terms_checked) }
           let!(:user) { conference_preference.team.students.first }
 
           it 'allows marking of conference preference' do
@@ -165,7 +165,7 @@ describe Ability do
 
         context 'when different users' do
           let!(:other_user) { FactoryGirl.create(:user)}
-          let!(:conference_preference) { FactoryGirl.create(:conference_preference, team: team)}
+          let!(:conference_preference) { FactoryGirl.create(:conference_preference, :with_terms_checked, team: team)}
           it { expect(ability).not_to be_able_to(:crud, other_user) }
 
         end

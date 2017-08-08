@@ -62,7 +62,7 @@ RSpec.describe TeamsController do
   end
 
   describe "GET show" do
-    let!(:preference) { FactoryGirl.create :conference_preference, :student_preference }
+    let!(:preference) { FactoryGirl.create :conference_preference, :student_preference, :with_terms_checked }
     let(:team) { preference.team }
 
     it "assigns the requested team as @team" do
@@ -73,7 +73,8 @@ RSpec.describe TeamsController do
     it 'lists the team conference preferences' do
       get :show, params: { id: team.id }
       expect(response).to be_success
-      expect(response.body).to match preference.conference.name
+      expect(response.body).to match preference.first_conference.name
+      expect(response.body).to match preference.second_conference.name
     end
   end
 
@@ -199,20 +200,21 @@ RSpec.describe TeamsController do
           let(:conference_1) { FactoryGirl.create(:conference, :in_current_season)}
           let(:conference_2) { FactoryGirl.create(:conference, :in_current_season)}
           let(:team_params) do
-            build(:team).attributes.merge(:conference_preferences_attributes=>{
-              '0'=>{
-                option: 1, conference_id: conference_1.id
-              },
-              '1'=>{
-                option: 2, conference_id: conference_2.id
-              }
+            build(:team).attributes.merge(:conference_preference_attributes=>{
+              first_conference_id: conference_1.id,
+              second_conference_id: conference_2.id,
+              terms_of_ticket: '1',
+              terms_of_travel: '1'
             })
           end
 
-          it 'student can set two options of conferences for her team' do
+          it 'student can set one conference preference with two conference options for her team' do
             expect {
               patch :update, params: { id: team.to_param, team: team_params }
-            }.to change { team.conference_preferences.count }.by 2
+            }.to change { ConferencePreference.count }.by 1
+
+            expect(team.conference_preference.first_conference).to eql conference_1
+            expect(team.conference_preference.second_conference).to eql conference_2
           end
         end
       end

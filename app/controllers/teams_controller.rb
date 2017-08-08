@@ -26,8 +26,7 @@ class TeamsController < ApplicationController
   def edit
     @team.sources.build(kind: 'blog') unless @team.sources.any?
     @conferences = conference_list
-    @team.conference_preferences.build(option: 1) unless @team.conference_preferences.find_by(option: 1)
-    @team.conference_preferences.build(option: 2) unless @team.conference_preferences.find_by(option: 2)
+    @team.build_conference_preference unless @team.conference_preference.present?
   end
 
   def create
@@ -84,7 +83,7 @@ class TeamsController < ApplicationController
         :'finishes_on(1i)', :'finishes_on(2i)', :'finishes_on(3i)', :invisible,
         :project_name,
         roles_attributes: role_attributes_list,
-        conference_preferences_attributes: [:id, :option, :conference_id, :_destroy],
+        conference_preference_attributes: [:id, :terms_of_ticket, :terms_of_travel, :first_conference_id, :second_conference_id, :lightning_talk, :comment, :_destroy],
         sources_attributes: [:id, :kind, :url, :_destroy]
       )
     end
@@ -92,19 +91,19 @@ class TeamsController < ApplicationController
     def conference_list
       Conference.in_current_season
     end
-
-  def role_attributes_list
-    unless current_user.admin? ||
-      # If it contains an ID, the user is updating an existing role
-      params.fetch(:roles_attributes, {}).to_unsafe_h.none? { |_, attributes| attributes.has_key? 'id' }
-      [:id, :github_handle, :_destroy] # do not allow to update the actual role
-    else
-      [:id, :name, :github_handle, :_destroy]
+    
+    def role_attributes_list
+      unless current_user.admin? ||
+        # If it contains an ID, the user is updating an existing role
+        params.fetch(:roles_attributes, {}).to_unsafe_h.none? { |_, attributes| attributes.has_key? 'id' }
+        [:id, :github_handle, :_destroy] # do not allow to update the actual role
+      else
+        [:id, :name, :github_handle, :_destroy]
+      end
     end
-  end
 
-  def set_display_roles
-    @display_roles = ['student']
-    @display_roles.map!(&:pluralize)
-  end
+    def set_display_roles
+      @display_roles = ['student']
+      @display_roles.map!(&:pluralize)
+    end
 end
