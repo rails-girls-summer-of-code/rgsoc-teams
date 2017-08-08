@@ -7,11 +7,11 @@ RSpec.describe TeamsHelper do
     let(:team_without) { FactoryGirl.create :team }
     let(:team_with) { conference_preference.team }
 
-    it 'should return false if don\'t exists conference persisted' do
+    it 'returns false if no conference_preference was persisted for the team' do
       expect(conference_exists_for?(team_without)).to be false
     end
 
-    it 'should return true if exists any conference persisted' do
+    it 'returns true if exists any conference persisted' do
       expect(conference_exists_for?(team_with)).to be true
     end
   end
