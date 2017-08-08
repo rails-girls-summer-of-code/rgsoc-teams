@@ -74,6 +74,8 @@ nav.btn-group
   h3 Supervisors
   p = @team.supervisors.any? ? link_to_team_members(@team, :supervisor) : content_tag(:em, 'Will be added by RGSoC Organizers')
 
+  h3 Conferences
+
 - if @team.conferences.in_current_season.any?
   h4 Conference preferences
   ul.conferences
@@ -82,6 +84,17 @@ nav.btn-group
       = links_to_conferences([preference.conference]).first
       = preference_option(preference)
 
+- if can? :see_offered_conferences, @team
+
+  - if @team.conference_attendances.present?
+    h4 Conference offers
+    dl
+      - @team.conference_attendances.each do |offer|
+        dt Offered conference:
+        dd = offer&.conference&.name
+        - if offer.orga_comment.present?
+          dt Orga comment:
+          dd = offer&.orga_comment
 
 - if @team.activities.any?
   h3 Activities

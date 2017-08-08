@@ -101,10 +101,10 @@ nav.page
     h4 Conference offers
     dl
       - @team.conference_attendances.each do |offer|
-        dt Offered conference
+        dt Offered conference:
         dd = offer&.conference&.name
         - if offer.orga_comment.present?
-          dt Orga comment
+          dt Orga comment:
           dd = offer&.orga_comment
 
 - if @team.activities.any?

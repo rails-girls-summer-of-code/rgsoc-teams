@@ -71,7 +71,8 @@
         = f.link_to_add 'Add another source', :sources, class: 'btn btn-primary col-sm-offset-3'
   -if can?(:update_conference_preferences, @team)
     .page-header
-      h2 Conference preferences
+      h2 Conferences
+      h3 Conference preferences
 
     fieldset.conferences_fieldset
       = f.simple_fields_for :conference_preferences, f.object.conference_preferences.sort{ |a,b| a.option <=> b.option} do |c|
