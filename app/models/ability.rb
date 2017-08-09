@@ -38,7 +38,7 @@ class Ability
     end
 
     can :join, Team do |team|
-      team.helpdesk_team? && signed_in?(user) && user.confirmed? && not on_team?(user, team)
+      team.helpdesk_team? and signed_in?(user) and user.confirmed? and not on_team?(user, team)
     end
 
     can :crud, Role do |role|
