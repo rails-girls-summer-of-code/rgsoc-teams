@@ -76,7 +76,7 @@
   - if admin?
     = f.input :season_id, as: :select, collection: Season.order('name DESC') { |e| [s.name, s.id] }
 
-    == render 'teams/conference', f: f
+    == render 'teams/conference_edit', f: f
   .page-header
     h3 Conference Offers
 
