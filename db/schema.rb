@@ -321,9 +321,4 @@ ActiveRecord::Schema.define(version: 20170807131926) do
     t.string "tshirt_cut"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
   end
-
-  add_foreign_key "conference_attendances", "conferences"
-  add_foreign_key "conference_attendances", "teams"
-  add_foreign_key "conference_preferences", "conferences"
-  add_foreign_key "conference_preferences", "teams"
 end
