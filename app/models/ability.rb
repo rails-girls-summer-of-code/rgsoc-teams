@@ -22,15 +22,15 @@ class Ability
     end
 
     can :crud, Team do |team|
-      user.admin? or signed_in?(user) && team.new_record? or on_team?(user, team)
+      user.admin? || signed_in?(user) && team.new_record? || on_team?(user, team)
     end
 
     can :update_conference_preferences, Team do |team|
-      user.admin? or (user.student? && (team.students.include? user))
+      user.admin? || (user.student? && team.students.include?(user))
     end
 
     can :see_offered_conferences, Team do |team|
-      user.admin? or (team.students.include? user) or team.supervisors.include?(user)
+      user.admin? || team.students.include?(user) || team.supervisors.include?(user)
     end
 
     cannot :create, Team do |team|
@@ -38,15 +38,15 @@ class Ability
     end
 
     can :join, Team do |team|
-      team.helpdesk_team? and signed_in?(user) and user.confirmed? and not on_team?(user, team)
+      team.helpdesk_team? && signed_in?(user) && user.confirmed? && not on_team?(user, team)
     end
 
     can :crud, Role do |role|
-      user.admin? or on_team?(user, role.team)
+      user.admin? || on_team?(user, role.team)
     end
 
     can :crud, Source do |repo|
-      user.admin? or on_team?(user, repo.team)
+      user.admin? || on_team?(user, repo.team)
     end
 
     can :supervise, Team do |team|
