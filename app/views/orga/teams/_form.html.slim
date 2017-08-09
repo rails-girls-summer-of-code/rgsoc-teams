@@ -81,8 +81,8 @@
 
   fieldset.conferences_fieldset
       = f.simple_fields_for :conference_preference do |c|
-        = c.input :first_conference_id, collection: @conferences.group_by(&:region), as: :grouped_select, group_method: :last, label: "Primary choice", prompt: "Conference"
-        = c.input :second_conference_id, collection: @conferences.group_by(&:region), as: :grouped_select, group_method: :last, label: "Secondary choice", prompt: "Conference"
+        = c.input :first_conference_id, collection: @conferences.group_by(&:region), as: :grouped_select, group_method: :last, label: "Primary choice", include_blank: "None"
+        = c.input :second_conference_id, collection: @conferences.group_by(&:region), as: :grouped_select, group_method: :last, label: "Secondary choice", include_blank: "None"
         = c.input :comment, placeholder: "Comments"
         .form-group
           label.control-label.col-sm-3 Lightning talk

@@ -75,8 +75,8 @@
 
     fieldset.conferences_fieldset
       = f.simple_fields_for :conference_preference do |c|
-        = c.input :first_conference_id, collection: @conferences.group_by(&:region), as: :grouped_select, group_method: :last, label: "Primary choice", include_blank: "Conference"
-        = c.input :second_conference_id, collection: @conferences.group_by(&:region), as: :grouped_select, group_method: :last, label: "Secondary choice", include_blank: "Conference"
+        = c.input :first_conference_id, collection: @conferences.group_by(&:region), as: :grouped_select, group_method: :last, label: "Primary choice", include_blank: "None"
+        = c.input :second_conference_id, collection: @conferences.group_by(&:region), as: :grouped_select, group_method: :last, label: "Secondary choice", include_blank: "None"
         .form-group.form-btn-group
           = link_to new_conference_path, data: { confirm: 'You are leaving the page, all , your alterations will be lost. Do you want to continue?' }, class: 'btn btn-primary col-sm-offset-3' do
                 | We want to suggest another conference!
