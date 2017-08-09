@@ -1,5 +1,5 @@
 class ConferencePreference < ActiveRecord::Base
-  validates :terms_checked?, acceptance: true
+  validates :terms_checked?, acceptance: true, on: :create
   attr_accessor :terms_of_ticket, :terms_of_travel
 
   belongs_to :team, inverse_of: :conference_preference
