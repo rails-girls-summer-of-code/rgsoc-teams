@@ -181,17 +181,10 @@ class Team < ActiveRecord::Base
     students.reload.select(&:persisted?).size == 2
   end
 
-<<<<<<< HEAD
-  def without_preferences?(att)
-    att[:conference_id].blank?
-  end
-
   def without_conferences?(att)
     att[:conference_id].blank?
   end
 
-=======
->>>>>>> master
   # def must_have_members
   #   errors.add(:team, 'must have at least one member') if members_empty?
   # end
