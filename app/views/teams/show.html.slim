@@ -88,7 +88,7 @@ nav.page
   h3 Conferences
 
 - if @team.conference_preference.present?
-  h4 Conference preferences
+  h4 Conference Preferences
   ul.conferences
     - if @team&.conference_preference&.first_conference.present?
       li
@@ -102,7 +102,7 @@ nav.page
 - if can? :see_offered_conferences, @team
 
   - if @team.conference_attendances.present?
-    h4 Conference offers
+    h4 Conference Offers
     dl
       - @team.conference_attendances.each do |offer|
         dt Offered conference:
