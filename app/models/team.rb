@@ -32,7 +32,7 @@ class Team < ActiveRecord::Base
 
   accepts_nested_attributes_for :conference_preference, allow_destroy: true
   accepts_nested_attributes_for :roles, :sources, allow_destroy: true
-  accepts_nested_attributes_for :conference_attendances, allow_destroy: true, reject_if: :without_conferences?
+  accepts_nested_attributes_for :conference_attendances, allow_destroy: true, reject_if: proc { |attributes| attributes[:conference_id].blank? }
 
   before_create :set_number
   before_save :set_last_checked, if: :checked
@@ -179,10 +179,6 @@ class Team < ActiveRecord::Base
 
   def two_students_present?
     students.reload.select(&:persisted?).size == 2
-  end
-
-  def without_conferences?(att)
-    att[:conference_id].blank?
   end
 
   # def must_have_members
