@@ -70,35 +70,7 @@
       .form-group.form-btn-group
         = f.link_to_add 'Add another source', :sources, class: 'btn btn-primary col-sm-offset-3'
   -if can?(:update_conference_preferences, @team)
-    .page-header
-      h2 Conferences
-      h3 Conference Preferences
-
-    fieldset.conferences_fieldset
-      = f.simple_fields_for :conference_preference do |c|
-        = c.input :first_conference_id, collection: @conferences.group_by(&:region), as: :grouped_select, group_method: :last, label: "Primary choice", include_blank: "Conference"
-        = c.input :second_conference_id, collection: @conferences.group_by(&:region), as: :grouped_select, group_method: :last, label: "Secondary choice", include_blank: "Conference"
-        .form-group.form-btn-group
-          = link_to new_conference_path, data: { confirm: 'You are leaving the page, all , your alterations will be lost. Do you want to continue?' }, class: 'btn btn-primary col-sm-offset-3' do
-                | We want to suggest another conference!
-        = c.input :comment, placeholder: "Comments"
-        .form-group
-          label.control-label.col-sm-3 Lightning talk
-          .col-sm-9
-            .checkbox
-              label
-                = c.check_box :lightning_talk
-                |  We would like to give a lightning talk!
-          label.control-label.col-sm-3 Terms
-          .col-sm-9
-            .checkbox
-              label
-                = c.check_box :terms_of_ticket, checked: conference_exists_for?(@team)
-                | We understand that RGSoC doesn't guarantee tickets to the conferences of our choice
-            .checkbox
-              label
-                = c.check_box :terms_of_travel, checked: conference_exists_for?(@team)
-                | We understand that all travel and accommodation costs will have to be covered by us; hereby we confirm that we are choosing conferences which we can afford
+  == render 'conference', f: f
   .actions
     ul.list-inline
       li  = f.submit 'Save', class: 'btn btn-success'
