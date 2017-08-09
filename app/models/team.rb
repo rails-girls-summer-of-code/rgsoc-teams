@@ -25,13 +25,14 @@ class Team < ActiveRecord::Base
   has_one :last_activity, -> { order('id DESC') }, class_name: 'Activity'
   has_many :comments, as: :commentable
   has_many :status_updates, -> { where(kind: 'status_update') }, class_name: 'Activity'
-  has_many :conference_preferences, dependent: :destroy
-  has_many :conferences, through: :conference_preferences
   has_many :conference_attendances, dependent: :destroy
 
-  accepts_nested_attributes_for :conference_attendances, allow_destroy: true, reject_if: :without_conferences?
-  accepts_nested_attributes_for :conference_preferences, allow_destroy: true, reject_if: :without_preferences?
+  has_one :conference_preference, dependent: :destroy
+  has_many :conferences, through: :conference_preference
+
+  accepts_nested_attributes_for :conference_preference, allow_destroy: true
   accepts_nested_attributes_for :roles, :sources, allow_destroy: true
+  accepts_nested_attributes_for :conference_attendances, allow_destroy: true, reject_if: :without_conferences?
 
   before_create :set_number
   before_save :set_last_checked, if: :checked
@@ -180,6 +181,7 @@ class Team < ActiveRecord::Base
     students.reload.select(&:persisted?).size == 2
   end
 
+<<<<<<< HEAD
   def without_preferences?(att)
     att[:conference_id].blank?
   end
@@ -188,6 +190,8 @@ class Team < ActiveRecord::Base
     att[:conference_id].blank?
   end
 
+=======
+>>>>>>> master
   # def must_have_members
   #   errors.add(:team, 'must have at least one member') if members_empty?
   # end
