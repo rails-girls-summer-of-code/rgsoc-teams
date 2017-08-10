@@ -8,6 +8,6 @@ class ConferencePreference < ActiveRecord::Base
 
   private
     def conference_exists?
-      first_conference_id.present? && second_conference_id.present?
-    end    
+      first_conference_id.present? || second_conference_id.present?
+    end     
 end
