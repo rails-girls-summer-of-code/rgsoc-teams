@@ -41,6 +41,13 @@ RSpec.describe TeamsController do
       end
     end
 
+    context 'past teams' do
+      it 'passing year' do
+        get :index, params: { year: '2016'}
+        expect(response).to render_template 'index'
+      end
+    end
+
     context 'after acceptance letters have been sent' do
       let(:last_season)      { Season.create name: Date.today.year-1 }
       let!(:voluntary_team)  { create :team, :in_current_season, kind: 'voluntary' }

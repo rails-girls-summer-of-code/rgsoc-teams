@@ -9,6 +9,8 @@ class TeamsController < ApplicationController
     if params[:sort]
       direction = params[:direction] == 'asc' ? 'ASC' : 'DESC'
       @teams = Team.by_season_phase.includes(:activities).order("teams.kind, activities.created_at #{direction}").references(:activities)
+    elsif params[:year]
+      @teams = Team.selected_teams_by_season_year(params[:year])
     else
       @teams = Team.by_season_phase.order(:kind, :name)
     end

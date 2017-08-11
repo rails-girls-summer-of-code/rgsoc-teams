@@ -63,6 +63,14 @@ class Team < ActiveRecord::Base
       where(season: Season.current)
     end
 
+    def by_season_year(year)
+      where(season: Season.where(name: year))
+    end
+
+    def selected_teams_by_season_year(year)
+      by_season_year(year).selected
+    end
+
     def selected
       where(kind: %w(sponsored voluntary))
     end
