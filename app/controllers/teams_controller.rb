@@ -6,14 +6,7 @@ class TeamsController < ApplicationController
   load_and_authorize_resource except: [:index, :show]
 
   def index
-    if params[:sort]
-      direction = params[:direction] == 'asc' ? 'ASC' : 'DESC'
-      @teams = Team.by_season_phase.includes(:activities).order("teams.kind, activities.created_at #{direction}").references(:activities)
-    elsif params[:year]
-      @teams = Team.selected_teams_by_season_year(params[:year])
-    else
-      @teams = Team.by_season_phase.order(:kind, :name)
-    end
+    show_teams_by_params(params)
   end
 
   def show
@@ -107,5 +100,16 @@ class TeamsController < ApplicationController
     def set_display_roles
       @display_roles = ['student']
       @display_roles.map!(&:pluralize)
+    end
+
+    def show_teams_by_params(params)
+      if params[:sort]
+        direction = params[:direction] == 'asc' ? 'ASC' : 'DESC'
+        @teams = Team.by_season_phase.includes(:activities).order("teams.kind, activities.created_at #{direction}").references(:activities)
+      elsif params[:year]
+        @teams = Team.select_teams_by_season_year(params[:year])
+      else
+        @teams = Team.by_season_phase.order(:kind, :name)
+      end
     end
 end
