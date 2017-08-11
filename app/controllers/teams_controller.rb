@@ -86,7 +86,7 @@ class TeamsController < ApplicationController
     def conference_list
       Conference.in_current_season
     end
-    
+
     def role_attributes_list
       unless current_user.admin? ||
         # If it contains an ID, the user is updating an existing role
@@ -103,11 +103,19 @@ class TeamsController < ApplicationController
     end
 
     def show_teams_by_params(params)
-      if params[:sort]
+      only_sort = params[:sort].present? && params[:year].blank?
+      only_year = params[:year].present? && params[:sort].blank?
+      sort_with_year = params[:year].present? && params[:sort].present?
+
+      case true
+      when only_sort
         direction = params[:direction] == 'asc' ? 'ASC' : 'DESC'
         @teams = Team.by_season_phase.includes(:activities).order("teams.kind, activities.created_at #{direction}").references(:activities)
-      elsif params[:year]
+      when only_year
         @teams = Team.select_teams_by_season_year(params[:year])
+      when sort_with_year
+        direction = params[:direction] == 'asc' ? 'ASC' : 'DESC'
+        @teams = Team.select_teams_by_season_year(params[:year]).includes(:activities).order("teams.kind, activities.created_at #{direction}").references(:activities)
       else
         @teams = Team.by_season_phase.order(:kind, :name)
       end

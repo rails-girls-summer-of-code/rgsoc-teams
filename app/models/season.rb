@@ -37,7 +37,7 @@ class Season < ActiveRecord::Base
     end
 
     def all_years
-      all.pluck(:name)
+      pluck(:name)
     end
   end
 
