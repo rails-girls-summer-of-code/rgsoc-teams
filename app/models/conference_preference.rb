@@ -1,6 +1,7 @@
 class ConferencePreference < ActiveRecord::Base
-  validate :terms_checked?
-  attr_accessor :terms_of_ticket, :terms_of_travel
+  validates :terms_of_ticket, inclusion: { in: [true] }, if: :conference_exists?
+  validates :terms_of_travel, inclusion: { in: [true] }, if: :conference_exists?
+  before_save :change_status_terms, unless: :conference_exists?
 
   belongs_to :team, inverse_of: :conference_preference
   belongs_to :first_conference, class_name: 'Conference'
@@ -11,10 +12,12 @@ class ConferencePreference < ActiveRecord::Base
   end
 
   private
+    def conference_exists?
+      first_conference_id.present? || second_conference_id.present?
+    end
 
-  def terms_checked?
-    conference_chosen = first_conference_id || second_conference_id
-    terms_checked = terms_of_ticket == '1' && terms_of_travel == '1'
-    (conference_chosen && terms_checked) || (!conference_chosen && !terms_checked)
-  end
+    def change_status_terms
+      self.terms_of_travel = false
+      self.terms_of_ticket = false
+    end
 end
