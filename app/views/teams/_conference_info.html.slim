@@ -15,10 +15,10 @@ h3 Conferences
 
   - if @team.conference_attendances.present?
     h4 Conference Offers
-    dl
+    ul.conferences
       - @team.conference_attendances.each do |offer|
-        dt Offered conference:
-        dd = offer.conference.name
+        li
+          = links_to_conferences([offer.conference]).first
         - if offer.orga_comment.present?
-          dt Orga comment:
-          dd = offer.orga_comment
+        |Orga comment:
+        =offer.orga_comment
