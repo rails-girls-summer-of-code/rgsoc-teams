@@ -85,7 +85,6 @@ nav.page
     h3 Supervisors
     p = @team.supervisors.any? ? link_to_team_members(@team, :supervisor) : content_tag(:em, 'Will be added by RGSoC Organizers')
 
-  h3 Conferences
   == render 'conference_info'
 
 - if @team.activities.any?
