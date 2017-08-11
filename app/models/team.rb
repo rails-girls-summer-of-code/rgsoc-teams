@@ -75,6 +75,9 @@ class Team < ActiveRecord::Base
       where(kind: %w(sponsored voluntary))
     end
 
+    def activities_ordered_by(direction)
+      includes(:activities).order("teams.kind, activities.created_at #{direction}").references(:activities)
+    end
   end
 
   def application

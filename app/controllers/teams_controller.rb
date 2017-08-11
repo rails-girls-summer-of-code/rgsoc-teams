@@ -6,7 +6,7 @@ class TeamsController < ApplicationController
   load_and_authorize_resource except: [:index, :show]
 
   def index
-    show_teams_by_params(params)
+    show_teams_by(params)
   end
 
   def show
@@ -102,20 +102,20 @@ class TeamsController < ApplicationController
       @display_roles.map!(&:pluralize)
     end
 
-    def show_teams_by_params(params)
-      only_sort = params[:sort].present? && params[:year].blank?
-      only_year = params[:year].present? && params[:sort].blank?
-      sort_with_year = params[:year].present? && params[:sort].present?
+    def show_teams_by(params)
+      sort = params[:sort], year = params[:year]
+      direction = params[:direction] == 'asc' ? 'ASC' : 'DESC'
+      only_sort = sort.present? && year.blank?
+      only_year = sort.blank? && year.present?
+      with_sort_and_year = sort.present? && year.present?
 
       case true
       when only_sort
-        direction = params[:direction] == 'asc' ? 'ASC' : 'DESC'
-        @teams = Team.by_season_phase.includes(:activities).order("teams.kind, activities.created_at #{direction}").references(:activities)
+        @teams = Team.by_season_phase.activities_ordered_by(direction)
       when only_year
-        @teams = Team.select_teams_by_season_year(params[:year])
-      when sort_with_year
-        direction = params[:direction] == 'asc' ? 'ASC' : 'DESC'
-        @teams = Team.select_teams_by_season_year(params[:year]).includes(:activities).order("teams.kind, activities.created_at #{direction}").references(:activities)
+        @teams = Team.select_teams_by_season_year(year)
+      when with_sort_and_year
+        @teams = Team.select_teams_by_season_year(year).activities_ordered_by(direction)
       else
         @teams = Team.by_season_phase.order(:kind, :name)
       end
