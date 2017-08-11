@@ -1,5 +1,5 @@
 $(function() {
-  $selectedYear = $('select#past_teams');
+  var $selectedYear = $('select#past_teams');
 
   $selectedYear.on('change', function(){
     var yearParam = "?year="+this.value;
