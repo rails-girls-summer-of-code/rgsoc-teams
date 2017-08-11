@@ -4,5 +4,5 @@ nav.actions
     li = link_to icon('plus', 'New Team'), new_team_path, class: 'btn btn-primary btn-sm' if can? :create, Team.new(season: Season.current)
     .pull-right
       li
-        = select_tag 'Past teams', options_for_select(['Past Teams', 2013, 2014, 2015, 2016]), class: 'btn btn-default'
+        = select_tag 'Past teams', options_for_select(Season.all_years), prompt: 'Past Teams', class: 'btn btn-default'
 = render 'table', namespace: nil
