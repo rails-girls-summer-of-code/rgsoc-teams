@@ -113,3 +113,7 @@ If your contribution alters the way the Teams App looks (e.g. CSS changes), we k
 ### Be Patient
 
 Please give us a few days to get back to you. Thank you so much!
+
+### Ping Method™
+
+You and a person reviewing your code agreed to update your pull request with certain changes? Please `@-mention` the person in the comments once you are done and the code is ready to be reviewed again.
