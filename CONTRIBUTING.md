@@ -26,7 +26,6 @@ We use labels to track, manage and organize issues and pull requests.
 | `duplicate`        | [🔍][duplicate]     | Issues which have already been reported. |
 | `in progress`      | [🔍][in progress]   | Work in progress, things which are already taken care of. |
 | `invalid`          | [🔍][invalid]       | Issues which aren't *"real"* issues (e.g. user errors). |
-| `needs review`     | [🔍][needs review]  | Work still needs to be reviewed by another member of the team. |
 | `#pairwithme`      | [🔍][#pairwithme]   | Looking for someone to pair on this. |
 | `question`         | [🔍][question]      | Feature and code related questions which are no bug reports or feature requests. |
 | `rgsoc-<year>`     | [🔍][rgsoc-<year>]  | Issues intended for students working on the Teams App during RGSoC in a given `<year>`. |
@@ -40,7 +39,6 @@ We use labels to track, manage and organize issues and pull requests.
 [enhancement]:   https://github.com/rails-girls-summer-of-code/rgsoc-teams/labels/enhancement
 [in progress]:   https://github.com/rails-girls-summer-of-code/rgsoc-teams/labels/in%20progress
 [invalid]:       https://github.com/rails-girls-summer-of-code/rgsoc-teams/labels/invalid
-[needs review]:  https://github.com/rails-girls-summer-of-code/rgsoc-teams/labels/needs%20review
 [#pairwithme]:   https://github.com/rails-girls-summer-of-code/rgsoc-teams/labels/%23pairwithme
 [question]:      https://github.com/rails-girls-summer-of-code/rgsoc-teams/labels/question
 [rgsoc-<year>]:  https://github.com/rails-girls-summer-of-code/rgsoc-teams/labels/rgsoc-2016
@@ -113,3 +111,7 @@ If your contribution alters the way the Teams App looks (e.g. CSS changes), we k
 ### Be Patient
 
 Please give us a few days to get back to you. Thank you so much!
+
+### Ping Method™
+
+You and a person reviewing your code agreed to update your pull request with certain changes? Please `@-mention` the person in the comments once you are done and the code is ready to be reviewed again.
