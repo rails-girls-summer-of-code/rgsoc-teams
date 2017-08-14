@@ -26,6 +26,7 @@ class Orga::TeamsController < Orga::BaseController
   def edit
     @team.sources.build(kind: 'blog') unless @team.sources.any?
     @conferences = conference_list
+    @team.conference_attendances.build unless @team.conference_attendances.present?
     @team.build_conference_preference unless @team.conference_preference.present?
   end
 
@@ -80,6 +81,7 @@ class Orga::TeamsController < Orga::BaseController
       :project_name, :season_id, :kind,
       conference_preference_attributes: [:id, :terms_of_ticket, :terms_of_travel, :first_conference_id, :second_conference_id, :lightning_talk, :comment, :_destroy],
       roles_attributes: [:id, :name, :github_handle, :_destroy],
+      conference_attendances_attributes: [:id, :orga_comment, :conference_id, :_destroy],
       sources_attributes: [:id, :kind, :url, :_destroy]
     )
   end

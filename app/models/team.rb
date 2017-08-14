@@ -25,11 +25,14 @@ class Team < ActiveRecord::Base
   has_one :last_activity, -> { order('id DESC') }, class_name: 'Activity'
   has_many :comments, as: :commentable
   has_many :status_updates, -> { where(kind: 'status_update') }, class_name: 'Activity'
+  has_many :conference_attendances, dependent: :destroy
+
   has_one :conference_preference, dependent: :destroy
   has_many :conferences, through: :conference_preference
 
   accepts_nested_attributes_for :conference_preference, allow_destroy: true
   accepts_nested_attributes_for :roles, :sources, allow_destroy: true
+  accepts_nested_attributes_for :conference_attendances, allow_destroy: true, reject_if: proc { |attributes| attributes[:conference_id].blank? }
 
   before_create :set_number
   before_save :set_last_checked, if: :checked

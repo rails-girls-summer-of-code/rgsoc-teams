@@ -7,6 +7,10 @@ class ConferencePreference < ActiveRecord::Base
   belongs_to :first_conference, class_name: 'Conference'
   belongs_to :second_conference, class_name: 'Conference'
 
+  def has_preference?
+    first_conference.present? || second_conference.present?
+  end
+
   private
     def conference_exists?
       first_conference_id.present? || second_conference_id.present?

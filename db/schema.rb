@@ -94,6 +94,17 @@ ActiveRecord::Schema.define(version: 20170810172601) do
     t.index ["commentable_id", "commentable_type"], name: "index_comments_on_commentable_id_and_commentable_type"
   end
 
+  create_table "conference_attendances", force: :cascade do |t|
+    t.boolean "attendance"
+    t.text "orga_comment"
+    t.bigint "team_id"
+    t.bigint "conference_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["conference_id"], name: "index_conference_attendances_on_conference_id"
+    t.index ["team_id"], name: "index_conference_attendances_on_team_id"
+  end
+
   create_table "conference_preferences", id: :serial, force: :cascade do |t|
     t.boolean "confirmed"
     t.datetime "created_at", null: false

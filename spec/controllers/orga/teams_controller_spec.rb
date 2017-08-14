@@ -111,6 +111,28 @@ RSpec.describe Orga::TeamsController do
       end
     end
 
+    describe "PATCH update" do
+      before { sign_in user}
+
+      context "assign conference attendance" do
+        let(:offer) { FactoryGirl.create(:conference_attendance) }
+        let(:team) { offer.team }
+        let!(:team_params) do
+          build(:team).attributes.merge(:conference_attendances_attributes=>{
+            '0'=>{
+              conference_id: offer.conference.id, orga_comment: "commment"
+            }
+          })
+        end
+
+        it 'orga members can assign conference offer for a team' do
+          expect {
+              patch :update, params: { id: team.id, team: team_params }
+            }.to change { team.conference_attendances.count }.by 1
+        end
+      end
+    end
+
     describe "DELETE destroy" do
       context "their own team" do
         let(:params) { { id: team.to_param } }
