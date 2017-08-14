@@ -1,6 +1,7 @@
 .page-header
   h2 Conferences
   h3 Conference Preferences
+  = link_to 'More info about the conferences', conferences_path
 fieldset.conferences_fieldset
   = f.simple_fields_for :conference_preference do |c|
     = c.input :first_conference_id, collection: @conferences.group_by(&:region), as: :grouped_select, group_method: :last, label: "Primary choice", include_blank: "Conference"
