@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170810172601) do
+ActiveRecord::Schema.define(version: 20170814081537) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -251,7 +251,9 @@ ActiveRecord::Schema.define(version: 20170810172601) do
     t.boolean "invisible", default: false
     t.integer "applications_count", default: 0, null: false
     t.string "project_name"
+    t.bigint "project_id"
     t.index ["applications_count"], name: "index_teams_on_applications_count"
+    t.index ["project_id"], name: "index_teams_on_project_id"
     t.index ["season_id"], name: "index_teams_on_season_id"
   end
 
@@ -312,4 +314,6 @@ ActiveRecord::Schema.define(version: 20170810172601) do
     t.string "tshirt_cut"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
   end
+
+  add_foreign_key "teams", "projects"
 end

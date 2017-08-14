@@ -27,6 +27,7 @@ class Team < ActiveRecord::Base
   has_many :status_updates, -> { where(kind: 'status_update') }, class_name: 'Activity'
   has_one :conference_preference, dependent: :destroy
   has_many :conferences, through: :conference_preference
+  belongs_to :project
 
   accepts_nested_attributes_for :conference_preference, allow_destroy: true
   accepts_nested_attributes_for :roles, :sources, allow_destroy: true
