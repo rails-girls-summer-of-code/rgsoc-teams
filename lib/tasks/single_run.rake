@@ -65,4 +65,17 @@ namespace :single_run do
       end
     end
   end
+
+  desc '2017-08-15: Change project_name to project_id'
+  task add_project_id_to_team: :environment do
+    Team.all.each do |team|
+      next team unless team.project_name.present?
+      begin
+        team.project = Project.where(season_id: team.season_id).find_by!(name: team.project_name)
+        team.save
+      rescue ActiveRecord::RecordNotFound => e
+        puts "#{e} for #{team.name} with project_name #{team.project_name}"
+      end
+    end
+  end
 end
