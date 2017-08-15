@@ -14,6 +14,7 @@ describe Team do
   it { is_expected.to have_many(:supervisors) }
   it { is_expected.to have_many(:status_updates) }
   it { is_expected.to have_many(:roles).inverse_of(:team) }
+  it { is_expected.to have_many(:conference_attendances).dependent(:destroy) }
   it { expect(subject).to have_one(:conference_preference).dependent(:destroy) }
   it { is_expected.to validate_presence_of(:name) }
   it { is_expected.to validate_uniqueness_of(:name) }

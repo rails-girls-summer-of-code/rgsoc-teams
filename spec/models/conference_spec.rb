@@ -3,6 +3,7 @@ require 'spec_helper'
 describe Conference do
   it_behaves_like 'HasSeason'
 
+  it { is_expected.to have_many(:conference_attendances).dependent(:destroy) }
   it { is_expected.to have_many(:first_choice_conference_preferences) }
   it { is_expected.to have_many(:second_choice_conference_preferences) }
   it { is_expected.to have_many(:attendees).through(:second_choice_conference_preferences) }

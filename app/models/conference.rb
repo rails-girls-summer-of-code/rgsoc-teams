@@ -10,6 +10,7 @@ class Conference < ActiveRecord::Base
 
   include HasSeason
 
+  has_many :conference_attendances, dependent: :destroy
   has_many :first_choice_conference_preferences, :class_name => 'ConferencePreference', :foreign_key => 'first_conference_id'
   has_many :second_choice_conference_preferences, :class_name => 'ConferencePreference', :foreign_key => 'second_conference_id'
   has_many :attendees, through: :first_choice_conference_preferences, source: :team

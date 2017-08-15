@@ -171,6 +171,35 @@ describe Ability do
         end
       end
 
+      describe "just orga members, team's supervisor and team's students should be able to see offered conference for a team" do
+        let(:user) { FactoryGirl.build(:student)}
+
+        context 'when the user is an student of another team' do
+          it { expect(ability).not_to be_able_to(:see_offered_conferences, Team.new()) }
+        end
+
+        context 'when the user is a supervisor of another team' do
+           before do
+            allow(user).to receive(:supervisor?).and_return(true)
+          end
+          it { expect(ability).not_to be_able_to(:see_offered_conferences, Team.new()) }
+        end
+
+        context "when the user is a team's student" do
+          it { expect(ability).to be_able_to(:see_offered_conferences, Team.new(:students => [user])) }
+        end
+
+        context "when the user is a team's supervisor" do
+          it { expect(ability).to be_able_to(:see_offered_conferences, Team.new(:supervisors => [user])) }
+        end
+
+        context 'when the user is an admin' do
+          before do
+            allow(user).to receive(:admin?).and_return(true)
+          end
+          it { expect(ability).to be_able_to(:see_offered_conferences, Team.new()) }
+        end
+      end
 
       describe 'to read user info' do
         context 'if not an admin or supervisor' do

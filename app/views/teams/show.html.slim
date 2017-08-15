@@ -41,7 +41,6 @@ nav.page
   - if @team.description
     p = render_markdown(@team.description).html_safe
 
-
 - if @team.helpdesk_team?
   - if @team.sources.any?
     h3 Sources
@@ -86,17 +85,7 @@ nav.page
     h3 Supervisors
     p = @team.supervisors.any? ? link_to_team_members(@team, :supervisor) : content_tag(:em, 'Will be added by RGSoC Organizers')
 
-- if @team.conference_preference.present?
-  h4 Conference preferences
-  ul.conferences
-    - if @team&.conference_preference&.first_conference.present?
-      li
-        = links_to_conferences([@team.conference_preference.try(:first_conference)]).first
-        = content_tag :span, 'Primary choice', class: "label label-primary"
-    - if @team&.conference_preference&.second_conference.present?
-      li
-        = links_to_conferences([@team.conference_preference.second_conference]).first if @team.conference_preference.second_conference.present?
-        = content_tag :span, 'Secondary choice' , class: "label label-primary"
+  = render 'conference_info'
 
 - if @team.activities.any?
   h3
