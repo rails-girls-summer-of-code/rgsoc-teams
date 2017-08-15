@@ -205,11 +205,11 @@ describe Season do
     end
   end
 
-  describe '#all_years' do
+  describe '.all_years' do
     it 'return array of years' do
       create :season, name: '2015'
       create :season, name: '2016'
-      expect(Season.all_years).to eq ['2015', '2016']
+      expect(Season.all_years).to match_array ['2015', '2016']
     end
   end
 end

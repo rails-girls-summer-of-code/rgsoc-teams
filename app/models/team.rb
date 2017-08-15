@@ -40,6 +40,10 @@ class Team < ActiveRecord::Base
 
   scope :accepted, -> { where(kind: %w(sponsored voluntary)) }
 
+  scope :by_season_year, ->(year) { joins(:season).where('seasons.name': year) }
+
+  scope :with_last_activities_ordered_by, ->(direction) { includes(:activities).order("teams.kind, activities.created_at #{direction}").references(:activities) }
+
   class << self
     def ordered(sort = {})
       order([sort[:order] || 'kind, name', sort[:direction] || 'asc'].join(' '))
@@ -63,20 +67,21 @@ class Team < ActiveRecord::Base
       where(season: Season.current)
     end
 
-    def by_season_year(year)
-      where(season: Season.where(name: year))
-    end
-
-    def select_teams_by_season_year(year)
-      by_season_year(year).selected
-    end
-
     def selected
       where(kind: %w(sponsored voluntary))
     end
 
-    def activities_ordered_by(direction)
-      includes(:activities).order("teams.kind, activities.created_at #{direction}").references(:activities)
+    def by_season(year_or_season)
+      case year_or_season
+      when Integer
+        joins(:season).where('seasons.name': year_or_season)
+      when String
+        joins(:season).where('seasons.name': year_or_season)
+      when Season
+        where(season: year_or_season)
+      else
+        raise
+      end
     end
   end
 

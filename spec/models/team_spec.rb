@@ -210,6 +210,14 @@ describe Team do
       end
     end
 
+    describe '.by_season_year' do
+      it 'return one team' do
+        create :team, season: Season.current
+        year = Season.current.name
+        expect(Team.by_season_year(year).count).to eq 1
+      end
+    end
+
     describe '.without_recent_log_update' do
       let(:team_without) do
         create :team
@@ -407,11 +415,18 @@ describe Team do
     end
   end
 
-  describe '#select_teams_by_season_year' do
-    it 'returns selected teams by season year' do
-      season = create :season, name: '2017'
-      5.times { create :team, season: season }
-      expect(Team.select_teams_by_season_year('2017').count).to eq 5
+  describe '.by_season' do
+    before do
+      season = create :season, name: '2016'
+      create_list :team, 2, season: season
+    end
+
+    it 'returns teams by season year' do
+      expect(Team.by_season('2016').count).to eq 2
+    end
+
+    it 'returns teams by season' do
+      expect(Team.by_season(Season.last).count).to eq 2
     end
   end
 end
