@@ -29,9 +29,8 @@ table.table.table-striped.table-bordered.table-condensed.hidden-sm.hidden-xs
               = icon('minus')
       td = project_tags project
       td
-        - if project.teams.any?
-          - project.teams.each do |team|
-            = link_to team.name, activities_url(team_id: team.id)
+        - project.accepted_teams.each do |team|
+          = link_to team.name, activities_url(team_id: team.id)
       td
         - if project.comments.any?
           = link_to project.comments.count, project_path(project, anchor: 'comments'), class: 'label label-default'
