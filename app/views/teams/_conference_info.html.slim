@@ -19,6 +19,14 @@ h3 Conferences
       - @team.conference_attendances.each do |offer|
         li
           = links_to_conferences([offer.conference]).first
+          - if offer.attendance.present?
+          = show_attendance offer.attendance
         - if offer.orga_comment.present?
-        |Orga comment:
-        =offer.orga_comment
+        |Orga comment: 
+        = offer.orga_comment
+        - if can? :accept_or_reject_conference_offer, @team
+        ul.attendance.col-md-6
+          li
+            = link_to "Yes, I can attend", conference_attendance_path(offer, attendance: :true, team_id: @team.id), method: :put
+          li
+            = link_to "No, I cannot attend", conference_attendance_path(offer, attendance: :false, team_id: @team.id), method: :put
