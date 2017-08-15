@@ -6,12 +6,7 @@ class TeamsController < ApplicationController
   load_and_authorize_resource except: [:index, :show]
 
   def index
-    if params[:sort]
-      direction = params[:direction] == 'asc' ? 'ASC' : 'DESC'
-      @teams = Team.by_season_phase.includes(:activities).order("teams.kind, activities.created_at #{direction}").references(:activities)
-    else
-      @teams = Team.by_season_phase.order(:kind, :name)
-    end
+    show_teams_by(params)
   end
 
   def show
@@ -91,7 +86,7 @@ class TeamsController < ApplicationController
     def conference_list
       Conference.in_current_season
     end
-    
+
     def role_attributes_list
       unless current_user.admin? ||
         # If it contains an ID, the user is updating an existing role
@@ -105,5 +100,24 @@ class TeamsController < ApplicationController
     def set_display_roles
       @display_roles = ['student']
       @display_roles.map!(&:pluralize)
+    end
+
+    def show_teams_by(params)
+      sort = params[:sort], year = params[:year]
+      direction = params[:direction] == 'asc' ? 'ASC' : 'DESC'
+      only_sort = sort.present? && year.blank?
+      only_year = sort.blank? && year.present?
+      with_sort_and_year = sort.present? && year.present?
+
+      case true
+      when only_sort
+        @teams = Team.by_season_phase.activities_ordered_by(direction)
+      when only_year
+        @teams = Team.select_teams_by_season_year(year)
+      when with_sort_and_year
+        @teams = Team.select_teams_by_season_year(year).activities_ordered_by(direction)
+      else
+        @teams = Team.by_season_phase.order(:kind, :name)
+      end
     end
 end

@@ -408,4 +408,11 @@ describe Team do
     end
   end
 
+  describe '#select_teams_by_season_year' do
+    it 'returns selected teams by season year' do
+      season = create :season, name: '2017'
+      5.times { create :team, season: season }
+      expect(Team.select_teams_by_season_year('2017').count).to eq 5
+    end
+  end
 end
