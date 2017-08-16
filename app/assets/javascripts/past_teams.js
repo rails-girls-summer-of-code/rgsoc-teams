@@ -1,16 +1,8 @@
 $(function() {
-  var $selectedYear = $('select#past_teams');
+  var $selectedYear = $('[data-behaviour="switch-teams-year"]');
 
-  $selectedYear.on('change', function(){
+  $selectedYear.on('click', function(){
     var yearParam = "?year="+this.value;
-    var newUrl;
-    var removed = window.location.search;
-
-    if(removed.length>0){
-      newUrl = location.href.replace(removed, yearParam);
-    } else{
-      newUrl = location.href+yearParam;
-    }
-    window.location.href = newUrl;
+    window.location.search = yearParam;
   });
 });
