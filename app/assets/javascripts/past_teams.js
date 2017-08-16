@@ -1,7 +1,7 @@
 $(function() {
-  var $selectedYear = $('select#past_teams');
+  var $selectedYear = $('[data-behaviour="switch-teams-year"]');
 
-  $selectedYear.on('change', function(){
+  $selectedYear.on('click', function(){
     var yearParam = "?year="+this.value;
     window.location.search = yearParam;
   });
