@@ -84,9 +84,8 @@ nav.page
 
     h3 Supervisors
     p = @team.supervisors.any? ? link_to_team_members(@team, :supervisor) : content_tag(:em, 'Will be added by RGSoC Organizers')
-
+- if @team.accepted?
   = render 'conference_info'
-
 - if @team.activities.any?
   h3
     span Activities
