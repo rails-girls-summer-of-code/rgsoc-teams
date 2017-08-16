@@ -21,12 +21,17 @@ h3 Conferences
           = links_to_conferences([offer.conference]).first
           - if offer.attendance.present?
           = show_attendance offer.attendance
+
         - if offer.orga_comment.present?
-        |Orga comment: 
-        = offer.orga_comment
+        blockquote.orgaComment
+          p = offer.orga_comment
+          footer RGSoC Orga
+
         - if can? :accept_or_reject_conference_offer, @team
-        ul.attendance.col-md-6
-          li
-            = link_to "Yes, I can attend", conference_attendance_path(offer, attendance: :true, team_id: @team.id), method: :put
-          li
-            = link_to "No, I cannot attend", conference_attendance_path(offer, attendance: :false, team_id: @team.id), method: :put
+          ul.attendance.list-inline
+            -if offer.attendance != true
+              li
+                = link_to "Yes, I can attend", conference_attendance_path(offer, attendance: :true, team_id: @team.id), method: :put, class: 'btn btn-default'
+            -if offer.attendance != false
+              li
+                = link_to "No, I cannot attend", conference_attendance_path(offer, attendance: :false, team_id: @team.id), method: :put, class: 'btn btn-default'

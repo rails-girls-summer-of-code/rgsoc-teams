@@ -223,9 +223,9 @@ module ApplicationHelper
                 end
     text_label = case attendance
                 when true
-                  "You will attend this conference!"
+                  "I will attend this conference"
                 when false
-                  "You will not attend this conference."
+                  "I will not attend this conference"
                 end
     content_tag :span, text_label, class: "label #{label_class}"
   end
