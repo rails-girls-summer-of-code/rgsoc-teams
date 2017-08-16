@@ -10,10 +10,16 @@ class TeamsController < ApplicationController
     year = params[:year]
 
     @teams = Team.by_season_phase
-                 .with_last_activities_ordered_by(direction)
-    @teams = Team.by_season_year(year)
-                 .accepted
-                 .with_last_activities_ordered_by(direction) if year.present?
+                 .includes(:activities)
+                 .order("teams.kind, activities.created_at #{direction}")
+                 .references(:activities)
+    if year.present?
+      @teams = Team.by_season_year(year)
+                   .accepted
+      @teams = @teams.includes(:activities)
+                    .order("teams.kind, activities.created_at #{direction}")
+                    .references(:activities)
+    end
   end
 
   def show
