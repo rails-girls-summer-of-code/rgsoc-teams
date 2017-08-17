@@ -5,3 +5,10 @@
   <%= file_field_tag :file, accept: '.csv' %>
   <%= submit_tag "Import csv file", class: "btn btn-default btn-small"  %>
 <% end %>
+<h1>Export teams' preferences (.csv only)</h1>
+<p>Export teams' conference preferences as a csv file</p>
+
+<%= form_tag orga_exports_path, class: "form-inline" do %>
+  <%= hidden_field_tag :export, 'Exporters::ConferencePreferences#current' %>
+  <%= submit_tag "Download teams' preferences", class: "btn btn-default btn-small"  %>
+<% end %>
