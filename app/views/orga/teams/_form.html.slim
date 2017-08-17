@@ -79,6 +79,8 @@
     = render 'teams/conference_preference_fields', f: f
   .page-header
     h3 Conference Offers
+    .conference-info
+      | Please select one or more conferences free tickets to which you would like to offer to the students.
 
   fieldset
     = f.simple_fields_for :conference_attendances do |c|

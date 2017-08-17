@@ -1,14 +1,19 @@
 .page-header
   h2 Conferences
   h3 Conference Preferences
+  .conference-info
+    | RGSoC provides the students an opportunity to attend a conference during or after the Summer of Code. Please select one or two conferences you are interested in. In case you don't find it in the list, feel free to add it.
   = link_to 'More info about the conferences', conferences_path
 fieldset.conferences_fieldset
   = f.simple_fields_for :conference_preference do |c|
     = c.input :first_conference_id, collection: @conferences.group_by(&:region), as: :grouped_select, group_method: :last, label: "Primary choice", include_blank: "None"
     = c.input :second_conference_id, collection: @conferences.group_by(&:region), as: :grouped_select, group_method: :last, label: "Secondary choice", include_blank: "None"
-    .form-group.form-btn-group
+    .form-group.form-btn-group.suggest-conference
       = link_to new_conference_path, data: { confirm: 'You are leaving the page, all , your alterations will be lost. Do you want to continue?' }, class: 'btn btn-primary col-sm-offset-3' do
         | We want to suggest another conference!
+      .conference-info
+        | Please make sure that the conference you are adding is tech and has a good Code of Conduct!
+
     = c.input :comment, placeholder: "Comments"
     .form-group
       label.control-label.col-sm-3 Lightning talk
