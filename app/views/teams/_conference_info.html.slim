@@ -28,9 +28,9 @@ h3 Conferences
           = show_attendance offer.attendance
 
         - if offer.orga_comment.present?
-        blockquote.orgaComment
+        .orgaComment
+          |Orga Comment:
           p = offer.orga_comment
-          footer RGSoC Orga
 
         - if can? :accept_or_reject_conference_offer, @team
           ul.attendance.list-inline

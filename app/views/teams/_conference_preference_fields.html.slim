@@ -2,8 +2,7 @@
   h2 Conferences
   h3 Conference Preferences
   .conference-info
-    | RGSoC provides the students an opportunity to attend a conference during or after the Summer of Code. Please select one or two conferences you are interested in. In case you don't find it in the list, feel free to add it.
-  = link_to 'More info about the conferences', conferences_path
+    | RGSoC provides the students an opportunity to attend a conference during or after the Summer of Code. Please select one or two conferences you are interested in. In case you don't find it in the #{link_to 'list', conferences_path, target: '_blank'}, feel free to add it.
 fieldset.conferences_fieldset
   = f.simple_fields_for :conference_preference do |c|
     = c.input :first_conference_id, collection: @conferences.group_by(&:region), as: :grouped_select, group_method: :last, label: "Primary choice", include_blank: "None"
