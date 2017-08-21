@@ -16,12 +16,11 @@ class ConferencesController < ApplicationController
 
   def create
     team = current_user.student_team
-    @conference = Conference.new(conference_params)
-    @conference.season_id = current_season.id
-    @conference.gid = generate_gid(team)
+    @conference = build_conference
 
     if @conference.save
-      redirect_to edit_team_path(team), notice: 'Conference was successfully created.'
+      path = team.present? ? edit_team_path(team) : conferences_path
+      redirect_to path, notice: 'Conference was successfully created.'
     else
       render action: :new
     end
@@ -33,8 +32,15 @@ class ConferencesController < ApplicationController
 
   private
 
-  def generate_gid(team)
-    "#{Season.current.name}-#{Time.now.getutc.to_i}-#{team.id}"
+  def build_conference
+    conference = Conference.new(conference_params)
+    conference.season_id = current_season.id
+    conference.gid = generate_gid
+    conference
+  end
+
+  def generate_gid
+    "#{Season.current.name}-#{Time.now.getutc.to_i}-#{current_user.id}"
   end
  
   def conferences
