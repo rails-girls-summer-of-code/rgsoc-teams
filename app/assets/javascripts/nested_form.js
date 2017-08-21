@@ -94,7 +94,7 @@
 (function($) {
         $.fn.closestChild = function(selector) {
                 // breadth first search for the first matched node
-                if (selector && selector != '') {
+                if (selector && selector !== '') {
                         var queue = [];
                         queue.push(this);
                         while(queue.length > 0) {
