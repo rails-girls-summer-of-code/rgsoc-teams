@@ -4,7 +4,7 @@ module Exporters
     def current
       preferences = ConferencePreference.current_teams
       team_max_offer = Team.joins(:conference_attendances).group("teams.id").order("count(teams.id) DESC").first
-      max_offer = team_max_offer.conference_attendances.size
+      max_offer = team_max_offer&.conference_attendances&.size || 0
 
       header = 'Team name', 'Team location', 'Project name', 'Conference primary choice', 'Conference secondary choice', 'We would like to give a LT', 'Comments', 'Terms accepted'
       max_offer.times do |n|
