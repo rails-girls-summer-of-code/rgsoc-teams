@@ -3,10 +3,10 @@
 
 <%= form_tag import_orga_conferences_path, multipart: true do %>
   <div class="form-group">
-    <%= file_field_tag :file, accept: '.csv' %>
+    <%= file_field_tag :file, accept: '.csv', id: 'input-csv-file-upload' %>
   </div>
   <div class="form-group">
-    <%= submit_tag "Import CSV file", class: "btn btn-default btn-small"  %>
+    <%= submit_tag "Import CSV file", class: "btn btn-default btn-small", id: 'submit-csv-file-upload' %>
   </div>
 <% end %>
 <h1>Export teams' preferences (.csv only)</h1>
