@@ -403,4 +403,18 @@ describe Ability do
       expect(ability).to be_able_to(:join, helpdesk_team)
     end
   end
+
+  context 'Crud Conferences' do
+    let!(:user) { FactoryGirl.create(:user) }
+
+    it 'permit crud conference when user is a current student' do
+      create :student_role, user: user
+      expect(ability).to be_able_to(:crud, Conference.new)
+    end
+
+    it 'permit crud conference when user is an organizer' do
+      create :organizer_role, user: user
+      expect(ability).to be_able_to(:crud, Conference.new)
+    end
+  end
 end

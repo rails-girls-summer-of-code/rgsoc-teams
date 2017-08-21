@@ -1,3 +1,6 @@
 = render 'orga/breadcrumbs'
 = render 'form'
+- if can?(:crud, Conference)
+  h3 Add a new Conference
+  = link_to '+ New Conference', new_conference_path, class: 'btn btn-default'
 = render 'conferences/table', namespace: :orga, conferences: @conferences
