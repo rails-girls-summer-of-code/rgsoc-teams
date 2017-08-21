@@ -3,8 +3,14 @@ class Orga::ConferencesController < Orga::BaseController
   before_action :ensure_file_was_posted, only: :import
 
   def import
-    Conference::Importer.call(params[:file].path, content_type: params[:file].content_type)
-    redirect_to orga_conferences_path, notice: "Import finished! Check log for errors."
+    begin
+      Conference::Importer.call(params[:file].path, content_type: params[:file].content_type)
+      flash[:notice] = "Import finished! Check log for errors."
+    rescue ArgumentError => e
+      flash[:alert] = "Import failed: #{e.message}"
+    end
+
+    redirect_to orga_conferences_path
   end
 
   def index
