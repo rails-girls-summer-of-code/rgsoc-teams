@@ -1,9 +1,13 @@
 <h1>Import conferences (.csv only)</h1>
 <p>Importing will update existing conferences with the data from the csv file</p>
 
-<%= form_tag import_orga_conferences_path, multipart: true, class: "form-inline" do %>
-  <%= file_field_tag :file, accept: '.csv' %>
-  <%= submit_tag "Import csv file", class: "btn btn-default btn-small"  %>
+<%= form_tag import_orga_conferences_path, multipart: true do %>
+  <div class="form-group">
+    <%= file_field_tag :file, accept: '.csv' %>
+  </div>
+  <div class="form-group">
+    <%= submit_tag "Import CSV file", class: "btn btn-default btn-small"  %>
+  </div>
 <% end %>
 <h1>Export teams' preferences (.csv only)</h1>
 <p>Export teams' conference preferences as a csv file</p>
