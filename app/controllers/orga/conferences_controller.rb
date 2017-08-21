@@ -1,5 +1,6 @@
 class Orga::ConferencesController < Orga::BaseController
   before_action :find_conference, only: [:show, :destroy]
+  before_action :ensure_file_was_posted, only: :import
 
   def import
     Conference::Importer.call(params[:file].path, content_type: params[:file].content_type)
@@ -47,5 +48,11 @@ class Orga::ConferencesController < Orga::BaseController
   def set_breadcrumbs
     super
     @breadcrumbs << [ 'Conferences', :conferences]
+  end
+
+  def ensure_file_was_posted
+    unless params[:file]
+      redirect_to orga_conferences_path, alert: 'Error: No file submitted.' and return
+    end
   end
 end

@@ -30,8 +30,14 @@ RSpec.describe Orga::ConferencesController do
         post :import, format: :json, params: { file: file}
         expect(response).not_to be_success
       end
+
+      it 'catches error when file is omitted' do
+        post :import
+        expect(response).to redirect_to orga_conferences_path
+        expect(flash[:alert]).to be_present
+      end
     end
-    
+
     describe 'DELETE destroy' do
       let!(:conference) { create :conference }
 
