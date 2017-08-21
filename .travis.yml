@@ -16,7 +16,6 @@ before_script:
 - bundle exec rake db:create db:schema:load RAILS_ENV=test
 script:
 - bundle exec rake spec
-- bundle exec rake jshint
 deploy:
 - provider: heroku
   api_key:
