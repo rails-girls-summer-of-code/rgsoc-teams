@@ -14,8 +14,10 @@ notifications:
 before_script:
 - cp config/database.yml.travis config/database.yml
 - bundle exec rake db:create db:schema:load RAILS_ENV=test
+- npm install -g jshint
 script:
 - bundle exec rake spec
+- jshint app/assets/javascripts
 deploy:
 - provider: heroku
   api_key:
