@@ -26,7 +26,7 @@ class Ability
     end
 
     can :update_conference_preferences, Team do |team|
-      team.accepted? && (user.student? && team.students.include?(user))
+      team.accepted? && team.students.include?(user)
     end
 
     can :see_offered_conferences, Team do |team|
