@@ -29,7 +29,7 @@ table.table.table-striped.table-bordered.table-condensed.hidden-sm.hidden-xs
               = icon('minus')
       td = project_tags project
       td
-        - project.accepted_teams.each do |team|
+        - project.assigned_teams.each do |team|
           = link_to team.name, activities_url(team_id: team.id)
       td
         - if project.comments.any?
