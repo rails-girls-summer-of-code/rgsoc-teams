@@ -1,24 +1,7 @@
-<!--- Which issue are you closing? -->
-closes #
+Related issue #
 
-<!-- What is the main goal of this PR? -->
-### Goal
-- 
-
-
-<!--- What changes did you make? -->
-### Description:
-- 
-- 
--
-
-<!--- How did you test? How can a code reviewer test? -->
-### Test/outcome
--
-- 
-
-<!-- If the UI changes, please include a screenshot -->
-
-<!--- Anything else we should know? -->
-<!--- Like migrations or instructions for deployment -->
-### Notes:
+<!----Describe what this PR is about:
+ - What feature does it add, which bug does it fix? 
+ - Tests are much appreciated. 
+ - Add screenshots if your PR includes visual/UI changes
+---->
