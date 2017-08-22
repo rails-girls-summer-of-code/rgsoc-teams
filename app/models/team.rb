@@ -45,8 +45,6 @@ class Team < ActiveRecord::Base
 
   scope :by_season_year, ->(year) { joins(:season).where('seasons.name': year) }
 
-  scope :with_last_activities_ordered_by, ->(direction) { includes(:activities).order("teams.kind, activities.created_at #{direction}").references(:activities) }
-
   class << self
     def ordered(sort = {})
       order([sort[:order] || 'kind, name', sort[:direction] || 'asc'].join(' '))
