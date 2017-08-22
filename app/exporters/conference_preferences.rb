@@ -12,7 +12,7 @@ module Exporters
         header << "Conference Offer #{n+1} accepted"
       end
 
-      generate(preferences, header.join(',')) do |cp|
+      generate(preferences, *header) do |cp|
           team_preferences = [cp.team&.name, cp.team&.students_location, cp.team&.project_name, cp.first_conference&.name, cp.second_conference&.name, cp.lightning_talk, cp.comment, cp.terms_accepted?]
           cp.team&.conference_attendances&.each do |ca|
             team_preferences << ca.conference.name
