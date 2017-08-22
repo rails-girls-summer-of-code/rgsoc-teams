@@ -11,6 +11,7 @@ table.table.table-striped.table-bordered.table-condensed.hidden-sm.hidden-xs
   tr
     th Name
     th Tags
+    th Team
     th Comments
     th title="Application referencing this project as 1st choice" Applications (1st Choice)
     th title="Application referencing this project as 2nd choice" Applications (2nd Choice)
@@ -27,6 +28,9 @@ table.table.table-striped.table-bordered.table-condensed.hidden-sm.hidden-xs
             = link_to project, data: { confirm: 'This action cannot be undone. Are you sure?' }, method: :delete do
               = icon('minus')
       td = project_tags project
+      td
+        - project.assigned_teams.each do |team|
+          = link_to team.name, activities_url(team_id: team.id)
       td
         - if project.comments.any?
           = link_to project.comments.count, project_path(project, anchor: 'comments'), class: 'label label-default'
