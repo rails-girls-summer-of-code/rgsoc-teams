@@ -33,10 +33,7 @@ class ConferencesController < ApplicationController
   private
 
   def build_conference
-    conference = Conference.new(conference_params)
-    conference.season_id = current_season.id
-    conference.gid = generate_gid
-    conference
+    Conference.new(conference_params.merge(season: current_season, gid: generate_gid))
   end
 
   def generate_gid
