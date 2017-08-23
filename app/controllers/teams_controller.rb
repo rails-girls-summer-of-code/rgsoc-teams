@@ -9,16 +9,17 @@ class TeamsController < ApplicationController
     direction = params[:direction] == 'asc' ? 'ASC' : 'DESC'
     year = params[:year]
 
-    @teams = Team.by_season_phase
-                 .includes(:activities)
-                 .order("teams.kind, activities.created_at #{direction}")
-                 .references(:activities)
     if year.present?
-      @teams = Team.by_season_year(year)
+      @teams = Team.by_season(year)
                    .accepted
-      @teams = @teams.includes(:activities)
-                    .order("teams.kind, activities.created_at #{direction}")
-                    .references(:activities)
+                   .includes(:activities)
+                   .order("teams.kind, activities.created_at #{direction}")
+                   .references(:activities)
+    else
+      @teams = Team.by_season_phase
+                   .includes(:activities)
+                   .order("teams.kind, activities.created_at #{direction}")
+                   .references(:activities)
     end
   end
 

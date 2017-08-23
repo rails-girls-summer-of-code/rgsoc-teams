@@ -211,11 +211,18 @@ describe Team do
       end
     end
 
-    describe '.by_season_year' do
-      it 'return one team' do
-        create :team, season: Season.current
-        year = Season.current.name
-        expect(Team.by_season_year(year).count).to eq 1
+    describe '.by_season' do
+      before do
+        season = create :season, name: '2016'
+        create_list :team, 2, season: season
+      end
+
+      it 'returns teams by season year' do
+        expect(Team.by_season('2016').count).to eq 2
+      end
+
+      it 'returns teams by season' do
+        expect(Team.by_season(Season.last).count).to eq 2
       end
     end
 
@@ -257,7 +264,6 @@ describe Team do
         team_with_recent_feed_entry
         expect(described_class.without_recent_log_update).not_to include(team_with_recent_status_update)
         expect(described_class.without_recent_log_update).not_to include(team_with_recent_feed_entry)
-
       end
     end
 
@@ -413,21 +419,6 @@ describe Team do
       create(:application, season: season1, team: team)
       application = create(:application, season: Season.current, team: team)
       expect(team.application).to eql application
-    end
-  end
-
-  describe '.by_season' do
-    before do
-      season = create :season, name: '2016'
-      create_list :team, 2, season: season
-    end
-
-    it 'returns teams by season year' do
-      expect(Team.by_season('2016').count).to eq 2
-    end
-
-    it 'returns teams by season' do
-      expect(Team.by_season(Season.last).count).to eq 2
     end
   end
 end
