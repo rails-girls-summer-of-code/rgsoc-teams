@@ -6,6 +6,7 @@ class Project < ActiveRecord::Base
 
   has_many :first_choice_application_drafts,  class_name: 'ApplicationDraft', foreign_key: 'project1_id'
   has_many :second_choice_application_drafts, class_name: 'ApplicationDraft', foreign_key: 'project2_id'
+  has_many :assigned_teams, class_name: 'Team' # working on the project; after application procedure
 
   validates :name, :submitter, :mentor_email, presence: true
 

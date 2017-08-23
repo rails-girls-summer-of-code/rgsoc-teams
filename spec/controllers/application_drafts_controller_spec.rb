@@ -3,7 +3,7 @@ require 'spec_helper'
 RSpec.describe ApplicationDraftsController do
   render_views
 
-  let(:team) { create :team }
+  let(:team) { create :team, :in_current_season }
 
   before do
     Timecop.travel(Time.utc(2013, 3, 15))
@@ -146,10 +146,11 @@ RSpec.describe ApplicationDraftsController do
     end
 
     describe 'PATCH update' do
-      let(:draft) { create :application_draft }
+      let(:team)   { create :team, :in_current_season }
+      let!(:draft) { create :application_draft, team: team }
 
       before do
-        create :student_role, user: user, team: draft.team
+        create :student_role, user: user, team: team
       end
 
       it_behaves_like 'application period is over' do
@@ -176,10 +177,11 @@ RSpec.describe ApplicationDraftsController do
     end
 
     describe 'GET check' do
-      let(:draft) { create :application_draft }
+      let(:team)   { create :team, :in_current_season }
+      let!(:draft) { create :application_draft, team: team }
 
       before do
-        create :student_role, user: user, team: draft.team
+        create :student_role, user: user, team: team
       end
 
       context 'for an invalid draft' do
@@ -208,7 +210,7 @@ RSpec.describe ApplicationDraftsController do
     end
 
     describe 'PUT apply' do
-      let(:team)  { FactoryGirl.create(:team, :applying_team) }
+      let(:team)  { FactoryGirl.create(:team, :applying_team, :in_current_season) }
       let(:draft) { FactoryGirl.create(:application_draft, :appliable, team: team) }
       let(:application) { Application.last }
 
