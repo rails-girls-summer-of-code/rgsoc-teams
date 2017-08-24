@@ -10,16 +10,8 @@ RSpec.describe ConferenceAttendancesController do
   end
 
   describe 'PUT update' do
-    it "cannot update other team's attendance" do
-      other_attendance = create :conference_attendance
-      expect {
-        put :update, params: { id: other_attendance.id, attendance: true }
-      }.to raise_error ActiveRecord::RecordNotFound
-      expect(attendance.attendance).to be_falsy
-    end
-
     it "can update her team's attendances" do
-      put :update, params: { id: attendance.id, attendance: true, team_id: team.id }
+      put :update, params: { id: attendance.id, conference_attendance: { attendance: true }}
       expect(attendance.reload.attendance).to be_truthy  
     end
   end
