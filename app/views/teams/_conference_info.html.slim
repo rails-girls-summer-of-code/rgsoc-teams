@@ -33,10 +33,14 @@ h3 Conferences
           p = offer.orga_comment
 
         - if can? :accept_or_reject_conference_offer, @team
-          ul.attendance.list-inline
-            -if offer.attendance != true
-              li
-                = link_to "Yes, I can attend", conference_attendance_path(offer, attendance: :true), method: :put, class: 'btn btn-default'
-            -if offer.attendance != false
-              li
-                = link_to "No, I cannot attend", conference_attendance_path(offer, attendance: :false), method: :put, class: 'btn btn-default'
+            ul.attendance.list-inline
+              -if offer.attendance != true
+                li
+                  = simple_nested_form_for offer,  method: :put, :html => { class: :'form-inline'} do |attendance|
+                    = attendance.hidden_field :attendance, value: :true
+                    = button_to "Yes, I can attend", class: 'btn btn-default'
+              -if offer.attendance != false
+                li
+                  = simple_nested_form_for offer,  method: :put, :html => { class: :'form-inline'} do |attendance|
+                    = attendance.hidden_field :attendance, value: :false
+                    = button_to "No, I cannot attend", class: 'btn btn-default'
