@@ -36,7 +36,7 @@ h3 Conferences
           ul.attendance.list-inline
             -if offer.attendance != true
               li
-                = link_to "Yes, I can attend", conference_attendance_path(offer, attendance: :true, team_id: @team.id), method: :put, class: 'btn btn-default'
+                = link_to "Yes, I can attend", conference_attendance_path(offer, attendance: :true), method: :put, class: 'btn btn-default'
             -if offer.attendance != false
               li
-                = link_to "No, I cannot attend", conference_attendance_path(offer, attendance: :false, team_id: @team.id), method: :put, class: 'btn btn-default'
+                = link_to "No, I cannot attend", conference_attendance_path(offer, attendance: :false), method: :put, class: 'btn btn-default'
