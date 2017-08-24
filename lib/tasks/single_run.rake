@@ -68,7 +68,7 @@ namespace :single_run do
 
   desc '2017-08-15: Change project_name to project_id'
   task add_project_id_to_team: :environment do
-    Team.where.not(project_name: [nil, '']).each do |team|
+    Team.accepted.where.not(project_name: [nil, '']).each do |team|
       begin
         team.project = Project.where(season_id: team.season_id).find_by!(name: team.project_name)
         team.save
