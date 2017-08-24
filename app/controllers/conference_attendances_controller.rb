@@ -13,6 +13,6 @@ class ConferenceAttendancesController < ApplicationController
 
   private
     def attendance_params
-      params.permit(:attendance)
+      params.require(:conference_attendance).permit(:attendance)
     end
 end
