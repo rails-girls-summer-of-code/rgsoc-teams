@@ -1,7 +1,7 @@
 class ConferenceAttendancesController < ApplicationController
 
   def update
-    @conference_attendance = ConferenceAttendance.find(attendance_params[:id])
+    @conference_attendance = ConferenceAttendance.find(params[:id])
     @team = @conference_attendance.team
 
     if @conference_attendance.update_attributes(attendance_params)
@@ -9,11 +9,10 @@ class ConferenceAttendancesController < ApplicationController
     else
       render json: @conference_attendance.errors, status: :unprocessable_entity
     end
-   
   end
 
   private
     def attendance_params
-      params.permit(:attendance, :id)
+      params.permit(:attendance)
     end
 end
