@@ -5,8 +5,44 @@ describe ConferencePreference do
   it { is_expected.to belong_to(:first_conference) }
   it { is_expected.to belong_to(:second_conference) }
 
+  describe 'validates terms of ticket and terms of travel' do
+    let(:preference_without_terms) { FactoryGirl.build(:conference_preference) }
+    let(:preference_with_terms) { FactoryGirl.build(:conference_preference, :with_terms_checked)}
 
-  describe 'current teams scope in conference preferences' do
+    it 'do not save conference preferences if both terms are not checked' do
+      expect(preference_without_terms.terms_of_ticket).to eql false
+      expect(preference_without_terms.terms_of_travel).to eql false
+      expect(preference_without_terms).not_to be_valid
+      expect(preference_without_terms.errors[:terms_of_ticket]).not_to be_empty
+      expect(preference_without_terms.errors[:terms_of_travel]).not_to be_empty
+    end
+
+    it 'do not save conference preferences if just terms of ticket are not checked' do
+      preference_without_terms.terms_of_ticket = true
+      expect(preference_without_terms.terms_of_ticket).to eql true
+      expect(preference_without_terms.terms_of_travel).to eql false
+      expect(preference_without_terms).not_to be_valid
+      expect(preference_without_terms.errors[:terms_of_ticket]).to be_empty
+      expect(preference_without_terms.errors[:terms_of_travel]).not_to be_empty
+    end
+
+    it 'do not save conference preferences if just terms of travel are not checked' do
+      preference_without_terms.terms_of_travel = true
+      expect(preference_without_terms.terms_of_ticket).to eql false
+      expect(preference_without_terms.terms_of_travel).to eql true
+      expect(preference_without_terms).not_to be_valid
+      expect(preference_without_terms.errors[:terms_of_ticket]).not_to be_empty
+      expect(preference_without_terms.errors[:terms_of_travel]).to be_empty
+    end
+
+    it 'saves conference preferences if terms of ticket and terms of travel was checked' do
+      expect(preference_with_terms.terms_of_ticket).to eql true
+      expect(preference_with_terms.terms_of_travel).to eql true
+      expect(preference_with_terms).to be_valid
+    end
+  end
+
+  describe '.current teams' do
     let(:team) { FactoryGirl.create(:team, :in_current_season, :with_preferences) }
     let(:old_team) { FactoryGirl.create(:team, :with_preferences) }
 
