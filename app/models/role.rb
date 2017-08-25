@@ -27,7 +27,7 @@ class Role < ActiveRecord::Base
 
   class << self
     def includes?(role_name)
-      !where(name: role_name).empty?
+      where(name: role_name).any?
     end
   end
 
