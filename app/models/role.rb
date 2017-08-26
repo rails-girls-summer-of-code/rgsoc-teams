@@ -13,6 +13,8 @@ class Role < ActiveRecord::Base
   belongs_to :user
   belongs_to :team
 
+  delegate :github_handle, to: :user, allow_nil: true
+
   validates :user, presence: true
   validates :name, inclusion: { in: ROLES }, presence: true
   validates :user_id, uniqueness: { scope: [:name, :team_id] }
@@ -37,10 +39,6 @@ class Role < ActiveRecord::Base
     event :confirm do
       transitions from: :pending, to: :confirmed
     end
-  end
-
-  def github_handle
-    user.try(:github_handle)
   end
 
   def github_handle=(github_handle)
