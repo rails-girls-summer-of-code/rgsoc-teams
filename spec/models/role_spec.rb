@@ -102,4 +102,61 @@ RSpec.describe Role do
       end
     end
   end
+
+  describe '#github_handle' do
+    context 'when the role has a user' do
+      let(:github_handle) { 'captain_carrot_ironfoundersson' }
+      before { subject.user = User.new(github_handle: github_handle) }
+
+      it 'returns the user\'s github_handle' do
+        expect(subject.github_handle).to eql github_handle
+      end
+    end
+
+    context 'when the role has no user' do
+      it { expect(subject.github_handle).to be_nil }
+    end
+  end
+
+  describe '#github_handle=' do
+    subject { described_class.new }
+
+    context 'when argument is blank' do
+      subject { build :organizer_role }
+
+      it 'does not change the user\'s github_handle' do
+        expect { subject.github_handle = ''}.not_to change { subject.user.github_handle }
+      end
+    end
+
+    context 'when the role already has a user assigned' do
+      subject { build :organizer_role }
+
+      it 'changes the user' do
+        expect { subject.github_handle = 'sir_samuel_vimes'}.to change { subject.user }
+      end
+    end
+
+    context 'when a user with the new github_handle exists' do
+      let!(:user) { create :user, github_handle: 'corporal_nobby_nobbs' }
+
+      it 'finds and assigns the existing user' do
+        expect { subject.github_handle = user.github_handle }.to change { subject.user }.to user
+        expect(subject.user).to be_persisted
+      end
+
+      it 'finds user case-insensitively' do
+        expect { subject.github_handle = user.github_handle.upcase }
+          .to change { subject.user }.to user
+      end
+    end
+
+    context 'for a previously unknown github_handle' do
+      it 'initializes a new user with the requested github_handle' do
+        expect { subject.github_handle = 'sir_samuel_vimes'}.to change { subject.user }.from(nil)
+        expect(subject.user).to be_new_record
+        expect(subject.user.github_import).to eql true
+      end
+    end
+  end
 end
