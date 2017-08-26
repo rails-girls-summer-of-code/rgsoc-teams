@@ -1,5 +1,4 @@
 class Role < ActiveRecord::Base
-  include GithubHandle
   include AASM
 
   TEAM_ROLES  = %w(student coach)
@@ -38,6 +37,18 @@ class Role < ActiveRecord::Base
     event :confirm do
       transitions from: :pending, to: :confirmed
     end
+  end
+
+  def github_handle
+    user.try(:github_handle)
+  end
+
+  def github_handle=(github_handle)
+    return unless github_handle.present?
+    self.user = User.where('github_handle ILIKE ?', github_handle)
+                    .first_or_initialize(github_handle: github_handle)
+    user.github_handle = github_handle
+    user.github_import = true
   end
 
   private
