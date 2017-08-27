@@ -2,14 +2,12 @@ class ConferencesController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
   before_action :confirm_role, except: [:index, :show]
 
+  include Conferencable
+
   def new
     @conference = Conference.new
   end
 
-  def index
-    @conferences = conferences
-  end
- 
   def show
     @conference = Conference.find(params[:id])
   end
@@ -36,10 +34,6 @@ class ConferencesController < ApplicationController
   def generate_gid(team)
     "#{Season.current.name}-#{Time.now.getutc.to_i}-#{team.id}"
   end
- 
-  def conferences
-    Conference.ordered(sort_params).in_current_season
-  end
 
   def conference_params
     params.require(:conference).permit(
@@ -49,12 +43,5 @@ class ConferencesController < ApplicationController
 
   def confirm_role
     redirect unless current_user.admin? || current_user.student?
-  end
-
-  def sort_params
-    {
-      order: %w(name gid starts_on city country region).include?(params[:sort]) ? params[:sort] : nil,
-      direction: %w(asc desc).include?(params[:direction]) ? params[:direction] : nil
-    }
   end
 end
