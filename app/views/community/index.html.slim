@@ -1,0 +1,47 @@
+h1.header
+  = icon('user')
+  span Community
+
+= render partial: 'users/roles'
+- if Time.now.utc < (current_season.starts_at || Date.new)
+  = render partial: 'users/interests'
+
+
+- if admin?
+  p.organizers = link_to 'User info for organizers &rarr;'.html_safe, orga_users_info_path
+
+table.users.table.table-striped.table-bordered.table-condensed.table-hover
+  thead
+    tr
+      th
+      th = sortable :name
+      th = sortable :interested_in
+      - if signed_in?
+        th Email
+      th = sortable :github
+      th = sortable :team
+      th = sortable :country
+      th = sortable :location, User.human_attribute_name(:location)
+      th Time now
+      / th Conferences
+
+  tbody
+    - @users.each do |user|
+      tr
+        td.image = avatar_url(user, size: 40)
+        td = link_to user.name_or_handle, user
+        td = user.interested_in.map { |key| User::INTERESTS[key].presence }.compact.join(', ')
+        - if signed_in?
+          td = mail_to user.email unless user.hide_email?
+        td = link_to user.github_handle, "https://github.com/#{user.github_handle}"
+        td = link_to_user_roles(user)
+        td = user.country
+        td = user.location
+        td = time_for_user(user)
+        / td = links_to_conferences(user.conferences.in_current_season).join(', ').html_safe
+        - if signed_in? && !Rails.env.production?
+          td = render 'users/impersonate', user: user if user != current_user
+
+p.pagination-info
+  = page_entries_info @users
+  = paginate @users, theme: 'twitter-bootstrap-3', pagination_class: 'pagination-sm'
