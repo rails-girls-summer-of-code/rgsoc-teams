@@ -62,12 +62,12 @@ class UsersController < ApplicationController
 
   def impersonate
     impersonate_user(@user)
-    redirect_to user_path(@user), notice: "Now impersonating #{@user.name}."
+    redirect_to community_index_path, notice: "Now impersonating #{@user.name}."
   end
 
   def stop_impersonating
     stop_impersonating_user
-    redirect_to users_path, notice: "Impersonation stopped. You're back to being #{current_user.name}!"
+    redirect_to community_index_path, notice: "Impersonation stopped. You're back to being #{current_user.name}!"
   end
 
   def resend_confirmation_instruction
