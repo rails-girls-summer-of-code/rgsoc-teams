@@ -165,7 +165,7 @@ module ApplicationHelper
 
   def link_to_user_roles(user)
     user.roles.map do |role|
-      links = [link_to(role.name.capitalize, users_path(role: role.name))]
+      links = [link_to(role.name.capitalize, community_index_path(role: role.name))]
       links << link_to(role.team.display_name, role.team) if role.team
       links.join(' at ')
     end.compact.join(', ').html_safe
