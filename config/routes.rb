@@ -27,6 +27,7 @@ Rails.application.routes.draw do
   resources :comments, only: :create
   resources :conferences
   resources :contributors, only: :index
+  resources :community, only: :index
   resources :students, only: :index
   resources :status_updates, only: :show
   resources :status_update_comments, only: :create
