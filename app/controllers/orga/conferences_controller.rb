@@ -1,7 +1,7 @@
 class Orga::ConferencesController < Orga::BaseController
   before_action :find_conference, only: [:show, :destroy]
 
-  include Conferencable
+  include OrderedConferences
 
   def import
     Conference::Importer.call(params[:file].path, content_type: params[:file].content_type)

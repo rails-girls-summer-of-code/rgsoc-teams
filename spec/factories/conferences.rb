@@ -1,5 +1,5 @@
 FactoryGirl.define do
-  factory :conference do
+  factory :conference, class: Conference do
     name { [FFaker::CheesyLingo.title, 'Conf'].join ' ' }
     url { FFaker::Internet.http_url }
     starts_on { Time.utc(Date.today.year, 7, 7) }
@@ -7,6 +7,36 @@ FactoryGirl.define do
     city { FFaker::Address.city }
     country { FFaker::Address.country }
     region 'Africa'
+    round 1
+
+    trait :in_current_season do
+      season { Season.current }
+    end
+  end
+
+  factory :conference_europe, class: Conference do
+    name { [FFaker::CheesyLingo.title, 'Conf'].join ' ' }
+    url { FFaker::Internet.http_url }
+    starts_on { Time.utc(Date.today.year, 8, 8) }
+    ends_on { Time.utc(Date.today.year, 8, 16) }
+    city { FFaker::Address.city }
+    country { FFaker::Address.country }
+    region 'Europe'
+    round 1
+
+    trait :in_current_season do
+      season { Season.current }
+    end
+  end
+
+  factory :conference_na, class: Conference do
+    name { [FFaker::CheesyLingo.title, 'Conf'].join ' ' }
+    url { FFaker::Internet.http_url }
+    starts_on { Time.utc(Date.today.year, 9, 9) }
+    ends_on { Time.utc(Date.today.year, 9, 17) }
+    city { FFaker::Address.city }
+    country { FFaker::Address.country }
+    region 'North America'
     round 1
 
     trait :in_current_season do

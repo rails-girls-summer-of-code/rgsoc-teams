@@ -2,7 +2,7 @@ class ConferencesController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
   before_action :confirm_role, except: [:index, :show]
 
-  include Conferencable
+  include OrderedConferences
 
   def new
     @conference = Conference.new
