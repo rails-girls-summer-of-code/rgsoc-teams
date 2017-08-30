@@ -6,39 +6,35 @@ describe ConferencePreference do
   it { is_expected.to belong_to(:second_conference) }
 
   describe 'validates terms of ticket and terms of travel' do
-    let(:preference_without_terms) { FactoryGirl.build(:conference_preference) }
-    let(:preference_with_terms) { FactoryGirl.build(:conference_preference, :with_terms_checked)}
+    let(:preference_without_terms) { build(:conference_preference) }
+    let(:preference_with_terms) { build(:conference_preference, :with_terms_checked)}
 
-    it 'do not save conference preferences if both terms are not checked' do
-      expect(preference_without_terms.terms_of_ticket).to eql false
-      expect(preference_without_terms.terms_of_travel).to eql false
-      expect(preference_without_terms).not_to be_valid
-      expect(preference_without_terms.errors[:terms_of_ticket]).not_to be_empty
-      expect(preference_without_terms.errors[:terms_of_travel]).not_to be_empty
+    context 'when both terms are not checked' do
+      it 'do not save conference preferences' do
+        expect(preference_without_terms).not_to be_valid
+      end
     end
 
-    it 'do not save conference preferences if just terms of ticket are not checked' do
-      preference_without_terms.terms_of_ticket = true
-      expect(preference_without_terms.terms_of_ticket).to eql true
-      expect(preference_without_terms.terms_of_travel).to eql false
-      expect(preference_without_terms).not_to be_valid
-      expect(preference_without_terms.errors[:terms_of_ticket]).to be_empty
-      expect(preference_without_terms.errors[:terms_of_travel]).not_to be_empty
+    context 'when terms of travel are not checked' do
+      before { preference_without_terms.terms_of_ticket = true}
+
+      it 'do not save conference preferences' do
+        expect(preference_without_terms).not_to be_valid
+      end
     end
 
-    it 'do not save conference preferences if just terms of travel are not checked' do
-      preference_without_terms.terms_of_travel = true
-      expect(preference_without_terms.terms_of_ticket).to eql false
-      expect(preference_without_terms.terms_of_travel).to eql true
-      expect(preference_without_terms).not_to be_valid
-      expect(preference_without_terms.errors[:terms_of_ticket]).not_to be_empty
-      expect(preference_without_terms.errors[:terms_of_travel]).to be_empty
+    context 'when terms of ticket are not checked' do
+      before { preference_without_terms.terms_of_travel = true}
+
+      it 'do not save conference preferences' do
+        expect(preference_without_terms).not_to be_valid
+      end
     end
 
-    it 'saves conference preferences if terms of ticket and terms of travel was checked' do
-      expect(preference_with_terms.terms_of_ticket).to eql true
-      expect(preference_with_terms.terms_of_travel).to eql true
-      expect(preference_with_terms).to be_valid
+    context 'when both terms are checked' do
+      it 'saves conference preferences if terms of ticket and terms of travel was checked' do
+        expect(preference_with_terms).to be_valid
+      end
     end
   end
 
@@ -56,12 +52,16 @@ describe ConferencePreference do
     let(:conference_preference_with_terms) { FactoryGirl.build(:conference_preference, :with_terms_checked) }
     let(:conference_preference_without_terms) { FactoryGirl.build(:conference_preference) }
 
-    it 'returns true in case the conference preference terms are accepted' do
-      expect(conference_preference_with_terms.terms_accepted?).to eql true
+    context 'when conference preference terms are accepted' do
+      it 'returns true' do
+        expect(conference_preference_with_terms.terms_accepted?).to eql true
+      end
     end
 
-    it 'returns false in case the team has not accepted the terms' do
-      expect(conference_preference_without_terms.terms_accepted?).to eql false
+    context 'when conference preference terms are not accepted' do
+      it 'returns false' do
+        expect(conference_preference_without_terms.terms_accepted?).to eql false
+      end
     end
   end
 
@@ -69,24 +69,34 @@ describe ConferencePreference do
   describe '#has_preference?' do
     let(:conference_preference) { FactoryGirl.build(:conference_preference, :with_terms_checked)}
 
-    it 'returns true if first and second conference choice is set' do
-      expect(conference_preference.has_preference?).to eql true
+    context 'when conference preference has neither first or second choice set' do
+      before { conference_preference.first_conference_id = nil, conference_preference.second_conference_id = nil }
+
+      it 'returns false' do
+        expect(conference_preference.has_preference?).to eql false
+      end
     end
 
-    it 'returns true if only the first conference choice is set' do
-      conference_preference.second_conference_id = nil
-      expect(conference_preference.has_preference?).to eql true
+    context 'when just first conference preference choice is set' do
+      before { conference_preference.second_conference_id = nil }
+
+      it 'returns true' do
+        expect(conference_preference.has_preference?).to eql true
+      end
     end
 
-    it 'returns true if only the second conference choice is set' do
-      conference_preference.first_conference_id = nil
-      expect(conference_preference.has_preference?).to eql true
+    context 'when just second conference preference choice is set' do
+      before { conference_preference.first_conference_id = nil }
+
+      it 'returns true' do
+        expect(conference_preference.has_preference?).to eql true
+      end
     end
 
-    it 'returns false if a conference preference has not first or second choice set' do
-      conference_preference.first_conference_id = nil
-      conference_preference.second_conference_id = nil
-      expect(conference_preference.has_preference?).to eql false
+    context 'when both conference preference choice are set' do
+      it 'returns true' do
+        expect(conference_preference.has_preference?).to eql true
+      end
     end
   end
 end
