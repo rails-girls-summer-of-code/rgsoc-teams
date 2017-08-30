@@ -88,7 +88,7 @@ class ApplicationController < ActionController::Base
   # we are using devise with OmniAuth without other authentications, so we need to define this ourselfes
   # https://github.com/plataformatec/devise/wiki/OmniAuth%3A-Overview#using-omniauth-without-other-authentications
   def new_session_path(scope)
-    user_github_omniauth_authorize_path
+    root_path
   end
 
   # Sentry config
