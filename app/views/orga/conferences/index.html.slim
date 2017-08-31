@@ -3,4 +3,4 @@
 = render 'conferences/table', namespace: :orga, conferences: @conferences
 - if can?(:crud, Conference)
   p The tech conference you're looking for is not yet in our list? Just suggest it!
-  = link_to '+ New Conference', new_conference_path, class: 'btn btn-default'
+  = link_to '+ New Conference', new_orga_conference_path, class: 'btn btn-default'
