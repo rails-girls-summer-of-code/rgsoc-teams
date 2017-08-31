@@ -1,12 +1,10 @@
 class ConferencesController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
 
+  include OrderedConferences
+
   def new
     @conference = Conference.new
-  end
-
-  def index
-    @conferences = conferences
   end
 
   def show
@@ -32,20 +30,9 @@ class ConferencesController < ApplicationController
     "#{Season.current.name}-#{Time.now.getutc.to_i}-#{team.id}"
   end
 
-  def conferences
-    Conference.ordered(sort_params).in_current_season
-  end
-
   def conference_params
     params.require(:conference).permit(
       :name, :twitter, :starts_on, :ends_on, :notes, :country, :region, :location, :city, :url
     )
-  end
-
-  def sort_params
-    {
-      order: %w(name gid starts_on city country region).include?(params[:sort]) ? params[:sort] : nil,
-      direction: %w(asc desc).include?(params[:direction]) ? params[:direction] : nil
-    }
   end
 end

@@ -3,14 +3,9 @@ require 'spec_helper'
 RSpec.describe Exporters::ConferencePreferences do
 
   describe '#current' do
-    let!(:old_team) { create :team, :with_preferences, name: "OLDTEAM" }
-    let!(:new_team) { create :team, :with_preferences, :in_current_season, name: "NEWTEAM" }
-
-    subject { described_class.current }
-
-    it 'exports conference preferences for teams of the current season' do
-      expect(subject).to match 'NEWTEAM'
-      expect(subject).not_to match 'OLDTEAM'
+    it 'calls the current_teams scope in conference preference' do
+      expect(ConferencePreference).to receive(:current_teams).and_return([])
+      described_class.current
     end
   end
 end
