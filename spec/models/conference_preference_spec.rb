@@ -39,8 +39,8 @@ describe ConferencePreference do
   end
 
   describe '.current teams' do
-    let(:team) { FactoryGirl.create(:team, :in_current_season, :with_conference_preferences) }
-    let(:old_team) { FactoryGirl.create(:team, :with_conference_preferences) }
+    let(:team) { create(:team, :in_current_season, :with_conference_preferences) }
+    let(:old_team) { create(:team, :with_conference_preferences) }
 
     it 'returns just conference preference from current teams' do
       current_teams = ConferencePreference.current_teams
@@ -49,31 +49,34 @@ describe ConferencePreference do
   end
 
   describe '#terms accepted?' do
-    let(:conference_preference_with_terms) { FactoryGirl.build(:conference_preference, :with_terms_checked) }
-    let(:conference_preference_without_terms) { FactoryGirl.build(:conference_preference) }
+    let(:conference_preference_with_terms) { build(:conference_preference, :with_terms_checked) }
+    let(:conference_preference_without_terms) { build(:conference_preference) }
 
     context 'when conference preference terms are accepted' do
       it 'returns true' do
-        expect(conference_preference_with_terms.terms_accepted?).to eql true
+        expect(conference_preference_with_terms).to be_terms_accepted
       end
     end
 
     context 'when conference preference terms are not accepted' do
       it 'returns false' do
-        expect(conference_preference_without_terms.terms_accepted?).to eql false
+        expect(conference_preference_without_terms).not_to be_terms_accepted
       end
     end
   end
 
 
   describe '#has_preference?' do
-    let(:conference_preference) { FactoryGirl.build(:conference_preference, :with_terms_checked)}
+    let(:conference_preference) { build(:conference_preference, :with_terms_checked)}
 
     context 'when conference preference has neither first or second choice set' do
-      before { conference_preference.first_conference_id = nil, conference_preference.second_conference_id = nil }
+      before do
+        conference_preference.first_conference_id = nil
+        conference_preference.second_conference_id = nil
+      end
 
       it 'returns false' do
-        expect(conference_preference.has_preference?).to eql false
+        expect(conference_preference).not_to be_has_preference
       end
     end
 
@@ -81,7 +84,7 @@ describe ConferencePreference do
       before { conference_preference.second_conference_id = nil }
 
       it 'returns true' do
-        expect(conference_preference.has_preference?).to eql true
+        expect(conference_preference).to be_has_preference
       end
     end
 
@@ -89,13 +92,13 @@ describe ConferencePreference do
       before { conference_preference.first_conference_id = nil }
 
       it 'returns true' do
-        expect(conference_preference.has_preference?).to eql true
+        expect(conference_preference).to be_has_preference
       end
     end
 
     context 'when both conference preference choice are set' do
       it 'returns true' do
-        expect(conference_preference.has_preference?).to eql true
+        expect(conference_preference).to be_has_preference
       end
     end
   end
