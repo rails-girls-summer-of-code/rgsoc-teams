@@ -39,8 +39,8 @@ describe ConferencePreference do
   end
 
   describe '.current teams' do
-    let(:team) { FactoryGirl.create(:team, :in_current_season, :with_preferences) }
-    let(:old_team) { FactoryGirl.create(:team, :with_preferences) }
+    let(:team) { FactoryGirl.create(:team, :in_current_season, :with_conference_preferences) }
+    let(:old_team) { FactoryGirl.create(:team, :with_conference_preferences) }
 
     it 'returns just conference preference from current teams' do
       current_teams = ConferencePreference.current_teams
