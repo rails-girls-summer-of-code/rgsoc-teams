@@ -10,24 +10,58 @@ describe ConferencePreference do
     let(:preference_with_terms) { build(:conference_preference, :with_terms_checked)}
 
     context 'when both terms are not checked' do
-      it 'do not save conference preferences' do
+      before do
+        preference_without_terms.valid?
+      end
+
+      it 'conference preferences is not valid' do
         expect(preference_without_terms).not_to be_valid
+      end
+
+      it 'terms of ticket raise an error' do
+        expect(preference_without_terms.errors[:terms_of_ticket]).not_to be_empty
+      end
+
+      it 'terms of travel raise an error' do
+        expect(preference_without_terms.errors[:terms_of_travel]).not_to be_empty
       end
     end
 
     context 'when terms of travel are not checked' do
-      before { preference_without_terms.terms_of_ticket = true}
+      before do
+        preference_without_terms.terms_of_ticket = true
+        preference_without_terms.valid?
+      end
 
-      it 'do not save conference preferences' do
+      it 'conference preferences is not valid' do
         expect(preference_without_terms).not_to be_valid
+      end
+
+      it 'terms of ticket raise no errors' do
+        expect(preference_without_terms.errors[:terms_of_ticket]).to be_empty
+      end
+
+      it 'terms of travel raise an error' do
+        expect(preference_without_terms.errors[:terms_of_travel]).not_to be_empty
       end
     end
 
     context 'when terms of ticket are not checked' do
-      before { preference_without_terms.terms_of_travel = true}
+      before do
+        preference_without_terms.terms_of_travel = true
+        preference_without_terms.valid?
+      end
 
-      it 'do not save conference preferences' do
+      it 'conference preferences is not valid' do
         expect(preference_without_terms).not_to be_valid
+      end
+
+      it 'terms of ticket raise an error' do
+        expect(preference_without_terms.errors[:terms_of_ticket]).not_to be_empty
+      end
+
+      it 'terms of travel raise no errors' do
+        expect(preference_without_terms.errors[:terms_of_travel]).to be_empty
       end
     end
 
