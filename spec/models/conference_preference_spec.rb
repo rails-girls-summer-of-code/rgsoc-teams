@@ -11,7 +11,7 @@ describe ConferencePreference do
 
     context 'when both terms are not checked' do
       before do
-        preference_without_terms.valid?
+        preference_without_terms.validate
       end
 
       it 'conference preferences is not valid' do
@@ -30,7 +30,7 @@ describe ConferencePreference do
     context 'when terms of travel are not checked' do
       before do
         preference_without_terms.terms_of_ticket = true
-        preference_without_terms.valid?
+        preference_without_terms.validate
       end
 
       it 'conference preferences is not valid' do
@@ -49,7 +49,7 @@ describe ConferencePreference do
     context 'when terms of ticket are not checked' do
       before do
         preference_without_terms.terms_of_travel = true
-        preference_without_terms.valid?
+        preference_without_terms.validate
       end
 
       it 'conference preferences is not valid' do
