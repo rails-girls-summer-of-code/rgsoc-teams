@@ -48,6 +48,10 @@ nav.actions
       - @user.teams.each do |team|
         li #{link_to team.display_name, team} &ndash; #{role_names(team, @user)}
 
+  - if @user.coach?
+    h4 Availability
+    label = show_availability(@user.availability)
+
   - if can_see_private_info?
     - fields = ['tshirt_size', 'tshirt_cut', 'postal_address']
     .well.private-info
