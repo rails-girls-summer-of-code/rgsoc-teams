@@ -20,13 +20,14 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :users, except: :new, concerns: [:has_roles, :impersonatable] do
+  resources :users, except: [:new, :index], concerns: [:has_roles, :impersonatable] do
     post 'resend_confirmation_instruction', on: :member
   end
   resources :sources, only: :index
   resources :comments, only: :create
   resources :conferences
   resources :contributors, only: :index
+  resources :community, only: :index
   resources :students, only: :index
   resources :status_updates, only: :show
   resources :status_update_comments, only: :create
