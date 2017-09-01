@@ -38,9 +38,10 @@ h3 Conferences
                   li
                     = simple_form_for conference_attendance,  method: :put, :html => { class: :'form-inline'} do |attendance|
                       = attendance.hidden_field :attendance, value: :true
-                      = button_to "Yes, I can attend", class: 'btn btn-default'
+                      = attendance.submit "Yes, I can attend", class: 'btn btn-default'
+
                 -if conference_attendance.attendance != false
                   li
                     = simple_form_for conference_attendance,  method: :put, :html => { class: :'form-inline'} do |attendance|
                       = attendance.hidden_field :attendance, value: :false
-                      = button_to "No, I cannot attend", class: 'btn btn-default'
+                      = attendance.submit "No, I cannot attend", class: 'btn btn-default'
