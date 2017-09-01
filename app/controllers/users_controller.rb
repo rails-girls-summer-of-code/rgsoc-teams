@@ -95,7 +95,7 @@ class UsersController < ApplicationController
         :github_handle, :twitter_handle, :irc_handle,
         :name, :email, :homepage, :location, :bio,
         :tshirt_size, :tshirt_cut, :postal_address, :timezone,
-        :country,
+        :country, :availability,
         :hide_email,
         :is_company, :company_name, :company_info,
         :application_about, :application_motivation, :application_gender_identification, :application_age,
