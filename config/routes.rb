@@ -73,8 +73,10 @@ Rails.application.routes.draw do
 
   get 'orga/users/info', to: 'orga/users_info#index', as: :orga_users_info
   patch 'orga/seasons/switch_phase', to: 'orga/seasons#switch_phase', as: :switch_phase
+  post 'orga/community/reset_user_availability', to: 'orga/community#reset_user_availability'
   namespace :orga do
     root to: 'dashboard#index', as: :dashboard
+    resources :community, only: [:index, :reset_user_availability]
     resources :projects, only: [:index] do
       member do
         put :accept

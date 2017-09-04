@@ -3,6 +3,6 @@
 class User::AvailabilitySwitcher
 
   def self.reset
-    availability = false
+    User.with_role('coach').update_all(availability: false)
   end
 end
