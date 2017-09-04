@@ -159,6 +159,14 @@ class User < ActiveRecord::Base
       where(":interest = ANY(interested_in)", interest: interest)
     end
 
+    def with_location(location)
+      where(country: location).entries
+    end
+
+    def as_coach_availability
+      where(availability: true).entries
+    end
+
     def immutable_attributes
       [:github_handle]
     end

@@ -7,5 +7,9 @@
       label.radio
         = radio_button_tag :role, role == 'all' ? '' : role, params[:role] == role
         = role.capitalize
-
+    h4 Coach availability
+    label.radio
+      = radio_button_tag :availability, true
+      | Availability in the upcoming season
   = render partial: 'users/search'
+  = render partial: 'users/location_search'

@@ -1,0 +1,8 @@
+= form_tag community_index_path, method: :get, id: "search-form", class: "form-inline" do |f|
+  .form-group
+    = select_tag :location, options_for_select(@countries), label: "Country", prompt: "Select your country", wrapper_html: { class: 'col-md-6' }, placeholder: "Search by location user or team", class: "form-control"
+  .form-group
+    = submit_tag "Go", class: "form-control btn btn-default"
+  - if params[:location].present?
+    .form-group
+      = link_to "Clear search results", community_index_path, class: "btn btn-default"
