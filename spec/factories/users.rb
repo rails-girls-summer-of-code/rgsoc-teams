@@ -9,6 +9,10 @@ FactoryGirl.define do
     homepage { FFaker::Internet.http_url }
     confirmed_at { Date.yesterday }
 
+    trait :available do
+      availability true
+    end
+
     factory :coach do
       transient { team { FactoryGirl.create(:team) } }
 
