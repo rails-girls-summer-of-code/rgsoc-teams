@@ -10,7 +10,7 @@ RSpec.describe UsersHelper do
         user.update(availability: true)
       end
 
-      it 'returns true' do
+      it 'returns message for user available' do
         expect(show_availability(user.availability)).to eql "I am available for this season!"
       end
     end
@@ -20,7 +20,7 @@ RSpec.describe UsersHelper do
         user.update(availability: false)
       end
 
-      it 'returns false' do
+      it 'returns message for user unavailable' do
         expect(show_availability(user.availability)).to eql "I am not available for this season."
       end
     end
