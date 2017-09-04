@@ -50,8 +50,10 @@
   = f.input :company_name, label: 'Company name'
   = f.input :company_info, label: 'Company info', hint: 'Where is the office, how much space can you provide, etc.'
   = f.input :bio, label: 'About you', hint: 'You can use basic <a href="http://en.wikipedia.org/wiki/Markdown" target="_blank">Markdown</a> here.'.html_safe
-  h3.page-header Availability for the next season:
-  = f.input :availability, label: 'I am available in the next season'
+
+  - if coach?
+    h3.page-header Availability for the next season:
+    = f.input :availability, label: 'I am available in the next season'
 
   h3.page-header I am interested in:
 

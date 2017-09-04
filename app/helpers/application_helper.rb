@@ -35,6 +35,10 @@ module ApplicationHelper
     current_user.try(:admin?)
   end
 
+  def coach?
+    current_user.try(:coach?)
+  end
+
   def can_see_private_info?
     current_user && (admin? || current_user == @user || current_user.roles.supervisor.any?)
   end
