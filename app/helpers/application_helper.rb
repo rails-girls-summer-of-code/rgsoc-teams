@@ -211,5 +211,4 @@ module ApplicationHelper
   def list_all_timezones
     TIMEZONES
   end
-
 end

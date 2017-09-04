@@ -33,6 +33,10 @@ class Ability
       user.admin? || team.students.include?(user) || team.supervisors.include?(user)
     end
 
+    can :accept_or_reject_conference_offer, Team do |team|
+      team.students.include?(user)
+    end
+
     cannot :create, Team do |team|
       on_team_for_season?(user, team.season) || !user.confirmed?
     end

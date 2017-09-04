@@ -77,9 +77,10 @@
     = f.input :season_id, as: :select, collection: Season.order('name DESC') { |e| [s.name, s.id] }
   - if f.object.accepted?
     = render 'teams/conference_preference_fields', f: f
-    .page-header
-      h3 Conference Offers
-
+  .page-header
+    h3 Conference Offers
+    .conference-info
+      | Please select one or more conferences free tickets to which you would like to offer to the students.
     fieldset
       = f.simple_fields_for :conference_attendances do |c|
         = c.input :conference_id, collection: @conferences&.group_by(&:region), as: :grouped_select, group_method: :last, label: "Offered conference", include_blank: "None"

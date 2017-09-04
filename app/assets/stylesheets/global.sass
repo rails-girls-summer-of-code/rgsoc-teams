@@ -115,7 +115,7 @@ html, body
       width: 100px
       font-weight: normal
 
-  .sources, .teams, .profiles, .attendees, .conferences, .status_update, .projects, .toc, .basic-list
+  .sources, .teams, .profiles, .attendees, .status_update, .projects, .toc, .basic-list
     li
       list-style-type: disc
       p, ul
@@ -128,6 +128,13 @@ html, body
           &:first-child:after
             content: ' · '
             padding-right: 0.3em
+
+  .attendance, .conferences
+    margin-bottom: 10px
+    .label
+      margin-left: 10px
+    li
+      list-style-type: none
 
   table
     th
@@ -262,6 +269,23 @@ form
 
 .actions
   margin-top: 1em
+
+// Conference block in teams show page
+.conference-info
+  font-size: 0.9em
+  color: $gray
+  margin: 15px 0
+
+.orgaComment
+  font-size: 15px
+  margin: 10px 0
+
+.suggest-conference
+  display: flex
+  flex-direction: row
+  justify-content: space-between
+  align-items: center
+
 
 // Error message on submit
 #error_explanation

@@ -36,3 +36,7 @@ table.table.table-striped.table-bordered.table-condensed.table-hover
         td = user.tshirt_size
         td = user.tshirt_cut
         td = simple_format user.postal_address
+
+.page-header
+  h2 Reset Coach Availability
+= button_to "Reset Availability", { controller: :community, action: :reset_user_availability }, class: 'btn btn-default', data: { confirm: 'This action cannot be undone. Are you sure?' }
