@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 RSpec.describe UsersHelper do
-
   describe "#show_availability" do
     let(:user) { create :user }
 
