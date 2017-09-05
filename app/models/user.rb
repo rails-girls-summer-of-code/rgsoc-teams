@@ -164,11 +164,11 @@ class User < ActiveRecord::Base
     end
 
     def with_location(location)
-      where(country: location).entries
+      where(country: location)
     end
 
     def as_coach_availability
-      where(availability: true).entries
+      where(availability: true)
     end
 
     def immutable_attributes

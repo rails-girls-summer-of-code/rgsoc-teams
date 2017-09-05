@@ -126,6 +126,20 @@ describe User do
         end
       end
 
+      describe '.with_location' do
+        it 'returns users matching one out of many location' do
+          user.update country: 'Brazil'
+          expect(User.with_location('Brazil')).to contain_exactly(user)
+        end
+      end
+
+      describe '.as_coach_availability' do
+        it 'return coaches users with availabilities' do
+          coach.update availability: true
+          expect(User.as_coach_availability).to contain_exactly(coach)
+        end
+      end
+
       describe '.with_assigned_roles' do
         it 'returns users that have any roles assigned' do
           expect(described_class.with_assigned_roles).to contain_exactly(coach)

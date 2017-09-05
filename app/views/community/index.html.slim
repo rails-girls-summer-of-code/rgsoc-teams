@@ -23,6 +23,7 @@ table.users.table.table-striped.table-bordered.table-condensed.table-hover
       th = sortable :country
       th = sortable :location, User.human_attribute_name(:location)
       th Time now
+      th Availiability
       / th Conferences
 
   tbody
@@ -38,6 +39,7 @@ table.users.table.table-striped.table-bordered.table-condensed.table-hover
         td = user.country
         td = user.location
         td = time_for_user(user)
+        td = user.availability ? "Available" : "Unavailable"
         / td = links_to_conferences(user.conferences.in_current_season).join(', ').html_safe
         - if signed_in? && !Rails.env.production?
           td = render 'users/impersonate', user: user if user != current_user
