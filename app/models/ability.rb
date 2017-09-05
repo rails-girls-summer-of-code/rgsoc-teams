@@ -26,11 +26,15 @@ class Ability
     end
 
     can :update_conference_preferences, Team do |team|
-      user.admin? || (user.student? && team.students.include?(user))
+      team.accepted? && team.students.include?(user)
     end
 
     can :see_offered_conferences, Team do |team|
       user.admin? || team.students.include?(user) || team.supervisors.include?(user)
+    end
+
+    can :accept_or_reject_conference_offer, Team do |team|
+      team.students.include?(user)
     end
 
     cannot :create, Team do |team|

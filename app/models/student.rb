@@ -34,7 +34,11 @@ class Student < SimpleDelegator
   end
 
   def current_team
-    @current_team ||= user.roles.student.last.try :team
+    @current_team ||= Team.joins(:roles)
+      .references(:roles)
+      .in_current_season
+      .where('roles.user_id' => user.id, 'roles.name' => 'student')
+      .first
   end
 
   def current_drafts

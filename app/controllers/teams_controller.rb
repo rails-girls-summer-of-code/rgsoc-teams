@@ -24,6 +24,7 @@ class TeamsController < ApplicationController
   end
 
   def show
+    @team.conference_attendances.build unless @team.conference_attendances.present?
   end
 
   def new

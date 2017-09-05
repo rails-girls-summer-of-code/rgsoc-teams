@@ -96,6 +96,8 @@ If you've cloned the app a while ago, you want to make sure that your cloned `ma
 
 We aim to follow the [Ruby Style Guide](https://github.com/bbatsov/ruby-style-guide) but we don't enforce it (i.e. there is no [RuboCop](https://github.com/bbatsov/rubocop)). The most important thing is probably just proper indentation: two whitespaces.
 
+We prefer JavaScript (`*.js`) over CoffeeScript (`*.coffee`). jQuery is perfectly fine, but if you can, use [Vanilla JS instead of jQuery](https://gist.github.com/liamcurry/2597326). Indentation for JavaScript files: four whitespaces.
+
 If you enjoy polishing up other people's code: be aware that **purely** *code-cosmetic* changes are likely to not be accepted. We aim to be welcoming to beginners. So while e.g. pointing out accidental N+1 queries is a useful contribution, just rewriting things to look more conventional can be discouraging for newcomers.
 
 We would ask you to write tests for your code: A well defined test suite is as much part of the app as the tested code itself. It helps to ascertain the well-being of any software product - the Teams App being no exception here. But this should not be a blocker. See the existing tests to find out where yours would fit in and in case it's hard to get started, ask us, we'll help.

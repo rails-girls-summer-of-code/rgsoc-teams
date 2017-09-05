@@ -32,6 +32,44 @@ RSpec.describe Student do
     end
   end
 
+  describe '#current_team' do
+    it 'returns nil if no team can be determined' do
+      expect(subject.current_team).to be_nil
+    end
+
+    context 'with a team' do
+      let(:old_season) { Season.find_or_create_by(name: '2015') }
+      let(:old_team) { create :team, season: old_season }
+
+      let(:user) { create :user }
+      let(:current_team) { create :team, :in_current_season }
+
+      subject { described_class.new(user).current_team }
+
+      context 'when the user has been a student before' do
+        before do
+          create :student_role, user: user, team: current_team
+          create :student_role, user: user, team: old_team
+        end
+
+        it 'returns the current season\'s team' do
+          expect(subject).to eql current_team
+        end
+      end
+
+      context 'when the user has been a student before but is now contributing to the project' do
+        before do
+          create :student_role, user: user, team: old_team
+          create :supervisor_role, user: user, team: current_team
+        end
+
+        it 'does not return any team' do
+          expect(subject).to be_nil
+        end
+      end
+    end
+  end
+
   describe '#current_drafts' do
     it 'returns an empty list if no team can be determined' do
       expect(subject.current_drafts).to eql []
@@ -39,7 +77,7 @@ RSpec.describe Student do
 
     context 'with a team' do
       let(:user) { create :user }
-      let(:team) { create :team }
+      let(:team) { create :team, :in_current_season }
 
       before do
         create :student_role, user: user, team: team
