@@ -17,9 +17,9 @@ class CommunityController < ApplicationController
     @users = @users.with_role(params[:role]) if params[:role].present? && params[:role] != 'all'
     @users = @users.with_interest(params[:interest]) if params[:interest].present? && params[:interest] != 'all'
     @users = @users.as_coach_availability if params[:availability].present?
-    @users = @users.search(params[:search]) if params[:search].present?
+    @users = Kaminari.paginate_array(@users.search(params[:search])) if params[:search].present?
     @users = @users.with_location(params[:location]) if params[:location].present?
-    @users = Kaminari.paginate_array(@users).page(params[:page])
+    @users = @users.page(params[:page])
   end
 
   private
