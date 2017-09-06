@@ -48,5 +48,36 @@ RSpec.describe Orga::ConferencesController do
         expect(response).to redirect_to orga_conferences_path
       end
     end
+
+    describe 'POST create' do
+      let(:conference_attrs) { attributes_for :conference }
+
+      context 'with incorrect params' do
+        it 'should not create a new conference' do
+          expect {
+            post :create,
+            params: { conference: { name: "name" } }
+          }.not_to change { Conference.count }
+        end
+      end
+
+      it 'should create a new conference' do
+        expect {
+          post :create,
+          params: { conference: conference_attrs }
+        }.to change { Conference.count }.by(1)
+      end
+    end
+  end
+
+  context 'with admin not logged in' do
+    let(:conference_attrs) { attributes_for :conference }
+
+    it 'cannot create a new conference' do
+      expect {
+        post :create,
+        params: { conference: conference_attrs }
+      }.not_to change { Conference.count }
+    end
   end
 end
