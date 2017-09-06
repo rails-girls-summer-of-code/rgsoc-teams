@@ -48,9 +48,9 @@ RSpec.describe TeamsController do
       end
 
       it 'return teams from current season' do
-        create_list :team, 2, season: Season.current
+        teams = create_list :team, 2, season: Season.current
         get :index, params: { year: Season.current.name }
-        expect(assigns(:teams).count).to eq 2
+        expect(assigns(:teams)).to match_array(teams)
       end
 
       it 'return empty list when the season is empty of teams' do
