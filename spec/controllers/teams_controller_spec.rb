@@ -41,6 +41,24 @@ RSpec.describe TeamsController do
       end
     end
 
+    context 'past teams' do
+      it 'return index by season year' do
+        get :index, params: { year: '2016'}
+        expect(response).to render_template 'index'
+      end
+
+      it 'return teams from current season' do
+        teams = create_list :team, 2, season: Season.current
+        get :index, params: { year: Season.current.name }
+        expect(assigns(:teams)).to match_array(teams)
+      end
+
+      it 'return empty list when the season is empty of teams' do
+        get :index, params: { year: '2000' }
+        expect(assigns(:teams)).to match_array []
+      end
+    end
+
     context 'after acceptance letters have been sent' do
       let(:last_season)      { Season.create name: Date.today.year-1 }
       let!(:voluntary_team)  { create :team, :in_current_season, kind: 'voluntary' }
