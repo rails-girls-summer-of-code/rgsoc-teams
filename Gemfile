@@ -31,7 +31,7 @@ gem 'uglifier'
 gem 'sprockets-rails'
 
 gem 'newrelic_rpm'
-gem 'aws-sdk'
+gem 'aws-sdk-s3'
 
 gem 'sentry-raven'
 
