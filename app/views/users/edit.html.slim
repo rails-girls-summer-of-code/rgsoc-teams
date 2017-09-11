@@ -53,7 +53,12 @@
 
   - if coach?
     h3.page-header Availability for the next season:
-    = f.input :availability, label: 'I am available in the next season'
+    - if !available(@user)
+      = link_to'I am available in the next season', @user, data: { behavior: "update_availability" }, class: 'btn btn-default', remote: true
+    - if available(@user)
+      span.label.label-success
+        | I am available in the next season!
+
 
   h3.page-header I am interested in:
 

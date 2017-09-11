@@ -15,4 +15,22 @@ $(window).on('DOMContentLoaded', function() {
     $('#collapseApplicationSpecificInfo').addClass('in');
     $('html, body').scrollTop($('#application_specific').offset().top);
   }
+
+   //update coach availability
+
+   $(function () {
+      var $update_availability = $('[data-behavior="update_availability"]');
+      $update_availability.on('click',function(){
+        var url = "/users/current/update_availability";
+        updateAvailability(url);
+      });
+    });
+
+   function updateAvailability(url) {
+      $.ajax({
+        type:     'PUT',
+        url:      url
+      });
+    }
+  });
 });

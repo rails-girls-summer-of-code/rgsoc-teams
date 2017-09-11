@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy, :impersonate]
 
-  load_and_authorize_resource except: [:index, :show, :impersonate, :stop_impersonating]
+  load_and_authorize_resource except: [:index, :show, :impersonate, :stop_impersonating, :update_availability]
 
   def show
   end
@@ -47,6 +47,10 @@ class UsersController < ApplicationController
         format.json { render json: @user.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  def update_availability
+    current_user.update(availability: true)
   end
 
   def destroy
