@@ -86,7 +86,7 @@ Rails.application.routes.draw do
     end
     resources :teams
     resources :seasons
-    resources :conferences, except: [:new, :edit, :create] do
+    resources :conferences, except: :edit do
       collection { post :import }
     end
     resources :exports, only: [:index, :create]
