@@ -7,14 +7,6 @@ $(function () {
      $('.form-group.user_company_info').toggle(this.checked);
   }).change(); //ensure visible state matches initially
 
-});
-
-
-$(window).on('DOMContentLoaded', function() {
-  if (/users\/\d+\/edit/.test(window.location.pathname) && window.location.hash === '#application_specific') {
-    $('#collapseApplicationSpecificInfo').addClass('in');
-    $('html, body').scrollTop($('#application_specific').offset().top);
-  }
 
    //update coach availability
 
@@ -29,8 +21,21 @@ $(window).on('DOMContentLoaded', function() {
    function updateAvailability(url) {
       $.ajax({
         type:     'PUT',
-        url:      url
+        url:      url,
+        success: updateBtnName
       });
     }
-  });
+
+    function updateBtnName() {
+      var $update_availability = $('[data-behavior="update_availability"]');
+      $update_availability.html("Successful updated");
+    }
+});
+
+
+$(window).on('DOMContentLoaded', function() {
+  if (/users\/\d+\/edit/.test(window.location.pathname) && window.location.hash === '#application_specific') {
+    $('#collapseApplicationSpecificInfo').addClass('in');
+    $('html, body').scrollTop($('#application_specific').offset().top);
+  }
 });
