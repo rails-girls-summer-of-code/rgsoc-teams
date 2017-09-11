@@ -10,6 +10,6 @@
     h4 Coach availability
     label.radio
       = radio_button_tag :availability, true
-      | Availability in the upcoming season
+      | Availability in the #{Season.current.name} season
   = render partial: 'users/search'
   = render partial: 'users/location_search'
