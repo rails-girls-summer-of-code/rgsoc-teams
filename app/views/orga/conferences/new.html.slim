@@ -1,0 +1,36 @@
+nav.page
+  .back-nav
+    ul
+      li = icon('chevron-left')
+      li = link_to 'Conferences', conferences_path, class: 'back'
+
+h1.page-header Create a new conference
+
+= simple_nested_form_for [:orga, @conference] do |f|
+  - if @conference.errors.any?
+    .alert.alert-danger
+      h4 = "#{pluralize(@conference.errors.count, "error")} prohibited this conference from being saved:"
+      ul
+        - @conference.errors.full_messages.each do |message|
+          li = message
+
+  .page-header
+   h2 Conference info
+  fieldset
+   = f.input :name, required: true,placeholder: 'Conference name', wrapper_html: { class: 'col-md-12' }
+   = f.input :url, required: true, placeholder: 'Conference website', wrapper_html: { class: 'col-md-12' }
+   = f.input :twitter, placeholder: '@', wrapper_html: { class: 'col-md-12' }
+   = f.input :starts_on, as: :date, html5: true, required: true, label: 'Conference start date', wrapper_html: { class: 'col-md-6' }
+   = f.input :ends_on, as: :date, html5: true, required: true, label: 'Conference end date', wrapper_html: { class: 'col-md-6' }
+   = f.input :notes, label: 'Conference notes', wrapper_html: { class: 'col-md-12' }
+
+  .page-header
+   h2 Conference location
+  fieldset
+    = f.input :country, required: true, as: :country, prompt: "Conference country", wrapper_html: { class: 'col-md-12' }
+    = f.input :region, required: true, collection: Conference::REGION_LIST, prompt: 'Conference region', wrapper_html: { class: 'col-md-12' }
+    = f.input :city, required: true, placeholder: 'Conference city', wrapper_html: { class: 'col-md-12' }
+   
+  .actions
+    ul.list-inline
+      li = f.submit 'Save', class: 'btn btn-success'

@@ -15,12 +15,35 @@ class Orga::ConferencesController < Orga::BaseController
     redirect_to orga_conferences_path
   end
 
+  def show
+  end
+
+  def new
+    @conference = Conference.new
+  end
+
+  def create
+    @conference = Conference.new(conference_params)
+    @conference.season_id = current_season.id
+    @conference.gid = generate_gid(current_user)
+
+    if @conference.save
+      redirect_to orga_conferences_path, notice: 'Conference was successfully created.'
+    else
+      render action: :new
+    end
+  end
+
   def destroy
     @conference.destroy!
     redirect_to orga_conferences_path, notice: 'The conference has been deleted.'
   end
 
   private
+
+  def generate_gid(user)
+    "#{Season.current.name}-#{Time.now.getutc.to_i}-#{user.id}"
+  end
 
   def find_conference
     @conference ||= Conference.find(params[:id])

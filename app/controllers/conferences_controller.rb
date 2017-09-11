@@ -1,6 +1,5 @@
 class ConferencesController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
-  before_action :confirm_role, except: [:index, :show]
 
   include OrderedConferences
 
@@ -19,14 +18,10 @@ class ConferencesController < ApplicationController
     @conference.gid = generate_gid(team)
 
     if @conference.save
-      redirect_to edit_team_path(team), notice: 'Conference was successfully created.'
+      redirect_to edit_team_path(current_student.current_team), notice: 'Conference was successfully created.'
     else
       render action: :new
     end
-  end
-
-  def redirect
-    redirect_to orga_conferences_path
   end
 
   private
@@ -39,9 +34,5 @@ class ConferencesController < ApplicationController
     params.require(:conference).permit(
       :name, :twitter, :starts_on, :ends_on, :notes, :country, :region, :location, :city, :url
     )
-  end
-
-  def confirm_role
-    redirect unless current_user.admin? || current_user.student?
   end
 end
