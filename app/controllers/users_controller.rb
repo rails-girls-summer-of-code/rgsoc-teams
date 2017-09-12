@@ -97,7 +97,7 @@ class UsersController < ApplicationController
         :tshirt_size, :tshirt_cut, :postal_address, :timezone,
         :country,
         :hide_email,
-        :is_company, :company_name, :company_info,
+        :is_company, :company_name, :company_url, :company_info,
         :application_about, :application_motivation, :application_gender_identification, :application_age,
         :application_coding_level, :application_community_engagement, :application_language_learning_period,
         :application_learning_history, :application_skills, :application_code_samples,

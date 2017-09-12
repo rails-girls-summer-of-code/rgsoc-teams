@@ -37,6 +37,9 @@ nav.actions
       - if @user.timezone.present?
         dt Timezone
         dd = @user.timezone
+      - if @user.company_name.present?
+        dt Company
+        dd = link_to @user.company_name, @user.company_url
 
   - if @user.bio.present?
     h4 About me

@@ -36,7 +36,7 @@ table.users.table.table-striped.table-bordered.table-condensed.table-hover
         td = link_to user.github_handle, "https://github.com/#{user.github_handle}"
         td = link_to_user_roles(user)
         td = "#{user.country}/#{user.location}"
-        td = user.try(:company_name)
+        td = user.company_name.present? ? (link_to user.try(:company_name), user.try(:company_url)) : ""
         td = time_for_user(user)
         / td = links_to_conferences(user.conferences.in_current_season).join(', ').html_safe
         - if signed_in? && !Rails.env.production?
