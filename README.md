@@ -2,7 +2,6 @@
 [![Build Status](https://travis-ci.org/rails-girls-summer-of-code/rgsoc-teams.svg?branch=master)](https://travis-ci.org/rails-girls-summer-of-code/rgsoc-teams)
 [![Code Climate](https://codeclimate.com/github/rails-girls-summer-of-code/rgsoc-teams.svg)](https://codeclimate.com/github/rails-girls-summer-of-code/rgsoc-teams)
 [![Dependency Status](https://gemnasium.com/badges/github.com/rails-girls-summer-of-code/rgsoc-teams.svg)](https://gemnasium.com/github.com/rails-girls-summer-of-code/rgsoc-teams)
-[![Stories in Ready](https://badge.waffle.io/rails-girls-summer-of-code/rgsoc-teams.svg?label=In%20progress&title=In%20Progress)](https://waffle.io/rails-girls-summer-of-code/rgsoc-teams)
 
 **Looking for your help!**
 
