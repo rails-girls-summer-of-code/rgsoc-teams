@@ -63,6 +63,9 @@ describe User do
 
   describe 'scopes' do
     context 'role scopes' do
+      roles_except_organizer = User::ROLES
+      roles_except_organizer.delete('organizer')
+
       describe '.organizer' do
         let!(:user) { create(:organizer) }
         let(:role)  { Role.find_by(name: 'organizer', user_id: user.id) }
@@ -76,29 +79,21 @@ describe User do
         end
       end
 
-      describe '.supervisor' do
-        let!(:user) { create(:supervisor) }
-        let(:role)  { Role.find_by(name: 'supervisor', user_id: user.id) }
+      roles_except_organizer.each do |role|
+        describe ".#{role}" do
 
-        it 'does not return admin role for user' do
-          expect(user.roles.admin).to be_empty
-        end
+          let!(:user) { create(role) }
+          let(:role_obj)  { Role.find_by(name: role, user_id: user.id) }
 
-        it 'returns supervisor role for user' do
-          expect(user.roles.supervisor).to contain_exactly(role)
-        end
-      end
+          it 'does not return admin role for user' do
+            expect(user.roles.admin).to be_empty
+          end
 
-      describe '.reviewer' do
-        let!(:user) { create(:reviewer) }
-        let(:role)  { Role.find_by(name: 'reviewer', user_id: user.id) }
-
-        it 'does not return admin role for user' do
-          expect(user.roles.admin).to be_empty
-        end
-
-        it 'returns reviewer role for user' do
-          expect(user.roles.reviewer).to contain_exactly(role)
+          it 'returns supervisor role for user' do
+            expect(
+                user.roles.send("#{role}")
+              ).to contain_exactly(role_obj)
+          end
         end
       end
     end
