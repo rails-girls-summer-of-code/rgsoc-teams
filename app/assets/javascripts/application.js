@@ -6,14 +6,14 @@
 //= require_tree .
 //= require_self
 
-$(() => {
-  $('.filter input[type=radio], .filter input[type=checkbox], .filter select').change(()  => {
-    $(this).closest('form').submit()
+$(function() {
+  $('.filter input[type=radio], .filter input[type=checkbox], .filter select').change(function() {
+    $(this).closest('form').submit();
   });
 
-  $('.comments a').click( () => {
-    $('.comments').hide()
+  $('.comments a').click(function() {
+    $('.comments').hide();
   });
 
   $('[data-toggle="popover"]').popover();
-})
+});
