@@ -226,6 +226,10 @@ describe Team do
       it 'returns teams by season' do
         expect(Team.by_season(season2016)).to match_array(teams2016)
       end
+
+      it 'returns an empty relation when argument is not recognized' do
+        expect(described_class.by_season(Object.new)).to be_empty
+      end
     end
 
     describe '.without_recent_log_update' do

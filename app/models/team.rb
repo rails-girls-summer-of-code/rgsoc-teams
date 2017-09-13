@@ -51,7 +51,7 @@ class Team < ActiveRecord::Base
     when Season
       where(season: year_or_season)
     else
-      raise
+      none
     end
   end
 
