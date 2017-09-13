@@ -216,10 +216,7 @@ describe Team do
       let(:season2016) { create :season, name: '2016' }
       let(:teams2016) { create_list :team, 2, season: season2016 }
 
-      before do
-        season = create :season, name: '2015'
-        create :team, season: season
-      end
+      let!(:past_team) { create :team, season: create(:season, name: '2015') }
 
       it 'returns teams by season year' do
         expect(Team.by_season('2016')).to match_array(teams2016)
