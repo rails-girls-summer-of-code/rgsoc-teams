@@ -1,5 +1,4 @@
 class Role < ActiveRecord::Base
-  include GithubHandle
   include AASM
 
   TEAM_ROLES  = %w(student coach)
@@ -14,6 +13,8 @@ class Role < ActiveRecord::Base
   belongs_to :user
   belongs_to :team
 
+  delegate :github_handle, to: :user, allow_nil: true
+
   validates :user, presence: true
   validates :name, inclusion: { in: ROLES }, presence: true
   validates :user_id, uniqueness: { scope: [:name, :team_id] }
@@ -27,7 +28,7 @@ class Role < ActiveRecord::Base
 
   class << self
     def includes?(role_name)
-      !where(name: role_name).empty?
+      where(name: role_name).any?
     end
   end
 
@@ -38,6 +39,13 @@ class Role < ActiveRecord::Base
     event :confirm do
       transitions from: :pending, to: :confirmed
     end
+  end
+
+  def github_handle=(github_handle)
+    return unless github_handle.present?
+    self.user = User.where('github_handle ILIKE ?', github_handle)
+                    .first_or_initialize(github_handle: github_handle)
+    user.github_import = true
   end
 
   private

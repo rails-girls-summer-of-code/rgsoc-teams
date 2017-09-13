@@ -35,6 +35,10 @@ class Season < ActiveRecord::Base
         season.project_proposals_open_at,
         season.project_proposals_close_at
     end
+
+    def all_years
+      pluck(:name)
+    end
   end
 
   def application_period?

@@ -6,15 +6,25 @@ class TeamsController < ApplicationController
   load_and_authorize_resource except: [:index, :show]
 
   def index
-    if params[:sort]
-      direction = params[:direction] == 'asc' ? 'ASC' : 'DESC'
-      @teams = Team.by_season_phase.includes(:activities).order("teams.kind, activities.created_at #{direction}").references(:activities)
+    direction = params[:direction] == 'asc' ? 'ASC' : 'DESC'
+    year = params[:year]
+
+    if year.present?
+      @teams = Team.by_season(year)
+                   .accepted
+                   .includes(:activities)
+                   .order("teams.kind, activities.created_at #{direction}")
+                   .references(:activities)
     else
-      @teams = Team.by_season_phase.order(:kind, :name)
+      @teams = Team.by_season_phase
+                   .includes(:activities)
+                   .order("teams.kind, activities.created_at #{direction}")
+                   .references(:activities)
     end
   end
 
   def show
+    @team.conference_attendances.build unless @team.conference_attendances.present?
   end
 
   def new
@@ -91,7 +101,7 @@ class TeamsController < ApplicationController
     def conference_list
       Conference.in_current_season
     end
-    
+
     def role_attributes_list
       unless current_user.admin? ||
         # If it contains an ID, the user is updating an existing role

@@ -212,6 +212,24 @@ describe Team do
       end
     end
 
+    describe '.by_season' do
+      let(:season2016) { create :season, name: '2016' }
+      let(:teams2016) { create_list :team, 2, season: season2016 }
+
+      before do
+        season = create :season, name: '2015'
+        create :team, season: season
+      end
+
+      it 'returns teams by season year' do
+        expect(Team.by_season('2016')).to match_array(teams2016)
+      end
+
+      it 'returns teams by season' do
+        expect(Team.by_season(season2016)).to match_array(teams2016)
+      end
+    end
+
     describe '.without_recent_log_update' do
       let(:team_without) do
         create :team
@@ -250,7 +268,6 @@ describe Team do
         team_with_recent_feed_entry
         expect(described_class.without_recent_log_update).not_to include(team_with_recent_status_update)
         expect(described_class.without_recent_log_update).not_to include(team_with_recent_feed_entry)
-
       end
     end
 
@@ -408,5 +425,4 @@ describe Team do
       expect(team.application).to eql application
     end
   end
-
 end

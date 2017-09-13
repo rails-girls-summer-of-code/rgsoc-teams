@@ -2,6 +2,8 @@ class Orga::ConferencesController < Orga::BaseController
   before_action :find_conference, only: [:show, :destroy]
   before_action :ensure_file_was_posted, only: :import
 
+  include OrderedConferences
+
   def import
     begin
       Conference::Importer.call(params[:file].path, content_type: params[:file].content_type)
@@ -13,8 +15,23 @@ class Orga::ConferencesController < Orga::BaseController
     redirect_to orga_conferences_path
   end
 
-  def index
-    @conferences = conferences
+  def show
+  end
+
+  def new
+    @conference = Conference.new
+  end
+
+  def create
+    @conference = Conference.new(conference_params)
+    @conference.season_id = current_season.id
+    @conference.gid = generate_gid(current_user)
+
+    if @conference.save
+      redirect_to orga_conferences_path, notice: 'Conference was successfully created.'
+    else
+      render action: :new
+    end
   end
 
   def destroy
@@ -24,12 +41,12 @@ class Orga::ConferencesController < Orga::BaseController
 
   private
 
-  def find_conference
-    @conference ||= Conference.find(params[:id])
+  def generate_gid(user)
+    "#{Season.current.name}-#{Time.now.getutc.to_i}-#{user.id}"
   end
 
-  def conferences
-    Conference.ordered(sort_params).in_current_season
+  def find_conference
+    @conference ||= Conference.find(params[:id])
   end
 
   def conference_params
@@ -42,13 +59,6 @@ class Orga::ConferencesController < Orga::BaseController
       :notes,
       conference_preferences_attributes: [:id, :_destroy]
     )
-  end
-
-  def sort_params
-    {
-      order: %w(name gid starts_on city country region).include?(params[:sort]) ? params[:sort] : nil,
-      direction: %w(asc desc).include?(params[:direction]) ? params[:direction] : nil
-    }
   end
 
   def set_breadcrumbs

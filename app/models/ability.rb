@@ -33,6 +33,10 @@ class Ability
       user.admin? || team.students.include?(user) || team.supervisors.include?(user)
     end
 
+    can :accept_or_reject_conference_offer, Team do |team|
+      team.students.include?(user)
+    end
+
     cannot :create, Team do |team|
       on_team_for_season?(user, team.season) || !user.confirmed?
     end
@@ -56,6 +60,8 @@ class Ability
     can :crud, ConferencePreference do |preference|
       user.admin? || (preference.team.students.include? user)
     end
+
+    can :crud, Conference if user.admin? || user.current_student?
 
     #todo add mailing controller and view for users in their namespace, where applicable
     can :read, Mailing do |mailing|

@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 ruby '2.4.1'
 
-gem 'rails', '~> 5.1.3'
+gem 'rails', '~> 5.1.4'
 gem 'pg'
 gem 'puma'
 gem 'devise'
@@ -31,7 +31,7 @@ gem 'uglifier'
 gem 'sprockets-rails'
 
 gem 'newrelic_rpm'
-gem 'aws-sdk'
+gem 'aws-sdk-s3'
 
 gem 'sentry-raven'
 

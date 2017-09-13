@@ -1,6 +1,8 @@
 h3 Conferences
 - if @team&.conference_preference&.has_preference?
   h4 Conference Preferences
+  .conference-info
+    | Conferences you are interested in attending:
   ul.conferences
     - if @team.conference_preference.first_conference.present?
       li
@@ -15,10 +17,31 @@ h3 Conferences
 
   - if @team.conference_attendances.present?
     h4 Conference Offers
+    .conference-info
+      | Free tickets offered by RGSoC. Please accept of reject the offer(s).
+
     ul.conferences
-      - @team.conference_attendances.each do |offer|
+      - @team.conference_attendances.each do |conference_attendance|
         li
-          = links_to_conferences([offer.conference]).first
-        - if offer.orga_comment.present?
-        |Orga comment:
-        =offer.orga_comment
+          = links_to_conferences([conference_attendance.conference]).first if conference_attendance.conference.present?
+          - if conference_attendance.attendance.present?
+          = show_attendance conference_attendance.attendance
+
+        - if conference_attendance.orga_comment.present?
+          .orgaComment
+            |Orga Comment:
+            p = render_markdown(conference_attendance.orga_comment).html_safe
+
+          - if can? :accept_or_reject_conference_offer, @team
+              ul.attendance.list-inline
+                -if conference_attendance.attendance != true
+                  li
+                    = simple_form_for conference_attendance,  method: :put, :html => { class: :'form-inline'} do |attendance|
+                      = attendance.hidden_field :attendance, value: :true
+                      = attendance.submit "Yes, I can attend", class: 'btn btn-default'
+
+                -if conference_attendance.attendance != false
+                  li
+                    = simple_form_for conference_attendance,  method: :put, :html => { class: :'form-inline'} do |attendance|
+                      = attendance.hidden_field :attendance, value: :false
+                      = attendance.submit "No, I cannot attend", class: 'btn btn-default'

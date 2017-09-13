@@ -30,7 +30,7 @@ FactoryGirl.define do
       end
     end
 
-    trait :with_preferences do
+    trait :with_conference_preferences do
       after(:create) do |team|
         FactoryGirl.create(:conference_preference, :with_terms_checked, team: team)
       end
