@@ -26,7 +26,6 @@ gem 'font-awesome-sass'
 gem 'pretender'
 
 gem 'sass-rails'
-gem 'coffee-rails'
 gem 'uglifier'
 gem 'sprockets-rails'
 
