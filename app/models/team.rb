@@ -46,14 +46,14 @@ class Team < ActiveRecord::Base
 
   scope :by_season, ->(year_or_season) do
     case year_or_season
-      when Integer, String
-        joins(:season).where('seasons.name': year_or_season)
-      when Season
-        where(season: year_or_season)
-      else
-        raise
-      end
+    when Integer, String
+      joins(:season).where('seasons.name': year_or_season)
+    when Season
+      where(season: year_or_season)
+    else
+      raise
     end
+  end
 
   class << self
     def ordered(sort = {})
