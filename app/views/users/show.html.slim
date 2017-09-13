@@ -44,6 +44,9 @@ nav.actions
   - if @user.bio.present?
     h4 About me
     p = render_markdown(@user.bio).html_safe
+  - if @user.interested_in_other.present?
+    h4 Interests
+    p = @user.interested_in_other
 
   - if @user.teams.any?
     h4 Teams
