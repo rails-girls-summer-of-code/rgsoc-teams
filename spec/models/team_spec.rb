@@ -218,8 +218,9 @@ describe Team do
 
       let!(:past_team) { create :team, season: create(:season, name: '2015') }
 
-      it 'returns teams by season year' do
+      it 'returns teams by season year as string and integer' do
         expect(Team.by_season('2016')).to match_array(teams2016)
+        expect(Team.by_season(2016)).to match_array(teams2016)
       end
 
       it 'returns teams by season' do
