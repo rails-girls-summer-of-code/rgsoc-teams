@@ -13,9 +13,7 @@ class ConferencesController < ApplicationController
 
   def create
     team = current_user.student_team
-    @conference = Conference.new(conference_params)
-    @conference.season_id = current_season.id
-    @conference.gid = generate_gid(team)
+    @conference = build_conference
 
     if @conference.save
       redirect_to edit_team_path(current_student.current_team), notice: 'Conference was successfully created.'
@@ -26,8 +24,12 @@ class ConferencesController < ApplicationController
 
   private
 
-  def generate_gid(team)
-    "#{Season.current.name}-#{Time.now.getutc.to_i}-#{team.id}"
+  def build_conference
+    Conference.new(conference_params.merge(season: current_season, gid: generate_gid))
+  end
+
+  def generate_gid
+    "#{Season.current.name}-#{Time.now.getutc.to_i}-#{current_user.id}"
   end
 
   def conference_params
