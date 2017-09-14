@@ -216,17 +216,19 @@ describe Team do
       let(:season2016) { create :season, name: '2016' }
       let(:teams2016) { create_list :team, 2, season: season2016 }
 
-      before do
-        season = create :season, name: '2015'
-        create :team, season: season
-      end
+      let!(:past_team) { create :team, season: create(:season, name: '2015') }
 
-      it 'returns teams by season year' do
+      it 'returns teams by season year as string and integer' do
         expect(Team.by_season('2016')).to match_array(teams2016)
+        expect(Team.by_season(2016)).to match_array(teams2016)
       end
 
       it 'returns teams by season' do
         expect(Team.by_season(season2016)).to match_array(teams2016)
+      end
+
+      it 'returns an empty relation when argument is not recognized' do
+        expect(described_class.by_season(Object.new)).to be_empty
       end
     end
 

@@ -26,12 +26,11 @@ gem 'font-awesome-sass'
 gem 'pretender'
 
 gem 'sass-rails'
-gem 'coffee-rails'
 gem 'uglifier'
 gem 'sprockets-rails'
 
 gem 'newrelic_rpm'
-gem 'aws-sdk-s3'
+gem 'aws-sdk'
 
 gem 'sentry-raven'
 
