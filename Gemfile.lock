@@ -44,18 +44,13 @@ GEM
     arel (8.0.0)
     autoprefixer-rails (7.1.4)
       execjs
-    aws-partitions (1.21.0)
-    aws-sdk-core (3.4.0)
-      aws-partitions (~> 1.0)
+    aws-sdk (2.10.29)
+      aws-sdk-resources (= 2.10.29)
+    aws-sdk-core (2.10.29)
       aws-sigv4 (~> 1.0)
       jmespath (~> 1.0)
-    aws-sdk-kms (1.1.0)
-      aws-sdk-core (~> 3)
-      aws-sigv4 (~> 1.0)
-    aws-sdk-s3 (1.2.0)
-      aws-sdk-core (~> 3)
-      aws-sdk-kms (~> 1)
-      aws-sigv4 (~> 1.0)
+    aws-sdk-resources (2.10.29)
+      aws-sdk-core (= 2.10.29)
     aws-sigv4 (1.0.2)
     backports (3.8.0)
     bcrypt (3.1.11)
@@ -363,7 +358,7 @@ PLATFORMS
 
 DEPENDENCIES
   aasm
-  aws-sdk-s3
+  aws-sdk
   better_errors
   binding_of_caller
   bootstrap-kaminari-views
