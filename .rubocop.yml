@@ -7,9 +7,13 @@ AllCops:
 Layout/IndentationWidth:
   Description: 'Use 2 spaces for indentation.'
 
+Layout/CaseIndentation:
+  Description: 'Indentation of when in a case/when/[else/]end.'
+
 Style/HashSyntax:
   Description: 'Prefer Ruby 1.9 hash syntax { a: 1, b: 2 } over 1.8 syntax'
   EnforcedStyle: ruby19
+
 
 # Gonna add this later...
 # Style/FrozenStringLiteralComment:
