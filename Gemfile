@@ -70,4 +70,5 @@ group :test do
   gem 'rspec-collection_matchers'
   gem 'rspec-html-matchers'
   gem 'rspec-activemodel-mocks'
+  gem 'rubocop', require: false
 end
