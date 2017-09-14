@@ -17,6 +17,7 @@ before_script:
 - npm install -g jshint
 script:
 - bundle exec rake spec
+- bundle exec rubocop
 - jshint app/assets/javascripts
 deploy:
 - provider: heroku
