@@ -1,6 +1,5 @@
 class ConferencesController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
-  before_action :confirm_role, except: [:index, :show]
 
   include OrderedConferences
 
@@ -14,34 +13,28 @@ class ConferencesController < ApplicationController
 
   def create
     team = current_user.student_team
-    @conference = Conference.new(conference_params)
-    @conference.season_id = current_season.id
-    @conference.gid = generate_gid(team)
+    @conference = build_conference
 
     if @conference.save
-      redirect_to edit_team_path(team), notice: 'Conference was successfully created.'
+      redirect_to edit_team_path(current_student.current_team), notice: 'Conference was successfully created.'
     else
       render action: :new
     end
   end
 
-  def redirect
-    redirect_to orga_conferences_path
-  end
-
   private
 
-  def generate_gid(team)
-    "#{Season.current.name}-#{Time.now.getutc.to_i}-#{team.id}"
+  def build_conference
+    Conference.new(conference_params.merge(season: current_season, gid: generate_gid))
+  end
+
+  def generate_gid
+    "#{Season.current.name}-#{Time.now.getutc.to_i}-#{current_user.id}"
   end
 
   def conference_params
     params.require(:conference).permit(
       :name, :twitter, :starts_on, :ends_on, :notes, :country, :region, :location, :city, :url
     )
-  end
-
-  def confirm_role
-    redirect unless current_user.admin? || current_user.student?
   end
 end

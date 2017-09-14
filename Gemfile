@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 ruby '2.4.1'
 
-gem 'rails', '~> 5.1.3'
+gem 'rails', '~> 5.1.4'
 gem 'pg'
 gem 'puma'
 gem 'devise'
@@ -26,7 +26,6 @@ gem 'font-awesome-sass'
 gem 'pretender'
 
 gem 'sass-rails'
-gem 'coffee-rails'
 gem 'uglifier'
 gem 'sprockets-rails'
 

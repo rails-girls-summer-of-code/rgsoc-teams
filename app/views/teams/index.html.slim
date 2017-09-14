@@ -2,5 +2,12 @@ nav.actions
   ul.list-inline
     li = link_to 'My Team', current_student.current_team, class: 'btn btn-default btn-sm' if current_student.current_team
     li = link_to icon('plus', 'New Team'), new_team_path, class: 'btn btn-primary btn-sm' if can? :create, Team.new(season: Season.current)
+  div.pull-right.dropdown
+    button.dropdown-toggle.form-control  data-toggle="dropdown"
+      | Past Teams
+      span.caret
+    ul.dropdown-menu role="menu"
+      - Season.all_years.each do |year|
+        li data-behaviour="switch-teams-year" value=year =year
 
 = render 'table', namespace: nil

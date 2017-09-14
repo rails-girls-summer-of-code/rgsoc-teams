@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class TeamsController < ApplicationController
   before_action :set_team,  only: [:show, :edit, :update, :destroy]
   before_action :set_users, only: [:new, :edit]
@@ -6,12 +7,16 @@ class TeamsController < ApplicationController
   load_and_authorize_resource except: [:index, :show]
 
   def index
-    if params[:sort]
-      direction = params[:direction] == 'asc' ? 'ASC' : 'DESC'
-      @teams = Team.by_season_phase.includes(:activities).order("teams.kind, activities.created_at #{direction}").references(:activities)
-    else
-      @teams = Team.by_season_phase.order(:kind, :name)
-    end
+    direction  = params[:direction] == 'asc' ? 'ASC' : 'DESC'
+    base_scope = if year = params[:year].presence
+                   Team.by_season(year).accepted
+                 else
+                   Team.by_season_phase
+                 end
+
+    @teams = base_scope
+               .includes(:activities).references(:activities)
+               .order("teams.kind, activities.created_at #{direction}")
   end
 
   def show
@@ -92,7 +97,7 @@ class TeamsController < ApplicationController
     def conference_list
       Conference.in_current_season
     end
-    
+
     def role_attributes_list
       unless current_user.admin? ||
         # If it contains an ID, the user is updating an existing role
