@@ -4,6 +4,9 @@ AllCops:
   TargetRubyVersion: 2.4
   DisabledByDefault: true
 
+Style/HashSyntax:
+  EnforcedStyle: ruby19
+
 # Gonna add this later...
 # Style/FrozenStringLiteralComment:
 #   Include:

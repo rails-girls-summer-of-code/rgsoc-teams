@@ -51,7 +51,7 @@ class Feed
         item = Item.new(source.url, source.team_id, data)
         raise "can not find guid for item in source #{source.feed_url}" unless item.guid
         # logger.info "processing item #{item.guid}: #{item.title}"
-        record = Activity.where(:guid => item.guid).first
+        record = Activity.where(guid: item.guid).first
         attrs = item.attrs.merge(img_url: record.try(:img_url) || Image.new(item.url, logger: logger).store)
         record ? record.update_attributes!(attrs) : Activity.create!(attrs)
       end

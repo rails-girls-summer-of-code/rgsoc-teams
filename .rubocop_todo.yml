@@ -913,28 +913,6 @@ Style/GuardClause:
     - 'lib/confs/raffle.rb'
     - 'lib/feed/image.rb'
 
-# Offense count: 28
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SupportedStyles, UseHashRocketsWithSymbolValues, PreferHashRocketsForNonAlnumEndingSymbols.
-# SupportedStyles: ruby19, hash_rockets, no_mixed_keys, ruby19_no_mixed_keys
-Style/HashSyntax:
-  Exclude:
-    - 'app/controllers/supervisor/base_controller.rb'
-    - 'app/controllers/supervisor/comments_controller.rb'
-    - 'app/helpers/application_helper.rb'
-    - 'app/models/ability.rb'
-    - 'app/models/application_draft.rb'
-    - 'app/models/conference.rb'
-    - 'app/models/role.rb'
-    - 'config/initializers/devise.rb'
-    - 'config/routes.rb'
-    - 'lib/feed.rb'
-    - 'spec/controllers/orga/teams_controller_spec.rb'
-    - 'spec/controllers/teams_controller_spec.rb'
-    - 'spec/lib/feed_spec.rb'
-    - 'spec/models/ability_spec.rb'
-    - 'spec/support/shared_examples/redirect_for_non_admins.rb'
-
 # Offense count: 2
 Style/IdenticalConditionalBranches:
   Exclude:

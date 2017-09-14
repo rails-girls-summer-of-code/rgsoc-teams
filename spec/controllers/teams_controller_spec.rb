@@ -218,7 +218,7 @@ RSpec.describe TeamsController do
           let(:conference_1) { FactoryGirl.create(:conference, :in_current_season)}
           let(:conference_2) { FactoryGirl.create(:conference, :in_current_season)}
           let(:team_params) do
-            build(:team).attributes.merge(:conference_preference_attributes=>{
+            build(:team).attributes.merge(conference_preference_attributes: {
               first_conference_id: conference_1.id,
               second_conference_id: conference_2.id,
               terms_of_ticket: '1',

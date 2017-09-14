@@ -151,7 +151,7 @@ module ApplicationHelper
   end
 
   def link_to_team_member(member)
-    content_tag(:li, :class => :user) do
+    content_tag(:li, class: :user) do
       avatar_url(member, size: 40) +
         link_to(member.name_or_handle, member)
     end

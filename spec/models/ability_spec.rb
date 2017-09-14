@@ -186,11 +186,11 @@ describe Ability do
         end
 
         context "when the user is a team's student" do
-          it { expect(ability).to be_able_to(:see_offered_conferences, Team.new(:students => [user])) }
+          it { expect(ability).to be_able_to(:see_offered_conferences, Team.new(students: [user])) }
         end
 
         context "when the user is a team's supervisor" do
-          it { expect(ability).to be_able_to(:see_offered_conferences, Team.new(:supervisors => [user])) }
+          it { expect(ability).to be_able_to(:see_offered_conferences, Team.new(supervisors: [user])) }
         end
 
         context 'when the user is an admin' do

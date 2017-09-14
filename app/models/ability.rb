@@ -7,7 +7,7 @@ class Ability
   def initialize(user)
     user ||= User.new
 
-    alias_action :create, :read, :update, :destroy, :to => :crud
+    alias_action :create, :read, :update, :destroy, to: :crud
 
     can :crud, User, id: user.id
     can :crud, User if user.admin?
