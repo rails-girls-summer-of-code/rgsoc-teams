@@ -4,7 +4,11 @@ AllCops:
   TargetRubyVersion: 2.4
   DisabledByDefault: true
 
+Layout/IndentationWidth:
+  Description: 'Use 2 spaces for indentation.'
+
 Style/HashSyntax:
+  Description: 'Prefer Ruby 1.9 hash syntax { a: 1, b: 2 } over 1.8 syntax'
   EnforcedStyle: ruby19
 
 # Gonna add this later...
