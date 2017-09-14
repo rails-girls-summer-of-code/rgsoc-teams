@@ -7,6 +7,29 @@ $(function () {
      $('.form-group.user_company_info').toggle(this.checked);
   }).change(); //ensure visible state matches initially
 
+
+   //update coach availability
+
+   $(function () {
+      var $update_availability = $('[data-behavior="update_availability"]');
+      $update_availability.on('click',function(){
+        var url = "/users/current/update_availability";
+        updateAvailability(url);
+      });
+    });
+
+   function updateAvailability(url) {
+      $.ajax({
+        type:     'PUT',
+        url:      url,
+        success: updateBtnName
+      });
+    }
+
+    function updateBtnName() {
+      var $update_availability = $('[data-behavior="update_availability"]');
+      $update_availability.html("Successful updated");
+    }
 });
 
 

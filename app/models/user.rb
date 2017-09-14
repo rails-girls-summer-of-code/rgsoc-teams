@@ -60,6 +60,15 @@ class User < ActiveRecord::Base
     "over 60",
   ]
 
+  ROLES = [
+    "mentor",
+    "organizer",
+    "reviewer",
+    "supervisor",
+    "coach",
+    "student"
+  ]
+
   include ActiveModel::ForbiddenAttributesProtection
   include Authentication::ActiveRecordHelpers
   include ProfilesHelper
@@ -71,30 +80,13 @@ class User < ActiveRecord::Base
       where(name: Role::ADMIN_ROLES)
     end
 
-    def mentor
-      where(name: 'mentor')
-    end
-
-    def organizer
-      where(name: 'organizer')
-    end
-
-    def reviewer
-      where(name: 'reviewer')
-    end
-
-    def supervisor
-      where(name: 'supervisor')
-    end
-
-    def coach
-      where(name: 'coach')
-    end
-
-    def student
-      where(name: 'student')
+    ROLES.each do |role|
+      define_method role do
+        where(name: role)
+      end
     end
   end
+
   has_many :teams, -> { distinct }, through: :roles
   has_many :application_drafts, through: :teams
   has_many :applications, through: :teams
