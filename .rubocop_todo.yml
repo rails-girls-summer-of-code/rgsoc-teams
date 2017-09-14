@@ -894,13 +894,6 @@ Style/EvenOdd:
   Exclude:
     - 'app/models/concerns/rateable.rb'
 
-# Offense count: 334
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SupportedStyles.
-# SupportedStyles: when_needed, always, never
-Style/FrozenStringLiteralComment:
-  Enabled: false
-
 # Offense count: 20
 # Configuration parameters: MinBodyLength.
 Style/GuardClause:

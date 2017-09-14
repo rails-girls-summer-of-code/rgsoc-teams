@@ -2,6 +2,10 @@ inherit_from: .rubocop_todo.yml
 
 AllCops:
   TargetRubyVersion: 2.4
+  DisabledByDefault: true
 
-Bundler/OrderedGems:
-  Enabled: false
+# Gonna add this later...
+# Style/FrozenStringLiteralComment:
+#   Include:
+#   - 'app/**/*.rb'
+#   - 'lib/**/*.rb'
