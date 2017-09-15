@@ -14,8 +14,8 @@ class CommunityController < ApplicationController
     @users = User.ordered(params[:sort],params[:direction])
         .group('users.id').with_all_associations_joined
 
-    community = CommunityUsers.new(params, @users)
-    @users = community.filtered_users
+    community = CommunityUsers.new(params.dup, @users)
+    @users = community.all
   end
 
   private
