@@ -44,18 +44,13 @@ GEM
     arel (8.0.0)
     autoprefixer-rails (7.1.4)
       execjs
-    aws-partitions (1.20.0)
-    aws-sdk-core (3.3.0)
-      aws-partitions (~> 1.0)
+    aws-sdk (2.10.29)
+      aws-sdk-resources (= 2.10.29)
+    aws-sdk-core (2.10.29)
       aws-sigv4 (~> 1.0)
       jmespath (~> 1.0)
-    aws-sdk-kms (1.1.0)
-      aws-sdk-core (~> 3)
-      aws-sigv4 (~> 1.0)
-    aws-sdk-s3 (1.2.0)
-      aws-sdk-core (~> 3)
-      aws-sdk-kms (~> 1)
-      aws-sigv4 (~> 1.0)
+    aws-sdk-resources (2.10.29)
+      aws-sdk-core (= 2.10.29)
     aws-sigv4 (1.0.2)
     backports (3.8.0)
     bcrypt (3.1.11)
@@ -78,13 +73,6 @@ GEM
     codeclimate-test-reporter (1.0.8)
       simplecov (<= 0.13)
     coderay (1.1.2)
-    coffee-rails (4.2.2)
-      coffee-script (>= 2.2.0)
-      railties (>= 4.0.0)
-    coffee-script (2.4.1)
-      coffee-script-source
-      execjs
-    coffee-script-source (1.12.2)
     concurrent-ruby (1.0.5)
     countries (2.1.2)
       i18n_data (~> 0.8.0)
@@ -370,7 +358,7 @@ PLATFORMS
 
 DEPENDENCIES
   aasm
-  aws-sdk-s3
+  aws-sdk
   better_errors
   binding_of_caller
   bootstrap-kaminari-views
@@ -379,7 +367,6 @@ DEPENDENCIES
   camo
   cancancan
   codeclimate-test-reporter
-  coffee-rails
   country_select
   coveralls
   database_cleaner
@@ -424,7 +411,7 @@ DEPENDENCIES
   webmock
 
 RUBY VERSION
-   ruby 2.4.1p111
+   ruby 2.4.2p198
 
 BUNDLED WITH
    1.15.4
