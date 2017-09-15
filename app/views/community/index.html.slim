@@ -21,7 +21,7 @@ table.users.table.table-striped.table-bordered.table-condensed.table-hover
       th = sortable :github
       th = sortable :team
       th = sortable :location
-      th = sortable :company
+      th = :company
       th Time now
       / th Conferences
 
@@ -30,13 +30,13 @@ table.users.table.table-striped.table-bordered.table-condensed.table-hover
       tr
         td.image = avatar_url(user, size: 40)
         td = link_to user.name_or_handle, user
-        td = interested_in_field(user)
+        td = interests_for(user)
         - if signed_in?
           td = mail_to user.email unless user.hide_email?
         td = link_to user.github_handle, "https://github.com/#{user.github_handle}"
         td = link_to_user_roles(user)
         td = "#{user.country}/#{user.location}"
-        td = user.company_name.present? ? (link_to user.try(:company_name), user.try(:company_url)) : ""
+        td = user.company_name.present? ? (link_to user.company_name, user.company_url) : ""
         td = time_for_user(user)
         / td = links_to_conferences(user.conferences.in_current_season).join(', ').html_safe
         - if signed_in? && !Rails.env.production?
