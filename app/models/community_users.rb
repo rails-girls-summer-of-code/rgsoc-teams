@@ -12,11 +12,11 @@ class CommunityUsers
 
   def all
     @users = @users.with_assigned_roles if current_season_has_begun?
-    @users = @users.with_role(@role) if role_present?
-    @users = @users.with_interest(@interest) if interest_present?
-    @users = @users.as_coach_availability if coach_availability_present?
-    @users = Kaminari.paginate_array(@users.search(@search)) if search_present?
-    @users = @users.with_location(@location) if location_present?
+    @users = @users.with_role(@role) if present? @role
+    @users = @users.with_interest(@interest) if present? @interest
+    @users = @users.as_coach_availability if present? @availability
+    @users = Kaminari.paginate_array(@users.search(@search)) if present? @search
+    @users = @users.with_location(@location) if present? @location
     @users = @users.page(@page)
   end
 
@@ -26,23 +26,7 @@ class CommunityUsers
     Time.now.utc > (Season.current.starts_at || Date.new)
   end
 
-  def role_present?
-    @role.present? && @role != 'all'
-  end
-
-  def interest_present?
-    @interest.present? && @interest != 'all'
-  end
-
-  def coach_availability_present?
-    @availability.present?
-  end
-
-  def search_present?
-    @search.present?
-  end
-
-  def location_present?
-    @location.present?
+  def present?(param)
+    param.present? && param != 'all'
   end
 end
