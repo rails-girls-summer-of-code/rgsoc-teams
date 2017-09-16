@@ -4,12 +4,17 @@ AllCops:
 
 Layout/IndentationWidth:
   Description: "Use 2 spaces for indentation."
+  StyleGuide: "#spaces-indentation"
+  Enabled: true
 
 Layout/CaseIndentation:
   Description: "Indentation of when in a case/when/[else/]end."
+  StyleGuide: "#indent-when-to-case"
+  Enabled: true
 
 Layout/TrailingWhitespace:
-  Description: "Avoid trailing whitespace."
+  Description: 'Avoid trailing whitespace.'
+  StyleGuide: '#no-trailing-whitespace'
   Enabled: true
 
 Style/DefWithParentheses:
@@ -46,7 +51,7 @@ Style/MethodDefParentheses:
   Description: >-
                  Checks if the method definitions have or don't have
                  parentheses.
-  StyleGuide: '#method-parens'
+  StyleGuide: "#method-parens"
   Enabled: true
 
 Style/TrailingCommaInArguments:
@@ -54,9 +59,8 @@ Style/TrailingCommaInArguments:
   StyleGuide: "#no-trailing-params-comma"
   Enabled: true
 
-
 # TODO
 Metrics/LineLength:
-  Description: "Limit lines to 100 characters."
-  Max: 101
-  Enabled: false
+  Description: "Limit lines to 80 characters."
+  StyleGuide: "#80-character-limits"
+  Enabled: true
