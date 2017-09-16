@@ -14,6 +14,7 @@ class Rating::RatingsController < Rating::BaseController
   end
 
   private
+
     def new_rating_params
       params.require(:rating).permit(:rateable_id, :rateable_type, :like, :pick, Rating::FIELDS.keys)
     end

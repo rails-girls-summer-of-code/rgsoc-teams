@@ -2,6 +2,13 @@ AllCops:
   TargetRubyVersion: 2.4
   DisabledByDefault: true
 
+#################### Layout ###############################
+
+Layout/AccessModifierIndentation:
+  Description: Check indentation of private/protected visibility modifiers.
+  StyleGuide: '#indent-public-private-protected'
+  Enabled: true
+
 Layout/IndentationWidth:
   Description: "Use 2 spaces for indentation."
   StyleGuide: "#spaces-indentation"
@@ -10,6 +17,11 @@ Layout/IndentationWidth:
 Layout/CaseIndentation:
   Description: "Indentation of when in a case/when/[else/]end."
   StyleGuide: "#indent-when-to-case"
+  Enabled: true
+
+Layout/EmptyLinesAroundAccessModifier:
+  Description: "Keep blank lines around access modifiers."
+  StyleGuide: "#empty-lines-around-access-modifier"
   Enabled: true
 
 Layout/TrailingWhitespace:
@@ -63,4 +75,4 @@ Style/TrailingCommaInArguments:
 Metrics/LineLength:
   Description: "Limit lines to 80 characters."
   StyleGuide: "#80-character-limits"
-  Enabled: true
+  Enabled: false
