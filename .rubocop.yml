@@ -39,8 +39,54 @@ Layout/ExtraSpacing:
   Enabled: true
 
 Layout/LeadingCommentSpace:
-  Description: 'Comments should start with a space.'
-  StyleGuide: '#hash-space'
+  Description: "Comments should start with a space."
+  StyleGuide: "#hash-space"
+  Enabled: true
+
+Layout/SpaceAfterColon:
+  Description: "Use spaces after colons."
+  StyleGuide: "#spaces-operators"
+  Enabled: true
+
+Layout/SpaceAfterComma:
+  Description: "Use spaces after commas."
+  StyleGuide: '#spaces-operators'
+  Enabled: true
+
+Layout/SpaceAfterMethodName:
+  Description: >-
+                 Do not put a space between a method name and the opening
+                 parenthesis in a method definition.
+  StyleGuide: "#parens-no-spaces"
+  Enabled: true
+
+Layout/SpaceAfterNot:
+  Description: Tracks redundant space after the ! operator.
+  StyleGuide: "#no-space-bang"
+  Enabled: true
+
+Layout/SpaceAfterSemicolon:
+  Description: "Use spaces after semicolons."
+  StyleGuide: '#spaces-operators'
+  Enabled: true
+
+Layout/SpaceBeforeComma:
+  Description: "No spaces before commas."
+  Enabled: true
+
+Layout/SpaceBeforeComment:
+  Description: >-
+                 Checks for missing space between code and a comment on the
+                 same line.
+  Enabled: true
+
+Layout/SpaceBeforeSemicolon:
+  Description: "No spaces before semicolons."
+  Enabled: true
+
+Layout/SpaceAroundOperators:
+  Description: 'Use a single space around operators.'
+  StyleGuide: '#spaces-operators'
   Enabled: true
 
 Style/DefWithParentheses:

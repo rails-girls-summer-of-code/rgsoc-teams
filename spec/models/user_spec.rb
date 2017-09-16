@@ -225,12 +225,12 @@ describe User do
   describe '#name_or_handle' do
     it 'returns name if existed' do
       @user = described_class.new(name: 'trung')
-      expect(@user.name_or_handle).to be =='trung'
+      expect(@user.name_or_handle).to be == 'trung'
     end
 
     it 'returns github_handle if name is not available' do
       @user = described_class.new(github_handle: 'rails-girl')
-      expect(@user.name_or_handle).to be =='rails-girl'
+      expect(@user.name_or_handle).to be == 'rails-girl'
     end
   end
 

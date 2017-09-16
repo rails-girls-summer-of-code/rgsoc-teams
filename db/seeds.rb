@@ -38,9 +38,9 @@ FactoryGirl.create(:project, :rejected, :in_current_season)
     starts_on: random_date,
     ends_on: random_date + rand(2.days),
     lightningtalkslots: rand < 0.5,
-    tickets: [2,4,6].sample,
+    tickets: [2, 4, 6].sample,
     accomodation: 2,
     flights: 0,
-    round: [1,2].sample
+    round: [1, 2].sample
   )
 end

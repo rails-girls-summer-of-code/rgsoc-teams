@@ -18,7 +18,7 @@ RSpec.describe TeamsController do
 
   describe "GET index" do
     context 'before acceptance letters are sent' do
-      let(:last_season)      { Season.create name: Date.today.year-1 }
+      let(:last_season)      { Season.create name: Date.today.year - 1 }
       let!(:invisble_team)   { create :team, :in_current_season, kind: nil, invisible: true }
       let!(:unaccepted_team) { create :team, :in_current_season, kind: nil}
       let!(:last_years_team) { create :team, kind: 'sponsored', season: last_season }
@@ -60,7 +60,7 @@ RSpec.describe TeamsController do
     end
 
     context 'after acceptance letters have been sent' do
-      let(:last_season)      { Season.create name: Date.today.year-1 }
+      let(:last_season)      { Season.create name: Date.today.year - 1 }
       let!(:voluntary_team)  { create :team, :in_current_season, kind: 'voluntary' }
       let!(:sponsored_team)  { create :team, :in_current_season, kind: 'sponsored' }
       let!(:unaccepted_team) { create :team, :in_current_season, kind: nil}

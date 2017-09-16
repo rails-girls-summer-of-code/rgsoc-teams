@@ -8,8 +8,8 @@ module Exporters
 
       header = 'Team name', 'Team location', 'Project name', 'Conference primary choice', 'Conference secondary choice', 'We would like to give a LT', 'Comments', 'Terms accepted'
       max_offer.times do |n|
-        header << "Conference Offer #{n+1}"
-        header << "Conference Offer #{n+1} accepted"
+        header << "Conference Offer #{n + 1}"
+        header << "Conference Offer #{n + 1} accepted"
       end
 
       generate(preferences, *header) do |cp|

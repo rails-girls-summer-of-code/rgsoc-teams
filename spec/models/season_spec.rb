@@ -36,7 +36,7 @@ describe Season do
 
       it 'sets the project_proposals_close_at to the end of the day' do
         date = DateTime.parse('2015-02-22 14:00 GMT+1')
-        subject.project_proposals_close_at= date
+        subject.project_proposals_close_at = date
         expect { subject.valid? }.to \
           change { subject.project_proposals_close_at }.to \
           DateTime.parse('2015-02-22 23:59:59.999999999 GMT')
@@ -142,7 +142,7 @@ describe Season do
     let(:year) { Date.today.year }
 
     context 'with existing successor season' do
-      let!(:next_season) { Season.create name: year+1 }
+      let!(:next_season) { Season.create name: year + 1 }
 
       it 'returns the existing follow-up season' do
         expect { subject }.not_to change { Season.count }
@@ -152,14 +152,14 @@ describe Season do
 
     it 'creates the successor if it doesn\'t exist' do
       expect { subject }.to change { Season.count }.by(1)
-      expect(subject.name).to eql (year+1).to_s
+      expect(subject.name).to eql (year + 1).to_s
     end
 
     it 'sets the dates into the following year' do
-      expect(subject.starts_at.year).to eql year+1
-      expect(subject.ends_at.year).to eql year+1
-      expect(subject.applications_open_at.year).to eql year+1
-      expect(subject.applications_close_at.year).to eql year+1
+      expect(subject.starts_at.year).to eql year + 1
+      expect(subject.ends_at.year).to eql year + 1
+      expect(subject.applications_open_at.year).to eql year + 1
+      expect(subject.applications_close_at.year).to eql year + 1
     end
   end
 
