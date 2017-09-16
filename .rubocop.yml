@@ -99,6 +99,18 @@ Layout/TrailingWhitespace:
   StyleGuide: "#no-trailing-whitespace"
   Enabled: true
 
+#################### Naming ##############################
+
+Naming/ClassAndModuleCamelCase:
+  Description: "Use CamelCase for classes and modules."
+  StyleGuide: "#camelcase-classes"
+  Enabled: true
+
+Naming/ConstantName:
+  Description: "Constants should use SCREAMING_SNAKE_CASE."
+  StyleGuide: "#screaming-snake-case"
+  Enabled: true
+
 
 
 
