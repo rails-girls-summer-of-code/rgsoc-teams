@@ -140,12 +140,10 @@ module ApplicationHelper
       role = team.roles.find { |role| role.user == member}
       if role && role.confirmed?
         content_tag :span, 'Confirmed', class: 'label label-default'
+      elsif current_user == member
+        link_to 'Confirm', confirm_role_path((role.confirmation_token || 'confirmation-token-missing')), method: :put, class: 'btn btn-sm btn-success'
       else
-        if current_user == member
-          link_to 'Confirm', confirm_role_path((role.confirmation_token || 'confirmation-token-missing')), method: :put, class: 'btn btn-sm btn-success'
-        else
-          content_tag :span, 'Not confirmed yet', class: 'label label-default'
-        end
+        content_tag :span, 'Not confirmed yet', class: 'label label-default'
       end
     end
   end
