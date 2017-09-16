@@ -53,9 +53,9 @@
 
   - if coach?
     h3.page-header Availability for the next season:
-    - if !available(@user)
+    - if !@user.availability
       = link_to'I am available in the next season', @user, data: { behavior: "update_availability" }, class: 'btn btn-default', remote: true
-    - if available(@user)
+    - if @user.availability
       span.label.label-success
         | I am available in the next season!
 

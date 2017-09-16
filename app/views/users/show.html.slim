@@ -50,7 +50,7 @@ nav.actions
 
   - if @user.coach?
     h4 Availability
-    label = show_availability(@user.availability)
+    label = @user.availability ? 'I am available for this season!' : 'I am not available for this season.'
 
   - if can_see_private_info?
     - fields = ['tshirt_size', 'tshirt_cut', 'postal_address']
