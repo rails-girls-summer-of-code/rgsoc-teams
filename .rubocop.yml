@@ -24,11 +24,6 @@ Layout/EmptyLinesAroundAccessModifier:
   StyleGuide: "#empty-lines-around-access-modifier"
   Enabled: true
 
-Layout/TrailingWhitespace:
-  Description: 'Avoid trailing whitespace.'
-  StyleGuide: '#no-trailing-whitespace'
-  Enabled: true
-
 Layout/EndOfLine:
   Description: "Use Unix-style line endings."
   StyleGuide: "#crlf"
@@ -85,9 +80,27 @@ Layout/SpaceBeforeSemicolon:
   Enabled: true
 
 Layout/SpaceAroundOperators:
-  Description: 'Use a single space around operators.'
-  StyleGuide: '#spaces-operators'
+  Description: "Use a single space around operators."
+  StyleGuide: "#spaces-operators"
   Enabled: true
+
+Layout/Tab:
+  Description: "No hard tabs."
+  StyleGuide: "#spaces-indentation"
+  Enabled: true
+
+Layout/TrailingBlankLines:
+  Description: "Checks trailing blank lines and final newline."
+  StyleGuide: '#newline-eof'
+  Enabled: true
+
+Layout/TrailingWhitespace:
+  Description: "Avoid trailing whitespace."
+  StyleGuide: "#no-trailing-whitespace"
+  Enabled: true
+
+
+
 
 Style/DefWithParentheses:
   Description: "Use def with parentheses when there are arguments."

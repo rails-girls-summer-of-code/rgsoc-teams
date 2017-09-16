@@ -14,4 +14,3 @@ class TeamsInfoController < ApplicationController
     #   params[:kind] = 'all' if params[:kind].blank?
     # end
 end
-
