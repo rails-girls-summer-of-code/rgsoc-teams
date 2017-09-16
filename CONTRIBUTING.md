@@ -72,9 +72,7 @@ Before you start working, make sure no one else is already working on it: check 
 
 If you've confirmed that no one is working on the issue and would like to give it a go, feel free to leave a comment saying so! You could write something like the following:
 
-```
-  I think I know how to fix this one! Will give it a try :thumbsup:
-```
+    I think I know how to fix this one! Will give it a try :thumbsup:
 
 ### Creating a Pull Request
 
@@ -94,7 +92,8 @@ If you've cloned the app a while ago, you want to make sure that your cloned `ma
 
 ### Write Code
 
-We aim to follow the [Ruby Style Guide](https://github.com/bbatsov/ruby-style-guide) but we don't enforce it (i.e. there is no [RuboCop](https://github.com/bbatsov/rubocop)). The most important thing is probably just proper indentation: two whitespaces.
+We aim to follow the [Ruby Style Guide](https://github.com/bbatsov/ruby-style-guide) and have  [RuboCop](https://github.com/bbatsov/rubocop) set up to make sure we stay consistent with some basic rules (see our [rubocop.yml](https://github.com/rails-girls-summer-of-code/rgsoc-teams/blob/master/.rubocop.yml) file for details).  
+But don't be afraid, the most important thing is probably just proper indentation: two whitespaces ✌️
 
 We prefer JavaScript (`*.js`) over CoffeeScript (`*.coffee`). jQuery is perfectly fine, but if you can, use [Vanilla JS instead of jQuery](https://gist.github.com/liamcurry/2597326). Indentation for JavaScript files: four whitespaces.
 
@@ -106,7 +105,7 @@ Make atomic commits with a descriptive commit message.
 
 ### Make a Pull Request
 
-Github [provides documentation](https://help.github.com/articles/creating-a-pull-request/) on how to create a PR. A new PR (and any subsequent updates to it) will trigger running the test suite on Travis CI.
+Github [provides documentation](https://help.github.com/articles/creating-a-pull-request/) on how to create a PR. A new PR (and any subsequent updates to it) will trigger running the test suite and automatic code analyzers on Travis CI.
 
 If your contribution alters the way the Teams App looks (e.g. CSS changes), we kindly ask you to provide a few screenshots (before/after) that illustrate the change. It's much easier and quicker to review as we won't have to checkout the PR locally. You can drag'n'drop image files directly into the PR description or its comments section.
 
