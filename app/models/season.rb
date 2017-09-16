@@ -42,7 +42,7 @@ class Season < ActiveRecord::Base
   end
 
   def application_period?
-   Time.now.utc.between? applications_open_at, applications_close_at
+    Time.now.utc.between? applications_open_at, applications_close_at
   end
 
   def applications_open?

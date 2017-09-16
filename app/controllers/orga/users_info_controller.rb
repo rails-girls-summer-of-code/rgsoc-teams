@@ -1,6 +1,6 @@
 class Orga::UsersInfoController < Orga::BaseController
   before_action :normalize_params, only: :index
-  
+
   private
 
     def users

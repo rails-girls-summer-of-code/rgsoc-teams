@@ -60,7 +60,7 @@ class SourcesController < ApplicationController
 
     def set_sources
       @sources = if @team
-        @team.sources
+                   @team.sources
       else
         options = { kind: params[:kind] } if params[:kind].present?
         Source.where(options || {}).order(:url)
@@ -69,7 +69,7 @@ class SourcesController < ApplicationController
 
     def set_source
       @source = if params[:id]
-        @team.sources.find(params[:id])
+                  @team.sources.find(params[:id])
       else
         @team.sources.new(source_params)
       end

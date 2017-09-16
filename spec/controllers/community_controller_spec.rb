@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 RSpec.describe CommunityController do
- render_views
+  render_views
 
   let(:valid_attributes) { build(:user).attributes.except('github_id', 'avatar_url', *User.immutable_attributes.map(&:to_s)) }
 
