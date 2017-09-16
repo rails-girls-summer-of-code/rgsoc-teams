@@ -28,6 +28,10 @@ Style/RedundantReturn:
   Description: "Don't use return where it's not required."
   Enabled: true
 
+Style/RedundantSelf:
+  Description: "Don't use self where it's not needed."
+  Enabled: true
+
 # TODO
 Metrics/LineLength:
   Description: "Limit lines to 100 characters."

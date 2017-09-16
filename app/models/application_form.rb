@@ -96,6 +96,6 @@ class ApplicationForm
   end
 
   def attributes
-    fields.inject({}) { |result, field| result[field] = self.send(field); result }
+    fields.inject({}) { |result, field| result[field] = send(field); result }
   end
 end

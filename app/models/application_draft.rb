@@ -167,6 +167,6 @@ class ApplicationDraft < ActiveRecord::Base
   end
 
   def clean_up_heard_about_it
-    self.heard_about_it = self.heard_about_it.reject(&:empty?)
+    self.heard_about_it = heard_about_it.reject(&:empty?)
   end
 end

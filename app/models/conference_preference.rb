@@ -16,7 +16,7 @@ class ConferencePreference < ActiveRecord::Base
   end
 
   def terms_accepted?
-    self.terms_of_travel && self.terms_of_ticket
+    terms_of_travel && terms_of_ticket
   end
 
   private

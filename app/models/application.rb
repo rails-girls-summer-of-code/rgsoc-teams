@@ -31,7 +31,7 @@ class Application < ActiveRecord::Base
   end
 
   def data
-    ApplicationData.new(self.application_data)
+    ApplicationData.new(application_data)
   end
 
   def self.rateable

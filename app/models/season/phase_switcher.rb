@@ -11,7 +11,7 @@ class Season::PhaseSwitcher
 
   def self.destined(phase)
     raise ArgumentError.new("#{phase} is not a valid phase") unless phase.in? PHASES
-    self.send(phase)
+    send(phase)
   end
 
   private
