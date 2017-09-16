@@ -68,7 +68,7 @@ class Ability
       mailing.recipient? user
     end
 
-    can :crud, :comments  if user.admin?
+    can :crud, :comments if user.admin?
     can :read, :users_info if user.admin? || user.supervisor?
 
     can :crud, Project do |project|

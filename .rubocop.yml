@@ -29,6 +29,15 @@ Layout/TrailingWhitespace:
   StyleGuide: '#no-trailing-whitespace'
   Enabled: true
 
+Layout/EndOfLine:
+  Description: "Use Unix-style line endings."
+  StyleGuide: "#crlf"
+  Enabled: true
+
+Layout/ExtraSpacing:
+  Description: "Do not use unnecessary spacing."
+  Enabled: true
+
 Style/DefWithParentheses:
   Description: "Use def with parentheses when there are arguments."
   StyleGuide: "#method-parens"

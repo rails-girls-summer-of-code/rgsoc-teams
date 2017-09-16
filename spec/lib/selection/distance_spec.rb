@@ -28,7 +28,7 @@ describe Selection::Distance do
   end
 
   context 'when passing blank strings as input data' do
-    let(:to)   { ['', ''] }
+    let(:to) { ['', ''] }
 
     it 'calculates the distance to zero' do
       expect(subject.to_km).to eq 4711

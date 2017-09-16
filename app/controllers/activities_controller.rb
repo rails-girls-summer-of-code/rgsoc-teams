@@ -11,7 +11,7 @@ class ActivitiesController < ApplicationController
     respond_to do |format|
       format.html
       format.json { render json: @activities }
-      format.atom { render layout: false  }
+      format.atom { render layout: false }
     end
   end
 

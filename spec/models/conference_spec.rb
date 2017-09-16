@@ -56,7 +56,7 @@ describe Conference do
   describe '#tickets_left' do
 
     context 'ticket value defined' do
-      let(:conference_preference)    { FactoryGirl.build(:conference_preference, confirmed: true) }
+      let(:conference_preference) { FactoryGirl.build(:conference_preference, confirmed: true) }
       subject { FactoryGirl.build_stubbed(:conference, tickets: 2) }
 
       it 'subtracts conference preferences' do

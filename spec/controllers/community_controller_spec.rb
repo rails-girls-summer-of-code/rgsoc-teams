@@ -7,7 +7,7 @@ RSpec.describe CommunityController do
 
   describe "GET index" do
     it "assigns all users that have any roles assigned as @users" do
-      student  = FactoryGirl.create(:student)
+      student = FactoryGirl.create(:student)
       coach = FactoryGirl.create(:coach)
       get :index
       expect(assigns(:users).to_a).to include(coach) && include(student)
