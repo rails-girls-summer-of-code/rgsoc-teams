@@ -55,7 +55,7 @@ class Orga::ConferencesController < Orga::BaseController
       :url, :twitter,
       :starts_on, :ends_on,
       :round, :lightningtalkslots, :tickets, :flights, :accomodation,
-      :gid, #id in orga's Google Spreadsheet (format: 2017001)
+      :gid, # id in orga's Google Spreadsheet (format: 2017001)
       :notes,
       conference_preferences_attributes: [:id, :_destroy]
     )

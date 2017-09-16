@@ -38,6 +38,11 @@ Layout/ExtraSpacing:
   Description: "Do not use unnecessary spacing."
   Enabled: true
 
+Layout/LeadingCommentSpace:
+  Description: 'Comments should start with a space.'
+  StyleGuide: '#hash-space'
+  Enabled: true
+
 Style/DefWithParentheses:
   Description: "Use def with parentheses when there are arguments."
   StyleGuide: "#method-parens"

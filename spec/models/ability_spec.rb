@@ -12,7 +12,7 @@ describe Ability do
 
       describe 'she/he is allowed to do everything on her/his account' do
         it { expect(ability).to be_able_to(:show, user) }
-        it { expect(ability).not_to be_able_to(:create, User.new) } #this only happens through GitHub
+        it { expect(ability).not_to be_able_to(:create, User.new) } # this only happens through GitHub
 
         it { expect(ability).to be_able_to(:resend_confirmation_instruction, user) }
       end

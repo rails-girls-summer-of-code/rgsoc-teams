@@ -63,7 +63,7 @@ class Ability
 
     can :crud, Conference if user.admin? || user.current_student?
 
-    #todo add mailing controller and view for users in their namespace, where applicable
+    # todo add mailing controller and view for users in their namespace, where applicable
     can :read, Mailing do |mailing|
       mailing.recipient? user
     end

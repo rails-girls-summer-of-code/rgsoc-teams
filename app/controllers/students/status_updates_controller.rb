@@ -62,7 +62,7 @@ class Students::StatusUpdatesController < Students::BaseController
   private
 
   def status_updates
-    #order = DESC; set in model
+    # order = DESC; set in model
     @status_updates ||= current_team.status_updates.ordered
   end
 

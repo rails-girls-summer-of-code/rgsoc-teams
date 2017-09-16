@@ -1,7 +1,7 @@
 # Teams
 FactoryGirl.create_list(:team, 5, :in_current_season, kind: "sponsored")
 FactoryGirl.create(:team, :in_current_season, kind: "voluntary")
-FactoryGirl.create(:team, :in_current_season) #not accepted
+FactoryGirl.create(:team, :in_current_season) # not accepted
 
 FactoryGirl.create(:team, :last_season, kind: "sponsored")
 FactoryGirl.create(:team, :last_season, kind: "voluntary")
@@ -25,7 +25,7 @@ end
 FactoryGirl.create(:application_draft)
 FactoryGirl.create(:application_draft, :appliable)
 
-FactoryGirl.create(:project, :in_current_season) #proposed
+FactoryGirl.create(:project, :in_current_season) # proposed
 FactoryGirl.create_list(:project, 3, :accepted, :in_current_season)
 FactoryGirl.create(:project, :rejected, :in_current_season)
 
