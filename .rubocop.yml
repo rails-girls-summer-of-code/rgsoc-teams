@@ -32,6 +32,11 @@ Style/RedundantSelf:
   Description: "Don't use self where it's not needed."
   Enabled: true
 
+Style/MethodCallWithoutArgsParentheses:
+  Description: "Do not use parentheses for method calls with no arguments."
+  StyleGuide: "#method-invocation-parens"
+  Enabled: true
+
 # TODO
 Metrics/LineLength:
   Description: "Limit lines to 100 characters."
