@@ -58,9 +58,9 @@ class RolesController < ApplicationController
     def set_role
       @role = if params[:id]
                 @team.roles.find(params[:id])
-      else
-        @team.roles.new(role_params)
-      end
+              else
+                @team.roles.new(role_params)
+              end
     end
 
     def role_params
