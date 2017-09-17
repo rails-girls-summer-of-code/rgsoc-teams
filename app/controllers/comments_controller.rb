@@ -26,11 +26,11 @@ class CommentsController < ApplicationController
 
   private
 
-    def comment_params
-      params.require(:comment).permit(:commentable_id, :commentable_type, :text).merge(user_id: current_user.id)
-    end
+  def comment_params
+    params.require(:comment).permit(:commentable_id, :commentable_type, :text).merge(user_id: current_user.id)
+  end
 
-    def commentable_path(commentable, anchor)
-      self.class::PATH_PARENTS + [commentable, anchor: anchor]
-    end
+  def commentable_path(commentable, anchor)
+    self.class::PATH_PARENTS + [commentable, anchor: anchor]
+  end
 end

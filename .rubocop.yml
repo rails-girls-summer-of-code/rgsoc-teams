@@ -9,9 +9,19 @@ Layout/AccessModifierIndentation:
   StyleGuide: '#indent-public-private-protected'
   Enabled: true
 
+Layout/InitialIndentation:
+  Description: >-
+    Checks the indentation of the first non-blank non-comment line in a file.
+  Enabled: true
+
 Layout/IndentationWidth:
   Description: "Use 2 spaces for indentation."
   StyleGuide: "#spaces-indentation"
+  Enabled: true
+
+Layout/IndentationConsistency:
+  Description: 'Keep indentation straight.'
+  StyleGuide: '#spaces-indentation'
   Enabled: true
 
 Layout/CaseIndentation:

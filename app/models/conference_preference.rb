@@ -21,12 +21,12 @@ class ConferencePreference < ActiveRecord::Base
 
   private
 
-    def conference_exists?
-      first_conference_id.present? || second_conference_id.present?
-    end
+  def conference_exists?
+    first_conference_id.present? || second_conference_id.present?
+  end
 
-    def change_status_terms
-      self.terms_of_travel = false
-      self.terms_of_ticket = false
-    end
+  def change_status_terms
+    self.terms_of_travel = false
+    self.terms_of_ticket = false
+  end
 end

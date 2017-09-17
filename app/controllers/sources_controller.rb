@@ -54,29 +54,29 @@ class SourcesController < ApplicationController
 
   private
 
-    def set_team
-      @team = Team.find(params[:team_id]) if params[:team_id]
-    end
+  def set_team
+    @team = Team.find(params[:team_id]) if params[:team_id]
+  end
 
-    def set_sources
-      @sources = if @team
-                   @team.sources
-      else
-        options = { kind: params[:kind] } if params[:kind].present?
-        Source.where(options || {}).order(:url)
-      end
+  def set_sources
+    @sources = if @team
+                 @team.sources
+    else
+      options = { kind: params[:kind] } if params[:kind].present?
+      Source.where(options || {}).order(:url)
     end
+  end
 
-    def set_source
-      @source = if params[:id]
-                  @team.sources.find(params[:id])
-      else
-        @team.sources.new(source_params)
-      end
+  def set_source
+    @source = if params[:id]
+                @team.sources.find(params[:id])
+    else
+      @team.sources.new(source_params)
     end
+  end
 
-    def source_params
-      params[:source] ||= { url: params[:url] }
-      params.require(:source).permit(:url, :kind)
-    end
+  def source_params
+    params[:source] ||= { url: params[:url] }
+    params.require(:source).permit(:url, :kind)
+  end
 end

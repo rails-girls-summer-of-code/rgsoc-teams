@@ -33,37 +33,37 @@ class Feed
 
   private
 
-    def discover_title
-      title = Discovery.new(source.url, logger: logger).title
-      logger.info "discovered title for #{source.url}: #{title}"
-      title
-    end
+  def discover_title
+    title = Discovery.new(source.url, logger: logger).title
+    logger.info "discovered title for #{source.url}: #{title}"
+    title
+  end
 
-    def discover_feed_url
-      urls = Discovery.new(source.url, logger: logger).feed_urls
-      url = urls.reject { |url| url =~ /comment/ }.first
-      logger.info "discovered feed url for #{source.url}: #{url}" if url
-      url || source.url
-    end
+  def discover_feed_url
+    urls = Discovery.new(source.url, logger: logger).feed_urls
+    url = urls.reject { |url| url =~ /comment/ }.first
+    logger.info "discovered feed url for #{source.url}: #{url}" if url
+    url || source.url
+  end
 
-    def update_entries
-      parse.entries.each do |data|
-        item = Item.new(source.url, source.team_id, data)
-        raise "can not find guid for item in source #{source.feed_url}" unless item.guid
-        # logger.info "processing item #{item.guid}: #{item.title}"
-        record = Activity.where(guid: item.guid).first
-        attrs = item.attrs.merge(img_url: record.try(:img_url) || Image.new(item.url, logger: logger).store)
-        record ? record.update_attributes!(attrs) : Activity.create!(attrs)
-      end
-    rescue => e
-      logger.error "Could not update entries: #{e.message}"
-      nil
+  def update_entries
+    parse.entries.each do |data|
+      item = Item.new(source.url, source.team_id, data)
+      raise "can not find guid for item in source #{source.feed_url}" unless item.guid
+      # logger.info "processing item #{item.guid}: #{item.title}"
+      record = Activity.where(guid: item.guid).first
+      attrs = item.attrs.merge(img_url: record.try(:img_url) || Image.new(item.url, logger: logger).store)
+      record ? record.update_attributes!(attrs) : Activity.create!(attrs)
     end
+  rescue => e
+    logger.error "Could not update entries: #{e.message}"
+    nil
+  end
 
-    def parse
-      logger.info "Feeds: going to fetch #{source.feed_url}"
-      data = Feedjira::Feed.fetch_and_parse(source.feed_url)
-      logger.info "this does not look like a valid feed" unless data.respond_to?(:entries)
-      data
-    end
+  def parse
+    logger.info "Feeds: going to fetch #{source.feed_url}"
+    data = Feedjira::Feed.fetch_and_parse(source.feed_url)
+    logger.info "this does not look like a valid feed" unless data.respond_to?(:entries)
+    data
+  end
 end

@@ -11,7 +11,7 @@ class ReminderMailer < ActionMailer::Base
 
   private
 
-    def subject
-      "[rgsoc-teams] Reminder: please update your team log"
-    end
+  def subject
+    "[rgsoc-teams] Reminder: please update your team log"
+  end
 end

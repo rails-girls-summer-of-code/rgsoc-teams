@@ -73,43 +73,43 @@ class TeamsController < ApplicationController
 
   private
 
-    def set_team
-      @team = Team.find(params[:id])
-    end
+  def set_team
+    @team = Team.find(params[:id])
+  end
 
-    def set_users
-      @users = User.order(:github_handle)
-    end
+  def set_users
+    @users = User.order(:github_handle)
+  end
 
-    def team_params
-      params[:team].fetch(:sources_attributes, {}).delete_if { |key, source| source[:url].empty? }
-      params.require(:team).permit(
-        :name, :twitter_handle, :github_handle, :description, :post_info, :event_id,
-        :checked, :'starts_on(1i)', :'starts_on(2i)', :'starts_on(3i)',
-        :'finishes_on(1i)', :'finishes_on(2i)', :'finishes_on(3i)', :invisible,
-        :project_name,
-        roles_attributes: role_attributes_list,
-        conference_preference_attributes: [:id, :terms_of_ticket, :terms_of_travel, :first_conference_id, :second_conference_id, :lightning_talk, :comment, :_destroy],
-        sources_attributes: [:id, :kind, :url, :_destroy]
-      )
-    end
+  def team_params
+    params[:team].fetch(:sources_attributes, {}).delete_if { |key, source| source[:url].empty? }
+    params.require(:team).permit(
+      :name, :twitter_handle, :github_handle, :description, :post_info, :event_id,
+      :checked, :'starts_on(1i)', :'starts_on(2i)', :'starts_on(3i)',
+      :'finishes_on(1i)', :'finishes_on(2i)', :'finishes_on(3i)', :invisible,
+      :project_name,
+      roles_attributes: role_attributes_list,
+      conference_preference_attributes: [:id, :terms_of_ticket, :terms_of_travel, :first_conference_id, :second_conference_id, :lightning_talk, :comment, :_destroy],
+      sources_attributes: [:id, :kind, :url, :_destroy]
+    )
+  end
 
-    def conference_list
-      Conference.in_current_season
-    end
+  def conference_list
+    Conference.in_current_season
+  end
 
-    def role_attributes_list
-      unless current_user.admin? ||
-        # If it contains an ID, the user is updating an existing role
-        params.fetch(:roles_attributes, {}).to_unsafe_h.none? { |_, attributes| attributes.has_key? 'id' }
-        [:id, :github_handle, :_destroy] # do not allow to update the actual role
-      else
-        [:id, :name, :github_handle, :_destroy]
-      end
+  def role_attributes_list
+    unless current_user.admin? ||
+      # If it contains an ID, the user is updating an existing role
+      params.fetch(:roles_attributes, {}).to_unsafe_h.none? { |_, attributes| attributes.has_key? 'id' }
+      [:id, :github_handle, :_destroy] # do not allow to update the actual role
+    else
+      [:id, :name, :github_handle, :_destroy]
     end
+  end
 
-    def set_display_roles
-      @display_roles = ['student']
-      @display_roles.map!(&:pluralize)
-    end
+  def set_display_roles
+    @display_roles = ['student']
+    @display_roles.map!(&:pluralize)
+  end
 end
