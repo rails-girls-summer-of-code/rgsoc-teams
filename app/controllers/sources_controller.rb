@@ -61,18 +61,18 @@ class SourcesController < ApplicationController
   def set_sources
     @sources = if @team
                  @team.sources
-    else
-      options = { kind: params[:kind] } if params[:kind].present?
-      Source.where(options || {}).order(:url)
-    end
+               else
+                 options = { kind: params[:kind] } if params[:kind].present?
+                 Source.where(options || {}).order(:url)
+               end
   end
 
   def set_source
     @source = if params[:id]
                 @team.sources.find(params[:id])
-    else
-      @team.sources.new(source_params)
-    end
+              else
+                @team.sources.new(source_params)
+              end
   end
 
   def source_params
