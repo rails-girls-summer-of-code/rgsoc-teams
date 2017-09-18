@@ -63,8 +63,13 @@ describe User do
 
   describe 'scopes' do
     context 'role scopes' do
-      roles_except_organizer = User::ROLES
-      roles_except_organizer.delete('organizer')
+      roles_except_organizer = [
+        "mentor",
+        "reviewer",
+        "supervisor",
+        "coach",
+        "student"
+      ]
 
       describe '.organizer' do
         let!(:user) { create(:organizer) }

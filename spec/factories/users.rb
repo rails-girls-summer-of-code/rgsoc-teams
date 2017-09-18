@@ -13,6 +13,10 @@ FactoryGirl.define do
       availability true
     end
 
+    trait :interested_in_coaching do
+      interested_in ['coaching']
+    end
+
     factory :coach do
       transient { team { FactoryGirl.create(:team) } }
 
