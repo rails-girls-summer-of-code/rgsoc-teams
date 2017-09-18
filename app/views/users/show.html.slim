@@ -48,7 +48,7 @@ nav.actions
       - @user.teams.each do |team|
         li #{link_to team.display_name, team} &ndash; #{role_names(team, @user)}
 
-  - if @user.coach?
+  - if @user.interested_in_coaching?
     h4 Availability
     label = @user.availability ? 'I am available for this season!' : 'I am not available for this season.'
 

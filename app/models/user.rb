@@ -208,6 +208,10 @@ class User < ActiveRecord::Base
     roles.student.any?
   end
 
+  def interested_in_coaching?
+    interested_in.include?("coaching")
+  end
+
   def current_student?
     roles.joins(:team).
       where("teams.season_id" => Season.current.id, "teams.kind" => %w(sponsored voluntary)).
