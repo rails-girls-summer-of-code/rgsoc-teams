@@ -17,12 +17,12 @@ before_script:
   - npm install -g jshint
 jobs:
   include:
-    - stage: tests
+    - stage: test
       script: bundle exec rake spec
-    - stage: rubocp
+    - stage: lint
       script: bundle exec rubocop
-    - stage: jshint
-      script: jshing app/assets/javascripts
+    -
+      script: jshint app/assets/javascripts
     - stage: deploy
       script: skip
       deploy:
