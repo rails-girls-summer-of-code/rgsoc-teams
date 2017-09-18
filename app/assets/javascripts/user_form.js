@@ -13,7 +13,7 @@ $(function () {
    $(function () {
       var $update_availability = $('[data-behavior="update_availability"]');
       $update_availability.on('click',function(){
-        var url = "/users/current/update_availability";
+        var url =$(this).data("url");
         updateAvailability(url);
       });
     });
