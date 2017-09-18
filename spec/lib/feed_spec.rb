@@ -11,7 +11,7 @@ describe Feed do
     # serve the local directory for faraday
     root = File.expand_path('spec/stubs/feeds')
     log = WEBrick::Log.new(File.open(File::NULL, 'w'))
-    @server = WEBrick::HTTPServer.new :Port => 8000, :DocumentRoot => root, :AccessLog => [], :Logger => log
+    @server = WEBrick::HTTPServer.new Port: 8000, DocumentRoot: root, AccessLog: [], Logger: log
     @thread = Thread.new { @server.start }
   end
 

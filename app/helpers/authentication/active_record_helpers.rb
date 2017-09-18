@@ -21,7 +21,7 @@ module Authentication
       end
 
       def create_for_github_oauth(auth)
-        update_user(new(), auth)
+        update_user(new, auth)
       end
 
       def update_user(user, auth)

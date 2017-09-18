@@ -138,7 +138,7 @@ class Rating < ActiveRecord::Base
   # public: The weighted sum of the points that the reviewer gave.
   def points
     weighted_points = FIELDS.map do |name, rating_criterium|
-      rating_criterium.weighted_points(self.send(name))
+      rating_criterium.weighted_points(send(name))
     end
 
     weighted_points.sum
@@ -149,7 +149,7 @@ class Rating < ActiveRecord::Base
   def set_data
     new_data = ActiveSupport::HashWithIndifferentAccess.new
     FIELDS.keys.each do |name|
-      points = self.send(name)
+      points = send(name)
       new_data = new_data.merge({ name => points })
     end
 

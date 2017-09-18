@@ -1,13 +1,13 @@
 require 'spec_helper'
 
 RSpec.describe CommunityController do
- render_views
+  render_views
 
   let(:valid_attributes) { build(:user).attributes.except('github_id', 'avatar_url', *User.immutable_attributes.map(&:to_s)) }
 
   describe "GET index" do
     it "assigns all users that have any roles assigned as @users" do
-      student  = FactoryGirl.create(:student)
+      student = FactoryGirl.create(:student)
       coach = FactoryGirl.create(:coach)
       get :index
       expect(assigns(:users).to_a).to include(coach) && include(student)

@@ -4,14 +4,13 @@ class TeamsInfoController < ApplicationController
 
   private
 
-    def teams
-      Team.ordered
-    end
-    helper_method :teams
+  def teams
+    Team.ordered
+  end
+  helper_method :teams
 
     # def normalize_params
     #   params[:role] = 'all' if params[:role].blank?
     #   params[:kind] = 'all' if params[:kind].blank?
     # end
 end
-

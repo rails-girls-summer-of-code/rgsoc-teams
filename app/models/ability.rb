@@ -7,7 +7,7 @@ class Ability
   def initialize(user)
     user ||= User.new
 
-    alias_action :create, :read, :update, :destroy, :to => :crud
+    alias_action :create, :read, :update, :destroy, to: :crud
 
     can :crud, User, id: user.id
     can :crud, User if user.admin?
@@ -63,12 +63,12 @@ class Ability
 
     can :crud, Conference if user.admin? || user.current_student?
 
-    #todo add mailing controller and view for users in their namespace, where applicable
+    # todo add mailing controller and view for users in their namespace, where applicable
     can :read, Mailing do |mailing|
       mailing.recipient? user
     end
 
-    can :crud, :comments  if user.admin?
+    can :crud, :comments if user.admin?
     can :read, :users_info if user.admin? || user.supervisor?
 
     can :crud, Project do |project|
