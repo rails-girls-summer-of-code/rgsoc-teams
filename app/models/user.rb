@@ -166,6 +166,10 @@ class User < ActiveRecord::Base
     def immutable_attributes
       [:github_handle]
     end
+
+    def reset_availability!
+      with_interest('coaching').update_all(availability: false)
+    end
   end # class << self
 
   def rating(type = :mean, options = {})
