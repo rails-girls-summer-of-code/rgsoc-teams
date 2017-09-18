@@ -118,8 +118,8 @@ RSpec.describe Orga::TeamsController do
         let(:offer) { FactoryGirl.create(:conference_attendance) }
         let(:team) { offer.team }
         let!(:team_params) do
-          build(:team).attributes.merge(:conference_attendances_attributes=>{
-            '0'=>{
+          build(:team).attributes.merge(conference_attendances_attributes: {
+            '0' => {
               conference_id: offer.conference.id, orga_comment: "commment"
             }
           })

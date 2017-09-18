@@ -7,7 +7,7 @@ GITHUB_APP_SECRET = Rails.env.production? ? ENV['GITHUB_APP_SECRET'] : 'e9398859
 # OmniAuth.config.full_host = "http://localhost:3000" # wat, keeps missing the port for the redirect_uri without this
 
 Devise.setup do |config|
-  config.omniauth :github, GITHUB_APP_ID, GITHUB_APP_SECRET, :scope => 'user:email'
+  config.omniauth :github, GITHUB_APP_ID, GITHUB_APP_SECRET, scope: 'user:email'
   config.secret_key = ENV['DEVISE_SECRET'] || 'adc96b68ccb1630810f073823ea5f942df52649385b04e18223b845dd66c7f48ca9641ca2ed456ae4755fbb24f7b08e2ceaeaa21cac8e0aead38a9f60e831392'
 
   # ==> Mailer Configuration

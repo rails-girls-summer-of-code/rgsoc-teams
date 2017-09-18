@@ -73,28 +73,18 @@ Copy `config/database.yml.example` to `config/database.yml`. Then make sure you
 modify the settings so it could connect to your postgres server.
 
 Inside database.yml add username and password for development and test:
-```
-development:
-  adapter: postgresql
-  database: rgsocteams_development
-  host: localhost
-  username: rgsoc
-  password: rgsoc
-```
+
+    development:
+      adapter: postgresql
+      database: rgsocteams_development
+      host: localhost
+      username: rgsoc
+      password: rgsoc
+
 Then install all dependencies:
 
-```bash
-bundle install
-bundle exec rake db:drop db:setup
-```
-
-**Note for OS X:** There is a bug where on OS X you need to force 64bit mode for `bundle install`:
-
-```bash
-ARCHFLAGS="-arch x86_64" bundle install
-```
-
-Otherwise pg gem installation will fail.
+    bundle install
+    bundle exec rails db:setup
 
 ### Mailtrap (optional)
 
@@ -162,29 +152,35 @@ as someone else. Go to http://localhost:3000/users while logged in to do that.
 
 ## Testing
 
-```bash
-bundle exec rake spec
-```
+    bundle exec rake spec
 
 You can optionally create a test-coverage report in `coverage/*` like so:
 
-```bash
-COVERAGE=yes bundle exec rake spec
-```
+    COVERAGE=yes bundle exec rake spec
+
+### Code Analyzation
+
+You can run automatic code analyzers to check if your code complies to the project's guidelines and general best practice.
+
+For Ruby code:
+
+    bundle exec rubocop
+
+For Javascript code: _(you need to install [`jshint`](http://jshint.com/install/) first)_
+
+    jshint app/assets/javascript
 
 ## Deployment
 
-The staging app lives at http://rgsoc-teams-staging.herokuapp.com/users. The production app is
+The staging app lives at http://rgsoc-teams-staging.herokuapp.com. The production app is
 at http://teams.railsgirlssummerofcode.org.
 
-```
-[remote "staging"]
-        url = git@heroku.com:rgsoc-teams-staging.git
-        fetch = +refs/heads/*:refs/remotes/staging/*
-[remote "production"]
-        url = git@heroku.com:rgsoc-teams-production.git
-        fetch = +refs/heads/*:refs/remotes/production/*
-```
+    [remote "staging"]
+            url = git@heroku.com:rgsoc-teams-staging.git
+            fetch = +refs/heads/*:refs/remotes/staging/*
+    [remote "production"]
+            url = git@heroku.com:rgsoc-teams-production.git
+            fetch = +refs/heads/*:refs/remotes/production/*
 
 Append `-r staging` or `-r production` to any `heroku` command in order to specify the app.
 

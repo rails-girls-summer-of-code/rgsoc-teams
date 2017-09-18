@@ -9,11 +9,11 @@ class PagesController < ApplicationController
 
   private
 
-    def page
-      params[:page].split('/').last
-    end
+  def page
+    params[:page].split('/').last
+  end
 
-    def layout
-      LAYOUTS[params[:page].to_sym] || 'application'
-    end
+  def layout
+    LAYOUTS[params[:page].to_sym] || 'application'
+  end
 end

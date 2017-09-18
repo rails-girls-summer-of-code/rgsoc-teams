@@ -4,7 +4,7 @@ RSpec.describe ConferencesController do
   render_views
 
   describe 'GET index' do
-    let(:last_season)            { Season.create name: Date.today.year-1 }
+    let(:last_season)            { Season.create name: Date.today.year - 1 }
     let!(:current_conference)    { create :conference, :in_current_season }
     let!(:last_years_conference) { create :conference, season: last_season }
 
@@ -34,7 +34,7 @@ RSpec.describe ConferencesController do
     context 'student logged in' do
       let!(:student) { FactoryGirl.create(:student) }
       let(:team) { student.student_team }
-      let(:params) { { name: 'name', country: 'country', region: 'region', location: 'location', city: 'city', season_id:'1', url: 'www.conference.com' } }
+      let(:params) { { name: 'name', country: 'country', region: 'region', location: 'location', city: 'city', season_id: '1', url: 'www.conference.com' } }
 
       before :each do
         sign_in student

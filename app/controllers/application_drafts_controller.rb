@@ -64,7 +64,7 @@ class ApplicationDraftsController < ApplicationController
         flash[:notice] = 'Your application has been submitted!'
         ApplicationFormMailer.new_application(application_draft.application).deliver_later
       else
-        flash[:alert]  = 'An error has occurred. Please contact us.'
+        flash[:alert] = 'An error has occurred. Please contact us.'
       end
       redirect_to application_drafts_path
     else

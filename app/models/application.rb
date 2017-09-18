@@ -31,9 +31,9 @@ class Application < ActiveRecord::Base
   end
 
   def data
-    ApplicationData.new(self.application_data)
+    ApplicationData.new(application_data)
   end
-  
+
   def self.rateable
     joins("LEFT JOIN projects p1 ON p1.id::text = applications.application_data -> 'project1_id'")
       .joins("LEFT JOIN projects p2 ON p2.id::text = applications.application_data -> 'project2_id'")

@@ -22,7 +22,7 @@ class Mentor::CommentsController < Mentor::BaseController
   end
 
   def path_for(comment)
-    anchor  = ActionView::RecordIdentifier.dom_id(comment)
+    anchor = ActionView::RecordIdentifier.dom_id(comment)
     mentor_application_path( id: comment.commentable_id, anchor: anchor)
   end
 
