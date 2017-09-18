@@ -3,7 +3,7 @@ cache: bundler
 sudo: false
 dist: trusty
 rvm:
-- 2.4.2
+  - 2.4.2
 bundler_args: "-j4 --without development production --quiet"
 notifications:
   notifications:
@@ -12,32 +12,38 @@ notifications:
   slack:
     secure: pEbxQLQakbPpZkU2p+FdHxSOw7BlXHrOMdJlh8g7fK2oGiOMrpU0wbRUHUxNWzxTnkqWmwq37cIFXPGLel3yWkDzDO0+EuBBFPyoiQ2THxC8/pdpIO3I6jAuH7Zqra4jIdfHWw0UkN4Z+Yqnc+Y90rf9SC7mRGucbcy5aCGEIkY=
 before_script:
-- cp config/database.yml.travis config/database.yml
-- bundle exec rake db:create db:schema:load RAILS_ENV=test
-- npm install -g jshint
-script:
-- bundle exec rubocop
-- jshint app/assets/javascripts
-- bundle exec rake spec
-deploy:
-- provider: heroku
-  api_key:
-    secure: ZtYE7hK2EyNWYhkxWSGSrmCNvYZrT7dmxRvi4rg82uHFOtzbEiThjkmwKKD3EK75syGFos3fJszW8GRwJqY9Id6L1Ieg+GpHDMBYJqsLbSRqJ6Mj1vzxbDqV2XsDFkr2e3MTrgNPRX+qmcKnsP9PTwxtey8pAUZFQFTz0i0gxcc=
-  app: rgsoc-teams-staging
-  run:
-  - rake db:migrate
-  - restart
-  on:
-    repo: rails-girls-summer-of-code/rgsoc-teams
-- provider: heroku
-  api_key:
-    secure: ZtYE7hK2EyNWYhkxWSGSrmCNvYZrT7dmxRvi4rg82uHFOtzbEiThjkmwKKD3EK75syGFos3fJszW8GRwJqY9Id6L1Ieg+GpHDMBYJqsLbSRqJ6Mj1vzxbDqV2XsDFkr2e3MTrgNPRX+qmcKnsP9PTwxtey8pAUZFQFTz0i0gxcc=
-  app: rgsoc-teams-production
-  run:
-  - rake db:migrate
-  - restart
-  on:
-    repo: rails-girls-summer-of-code/rgsoc-teams
+  - cp config/database.yml.travis config/database.yml
+  - bundle exec rake db:create db:schema:load RAILS_ENV=test
+  - npm install -g jshint
+jobs:
+  include:
+    - stage: tests
+      script: bundle exec rake spec
+    - stage: rubocp
+      script: bundle exec rubocop
+    - stage: jshint
+      script: jshing app/assets/javascripts
+    - stage: deploy
+      script: skip
+      deploy:
+        - provider: heroku
+          api_key:
+            secure: ZtYE7hK2EyNWYhkxWSGSrmCNvYZrT7dmxRvi4rg82uHFOtzbEiThjkmwKKD3EK75syGFos3fJszW8GRwJqY9Id6L1Ieg+GpHDMBYJqsLbSRqJ6Mj1vzxbDqV2XsDFkr2e3MTrgNPRX+qmcKnsP9PTwxtey8pAUZFQFTz0i0gxcc=
+          app: rgsoc-teams-staging
+          run:
+            - rake db:migrate
+            - restart
+          on:
+            repo: rails-girls-summer-of-code/rgsoc-teams
+        - provider: heroku
+          api_key:
+            secure: ZtYE7hK2EyNWYhkxWSGSrmCNvYZrT7dmxRvi4rg82uHFOtzbEiThjkmwKKD3EK75syGFos3fJszW8GRwJqY9Id6L1Ieg+GpHDMBYJqsLbSRqJ6Mj1vzxbDqV2XsDFkr2e3MTrgNPRX+qmcKnsP9PTwxtey8pAUZFQFTz0i0gxcc=
+          app: rgsoc-teams-production
+          run:
+            - rake db:migrate
+            - restart
+          on:
+            repo: rails-girls-summer-of-code/rgsoc-teams
 addons:
   postgresql: '9.5'
 after_success:
