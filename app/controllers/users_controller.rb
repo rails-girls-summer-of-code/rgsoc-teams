@@ -94,6 +94,7 @@ class UsersController < ApplicationController
       params.require(:user).permit(
         :github_handle, :twitter_handle, :irc_handle,
         :name, :email, :homepage, :location, :bio,
+        :tech_expertise_list, :tech_interest_list,
         :tshirt_size, :tshirt_cut, :postal_address, :timezone,
         :country,
         :hide_email,
