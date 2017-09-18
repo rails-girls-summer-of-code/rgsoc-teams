@@ -10,7 +10,7 @@ describe CommentsController do
     sign_in user
   end
 
-  describe 'POST create' do
+  describe 'POST create', :wip do
     describe 'project comment' do
       let(:project) { create :project }
       let(:params) { { commentable_id: project.id, commentable_type: 'Project' } }
@@ -24,7 +24,9 @@ describe CommentsController do
 
         it 'redirects to comment on project page' do
           post :create, params: { comment: params.merge(valid_attributes) }
-          expect(response).to redirect_to [project, anchor: 'comment_1']
+          comment = assigns(:comment)
+          anchor  = "comment_#{comment.id}"
+          expect(response).to redirect_to [project, anchor: anchor]
         end
       end
       context 'with invalid params (no text)' do
