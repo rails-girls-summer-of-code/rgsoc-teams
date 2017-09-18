@@ -2,11 +2,16 @@ $(function () {
   $('[data-form="new-conference-form"]').on('ajax:success',
     function(e, data) {
       var conference = data;
-      var selected = $('[data-conference-preferences="conference-preferences"] select:first option:first');
+      var select = $('[data-conference-preferences="conference-preferences"] select');
+      var regionSelector = 'optgroup[label="' +  conference.region + '"]';
+
       $('[data-modal="new-conference-modal"]').modal('hide');
-      selected.prop('selected', 'selected');
-      selected.val(conference.id);
-      selected.text(conference.name);
+      if(select.find(regionSelector).length == 0) {
+        select.append('<optgroup label="' + conference.region + '"></optgroup>');
+      }
+
+      select.find(regionSelector).append('<option value="' + conference.id + '">' + conference.name + '</option>');
+
       $(this).find('input[type!=hidden], select, textarea').val('');
     }
   );

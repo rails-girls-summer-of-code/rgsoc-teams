@@ -10,8 +10,7 @@
         .modal-body
           .alert.alert-danger.hidden data-errors='new-conference-modal-errors'
 
-          p
-            h3 Conference info
+          h3 Conference info
           fieldset
            = f.input :name, required: true, placeholder: 'Conference name', wrapper_html: { class: 'col-md-12' }
            = f.input :url, required: true, placeholder: 'Conference website', wrapper_html: { class: 'col-md-12' }
@@ -20,8 +19,7 @@
            = f.input :ends_on, as: :date, html5: true, required: true, label: 'Conference end date', wrapper_html: { class: 'col-md-6' }
            = f.input :notes, label: 'Conference notes', wrapper_html: { class: 'col-md-12' }
 
-          p
-           h3 Conference location
+          h3 Conference location
           fieldset
             = f.input :country, required: true, as: :country, prompt: "Conference country", wrapper_html: { class: 'col-md-12' }
             = f.input :region, required: true, collection: Conference::REGION_LIST, prompt: 'Conference region', wrapper_html: { class: 'col-md-12' }

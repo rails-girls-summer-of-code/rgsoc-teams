@@ -69,15 +69,4 @@ RSpec.describe Orga::ConferencesController do
       end
     end
   end
-
-  context 'with admin not logged in' do
-    let(:conference_attrs) { attributes_for :conference }
-
-    it 'cannot create a new conference' do
-      expect {
-        post :create,
-        params: { conference: conference_attrs }
-      }.not_to change { Conference.count }
-    end
-  end
 end
