@@ -99,7 +99,6 @@ class User < ActiveRecord::Base
   validates :github_handle, presence: true, uniqueness: { case_sensitive: false }
   validates :homepage, format: { with: URL_PREFIX_PATTERN }, allow_blank: true
   validate :immutable_github_handle
-  validates :tech_expertise, :tech_interest, presence: true
 
   validates :name, :email, :country, :location, presence: true, unless: :github_import
 

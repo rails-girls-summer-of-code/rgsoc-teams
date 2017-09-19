@@ -21,8 +21,6 @@ describe User do
   it { expect(subject).to validate_presence_of(:email) }
   it { expect(subject).to validate_presence_of(:country) }
   it { expect(subject).to validate_presence_of(:location) }
-  it { expect(subject).to validate_presence_of(:tech_expertise) }
-  it { expect(subject).to validate_presence_of(:tech_interest) }
 
   context 'during github user import' do
     before do
