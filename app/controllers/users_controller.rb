@@ -93,7 +93,7 @@ class UsersController < ApplicationController
   def user_params
     params.require(:user).permit(
       :github_handle, :twitter_handle, :irc_handle,
-      :name, :email, :homepage, :location, :bio, :other_interests,
+      :name, :email, :homepage, :location, :bio, :other_interest,
       :tshirt_size, :tshirt_cut, :postal_address, :timezone,
       :country,
       :hide_email,
