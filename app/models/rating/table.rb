@@ -24,17 +24,17 @@ class Rating::Table
   def sort_order
     case options[:order]
     when :team_name
-      ->(a,b) { a.team_name <=> b.team_name }
+      ->(a, b) { a.team_name <=> b.team_name }
     when :total_likes
-      ->(a,b) { b.total_likes <=> a.total_likes }
+      ->(a, b) { b.total_likes <=> a.total_likes }
     when :total_picks
-      ->(a,b) { b.total_picks <=> a.total_picks }
+      ->(a, b) { b.total_picks <=> a.total_picks }
     when :average_points
-      ->(a,b) { b.average_points <=> a.average_points }
+      ->(a, b) { b.average_points <=> a.average_points }
     when :median_points
-      ->(a,b) { b.median_points <=> a.median_points }
+      ->(a, b) { b.median_points <=> a.median_points }
     else
-      ->(a,b) { a.id <=> b.id }
+      ->(a, b) { a.id <=> b.id }
     end
   end
 

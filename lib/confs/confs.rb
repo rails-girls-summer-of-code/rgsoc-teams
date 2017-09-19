@@ -28,8 +28,8 @@ class Confs
 
   private
 
-    def cmp(attr, lft, rgt)
-      order = lft.send(attr) <=> rgt.send(attr)
-      order unless order == 0
-    end
+  def cmp(attr, lft, rgt)
+    order = lft.send(attr) <=> rgt.send(attr)
+    order unless order == 0
+  end
 end

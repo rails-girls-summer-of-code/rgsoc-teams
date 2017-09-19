@@ -33,7 +33,7 @@ class Role < ActiveRecord::Base
   end
 
   aasm column: :state, no_direct_assignment: true do
-    state :pending, :initial => true
+    state :pending, initial: true
     state :confirmed
 
     event :confirm do

@@ -22,4 +22,3 @@ class Orga::SubmissionsController < Orga::BaseController
     @mailing = Mailing.find(params[:mailing_id])
   end
 end
-

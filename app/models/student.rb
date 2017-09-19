@@ -43,10 +43,10 @@ class Student < SimpleDelegator
 
   def current_drafts
     @current_drafts ||= if current_team
-      current_team.application_drafts.in_current_season
-    else
-      []
-    end
+                          current_team.application_drafts.in_current_season
+                        else
+                          []
+                        end
   end
 
   def current_draft

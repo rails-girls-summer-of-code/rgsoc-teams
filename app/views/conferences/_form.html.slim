@@ -30,7 +30,7 @@ h1.page-header Create a new conference
     = f.input :country, required: true, as: :country, prompt: "Conference country", wrapper_html: { class: 'col-md-12' }
     = f.input :region, required: true, collection: Conference::REGION_LIST, prompt: 'Conference region', wrapper_html: { class: 'col-md-12' }
     = f.input :city, required: true, placeholder: 'Conference city', wrapper_html: { class: 'col-md-12' }
-   
+
   .actions
     ul.list-inline
       li = f.submit 'Save', class: 'btn btn-success'

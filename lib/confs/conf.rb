@@ -30,7 +30,7 @@ class Conf
     [popularity, name, tickets, flights]
   end
 
-  def <=> (other)
+  def <=>(other)
     name <=> other.name
   end
 end

@@ -96,7 +96,7 @@ Rails.application.routes.draw do
   end
 
   namespace :students do
-    resources :status_updates, :except => [:new] do
+    resources :status_updates, except: [:new] do
       post 'preview', on: :collection
     end
   end

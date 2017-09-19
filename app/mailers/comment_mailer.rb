@@ -14,12 +14,12 @@ class CommentMailer < ActionMailer::Base
 
   private
 
-    def subject
-      "[rgsoc-teams] New comment: #{team.name} - #{truncate(comment.text)}"
-    end
+  def subject
+    "[rgsoc-teams] New comment: #{team.name} - #{truncate(comment.text)}"
+  end
 
-    def set(comment)
-      @team = comment.commentable
-      @comment = comment
-    end
+  def set(comment)
+    @team = comment.commentable
+    @comment = comment
+  end
 end

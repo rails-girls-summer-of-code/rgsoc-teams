@@ -72,6 +72,7 @@ module ApplicationDraftsHelper
   end
 
   private
+
   def tab_errors(draft, fields)
     count = draft.errors.keys.map { |field| field if fields.include? field }.compact.count
     if count > 0

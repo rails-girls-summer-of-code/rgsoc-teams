@@ -16,7 +16,7 @@ module Rateable
     if rating_points.size % 2 == 1
       rating_points[m_pos].round(2)
     else
-      mean(rating_points[m_pos-1..m_pos]).round(2)
+      mean(rating_points[m_pos - 1..m_pos]).round(2)
     end
   end
 

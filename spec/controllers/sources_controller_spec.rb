@@ -148,7 +148,7 @@ describe SourcesController do
     let!(:params) { { team_id: team.to_param, id: source.to_param } }
 
     describe "on their own team" do
-      let!(:role)   { create(:role, name: 'student', team: team, user: user) }
+      let!(:role) { create(:role, name: 'student', team: team, user: user) }
 
       it "destroys the requested source" do
         expect { delete :destroy, params: params }.to change(Source, :count).by(-1)

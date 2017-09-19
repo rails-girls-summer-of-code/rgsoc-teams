@@ -46,4 +46,3 @@ RSpec.describe Exporters::Teams do
   end
 
 end
-

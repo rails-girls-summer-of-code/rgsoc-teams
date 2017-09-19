@@ -11,7 +11,7 @@ class Season::PhaseSwitcher
 
   def self.destined(phase)
     raise ArgumentError.new("#{phase} is not a valid phase") unless phase.in? PHASES
-    self.send(phase)
+    send(phase)
   end
 
   private
@@ -61,8 +61,8 @@ class Season::PhaseSwitcher
       applications_open_at: Time.utc(this_year, *Season::APPL_OPEN),
       applications_close_at: Time.utc(this_year, *Season::APPL_CLOSE),
       acceptance_notification_at: Time.utc(this_year, *Season::APPL_LETTER),
-      project_proposals_open_at: Time.utc(this_year-1, *Season::PROJECTS_OPEN),
-      project_proposals_close_at: Time.utc(this_year, *Season::PROJECTS_CLOSE),
+      project_proposals_open_at: Time.utc(this_year - 1, *Season::PROJECTS_OPEN),
+      project_proposals_close_at: Time.utc(this_year, *Season::PROJECTS_CLOSE)
     )
   end
 end
