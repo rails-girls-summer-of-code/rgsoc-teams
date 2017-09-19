@@ -25,8 +25,7 @@ describe CommentsController do
         it 'redirects to comment on project page' do
           post :create, params: { comment: params.merge(valid_attributes) }
           comment = assigns(:comment)
-          anchor  = "comment_#{comment.id}"
-          expect(response).to redirect_to [project, anchor: anchor]
+          expect(response).to redirect_to [project, anchor: "comment_#{comment.id}"]
         end
       end
       context 'with invalid params (no text)' do
