@@ -15,6 +15,7 @@ ul.nav.navbar-nav.navbar-right
       - if current_season.started?
         li.divider.hidden-xs
         li class=active?(:conferences) = link_to 'Conferences',  conferences_path
+        li class=active?(:projects) = link_to 'Projects', projects_path
       li.divider.hidden-xs
       li class=active?(:teams) = link_to 'Teams', teams_path
       li class=active?(:users) = link_to 'Community', community_index_path
