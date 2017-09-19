@@ -1,3 +1,4 @@
+var exports;
 var root = typeof exports !== 'undefined' && exports !== null ? exports : this;
 
 root.sendPreview = function() {
