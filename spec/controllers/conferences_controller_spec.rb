@@ -33,10 +33,8 @@ RSpec.describe ConferencesController do
 
     context 'student logged in' do
       let!(:student) { FactoryGirl.create(:student) }
-      let(:team) { student.student_team }
-      let(:params) { { name: 'name', country: 'country', region: 'region', location: 'location', city: 'city', season_id: '1', url: 'www.conference.com' } }
 
-      before :each do
+      before do
         sign_in student
       end
 
@@ -44,13 +42,51 @@ RSpec.describe ConferencesController do
         get :new
         expect(response).to render_template("new")
       end
+    end
+  end
 
-      it 'are allowed to create a new conference' do
-        expect{
+  describe 'POST create via XHR' do
+    context 'with an unauthenticated user' do
+      let(:conference_attrs) { attributes_for :conference }
+
+      it 'cannot create a new conference' do
+        expect {
           post :create,
-          params: { conference: params }
+          params: { conference: conference_attrs },
+          xhr: true
+        }.not_to change { Conference.count }
+      end
+
+      it 'should return a 401 response status' do
+        post :create, params: { conference: conference_attrs }, xhr: true
+        expect(response).to have_http_status(401)
+      end
+    end
+
+    context 'with user logged in' do
+      let(:student) { FactoryGirl.create(:student) }
+      let(:conference_attrs) { attributes_for :conference }
+
+      before do
+        sign_in student
+      end
+
+      context 'and incorrect params' do
+        it 'should not create a new conference' do
+          expect {
+            post :create,
+            params: { conference: { name: "name" } },
+            xhr: true
+          }.not_to change { Conference.count }
+        end
+      end
+
+      it 'should create a new conference' do
+        expect {
+          post :create,
+          params: { conference: conference_attrs },
+          xhr: true
         }.to change { Conference.count }.by(1)
-        expect(response).to redirect_to(edit_team_path(team.id))
       end
     end
   end
