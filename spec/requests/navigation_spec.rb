@@ -31,6 +31,7 @@ RSpec.describe 'Navigation', type: :request do
         expect(response.body).to include activities_path
         expect(response.body).to include teams_path
         expect(response.body).to include conferences_path
+        expect(response.body).to include projects_path        
         expect(response.body).to include users_path
         expect(response.body).to include page_path(:help)
         expect(response.body).to include user_github_omniauth_authorize_path
@@ -192,6 +193,7 @@ RSpec.describe 'Navigation', type: :request do
         expect(response.body).to include apply_path
         expect(response.body).to include teams_path
         expect(response.body).to include users_path
+        expect(response.body).to include projects_path        
         expect(response.body).to include page_path(:help)
         expect(response.body).to include user_github_omniauth_authorize_path
       end
