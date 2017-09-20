@@ -17,11 +17,11 @@ before_script:
 jobs:
   include:
     - stage: test and lint
-      script: bundle exec rake spec
+      script: jshint app/assets/javascripts
     -
       script: bundle exec rubocop
     -
-      script: jshint app/assets/javascripts
+      script: bundle exec rake spec
     - stage: deploy
       script: skip
       deploy:
