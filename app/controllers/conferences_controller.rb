@@ -12,13 +12,17 @@ class ConferencesController < ApplicationController
   end
 
   def create
-    team = current_user.student_team
+    page_to_redirect = current_user.admin? ? conferences_path : edit_team_path(current_student.current_team)
     @conference = build_conference
 
-    if @conference.save
-      redirect_to edit_team_path(current_student.current_team), notice: 'Conference was successfully created.'
-    else
-      render action: :new
+    respond_to do |format|
+      if @conference.save
+        format.html { redirect_to page_to_redirect, notice: 'Conference was successfully created.' }
+        format.js { render json: @conference }
+      else
+        format.html { render action: :new }
+        format.js { render json: @conference.errors.full_messages, status: :unprocessable_entity }
+      end
     end
   end
 

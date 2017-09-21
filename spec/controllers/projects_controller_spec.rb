@@ -48,7 +48,7 @@ RSpec.describe ProjectsController do
       end
 
       it 'requires a login' do
-        expect { get :new  }.to \
+        expect { get :new }.to \
           change { session[:previous_url_login_required] }
         expect(response).to be_success
         expect(response.body).to match user_github_omniauth_authorize_path

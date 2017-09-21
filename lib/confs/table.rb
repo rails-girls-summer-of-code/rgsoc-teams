@@ -37,11 +37,11 @@ class Table
 
   private
 
-    def format_row(row)
-      Row.new(self, row).to_s
-    end
+  def format_row(row)
+    Row.new(self, row).to_s
+  end
 
-    def separator
-      Row.new(self, rows.first.each_with_index.map { |cell, ix| '-' * width(ix) }).to_s('+')
-    end
+  def separator
+    Row.new(self, rows.first.each_with_index.map { |cell, ix| '-' * width(ix) }).to_s('+')
+  end
 end

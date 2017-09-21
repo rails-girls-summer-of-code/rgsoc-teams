@@ -43,7 +43,7 @@ RSpec.shared_examples 'redirects for non-users' do
     end
 
     context 'who is part of an accepted team from last season' do
-      let(:last_season)   { Season.create name: Date.today.year-1 }
+      let(:last_season)   { Season.create name: Date.today.year - 1 }
       let(:accepted_team) { create :team, season: last_season, kind: 'sponsored' }
       let(:user)          { create(:student_role, team: accepted_team).user }
       it_behaves_like 'disallows access to students namespace'

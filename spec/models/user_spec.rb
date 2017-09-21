@@ -234,12 +234,12 @@ describe User do
   describe '#name_or_handle' do
     it 'returns name if existed' do
       @user = described_class.new(name: 'trung')
-      expect(@user.name_or_handle).to be =='trung'
+      expect(@user.name_or_handle).to be == 'trung'
     end
 
     it 'returns github_handle if name is not available' do
       @user = described_class.new(github_handle: 'rails-girl')
-      expect(@user.name_or_handle).to be =='rails-girl'
+      expect(@user.name_or_handle).to be == 'rails-girl'
     end
   end
 
@@ -357,18 +357,18 @@ describe User do
       @student_team = @student.teams.first
     end
 
-     it 'the method student_team return the student current team' do
-       expect(@student.student_team).to eql @student_team
-     end
+    it 'the method student_team return the student current team' do
+      expect(@student.student_team).to eql @student_team
+    end
 
-     it 'does not return student_team if when a user is not a student' do
-       expect(@user_not_student.student_team).to eql nil
-     end
+    it 'does not return student_team if when a user is not a student' do
+      expect(@user_not_student.student_team).to eql nil
+    end
 
-     it 'does not return student_team if student does not have a team' do
-       @student.teams.first.destroy
-       expect(@student.student_team).to eql nil
-     end
+    it 'does not return student_team if student does not have a team' do
+      @student.teams.first.destroy
+      expect(@student.student_team).to eql nil
+    end
   end
 
   describe 'Search for user names and team names' do

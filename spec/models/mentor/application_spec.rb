@@ -66,7 +66,7 @@ describe Mentor::Application do
         let(:projects) { Project.where(id: project1.id) }
 
         it "returns an empty array" do
-          last_season = Season.create name: Date.today.year-1
+          last_season = Season.create name: Date.today.year - 1
           create(:application, :for_project, project1: project1, season: last_season)
           expect(subject).to eq []
         end

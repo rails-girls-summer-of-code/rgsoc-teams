@@ -9,10 +9,9 @@ class CommunityController < ApplicationController
       mentoring:  'Helping as a Mentor',
       organizing: 'Helping as an Organizer'
     }
-
     @countries = User.pluck(:country)
-    @users = User.ordered(params[:sort],params[:direction])
-        .group('users.id').with_all_associations_joined
+    @users = User.ordered(params[:sort], params[:direction])
+                 .group('users.id').with_all_associations_joined
 
     community = CommunityUsers.new(params.dup, @users)
     @users = community.all
