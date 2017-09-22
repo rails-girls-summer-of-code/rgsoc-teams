@@ -88,7 +88,7 @@ describe User do
         describe ".#{role}" do
 
           let!(:user) { create(role) }
-          let(:role_obj)  { Role.find_by(name: role, user_id: user.id) }
+          let(:role_obj) { Role.find_by(name: role, user_id: user.id) }
 
           it 'does not return admin role for user' do
             expect(user.roles.admin).to be_empty
