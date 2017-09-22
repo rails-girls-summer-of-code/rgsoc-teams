@@ -122,8 +122,8 @@ class ApplicationDraft < ActiveRecord::Base
     valid?(:apply)
   end
 
-  aasm :column => :state, :no_direct_assignment => true do
-    state :draft, :initial => true
+  aasm column: :state, no_direct_assignment: true do
+    state :draft, initial: true
     state :applied
 
     event :submit_application do
@@ -132,7 +132,7 @@ class ApplicationDraft < ActiveRecord::Base
         CreatesApplicationFromDraft.new(self).save
       end
 
-      transitions :from => :draft, :to => :applied, :guard => :ready?
+      transitions from: :draft, to: :applied, guard: :ready?
     end
   end
 
@@ -167,6 +167,6 @@ class ApplicationDraft < ActiveRecord::Base
   end
 
   def clean_up_heard_about_it
-    self.heard_about_it = self.heard_about_it.reject(&:empty?)
+    self.heard_about_it = heard_about_it.reject(&:empty?)
   end
 end

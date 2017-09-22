@@ -14,7 +14,7 @@ RSpec.shared_examples 'redirects for non-admins' do |method: 'get', action: 'ind
 
     context 'logged in as non-admin' do
       before do
-        user = mock_model('User', :admin? => false)
+        user = mock_model('User', admin?: false)
         allow(controller).to receive(:current_user).and_return(user)
       end
 

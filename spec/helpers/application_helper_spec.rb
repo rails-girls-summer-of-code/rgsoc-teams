@@ -113,7 +113,7 @@ RSpec.describe ApplicationHelper do
         link_text = "#{conference.name} (#{conference.date_range})"
         expect(subject).to eql [link_to(link_text, conference)]
       end
-      
+
       context 'with location present' do
         let(:conference) do
           build_stubbed :conference, location: 'Melée Island, Carribean', starts_on: '2017-03-14', ends_on: '2017-03-17'

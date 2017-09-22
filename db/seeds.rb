@@ -1,7 +1,7 @@
 # Teams
 FactoryGirl.create_list(:team, 5, :in_current_season, kind: "sponsored")
 FactoryGirl.create(:team, :in_current_season, kind: "voluntary")
-FactoryGirl.create(:team, :in_current_season) #not accepted
+FactoryGirl.create(:team, :in_current_season) # not accepted
 
 FactoryGirl.create(:team, :last_season, kind: "sponsored")
 FactoryGirl.create(:team, :last_season, kind: "voluntary")
@@ -25,7 +25,7 @@ end
 FactoryGirl.create(:application_draft)
 FactoryGirl.create(:application_draft, :appliable)
 
-FactoryGirl.create(:project, :in_current_season) #proposed
+FactoryGirl.create(:project, :in_current_season) # proposed
 FactoryGirl.create_list(:project, 3, :accepted, :in_current_season)
 FactoryGirl.create(:project, :rejected, :in_current_season)
 
@@ -38,9 +38,9 @@ FactoryGirl.create(:project, :rejected, :in_current_season)
     starts_on: random_date,
     ends_on: random_date + rand(2.days),
     lightningtalkslots: rand < 0.5,
-    tickets: [2,4,6].sample,
+    tickets: [2, 4, 6].sample,
     accomodation: 2,
     flights: 0,
-    round: [1,2].sample
+    round: [1, 2].sample
   )
 end

@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby '2.4.1'
+ruby '2.4.2'
 
 gem 'rails', '~> 5.1.4'
 gem 'pg'
@@ -45,7 +45,7 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'factory_girl_rails'
   gem 'database_cleaner'
-  gem 'byebug', require: !ENV['RM_INFO'] #require parameter is workaround for RubyMine with Rails ~> 4.1
+  gem 'byebug', require: !ENV['RM_INFO'] # require parameter is workaround for RubyMine with Rails ~> 4.1
   gem 'ffaker'
 end
 
@@ -70,4 +70,5 @@ group :test do
   gem 'rspec-collection_matchers'
   gem 'rspec-html-matchers'
   gem 'rspec-activemodel-mocks'
+  gem 'rubocop', require: false
 end

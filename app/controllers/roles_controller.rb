@@ -51,21 +51,21 @@ class RolesController < ApplicationController
 
   private
 
-    def set_team
-      @team = Team.find(params[:team_id])
-    end
+  def set_team
+    @team = Team.find(params[:team_id])
+  end
 
-    def set_role
-      @role = if params[:id]
-        @team.roles.find(params[:id])
-      else
-        @team.roles.new(role_params)
-      end
-    end
+  def set_role
+    @role = if params[:id]
+              @team.roles.find(params[:id])
+            else
+              @team.roles.new(role_params)
+            end
+  end
 
-    def role_params
-      params[:role] ||= { name: params[:name] }
-      params.require(:role).permit(:user_id, :team_id, :name, :github_handle, :confirm)
-    end
+  def role_params
+    params[:role] ||= { name: params[:name] }
+    params.require(:role).permit(:user_id, :team_id, :name, :github_handle, :confirm)
+  end
 
 end

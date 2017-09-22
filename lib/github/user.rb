@@ -29,14 +29,14 @@ module Github
 
     private
 
-      def data
-        @data ||= gh["users/#{handle}"]
-      end
+    def data
+      @data ||= gh["users/#{handle}"]
+    end
 
-      def gh
-        @gh ||= options[:gh] || GH::Stack.build do
-          use GH::Normalizer
-        end
+    def gh
+      @gh ||= options[:gh] || GH::Stack.build do
+        use GH::Normalizer
       end
+    end
   end
 end

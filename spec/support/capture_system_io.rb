@@ -5,6 +5,6 @@ shared_context "capture_system_io" do
   end
 
   after :all do
-     $> = @old_stdout
+    $> = @old_stdout
   end
 end
