@@ -44,10 +44,10 @@ describe Conference do
       end
     end
   end
-  
+
   describe '#date_range' do
     subject { FactoryGirl.build_stubbed(:conference) }
-    
+
     it 'has a date range' do
       expect(subject.date_range).to be_a(DateRange)
     end
@@ -56,9 +56,9 @@ describe Conference do
   describe '#tickets_left' do
 
     context 'ticket value defined' do
-      let(:conference_preference)    { FactoryGirl.build(:conference_preference, confirmed: true) }
+      let(:conference_preference) { FactoryGirl.build(:conference_preference, confirmed: true) }
       subject { FactoryGirl.build_stubbed(:conference, tickets: 2) }
-      
+
       it 'subtracts conference preferences' do
         allow(subject).to receive(:conference_preference).and_return([conference_preference])
         left_tickets = subject.tickets - subject.conference_preference.size
@@ -68,7 +68,7 @@ describe Conference do
 
     context 'tickets value not defined' do
       subject { FactoryGirl.build_stubbed(:conference, tickets: nil) }
-      
+
       it 'returns 0' do
         allow(subject).to receive(:conference_preference).and_return([])
         expect(subject.tickets_left).to eq(0)

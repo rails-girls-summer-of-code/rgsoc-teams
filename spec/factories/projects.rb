@@ -21,7 +21,7 @@ FactoryGirl.define do
         record.accept!
       end
     end
-    
+
     trait :rejected do
       after(:create) do |record|
         record.start_review!

@@ -25,9 +25,9 @@ module Selection
 
 
     def haversine_distance
-      a = Math.sin(delta_lat/2)**2 +
-          Math.cos(from_lat) * Math.cos(to_lat) * Math.sin(delta_lng/2)**2
-      c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a))
+      a = Math.sin(delta_lat / 2)**2 +
+          Math.cos(from_lat) * Math.cos(to_lat) * Math.sin(delta_lng / 2)**2
+      c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a))
 
       (c * RADIUS_OF_EARTH_IN_M).round
     end

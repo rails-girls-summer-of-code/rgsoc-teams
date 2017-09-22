@@ -93,7 +93,7 @@ describe TeamPerformance do
 
   context "during the season" do
     before :each do
-      current_season =  build :season, acceptance_notification_at: 14.days.ago, starts_at: 10.days.ago, ends_at: 2.months.from_now
+      current_season = build :season, acceptance_notification_at: 14.days.ago, starts_at: 10.days.ago, ends_at: 2.months.from_now
       allow(Season).to receive(:current).and_return(current_season)
     end
 
@@ -157,7 +157,7 @@ describe TeamPerformance do
 
   context "after the season" do
     before :each do
-      past_season =  build :season, starts_at: 2.months.ago, ends_at: 10.days.ago
+      past_season = build :season, starts_at: 2.months.ago, ends_at: 10.days.ago
       allow(Season).to receive(:current).and_return(past_season)
     end
 

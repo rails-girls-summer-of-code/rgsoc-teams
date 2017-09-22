@@ -148,8 +148,8 @@ describe Team do
   end
 
   describe '#coaches_confirmed?' do
-    let(:role)   { FactoryGirl.create "#{role_name}_role" }
-    let(:role_name)   { 'coach' }
+    let(:role) { FactoryGirl.create "#{role_name}_role" }
+    let(:role_name) { 'coach' }
     let(:member) { role.user }
     let(:user) { create(:user) }
     let(:team) { FactoryGirl.create(:team) }

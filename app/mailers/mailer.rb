@@ -20,8 +20,8 @@ class Mailer < ActionMailer::Base
 
   private
 
-    def set(submission)
-      @submission = submission
-      @mailing = submission.mailing
-    end
+  def set(submission)
+    @submission = submission
+    @mailing = submission.mailing
+  end
 end

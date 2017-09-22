@@ -9,11 +9,11 @@ class JoinController < ApplicationController
 
   private
 
-    def set_team
-      @team = Team.find(params[:team_id])
-    end
+  def set_team
+    @team = Team.find(params[:team_id])
+  end
 
-    def allow_helpdesk
-      redirect_to root_url unless @team.helpdesk?
-    end
+  def allow_helpdesk
+    redirect_to root_url unless @team.helpdesk?
+  end
 end

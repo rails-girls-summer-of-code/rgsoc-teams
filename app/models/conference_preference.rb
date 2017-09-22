@@ -16,16 +16,17 @@ class ConferencePreference < ActiveRecord::Base
   end
 
   def terms_accepted?
-    self.terms_of_travel && self.terms_of_ticket
+    terms_of_travel && terms_of_ticket
   end
 
   private
-    def conference_exists?
-      first_conference_id.present? || second_conference_id.present?
-    end
 
-    def change_status_terms
-      self.terms_of_travel = false
-      self.terms_of_ticket = false
-    end
+  def conference_exists?
+    first_conference_id.present? || second_conference_id.present?
+  end
+
+  def change_status_terms
+    self.terms_of_travel = false
+    self.terms_of_ticket = false
+  end
 end
