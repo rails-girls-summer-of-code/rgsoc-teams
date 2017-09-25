@@ -324,9 +324,8 @@ ActiveRecord::Schema.define(version: 20170919174724) do
     t.string "unconfirmed_email"
     t.string "tshirt_cut"
     t.boolean "availability", default: false
-    t.string "company_url"
-    t.string "interested_in_other"
     t.string "other_interest"
+    t.string "company_url"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
   end
 
