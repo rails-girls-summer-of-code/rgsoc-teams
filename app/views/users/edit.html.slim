@@ -54,10 +54,12 @@
 
   = f.collection_check_boxes :interested_in, User::INTERESTS.to_a, :first, :last, item_wrapper_tag: 'div', item_wrapper_class: 'interested_in'
 
-  h3.page-header Technologies:
+  h3.page-header Technologies
 
-  = f.input :tech_expertise_list, placeholder: 'Languages, techniques, etc', label: 'Technologies of expertise', hint: 'Separate tags by comma.'
-  = f.input :tech_interest_list, placeholder: 'Languages, techniques, etc', label: 'Technologies of interest', hint: 'Separate tags by comma.'
+  = f.input :tech_expertise_list, placeholder: "Programming Languages, Frameworks, Technologies, etc. I'm experienced with
+", label: 'Technologies of expertise', hint: 'Separate with comma.'
+  = f.input :tech_interest_list, placeholder: "Other Languages, Technologies, etc. I'm interested in
+", label: 'Technologies of interest', hint: 'Separate with comma.'
 
   h3.page-header Private information
   p.help-block This information will only be visible to yourself and the organizers.
