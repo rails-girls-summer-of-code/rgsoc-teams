@@ -55,6 +55,7 @@
     h3.page-header Availability for the next season:
     - if !@user.availability
       = link_to'I am available in the next season', @user, data: { behavior: "update_availability", url: users_current_update_availability_path }, class: 'btn btn-default', remote: true
+    p.help-block Are you available to help as a <a href="https://railsgirlssummerofcode.org/guide/coaching/" target="_blank">coach</a> in the next season?
     - if @user.availability
       span.label.label-success
         | I am available in the next season!
