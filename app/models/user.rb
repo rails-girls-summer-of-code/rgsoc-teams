@@ -81,8 +81,8 @@ class User < ActiveRecord::Base
     end
 
     ROLES.each do |role|
-      define_method role do  # def the method to call each role
-        where(name: role)    # filter the user who has that specific role
+      define_method role do  # def mentor
+        where(name: role)    #   where(name: "mentor")
       end                    # end
     end
   end

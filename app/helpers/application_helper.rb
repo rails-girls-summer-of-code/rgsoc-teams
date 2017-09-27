@@ -32,11 +32,11 @@ module ApplicationHelper
   end
 
   def admin?
-    current_user.try(:admin?)
+    current_user&.admin?
   end
 
   def coach?
-    current_user.try(:coach?)
+    current_user&.coach?
   end
 
   def can_see_private_info?
