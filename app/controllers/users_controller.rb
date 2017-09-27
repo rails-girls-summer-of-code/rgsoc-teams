@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy, :impersonate]
 
-  load_and_authorize_resource except: [:index, :show, :impersonate, :stop_impersonating, :update_availability]
+  load_and_authorize_resource except: [:index, :show, :impersonate, :stop_impersonating, :set_available]
 
   def show
   end
@@ -49,7 +49,7 @@ class UsersController < ApplicationController
     end
   end
 
-  def update_availability
+  def set_available
     current_user.update(availability: true)
   end
 
