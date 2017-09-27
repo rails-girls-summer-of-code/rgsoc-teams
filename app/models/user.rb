@@ -108,6 +108,8 @@ class User < ActiveRecord::Base
   # to a team using the github handle.
   attr_reader :github_import
 
+  scope :as_coach_available, -> { where(availability: true) }
+
   # This informs devise that this user does not
   # need a confirmation notification for now
   def github_import=(import)
@@ -157,10 +159,6 @@ class User < ActiveRecord::Base
 
     def with_location(location)
       where(country: location)
-    end
-
-    def as_coach_availability
-      where(availability: true)
     end
 
     def immutable_attributes
