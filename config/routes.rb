@@ -77,7 +77,6 @@ Rails.application.routes.draw do
   put 'users/current/update_availability', to: 'users#update_availability'
   namespace :orga do
     root to: 'dashboard#index', as: :dashboard
-    resources :community, only: [:reset_user_availability]
     resources :projects, only: [:index] do
       member do
         put :accept
