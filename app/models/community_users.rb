@@ -14,7 +14,7 @@ class CommunityUsers
     @users = @users.with_assigned_roles if current_season_has_begun?
     @users = @users.with_role(@role) if present? @role
     @users = @users.with_interest(@interest) if present? @interest
-    @users = @users.as_coach_availability if present? @availability
+    @users = @users.as_coach_available if present? @availability
     @users = Kaminari.paginate_array(@users.search(@search)) if present? @search
     @users = @users.with_location(@location) if present? @location
     @users = @users.page(@page)

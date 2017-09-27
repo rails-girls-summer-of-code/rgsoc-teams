@@ -133,10 +133,10 @@ describe User do
         end
       end
 
-      describe '.as_coach_availability' do
+      describe '.as_coach_available' do
         it 'return coaches users with availabilities' do
           coach.update availability: true
-          expect(User.as_coach_availability).to contain_exactly(coach)
+          expect(User.as_coach_available).to contain_exactly(coach)
         end
       end
 
