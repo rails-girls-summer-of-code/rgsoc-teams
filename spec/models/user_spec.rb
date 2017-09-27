@@ -94,7 +94,7 @@ describe User do
             expect(user.roles.admin).to be_empty
           end
 
-          it 'returns supervisor role for user' do
+          it "returns #{role} role for user" do
             expect(
                 user.roles.send("#{role}")
               ).to contain_exactly(role_obj)
