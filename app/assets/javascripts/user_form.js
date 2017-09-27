@@ -13,15 +13,15 @@ $(function () {
    $(function () {
       var $update_availability = $('[data-behavior="update_availability"]');
       $update_availability.on('click',function(){
-        var url =$(this).data("url");
+        var url = $(this).data("url");
         updateAvailability(url);
       });
     });
 
    function updateAvailability(url) {
       $.ajax({
-        type:     'PUT',
-        url:      url,
+        method: 'PUT',
+        url: url,
         success: updateBtnName
       });
     }
