@@ -216,6 +216,10 @@ class User < ActiveRecord::Base
     teams.in_current_season.last if student?
   end
 
+  def interested_in_list
+    interested_in.reject(&:blank?).join(', ')
+  end
+
   def tech_expertise_list
     tech_expertise.join(', ')
   end

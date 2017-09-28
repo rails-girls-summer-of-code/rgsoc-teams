@@ -48,6 +48,18 @@ nav.actions
       - @user.teams.each do |team|
         li #{link_to team.display_name, team} &ndash; #{role_names(team, @user)}
 
+  - if @user.interested_in.any?
+    h4 My interests
+    p = @user.interested_in_list
+
+  - if @user.tech_expertise_list
+    h4 Technologies of expertise
+    p = @user.tech_expertise_list
+
+  - if @user.tech_interest_list
+    h4 Technologies of interest
+    p = @user.tech_interest_list
+
   - if can_see_private_info?
     - fields = ['tshirt_size', 'tshirt_cut', 'postal_address']
     .well.private-info
