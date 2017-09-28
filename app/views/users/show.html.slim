@@ -60,6 +60,10 @@ nav.actions
     h4 Technologies of interest
     p = @user.tech_interest_list
 
+  - if @user.is_company
+    h4 I represent the company #{@user.company_name}
+    p = @user.company_info
+
   - if can_see_private_info?
     - fields = ['tshirt_size', 'tshirt_cut', 'postal_address']
     .well.private-info
