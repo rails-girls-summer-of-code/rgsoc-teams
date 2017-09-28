@@ -405,6 +405,27 @@ describe User do
     end
   end
 
+  describe '.reset_availability!' do
+    let!(:user) { FactoryGirl.create(:user, :available) }
+    let!(:user_interested_in_coaching) { FactoryGirl.create(:user, :available, :interested_in_coaching) }
+
+    before do
+      User.reset_availability!
+    end
+
+    context 'for users interested in coaching' do
+      it 'returns false for availability' do
+        expect(user_interested_in_coaching.reload.availability).to eql false
+      end
+    end
+
+    context 'for users not interested in coaching' do
+      it 'returns true for availability' do
+        expect(user.reload.availability).to eql true
+      end
+    end
+  end
+
   context 'with roles' do
     let!(:user) { FactoryGirl.create(:user) }
     let!(:team) { FactoryGirl.create(:team) }
