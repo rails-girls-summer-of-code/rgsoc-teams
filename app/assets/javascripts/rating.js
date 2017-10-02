@@ -1,5 +1,5 @@
 $(function(){
-  function handleScroll(e) {
+  function handleScroll() {
     var body = $('body');
     var scrolledToThreshold = $(window).scrollTop() > 100;
     if (scrolledToThreshold) {
