@@ -5,6 +5,11 @@ RSpec.describe Mentor::ApplicationsController do
 
   let(:user) { create(:user) }
 
+  # Make sure the current season did not end yet
+  before do
+    allow(Season).to receive(:transition?) { false }
+  end
+
   describe 'GET index' do
     context 'as an unauthenticated user' do
       it 'redirects to the landing page' do

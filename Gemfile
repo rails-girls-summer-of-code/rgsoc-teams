@@ -42,6 +42,7 @@ group :production do
 end
 
 group :development, :test do
+  gem 'pry'
   gem 'rspec-rails'
   gem 'factory_girl_rails'
   gem 'database_cleaner'
@@ -53,7 +54,6 @@ group :development do
   gem 'better_errors'
   gem 'binding_of_caller'
   # gem 'jazz_hands'
-  gem 'pry'
   gem 'spring'
   gem 'spring-commands-rspec'
   gem 'foreman'
