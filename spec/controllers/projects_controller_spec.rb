@@ -24,7 +24,7 @@ RSpec.describe ProjectsController do
     end
 
     context 'during active Season' do
-      before { allow(Season).to receive(:active?) { true } }
+      before { Timecop.travel Season.current.starts_at }
 
       let!(:proposed) { FactoryGirl.create(:project, season: Season.succ, name: 'proposed project') }
       let!(:selected) { FactoryGirl.create(:project, :accepted, :in_current_season, name: "selected by a team") }
