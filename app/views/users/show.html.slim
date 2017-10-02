@@ -49,15 +49,15 @@ nav.actions
         li #{link_to team.display_name, team} &ndash; #{role_names(team, @user)}
 
   - if @user.interested_in.any?
-    h4 My interests
+    h4 Interested in
     p = @user.interested_in_list
 
   - if @user.tech_expertise_list
-    h4 Technologies of expertise
+    h4 Technologies of Expertise
     p = @user.tech_expertise_list
 
   - if @user.tech_interest_list
-    h4 Technologies of interest
+    h4 Technologies of Interest
     p = @user.tech_interest_list
 
   - if @user.is_company
