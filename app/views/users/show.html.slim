@@ -52,6 +52,22 @@ nav.actions
     h4 Availability as a Coach
     label = @user.availability ? 'I am available for this season!' : 'I am not available for this season.'
 
+  - if @user.interested_in.any?
+    h4 Interested in
+    p = @user.interested_in_list
+
+  - if @user.tech_expertise_list
+    h4 Technologies of Expertise
+    p = @user.tech_expertise_list
+
+  - if @user.tech_interest_list
+    h4 Technologies of Interest
+    p = @user.tech_interest_list
+
+  - if @user.is_company
+    h4 I represent the company #{@user.company_name}
+    p = @user.company_info
+
   - if can_see_private_info?
     - fields = ['tshirt_size', 'tshirt_cut', 'postal_address']
     .well.private-info

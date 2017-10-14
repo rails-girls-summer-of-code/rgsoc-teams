@@ -30,7 +30,7 @@ gem 'uglifier'
 gem 'sprockets-rails'
 
 gem 'newrelic_rpm'
-gem 'aws-sdk'
+gem 'aws-sdk', '~> 2.10'
 
 gem 'sentry-raven'
 
@@ -42,6 +42,7 @@ group :production do
 end
 
 group :development, :test do
+  gem 'pry'
   gem 'rspec-rails'
   gem 'factory_girl_rails'
   gem 'database_cleaner'
@@ -52,8 +53,6 @@ end
 group :development do
   gem 'better_errors'
   gem 'binding_of_caller'
-  # gem 'jazz_hands'
-  gem 'pry'
   gem 'spring'
   gem 'spring-commands-rspec'
   gem 'foreman'
