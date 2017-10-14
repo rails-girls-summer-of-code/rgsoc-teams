@@ -10,7 +10,7 @@ RSpec.describe Orga::CommunityController do
       it 'reset availability for users interested in coaching' do
         put :reset_user_availability
         expect(response).to redirect_to (orga_users_info_path)
-        expect(flash[:notice]).to match(/Users were reset with success./)
+        expect(flash[:notice]).to match(/Coach availability was reset successfully./)
       end
     end
   end
