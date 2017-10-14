@@ -52,13 +52,13 @@
   = f.input :bio, label: 'About you', hint: 'You can use basic <a href="http://en.wikipedia.org/wiki/Markdown" target="_blank">Markdown</a> here.'.html_safe
 
   - if @user.interested_in_coaching?
-    h3.page-header Availability for the next season:
+    h3.page-header Availability to help as a coach in the next season:
     - if !@user.availability
-      = link_to 'I am available in the next season', @user, data: { behavior: "update_availability", url: users_current_update_availability_path }, class: 'btn btn-default', remote: true
+      = link_to 'I am available to help as a coach in the next season', @user, data: { behavior: "update_availability", url: users_current_update_availability_path }, class: 'btn btn-default', remote: true
     p.help-block Are you available to help as a <a href="https://railsgirlssummerofcode.org/guide/coaching/" target="_blank">coach</a> in the next season?
     - if @user.availability
       span.label.label-success
-        | I am available in the next season!
+        | I am available to help as a coach in the next season!
 
 
   h3.page-header I am interested in:

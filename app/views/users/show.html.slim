@@ -50,7 +50,7 @@ nav.actions
 
   - if @user.interested_in_coaching?
     h4 Availability as a Coach
-    label = @user.availability ? 'I am available for this season!' : 'I am not available for this season.'
+    label = @user.availability ? 'I am available to help as a coach in this season!' : 'I am not available to help as a coach  in this season.'
 
   - if @user.interested_in.any?
     h4 Interested in
