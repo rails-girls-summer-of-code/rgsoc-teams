@@ -21,14 +21,8 @@ $(function () {
    function updateAvailability(url) {
       $.ajax({
         method: 'PUT',
-        url: url,
-        success: updateBtnName
+        url: url
       });
-    }
-
-    function updateBtnName() {
-      var $update_availability = $('[data-behavior="update_availability"]');
-      $update_availability.html("Successful updated");
     }
 });
 
