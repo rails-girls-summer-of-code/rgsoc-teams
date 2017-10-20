@@ -9,7 +9,7 @@
         = role.capitalize
     h4 Coach availability
     label.radio
-      = radio_button_tag :availability, false
+      = check_box_tag :availability
       | Availability in the #{Season.current.name} season
   = render partial: 'users/search'
   = render partial: 'users/location_search'
