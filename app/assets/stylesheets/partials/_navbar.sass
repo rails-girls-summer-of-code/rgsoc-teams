@@ -1,6 +1,10 @@
 nav#navigation
   @extend .navbar, .navbar-inverse, .navbar-static-top
 
+  @media (min-width: 1200px)
+    .container
+      width: 1130px
+
   a.dropdown-toggle-img
     @extend .dropdown-toggle
     padding: 2px
