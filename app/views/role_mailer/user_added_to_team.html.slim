@@ -13,8 +13,13 @@ html
       a href=team_url(@role.team) Team #{@role.team.name}
       |  as a #{@role.name}.
 
-      - if @role.name == 'coach'
-        p
-          ' Please confirm that you are indeed willing to join the team as their coach.
-          ' You can do so on the team's overview page listed above (make sure you are
-          ' logged in using your Github account).
+    - if @role.name == 'coach'
+      p
+        ' Please confirm that you are indeed willing to join the team as their coach.
+        ' You can do so on the team's overview page listed above (make sure you are
+        ' logged in using your Github account).
+
+    p
+      ' Please complete your profile
+      a href=edit_user_url(@role.user_id) here
+      '  and be sure to confirm your email address.
