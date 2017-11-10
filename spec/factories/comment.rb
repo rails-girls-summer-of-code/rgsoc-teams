@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :comment do
     user
     text { FFaker::CheesyLingo.paragraph }

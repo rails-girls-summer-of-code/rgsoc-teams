@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :user, aliases: [:member] do
     github_handle { FFaker::Name.name.underscore }
     name     { FFaker::Name.name }
@@ -10,18 +10,18 @@ FactoryGirl.define do
     confirmed_at { Date.yesterday }
 
     factory :coach do
-      transient { team { FactoryGirl.create(:team) } }
+      transient { team { FactoryBot.create(:team) } }
 
       after(:create) do |user, evaluator|
-        FactoryGirl.create(:coach_role, user: user, team: evaluator.team)
+        FactoryBot.create(:coach_role, user: user, team: evaluator.team)
       end
     end
 
     factory :student do
-      transient { team { FactoryGirl.create(:team, :in_current_season) } }
+      transient { team { FactoryBot.create(:team, :in_current_season) } }
 
       after(:create) do |user, evaluator|
-        FactoryGirl.create(:student_role, user: user, team: evaluator.team)
+        FactoryBot.create(:student_role, user: user, team: evaluator.team)
       end
 
       trait :applicant do
@@ -48,40 +48,40 @@ FactoryGirl.define do
     end
 
     factory :mentor do
-      transient { team { FactoryGirl.create(:team) } }
+      transient { team { FactoryBot.create(:team) } }
 
       after(:create) do |user, evaluator|
-        FactoryGirl.create(:mentor_role, user: user, team: evaluator.team)
+        FactoryBot.create(:mentor_role, user: user, team: evaluator.team)
       end
     end
 
     factory :organizer do
       after(:create) do |user|
-        FactoryGirl.create(:organizer_role, user: user)
+        FactoryBot.create(:organizer_role, user: user)
       end
     end
 
     factory :helpdesk do
       after(:create) do |user|
-        FactoryGirl.create(:helpdesk_role, user: user)
+        FactoryBot.create(:helpdesk_role, user: user)
       end
     end
 
     factory :developer do
       after(:create) do |user|
-        FactoryGirl.create(:developer_role, user: user)
+        FactoryBot.create(:developer_role, user: user)
       end
     end
 
     factory :supervisor do
       after(:create) do |user|
-        FactoryGirl.create(:supervisor_role, user: user)
+        FactoryBot.create(:supervisor_role, user: user)
       end
     end
 
     factory :reviewer do
       after(:create) do |user|
-        FactoryGirl.create(:reviewer_role, user: user)
+        FactoryBot.create(:reviewer_role, user: user)
       end
     end
   end

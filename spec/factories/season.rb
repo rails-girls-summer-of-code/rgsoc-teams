@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :season do
     name { Date.today.year.to_s }
     starts_at { Time.utc(Date.today.year, 7, 1) }

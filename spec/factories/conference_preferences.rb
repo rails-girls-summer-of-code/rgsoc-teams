@@ -1,8 +1,8 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :conference_preference do
-    team { FactoryGirl.create(:team, :in_current_season) }
-    first_conference { FactoryGirl.create(:conference, :in_current_season) }
-    second_conference { FactoryGirl.create(:conference, :in_current_season) }
+    team { FactoryBot.create(:team, :in_current_season) }
+    first_conference { FactoryBot.create(:conference, :in_current_season) }
+    second_conference { FactoryBot.create(:conference, :in_current_season) }
 
     trait :student_preference do
       after(:create) do |preference|

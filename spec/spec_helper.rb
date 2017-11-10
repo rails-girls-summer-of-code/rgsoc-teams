@@ -22,7 +22,6 @@ ENV['RAILS_ENV'] ||= 'test'
 require File.expand_path('../../config/environment', __FILE__)
 require 'rspec/rails'
 require 'webmock/rspec'
-require 'factory_girl_rails'
 
 ENV['EMAIL_FROM'] = FFaker::Internet.email
 

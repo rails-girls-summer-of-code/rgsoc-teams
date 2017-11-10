@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :team do
     kind 'sponsored'
     sequence(:name) { |i| "#{i}-#{FFaker::CheesyLingo.word.capitalize}" }
@@ -32,7 +32,7 @@ FactoryGirl.define do
 
     trait :with_conference_preferences do
       after(:create) do |team|
-        FactoryGirl.create(:conference_preference, :with_terms_checked, team: team)
+        FactoryBot.create(:conference_preference, :with_terms_checked, team: team)
       end
     end
 

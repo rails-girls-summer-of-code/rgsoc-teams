@@ -2,9 +2,9 @@ require "spec_helper"
 
 describe RoleMailer, type: :mailer do
   describe 'user_added_to_team' do
-    let(:user) { FactoryGirl.create(:user) }
-    let(:team) { FactoryGirl.create(:team) }
-    let(:role) { FactoryGirl.create(:mentor_role, user: user, team: team) }
+    let(:user) { FactoryBot.create(:user) }
+    let(:team) { FactoryBot.create(:team) }
+    let(:role) { FactoryBot.create(:mentor_role, user: user, team: team) }
 
     before do
       subject
