@@ -22,7 +22,7 @@ describe Team do
 
   context 'multiple team memberships' do
     let!(:existing_team) { role.team }
-    let(:role)   { FactoryBot.create "#{role_name}_role" }
+    let(:role)   { create "#{role_name}_role" }
     let(:member) { role.user }
     let(:user) { create(:user) }
     let(:team) { create :team, :in_current_season }
@@ -148,11 +148,11 @@ describe Team do
   end
 
   describe '#coaches_confirmed?' do
-    let(:role) { FactoryBot.create "#{role_name}_role" }
+    let(:role) { create "#{role_name}_role" }
     let(:role_name) { 'coach' }
     let(:member) { role.user }
     let(:user) { create(:user) }
-    let(:team) { FactoryBot.create(:team) }
+    let(:team) { create(:team) }
     let(:roles_attributes) { [{ name: role_name, team_id: team.id, user_id: member.id }] }
 
     it 'says its coaches are confirmed when all coaches are confirmed' do
@@ -172,7 +172,7 @@ describe Team do
   describe '#confirmed?' do
     let(:first_student) { create(:user) }
     let(:second_student) { create(:user) }
-    let(:team) { FactoryBot.create(:team) }
+    let(:team) { create(:team) }
     let(:role_name) { 'student' }
     it 'will not be confirmed if only one student present' do
       team.attributes = { roles_attributes: [{ name: role_name, user_id: first_student.id }] }
@@ -360,7 +360,7 @@ describe Team do
   end
 
   describe 'checking' do
-    let(:user) { FactoryBot.create(:user) }
+    let(:user) { create(:user) }
 
     subject { create :team }
 

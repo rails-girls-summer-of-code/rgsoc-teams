@@ -1,14 +1,14 @@
 require 'spec_helper'
 
 describe Application do
-  subject { FactoryBot.build(:application) }
+  subject { build(:application) }
 
   it { is_expected.to validate_presence_of(:application_data) }
   it { is_expected.to validate_presence_of(:team) }
 
   it_behaves_like 'HasSeason'
   it_behaves_like 'Rateable' do
-    let(:rateable) { FactoryBot.create(:application) }
+    let(:rateable) { create(:application) }
   end
 
   context 'with associations' do
@@ -80,8 +80,8 @@ describe Application do
   end
 
   describe 'student_name' do
-    let(:team)    { FactoryBot.build(:team, students: [student]) }
-    let(:student) { FactoryBot.build(:student) }
+    let(:team)    { build(:team, students: [student]) }
+    let(:student) { build(:student) }
 
     before { allow(subject).to receive(:team).and_return(team) }
 
@@ -100,11 +100,11 @@ describe Application do
   end
 
   describe '#project1, project2' do
-    let(:application) { FactoryBot.create(:application) }
+    let(:application) { create(:application) }
 
     shared_examples :projectnr do |nr|
       context 'when project set' do
-        let(:project) { FactoryBot.create(:project) }
+        let(:project) { create(:project) }
 
         before do
           application.application_data["project#{nr}_id"] = project.id

@@ -10,7 +10,7 @@ RSpec.describe Todo, type: :model do
 
   describe '.for_current_season' do
     let!(:todos) do
-      FactoryBot.create_list(:todo, 3,
+      create_list(:todo, 3,
         application: build(:application, :in_current_season)
       )
     end
@@ -18,10 +18,10 @@ RSpec.describe Todo, type: :model do
     subject { described_class.for_current_season }
 
     before do
-      FactoryBot.create(:todo,
+      create(:todo,
         application: build(:application, season: build(:season))
       )
-      FactoryBot.create(:todo,
+      create(:todo,
         application: build(:application, :in_current_season, :skip_validations, team: nil)
       )
     end
@@ -32,12 +32,12 @@ RSpec.describe Todo, type: :model do
   end
 
   describe '#rating' do
-    let!(:todo) { FactoryBot.create(:todo) }
+    let!(:todo) { create(:todo) }
 
     subject { todo.rating }
 
     it 'returns rating if user rated application' do
-      rating = FactoryBot.build(:rating,
+      rating = build(:rating,
         user:        todo.user,
         rateable_id: todo.application.id,
         rateable_type: "Application"
@@ -52,7 +52,7 @@ RSpec.describe Todo, type: :model do
   end
 
   describe '#eligible?' do
-    let(:todo) { FactoryBot.build(:todo) }
+    let(:todo) { build(:todo) }
 
     it 'returns true if application does not have any flags set' do
       todo.application.flags = []
@@ -71,10 +71,10 @@ RSpec.describe Todo, type: :model do
   end
 
   describe '#done?' do
-    let!(:todo) { FactoryBot.create(:todo) }
+    let!(:todo) { create(:todo) }
 
     it 'returns true if application has been rated' do
-      rating = FactoryBot.build(:rating,
+      rating = build(:rating,
         user:        todo.user,
         rateable_id: todo.application.id,
         rateable_type: "Application"
@@ -89,7 +89,7 @@ RSpec.describe Todo, type: :model do
   end
 
   describe '#sign_offs?' do
-    let(:todo) { FactoryBot.build(:todo) }
+    let(:todo) { build(:todo) }
 
     it 'returns an array of booleans for the application sign_offs' do
       todo.application.application_data = { "signed_off_at_project1": Time.now.utc.to_s }

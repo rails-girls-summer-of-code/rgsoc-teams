@@ -6,7 +6,7 @@ describe Rating::ApplicationsController do
   describe 'GET index' do
     context 'as a non reviewer' do
       before do
-        sign_in FactoryBot.create(:user)
+        sign_in create(:user)
         get :index
       end
 
@@ -16,9 +16,9 @@ describe Rating::ApplicationsController do
     end
 
     context 'as a reviewer' do
-      let(:applications) { FactoryBot.build_list(:application, 3) }
+      let(:applications) { build_list(:application, 3) }
 
-      before { sign_in FactoryBot.create(:reviewer) }
+      before { sign_in create(:reviewer) }
 
       it 'assigns an application table and renders the index view' do
         expect(Application).to receive(:rateable)
@@ -64,12 +64,12 @@ describe Rating::ApplicationsController do
   end
 
   describe 'GET show' do
-    let(:application) { FactoryBot.create(:application) }
+    let(:application) { create(:application) }
 
     before do
       # create students for teams
-      FactoryBot.create(:student, team: application.team)
-      FactoryBot.create(:student, team: application.team)
+      create(:student, team: application.team)
+      create(:student, team: application.team)
     end
 
     it 'requires login' do

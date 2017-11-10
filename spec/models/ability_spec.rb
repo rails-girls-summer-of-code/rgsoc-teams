@@ -7,8 +7,8 @@ describe Ability do
 
   context 'ability' do
     context 'when a user is connected' do
-      let!(:user) { FactoryBot.create(:user) }
-      let!(:team) { FactoryBot.create(:team) }
+      let!(:user) { create(:user) }
+      let!(:team) { create(:team) }
 
       describe 'she/he is allowed to do everything on her/his account' do
         it { expect(ability).to be_able_to(:show, user) }
@@ -18,14 +18,14 @@ describe Ability do
       end
 
       context 'when a user is admin' do
-        let(:organizer_role) { FactoryBot.create(:organizer_role, user: user) }
+        let(:organizer_role) { create(:organizer_role, user: user) }
         it "should be able to CRUD on anyone's account" do
           expect(subject).to be_able_to(:crud, organizer_role)
         end
       end
 
       describe 'she/he is not allowed to CRUD on someone else account' do
-        let(:other_user) { FactoryBot.create(:user) }
+        let(:other_user) { create(:user) }
         it { expect(ability).not_to be_able_to(:show, other_user) }
       end
 
@@ -35,7 +35,7 @@ describe Ability do
         # email address is hidden: admin, user's supervisor in current season (confirmed)
         # email address is not hidden: admin, confirmed user, user him/herself
 
-        let(:other_user) { FactoryBot.create(:user) }
+        let(:other_user) { create(:user) }
 
         context 'when email address is hidden' do
           context 'when an admin' do
@@ -100,7 +100,7 @@ describe Ability do
         # email address is hidden: not admin, not user's supervisor in current season
         # email address is not hidden: not admin, not confirmed user, not user him/herself
 
-        let(:other_user) { FactoryBot.create(:user) }
+        let(:other_user) { create(:user) }
 
         context 'when email address is hidden' do
           context "when not an admin or user's supervisor in current season" do
@@ -132,7 +132,7 @@ describe Ability do
 
 
       context 'resend_confirmation_instruction' do
-        let(:other_user) { FactoryBot.create(:user) }
+        let(:other_user) { create(:user) }
 
         describe 'a user can only resend her/his own confirmation' do
           it { expect(ability).to be_able_to(:resend_confirmation_instruction, user) }
@@ -140,7 +140,7 @@ describe Ability do
         end
 
         describe 'a admin can resend all confirmation tokens' do
-          let!(:organizer_role) { FactoryBot.create(:organizer_role, user: user) }
+          let!(:organizer_role) { create(:organizer_role, user: user) }
           it { expect(ability).to be_able_to(:resend_confirmation_instruction, other_user) }
         end
       end
@@ -148,7 +148,7 @@ describe Ability do
       describe "team's students or admin should be able to mark preferences to a conference" do
         context 'when user is a student from a team and try to update conference preferences' do
 
-          let!(:conference_preference) { FactoryBot.create(:conference_preference, :student_preference, :with_terms_checked) }
+          let!(:conference_preference) { create(:conference_preference, :student_preference, :with_terms_checked) }
           let!(:user) { conference_preference.team.students.first }
 
           it 'allows marking of conference preference' do
@@ -156,7 +156,7 @@ describe Ability do
           end
 
           context 'when user is admin' do
-            let!(:organiser_role) { FactoryBot.create(:organizer_role, user: user)}
+            let!(:organiser_role) { create(:organizer_role, user: user)}
             it "should be able to crud conference preference" do
               expect(subject).to be_able_to(:crud, conference_preference)
             end
@@ -164,15 +164,15 @@ describe Ability do
         end
 
         context 'when different users' do
-          let!(:other_user) { FactoryBot.create(:user)}
-          let!(:conference_preference) { FactoryBot.create(:conference_preference, :with_terms_checked, team: team)}
+          let!(:other_user) { create(:user)}
+          let!(:conference_preference) { create(:conference_preference, :with_terms_checked, team: team)}
           it { expect(ability).not_to be_able_to(:crud, other_user) }
 
         end
       end
 
       describe "just orga members, team's supervisor and team's students should be able to see offered conference for a team" do
-        let(:user) { FactoryBot.build(:student)}
+        let(:user) { build(:student)}
 
         context 'when the user is an student of another team' do
           it { expect(ability).not_to be_able_to(:see_offered_conferences, Team.new) }
@@ -233,7 +233,7 @@ describe Ability do
 
       describe 'access to mailings' do
         let!(:mailing) { Mailing.new }
-        let!(:user) { FactoryBot.create(:student) }
+        let!(:user) { create(:student) }
 
         context 'when user is a recipient' do
           it 'allows to read' do
@@ -262,7 +262,7 @@ describe Ability do
 
         context 'when not confirmed' do
           let!(:user) { create :student, confirmed_at: nil }
-          let(:team) { FactoryBot.create(:team) }
+          let(:team) { create(:team) }
 
           it 'does not allow to create teams' do
             expect(subject).not_to be_able_to :create, Team.new
@@ -347,12 +347,12 @@ describe Ability do
     end
 
     context 'working with projects' do
-      let!(:user) { FactoryBot.create(:user) }
+      let!(:user) { create(:user) }
 
       context 'crud' do
 
         it 'can be edited when I am an admin' do
-          FactoryBot.create(:organizer_role, user: user)
+          create(:organizer_role, user: user)
           expect(subject).to be_able_to :crud, Project.new
         end
 
@@ -387,8 +387,8 @@ describe Ability do
   end
 
   context 'to join helpdesk team' do
-    let(:user) { FactoryBot.create(:helpdesk) }
-    let(:team) { FactoryBot.create(:team) }
+    let(:user) { create(:helpdesk) }
+    let(:team) { create(:team) }
 
     it 'should be logged in' do
       expect(ability.signed_in?(user)).to eql true
@@ -399,13 +399,13 @@ describe Ability do
     end
 
     it 'should be able to join helpdesk team' do
-      helpdesk_team = FactoryBot.create(:team, :helpdesk)
+      helpdesk_team = create(:team, :helpdesk)
       expect(ability).to be_able_to(:join, helpdesk_team)
     end
   end
 
   context 'Crud Conferences' do
-    let!(:user) { FactoryBot.create(:user) }
+    let!(:user) { create(:user) }
 
     it 'permit crud conference when user is a current student' do
       create :student_role, user: user

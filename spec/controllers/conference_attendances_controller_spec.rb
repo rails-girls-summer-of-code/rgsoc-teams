@@ -1,9 +1,9 @@
 require 'spec_helper'
 
 RSpec.describe ConferenceAttendancesController do
-  let(:team) { FactoryBot.create(:team, :in_current_season) }
-  let(:student) { FactoryBot.create(:student, team: team)}
-  let(:attendance) { FactoryBot.create(:conference_attendance, team: team )}
+  let(:team) { create(:team, :in_current_season) }
+  let(:student) { create(:student, team: team)}
+  let(:attendance) { create(:conference_attendance, team: team )}
 
   before do
     sign_in student
