@@ -1,8 +1,8 @@
 require 'spec_helper'
 
 describe Submission do
-  let(:submission) { FactoryGirl.build(:submission) }
-  let(:unsent) { FactoryGirl.create(:submission, sent_at: nil)}
+  let(:submission) { FactoryBot.build(:submission) }
+  let(:unsent) { FactoryBot.create(:submission, sent_at: nil)}
 
   describe '#sent?' do
     it 'lists unsent submissions' do

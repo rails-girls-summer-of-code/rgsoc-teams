@@ -1,38 +1,38 @@
 # Teams
-FactoryGirl.create_list(:team, 5, :in_current_season, kind: "sponsored")
-FactoryGirl.create(:team, :in_current_season, kind: "voluntary")
-FactoryGirl.create(:team, :in_current_season) # not accepted
+FactoryBot.create_list(:team, 5, :in_current_season, kind: "sponsored")
+FactoryBot.create(:team, :in_current_season, kind: "voluntary")
+FactoryBot.create(:team, :in_current_season) # not accepted
 
-FactoryGirl.create(:team, :last_season, kind: "sponsored")
-FactoryGirl.create(:team, :last_season, kind: "voluntary")
+FactoryBot.create(:team, :last_season, kind: "sponsored")
+FactoryBot.create(:team, :last_season, kind: "voluntary")
 
 # Users with different roles
-FactoryGirl.create_list(:student, 12)
-FactoryGirl.create_list(:coach, 3)
-FactoryGirl.create_list(:organizer, 2)
-FactoryGirl.create(:mentor)
-FactoryGirl.create(:supervisor)
+FactoryBot.create_list(:student, 12)
+FactoryBot.create_list(:coach, 3)
+FactoryBot.create_list(:organizer, 2)
+FactoryBot.create(:mentor)
+FactoryBot.create(:supervisor)
 
 # To explore use cases where user has no role yet
-FactoryGirl.create_list(:user, 3)
+FactoryBot.create_list(:user, 3)
 
 # Status updates for different teams
 5.times do
-  FactoryGirl.create(:status_update, published_at: Time.now, team: Team.all.sample)
+  FactoryBot.create(:status_update, published_at: Time.now, team: Team.all.sample)
 end
 
 # Applications and their projects
-FactoryGirl.create(:application_draft)
-FactoryGirl.create(:application_draft, :appliable)
+FactoryBot.create(:application_draft)
+FactoryBot.create(:application_draft, :appliable)
 
-FactoryGirl.create(:project, :in_current_season) # proposed
-FactoryGirl.create_list(:project, 3, :accepted, :in_current_season)
-FactoryGirl.create(:project, :rejected, :in_current_season)
+FactoryBot.create(:project, :in_current_season) # proposed
+FactoryBot.create_list(:project, 3, :accepted, :in_current_season)
+FactoryBot.create(:project, :rejected, :in_current_season)
 
 # Conferences
 6.times do
   random_date = rand(1.year).seconds.from_now
-  FactoryGirl.create(:conference, :in_current_season,
+  FactoryBot.create(:conference, :in_current_season,
     location: FFaker::Venue.name,
     region: ["Africa", "South America", "North America", "Europe", "Asia Pacific"].sample,
     starts_on: random_date,

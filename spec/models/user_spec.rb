@@ -236,26 +236,26 @@ describe User do
 
   describe '#admin?' do
     it 'returns false for users w/o admin role' do
-      student = FactoryGirl.create(:student)
+      student = FactoryBot.create(:student)
       expect(student).not_to be_admin
     end
 
     it 'returns true if user has a admin role' do
-      supervisor = FactoryGirl.create(:supervisor)
-      FactoryGirl.create(:organizer_role, user: supervisor)
+      supervisor = FactoryBot.create(:supervisor)
+      FactoryBot.create(:organizer_role, user: supervisor)
       expect(supervisor).to be_admin
     end
   end
 
   describe '#mentor?' do
     it 'returns false for users w/o mentor role' do
-      student = FactoryGirl.create(:student)
+      student = FactoryBot.create(:student)
       expect(student).not_to be_mentor
     end
 
     it 'returns true if user has a mentor role' do
-      mentor = FactoryGirl.create(:mentor)
-      FactoryGirl.create(:organizer_role, user: mentor)
+      mentor = FactoryBot.create(:mentor)
+      FactoryBot.create(:organizer_role, user: mentor)
       expect(mentor).to be_mentor
     end
   end
@@ -264,7 +264,7 @@ describe User do
     let!(:maintainer) { create(:user) }
 
     it 'returns false for users who did not submit a project' do
-      student = FactoryGirl.create(:student)
+      student = FactoryBot.create(:student)
       expect(student).not_to be_project_maintainer
     end
 
@@ -290,7 +290,7 @@ describe User do
     end
 
     it 'returns true if user has a reviewer role' do
-      reviewer = FactoryGirl.create(:reviewer)
+      reviewer = FactoryBot.create(:reviewer)
       expect(reviewer).to be_reviewer
     end
   end
@@ -301,7 +301,7 @@ describe User do
     end
 
     it 'returns true if user has a student role' do
-      student = FactoryGirl.create(:student)
+      student = FactoryBot.create(:student)
       expect(student).to be_student
     end
   end
@@ -312,7 +312,7 @@ describe User do
     end
 
     it 'returns true if user has a supervisor role' do
-      supervisor = FactoryGirl.create(:supervisor)
+      supervisor = FactoryBot.create(:supervisor)
       expect(supervisor).to be_supervisor
     end
   end
@@ -324,27 +324,27 @@ describe User do
     end
 
     it 'returns false if user has a random student role' do
-      student = FactoryGirl.build(:student)
+      student = FactoryBot.build(:student)
       expect(student).not_to be_current_student
     end
 
     it 'returns false if user\'s team has not been accepted' do
-      team    = FactoryGirl.create(:team, :in_current_season, kind: nil)
-      student = FactoryGirl.create(:student, team: team)
+      team    = FactoryBot.create(:team, :in_current_season, kind: nil)
+      student = FactoryBot.create(:student, team: team)
       expect(student).not_to be_current_student
     end
 
     it 'returns true if user is among this season\'s accepted students' do
-      team    = FactoryGirl.create(:team, :in_current_season, kind: 'sponsored')
-      student = FactoryGirl.create(:student, team: team)
+      team    = FactoryBot.create(:team, :in_current_season, kind: 'sponsored')
+      student = FactoryBot.create(:student, team: team)
       expect(student).to be_current_student
     end
   end
 
   describe '#student_team' do
     before do
-      @user_not_student = FactoryGirl.create(:user)
-      @student = FactoryGirl.create(:student)
+      @user_not_student = FactoryBot.create(:user)
+      @student = FactoryBot.create(:student)
       @student_team = @student.teams.first
     end
 
@@ -364,10 +364,10 @@ describe User do
 
   describe 'Search for user names and team names' do
     before do
-      @cruyff = FactoryGirl.create(:user, name: "Johan Cruyff")
-      @eesy = FactoryGirl.create(:user, name: "Eesy Peesy")
-      @team = FactoryGirl.create(:team, name: "Cheesy")
-      @cheesy = FactoryGirl.create(:student, team: @team)
+      @cruyff = FactoryBot.create(:user, name: "Johan Cruyff")
+      @eesy = FactoryBot.create(:user, name: "Eesy Peesy")
+      @team = FactoryBot.create(:team, name: "Cheesy")
+      @cheesy = FactoryBot.create(:student, team: @team)
 
     end
 
@@ -392,10 +392,10 @@ describe User do
   end
 
   context 'with roles' do
-    let!(:user) { FactoryGirl.create(:user) }
-    let!(:team) { FactoryGirl.create(:team) }
-    let!(:coach) { FactoryGirl.create(:coach_role, team: team, user: user) }
-    let!(:mentor) { FactoryGirl.create(:mentor_role, team: team, user: user) }
+    let!(:user) { FactoryBot.create(:user) }
+    let!(:team) { FactoryBot.create(:team) }
+    let!(:coach) { FactoryBot.create(:coach_role, team: team, user: user) }
+    let!(:mentor) { FactoryBot.create(:mentor_role, team: team, user: user) }
 
     it 'lists unique teams even with different roles' do
       expect(user.teams.count).to eql 1

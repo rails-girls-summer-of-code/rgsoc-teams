@@ -5,7 +5,7 @@ describe Orga::MailingsController do
 
   it_behaves_like 'redirects for non-admins'
 
-  let(:mailing) { FactoryGirl.create(:mailing) }
+  let(:mailing) { FactoryBot.create(:mailing) }
 
   context 'with admin logged in' do
     include_context 'with admin logged in'

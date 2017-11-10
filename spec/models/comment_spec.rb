@@ -5,8 +5,8 @@ describe Comment do
   it { is_expected.to belong_to(:commentable) }
 
   before do
-    @first_comment = FactoryGirl.create(:team_comment)
-    @second_comment = FactoryGirl.create(:application_comment)
+    @first_comment = FactoryBot.create(:team_comment)
+    @second_comment = FactoryBot.create(:application_comment)
   end
 
   describe '.ordered' do
