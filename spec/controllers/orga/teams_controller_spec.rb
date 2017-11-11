@@ -115,7 +115,7 @@ RSpec.describe Orga::TeamsController do
       before { sign_in user}
 
       context "assign conference attendance" do
-        let(:offer) { FactoryBot.create(:conference_attendance) }
+        let(:offer) { create(:conference_attendance) }
         let(:team) { offer.team }
         let!(:team_params) do
           build(:team).attributes.merge(conference_attendances_attributes: {

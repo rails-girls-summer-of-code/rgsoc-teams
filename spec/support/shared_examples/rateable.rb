@@ -12,7 +12,7 @@ RSpec.shared_examples 'Rateable' do
 
     context 'when ratings' do
       before do
-        FactoryBot.create_list(:rating, 2,
+        create_list(:rating, 2,
           rateable: rateable,
           data:     { 'diversity' => 1 }
         )
@@ -35,12 +35,12 @@ RSpec.shared_examples 'Rateable' do
 
     context 'when even ratings' do
       before do
-        FactoryBot.create_list(:rating, 2,
+        create_list(:rating, 2,
           rateable: rateable,
           data:     { 'diversity' => 1 }
         )
 
-        FactoryBot.create_list(:rating, 2,
+        create_list(:rating, 2,
           rateable: rateable,
           data:     { 'diversity' => 5 }
         )
@@ -53,12 +53,12 @@ RSpec.shared_examples 'Rateable' do
 
     context 'when odd ratings' do
       before do
-        FactoryBot.create_list(:rating, 2,
+        create_list(:rating, 2,
           rateable: rateable,
           data:     { 'diversity' => 1 }
         )
 
-        FactoryBot.create_list(:rating, 1,
+        create_list(:rating, 1,
           rateable: rateable,
           data:     { 'diversity' => 4 }
         )
@@ -80,12 +80,12 @@ RSpec.shared_examples 'Rateable' do
     end
 
     context 'when ratings' do
-      let(:user1) { FactoryBot.create(:user) }
-      let(:user2) { FactoryBot.create(:user) }
+      let(:user1) { create(:user) }
+      let(:user2) { create(:user) }
 
       before do
-        FactoryBot.create(:rating, rateable: rateable, user: user1)
-        FactoryBot.create(:rating, rateable: rateable, user: user2)
+        create(:rating, rateable: rateable, user: user1)
+        create(:rating, rateable: rateable, user: user2)
       end
 
       it 'retuns the users names and points' do
@@ -108,8 +108,8 @@ RSpec.shared_examples 'Rateable' do
 
     context 'when ratings' do
       before do
-        FactoryBot.create_list(:rating, 2, rateable: rateable, pick: true)
-        FactoryBot.create_list(:rating, 2, rateable: rateable)
+        create_list(:rating, 2, rateable: rateable, pick: true)
+        create_list(:rating, 2, rateable: rateable)
       end
 
       it 'returns the sum of picks given' do
@@ -129,8 +129,8 @@ RSpec.shared_examples 'Rateable' do
 
     context 'when ratings' do
       before do
-        FactoryBot.create_list(:rating, 2, rateable: rateable, like: true)
-        FactoryBot.create_list(:rating, 2, rateable: rateable)
+        create_list(:rating, 2, rateable: rateable, like: true)
+        create_list(:rating, 2, rateable: rateable)
       end
 
       it 'returns the sum of likes given' do

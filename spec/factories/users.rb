@@ -10,18 +10,18 @@ FactoryBot.define do
     confirmed_at { Date.yesterday }
 
     factory :coach do
-      transient { team { FactoryBot.create(:team) } }
+      transient { team { create(:team) } }
 
       after(:create) do |user, evaluator|
-        FactoryBot.create(:coach_role, user: user, team: evaluator.team)
+        create(:coach_role, user: user, team: evaluator.team)
       end
     end
 
     factory :student do
-      transient { team { FactoryBot.create(:team, :in_current_season) } }
+      transient { team { create(:team, :in_current_season) } }
 
       after(:create) do |user, evaluator|
-        FactoryBot.create(:student_role, user: user, team: evaluator.team)
+        create(:student_role, user: user, team: evaluator.team)
       end
 
       trait :applicant do
@@ -48,40 +48,40 @@ FactoryBot.define do
     end
 
     factory :mentor do
-      transient { team { FactoryBot.create(:team) } }
+      transient { team { create(:team) } }
 
       after(:create) do |user, evaluator|
-        FactoryBot.create(:mentor_role, user: user, team: evaluator.team)
+        create(:mentor_role, user: user, team: evaluator.team)
       end
     end
 
     factory :organizer do
       after(:create) do |user|
-        FactoryBot.create(:organizer_role, user: user)
+        create(:organizer_role, user: user)
       end
     end
 
     factory :helpdesk do
       after(:create) do |user|
-        FactoryBot.create(:helpdesk_role, user: user)
+        create(:helpdesk_role, user: user)
       end
     end
 
     factory :developer do
       after(:create) do |user|
-        FactoryBot.create(:developer_role, user: user)
+        create(:developer_role, user: user)
       end
     end
 
     factory :supervisor do
       after(:create) do |user|
-        FactoryBot.create(:supervisor_role, user: user)
+        create(:supervisor_role, user: user)
       end
     end
 
     factory :reviewer do
       after(:create) do |user|
-        FactoryBot.create(:reviewer_role, user: user)
+        create(:reviewer_role, user: user)
       end
     end
   end

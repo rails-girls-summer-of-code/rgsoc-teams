@@ -20,7 +20,7 @@ RSpec.describe Conference::Importer do
       end
 
       it 'updates an existing conference' do
-        FactoryBot.create(:conference, gid: 2017001, city: "Bangalore", country: "Belgium")
+        create(:conference, gid: 2017001, city: "Bangalore", country: "Belgium")
 
         expect{subject}.to change{Conference.find_by(gid: 2017001).city}.from("Bangalore").to("Gent")
         expect{subject}.not_to change{Conference.find_by(gid: 2017001).country}
@@ -38,15 +38,15 @@ RSpec.describe Conference::Importer do
 
       it "will not destroy conferences" do
         # gid 2017010 is not in the .csv file
-        FactoryBot.create(:conference, gid: 2017010)
+        create(:conference, gid: 2017010)
         expect {subject}.not_to change{Conference.find_by(gid: 2017010)}
       end
 
       it 'assign the season_id' do
-        FactoryBot.create(:conference, gid: 2017001, season_id: nil)
-        FactoryBot.create(:conference, gid: 2018005, season_id: nil)
-        s_2017 = FactoryBot.create(:season, name: "2017")
-        s_2018 = FactoryBot.create(:season, name: "2018")
+        create(:conference, gid: 2017001, season_id: nil)
+        create(:conference, gid: 2018005, season_id: nil)
+        s_2017 = create(:season, name: "2017")
+        s_2018 = create(:season, name: "2018")
 
         expect{subject}.to change{Conference.find_by(gid: 2017001).season_id}.to(s_2017.id)
         expect(Conference.find_by(gid: 2018005).season_id).to eq s_2018.id

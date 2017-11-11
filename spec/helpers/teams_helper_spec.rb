@@ -3,8 +3,8 @@ require 'spec_helper'
 RSpec.describe TeamsHelper do
 
   describe "#conference_exists?" do
-    let(:conference_preference) { FactoryBot.create :conference_preference, :with_terms_checked }
-    let(:team_without) { FactoryBot.create :team }
+    let(:conference_preference) { create :conference_preference, :with_terms_checked }
+    let(:team_without) { create :team }
     let(:team_with) { conference_preference.team }
 
     it 'returns false if no conference_preference was persisted for the team' do

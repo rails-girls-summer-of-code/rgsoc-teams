@@ -42,7 +42,7 @@ describe Mailing do
   end
 
   describe '#recipient?' do
-    let(:student) { FactoryBot.create(:student) }
+    let(:student) { create(:student) }
 
     it 'returns false for a an empty recipients list' do
       subject.to = nil

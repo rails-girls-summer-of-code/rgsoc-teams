@@ -54,7 +54,7 @@ describe OmniauthCallbacksController do
     # in again, we want to show that user the edit page to
     # let her/him complete the registration
     it 'redirects to the edit page if the profile is not valid' do
-      user = FactoryBot.build(:user, country: nil)
+      user = build(:user, country: nil)
       user.github_import = true
       user.save
 
