@@ -1,0 +1,18 @@
+#!/usr/bin/env ruby
+
+require 'English'
+
+module TravisRunner
+  def self.execute(name, command)
+    puts "\n== Running #{name} =="
+    system command
+    yield if block_given?
+    raise "#{name} failed" unless $CHILD_STATUS.success?
+  end
+end
+
+system 'mkdir -p tmp'
+
+TravisRunner.execute 'Rubocop', 'bundle exec rubocop'
+TravisRunner.execute 'JSHint', 'jshint app/assets/javascripts'
+TravisRunner.execute 'Rspec', 'bundle exec rspec'
