@@ -60,7 +60,6 @@ end
 
 group :test do
   gem 'rails-controller-testing'
-  gem 'shoulda'
   gem 'shoulda-matchers'
   gem 'webmock'
   gem 'coveralls', require: false
