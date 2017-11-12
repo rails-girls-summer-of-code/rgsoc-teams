@@ -2,9 +2,9 @@ require 'spec_helper'
 
 RSpec.describe Todo, type: :model do
   describe 'associations' do
-    it { is_expected.to belong_to(:user)                                    }
-    it { is_expected.to belong_to(:application)                             }
-    it { is_expected.to delegate_method(:season).to(:application)           }
+    it { is_expected.to belong_to(:user) }
+    it { is_expected.to belong_to(:application) }
+    it { is_expected.to delegate_method(:season).to(:application) }
     it { is_expected.to delegate_method(:application_data).to(:application) }
   end
 
@@ -37,11 +37,7 @@ RSpec.describe Todo, type: :model do
     subject { todo.rating }
 
     it 'returns rating if user rated application' do
-      rating = build(:rating,
-        user:        todo.user,
-        rateable_id: todo.application.id,
-        rateable_type: "Application"
-      )
+      rating = build(:rating, user: todo.user, application: todo.application)
       rating.save(validate: false) # TODO: remove this once rating is updated
       expect(subject).to eq rating
     end
@@ -74,11 +70,7 @@ RSpec.describe Todo, type: :model do
     let!(:todo) { create(:todo) }
 
     it 'returns true if application has been rated' do
-      rating = build(:rating,
-        user:        todo.user,
-        rateable_id: todo.application.id,
-        rateable_type: "Application"
-      )
+      rating = build(:rating, user: todo.user, application: todo.application)
       rating.save(validate: false) # TODO: tmp solution
       expect(todo).to be_done
     end

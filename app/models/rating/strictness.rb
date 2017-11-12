@@ -45,14 +45,13 @@ class Rating::Strictness
 
   def ratings
     @ratings ||= Rating
-                  .joins('JOIN applications ON ratings.rateable_id = applications.id')
-                  .where(rateable_type: 'Application')
+                  .includes(:application)
                   .where('applications.season_id' => season.id)
   end
 
   # @return [Array<Integer>] list of IDs for all rated applications
   def application_ids
-    @application_ids ||= ratings.pluck(:rateable_id)
+    @application_ids ||= ratings.pluck(:application_id)
   end
 
   # @return [Array<Application>] all rated applications

@@ -11,8 +11,8 @@ RSpec.describe Rating::Strictness do
     context "when there's only one application" do
       let!(:application) { create :application, :in_current_season }
 
-      let!(:rating1) { create :rating, rateable: application }
-      let!(:rating2) { create :rating, rateable: application }
+      let!(:rating1) { create :rating, application: application }
+      let!(:rating2) { create :rating, application: application }
 
       context 'when reviewers rate equally' do
         before { allow_any_instance_of(Rating).to receive(:points) { 5.0 } }
@@ -40,10 +40,10 @@ RSpec.describe Rating::Strictness do
 
       let!(:reviewers) { create_list :user, 2 }
 
-      let!(:rating1) { create :rating, rateable: application1, user: reviewers.first  }
-      let!(:rating2) { create :rating, rateable: application2, user: reviewers.first  }
-      let!(:rating3) { create :rating, rateable: application1, user: reviewers.second }
-      let!(:rating4) { create :rating, rateable: application2, user: reviewers.second }
+      let!(:rating1) { create :rating, application: application1, user: reviewers.first  }
+      let!(:rating2) { create :rating, application: application2, user: reviewers.first  }
+      let!(:rating3) { create :rating, application: application1, user: reviewers.second }
+      let!(:rating4) { create :rating, application: application2, user: reviewers.second }
 
       # We still want to stub Rating#points, but we need different
       # valus. Return `a` for the first rating, `b` else.

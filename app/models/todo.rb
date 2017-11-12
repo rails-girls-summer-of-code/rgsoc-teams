@@ -17,7 +17,7 @@ class Todo < ApplicationRecord
   end
 
   def rating
-    Rating.find_by(user: user, rateable_type: "Application", rateable_id: application)
+    Rating.find_by(user: user, application: application)
   end
 
   def eligible?
@@ -33,6 +33,6 @@ class Todo < ApplicationRecord
   end
 
   def validate_number_of_reviewers
-    errors.add(:user, "too many reviewers") if application.todos.size > 3
+    errors.add(:user, 'too many reviewers') if application.todos.size > 3
   end
 end

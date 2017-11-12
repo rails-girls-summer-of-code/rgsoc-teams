@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Application do
+describe Application, type: :model do
   subject { build(:application) }
 
   it { is_expected.to validate_presence_of(:application_data) }
@@ -8,7 +8,7 @@ describe Application do
 
   it_behaves_like 'HasSeason'
   it_behaves_like 'Rateable' do
-    let(:rateable) { create(:application) }
+    let(:application) { create(:application) }
   end
 
   context 'with associations' do

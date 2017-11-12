@@ -1,10 +1,8 @@
 class Rating < ActiveRecord::Base
+  belongs_to :application, inverse_of: :ratings
+  belongs_to :user
 
   serialize :data
-
-  belongs_to :application
-  belongs_to :user
-  belongs_to :rateable, polymorphic: true
 
   FIELDS = ActiveSupport::HashWithIndifferentAccess.new({
     diversity:
@@ -110,8 +108,11 @@ class Rating < ActiveRecord::Base
 
   before_validation :set_data
 
-  validates :rateable, presence: true
-  validates :user_id, presence: true, uniqueness: { scope: [:rateable_type, :rateable_id] }
+  validates :application, presence: true
+  validates :user,        presence: true
+  validates :user_id,     uniqueness: { scope: :application_id }
+
+  scope :by, -> (user) { where(user_id: user.id) }
 
   class << self
     def user_names
@@ -120,14 +121,6 @@ class Rating < ActiveRecord::Base
 
     def excluding(names)
       joins(:user).where('users.name NOT IN (?)', names)
-    end
-
-    def by(user)
-      where(user_id: user.id)
-    end
-
-    def for(type, id)
-      where(rateable_type: type, rateable_id: id)
     end
   end
 
