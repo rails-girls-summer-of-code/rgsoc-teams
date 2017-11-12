@@ -9,6 +9,9 @@
 # Make `form_with` generate non-remote forms.
 Rails.application.config.action_view.form_with_generates_remote_forms = false
 
+# Make belongs_to required by default (goal to turn this on at some point...)
+Rails.application.config.active_record.belongs_to_required_by_default = false
+
 # Unknown asset fallback will return the path passed in when the given
 # asset is not present in the asset pipeline.
 # Rails.application.config.assets.unknown_asset_fallback = false

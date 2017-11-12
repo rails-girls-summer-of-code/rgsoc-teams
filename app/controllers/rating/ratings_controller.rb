@@ -16,7 +16,7 @@ class Rating::RatingsController < Rating::BaseController
   private
 
   def new_rating_params
-    params.require(:rating).permit(:rateable_id, :rateable_type, :like, :pick, Rating::FIELDS.keys)
+    params.require(:rating).permit(:application_id, :like, :pick, Rating::FIELDS.keys)
   end
 
   def rating_attr_params
@@ -24,7 +24,7 @@ class Rating::RatingsController < Rating::BaseController
   end
 
   def find_or_create_rating
-    rateable_args = new_rating_params.values_at(:rateable_type, :rateable_id)
-    Rating.by(current_user).for(*rateable_args).first_or_create
+    application = Application.find_by(id: new_rating_params[:application_id])
+    application.ratings.by(current_user).first_or_create
   end
 end

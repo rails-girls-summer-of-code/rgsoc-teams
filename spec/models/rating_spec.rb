@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Rating, type: :model, wip: true do
+describe Rating, type: :model do
   let(:application) { build(:application) }
 
   describe 'associations' do
