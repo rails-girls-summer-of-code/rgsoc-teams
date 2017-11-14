@@ -1,5 +1,6 @@
 RSpec.shared_examples 'Rateable' do
-  it { is_expected.to have_many(:ratings) }
+  it { is_expected.to have_many(:ratings).dependent(:destroy) }
+  it { is_expected.to have_many(:todos).dependent(:destroy) }
 
   describe '#average_points' do
     subject { application.average_points }

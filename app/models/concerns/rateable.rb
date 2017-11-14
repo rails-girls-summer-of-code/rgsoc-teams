@@ -3,6 +3,7 @@ module Rateable
 
   included do
     has_many :ratings, dependent: :destroy
+    has_many :todos, dependent: :destroy
   end
 
   def average_points
