@@ -1,6 +1,6 @@
 class Rating < ActiveRecord::Base
-  belongs_to :application, inverse_of: :ratings
-  belongs_to :user
+  belongs_to :application, inverse_of: :ratings, required: true
+  belongs_to :user, required: true
 
   serialize :data
 
@@ -108,25 +108,9 @@ class Rating < ActiveRecord::Base
 
   before_validation :set_data
 
-  validates :application, presence: true
-  validates :user,        presence: true
-  validates :user_id,     uniqueness: { scope: :application_id }
+  validates :user_id, uniqueness: { scope: :application_id }
 
   scope :by, -> (user) { where(user_id: user.id) }
-
-  class << self
-    def user_names
-      User.includes(:roles).where('roles.name = ?', 'reviewer').pluck(:name)
-    end
-
-    def excluding(names)
-      joins(:user).where('users.name NOT IN (?)', names)
-    end
-  end
-
-  def woman?
-    data[:is_woman] == 1
-  end
 
   # public: The weighted sum of the points that the reviewer gave.
   def points
