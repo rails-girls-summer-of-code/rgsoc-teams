@@ -1,4 +1,4 @@
-class Rating < ActiveRecord::Base
+class Rating < ApplicationRecord
   belongs_to :application, inverse_of: :ratings, required: true
   belongs_to :user, required: true
 

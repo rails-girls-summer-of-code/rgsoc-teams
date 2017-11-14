@@ -5,8 +5,7 @@ class Todo < ApplicationRecord
   belongs_to :user, inverse_of: :todos, required: true
   belongs_to :application, inverse_of: :todos, required: true
 
-  delegate :season, to: :application
-  delegate :application_data, to: :application
+  delegate :application_data, :season, to: :application
 
   validate :validate_number_of_reviewers, if: :application
 

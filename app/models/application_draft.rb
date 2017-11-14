@@ -1,4 +1,4 @@
-class ApplicationDraft < ActiveRecord::Base
+class ApplicationDraft < ApplicationRecord
   include HasSeason
 
   include AASM

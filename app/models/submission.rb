@@ -1,4 +1,4 @@
-class Submission < ActiveRecord::Base
+class Submission < ApplicationRecord
   class << self
     def unsent
       where(sent_at: nil)

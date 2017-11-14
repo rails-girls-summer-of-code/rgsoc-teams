@@ -1,4 +1,4 @@
-class Project < ActiveRecord::Base
+class Project < ApplicationRecord
   include HasSeason
 
   belongs_to :submitter, class_name: 'User'
