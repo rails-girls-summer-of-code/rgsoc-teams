@@ -5,7 +5,6 @@
 #   git config --global core.excludesfile ~/.gitignore_global
 
 /config/database.yml
-.ruby-version
 .ruby-gemset
 .env
 .DS_Store
