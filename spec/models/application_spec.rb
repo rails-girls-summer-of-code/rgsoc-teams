@@ -46,7 +46,7 @@ describe Application, type: :model do
       let!(:from_other_season) { create(:application, season: build(:season)) }
       let!(:without_team)      { create(:application, :in_current_season, :skip_validations, team: nil) }
 
-      it 'returns only applications from the current season which a team' do
+      it 'returns only applications from the current season with a team' do
         expect(applications).to contain_exactly application
       end
     end

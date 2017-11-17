@@ -85,7 +85,7 @@ RSpec.describe Todo, type: :model do
       expect(todo).to be_done
     end
 
-    it 'returns false if the application not rated yet' do
+    it 'returns false if the application is not rated yet' do
       expect(todo).not_to be_done
     end
   end
