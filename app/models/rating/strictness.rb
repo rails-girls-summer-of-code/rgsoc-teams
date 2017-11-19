@@ -44,9 +44,7 @@ class Rating::Strictness
   private
 
   def ratings
-    @ratings ||= Rating
-                  .includes(:application)
-                  .where('applications.season_id' => season.id)
+    @ratings ||= Rating.joins(:application).where('applications.season_id' => season.id)
   end
 
   # @return [Array<Integer>] list of IDs for all rated applications
