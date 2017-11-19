@@ -2,8 +2,8 @@ class Todo < ApplicationRecord
   BLACK_FLAGS = %w(remote_team male_gender age_below_18 less_than_two_coaches zero_community)
   SIGN_OFFS   = %w(signed_off_at_project1 signed_off_at_project2)
 
-  belongs_to :user, inverse_of: :todos, required: true
-  belongs_to :application, inverse_of: :todos, required: true
+  belongs_to :user, required: true
+  belongs_to :application, required: true
 
   delegate :application_data, :season, to: :application
 

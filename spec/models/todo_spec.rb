@@ -2,8 +2,8 @@ require 'spec_helper'
 
 RSpec.describe Todo, type: :model do
   describe 'associations' do
-    it { is_expected.to belong_to(:user).inverse_of(:todos) }
-    it { is_expected.to belong_to(:application).inverse_of(:todos) }
+    it { is_expected.to belong_to(:user) }
+    it { is_expected.to belong_to(:application) }
   end
 
   describe 'delegations' do

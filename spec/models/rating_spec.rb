@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Rating, type: :model do
   describe 'associations' do
     it { is_expected.to belong_to(:user) }
-    it { is_expected.to belong_to(:application).inverse_of(:ratings) }
+    it { is_expected.to belong_to(:application) }
   end
 
   describe 'validations' do
