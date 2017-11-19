@@ -1,5 +1,7 @@
 class RemovePolymorphismFromRatings < ActiveRecord::Migration[5.1]
-  class Rating < ActiveRecord::Base; end
+  class Rating < ActiveRecord::Base
+    self.table_name = :ratings
+  end
 
   def up
     add_index :ratings, :application_id
