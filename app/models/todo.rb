@@ -32,6 +32,6 @@ class Todo < ApplicationRecord
   end
 
   def validate_number_of_reviewers
-    errors.add(:user, 'too many reviewers') if application.todos.count > 3
+    errors.add(:user, :too_many_reviewers) if application.todos.count > 3
   end
 end

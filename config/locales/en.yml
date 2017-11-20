@@ -69,8 +69,6 @@ en:
         voluntary_hours_per_week: How many hours per week would you be able to work on the project?
         heard_about_it: How have you heard about the program?
         misc_info: Anything else to add?
-
-
         project_url: Project URL
         coaches_hours_per_week: "Coaches' Hours-per-Week"
         coaches_why_team_successful: "Coaches' Success-Statement"
@@ -84,3 +82,10 @@ en:
 
       project:
         issues_and_features: Tasks and features
+
+    errors:
+        models:
+          todo:
+            attributes:
+              user:
+                too_many_reviewers: too many reviewers
