@@ -2,12 +2,28 @@ nav.actions
   ul.list-inline
     li = link_to 'My Team', current_student.current_team, class: 'btn btn-default btn-sm' if current_student.current_team
     li = link_to icon('plus', 'New Team'), new_team_path, class: 'btn btn-primary btn-sm' if can? :create, Team.new(season: Season.current)
-  div.pull-right.dropdown.center-dropdown
-    button.dropdown-toggle.form-control  data-toggle="dropdown"
+  div.pull-right.dropdown.padding-dropdown
+    button.btn.btn-default.dropdown-toggle data-toggle="dropdown" aria-haspopup="true" 
       | Past Teams
       span.caret
     ul.dropdown-menu role="menu"
       - Season.all_years.each do |year|
-        li data-behaviour="switch-teams-year" value=year =year
+        li.dropdown-padding data-behaviour="switch-teams-year" value=year =year
 
 = render 'table', namespace: nil
+
+
+
+/ <!-- Single button -->
+/ <div class="btn-group">
+/   <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+/     Action <span class="caret"></span>
+/   </button>
+/   <ul class="dropdown-menu">
+/     <li><a href="#">Action</a></li>
+/     <li><a href="#">Another action</a></li>
+/     <li><a href="#">Something else here</a></li>
+/     <li role="separator" class="divider"></li>
+/     <li><a href="#">Separated link</a></li>
+/   </ul>
+/ </div>
