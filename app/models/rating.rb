@@ -1,10 +1,8 @@
-class Rating < ActiveRecord::Base
+class Rating < ApplicationRecord
+  belongs_to :application, required: true
+  belongs_to :user, required: true
 
   serialize :data
-
-  belongs_to :application
-  belongs_to :user
-  belongs_to :rateable, polymorphic: true
 
   FIELDS = ActiveSupport::HashWithIndifferentAccess.new({
     diversity:
@@ -110,30 +108,9 @@ class Rating < ActiveRecord::Base
 
   before_validation :set_data
 
-  validates :rateable, presence: true
-  validates :user_id, presence: true, uniqueness: { scope: [:rateable_type, :rateable_id] }
+  validates :user_id, uniqueness: { scope: :application_id }
 
-  class << self
-    def user_names
-      User.includes(:roles).where('roles.name = ?', 'reviewer').pluck(:name)
-    end
-
-    def excluding(names)
-      joins(:user).where('users.name NOT IN (?)', names)
-    end
-
-    def by(user)
-      where(user_id: user.id)
-    end
-
-    def for(type, id)
-      where(rateable_type: type, rateable_id: id)
-    end
-  end
-
-  def woman?
-    data[:is_woman] == 1
-  end
+  scope :by, -> (user) { where(user_id: user.id) }
 
   # public: The weighted sum of the points that the reviewer gave.
   def points

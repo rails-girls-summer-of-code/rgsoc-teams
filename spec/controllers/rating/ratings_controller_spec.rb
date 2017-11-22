@@ -20,14 +20,21 @@ describe Rating::RatingsController, type: :controller do
     context 'when reviewer' do
       let(:user) { create :reviewer }
       let!(:application) { create :application }
-      let(:params) { {rating: {rateable_id: application.id, rateable_type: 'Application', diversity: 5}} }
+      let(:params) do
+        {
+          rating: {
+            application_id: application.id,
+            diversity: 5
+          }
+        }
+      end
 
       before { sign_in user }
 
       it 'creates new rating record for application' do
         expect{
           post :create, params: params
-        }.to change{Rating.count}.by 1
+        }.to change{ Rating.count }.by 1
       end
 
       it 'sets rating attribute' do
@@ -52,8 +59,8 @@ describe Rating::RatingsController, type: :controller do
       before { sign_in user }
 
       context 'when user not author of rating' do
-        let!(:rating) { create :rating, :for_application, user: create(:user), rateable: application }
-        let(:params) { {id: rating, rating: { diversity: 5 }} }
+        let!(:rating) { create :rating, user: create(:user), application: application }
+        let(:params) { { id: rating, rating: { diversity: 5 } } }
 
         it 'raises RecordNotFound exception' do
           expect{
@@ -62,7 +69,7 @@ describe Rating::RatingsController, type: :controller do
         end
       end
       context 'when user author of rating' do
-        let!(:rating) { create :rating, :for_application, user: user, rateable: application }
+        let!(:rating) { create :rating, user: user, application: application }
         let(:params) { {id: rating, rating: { diversity: 5 }} }
 
         it 'updates rating data hash' do

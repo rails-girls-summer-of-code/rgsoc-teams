@@ -1,4 +1,4 @@
-class Role < ActiveRecord::Base
+class Role < ApplicationRecord
   include AASM
 
   TEAM_ROLES  = %w(student coach)
