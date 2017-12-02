@@ -7,9 +7,6 @@
       label.radio
         = radio_button_tag :role, role == 'all' ? '' : role, params[:role] == role
         = role.capitalize
-    h4 Coach availability
-    label.radio
-      = check_box_tag :availability
-      | Availability in the #{Season.current.name} season
+  = render partial: 'users/availability'
   = render partial: 'users/search'
   = render partial: 'users/location_search'
