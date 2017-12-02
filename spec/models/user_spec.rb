@@ -406,8 +406,8 @@ describe User do
   end
 
   describe '.reset_availability!' do
-    let!(:user) { FactoryGirl.create(:user, :available) }
-    let!(:user_interested_in_coaching) { FactoryGirl.create(:user, :available, :interested_in_coaching) }
+    let!(:user) { create(:user, :available) }
+    let!(:user_interested_in_coaching) { create(:user, :available, :interested_in_coaching) }
 
     before do
       User.reset_availability!
