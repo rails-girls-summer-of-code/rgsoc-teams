@@ -3,16 +3,16 @@ require 'spec_helper'
 RSpec.describe ProjectsController do
   render_views
 
-  let(:project) { FactoryGirl.create(:project) }
+  let(:project) { create(:project) }
 
   describe 'GET index' do
 
     context 'between seasons' do
       before { Timecop.travel Date.parse('2015-12-15') }
 
-      let!(:proposed) { FactoryGirl.create(:project, season: Season.succ, name: 'proposed project') }
-      let!(:accepted) { FactoryGirl.create(:project, :accepted, season: Season.succ, name: 'accepted project') }
-      let!(:rejected) { FactoryGirl.create(:project, :rejected, season: Season.succ, name: 'rejected project') }
+      let!(:proposed) { create(:project, season: Season.succ, name: 'proposed project') }
+      let!(:accepted) { create(:project, :accepted, season: Season.succ, name: 'accepted project') }
+      let!(:rejected) { create(:project, :rejected, season: Season.succ, name: 'rejected project') }
 
       it 'hides rejected projects' do
         get :index
@@ -26,10 +26,10 @@ RSpec.describe ProjectsController do
     context 'during active Season' do
       before { Timecop.travel Season.current.starts_at }
 
-      let!(:proposed) { FactoryGirl.create(:project, season: Season.succ, name: 'proposed project') }
-      let!(:selected) { FactoryGirl.create(:project, :accepted, :in_current_season, name: "selected by a team") }
-      let!(:no_team) { FactoryGirl.create(:project, :accepted, :in_current_season, name: "project without team") }
-      let!(:team) { FactoryGirl.create(:team, :in_current_season, project_name: selected.name) }
+      let!(:proposed) { create(:project, season: Season.succ, name: 'proposed project') }
+      let!(:selected) { create(:project, :accepted, :in_current_season, name: "selected by a team") }
+      let!(:no_team) { create(:project, :accepted, :in_current_season, name: "project without team") }
+      let!(:team) { create(:team, :in_current_season, project_name: selected.name) }
 
       it 'shows selected projects only' do
         get :index
@@ -84,10 +84,10 @@ RSpec.describe ProjectsController do
   end
 
   describe 'PATCH update' do
-    let!(:project) { FactoryGirl.create(:project, submitter: current_user) }
+    let!(:project) { create(:project, submitter: current_user) }
     context 'with user logged in' do
       include_context 'with user logged in'
-      let(:current_user) { FactoryGirl.create(:user) }
+      let(:current_user) { create(:user) }
 
       it 'creates a project and redirects to list' do
         patch :update, params: { id: project.to_param, project: { name: "This is an updated name!" } }
@@ -178,8 +178,8 @@ RSpec.describe ProjectsController do
   describe 'DELETE destroy' do
     context 'with user logged in' do
       include_context 'with user logged in'
-      let(:current_user) { FactoryGirl.create(:user) }
-      let!(:project) { FactoryGirl.create(:project, submitter: current_user) }
+      let(:current_user) { create(:user) }
+      let!(:project) { create(:project, submitter: current_user) }
 
       it 'deletes the project' do
         expect { delete :destroy, params: { id: project.to_param } }.to \

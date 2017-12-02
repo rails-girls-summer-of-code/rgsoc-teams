@@ -61,11 +61,11 @@ describe Recipients do
   describe '#users' do
     context 'when grouped' do
       let(:to) { %w(students) }
-      let!(:selected_team) { FactoryGirl.create(:team, kind: Team::KINDS.sample) }
-      let!(:selected_students) { FactoryGirl.create_list(:student, 2, team: selected_team) }
+      let!(:selected_team) { create(:team, kind: Team::KINDS.sample) }
+      let!(:selected_students) { create_list(:student, 2, team: selected_team) }
 
-      let!(:unselected_team) { FactoryGirl.create(:team, kind: nil) }
-      let!(:unselected_students) { FactoryGirl.create_list(:student, 2, team: unselected_team) }
+      let!(:unselected_team) { create(:team, kind: nil) }
+      let!(:unselected_students) { create_list(:student, 2, team: unselected_team) }
 
       context 'when group is selected_teams' do
         let(:group) { 'selected_teams' }
@@ -93,8 +93,8 @@ describe Recipients do
 
       context 'when to is just organizers' do
         let(:to) { %w(organizers) }
-        let!(:helpdesks) { FactoryGirl.create_list(:helpdesk, 2) }
-        let!(:organizers) { FactoryGirl.create_list(:organizer, 2 ) }
+        let!(:helpdesks) { create_list(:helpdesk, 2) }
+        let!(:organizers) { create_list(:organizer, 2 ) }
 
         it 'returns all organizers' do
           expect(subject.users).to match_array(organizers)
@@ -105,12 +105,12 @@ describe Recipients do
     context 'when seasons are selected' do
       let(:to) { %w(students) }
       let(:seasons) { %w(2015) }
-      let(:season_2015) { FactoryGirl.create(:season, name: '2015') }
-      let(:team) { FactoryGirl.create(:team, season: season_2015) }
-      let!(:students) { FactoryGirl.create_list(:student, 2, team: team) }
-      let!(:coaches) { FactoryGirl.create_list(:coach, 2, team: team) }
-      let!(:other_students) { FactoryGirl.create_list(:student, 2) }
-      let!(:organizers) { FactoryGirl.create_list(:organizer, 2 ) }
+      let(:season_2015) { create(:season, name: '2015') }
+      let(:team) { create(:team, season: season_2015) }
+      let!(:students) { create_list(:student, 2, team: team) }
+      let!(:coaches) { create_list(:coach, 2, team: team) }
+      let!(:other_students) { create_list(:student, 2) }
+      let!(:organizers) { create_list(:organizer, 2 ) }
 
       it 'only returns students that belong to the 2015 season' do
         expect(subject.users).to match_array(students)

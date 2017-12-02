@@ -1,4 +1,4 @@
-class Activity < ActiveRecord::Base
+class Activity < ApplicationRecord
   KINDS = %w(feed_entry mailing status_update)
 
   belongs_to :team

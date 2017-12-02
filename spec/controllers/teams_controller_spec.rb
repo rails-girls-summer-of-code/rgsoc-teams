@@ -6,8 +6,8 @@ RSpec.describe TeamsController do
 
   include_context 'with user logged in'
 
-  let(:user) { FactoryGirl.create(:user) }
-  let(:team) { FactoryGirl.create(:team) }
+  let(:user) { create(:user) }
+  let(:team) { create(:team) }
   let(:current_user) { user }
 
   let(:valid_attributes) { build(:team).attributes.merge(roles_attributes: [{ name: 'coach', github_handle: 'tobias' }]) }
@@ -80,7 +80,7 @@ RSpec.describe TeamsController do
   end
 
   describe "GET show" do
-    let!(:preference) { FactoryGirl.create :conference_preference, :student_preference, :with_terms_checked }
+    let!(:preference) { create :conference_preference, :student_preference, :with_terms_checked }
     let(:team) { preference.team }
 
     it "assigns the requested team as @team" do
@@ -105,7 +105,7 @@ RSpec.describe TeamsController do
 
   describe "GET edit" do
     context "their own team" do
-      let(:team) { FactoryGirl.create(:team) }
+      let(:team) { create(:team) }
 
       it "assigns the requested team as @team" do
         get :edit, params: { id: team.to_param }
@@ -115,7 +115,7 @@ RSpec.describe TeamsController do
     end
 
     context "someone else's team" do
-      let(:another_team) { FactoryGirl.create(:team) }
+      let(:another_team) { create(:team) }
 
       it "redirects to the homepage" do
         get :edit, params: { id: another_team.to_param }
@@ -150,9 +150,9 @@ RSpec.describe TeamsController do
       end
 
       context 'given the team is comprised of two students' do
-        let(:first_student) { FactoryGirl.create(:user) }
-        let(:second_student) { FactoryGirl.create(:user) }
-        let(:team) { FactoryGirl.create(:team) }
+        let(:first_student) { create(:user) }
+        let(:second_student) { create(:user) }
+        let(:team) { create(:team) }
         let(:current_user) { first_student }
 
         let(:valid_attributes) { build(:team).attributes.merge(roles_attributes: [{ name: 'student', github_handle: first_student.github_handle }, { name: 'student', github_handle: second_student.github_handle }]) }
@@ -169,7 +169,7 @@ RSpec.describe TeamsController do
     before { sign_in user }
 
     context "their own team" do
-      let(:team) { FactoryGirl.create(:team) }
+      let(:team) { create(:team) }
 
       describe "with valid params" do
         it "updates the requested team" do
@@ -215,8 +215,8 @@ RSpec.describe TeamsController do
         end
 
         context 'selecting the conference options' do
-          let(:conference_1) { FactoryGirl.create(:conference, :in_current_season)}
-          let(:conference_2) { FactoryGirl.create(:conference, :in_current_season)}
+          let(:conference_1) { create(:conference, :in_current_season)}
+          let(:conference_2) { create(:conference, :in_current_season)}
           let(:team_params) do
             build(:team).attributes.merge(conference_preference_attributes: {
               first_conference_id: conference_1.id,
@@ -252,7 +252,7 @@ RSpec.describe TeamsController do
       end
 
       context "another team" do
-        let(:another_team) { FactoryGirl.create(:team) }
+        let(:another_team) { create(:team) }
 
         it "does not update the requested team" do
           expect_any_instance_of(Team).not_to receive(:update_attributes)
@@ -284,7 +284,7 @@ RSpec.describe TeamsController do
     end
 
     context "another team's profile" do
-      let(:another_team) { FactoryGirl.create(:team) }
+      let(:another_team) { create(:team) }
       let(:params)       { { id: another_team.to_param } }
 
       it "doesn't destroy the requested team" do

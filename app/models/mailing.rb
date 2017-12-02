@@ -1,4 +1,4 @@
-class Mailing < ActiveRecord::Base
+class Mailing < ApplicationRecord
 
   TO = %w(teams students coaches helpdesk organizers supervisors developers mentors)
   FROM = ENV['EMAIL_FROM'] || 'contact@rgsoc.org'

@@ -2,10 +2,10 @@ require 'spec_helper'
 require 'selection/service/application_distribution'
 
 describe Selection::Service::ApplicationDistribution do
-  let!(:reviewers) { FactoryGirl.create_list(:reviewer, 4) }
-  let(:user) { FactoryGirl.create(:user) }
-  let(:project) { FactoryGirl.create(:project, :in_current_season, :accepted, submitter: user) }
-  let(:applications) { FactoryGirl.create_list(:application, 10, :in_current_season, :for_project, project1: project) }
+  let!(:reviewers) { create_list(:reviewer, 4) }
+  let(:user) { create(:user) }
+  let(:project) { create(:project, :in_current_season, :accepted, submitter: user) }
+  let(:applications) { create_list(:application, 10, :in_current_season, :for_project, project1: project) }
 
   before do
     Todo.destroy_all

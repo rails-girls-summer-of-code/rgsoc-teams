@@ -1,4 +1,4 @@
-class Team < ActiveRecord::Base
+class Team < ApplicationRecord
   include ProfilesHelper, HasSeason
 
   delegate :sponsored?, :voluntary?, to: :kind

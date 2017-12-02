@@ -32,7 +32,7 @@ RSpec.describe ConferencesController do
     end
 
     context 'student logged in' do
-      let!(:student) { FactoryGirl.create(:student) }
+      let!(:student) { create(:student) }
 
       before do
         sign_in student
@@ -64,7 +64,7 @@ RSpec.describe ConferencesController do
     end
 
     context 'with user logged in' do
-      let(:student) { FactoryGirl.create(:student) }
+      let(:student) { create(:student) }
       let(:conference_attrs) { attributes_for :conference }
 
       before do

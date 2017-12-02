@@ -3,8 +3,8 @@ require 'spec_helper'
 describe Supervisor::CommentsController do
   render_views
   let(:valid_attributes) { { "text" => FFaker::Lorem.paragraph } }
-  let(:user) { FactoryGirl.create(:user) }
-  let(:team) { FactoryGirl.create(:team) }
+  let(:user) { create(:user) }
+  let(:team) { create(:team) }
 
   describe 'POST create' do
     describe 'with valid params' do
@@ -60,7 +60,7 @@ describe Supervisor::CommentsController do
     end
 
     describe "with another team's supervisor" do
-      let(:anotherteam) { FactoryGirl.create(:team) }
+      let(:anotherteam) { create(:team) }
       let(:comment) { anotherteam.comments.last }
 
       before do

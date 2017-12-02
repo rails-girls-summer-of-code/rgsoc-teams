@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :conference, class: Conference do
     name { [FFaker::CheesyLingo.title, 'Conf'].join ' ' }
     url { FFaker::Internet.http_url }

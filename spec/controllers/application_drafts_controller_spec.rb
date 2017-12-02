@@ -21,7 +21,7 @@ RSpec.describe ApplicationDraftsController do
 
   context 'as a not confirmed user' do
     describe 'GET new' do
-      let(:user) { FactoryGirl.create(:user, confirmed_at: nil) }
+      let(:user) { create(:user, confirmed_at: nil) }
 
       before do
         allow(controller).to receive_messages(signed_in?: true)
@@ -36,7 +36,7 @@ RSpec.describe ApplicationDraftsController do
   end
 
   context 'as an authenticated user' do
-    let(:user) { FactoryGirl.create(:user) }
+    let(:user) { create(:user) }
 
     shared_examples_for 'application period is over' do
       it 'new renders applications_end template when over' do
@@ -54,8 +54,8 @@ RSpec.describe ApplicationDraftsController do
     end
 
     describe 'GET index' do
-      let!(:student_role) { FactoryGirl.create :student_role, user: user, team: team }
-      let!(:drafts) { FactoryGirl.create_list(:application_draft, 1, team: team) }
+      let!(:student_role) { create :student_role, user: user, team: team }
+      let!(:drafts) { create_list(:application_draft, 1, team: team) }
 
       it "redirects to the existing application draft's edit action" do
         get :index
@@ -210,12 +210,12 @@ RSpec.describe ApplicationDraftsController do
     end
 
     describe 'PUT apply' do
-      let(:team)  { FactoryGirl.create(:team, :applying_team, :in_current_season) }
-      let(:draft) { FactoryGirl.create(:application_draft, :appliable, team: team) }
+      let(:team)  { create(:team, :applying_team, :in_current_season) }
+      let(:draft) { create(:application_draft, :appliable, team: team) }
       let(:application) { Application.last }
 
       context 'as a student' do
-        let!(:student_role) { FactoryGirl.create(:student_role, user: user, team: team) }
+        let!(:student_role) { create(:student_role, user: user, team: team) }
 
         context 'coaches confirmed' do
           it 'creates a new application' do

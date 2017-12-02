@@ -1,7 +1,7 @@
 require "spec_helper"
 
 describe ApplicationFormMailer do
-  let(:application) { FactoryGirl.build_stubbed(:application) }
+  let(:application) { build_stubbed(:application) }
   subject { ApplicationFormMailer.new_application(application) }
 
   it 'has ENV["EMAIL_FROM"] as from' do

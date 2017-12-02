@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170918135346) do
+ActiveRecord::Schema.define(version: 20171112174323) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -195,10 +195,8 @@ ActiveRecord::Schema.define(version: 20170918135346) do
     t.datetime "updated_at"
     t.integer "user_id"
     t.boolean "pick"
-    t.integer "rateable_id"
-    t.string "rateable_type", limit: 255
     t.boolean "like"
-    t.index ["rateable_id", "rateable_type"], name: "index_ratings_on_rateable_id_and_rateable_type"
+    t.index ["application_id"], name: "index_ratings_on_application_id"
   end
 
   create_table "roles", id: :serial, force: :cascade do |t|

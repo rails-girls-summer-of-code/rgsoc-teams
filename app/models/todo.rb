@@ -2,13 +2,12 @@ class Todo < ApplicationRecord
   BLACK_FLAGS = %w(remote_team male_gender age_below_18 less_than_two_coaches zero_community)
   SIGN_OFFS   = %w(signed_off_at_project1 signed_off_at_project2)
 
-  belongs_to :user
-  belongs_to :application
+  belongs_to :user, required: true
+  belongs_to :application, required: true
 
-  delegate   :season, to: :application
-  delegate   :application_data, to: :application
+  delegate :application_data, :season, to: :application
 
-  validate :validate_number_of_reviewers
+  validate :validate_number_of_reviewers, if: :application
 
   def self.for_current_season
     includes(:user, application: [:team, :ratings, :season])
@@ -17,7 +16,7 @@ class Todo < ApplicationRecord
   end
 
   def rating
-    Rating.find_by(user: user, rateable_type: "Application", rateable_id: application)
+    Rating.find_by(user: user, application: application)
   end
 
   def eligible?
@@ -33,6 +32,6 @@ class Todo < ApplicationRecord
   end
 
   def validate_number_of_reviewers
-    errors.add(:user, "too many reviewers") if application.todos.size > 3
+    errors.add(:user, :too_many_reviewers) if application.todos.count > 3
   end
 end

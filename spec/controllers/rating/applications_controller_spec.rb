@@ -1,12 +1,12 @@
 require 'spec_helper'
 
-describe Rating::ApplicationsController do
+describe Rating::ApplicationsController, type: :controller do
   render_views
 
   describe 'GET index' do
     context 'as a non reviewer' do
       before do
-        sign_in FactoryGirl.create(:user)
+        sign_in create(:user)
         get :index
       end
 
@@ -16,9 +16,9 @@ describe Rating::ApplicationsController do
     end
 
     context 'as a reviewer' do
-      let(:applications) { FactoryGirl.build_list(:application, 3) }
+      let(:applications) { build_list(:application, 3) }
 
-      before { sign_in FactoryGirl.create(:reviewer) }
+      before { sign_in create(:reviewer) }
 
       it 'assigns an application table and renders the index view' do
         expect(Application).to receive(:rateable)
@@ -64,12 +64,12 @@ describe Rating::ApplicationsController do
   end
 
   describe 'GET show' do
-    let(:application) { FactoryGirl.create(:application) }
+    let(:application) { create(:application) }
 
     before do
       # create students for teams
-      FactoryGirl.create(:student, team: application.team)
-      FactoryGirl.create(:student, team: application.team)
+      create(:student, team: application.team)
+      create(:student, team: application.team)
     end
 
     it 'requires login' do
@@ -98,7 +98,7 @@ describe Rating::ApplicationsController do
 
         it 'assigns new @rating from user' do
           expect(assigns :rating).to be_a_new Rating
-          expect(assigns :rating).to have_attributes(user: user, rateable: application)
+          expect(assigns :rating).to have_attributes(user: user, application: application)
         end
 
         it 'renders rating/applications/show' do
@@ -107,7 +107,7 @@ describe Rating::ApplicationsController do
       end
 
       context 'when application already rated by user' do
-        let!(:rating) { create :rating, :for_application, user: user, rateable: application }
+        let!(:rating) { create :rating, user: user, application: application }
 
         it 'assigns existing @rating' do
           get :show, params: { id: application }

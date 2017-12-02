@@ -14,7 +14,7 @@ describe Conference do
   it { is_expected.to validate_presence_of(:region) }
 
   describe 'validates chronological dates' do
-    subject { FactoryGirl.build(:conference) }
+    subject { build(:conference) }
     let(:start_date) { subject.starts_on }
 
     it 'with an incorrect order of dates it raises an error' do
@@ -46,7 +46,7 @@ describe Conference do
   end
 
   describe '#date_range' do
-    subject { FactoryGirl.build_stubbed(:conference) }
+    subject { build_stubbed(:conference) }
 
     it 'has a date range' do
       expect(subject.date_range).to be_a(DateRange)
@@ -56,8 +56,8 @@ describe Conference do
   describe '#tickets_left' do
 
     context 'ticket value defined' do
-      let(:conference_preference) { FactoryGirl.build(:conference_preference, confirmed: true) }
-      subject { FactoryGirl.build_stubbed(:conference, tickets: 2) }
+      let(:conference_preference) { build(:conference_preference, confirmed: true) }
+      subject { build_stubbed(:conference, tickets: 2) }
 
       it 'subtracts conference preferences' do
         allow(subject).to receive(:conference_preference).and_return([conference_preference])
@@ -67,7 +67,7 @@ describe Conference do
     end
 
     context 'tickets value not defined' do
-      subject { FactoryGirl.build_stubbed(:conference, tickets: nil) }
+      subject { build_stubbed(:conference, tickets: nil) }
 
       it 'returns 0' do
         allow(subject).to receive(:conference_preference).and_return([])

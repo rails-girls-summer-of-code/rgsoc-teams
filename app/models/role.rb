@@ -1,4 +1,4 @@
-class Role < ActiveRecord::Base
+class Role < ApplicationRecord
   include AASM
 
   TEAM_ROLES  = %w(student coach)
@@ -20,7 +20,7 @@ class Role < ActiveRecord::Base
   validates :user_id, uniqueness: { scope: [:name, :team_id] }
 
   before_create :set_confirmation_token
-  after_commit :send_notification, on: :create, if: -> { GUIDE_ROLES.include?(name) }
+  after_commit :send_notification, on: :create
 
   after_create do |role|
     role.confirm! unless role.name == 'coach'

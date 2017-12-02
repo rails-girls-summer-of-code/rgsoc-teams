@@ -12,10 +12,10 @@ describe Rating::Table do
   end
 
   describe 'filtering and sorting' do
-    let(:blank)        { FactoryGirl.build(:application, id: 4) }
-    let(:less_coaches) { FactoryGirl.build(:application, id: 1, flags: ['less_than_two_coaches']) }
-    let(:remote)       { FactoryGirl.build(:application, id: 2, flags: ['remote_team']) }
-    let(:male)         { FactoryGirl.build(:application, id: 3, flags: ['male_gender']) }
+    let(:blank)        { build(:application, id: 4) }
+    let(:less_coaches) { build(:application, id: 1, flags: ['less_than_two_coaches']) }
+    let(:remote)       { build(:application, id: 2, flags: ['remote_team']) }
+    let(:male)         { build(:application, id: 3, flags: ['male_gender']) }
     let(:applications) { [blank, less_coaches, remote, male] }
 
     subject { described_class.new(applications: applications, options: options) }

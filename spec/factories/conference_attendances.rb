@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :conference_attendance do
     attendance false
     team

@@ -11,15 +11,15 @@ describe Rating::TodosController, type: :controller do
     end
 
     it 'requires reviewer role' do
-      sign_in FactoryGirl.create(:organizer)
+      sign_in create(:organizer)
       get :index
       expect(response).to redirect_to root_path
       expect(flash[:alert]).to be_present
     end
 
     context 'when reviewer' do
-      let(:user)  { FactoryGirl.create :reviewer }
-      let(:todos) { FactoryGirl.build_list(:todo, 10, user: user) }
+      let(:user)  { create :reviewer }
+      let(:todos) { build_list(:todo, 10, user: user) }
 
       before do
         sign_in user

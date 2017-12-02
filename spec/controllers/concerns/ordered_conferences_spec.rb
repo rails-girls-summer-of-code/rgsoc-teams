@@ -13,9 +13,9 @@ RSpec.describe OrderedConferences do
       end
     end
 
-    let!(:conference)        { FactoryGirl.create :conference, :in_current_season }
-    let!(:conference_europe) { FactoryGirl.create :conference_europe, :in_current_season }
-    let!(:conference_na)     { FactoryGirl.create :conference_na, :in_current_season }
+    let!(:conference)        { create :conference, :in_current_season }
+    let!(:conference_europe) { create :conference_europe, :in_current_season }
+    let!(:conference_na)     { create :conference_na, :in_current_season }
 
     it 'returns an ordered list of conferences' do
       expect(subject).to eq [conference, conference_europe, conference_na]
