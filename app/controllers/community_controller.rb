@@ -10,7 +10,7 @@ class CommunityController < ApplicationController
       organizing: 'Helping as an Organizer'
     }
 
-    @countries = User.pluck(:country)
+    @countries = User.pluck(:country).uniq
     @users = User.ordered(params[:sort], params[:direction])
         .group('users.id').with_all_associations_joined
     community = CommunityUsers.new(params.dup, @users)
