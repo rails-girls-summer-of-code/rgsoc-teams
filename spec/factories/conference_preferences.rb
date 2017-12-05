@@ -1,19 +1,16 @@
 FactoryBot.define do
   factory :conference_preference do
-    team { create(:team, :in_current_season) }
-    first_conference { create(:conference, :in_current_season) }
-    second_conference { create(:conference, :in_current_season) }
+    association :team, :in_current_season
+    association :first_conference, factory: :conference
+    association :second_conference, factory: :conference
+    terms_of_ticket true
+    terms_of_travel true
 
     trait :student_preference do
       after(:create) do |preference|
         preference.team.roles.create name: 'student', user: create(:user)
         preference
       end
-    end
-
-    trait :with_terms_checked do
-      terms_of_ticket '1'
-      terms_of_travel '1'
     end
   end
 end
