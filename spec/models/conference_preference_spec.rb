@@ -6,13 +6,12 @@ describe ConferencePreference do
   it { is_expected.to belong_to(:second_conference) }
 
   describe 'validates terms of ticket and terms of travel' do
-    let(:preference_without_terms) { build(:conference_preference) }
-    let(:preference_with_terms) { build(:conference_preference, :with_terms_checked)}
+    let(:terms_false)              { { terms_of_ticket: false, terms_of_travel: false } }
+    let(:preference_without_terms) { build(:conference_preference, **terms_false) }
+    let(:preference_with_terms)    { build(:conference_preference) }
 
     context 'when both terms are not checked' do
-      before do
-        preference_without_terms.validate
-      end
+      before { preference_without_terms.validate }
 
       it 'conference preferences is not valid' do
         expect(preference_without_terms).not_to be_valid
@@ -82,26 +81,30 @@ describe ConferencePreference do
     end
   end
 
-  describe '#terms accepted?' do
-    let(:conference_preference_with_terms) { build(:conference_preference, :with_terms_checked) }
-    let(:conference_preference_without_terms) { build(:conference_preference) }
+  describe '#terms_accepted?' do
+    let(:conference_preference) { build(:conference_preference) }
 
-    context 'when conference preference terms are accepted' do
-      it 'returns true' do
-        expect(conference_preference_with_terms).to be_terms_accepted
-      end
+    it 'returns true when both terms are accepted' do
+      conference_preference.terms_of_ticket = true
+      conference_preference.terms_of_travel = true
+      expect(conference_preference).to be_terms_accepted
     end
 
-    context 'when conference preference terms are not accepted' do
-      it 'returns false' do
-        expect(conference_preference_without_terms).not_to be_terms_accepted
-      end
+    it 'returns false when both terms are not accepted' do
+      conference_preference.terms_of_ticket = false
+      conference_preference.terms_of_travel = false
+      expect(conference_preference).not_to be_terms_accepted
+    end
+
+    it 'returns false when one term is not accepted' do
+      conference_preference.terms_of_ticket = true
+      conference_preference.terms_of_travel = false
+      expect(conference_preference).not_to be_terms_accepted
     end
   end
 
-
   describe '#has_preference?' do
-    let(:conference_preference) { build(:conference_preference, :with_terms_checked)}
+    let(:conference_preference) { build(:conference_preference) }
 
     context 'when conference preference has neither first or second choice set' do
       before do

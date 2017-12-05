@@ -41,7 +41,6 @@ RSpec.configure do |config|
 
   config.include ActiveJob::TestHelper
   config.include RSpecHtmlMatchers
-  config.extend ControllerMacros, type: :controller
 
   config.infer_spec_type_from_file_location!
 
