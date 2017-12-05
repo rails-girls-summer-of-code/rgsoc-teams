@@ -81,7 +81,7 @@ describe ConferencePreference do
     end
   end
 
-  describe '#terms accepted?' do
+  describe '#terms_accepted?' do
     let(:conference_preference) { build(:conference_preference) }
 
     it 'returns true when both terms are accepted' do
