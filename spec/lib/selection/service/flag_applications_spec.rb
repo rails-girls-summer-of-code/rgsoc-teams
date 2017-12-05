@@ -1,7 +1,7 @@
 require 'spec_helper'
 require 'selection/service/flag_applications'
 
-describe Selection::Service::FlagApplications do
+RSpec.describe Selection::Service::FlagApplications do
   let(:valid_data) do
     {
       'student0_application_location_lat':          '30.1279442',

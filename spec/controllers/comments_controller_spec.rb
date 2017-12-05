@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe CommentsController do
+RSpec.describe CommentsController, type: :controller do
   render_views
   let(:valid_attributes) { { "text" => FFaker::CheesyLingo.sentence } }
   let(:user) { create(:user) }

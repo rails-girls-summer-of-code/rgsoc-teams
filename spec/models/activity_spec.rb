@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Activity do
+RSpec.describe Activity, type: :model do
   it { is_expected.to belong_to(:team) }
 
   context 'with validations' do

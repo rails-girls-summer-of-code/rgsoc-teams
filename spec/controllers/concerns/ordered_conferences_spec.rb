@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-RSpec.describe OrderedConferences do
+RSpec.describe OrderedConferences, type: :controller do
   render_views
 
   describe '#index' do

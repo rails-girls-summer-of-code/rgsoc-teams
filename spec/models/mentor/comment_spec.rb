@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Mentor::Comment do
+RSpec.describe Mentor::Comment, type: :model do
   describe 'database' do
     it 'uses the Comment table under the hood' do
       comment         = described_class.create

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe CalendarController do
+RSpec.describe CalendarController, type: :controller do
   describe 'GET index' do
     before { get :index }
 

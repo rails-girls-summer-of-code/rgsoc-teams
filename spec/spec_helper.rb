@@ -34,6 +34,7 @@ Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
 ActiveRecord::Migration.maintain_test_schema!
 
 RSpec.configure do |config|
+  config.expose_dsl_globally = false # disable RSpec < 3 global monkey patching
   config.use_transactional_fixtures = false
   config.infer_base_class_for_anonymous_controllers = false
 
@@ -41,8 +42,6 @@ RSpec.configure do |config|
 
   config.include ActiveJob::TestHelper
   config.include RSpecHtmlMatchers
-
-  config.infer_spec_type_from_file_location!
 
   config.before(:suite) do
     WebMock.disable_net_connect!(

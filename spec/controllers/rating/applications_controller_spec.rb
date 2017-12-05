@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Rating::ApplicationsController, type: :controller do
+RSpec.describe Rating::ApplicationsController, type: :controller do
   render_views
 
   describe 'GET index' do

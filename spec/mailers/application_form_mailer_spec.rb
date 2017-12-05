@@ -1,6 +1,6 @@
 require "spec_helper"
 
-describe ApplicationFormMailer do
+RSpec.describe ApplicationFormMailer, type: :mailer do
   let(:application) { build_stubbed(:application) }
   subject { ApplicationFormMailer.new_application(application) }
 

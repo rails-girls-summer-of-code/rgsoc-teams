@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Source do
+RSpec.describe Source, type: :model do
   it { is_expected.to belong_to(:team) }
   it { is_expected.to validate_presence_of(:url) }
 

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Rating::RatingsController do
+RSpec.describe Rating::RatingsController, type: :routing do
   describe 'routing' do
     it 'does not route to #index' do
       expect(get 'rating/ratings').not_to be_routable

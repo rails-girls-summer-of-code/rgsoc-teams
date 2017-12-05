@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe MailingsController do
+RSpec.describe MailingsController, type: :controller do
   render_views
 
   let!(:mailing) { create(:mailing) }

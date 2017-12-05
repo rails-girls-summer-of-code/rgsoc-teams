@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe CityInput do
+RSpec.describe CityInput do
   include RSpec::Rails::HelperExampleGroup
 
   describe '#input' do

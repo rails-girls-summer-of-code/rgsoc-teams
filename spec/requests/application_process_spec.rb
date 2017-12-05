@@ -1,9 +1,7 @@
 require 'spec_helper'
 
-RSpec.describe 'The Application Process' do
-
+RSpec.describe 'The Application Process', type: :request do
   describe 'GET /apply' do
-
     context 'with student logged in' do
       let!(:user) { create :student }
       before { sign_in user }

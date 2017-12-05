@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-RSpec.describe ProjectMailer do
+RSpec.describe ProjectMailer, type: :mailer do
   let(:project) { build :project }
 
   describe '#proposal' do

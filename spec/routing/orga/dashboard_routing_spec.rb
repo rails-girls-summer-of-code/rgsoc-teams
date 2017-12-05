@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Orga::DashboardController do
+RSpec.describe Orga::DashboardController, type: :routing do
   describe 'routing' do
     it 'routes to #index' do
       expect(get 'orga/').to route_to 'orga/dashboard#index'

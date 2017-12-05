@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-RSpec.describe Orga::SeasonsController do
+RSpec.describe Orga::SeasonsController, type: :controller do
   render_views
 
   it_behaves_like 'redirects for non-admins'

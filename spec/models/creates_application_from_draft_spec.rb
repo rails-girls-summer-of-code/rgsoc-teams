@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-RSpec.describe CreatesApplicationFromDraft do
+RSpec.describe CreatesApplicationFromDraft, type: :model do
   let(:application_draft) { build :application_draft }
 
   subject { described_class.new application_draft }

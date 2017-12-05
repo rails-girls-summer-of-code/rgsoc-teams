@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-RSpec.describe UsersController do
+RSpec.describe UsersController, type: :controller do
   render_views
 
   let(:valid_attributes) { build(:user).attributes.except('github_id', 'avatar_url', *User.immutable_attributes.map(&:to_s)) }

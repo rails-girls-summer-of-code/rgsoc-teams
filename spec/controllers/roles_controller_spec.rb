@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-RSpec.describe RolesController do
+RSpec.describe RolesController, type: :controller do
   let(:user) { create(:user) }
   let(:valid_attributes) { build(:role, team: team).attributes }
 

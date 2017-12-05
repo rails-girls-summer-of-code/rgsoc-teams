@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Mailing do
+RSpec.describe Mailing, type: :model do
   let(:mailing) { Mailing.new(
     from: Mailing::FROM,
     to: 'coaches',

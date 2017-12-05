@@ -1,7 +1,7 @@
 require 'spec_helper'
 require 'selection/distance'
 
-describe Selection::Distance do
+RSpec.describe Selection::Distance do
   let(:from) { ['30.1279442', '31.3300184'] }
   let(:to)   { ['30.0444196', '31.2357116000001'] }
 

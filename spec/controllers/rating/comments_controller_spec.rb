@@ -1,7 +1,7 @@
 require 'spec_helper'
 require 'rating/comments_controller'
 
-describe Rating::CommentsController, type: :controller do
+RSpec.describe Rating::CommentsController, type: :controller do
   render_views
 
   let(:valid_attributes) { { text: FFaker::CheesyLingo.sentence } }

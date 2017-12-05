@@ -1,7 +1,7 @@
 require 'spec_helper'
 require 'selection/service/application_distribution'
 
-describe Selection::Service::ApplicationDistribution do
+RSpec.describe Selection::Service::ApplicationDistribution do
   let!(:reviewers) { create_list(:reviewer, 4) }
   let(:user) { create(:user) }
   let(:project) { create(:project, :in_current_season, :accepted, submitter: user) }

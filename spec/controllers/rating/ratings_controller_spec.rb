@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Rating::RatingsController, type: :controller do
+RSpec.describe Rating::RatingsController, type: :controller do
   render_views
 
   describe 'POST create' do

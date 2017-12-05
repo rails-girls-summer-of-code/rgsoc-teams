@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe ApplicationDraftsController do
+RSpec.describe ApplicationDraftsController, type: :routing do
   describe 'routing' do
     it 'does not route to #show' do
       expect(get 'application_drafts/:id').not_to be_routable

@@ -1,7 +1,7 @@
 require 'spec_helper'
 require 'cancan/matchers'
 
-describe Ability do
+RSpec.describe Ability, type: :model do
   subject { ability }
   let(:ability) { Ability.new(user) }
 

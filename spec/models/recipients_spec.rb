@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Recipients do
+RSpec.describe Recipients, type: :model do
   let(:mailing) do
     build :mailing,
           cc: 'cc@email.com',

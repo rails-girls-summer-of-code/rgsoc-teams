@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-RSpec.describe Role do
+RSpec.describe Role, type: :model do
   let(:user) { create(:user) }
   let(:team) { create(:team) }
 

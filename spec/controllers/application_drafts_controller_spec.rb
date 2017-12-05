@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-RSpec.describe ApplicationDraftsController do
+RSpec.describe ApplicationDraftsController, type: :controller do
   render_views
 
   let(:team) { create :team, :in_current_season }

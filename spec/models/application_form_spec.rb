@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-RSpec.describe ApplicationForm do
+RSpec.describe ApplicationForm, type: :model do
   let(:team) { build_stubbed :team }
   let(:user) { build_stubbed :user }
 
