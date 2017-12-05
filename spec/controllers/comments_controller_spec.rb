@@ -14,6 +14,8 @@ describe CommentsController do
     describe 'project comment' do
       let(:project) { create :project }
       let(:params) { { commentable_id: project.id, commentable_type: 'Project' } }
+      let(:comment) { Comment.last }
+      let(:anchor) { "comment_#{comment.id}"}
 
       context 'with valid params' do
         it 'creates a new Comment' do
@@ -24,9 +26,10 @@ describe CommentsController do
 
         it 'redirects to comment on project page' do
           post :create, params: { comment: params.merge(valid_attributes) }
-          expect(response).to redirect_to [project, anchor: 'comment_1']
+          expect(response).to redirect_to [project, anchor: anchor]
         end
       end
+
       context 'with invalid params (no text)' do
         it 'does not create new Comment' do
           expect {
