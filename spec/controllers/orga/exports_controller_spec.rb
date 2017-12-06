@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-RSpec.describe Orga::ExportsController do
+RSpec.describe Orga::ExportsController, type: :controller do
   render_views
 
   it_behaves_like 'redirects for non-admins'

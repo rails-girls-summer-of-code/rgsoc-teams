@@ -1,7 +1,6 @@
 require 'spec_helper'
 
-RSpec.describe Student do
-
+RSpec.describe Student, type: :model do
   let(:user) { build_stubbed(:user) }
 
   subject { described_class.new user }

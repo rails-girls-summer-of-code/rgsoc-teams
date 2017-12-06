@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe UrlHelper do
+RSpec.describe UrlHelper, type: :helper do
   describe 'normalize_url' do
     it 'keeps a nil value' do
       expect(Source.new(url: nil).url).to be_nil

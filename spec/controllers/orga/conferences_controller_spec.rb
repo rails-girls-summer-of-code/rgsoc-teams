@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-RSpec.describe Orga::ConferencesController do
+RSpec.describe Orga::ConferencesController, type: :controller do
   render_views
 
   it_behaves_like 'redirects for non-admins'

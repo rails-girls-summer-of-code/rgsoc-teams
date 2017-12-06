@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 require 'spec_helper'
 
-RSpec.describe ApplicationDraft do
+RSpec.describe ApplicationDraft, type: :model do
   it_behaves_like 'HasSeason'
 
   context 'with associations' do

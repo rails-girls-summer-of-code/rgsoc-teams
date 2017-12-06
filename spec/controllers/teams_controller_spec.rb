@@ -1,7 +1,7 @@
 require 'spec_helper'
 require 'cancan/matchers'
 
-RSpec.describe TeamsController do
+RSpec.describe TeamsController, type: :controller do
   render_views
 
   include_context 'with user logged in'

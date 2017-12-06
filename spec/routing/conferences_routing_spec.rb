@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe ConferencesController do
+RSpec.describe ConferencesController, type: :routing do
   describe 'routing' do
     it 'routes to #index' do
       expect(get('/conferences')).to route_to('conferences#index')

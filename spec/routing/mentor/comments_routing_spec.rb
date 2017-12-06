@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Mentor::CommentsController do
+RSpec.describe Mentor::CommentsController, type: :routing do
   describe 'routing' do
     it 'routes to #create' do
       expect(post '/mentor/comments').to route_to 'mentor/comments#create'

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Application, type: :model do
+RSpec.describe Application, type: :model do
   subject { build(:application) }
 
   it_behaves_like 'HasSeason'

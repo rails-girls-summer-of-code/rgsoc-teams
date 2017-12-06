@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe ConferencePreference do
+RSpec.describe ConferencePreference, type: :model do
   it { is_expected.to belong_to(:team) }
   it { is_expected.to belong_to(:first_conference) }
   it { is_expected.to belong_to(:second_conference) }

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-RSpec.describe Students::StatusUpdatesController do
+RSpec.describe Students::StatusUpdatesController, type: :controller do
   render_views
 
   it_behaves_like 'redirects for non-users'

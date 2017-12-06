@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe SourcesController do
+RSpec.describe SourcesController, type: :controller do
 
   let(:user)             { create(:user) }
   let(:team)             { create(:team) }

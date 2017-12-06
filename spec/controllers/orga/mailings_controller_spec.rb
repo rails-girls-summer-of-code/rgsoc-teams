@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Orga::MailingsController do
+RSpec.describe Orga::MailingsController, type: :controller do
   render_views
 
   it_behaves_like 'redirects for non-admins'

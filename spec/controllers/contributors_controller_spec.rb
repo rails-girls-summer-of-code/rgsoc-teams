@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe ContributorsController do
+RSpec.describe ContributorsController, type: :controller do
   render_views
 
   describe 'GET index' do

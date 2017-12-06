@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-RSpec.describe CommentMailer do
+RSpec.describe CommentMailer, type: :mailer do
   let(:team)    { build_stubbed :team }
   let(:comment) { build_stubbed :comment, commentable: team }
 

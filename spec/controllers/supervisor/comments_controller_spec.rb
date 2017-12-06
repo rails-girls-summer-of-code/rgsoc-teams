@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Supervisor::CommentsController do
+RSpec.describe Supervisor::CommentsController, type: :controller do
   render_views
   let(:valid_attributes) { { "text" => FFaker::Lorem.paragraph } }
   let(:user) { create(:user) }

@@ -1,7 +1,6 @@
 require 'spec_helper'
 
-RSpec.describe Project do
-
+RSpec.describe Project, type: :model do
   it_behaves_like 'HasSeason'
 
   context 'with associations' do

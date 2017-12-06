@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-RSpec.describe ConferencesController do
+RSpec.describe ConferencesController, type: :controller do
   render_views
 
   describe 'GET index' do

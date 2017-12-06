@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-RSpec.describe Orga::ProjectsController do
+RSpec.describe Orga::ProjectsController, type: :controller do
   render_views
 
   it_behaves_like 'redirects for non-admins'

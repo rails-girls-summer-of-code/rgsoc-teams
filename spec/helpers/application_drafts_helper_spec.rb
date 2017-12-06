@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-RSpec.describe ApplicationDraftsHelper do
+RSpec.describe ApplicationDraftsHelper, type: :helper do
 
   describe '#may_edit?' do
     let(:student_role) { create :student_role }

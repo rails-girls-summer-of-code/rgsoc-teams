@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-RSpec.describe TeamsHelper do
+RSpec.describe TeamsHelper, type: :helper do
 
   describe "#conference_exists?" do
     let(:conference_preference) { create :conference_preference }

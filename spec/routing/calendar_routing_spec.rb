@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe CalendarController do
+RSpec.describe CalendarController, type: :routing do
   describe 'routing' do
     it 'routes to #index' do
       expect(get('/calendar/index')).to route_to('calendar#index')

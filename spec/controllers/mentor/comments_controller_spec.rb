@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Mentor::CommentsController do
+RSpec.describe Mentor::CommentsController, type: :controller do
   render_views
 
   let(:user) { create(:user) }

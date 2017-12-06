@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-RSpec.describe Orga::TeamsController do
+RSpec.describe Orga::TeamsController, type: :controller do
   render_views
 
   let(:user) { create(:user) }

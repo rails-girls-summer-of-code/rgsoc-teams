@@ -1,7 +1,6 @@
 require 'spec_helper'
 
-RSpec.describe DateRange do
-
+RSpec.describe DateRange, type: :model do
   describe '#to_s' do
     let(:start_date) { Date.parse('2015-12-31') }
     let(:end_date)   { Date.parse('2015-12-31') }

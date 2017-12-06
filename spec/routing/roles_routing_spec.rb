@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe RolesController do
+RSpec.describe RolesController, type: :routing do
   describe 'routing' do
     it 'routes to #new' do
       expect(get('/teams/1/roles/new')).to route_to('roles#new', team_id: '1')
