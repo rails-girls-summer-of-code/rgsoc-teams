@@ -2,30 +2,7 @@ class ApplicationDraft < ApplicationRecord
   include HasSeason
   include AASM
   include FieldPopulators::StudentFields
-
-  # `heard_about_it` checkbox choices
-
-  DIRECT_OUTREACH_CHOICES = [
-    'RGSoC Blog',
-    'RGSoC Twitter',
-    'RGSoC Facebook',
-    'RGSoC Newsletter',
-    'RGSoC Organisers'
-  ]
-
-  PARTNER_CHOICES = [
-    'Past RGSoC participants',
-    'Another diversity initiative outreach',
-    'Study group / Workshop',
-    'Conference'
-  ]
-
-  OTHER_CHOICES = [
-    'Friends',
-    'Mass media'
-  ]
-
-  ALL_CHOICES = DIRECT_OUTREACH_CHOICES + PARTNER_CHOICES + OTHER_CHOICES
+  include FieldPopulators::HeardAboutItFields
 
   # FIXME
   STUDENT0_REQUIRED_FIELDS = Student::REQUIRED_DRAFT_FIELDS.map { |m| "student0_#{m}" }
