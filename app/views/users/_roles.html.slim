@@ -7,5 +7,6 @@
       label.radio
         = radio_button_tag :role, role == 'all' ? '' : role, params[:role] == role
         = role.capitalize
-
+  = render partial: 'users/availability'
   = render partial: 'users/search'
+  = render partial: 'users/location_search'

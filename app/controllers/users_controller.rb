@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy, :impersonate]
 
-  load_and_authorize_resource except: [:index, :show, :impersonate, :stop_impersonating]
+  load_and_authorize_resource except: [:index, :show, :impersonate, :stop_impersonating, :set_available]
 
   def show
   end
@@ -47,6 +47,10 @@ class UsersController < ApplicationController
         format.json { render json: @user.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  def set_available
+    current_user.update(availability: true)
   end
 
   def destroy
@@ -96,7 +100,7 @@ class UsersController < ApplicationController
       :name, :email, :homepage, :location, :bio,
       :tech_expertise_list, :tech_interest_list,
       :tshirt_size, :tshirt_cut, :postal_address, :timezone,
-      :country,
+      :country, :availability,
       :hide_email,
       :is_company, :company_name, :company_info,
       :application_about, :application_motivation, :application_gender_identification, :application_age,

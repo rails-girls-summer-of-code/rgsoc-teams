@@ -1,0 +1,10 @@
+= form_tag community_index_path, method: :get, id: "search-form", class: "form-inline" do |f|
+  .form-group
+    label
+      = check_box_tag(:availability, 1, params[:availability] == '1', class: "form-control")
+      | Coach availability in the next season
+  .form-group
+    = submit_tag "Go", class: "form-control btn btn-default"
+  - if params[:search].present?
+    .form-group
+    = link_to "Clear search results", community_index_path, class: "btn btn-default"

@@ -63,6 +63,14 @@ RSpec.describe User, type: :model do
 
   describe 'scopes' do
     context 'role scopes' do
+      roles_except_organizer = [
+        "mentor",
+        "reviewer",
+        "supervisor",
+        "coach",
+        "student"
+      ]
+
       describe '.organizer' do
         let!(:user) { create(:organizer) }
         let(:role)  { Role.find_by(name: 'organizer', user_id: user.id) }
@@ -76,29 +84,21 @@ RSpec.describe User, type: :model do
         end
       end
 
-      describe '.supervisor' do
-        let!(:user) { create(:supervisor) }
-        let(:role)  { Role.find_by(name: 'supervisor', user_id: user.id) }
+      roles_except_organizer.each do |role|
+        describe ".#{role}" do
 
-        it 'does not return admin role for user' do
-          expect(user.roles.admin).to be_empty
-        end
+          let!(:user) { create(role) }
+          let(:role_obj) { Role.find_by(name: role, user_id: user.id) }
 
-        it 'returns supervisor role for user' do
-          expect(user.roles.supervisor).to contain_exactly(role)
-        end
-      end
+          it 'does not return admin role for user' do
+            expect(user.roles.admin).to be_empty
+          end
 
-      describe '.reviewer' do
-        let!(:user) { create(:reviewer) }
-        let(:role)  { Role.find_by(name: 'reviewer', user_id: user.id) }
-
-        it 'does not return admin role for user' do
-          expect(user.roles.admin).to be_empty
-        end
-
-        it 'returns reviewer role for user' do
-          expect(user.roles.reviewer).to contain_exactly(role)
+          it "returns #{role} role for user" do
+            expect(
+                user.roles.send("#{role}")
+              ).to contain_exactly(role_obj)
+          end
         end
       end
     end
@@ -123,6 +123,20 @@ RSpec.describe User, type: :model do
         it 'returns users matching one out of many interests' do
           user.update interested_in: %w(coaches pairs helpdesk)
           expect(User.with_interest('helpdesk')).to contain_exactly(user)
+        end
+      end
+
+      describe '.with_location' do
+        it 'returns users matching one out of many location' do
+          user.update country: 'Brazil'
+          expect(User.with_location('Brazil')).to contain_exactly(user)
+        end
+      end
+
+      describe '.as_coach_available' do
+        it 'return coaches users with availabilities' do
+          coach.update availability: true
+          expect(User.as_coach_available).to contain_exactly(coach)
         end
       end
 
@@ -388,6 +402,27 @@ RSpec.describe User, type: :model do
     end
     it 'returns all when search string is empty' do
       expect(User.search("").count).to be == 3
+    end
+  end
+
+  describe '.reset_availability!' do
+    let!(:user) { create(:user, :available) }
+    let!(:user_interested_in_coaching) { create(:user, :available, :interested_in_coaching) }
+
+    before do
+      User.reset_availability!
+    end
+
+    context 'for users interested in coaching' do
+      it 'returns false for availability' do
+        expect(user_interested_in_coaching.reload.availability).to eql false
+      end
+    end
+
+    context 'for users not interested in coaching' do
+      it 'returns true for availability' do
+        expect(user.reload.availability).to eql true
+      end
     end
   end
 

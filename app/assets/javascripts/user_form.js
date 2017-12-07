@@ -7,6 +7,23 @@ $(function () {
      $('.form-group.user_company_info').toggle(this.checked);
   }).change(); //ensure visible state matches initially
 
+
+   //update coach availability
+
+   $(function () {
+      var $update_availability = $('[data-behavior="update_availability"]');
+      $update_availability.on('click',function(){
+        var url = $(this).data("url");
+        updateAvailability(url);
+      });
+    });
+
+   function updateAvailability(url) {
+      $.ajax({
+        method: 'PUT',
+        url: url
+      });
+    }
 });
 
 

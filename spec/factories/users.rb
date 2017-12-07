@@ -9,6 +9,14 @@ FactoryBot.define do
     homepage { FFaker::Internet.http_url }
     confirmed_at { Date.yesterday }
 
+    trait :available do
+      availability true
+    end
+
+    trait :interested_in_coaching do
+      interested_in ['coaching']
+    end
+
     factory :coach do
       transient { team { create(:team) } }
 

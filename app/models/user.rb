@@ -60,6 +60,15 @@ class User < ApplicationRecord
     "over 60",
   ]
 
+  ROLES = [
+    "mentor",
+    "organizer",
+    "reviewer",
+    "supervisor",
+    "coach",
+    "student"
+  ]
+
   include ActiveModel::ForbiddenAttributesProtection
   include Authentication::ActiveRecordHelpers
   include ProfilesHelper
@@ -71,26 +80,13 @@ class User < ApplicationRecord
       where(name: Role::ADMIN_ROLES)
     end
 
-    def mentor
-      where(name: 'mentor')
-    end
-
-    def organizer
-      where(name: 'organizer')
-    end
-
-    def reviewer
-      where(name: 'reviewer')
-    end
-
-    def supervisor
-      where(name: 'supervisor')
-    end
-
-    def student
-      where(name: 'student')
+    ROLES.each do |role|
+      define_method role do  # def mentor
+        where(name: role)    #   where(name: "mentor")
+      end                    # end
     end
   end
+
   has_many :teams, -> { distinct }, through: :roles
   has_many :application_drafts, through: :teams
   has_many :applications, through: :teams
@@ -111,6 +107,8 @@ class User < ApplicationRecord
   # a preliminary user, e.g. when adding a non existant person
   # to a team using the github handle.
   attr_reader :github_import
+
+  scope :as_coach_available, -> { where(availability: true) }
 
   # This informs devise that this user does not
   # need a confirmation notification for now
@@ -159,8 +157,16 @@ class User < ApplicationRecord
       where(":interest = ANY(interested_in)", interest: interest)
     end
 
+    def with_location(location)
+      where(country: location)
+    end
+
     def immutable_attributes
       [:github_handle]
+    end
+
+    def reset_availability!
+      with_interest('coaching').update_all(availability: false)
     end
   end # class << self
 
@@ -196,8 +202,16 @@ class User < ApplicationRecord
     roles.supervisor.any?
   end
 
+  def coach?
+    roles.coach.any?
+  end
+
   def student?
     roles.student.any?
+  end
+
+  def interested_in_coaching?
+    interested_in.include?("coaching")
   end
 
   def current_student?

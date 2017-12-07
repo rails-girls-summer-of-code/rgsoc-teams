@@ -36,3 +36,8 @@ table.table.table-striped.table-bordered.table-condensed.table-hover
         td = user.tshirt_size
         td = user.tshirt_cut
         td = simple_format user.postal_address
+
+.page-header
+  h2 Reset Coach Availability
+  = form_tag orga_community_reset_user_availability_path, method: :put do |f|
+    = submit_tag "Reset Availability", class: 'btn btn-sm btn-warning', data: { confirm: 'This action cannot be undone. Are you sure?' }

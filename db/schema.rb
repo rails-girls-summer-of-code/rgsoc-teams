@@ -321,6 +321,7 @@ ActiveRecord::Schema.define(version: 20171112174323) do
     t.datetime "confirmation_sent_at"
     t.string "unconfirmed_email"
     t.string "tshirt_cut"
+    t.boolean "availability", default: false
     t.text "tech_expertise", default: [], array: true
     t.text "tech_interest", default: [], array: true
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
