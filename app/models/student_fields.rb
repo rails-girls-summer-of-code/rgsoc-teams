@@ -1,4 +1,4 @@
- module StudentFields
+module StudentFields
   AGE = %w[
     under\ 18
     18-21
