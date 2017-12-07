@@ -1,7 +1,7 @@
 class ApplicationDraft < ApplicationRecord
   include HasSeason
-
   include AASM
+  include FieldPopulators::StudentFields
 
   # `heard_about_it` checkbox choices
 
