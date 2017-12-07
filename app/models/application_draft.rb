@@ -1,8 +1,63 @@
 class ApplicationDraft < ApplicationRecord
   include HasSeason
   include AASM
-  include FieldPopulators::StudentFields
-  include FieldPopulators::HeardAboutItFields
+
+  # student fields
+  AGE = %w[
+    under\ 18
+    18-21
+    22-30
+    31-40
+    41-50
+    51-60
+    over\ 60
+  ].freeze
+
+  GENDER_LIST = %w[
+    Agender
+    Bigender
+    Cisgender\ Woman
+    Gender\ Fluid
+    Gender\ Nonconforming
+    Gender\ Questioning
+    Genderqueer
+    Non-binary
+    Female
+    Transgender\ Woman
+  ].freeze
+
+  MONTHS_LEARNING = %w[
+    1-3
+    4-6
+    7-9
+    10-12
+    13-24
+    24+
+    N/A
+  ].freeze
+
+  # 'heard about' checkboxes
+  DIRECT_OUTREACH_CHOICES = %w[
+    RGSoC\ Blog
+    RGSoC\ Twitter
+    RGSoC\ Facebook
+    RGSoC\ Newsletter
+    RGSoC\ Organisers
+    ].freeze
+
+  PARTNER_CHOICES = %w[
+    Past\ RGSoC participants
+    Another\ diversity\ initiative\ outreach
+    Study\ group\ or\ Workshop
+    Conference
+    ].freeze
+
+  OTHER_CHOICES = %w[
+    Friends
+    Mass\ media
+    ].freeze
+
+  ALL_CHOICES = DIRECT_OUTREACH_CHOICES + PARTNER_CHOICES + OTHER_CHOICES
 
   # FIXME
   STUDENT0_REQUIRED_FIELDS = Student::REQUIRED_DRAFT_FIELDS.map { |m| "student0_#{m}" }
