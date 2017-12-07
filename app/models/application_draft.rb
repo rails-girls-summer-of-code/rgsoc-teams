@@ -1,29 +1,61 @@
 class ApplicationDraft < ApplicationRecord
   include HasSeason
-
   include AASM
 
-  # `heard_about_it` checkbox choices
+  # student fields
+  AGE = %w[
+    under\ 18
+    18-21
+    22-30
+    31-40
+    41-50
+    51-60
+    over\ 60
+  ].freeze
 
-  DIRECT_OUTREACH_CHOICES = [
-    'RGSoC Blog',
-    'RGSoC Twitter',
-    'RGSoC Facebook',
-    'RGSoC Newsletter',
-    'RGSoC Organisers'
-  ]
+  GENDER_LIST = %w[
+    Agender
+    Bigender
+    Cisgender\ Woman
+    Gender\ Fluid
+    Gender\ Nonconforming
+    Gender\ Questioning
+    Genderqueer
+    Non-binary
+    Female
+    Transgender\ Woman
+  ].freeze
 
-  PARTNER_CHOICES = [
-    'Past RGSoC participants',
-    'Another diversity initiative outreach',
-    'Study group / Workshop',
-    'Conference'
-  ]
+  MONTHS_LEARNING = %w[
+    1-3
+    4-6
+    7-9
+    10-12
+    13-24
+    24+
+    N/A
+  ].freeze
 
-  OTHER_CHOICES = [
-    'Friends',
-    'Mass media'
-  ]
+  # 'heard about' checkboxes
+  DIRECT_OUTREACH_CHOICES = %w[
+    RGSoC\ Blog
+    RGSoC\ Twitter
+    RGSoC\ Facebook
+    RGSoC\ Newsletter
+    RGSoC\ Organisers
+    ].freeze
+
+  PARTNER_CHOICES = %w[
+    Past\ RGSoC participants
+    Another\ diversity\ initiative\ outreach
+    Study\ group\ or\ Workshop
+    Conference
+    ].freeze
+
+  OTHER_CHOICES = %w[
+    Friends
+    Mass\ media
+    ].freeze
 
   ALL_CHOICES = DIRECT_OUTREACH_CHOICES + PARTNER_CHOICES + OTHER_CHOICES
 

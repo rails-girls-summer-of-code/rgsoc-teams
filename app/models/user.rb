@@ -6,19 +6,6 @@ class User < ApplicationRecord
   TSHIRT_CUTS = %w(Straight Fitted)
   URL_PREFIX_PATTERN = /\A(http|https).*\z/i
 
-  GENDER_LIST = [
-    "Agender",
-    "Bigender",
-    "Cisgender Woman",
-    "Gender Fluid",
-    "Gender Nonconforming",
-    "Gender Questioning",
-    "Genderqueer",
-    "Non-binary",
-    "Female",
-    "Transgender Woman"
-  ]
-
   ORDERS = {
     name:           "LOWER(users.name)",
     team:           "teams.name",
@@ -39,26 +26,6 @@ class User < ApplicationRecord
     'organizing'      => 'Helping as an organizer',
     'coachingcompany' => 'Providing a coaching team from our company',
   }
-
-  MONTHS_LEARNING = [
-    "1-3",
-    "4-6",
-    "7-9",
-    "10-12",
-    "13-24",
-    "24+",
-    "N/A",
-  ]
-
-  AGE = [
-    "under 18",
-    "18-21",
-    "22-30",
-    "31-40",
-    "41-50",
-    "51-60",
-    "over 60",
-  ]
 
   include ActiveModel::ForbiddenAttributesProtection
   include Authentication::ActiveRecordHelpers

@@ -33,7 +33,7 @@ FactoryBot.define do
         application_coding_level { (1..5).to_a.sample }
         application_community_engagement { FFaker::Lorem.paragraph }
         application_giving_back { FFaker::Lorem.paragraph }
-        application_language_learning_period { User::MONTHS_LEARNING.sample }
+        application_language_learning_period { ApplicationDraft::MONTHS_LEARNING.sample }
         application_learning_history { FFaker::Lorem.paragraph }
         application_skills { FFaker::Lorem.paragraph }
         application_code_samples { FFaker::Lorem.paragraph }
