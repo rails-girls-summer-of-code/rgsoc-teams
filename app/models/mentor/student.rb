@@ -1,6 +1,7 @@
 module Mentor
   class Student
     include ActiveModel::Model
+    include FieldPopulators::SkillLevelFields
 
     APPLICATION_KEYS = [
       '_application_coding_level',
