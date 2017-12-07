@@ -40,7 +40,7 @@
   p.help-block For each level, assume that the guidelines of the level(s) below it are also true, meaning that if you see yourself as a Level 2, you should be able to do most of Level 1, too.
   div class="#{student_field_error_class(index, application_draft, :application_coding_level)}"
     .form-inline
-      - ApplicationDraft::LEVEL_MATRIX.each do |level, explanations|
+      - SkillLevel.each do |level, explanations|
         .radio
           = s.radio_button :application_coding_level, level, disabled: !may_edit?(s.object)
         label

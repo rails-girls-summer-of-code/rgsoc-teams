@@ -3,7 +3,6 @@ class ApplicationDraft < ApplicationRecord
   include AASM
   include FieldPopulators::StudentFields
   include FieldPopulators::HeardAboutItFields
-  include FieldPopulators::SkillLevelFields
 
   # FIXME
   STUDENT0_REQUIRED_FIELDS = Student::REQUIRED_DRAFT_FIELDS.map { |m| "student0_#{m}" }

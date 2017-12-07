@@ -1,6 +1,6 @@
 div.panel.panel-default
   div.panel-heading #{ApplicationDraft.human_attribute_name :student_application_coding_level }
-  div.panel-body #{ApplicationDraft::LEVEL_MATRIX[student.coding_level].join('<br>').html_safe}
+  div.panel-body #{SkillLevel::MATRIX[student.coding_level].join('<br>').html_safe}
 
 div.panel.panel-default
   div.panel-heading #{ApplicationDraft.human_attribute_name :student_application_code_samples }
