@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class Mailing < ApplicationRecord
 
   TO = %w(teams students coaches helpdesk organizers supervisors developers mentors)

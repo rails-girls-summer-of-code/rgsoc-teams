@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class Mentor::CommentsController < Mentor::BaseController
   def create
     comment = Mentor::Comment.create(create_params)

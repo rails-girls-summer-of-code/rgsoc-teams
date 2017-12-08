@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class Conf
   attr_reader :name, :tickets, :flights
   attr_accessor :popularity

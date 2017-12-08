@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class Submission < ApplicationRecord
   class << self
     def unsent

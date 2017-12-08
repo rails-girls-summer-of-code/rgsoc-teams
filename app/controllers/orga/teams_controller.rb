@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class Orga::TeamsController < Orga::BaseController
   before_action :find_resource, only: [:show, :edit, :update, :destroy]
 

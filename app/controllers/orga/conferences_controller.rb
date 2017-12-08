@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class Orga::ConferencesController < Orga::BaseController
   before_action :find_conference, only: [:show, :destroy]
   before_action :ensure_file_was_posted, only: :import

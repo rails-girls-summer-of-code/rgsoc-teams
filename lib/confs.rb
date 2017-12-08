@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # To run this script pass a filename as ARGV[0], as in
 #
 #   $ ruby -Ilib lib/confs.rb path/to/data.rb

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module RatingsHelper
   def field_tooltip(key)
     key = key.to_s

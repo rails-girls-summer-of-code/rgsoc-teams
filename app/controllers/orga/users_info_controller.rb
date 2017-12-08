@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class Orga::UsersInfoController < Orga::BaseController
   before_action :normalize_params, only: :index
 

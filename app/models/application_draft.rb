@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class ApplicationDraft < ApplicationRecord
   include HasSeason
   include AASM

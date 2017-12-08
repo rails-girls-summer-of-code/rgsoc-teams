@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class Rating::Table
   DEFAULT_OPTS = { hide_flags: [] }
   FLAGS        = %i(remote_team

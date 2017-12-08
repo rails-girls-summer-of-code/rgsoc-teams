@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class Rating < ApplicationRecord
   belongs_to :application, required: true
   belongs_to :user, required: true

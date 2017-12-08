@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class Mentor::ApplicationsController < Mentor::BaseController
   before_action :application, only: [:show, :signoff, :fav]
 

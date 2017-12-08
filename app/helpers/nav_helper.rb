@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module NavHelper
   SOC_CONTROLLER = %w(conferences projects applications application_drafts teams users)
 

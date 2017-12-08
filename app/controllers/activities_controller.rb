@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class ActivitiesController < ApplicationController
   before_action :normalize_params, only: :index
   before_action :cors_preflight, only: :index
