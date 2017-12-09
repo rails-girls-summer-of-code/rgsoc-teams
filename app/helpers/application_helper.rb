@@ -64,24 +64,6 @@ module ApplicationHelper
   end
 
   # Conferences
-
-  def format_conference_scholarships(tickets, flights, accomodation)
-    result = "#{tickets} #{tickets == 1 ? 'ticket' : 'tickets'}"
-    if flights && accomodation
-      result << ", #{flights} #{flights == 1 ? 'flight' : 'flights'}/hotel"
-    elsif flights
-      result << ", #{flights} #{flights == 1 ? 'flight' : 'flights'}"
-    elsif accomodation
-      result << ", #{accomodation}x hotel"
-    end
-    result
-  end
-
-  def conference_tweet_link(conference)
-    tweet = "I really want to go to #{conference.name} this year! #{conference.twitter} @Railsgirlssoc"
-    "https://twitter.com/intent/tweet?text=#{URI.escape(tweet)}"
-  end
-
   def format_conference_twitter(twitter)
     twitter.to_s.starts_with?('@') ? link_to(twitter, "http://twitter.com/#{twitter.gsub('@', '')}") : twitter
   end
@@ -94,7 +76,6 @@ module ApplicationHelper
       link_to("#{conference.name} (#{details})", conference)
     end
   end
-
   # end Conferences
 
   def if_present?(user, *attrs)
