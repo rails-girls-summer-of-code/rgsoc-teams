@@ -108,11 +108,11 @@ class ApplicationDraft < ApplicationRecord
   end
 
   def respond_to_missing?(method, *)
-    StudentAttributeProxy.new(method, self).matches? || super
+    StudentApplication::StudentAttributeProxy.new(method, self).matches? || super
   end
 
   def method_missing(method, *args, &block)
-    student_proxy = StudentAttributeProxy.new(method, self)
+    student_proxy = StudentApplication::StudentAttributeProxy.new(method, self)
     if student_proxy.matches?
       student_proxy.attribute(*args)
     else
