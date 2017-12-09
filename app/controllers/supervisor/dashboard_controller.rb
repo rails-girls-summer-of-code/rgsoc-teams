@@ -1,3 +1,5 @@
 # frozen_string_literal: true
-class Supervisor::DashboardController < Supervisor::BaseController
+module Supervisor
+  class DashboardController < Supervisor::BaseController
+  end
 end
