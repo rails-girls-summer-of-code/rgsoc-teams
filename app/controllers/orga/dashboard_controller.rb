@@ -1,3 +1,5 @@
 # frozen_string_literal: true
-class Orga::DashboardController < Orga::BaseController
+module Orga
+  class DashboardController < Orga::BaseController
+  end
 end
