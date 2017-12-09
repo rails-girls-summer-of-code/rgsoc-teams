@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class Activity < ApplicationRecord
   KINDS = %w(feed_entry mailing status_update)
 

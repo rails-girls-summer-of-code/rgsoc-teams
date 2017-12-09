@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module ProfilesHelper
   def github_handle=(handle)
     super(normalize_handle(handle))

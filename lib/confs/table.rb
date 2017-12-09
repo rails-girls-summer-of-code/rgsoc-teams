@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class Table
   class Row
     attr_reader :table, :cells

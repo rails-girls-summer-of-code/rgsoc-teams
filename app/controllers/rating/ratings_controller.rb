@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class Rating::RatingsController < Rating::BaseController
   # In order to get the rating data persisted, FIRST create the rating record,
   # then update it to actually set the values.

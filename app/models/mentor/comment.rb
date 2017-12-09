@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module Mentor
   class Comment < ApplicationRecord
     self.table_name = 'comments'

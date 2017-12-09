@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class Orga::BaseController < ApplicationController
   before_action :must_be_admin
   before_action :set_breadcrumbs

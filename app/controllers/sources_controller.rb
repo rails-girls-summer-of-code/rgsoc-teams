@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class SourcesController < ApplicationController
   before_action :cors_preflight, only: :index
   after_action  :cors_set_headers, only: :index

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class Feed
   class S3
     attr_reader :s3, :url, :logger

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class ApplicationDraftsController < ApplicationController
 
   before_action :checktime, only: [:new, :create, :update]

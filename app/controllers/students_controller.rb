@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class StudentsController < ApplicationController
   after_action :cors_set_headers, only: :index
 

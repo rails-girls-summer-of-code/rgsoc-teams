@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module Mentor
   class Application
     include ActiveModel::Model

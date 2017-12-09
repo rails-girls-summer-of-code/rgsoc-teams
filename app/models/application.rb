@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class Application < ApplicationRecord
   include HasSeason, Rateable
 

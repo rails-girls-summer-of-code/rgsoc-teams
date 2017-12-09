@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class ConferencePreference < ApplicationRecord
   validates :terms_of_ticket, inclusion: { in: [true] }, if: :conference_exists?
   validates :terms_of_travel, inclusion: { in: [true] }, if: :conference_exists?

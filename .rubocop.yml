@@ -146,13 +146,12 @@ Style/Encoding:
   StyleGuide: "#utf-8"
   Enabled: true
 
-# TODO
 Style/FrozenStringLiteralComment:
   Description: "Add frozen_string_literal comment to the top of files"
   Include:
   - "app/**/*.rb"
   - "lib/**/*.rb"
-  Enabled: false
+  Enabled: true
 
 Style/HashSyntax:
   Description: "Prefer Ruby 1.9 hash syntax { a: 1, b: 2 } over 1.8 syntax { :a => 1, :b => 2}"

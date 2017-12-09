@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class Supervisor::CommentsController < Supervisor::BaseController
 
   def index

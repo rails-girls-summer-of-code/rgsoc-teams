@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class Todo < ApplicationRecord
   BLACK_FLAGS = %w(remote_team male_gender age_below_18 less_than_two_coaches zero_community)
   SIGN_OFFS   = %w(signed_off_at_project1 signed_off_at_project2)

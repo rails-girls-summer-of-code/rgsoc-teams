@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class RolesController < ApplicationController
   before_action :set_team, except: [:confirm]
   before_action :set_role, except: [:confirm, :index, :show]

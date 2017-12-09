@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class Supervisor::NotesController < Supervisor::BaseController
 
   def update

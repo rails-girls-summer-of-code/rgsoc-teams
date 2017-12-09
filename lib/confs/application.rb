@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class Application
   attr_reader :team, :name, :conf
   attr_accessor :flight

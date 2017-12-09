@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module ApplicationsHelper
   def show_or_na(value)
     value.presence || 'n/a'
