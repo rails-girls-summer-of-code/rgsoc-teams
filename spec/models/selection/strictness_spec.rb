@@ -1,7 +1,6 @@
 require 'spec_helper'
 
-RSpec.describe Rating::Strictness, type: :model do
-
+RSpec.describe Selection::Strictness, type: :model do
   describe '#adjusted_points_for_applications' do
     subject { described_class.new.adjusted_points_for_applications }
 

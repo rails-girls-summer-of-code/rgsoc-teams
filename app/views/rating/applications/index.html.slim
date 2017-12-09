@@ -6,7 +6,7 @@ p
   small You can download this table as a CSV file (filtering and ordering will be the same - see button at the bottom of the table).
 
 form id='applications-filter' class='filter' action=request.url
-  - Rating::Table::FLAGS.each do |flag|
+  - Selection::Table::FLAGS.each do |flag|
     label
       = hidden_field_tag "filter[#{flag}]", false
       = check_box_tag "filter[#{flag}]", true, session[flag]

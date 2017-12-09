@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-RSpec.describe Rating::Table, type: :model do
+RSpec.describe Selection::Table, type: :model do
   describe 'attributes' do
     let(:applications) { build_list(:application, 3) }
 

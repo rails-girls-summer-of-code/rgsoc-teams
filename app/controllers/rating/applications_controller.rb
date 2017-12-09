@@ -15,7 +15,7 @@ class Rating::ApplicationsController < Rating::BaseController
 
   def index
     @table = applications_table
-    @strictness = Rating::Strictness.in_current_season
+    @strictness = Selection::Strictness.in_current_season
     respond_to do |format|
       format.html
       format.csv do
@@ -62,7 +62,7 @@ class Rating::ApplicationsController < Rating::BaseController
   end
 
   def store_filters
-    Rating::Table::FLAGS.each do |key|
+    Selection::Table::FLAGS.each do |key|
       session[key] = params[:filter][key] == 'true' if params.dig(:filter, key)
     end
   end
@@ -74,8 +74,8 @@ class Rating::ApplicationsController < Rating::BaseController
   def applications_table
     options = {
       order:      session[:order],
-      hide_flags: Rating::Table::FLAGS.select { |f| session[f] }
+      hide_flags: Selection::Table::FLAGS.select { |f| session[f] }
     }
-    Rating::Table.new(applications: Application.rateable, options: options)
+    Selection::Table.new(applications: Application.rateable, options: options)
   end
 end

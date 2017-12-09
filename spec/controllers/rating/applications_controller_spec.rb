@@ -27,7 +27,7 @@ RSpec.describe Rating::ApplicationsController, type: :controller do
 
         get :index
 
-        expect(assigns :table).to be_a Rating::Table
+        expect(assigns :table).to be_a Selection::Table
         expect(response).to render_template :index
       end
 
@@ -38,7 +38,7 @@ RSpec.describe Rating::ApplicationsController, type: :controller do
           expect(Application).to receive(:rateable)
             .with(no_args)
             .and_return(applications)
-          expect(Rating::Table).to receive(:new)
+          expect(Selection::Table).to receive(:new)
             .with(applications: applications, options: options)
             .and_call_original
 
@@ -52,7 +52,7 @@ RSpec.describe Rating::ApplicationsController, type: :controller do
           expect(Application).to receive(:rateable)
             .with(no_args)
             .and_return(applications)
-          expect(Rating::Table).to receive(:new)
+          expect(Selection::Table).to receive(:new)
             .with(applications: applications, options: options)
             .and_call_original
 
