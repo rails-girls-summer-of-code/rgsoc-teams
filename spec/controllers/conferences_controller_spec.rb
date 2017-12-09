@@ -17,7 +17,7 @@ RSpec.describe ConferencesController, type: :controller do
 
   describe 'show details' do
     let(:conference) { create :conference, :in_current_season }
-    it 'should show the requested network' do
+    it 'should show the requested conference' do
       get :show, params: { id: conference.id }
       expect(assigns(:conference)).to eq(conference)
     end
