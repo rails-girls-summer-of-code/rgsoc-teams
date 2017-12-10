@@ -44,7 +44,7 @@ RSpec.describe Orga::SeasonsController, type: :controller do
 
     describe 'PATCH update' do
       it 'updates and redirects' do
-        patch :update, params: { id: season.to_param, season: { name: '2525' } }
+        patch :update, params: { id: season.to_param, season: { name: '1999' } }
         expect(response).to redirect_to orga_seasons_path
       end
 
