@@ -1,6 +1,6 @@
 # frozen_string_literal: true
-module Supervisor
-  class CommentsController < Supervisor::BaseController
+module Supervisors
+  class CommentsController < Supervisors::BaseController
 
     def index
       find_comments
@@ -18,7 +18,7 @@ module Supervisor
       else
         flash[:alert] = "O no! We can't save your text. Please try again?"
       end
-      redirect_to supervisor_path
+      redirect_to supervisors_dashboard_path
     end
 
 

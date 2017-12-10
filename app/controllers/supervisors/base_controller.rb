@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-module Supervisor
+module Supervisors
   class BaseController < ApplicationController
 
     before_action :must_be_supervisor

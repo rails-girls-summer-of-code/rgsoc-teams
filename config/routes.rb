@@ -38,7 +38,7 @@ Rails.application.routes.draw do
   end
 
   namespace :reviewers do
-    get '/', to: 'dashboard#index'
+    root to: 'dashboard#index', as: :dashboard
     resources :todos, only: [:index]
     resources :applications, except: [:new, :create, :destroy]
     resources :ratings, only: [:create, :update]
@@ -101,11 +101,10 @@ Rails.application.routes.draw do
     end
   end
 
-  get 'supervisor', to: 'supervisor/dashboard#index'
-  patch 'supervisor/notes', to: 'supervisor/notes#update'
-  namespace :supervisor do
-    get 'dashboard', to: 'dashboard#index'
+  namespace :supervisors do
+    root to: 'dashboard#index', as: :dashboard
     resources :comments, only: [:index, :create]
+    resources :notes, only: [:update]
   end
 
   namespace :mentor do

@@ -2,7 +2,7 @@
 class CommentsController < ApplicationController
 
   # This controller manages the comments on applications and projects.
-  # Supervisor's comments on their teams are managed by the supervisor/comments-controller
+  # Supervisor's comments on their teams are managed by the supervisors/comments-controller
   # We only allow comments with text (others do not make sense here)
 
   # this might be overwritten by subclasses to prepend to the redirect path:

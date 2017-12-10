@@ -1,9 +1,9 @@
 require 'spec_helper'
 
-RSpec.describe Supervisor::CommentsController, type: :routing do
+RSpec.describe Supervisors::CommentsController, type: :routing do
   describe 'routing' do
     it 'routes to #create' do
-      expect(post('supervisor/comments')).to route_to('supervisor/comments#create')
+      expect(post('supervisors/comments')).to route_to('supervisors/comments#create')
     end
   end
 end

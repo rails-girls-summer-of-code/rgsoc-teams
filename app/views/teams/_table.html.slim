@@ -30,7 +30,7 @@ table.table.table-striped.table-bordered.table-condensed
         td = format_date(team.last_checked_at)
       td = format_date(team.last_activity.try(:created_at))
       - if current_user.try :admin?
-        td = render "supervisor/shared/performance_icon", status: team.performance.evaluation.to_s
+        td = render "supervisors/shared/performance_icon", status: team.performance.evaluation.to_s
 
 p.hint
   | <span class="icon-star-sponsored"></span>Sponsored team &nbsp;&nbsp;

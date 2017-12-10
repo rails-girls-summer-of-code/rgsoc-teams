@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-RSpec.describe Supervisor::CommentsController, type: :controller do
+RSpec.describe Supervisors::CommentsController, type: :controller do
   render_views
   let(:valid_attributes) { { "text" => FFaker::Lorem.paragraph } }
   let(:user) { create(:user) }
@@ -23,7 +23,7 @@ RSpec.describe Supervisor::CommentsController, type: :controller do
 
         it 'redirects to the dashboard page' do
           post :create, params: { comment: valid_attributes.merge(commentable_id: team.id, commentable_type: 'Team') }
-          expect(response).to redirect_to supervisor_path
+          expect(response).to redirect_to supervisors_dashboard_path
         end
 
         after do
@@ -50,7 +50,7 @@ RSpec.describe Supervisor::CommentsController, type: :controller do
 
         it 'creates a new Comment and redirects to team page' do
           expect(comment.persisted?).to eq(true)
-          expect(response).to redirect_to supervisor_path
+          expect(response).to redirect_to supervisors_dashboard_path
         end
 
         it 'enqueues a CommentMailer' do

@@ -2,7 +2,7 @@
 require 'csv'
 
 module Reviewers
- class ApplicationsController < Reviewers::BaseController
+  class ApplicationsController < Reviewers::BaseController
     before_action :store_filters, only: :index
     before_action :persist_order, only: :index
     respond_to :html

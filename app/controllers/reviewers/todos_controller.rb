@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 module Reviewers
- class TodosController < Reviewers::BaseController
+  class TodosController < Reviewers::BaseController
     respond_to :html
 
     def set_breadcrumbs

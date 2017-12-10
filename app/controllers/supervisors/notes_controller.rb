@@ -1,11 +1,11 @@
 # frozen_string_literal: true
-module Supervisor
-  class NotesController < Supervisor::BaseController
+module Supervisors
+  class NotesController < Supervisors::BaseController
 
     def update
       find_notepad
       @notepad.update!(notepad_params)
-      redirect_to supervisor_dashboard_path
+      redirect_to supervisors_dashboard_path
     end
 
     private
