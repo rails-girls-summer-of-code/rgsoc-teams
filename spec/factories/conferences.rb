@@ -7,7 +7,6 @@ FactoryBot.define do
     city { FFaker::Address.city }
     country { FFaker::Address.country }
     region 'Africa'
-    round 1
 
     trait :in_current_season do
       season { Season.current }
@@ -22,7 +21,6 @@ FactoryBot.define do
     city { FFaker::Address.city }
     country { FFaker::Address.country }
     region 'Europe'
-    round 1
 
     trait :in_current_season do
       season { Season.current }
@@ -37,7 +35,6 @@ FactoryBot.define do
     city { FFaker::Address.city }
     country { FFaker::Address.country }
     region 'North America'
-    round 1
 
     trait :in_current_season do
       season { Season.current }
