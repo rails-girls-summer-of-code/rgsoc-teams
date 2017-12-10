@@ -1,7 +1,7 @@
 require 'spec_helper'
 require 'csv'
 
-RSpec.describe Conference::Importer, type: :model do
+RSpec.describe ConferenceImporter, type: :service do
 
   describe "#call" do
     # 6 sample conferences in test.csv, 4 valid

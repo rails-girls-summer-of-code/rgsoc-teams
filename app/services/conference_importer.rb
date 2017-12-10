@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 require 'csv'
-class Conference::Importer
+class ConferenceImporter
 
   ## This importer is depending on agreed-upon input format.
   ## Input file:
@@ -26,6 +26,8 @@ class Conference::Importer
     @filename = filename
     with_log { process_csv }
   end
+
+  private
 
   attr_reader :filename
 
