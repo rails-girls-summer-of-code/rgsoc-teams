@@ -3,7 +3,7 @@ tr
   - title = capture do
     - mailing.subject
   - if admin?
-    td = link_to(title, [:orga, mailing])
+    td = link_to(title, [:organizers, mailing])
   - elsif can?(:read, mailing)
     td = link_to(title, mailing)
   - else

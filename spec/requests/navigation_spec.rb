@@ -39,7 +39,7 @@ RSpec.describe 'Navigation', type: :request do
 
       it 'hides role specific links' do
         expect(response.body).not_to include mentors_applications_path
-        expect(response.body).not_to include orga_dashboard_path
+        expect(response.body).not_to include organizers_dashboard_path
         expect(response.body).not_to include reviewers_dashboard_path
         expect(response.body).not_to include supervisors_dashboard_path
         expect(response.body).not_to include students_status_updates_path
@@ -67,7 +67,7 @@ RSpec.describe 'Navigation', type: :request do
 
       it 'hides other role specific links' do
         expect(response.body).not_to include mentors_applications_path
-        expect(response.body).not_to include orga_dashboard_path
+        expect(response.body).not_to include organizers_dashboard_path
         expect(response.body).not_to include reviewers_dashboard_path
         expect(response.body).not_to include supervisors_dashboard_path
       end
@@ -87,7 +87,7 @@ RSpec.describe 'Navigation', type: :request do
 
       it 'hides other role specific links' do
         expect(response.body).not_to include mentors_applications_path
-        expect(response.body).not_to include orga_dashboard_path
+        expect(response.body).not_to include organizers_dashboard_path
         expect(response.body).not_to include reviewers_dashboard_path
         expect(response.body).not_to include students_status_updates_path
       end
@@ -106,7 +106,7 @@ RSpec.describe 'Navigation', type: :request do
 
       it 'displays relevant items for supervisors and orgas' do
         expect(response.body).to include supervisors_dashboard_path
-        expect(response.body).to include orga_dashboard_path
+        expect(response.body).to include organizers_dashboard_path
       end
 
       it 'hides other role specific links' do
@@ -128,7 +128,7 @@ RSpec.describe 'Navigation', type: :request do
       include_examples :user_nav_during_summer
 
       it 'displays relevant items for orga and rating' do
-        expect(response.body).to include orga_dashboard_path
+        expect(response.body).to include organizers_dashboard_path
         expect(response.body).to include reviewers_dashboard_path
       end
 
@@ -154,7 +154,7 @@ RSpec.describe 'Navigation', type: :request do
 
       it 'hides other role specific links' do
         expect(response.body).not_to include supervisors_dashboard_path
-        expect(response.body).not_to include orga_dashboard_path
+        expect(response.body).not_to include organizers_dashboard_path
         expect(response.body).not_to include reviewers_dashboard_path
         expect(response.body).not_to include students_status_updates_path
       end
@@ -200,7 +200,7 @@ RSpec.describe 'Navigation', type: :request do
 
       it 'hides role specific links' do
         expect(response.body).not_to include mentors_applications_path
-        expect(response.body).not_to include orga_dashboard_path
+        expect(response.body).not_to include organizers_dashboard_path
         expect(response.body).not_to include reviewers_dashboard_path
         expect(response.body).not_to include supervisors_dashboard_path
         expect(response.body).not_to include students_status_updates_path
@@ -224,7 +224,7 @@ RSpec.describe 'Navigation', type: :request do
 
       it 'hides other role specific links' do
         expect(response.body).not_to include mentors_applications_path
-        expect(response.body).not_to include orga_dashboard_path
+        expect(response.body).not_to include organizers_dashboard_path
         expect(response.body).not_to include reviewers_dashboard_path
         expect(response.body).not_to include supervisors_dashboard_path
         expect(response.body).not_to include students_status_updates_path
@@ -244,7 +244,7 @@ RSpec.describe 'Navigation', type: :request do
 
       it 'displays relevant items for supervisors and orgas for the current phase' do
         expect(response.body).not_to include supervisors_dashboard_path
-        expect(response.body).to include orga_dashboard_path
+        expect(response.body).to include organizers_dashboard_path
       end
 
       it 'hides other role specific links' do
@@ -266,7 +266,7 @@ RSpec.describe 'Navigation', type: :request do
       include_examples :user_nav_during_application_phase
 
       it 'displays relevant items for orga and rating' do
-        expect(response.body).to include orga_dashboard_path
+        expect(response.body).to include organizers_dashboard_path
         expect(response.body).to include reviewers_dashboard_path
       end
 
@@ -292,7 +292,7 @@ RSpec.describe 'Navigation', type: :request do
 
       it 'hides other role specific links' do
         expect(response.body).not_to include supervisors_dashboard_path
-        expect(response.body).not_to include orga_dashboard_path
+        expect(response.body).not_to include organizers_dashboard_path
         expect(response.body).not_to include reviewers_dashboard_path
         expect(response.body).not_to include students_status_updates_path
       end

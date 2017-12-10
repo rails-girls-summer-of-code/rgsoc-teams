@@ -9,7 +9,7 @@ li.dropdown
     li = link_to 'Profile', current_user
     li.divider.hidden-xs
     - if current_user.admin?
-      li = link_to 'Orga Dashboard', orga_dashboard_path
+      li = link_to 'Orga Dashboard', organizers_dashboard_path
     - if current_user.reviewer?
       li = link_to 'Rating Dashboard', reviewers_dashboard_path
     - if current_user.current_student? && current_season.started?

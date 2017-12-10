@@ -71,10 +71,10 @@ Rails.application.routes.draw do
 
   get 'pages/:page', to: 'pages#show', as: :page
 
-  get 'orga/users/info', to: 'orga/users_info#index', as: :orga_users_info
-  patch 'orga/seasons/switch_phase', to: 'orga/seasons#switch_phase', as: :switch_phase
-  namespace :orga do
+  namespace :organizers do
     root to: 'dashboard#index', as: :dashboard
+    patch 'seasons/switch_phase', to: 'seasons#switch_phase'
+    get 'users/info', to: 'users_info#index', as: :users_info
     resources :projects, only: [:index] do
       member do
         put :accept

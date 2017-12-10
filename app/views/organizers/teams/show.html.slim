@@ -1,0 +1,81 @@
+= render 'organizers/breadcrumbs'
+
+nav.page
+  .back-nav
+    ul
+      li = icon('chevron-left')
+      li = link_to 'All teams', organizers_teams_path, class: 'back'
+
+= content_tag :h1, @team.display_name, class: "team #{@team.kind}"
+
+nav.btn-group
+  = link_to 'Edit', edit_organizers_team_path(@team), class: 'edit btn btn-default btn-small'
+  = link_to 'Add a source', new_team_source_path(@team), class: 'btn btn-default btn-small'
+  = link_to 'Add a member', new_team_role_path(@team), class: 'btn btn-default btn-small'
+  - if can? :read, :users_info
+    - team_group_emails(@team).each do |group, emails|
+      = link_to "Email #{group}", "mailto:#{emails.join(',')}", class: 'btn btn-default btn-small'
+
+.profile
+  dl
+    - each_handle(@team, :github, :twitter) do |name, handle, url|
+      dt = name.capitalize
+      dd = url ? link_to(handle, url) : handle
+    dt Starts On
+    dd = format_date(@team.starts_on)
+    dt Finishes On
+    dd = format_date(@team.finishes_on)
+    dt Last Activity
+    dd = format_date(@team.last_activity.try(:created_at))
+    - if can? :read, :users_info
+      dt Blog post
+      dd = @team.post_info
+
+  - if @team.description
+    p = render_markdown(@team.description).html_safe
+
+- if @team.helpdesk_team?
+  - if @team.sources.any?
+    h3 Sources
+    = list_sources(@team)
+
+  h3 Members
+  = link_to_team_members(@team, :helpdesk)
+
+- elsif @team.organizers_team?
+  - if @team.sources.any?
+    h3 Sources
+    = list_sources(@team)
+
+  h3 Members
+  = link_to_team_members(@team, :organizer)
+
+- elsif @team.supervisors_team?
+  - if @team.sources.any?
+    h3 Sources
+    = list_sources(@team)
+
+  h3 Members
+  = link_to_team_members(@team, :supervisor)
+
+- else
+  h3 Sources
+  = @team.sources.any? ? list_sources(@team) : '-'
+
+  h3 Students
+  p = @team.students.any? ? link_to_team_members(@team, :student) : '-'
+
+  h3 Coaches
+  p = @team.coaches.any? ? link_to_team_members(@team, :coach) : '-'
+
+  h3 Mentors
+  p = @team.mentors.any? ? link_to_team_members(@team, :mentor) : '-'
+
+  h3 Supervisors
+  p = @team.supervisors.any? ? link_to_team_members(@team, :supervisor) : content_tag(:em, 'Will be added by RGSoC Organizers')
+
+  = render 'teams/conference_info'
+
+- if @team.activities.any?
+  h3 Activities
+  = render 'activities/activities', object: @team.activities.ordered

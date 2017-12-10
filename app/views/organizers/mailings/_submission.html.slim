@@ -1,0 +1,5 @@
+tr
+  td = submission.to
+  td = submission.sent_at ? submission.sent_at.to_formatted_s(:short) : '-'
+  td = submission.error
+  td = link_to('Resend', [:organizers, submission.mailing, submission], method: :put)

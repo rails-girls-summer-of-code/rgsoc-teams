@@ -145,7 +145,7 @@ To avoid accidentally exceeding the rate limit on [Google's Places API][google-p
       remove the student role. 
     * Refresh the browser and you should see links for organizers. 
 - Once you are an `organizer`, you can add a season and switch between season's phases at
-http://localhost:3000/orga/seasons in your browser.
+http://localhost:3000/organizers/seasons in your browser.
 - While in development, you are also able to impersonate other users to easily test the system
 as someone else. Go to http://localhost:3000/users while logged in to do that.
 - You are good to go now. Happy coding!

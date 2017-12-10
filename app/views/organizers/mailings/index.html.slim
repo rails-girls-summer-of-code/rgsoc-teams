@@ -1,0 +1,7 @@
+= render 'organizers/breadcrumbs'
+
+nav.actions
+  ul.list-inline
+    li = link_to link_to icon('plus', 'New Mailing'), new_organizers_mailing_path, class: 'btn btn-sm btn-primary'
+
+= render 'mailings/table', namespace: :organizers, mailings: @mailings

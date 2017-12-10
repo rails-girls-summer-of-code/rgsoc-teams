@@ -1,0 +1,11 @@
+= render 'organizers/breadcrumbs'
+
+nav.page
+  .back-nav
+    ul
+      li = icon('chevron-left')
+      li = link_to 'Back', organizers_teams_path, class: 'back'
+
+h1 New team
+
+== render 'form'

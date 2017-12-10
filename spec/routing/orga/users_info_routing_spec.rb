@@ -1,9 +1,9 @@
 require 'spec_helper'
 
-RSpec.describe Orga::UsersInfoController, type: :routing do
+RSpec.describe Organizers::UsersInfoController, type: :routing do
   describe 'routing' do
     it 'routes to #index' do
-      expect(get('/orga/users/info')).to route_to('orga/users_info#index')
+      expect(get('/organizers/users/info')).to route_to('organizers/users_info#index')
     end
   end
 end

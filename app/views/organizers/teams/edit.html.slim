@@ -1,0 +1,17 @@
+= render 'organizers/breadcrumbs'
+
+nav.page
+  .back-nav
+    ul
+      li = icon('chevron-left')
+      li = link_to 'Back', [:organizers, @team], class: 'back'
+
+nav.actions
+  .pull-right
+    ul
+      li
+        = link_to 'Destroy', [:organizers, @team], data: { confirm: 'Are you sure?' }, method: :delete, class: 'btn btn-danger'
+
+h1 Editing team
+== render 'form'
+== render 'conferences/form_modal'

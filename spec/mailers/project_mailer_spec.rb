@@ -6,9 +6,9 @@ RSpec.describe ProjectMailer, type: :mailer do
   describe '#proposal' do
     subject { described_class.proposal(project) }
 
-    it 'sends a mail with link to orga/projects/:id' do
+    it 'sends a mail with link to organizers/projects/:id' do
       expected_url = project_url(project, protocol: 'https')
-      expected_url = orga_projects_url(protocol: 'https')
+      expected_url = organizers_projects_url(protocol: 'https')
       expect(subject.body.to_s).to include expected_url
     end
 

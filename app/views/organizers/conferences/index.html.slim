@@ -1,0 +1,6 @@
+= render 'organizers/breadcrumbs'
+= render 'form'
+= render 'conferences/table', namespace: :organizers, conferences: @conferences
+- if can?(:crud, Conference)
+  p The tech conference you're looking for is not yet in our list? Just suggest it!
+  = link_to '+ New Conference', new_organizers_conference_path, class: 'btn btn-default'

@@ -1,0 +1,70 @@
+= render 'organizers/breadcrumbs'
+
+h1 Listing Projects
+
+table.table.table-striped.table-bordered.table-condensed.hidden-sm.hidden-xs
+  thead
+    tr
+      th Name
+      th Submitted
+      th Submitted by
+      th State
+      th Tags
+      th colspan=3
+
+  tbody
+    - @projects.each do |project|
+      tr
+        td = link_to project.name, project
+        td = l project.created_at, format: :shortest
+        td = link_to project.submitter.name, project.submitter
+        td = project_status project
+        td = project_tags project
+        td
+          - if project.may_start_review?
+            = link_to 'Start review', [:start_review, :organizers, project], method: :put, class: 'btn btn-sm btn-warning'
+          - if project.may_accept?
+            = link_to 'Accept', [:accept, :organizers, project], method: :put, class: 'btn btn-sm btn-success'
+          - if project.may_reject?
+            = link_to 'Reject', [:reject, :organizers, project], method: :put, class: 'btn btn-sm btn-danger space_btns'
+        td
+          - if project.comments_locked?
+            = link_to 'Unlock comments', [:unlock, :organizers, project], method: :put, class: 'btn btn-sm btn-warning'
+          - else
+            = link_to 'Lock comments', [:lock, :organizers, project], method: :put, class: 'btn btn-sm btn-warning'
+
+- @projects.each do |project|
+  table.table.table-striped.table-bordered.table-condensed.hidden-md.hidden-lg
+    tr
+      th Name
+      td = link_to project.name, project
+    tr
+      th Submitted
+      td = l project.created_at, format: :shortest
+    tr
+      th Submitted by
+      td = link_to project.submitter.name, project.submitter
+    tr
+      th State
+      td = project_status project
+    tr
+      th Tags
+      td = project_tags project
+    tr
+      th Actions
+      td
+        - if project.may_accept?
+          = link_to 'Accept', [:accept, :organizers, project], method: :put, class: 'btn btn-sm btn-success'
+        - if project.may_start_review?
+          = link_to 'Start review', [:start_review, :organizers, project], method: :put, class: 'btn btn-sm btn-warning'
+        - if project.may_reject?
+          = link_to 'Reject', [:reject, :organizers, project], method: :put, class: 'btn btn-sm btn-danger'
+    tr
+      th Comments
+      td
+        - if project.comments_locked?
+          = link_to 'Unlock comments', [:unlock, :organizers, project], method: :put, class: 'btn btn-sm btn-warning'
+        - else
+          = link_to 'Lock comments', [:lock, :organizers, project], method: :put, class: 'btn btn-sm btn-warning'
+
+br
