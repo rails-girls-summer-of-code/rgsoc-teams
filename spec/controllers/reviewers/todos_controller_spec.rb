@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-RSpec.describe Rating::TodosController, type: :controller do
+RSpec.describe Reviewers::TodosController, type: :controller do
   render_views
 
   describe 'GET index' do
@@ -34,7 +34,7 @@ RSpec.describe Rating::TodosController, type: :controller do
       end
 
       it 'renders :index' do
-        expect(response).to render_template 'rating/todos/index'
+        expect(response).to render_template 'reviewers/todos/index'
       end
     end
   end

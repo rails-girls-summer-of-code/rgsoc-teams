@@ -1,7 +1,6 @@
 require 'spec_helper'
-require 'rating/comments_controller'
 
-RSpec.describe Rating::CommentsController, type: :controller do
+RSpec.describe Reviewers::CommentsController, type: :controller do
   render_views
 
   let(:valid_attributes) { { text: FFaker::CheesyLingo.sentence } }
@@ -26,7 +25,7 @@ RSpec.describe Rating::CommentsController, type: :controller do
       it 'redirects to comment on application page' do
         post :create, params: { comment: params.merge(valid_attributes) }
         id = Comment.last.id
-        expect(response).to redirect_to([:rating, application, anchor: "comment_#{id}"])
+        expect(response).to redirect_to([:reviewers, application, anchor: "comment_#{id}"])
       end
     end
     context 'with invalid params (no text)' do
@@ -39,7 +38,7 @@ RSpec.describe Rating::CommentsController, type: :controller do
       it 'redirects to the application page with flash' do
         post :create, params: { comment: params }
         expect(flash[:alert]).to be_present
-        expect(response).to redirect_to([:rating, application])
+        expect(response).to redirect_to([:reviewers, application])
       end
     end
   end

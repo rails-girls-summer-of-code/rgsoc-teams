@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-RSpec.describe Rating::RatingsController, type: :controller do
+RSpec.describe Reviewers::RatingsController, type: :controller do
   render_views
 
   describe 'POST create' do
@@ -45,9 +45,9 @@ RSpec.describe Rating::RatingsController, type: :controller do
         expect(rating.data[:diversity]).to eq '5'
       end
 
-      it 'redirect_to rating/applications' do
+      it 'redirect_to reviewers/applications' do
         post :create, params: params
-        expect(response).to redirect_to rating_todos_path
+        expect(response).to redirect_to reviewers_todos_path
       end
     end
   end
@@ -86,9 +86,9 @@ RSpec.describe Rating::RatingsController, type: :controller do
           }.to change{rating.diversity}.from(nil).to('5')
         end
 
-        it 'redirect_to rating/applications' do
+        it 'redirect_to reviewers/applications' do
           put :update, params: params
-          expect(response).to redirect_to rating_todos_path
+          expect(response).to redirect_to reviewers_todos_path
         end
       end
     end

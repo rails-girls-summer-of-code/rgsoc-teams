@@ -1,0 +1,6 @@
+= render 'reviewers/breadcrumbs'
+
+h1 Application Rating
+ul[class="list-unstyled"]
+  li = link_to 'Your Todos', [:reviewers, :todos]
+  li = link_to 'All Applications', [:reviewers, :applications]

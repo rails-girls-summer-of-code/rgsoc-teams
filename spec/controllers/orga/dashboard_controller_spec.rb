@@ -45,7 +45,7 @@ RSpec.describe Orga::DashboardController, type: :controller do
       end
 
       it 'does not show link to rating space' do
-        expect(response.body).not_to include rating_path
+        expect(response.body).not_to include reviewers_path
       end
     end
   end

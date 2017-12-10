@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-RSpec.describe Rating::ApplicationsController, type: :controller do
+RSpec.describe Reviewers::ApplicationsController, type: :controller do
   render_views
 
   describe 'GET index' do
@@ -101,8 +101,8 @@ RSpec.describe Rating::ApplicationsController, type: :controller do
           expect(assigns :rating).to have_attributes(user: user, application: application)
         end
 
-        it 'renders rating/applications/show' do
-          expect(response).to render_template 'rating/applications/show'
+        it 'renders reviewers/applications/show' do
+          expect(response).to render_template 'reviewers/applications/show'
         end
       end
 
@@ -144,8 +144,8 @@ RSpec.describe Rating::ApplicationsController, type: :controller do
         expect(assigns :application).to eq application
       end
 
-      it 'renders rating/applications/edit' do
-        expect(response).to render_template 'rating/applications/edit'
+      it 'renders reviewers/applications/edit' do
+        expect(response).to render_template 'reviewers/applications/edit'
       end
     end
   end
@@ -187,7 +187,7 @@ RSpec.describe Rating::ApplicationsController, type: :controller do
 
         it 'redirects to application' do
           put :update, params: params
-          expect(response).to redirect_to [:rating, application]
+          expect(response).to redirect_to [:reviewers, application]
         end
       end
     end

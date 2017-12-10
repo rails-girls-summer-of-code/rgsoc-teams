@@ -14,7 +14,7 @@ module ApplicationsHelper
   end
 
   def link_to_ordered(text, type)
-    link_to text, rating_applications_path(order: type)
+    link_to text, reviewers_applications_path(order: type)
   end
 
   def link_to_application_project(application)

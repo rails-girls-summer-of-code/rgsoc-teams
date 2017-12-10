@@ -1,6 +1,6 @@
 tr
   td = application.id
-  td = link_to application.team_name, [:rating, application]
+  td = link_to application.team_name, [:reviewers, application]
   - if application.project1
     td.text-right = link_to application.project1.name, application.project1
   - else

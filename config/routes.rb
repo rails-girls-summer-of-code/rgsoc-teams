@@ -37,8 +37,8 @@ Rails.application.routes.draw do
     post 'preview', on: :collection
   end
 
-  get 'rating', to: 'rating/overview#index'
-  namespace :rating do
+  get 'reviewers', to: 'reviewers/overview#index'
+  namespace :reviewers do
     resources :todos, only: [:index]
     resources :applications, except: [:new, :create, :destroy]
     resources :ratings, only: [:create, :update]

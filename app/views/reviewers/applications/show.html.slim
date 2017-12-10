@@ -1,4 +1,4 @@
-= render 'rating/breadcrumbs'
+= render 'reviewers/breadcrumbs'
 
 #application
   h1 = "Application: #{@application.name}"
@@ -28,7 +28,7 @@
 
   h2 Additional Info
 
-  p = link_to 'Edit additional Info', edit_rating_application_path(@application)
+  p = link_to 'Edit additional Info', edit_reviewers_application_path(@application)
   b Misc info:
   = simple_format(@application.misc_info)
   table.misc_info
@@ -55,7 +55,7 @@
 
   hr
 
-  = render 'comments/comments', commentable: @application, new_comment: [:rating, Comment.new(commentable: @application)]
+  = render 'comments/comments', commentable: @application, new_comment: [:reviewers, Comment.new(commentable: @application)]
 
 
-= render '/rating/shared/rating_sidebar', rating: @rating, application: @application, path_parents: [:rating]
+= render 'reviewers/shared/rating_sidebar', rating: @rating, application: @application, path_parents: [:reviewers]

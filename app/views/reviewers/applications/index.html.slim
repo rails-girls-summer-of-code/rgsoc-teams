@@ -1,4 +1,4 @@
-= render 'rating/breadcrumbs'
+= render 'reviewers/breadcrumbs'
 
 p
   | Rating overview for season #{Season.current.name}.
@@ -36,7 +36,7 @@ table#applications.table.table-striped.table-bordered.table-condensed.table-hove
     = render partial: 'application', collection: @table.applications
 
 = button_to 'Download as CSV',
-    rating_applications_path(format: :csv),
+    reviewers_applications_path(format: :csv),
     method: :get,
     class:  'btn btn-default',
     data:   { disable_with: 'crunching data…' }
