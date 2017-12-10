@@ -50,7 +50,7 @@ module Orga
     # by showing the corresponding links in the nav bar
     def switch_phase
       return if Rails.env.production?
-      Season::PhaseSwitcher.destined(phase)
+      DevUtils::SeasonPhaseSwitcher.destined(phase)
       redirect_to orga_seasons_path, notice: "We time travelled into the #{params[:phase].humanize.titlecase}"
     end
 

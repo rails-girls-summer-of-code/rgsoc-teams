@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-RSpec.describe Season::PhaseSwitcher, type: :model do
+RSpec.describe DevUtils::SeasonPhaseSwitcher, type: :model do
   context '.destined' do
     let(:season) { Season.current }
 
