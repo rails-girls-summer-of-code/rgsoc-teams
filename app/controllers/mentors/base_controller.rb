@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-module Mentor
+module Mentors
   class BaseController < ApplicationController
     before_action :authenticate_user!
     before_action -> { require_project_maintainer }

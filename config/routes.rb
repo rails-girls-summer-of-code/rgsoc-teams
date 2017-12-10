@@ -107,7 +107,7 @@ Rails.application.routes.draw do
     resources :notes, only: [:update]
   end
 
-  namespace :mentor do
+  namespace :mentors do
     resources :applications, only: [:index, :show] do
       member do
         put :fav

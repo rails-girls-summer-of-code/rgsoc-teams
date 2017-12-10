@@ -1,6 +1,6 @@
 # frozen_string_literal: true
-module Mentor
-  class ApplicationsController < Mentor::BaseController
+module Mentors
+  class ApplicationsController < Mentors::BaseController
     before_action :application, only: [:show, :signoff, :fav]
 
     def index

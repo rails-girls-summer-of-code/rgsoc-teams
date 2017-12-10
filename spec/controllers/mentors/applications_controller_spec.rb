@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-RSpec.describe Mentor::ApplicationsController, type: :controller do
+RSpec.describe Mentors::ApplicationsController, type: :controller do
   render_views
 
   let(:user) { create(:user) }
@@ -155,7 +155,7 @@ RSpec.describe Mentor::ApplicationsController, type: :controller do
 
         it 'redirects back to index' do
           subject
-          expect(response).to redirect_to mentor_applications_path
+          expect(response).to redirect_to mentors_applications_path
           expect(flash[:notice]).to be_present
         end
 
@@ -208,7 +208,7 @@ RSpec.describe Mentor::ApplicationsController, type: :controller do
 
         it 'redirects back to index' do
           subject
-          expect(response).to redirect_to mentor_applications_path
+          expect(response).to redirect_to mentors_applications_path
           expect(flash[:notice]).to be_present
         end
 
@@ -217,7 +217,7 @@ RSpec.describe Mentor::ApplicationsController, type: :controller do
           expect { subject }
             .to change { application.reload.application_data['mentor_fav_project1'] }
             .to nil
-          expect(response).to redirect_to mentor_applications_path
+          expect(response).to redirect_to mentors_applications_path
           expect(flash[:notice]).to be_present
         end
       end

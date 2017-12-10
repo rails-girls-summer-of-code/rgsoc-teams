@@ -1,6 +1,6 @@
 # frozen_string_literal: true
-module Mentor
-  class CommentsController < Mentor::BaseController
+module Mentors
+  class CommentsController < Mentors::BaseController
     def create
       comment = Mentor::Comment.create(create_params)
       redirect_to path_for(comment)
@@ -25,7 +25,7 @@ module Mentor
 
     def path_for(comment)
       anchor = ActionView::RecordIdentifier.dom_id(comment)
-      mentor_application_path( id: comment.commentable_id, anchor: anchor)
+      mentors_application_path( id: comment.commentable_id, anchor: anchor)
     end
 
     def mentor_comments

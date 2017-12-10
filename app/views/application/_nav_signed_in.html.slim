@@ -17,7 +17,7 @@ li.dropdown
     - if current_user.supervisor? && current_season.started?
       li = link_to 'Supervisor Dashboard', supervisors_dashboard_path
     - if current_user.project_maintainer?
-      li = link_to 'Mentor Dashboard', mentor_applications_path
+      li = link_to 'Mentor Dashboard', mentors_applications_path
     li.divider.hidden-xs
     - if current_user != true_user
       li.hidden-xs = link_to icon('eye-slash', 'Stop'), stop_impersonating_users_path, method: :post

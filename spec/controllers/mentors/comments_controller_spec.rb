@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-RSpec.describe Mentor::CommentsController, type: :controller do
+RSpec.describe Mentors::CommentsController, type: :controller do
   render_views
 
   let(:user) { create(:user) }
@@ -46,7 +46,7 @@ RSpec.describe Mentor::CommentsController, type: :controller do
       it 'redirect_to the mentor application show view' do
         subject
         anchor = "mentor_comment_#{comment.call.id}"
-        expect(response).to redirect_to mentor_application_path(id: 1, anchor: anchor)
+        expect(response).to redirect_to mentors_application_path(id: 1, anchor: anchor)
       end
     end
   end
@@ -86,7 +86,7 @@ RSpec.describe Mentor::CommentsController, type: :controller do
         it 'redirect_to the mentor application show view' do
           subject
           anchor = "mentor_comment_#{comment.id}"
-          expect(response).to redirect_to mentor_application_path(id: 1, anchor: anchor)
+          expect(response).to redirect_to mentors_application_path(id: 1, anchor: anchor)
         end
       end
 
