@@ -6,7 +6,7 @@ module Reviewers
     before_action :set_breadcrumbs
 
     def set_breadcrumbs
-      @breadcrumbs = [ ['Selection', :reviewers] ]
+      @breadcrumbs = [ ['Rating', :reviewers] ]
     end
   end
 end

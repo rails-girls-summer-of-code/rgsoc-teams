@@ -38,7 +38,7 @@ Rails.application.routes.draw do
   end
 
   namespace :reviewers do
-    get '/', to: 'overview#index'
+    get '/', to: 'dashboard#index'
     resources :todos, only: [:index]
     resources :applications, except: [:new, :create, :destroy]
     resources :ratings, only: [:create, :update]
