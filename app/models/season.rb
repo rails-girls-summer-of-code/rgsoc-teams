@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 class Season < ApplicationRecord
 
-  validates :name, presence: true, uniqueness: true, format: { with: /\A\d{4}\z/ }
+  validates :name, presence: true, uniqueness: true, inclusion: { in: ('1999'..'2050') }
 
   before_validation :set_application_dates
 
