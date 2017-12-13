@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class Supervisor::BaseController < ApplicationController
 
   before_action :must_be_supervisor

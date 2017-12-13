@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'cgi'
 require 'uri'
 module ApplicationHelper
@@ -63,24 +64,6 @@ module ApplicationHelper
   end
 
   # Conferences
-
-  def format_conference_scholarships(tickets, flights, accomodation)
-    result = "#{tickets} #{tickets == 1 ? 'ticket' : 'tickets'}"
-    if flights && accomodation
-      result << ", #{flights} #{flights == 1 ? 'flight' : 'flights'}/hotel"
-    elsif flights
-      result << ", #{flights} #{flights == 1 ? 'flight' : 'flights'}"
-    elsif accomodation
-      result << ", #{accomodation}x hotel"
-    end
-    result
-  end
-
-  def conference_tweet_link(conference)
-    tweet = "I really want to go to #{conference.name} this year! #{conference.twitter} @Railsgirlssoc"
-    "https://twitter.com/intent/tweet?text=#{URI.escape(tweet)}"
-  end
-
   def format_conference_twitter(twitter)
     twitter.to_s.starts_with?('@') ? link_to(twitter, "http://twitter.com/#{twitter.gsub('@', '')}") : twitter
   end
@@ -94,6 +77,21 @@ module ApplicationHelper
     end
   end
 
+  def show_attendance(attendance)
+    label_class = case attendance
+                  when true
+                    'label-success'
+                  when false
+                    'label-warning'
+                  end
+    text_label = case attendance
+                 when true
+                   'I will attend this conference'
+                 when false
+                   'I will not attend this conference'
+                 end
+    content_tag :span, text_label, class: "label #{label_class}"
+  end
   # end Conferences
 
   def if_present?(user, *attrs)

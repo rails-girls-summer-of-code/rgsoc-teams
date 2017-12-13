@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 RSpec.describe Exporters::Users do
-
   describe '#current_students' do
     let(:old_team) { create :team, season: nil }
     let(:new_team) { create :team, :in_current_season }

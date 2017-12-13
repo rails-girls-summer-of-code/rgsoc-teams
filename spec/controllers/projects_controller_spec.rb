@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-RSpec.describe ProjectsController do
+RSpec.describe ProjectsController, type: :controller do
   render_views
 
   let(:project) { create(:project) }

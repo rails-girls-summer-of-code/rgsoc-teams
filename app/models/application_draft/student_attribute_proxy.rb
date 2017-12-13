@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class ApplicationDraft::StudentAttributeProxy
   attr_reader :match, :application_draft
 

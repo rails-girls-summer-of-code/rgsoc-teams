@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class Orga::ProjectsController < Orga::BaseController
   before_action :find_resource, except: [:index]
 

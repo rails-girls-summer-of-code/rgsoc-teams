@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class Orga::SubmissionsController < Orga::BaseController
   before_action :find_mailing
 

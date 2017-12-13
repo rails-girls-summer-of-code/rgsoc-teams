@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class Orga::MailingsController < Orga::BaseController
   before_action :normalize_params, only: [:create, :update]
   before_action :find_mailing, only: [:show, :edit, :update, :destroy]

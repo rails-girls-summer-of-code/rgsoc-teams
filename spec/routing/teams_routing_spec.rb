@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe TeamsController do
+RSpec.describe TeamsController, type: :routing do
   describe 'routing' do
     it 'routes to #index' do
       expect(get('/teams')).to route_to('teams#index')

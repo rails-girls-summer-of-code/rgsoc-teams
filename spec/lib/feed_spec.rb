@@ -3,7 +3,7 @@ require 'feed'
 require 'stringio'
 require 'webrick'
 
-describe Feed do
+RSpec.describe Feed do
   let(:out)    { StringIO.new }
   let(:logger) { Logger.new(out) }
 

@@ -1,4 +1,5 @@
-class Project < ActiveRecord::Base
+# frozen_string_literal: true
+class Project < ApplicationRecord
   include HasSeason
 
   belongs_to :submitter, class_name: 'User'

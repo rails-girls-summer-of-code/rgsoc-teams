@@ -1,5 +1,6 @@
+# frozen_string_literal: true
 require 'csv'
-class Conference < ActiveRecord::Base
+class Conference < ApplicationRecord
   REGION_LIST = [
     "Africa",
     "South America",

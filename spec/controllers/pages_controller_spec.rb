@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-RSpec.describe PagesController do
+RSpec.describe PagesController, type: :controller do
   render_views
 
   describe 'GET show' do

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module TeamsHelper
 
   def conference_exists_for?(team)

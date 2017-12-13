@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe TeamPerformance do
+RSpec.describe TeamPerformance, type: :model do
   def create_all_teams
     [team_nothing, team_activitiy, team_commented, team_both_outdated, team_both]
   end

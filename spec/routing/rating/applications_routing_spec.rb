@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Rating::ApplicationsController do
+RSpec.describe Rating::ApplicationsController, type: :routing do
   describe 'routing' do
     it 'routes to #show' do
       expect(get '/rating/applications/:id').to route_to 'rating/applications#show', id: ':id'

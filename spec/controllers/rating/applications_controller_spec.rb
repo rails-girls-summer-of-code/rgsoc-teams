@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Rating::ApplicationsController do
+RSpec.describe Rating::ApplicationsController, type: :controller do
   render_views
 
   describe 'GET index' do
@@ -98,7 +98,7 @@ describe Rating::ApplicationsController do
 
         it 'assigns new @rating from user' do
           expect(assigns :rating).to be_a_new Rating
-          expect(assigns :rating).to have_attributes(user: user, rateable: application)
+          expect(assigns :rating).to have_attributes(user: user, application: application)
         end
 
         it 'renders rating/applications/show' do
@@ -107,7 +107,7 @@ describe Rating::ApplicationsController do
       end
 
       context 'when application already rated by user' do
-        let!(:rating) { create :rating, :for_application, user: user, rateable: application }
+        let!(:rating) { create :rating, user: user, application: application }
 
         it 'assigns existing @rating' do
           get :show, params: { id: application }

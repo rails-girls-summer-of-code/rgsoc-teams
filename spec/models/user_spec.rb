@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe User do
+RSpec.describe User, type: :model do
   before do
     stub_request(:get, /./).to_return(body: File.read('spec/stubs/github/user.json'))
   end

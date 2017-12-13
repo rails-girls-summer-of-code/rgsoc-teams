@@ -1,15 +1,19 @@
 require 'spec_helper'
 
-describe Season do
-  context 'with validations' do
+RSpec.describe Season, type: :model do
+  describe 'validations' do
     it { is_expected.to validate_presence_of(:name) }
     it { is_expected.to validate_uniqueness_of(:name) }
+    it { is_expected.to allow_value('2017').for(:name) }
+    it { is_expected.not_to allow_value('20177').for(:name) }
+    it { is_expected.not_to allow_value('201').for(:name) }
+    it { is_expected.not_to allow_value('201o').for(:name) }
   end
 
-  context 'with callbacks' do
+  describe 'callbacks' do
     subject { described_class.new name: Date.today.year }
 
-    context 'before validation' do
+    describe 'before validation' do
       it 'sets starts_at' do
         expect { subject.valid? }.to change { subject.starts_at }.from nil
       end

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class Orga::ConferencesController < Orga::BaseController
   before_action :find_conference, only: [:show, :destroy]
   before_action :ensure_file_was_posted, only: :import
@@ -54,7 +55,7 @@ class Orga::ConferencesController < Orga::BaseController
       :name, :location, :city, :country, :region,
       :url, :twitter,
       :starts_on, :ends_on,
-      :round, :lightningtalkslots, :tickets, :flights, :accomodation,
+      :lightningtalkslots, :tickets,
       :gid, # id in orga's Google Spreadsheet (format: 2017001)
       :notes,
       conference_preferences_attributes: [:id, :_destroy]

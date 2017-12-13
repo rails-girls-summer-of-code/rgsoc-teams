@@ -1,4 +1,5 @@
-class Submission < ActiveRecord::Base
+# frozen_string_literal: true
+class Submission < ApplicationRecord
   class << self
     def unsent
       where(sent_at: nil)

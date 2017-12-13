@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class Students::StatusUpdatesController < Students::BaseController
   before_action :find_resource, only: [:show, :edit, :update, :destroy]
   helper_method :status_updates

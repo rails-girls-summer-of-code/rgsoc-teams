@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Orga::SubmissionsController do
+RSpec.describe Orga::SubmissionsController, type: :routing do
   describe 'routing' do
     it 'routes to #index' do
       expect(get('/orga/mailings/1/submissions')).to route_to('orga/submissions#index', mailing_id: '1')

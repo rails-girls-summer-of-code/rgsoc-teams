@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170918135346) do
+ActiveRecord::Schema.define(version: 20171209100908) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -129,11 +129,8 @@ ActiveRecord::Schema.define(version: 20170918135346) do
     t.date "starts_on"
     t.date "ends_on"
     t.integer "tickets"
-    t.integer "accomodation"
-    t.integer "flights"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "round", default: 1
     t.boolean "lightningtalkslots"
     t.integer "season_id"
     t.string "gid"
@@ -195,10 +192,8 @@ ActiveRecord::Schema.define(version: 20170918135346) do
     t.datetime "updated_at"
     t.integer "user_id"
     t.boolean "pick"
-    t.integer "rateable_id"
-    t.string "rateable_type", limit: 255
     t.boolean "like"
-    t.index ["rateable_id", "rateable_type"], name: "index_ratings_on_rateable_id_and_rateable_type"
+    t.index ["application_id"], name: "index_ratings_on_application_id"
   end
 
   create_table "roles", id: :serial, force: :cascade do |t|

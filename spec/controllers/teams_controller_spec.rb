@@ -1,7 +1,7 @@
 require 'spec_helper'
 require 'cancan/matchers'
 
-RSpec.describe TeamsController do
+RSpec.describe TeamsController, type: :controller do
   render_views
 
   include_context 'with user logged in'
@@ -80,7 +80,7 @@ RSpec.describe TeamsController do
   end
 
   describe "GET show" do
-    let!(:preference) { create :conference_preference, :student_preference, :with_terms_checked }
+    let!(:preference) { create :conference_preference, :student_preference }
     let(:team) { preference.team }
 
     it "assigns the requested team as @team" do

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe SourcesController do
+RSpec.describe SourcesController, type: :routing do
   describe 'routing' do
     it 'routes to #index' do
       expect(get('/sources')).to route_to('sources#index')

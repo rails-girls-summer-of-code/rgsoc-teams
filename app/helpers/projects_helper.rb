@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module ProjectsHelper
 
   def project_status(project)

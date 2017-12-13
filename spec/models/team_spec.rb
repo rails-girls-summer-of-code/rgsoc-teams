@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Team do
+RSpec.describe Team, type: :model do
   subject { Team.new(kind: 'sponsored') }
 
   it { is_expected.to have_many(:activities) }

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class Feed
   class Item
     attr_reader :base_url, :team_id, :item

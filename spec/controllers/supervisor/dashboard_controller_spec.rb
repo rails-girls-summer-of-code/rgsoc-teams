@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Supervisor::DashboardController do
+RSpec.describe Supervisor::DashboardController, type: :controller do
   render_views
   describe 'routes for dashboard', type: :routing do
     it 'routes /dashboard to the dashboard controller' do

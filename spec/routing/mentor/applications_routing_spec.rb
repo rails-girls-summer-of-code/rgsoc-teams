@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Mentor::ApplicationsController do
+RSpec.describe Mentor::ApplicationsController, type: :routing do
   describe 'routing' do
     it 'routes to #index' do
       expect(get '/mentor/applications').to route_to 'mentor/applications#index'

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-RSpec.describe ApplicationHelper do
+RSpec.describe ApplicationHelper, type: :helper do
   describe '#application_disambiguation_link' do
     let(:draft) { create :application_draft }
     let(:user)  { create :user }

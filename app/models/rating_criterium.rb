@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class RatingCriterium
   attr_reader :weight
 

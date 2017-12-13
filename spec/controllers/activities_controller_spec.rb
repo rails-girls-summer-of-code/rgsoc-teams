@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe ActivitiesController do
+RSpec.describe ActivitiesController, type: :controller do
   render_views
 
   describe 'GET index' do

@@ -1,4 +1,5 @@
-class Source < ActiveRecord::Base
+# frozen_string_literal: true
+class Source < ApplicationRecord
   include UrlHelper
 
   KINDS = %w(blog repository)

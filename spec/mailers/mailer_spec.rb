@@ -1,6 +1,6 @@
 require "spec_helper"
 
-describe Mailer do
+RSpec.describe Mailer, type: :mailer do
   def message_part(mail, content_type)
     mail.body.parts.find { |p| p.content_type =~ /#{content_type}/ }.body.raw_source
   end

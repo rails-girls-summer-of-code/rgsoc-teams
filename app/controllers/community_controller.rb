@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class CommunityController < ApplicationController
   before_action :normalize_params, only: :index
 

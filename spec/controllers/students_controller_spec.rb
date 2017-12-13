@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe StudentsController do
+RSpec.describe StudentsController, type: :controller do
   render_views
 
   describe 'GET index' do

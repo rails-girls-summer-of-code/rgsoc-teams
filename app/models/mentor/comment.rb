@@ -1,5 +1,6 @@
+# frozen_string_literal: true
 module Mentor
-  class Comment < ActiveRecord::Base
+  class Comment < ApplicationRecord
     self.table_name = 'comments'
 
     default_scope { where(commentable_type: COMMENTABLE_TYPE) }

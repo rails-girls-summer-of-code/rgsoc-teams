@@ -1,13 +1,6 @@
-class Application < ActiveRecord::Base
+# frozen_string_literal: true
+class Application < ApplicationRecord
   include HasSeason, Rateable
-
-  belongs_to :application_draft
-  belongs_to :team, inverse_of: :applications, counter_cache: true
-  belongs_to :project
-
-  has_many :todos, dependent: :destroy
-
-  validates :team, :application_data, presence: true
 
   PROJECT_VISIBILITY_WEIGHT = ENV['PROJECT_VISIBILITY_WEIGHT'] || 2
   COACHING_COMPANY_WEIGHT = ENV['COACHING_COMPANY_WEIGHT'] || 2
@@ -21,7 +14,13 @@ class Application < ActiveRecord::Base
           :less_than_two_coaches,
           :less_than_40_hours_a_week]
 
+  belongs_to :application_draft
+  belongs_to :team, inverse_of: :applications, counter_cache: true
+  belongs_to :project
+
   has_many :comments, -> { order(:created_at) }, as: :commentable, dependent: :destroy
+
+  validates :team, :application_data, presence: true
 
   scope :hidden, -> { where('applications.hidden IS NOT NULL and applications.hidden = ?', true) }
   scope :visible, -> { where('applications.hidden IS NULL or applications.hidden = ?', false) }
@@ -30,16 +29,16 @@ class Application < ActiveRecord::Base
     ApplicationDraft.human_attribute_name(key)
   end
 
-  def data
-    ApplicationData.new(application_data)
-  end
-
   def self.rateable
     joins("LEFT JOIN projects p1 ON p1.id::text = applications.application_data -> 'project1_id'")
       .joins("LEFT JOIN projects p2 ON p2.id::text = applications.application_data -> 'project2_id'")
       .includes(:ratings, :team)
       .where(season: Season.current)
       .where.not(team: nil)
+  end
+
+  def data
+    ApplicationData.new(application_data)
   end
 
   def name

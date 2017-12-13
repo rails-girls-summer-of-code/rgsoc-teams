@@ -1,7 +1,10 @@
+# frozen_string_literal: true
 module Rateable
   extend ActiveSupport::Concern
+
   included do
-    has_many :ratings, as: :rateable
+    has_many :ratings, dependent: :destroy
+    has_many :todos, dependent: :destroy
   end
 
   def average_points

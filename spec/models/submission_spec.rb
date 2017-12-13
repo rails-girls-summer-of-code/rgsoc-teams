@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Submission do
+RSpec.describe Submission, type: :model do
   let(:submission) { build(:submission) }
   let(:unsent) { create(:submission, sent_at: nil)}
 

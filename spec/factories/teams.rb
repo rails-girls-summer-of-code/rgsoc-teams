@@ -32,7 +32,7 @@ FactoryBot.define do
 
     trait :with_conference_preferences do
       after(:create) do |team|
-        create(:conference_preference, :with_terms_checked, team: team)
+        create(:conference_preference, team: team)
       end
     end
 

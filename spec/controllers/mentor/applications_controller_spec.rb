@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-RSpec.describe Mentor::ApplicationsController do
+RSpec.describe Mentor::ApplicationsController, type: :controller do
   render_views
 
   let(:user) { create(:user) }

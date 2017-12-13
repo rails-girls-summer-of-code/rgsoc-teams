@@ -1,4 +1,5 @@
-class ConferencePreference < ActiveRecord::Base
+# frozen_string_literal: true
+class ConferencePreference < ApplicationRecord
   validates :terms_of_ticket, inclusion: { in: [true] }, if: :conference_exists?
   validates :terms_of_travel, inclusion: { in: [true] }, if: :conference_exists?
   before_save :change_status_terms, unless: :conference_exists?

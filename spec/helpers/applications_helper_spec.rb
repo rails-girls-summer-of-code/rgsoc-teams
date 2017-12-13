@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe ApplicationsHelper do
+RSpec.describe ApplicationsHelper, type: :helper do
   describe '.link_to_application_project' do
     let(:application) { mock_model Application }
 

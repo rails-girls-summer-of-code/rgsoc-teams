@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module ApplicationDraftsHelper
   STUDENT_FIELDS = [:name,
                     :application_age,

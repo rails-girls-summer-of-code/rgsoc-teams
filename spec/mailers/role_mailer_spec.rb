@@ -1,6 +1,6 @@
 require "spec_helper"
 
-describe RoleMailer, type: :mailer do
+RSpec.describe RoleMailer, type: :mailer do
   describe 'user_added_to_team' do
     let(:user) { create(:user) }
     let(:team) { create(:team) }

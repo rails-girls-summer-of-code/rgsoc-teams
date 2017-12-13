@@ -23,5 +23,8 @@ module RgsocTeams
     config.action_mailer.default_url_options = { host: 'teams.railsgirlssummerofcode.org' }
 
     config.active_job.queue_adapter = :sucker_punch
+
+    # Suppress logger output for asset requests.
+    config.assets.quiet = true
   end
 end

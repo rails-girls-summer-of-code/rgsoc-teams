@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-RSpec.describe ConferencesController do
+RSpec.describe ConferencesController, type: :controller do
   render_views
 
   describe 'GET index' do
@@ -17,7 +17,7 @@ RSpec.describe ConferencesController do
 
   describe 'show details' do
     let(:conference) { create :conference, :in_current_season }
-    it 'should show the requested network' do
+    it 'should show the requested conference' do
       get :show, params: { id: conference.id }
       expect(assigns(:conference)).to eq(conference)
     end

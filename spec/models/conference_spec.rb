@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Conference do
+RSpec.describe Conference, type: :model do
   it_behaves_like 'HasSeason'
 
   it { is_expected.to have_many(:conference_attendances).dependent(:destroy) }
