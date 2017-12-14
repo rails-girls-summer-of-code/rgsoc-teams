@@ -4,8 +4,8 @@ nav.actions
     li = link_to icon('plus', 'New Team'), new_team_path, class: 'btn btn-primary btn-sm' if can? :create, Team.new(season: Season.current)
   div.pull-right.dropdown
     button.btn.btn-default.dropdown-toggle data-toggle="dropdown"
-      | Past Teams 
-      span.caret
+      | Past Teams
+      span.caret<
     ul.dropdown-menu role="menu"
       - Season.all_years.each do |year|
         li
