@@ -186,7 +186,7 @@ class Team < ApplicationRecord
   def limit_number_of_students
     students = roles.select{|r| r.name == 'student' && !r.marked_for_destruction?}
     return unless students.size > 2
-    errors.add(:roles, 'there cannot be more than 2 students on a team.')
+    errors.add(:roles, :no_more_than_two)
   end
 
   def two_students_present?
