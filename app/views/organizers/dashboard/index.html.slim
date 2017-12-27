@@ -1,0 +1,21 @@
+= render 'organizers/breadcrumbs'
+
+p Relevant places for you to go as an organizer.
+
+dl.dl-horizontal
+  dt = link_to 'Projects', [:organizers, :projects]
+  dd View/accept/reject submitted Projects
+  dt = link_to 'Teams', [:organizers, :teams]
+  dd Current Teams
+  dt = link_to 'User info', organizers_users_info_path
+  dd User info
+  dt = link_to 'Conferences', [:organizers, :conferences]
+  dd Conferences
+  dt = link_to 'Seasons', [:organizers, :seasons]
+  dd Season management (including time travel for test and development)
+  dt &nbsp;
+  dd &nbsp;
+  dt = link_to 'Exports', [:organizers, :exports]
+  dd Export data for reporting
+  dt = link_to 'Mailings', organizers_mailings_path
+  dd Send emails to targeted groups

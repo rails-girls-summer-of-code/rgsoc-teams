@@ -7,9 +7,7 @@ RSpec.describe 'The Application Process', type: :request do
       before { sign_in user }
 
       context 'during the application phase' do
-        before do
-          Season::PhaseSwitcher.fake_application_phase
-        end
+        before { DevUtils::SeasonPhaseSwitcher.fake_application_phase }
 
         context 'as part of a team' do
           let!(:team) { user.teams.last }

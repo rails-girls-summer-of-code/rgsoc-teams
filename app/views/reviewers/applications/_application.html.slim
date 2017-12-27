@@ -1,0 +1,29 @@
+tr
+  td = application.id
+  td = link_to application.team_name, [:reviewers, application]
+  - if application.project1
+    td.text-right = link_to application.project1.name, application.project1
+  - else
+    td -
+  - if application.project2
+    td.text-left = link_to application.project2.name, application.project2
+  - else
+    td -
+  td = application.application_data.values_at('student0_application_location', 'student1_application_location').uniq.join('<br>').html_safe
+  td = application.coaching_company
+  td.text-right = application.application_data['student0_application_money']
+  td.text-left = application.application_data['student1_application_money']
+  td.text-center = icon('check') if application.application_data['voluntary'].to_s == 'true'
+  td.text-center = application.application_data['voluntary_hours_per_week']
+  td.text-left = application.flags.map { |f| content_tag(:span, f, class: 'label label-default') }.join('<br>').html_safe
+  td.text-center = icon('check') if application.application_data['signed_off_at_project1']
+  td.text-center = icon('check') if application.application_data['signed_off_at_project2']
+  td.text-center = icon('heart') if application.application_data['mentor_fav_project1']
+  td.text-center = icon('heart') if application.application_data['mentor_fav_project2']
+  td = application.total_picks
+  td = application.total_likes
+  td = application.average_points
+  td = application.median_points
+  td = @strictness[application.id]
+  td = application.ratings_short.join(', ')
+  td = application.misc_info

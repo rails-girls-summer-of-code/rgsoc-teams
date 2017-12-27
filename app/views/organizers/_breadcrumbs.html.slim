@@ -1,0 +1,3 @@
+ul[class=:breadcrumb]
+  - @breadcrumbs.each do |breadcrumb|
+    li = link_to breadcrumb[0], [:organizers, breadcrumb[1]]

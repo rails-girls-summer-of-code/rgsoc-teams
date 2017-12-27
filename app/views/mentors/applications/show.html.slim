@@ -1,0 +1,25 @@
+ul[class=:breadcrumb]
+  li = link_to 'Applications', [:mentors, :applications]
+  li = link_to @application.team_name, mentors_application_path(id: @application.id)
+
+h2
+  | Team #{@application.team_name}
+  br
+  small For #{link_to @application.project_name, project_path(@application.project_id)} #{icon('star') if @application.first_choice?}
+
+div.panel.panel-default
+  div.panel-heading #{ApplicationDraft.human_attribute_name :why_selected_project1}
+  div.panel-body
+    p #{@application.why_selected_project}
+
+div.panel.panel-default
+  div.panel-heading #{ApplicationDraft.human_attribute_name :plan_project1}
+  div.panel-body
+    p #{@application.project_plan}
+
+h3 First Student
+= render 'student', student: @application.student0
+h3 Second Student
+= render 'student', student: @application.student1
+
+= render 'comment', comment: @comment

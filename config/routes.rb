@@ -37,8 +37,8 @@ Rails.application.routes.draw do
     post 'preview', on: :collection
   end
 
-  get 'rating', to: 'rating/overview#index'
-  namespace :rating do
+  namespace :reviewers do
+    root to: 'dashboard#index', as: :dashboard
     resources :todos, only: [:index]
     resources :applications, except: [:new, :create, :destroy]
     resources :ratings, only: [:create, :update]
@@ -71,10 +71,10 @@ Rails.application.routes.draw do
 
   get 'pages/:page', to: 'pages#show', as: :page
 
-  get 'orga/users/info', to: 'orga/users_info#index', as: :orga_users_info
-  patch 'orga/seasons/switch_phase', to: 'orga/seasons#switch_phase', as: :switch_phase
-  namespace :orga do
+  namespace :organizers do
     root to: 'dashboard#index', as: :dashboard
+    patch 'seasons/switch_phase', to: 'seasons#switch_phase'
+    get 'users/info', to: 'users_info#index', as: :users_info
     resources :projects, only: [:index] do
       member do
         put :accept
@@ -101,14 +101,13 @@ Rails.application.routes.draw do
     end
   end
 
-  get 'supervisor', to: 'supervisor/dashboard#index'
-  patch 'supervisor/notes', to: 'supervisor/notes#update'
-  namespace :supervisor do
-    get 'dashboard', to: 'dashboard#index'
+  namespace :supervisors do
+    root to: 'dashboard#index', as: :dashboard
     resources :comments, only: [:index, :create]
+    resources :notes, only: [:update]
   end
 
-  namespace :mentor do
+  namespace :mentors do
     resources :applications, only: [:index, :show] do
       member do
         put :fav

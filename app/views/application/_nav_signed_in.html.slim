@@ -9,15 +9,15 @@ li.dropdown
     li = link_to 'Profile', current_user
     li.divider.hidden-xs
     - if current_user.admin?
-      li = link_to 'Orga Dashboard', orga_dashboard_path
+      li = link_to 'Orga Dashboard', organizers_dashboard_path
     - if current_user.reviewer?
-      li = link_to 'Rating Dashboard', rating_path
+      li = link_to 'Rating Dashboard', reviewers_dashboard_path
     - if current_user.current_student? && current_season.started?
       li = link_to 'Status Updates', [:students, :status_updates]
     - if current_user.supervisor? && current_season.started?
-      li = link_to 'Supervisor Dashboard', supervisor_dashboard_path
+      li = link_to 'Supervisor Dashboard', supervisors_dashboard_path
     - if current_user.project_maintainer?
-      li = link_to 'Mentor Dashboard', mentor_applications_path
+      li = link_to 'Mentor Dashboard', mentors_applications_path
     li.divider.hidden-xs
     - if current_user != true_user
       li.hidden-xs = link_to icon('eye-slash', 'Stop'), stop_impersonating_users_path, method: :post
