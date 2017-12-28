@@ -89,58 +89,24 @@ en:
             attributes:
               user:
                 too_many_reviewers: too many reviewers
-
-    errors:
-        models:
           application_draft:
-                  attributes:
-                      projects:
-                          multiple_sel_error: must not be selected twice
-
-    errors:                      
-        models:
-          application_draft:
-                  attributes:
-                      projects:
-                          must_accepted: must have been accepted
-
-     errors:                      
-        models:
-          application_draft:
-                  attributes:
-                          base:
-                            one_app_allowed: Only one application may be lodged
-
-     errors:                      
-        models:
-          application_draft:
-                  attributes:
-                          base:
-                            confirmed_email_address: Please make sure every student confirmed the email address.
-
-     errors:                      
-        models:
+            attributes:
+              projects:
+                multiple_sel_error: must not be selected twice
+                must_accepted: must have been accepted
+              base:
+                one_app_allowed: Only one application may be lodged
+                confirmed_email_address: Please make sure every student confirmed the email address.
           conference:
-                 attributes:
-                         ends_on:
-                           wrong_date_sel: must be a later date than start date
-
-      errors:                      
-        models:
-           team:
-             attributes:
-                     roles:
-                        no_more_than_two: there cannot be more than 2 students on a team.
-
-       errors:                      
-        models:
-           user:
-             attributes:
-                     github_handle:
-                             can't_be_changed: can't be changed
-
-
-
-
-                            
-
+            attributes:
+              ends_on:
+                wrong_date_sel: must be a later date than start date
+          team:
+            attributes:
+              roles:
+                no_more_than_two: there cannot be more than 2 students on a team.
+          user:
+            attributes:
+              github_handle:
+                cannot_be_changed: can't be changed
+              
