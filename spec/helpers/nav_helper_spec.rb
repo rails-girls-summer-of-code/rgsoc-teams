@@ -1,6 +1,58 @@
 require 'spec_helper'
 
-RSpec.describe NavHelper, type: :helper do
+RSpec.describe NavHelper, type: :helper, wip: true do
+  describe '#active_if' do
+    subject(:css_class) { helper.active_if(path) }
+
+    let(:path) { 'some/random/path' }
+
+    it 'returns the active css class if the given path is the current one' do
+      expect(helper).to receive(:current_page?).with(path).and_return(true)
+      expect(css_class).to eq 'active'
+    end
+
+    it 'returns nothing if the given path is not the current one' do
+      expect(helper).to receive(:current_page?).with(path).and_return(false)
+      expect(css_class).to be_nil
+    end
+  end
+
+  describe '#active_if_soc_dropdown_active' do
+    subject(:css_class) { helper.active_if_soc_dropdown_active }
+
+    it 'returns active for all controller specified in the helper' do
+      described_class::SOC_CONTROLLER.each do |controller|
+        params = ActionController::Parameters.new(controller: controller)
+        allow(helper).to receive(:params).and_return(params)
+        expect(helper.active_if_soc_dropdown_active).to eq 'active'
+      end
+    end
+
+    it 'returns nil for any other controller' do
+      params = ActionController::Parameters.new(controller: 'something_random')
+      allow(helper).to receive(:params).and_return(params)
+      expect(css_class).to be_nil
+    end
+  end
+
+  describe '#active_if_controller' do
+    subject(:css_class) { helper.active_if_controller(controller_name) }
+
+    let(:controller_name) { 'some_random_string' }
+
+    it 'returns active if the given controller matches the current page' do
+      params = ActionController::Parameters.new(controller: controller_name)
+      allow(helper).to receive(:params).and_return(params)
+      expect(css_class).to eq 'active'
+    end
+
+    it 'returns nil if the controller does not match' do
+      params = ActionController::Parameters.new(controller: 'something_else')
+      allow(helper).to receive(:params).and_return(params)
+      expect(css_class).to be_nil
+    end
+  end
+
   describe '#during_season?' do
     subject { helper.during_season? }
 

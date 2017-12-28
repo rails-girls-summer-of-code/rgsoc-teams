@@ -1,13 +1,17 @@
 # frozen_string_literal: true
 module NavHelper
-  SOC_CONTROLLER = %w(conferences projects applications application_drafts teams users)
+  SOC_CONTROLLER = %w(conferences projects applications application_drafts teams community).freeze
 
-  def dropdown_active?
+  def active_if_soc_dropdown_active
     'active' if SOC_CONTROLLER.include?(params[:controller])
   end
 
-  def active?(controller_name)
-    'active' if params[:controller] == controller_name.to_s
+  def active_if(path)
+    'active' if current_page?(path)
+  end
+
+  def active_if_controller(controller)
+    'active' if params[:controller] == controller
   end
 
   def during_application_phase?
