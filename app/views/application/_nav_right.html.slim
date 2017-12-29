@@ -1,27 +1,27 @@
 ul.nav.navbar-nav.navbar-right
-  li class=active?(:activities) = link_to 'Activities', root_path
-  li.dropdown class=dropdown_active?
+  li class=active_if(root_path) = link_to 'Activities', root_path
+  li.dropdown class=active_if_soc_dropdown_active
     a.dropdown-toggle data-toggle="dropdown" href="#"
       | Summer of Code
       span.caret
     ul.dropdown-menu role="menu"
       - if Season.projects_proposable?
         li.divider.hidden-xs
-        li class=active?(:projects) = link_to 'Submit your Project', new_project_path
-        li class=active?(:projects) = link_to 'Projects', projects_path      
-      - if show_application_link?
+        li class=active_if(new_project_path) = link_to 'Submit your Project', new_project_path
+        li class=active_if(projects_path) = link_to 'Projects', projects_path
+      - elsif during_application_phase?
         li.divider.hidden-xs
-        li class=active?(:application_drafts) = application_disambiguation_link
-        li class=active?(:projects) = link_to 'Projects', projects_path
-      - if current_season.started?
+        li class=active_if_controller('application_drafts') = application_disambiguation_link
+        li class=active_if(projects_path) = link_to 'Projects', projects_path
+      - elsif during_season?
         li.divider.hidden-xs
-        li class=active?(:conferences) = link_to 'Conferences',  conferences_path
-        li class=active?(:projects) = link_to 'Projects', projects_path
+        li class=active_if(conferences_path) = link_to 'Conferences', conferences_path
+        li class=active_if(projects_path) = link_to 'Projects', projects_path
       li.divider.hidden-xs
-      li class=active?(:teams) = link_to 'Teams', teams_path
-      li class=active?(:users) = link_to 'Community', community_index_path
-  li class=('active' if params[:page] == 'help') = link_to 'Help', page_path('help')
-    
+      li class=active_if(teams_path) = link_to 'Teams', teams_path
+      li class=active_if(community_index_path) = link_to 'Community', community_index_path
+  li class=active_if(page_path('help')) = link_to 'Help', page_path('help')
+
   - if signed_in?
     = render 'nav_signed_in'
   - else
