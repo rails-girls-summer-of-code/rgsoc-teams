@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-RSpec.describe NavHelper, type: :helper, wip: true do
+RSpec.describe NavHelper, type: :helper do
   describe '#active_if' do
     subject(:css_class) { helper.active_if(path) }
 
@@ -21,7 +21,7 @@ RSpec.describe NavHelper, type: :helper, wip: true do
     subject(:css_class) { helper.active_if_soc_dropdown_active }
 
     it 'returns active for all controller specified in the helper' do
-      described_class::SOC_CONTROLLER.each do |controller|
+      described_class::SOC_CONTROLLERS.each do |controller|
         params = ActionController::Parameters.new(controller: controller)
         allow(helper).to receive(:params).and_return(params)
         expect(helper.active_if_soc_dropdown_active).to eq 'active'
