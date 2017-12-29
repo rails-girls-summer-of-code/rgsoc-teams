@@ -57,6 +57,7 @@ class ApplicationController < ActionController::Base
   end
 
   def current_student
+    return unless current_user
     @current_student ||= Student.new(current_user)
   end
 
