@@ -12,4 +12,4 @@ test:
 production:
   adapter: postgresql
   database: rgsocteams_production
-  host: localhost
+host: localhost

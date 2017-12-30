@@ -89,3 +89,24 @@ en:
             attributes:
               user:
                 too_many_reviewers: too many reviewers
+          application_draft:
+            attributes:
+              projects:
+                too_many_selected: must not be selected twice
+                none_accepted: must have been accepted
+              base:
+                too_many_applications: Only one application may be lodged
+                unconfirmed_email_address: Please make sure every student confirmed the email address.
+          conference:
+            attributes:
+              ends_on:
+                chronology_violation: must be a later date than start date
+          team:
+            attributes:
+              roles:
+                too_many_students: there cannot be more than 2 students on a team.
+          user:
+            attributes:
+              github_handle:
+                immutabilty_violation: can't be changed
+              

@@ -173,19 +173,19 @@ class ApplicationDraft < ApplicationRecord
 
   def different_projects_required
     if project1 && project1 == project2
-      errors.add(:projects, 'must not be selected twice')
+      errors.add(:projects, :too_many_selected)
     end
   end
 
   def accepted_projects_required
     if projects.any? { |p| p && !p.accepted? } # if they don't exist, the presence validation will handle it
-      errors.add(:projects, 'must have been accepted')
+      errors.add(:projects, :none_accepted)
     end
   end
 
   def only_one_application_draft_allowed
     unless team.application_drafts.where(season: season).none?
-      errors.add(:base, 'Only one application may be lodged')
+      errors.add(:base, :too_many_applications)
     end
   end
 
@@ -195,7 +195,7 @@ class ApplicationDraft < ApplicationRecord
 
   def students_confirmed?
     unless team.present? && team.students.all?{|student| student.confirmed? }
-      errors.add(:base, 'Please make sure every student confirmed the email address.')
+      errors.add(:base, :unconfirmed_email_address)
     end
   end
 
