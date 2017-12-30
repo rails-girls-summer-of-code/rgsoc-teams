@@ -29,7 +29,7 @@ class Conference < ApplicationRecord
 
   def chronological_dates
     unless starts_on <= ends_on
-      errors.add(:ends_on, :wrong_date_sel)
+      errors.add(:ends_on, :chronology_violation)
     end
   end
 

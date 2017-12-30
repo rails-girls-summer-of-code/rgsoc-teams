@@ -220,7 +220,7 @@ class User < ApplicationRecord
 
   def immutable_github_handle
     return if new_record?
-    errors.add(:github_handle, :cannot_be_changed) if changes_include?(:github_handle)
+    errors.add(:github_handle, :immutabilty_violation) if changes_include?(:github_handle)
   end
 
 end
