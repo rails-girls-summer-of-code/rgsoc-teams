@@ -179,10 +179,6 @@ class User < ApplicationRecord
     (q_user_names + q_team_names).uniq
   end
 
-  def student_team
-    teams.in_current_season.last if student?
-  end
-
   def interested_in_list
     interested_in.reject(&:blank?).join(', ')
   end
