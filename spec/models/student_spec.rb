@@ -32,39 +32,27 @@ RSpec.describe Student, type: :model do
   end
 
   describe '#current_team' do
-    it 'returns nil if no team can be determined' do
-      expect(subject.current_team).to be_nil
-    end
+    subject(:current_team) { described_class.new(user).current_team }
 
-    context 'with a team' do
-      let(:old_season) { Season.find_or_create_by(name: '2015') }
-      let(:old_team) { create :team, season: old_season }
+    let(:user) { create(:user) }
 
-      let(:user) { create :user }
-      let(:current_team) { create :team, :in_current_season }
+    it { is_expected.to be_nil }
 
-      subject { described_class.new(user).current_team }
+    context 'when the user is in teams for multiple seasons' do
+      let(:old_season) { create :season, name: '2015' }
+      let(:old_team)   { create :team, season: old_season }
+      let(:team)       { create :team, :in_current_season }
 
-      context 'when the user has been a student before' do
-        before do
-          create :student_role, user: user, team: current_team
-          create :student_role, user: user, team: old_team
-        end
+      before { create :student_role, user: user, team: old_team }
 
-        it 'returns the current season\'s team' do
-          expect(subject).to eql current_team
-        end
+      it 'returns the team where she is a student for the current_season' do
+        create :student_role, user: user, team: team
+        expect(current_team).to eql team
       end
 
-      context 'when the user has been a student before but is now contributing to the project' do
-        before do
-          create :student_role, user: user, team: old_team
-          create :supervisor_role, user: user, team: current_team
-        end
-
-        it 'does not return any team' do
-          expect(subject).to be_nil
-        end
+      it 'returns nothing if the user has a different role in the current_season' do
+        create :coach_role, user: user, team: team
+        expect(current_team).to be_nil
       end
     end
   end
