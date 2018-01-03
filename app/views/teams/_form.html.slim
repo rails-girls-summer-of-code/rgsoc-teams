@@ -53,10 +53,9 @@
         Please make sure to add at least your team log feed and repositories that
         you are working on:
 
-    fieldset
+    fieldset id="team-sources"
       = f.simple_fields_for :sources do |s|
         = s.input :url, required: true, label: 'URL'
-        / = s.input :kind, as: :radio_buttons, collection: Source::KINDS.map { |k| [k.capitalize, k] }, required: false, label: false
         .form-group
           label.control-label.col-sm-3 Type
           .col-sm-9
@@ -65,6 +64,7 @@
                 label
                   = s.radio_button :kind, kind, required: true
                   = kind.capitalize
+            .help-block
             .form-btn-group
               = s.link_to_remove 'Remove', class: 'btn btn-default'
       .form-group.form-btn-group
