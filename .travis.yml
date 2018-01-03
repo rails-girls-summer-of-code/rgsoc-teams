@@ -8,6 +8,9 @@ notifications:
     secure: AziQTqGNQCCe/673UZy3bW0XB0oGywiEAyxygTWs2Cki0lqNldgELlPg+eC+CgvCJpMXRY6PLS/MXWeu4eR/6iONnBo+So8l9wJSZasxrCwVWqI9UFZYaMXXzFTGlz2JmBJ7JigW5zxL/Y3ukqu+wjA3MytT8N5tuNdR5SYqy40=
   slack:
     secure: pEbxQLQakbPpZkU2p+FdHxSOw7BlXHrOMdJlh8g7fK2oGiOMrpU0wbRUHUxNWzxTnkqWmwq37cIFXPGLel3yWkDzDO0+EuBBFPyoiQ2THxC8/pdpIO3I6jAuH7Zqra4jIdfHWw0UkN4Z+Yqnc+Y90rf9SC7mRGucbcy5aCGEIkY=
+before_install:
+  - gem update --system
+  - gem --version
 before_script:
   - cp config/database.yml.travis config/database.yml
   - bundle exec rails db:create db:schema:load RAILS_ENV=test
