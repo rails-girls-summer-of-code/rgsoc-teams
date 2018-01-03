@@ -2,7 +2,7 @@
 class Source < ApplicationRecord
   include UrlHelper
 
-  KINDS = %w(blog repository)
+  KINDS = %w(page repository blog)
 
   belongs_to :team
 
