@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby '2.4.2'
+ruby File.read(".ruby-version")
 
 gem 'rails', '~> 5.1.4'
 gem 'pg'
