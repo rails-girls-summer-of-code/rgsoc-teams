@@ -41,7 +41,7 @@ Requirements:
 ## System Requirements
 
 * PostgreSQL 9.5 or newer
-* Ruby 2.4.2
+* Ruby 2.5.0
 
 ### Setup on Ubuntu
 ```bash
