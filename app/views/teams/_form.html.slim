@@ -53,12 +53,12 @@
         Please make sure to add at least your team log feed and repositories that
         you are working on:
 
-    fieldset id="team-sources"
+    fieldset
       = f.simple_fields_for :sources do |s|
         = s.input :url, required: true, label: 'URL'
         .form-group
           label.control-label.col-sm-3 Type
-          .col-sm-9
+          .col-sm-9 data-behaviour='source-kind-switch'
             - Source::KINDS.each do |kind|
               .radio
                 label
