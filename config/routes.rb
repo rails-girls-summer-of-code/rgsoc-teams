@@ -23,7 +23,6 @@ Rails.application.routes.draw do
   resources :users, except: [:new, :index], concerns: [:has_roles, :impersonatable] do
     post 'resend_confirmation_instruction', on: :member
   end
-  resources :sources, only: :index
   resources :comments, only: :create
   resources :conferences
   resources :conference_attendances, only: :update
@@ -57,7 +56,6 @@ Rails.application.routes.draw do
   get 'teams/info', to: 'teams_info#index'
   resources :teams do
     resources :join, only: [:new, :create]
-    resources :sources
     resources :roles, only: [:new, :create, :destroy]
   end
 
