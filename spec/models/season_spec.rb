@@ -10,6 +10,10 @@ RSpec.describe Season, type: :model do
     it { is_expected.not_to allow_value('201o').for(:name) }
   end
 
+  describe 'associations' do
+    it { is_expected.to have_many(:projects) }
+  end
+
   describe 'callbacks' do
     subject { described_class.new name: Date.today.year }
 
