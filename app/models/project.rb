@@ -11,6 +11,7 @@ class Project < ApplicationRecord
 
   validates :name, :submitter, :mentor_email, presence: true
 
+  scope :not_rejected, -> { where.not(aasm_state: 'rejected') }
   scope :in_current_season, -> do
     where(season: Season.transition? ? Season.succ : Season.current)
   end
