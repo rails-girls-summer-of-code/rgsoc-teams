@@ -17,9 +17,11 @@ class Feed
 
   attr_reader :source, :logger
 
-  def initialize(source, options = {})
+  # @param source [Source]
+  # @param logger [Logger] an optional logger instance. Logs to STDOUT by default.
+  def initialize(source, logger: Logger.new(STDOUT))
     @source = source
-    @logger = options[:logger] || Logger.new(STDOUT)
+    @logger = logger
   end
 
   def update
