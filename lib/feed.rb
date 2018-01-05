@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 require 'feedjira'
 
-class Feed
-  autoload :Discovery, 'feed/discovery'
-  autoload :Image,     'feed/image'
-  autoload :Item,      'feed/item'
-  autoload :S3,        'feed/s3'
+require 'feed/discovery'
+require 'feed/image'
+require 'feed/item'
+require 'feed/s3'
 
+class Feed
   class << self
     def update_all
       Source.for_accepted_teams.where(kind: 'blog').each do |source|
