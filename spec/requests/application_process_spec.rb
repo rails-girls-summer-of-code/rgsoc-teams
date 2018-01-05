@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 RSpec.describe 'The Application Process', type: :request do
   describe 'GET /apply' do

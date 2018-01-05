@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 RSpec.describe Conference, type: :model do
   it_behaves_like 'HasSeason'

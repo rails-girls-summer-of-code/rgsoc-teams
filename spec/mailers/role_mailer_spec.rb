@@ -1,4 +1,4 @@
-require "spec_helper"
+require "rails_helper"
 
 RSpec.describe RoleMailer, type: :mailer do
   describe 'user_added_to_team' do

@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 RSpec.describe TeamPerformance, type: :model do
   def create_all_teams

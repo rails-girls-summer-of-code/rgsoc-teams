@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 RSpec.describe ReminderMailer, type: :mailer do
   let(:student_1_email) { 'someone@nowhere.com' }
