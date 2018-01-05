@@ -5,7 +5,7 @@ ruby File.read(".ruby-version")
 gem 'rails', '~> 5.1.4'
 gem 'pg'
 gem 'puma'
-gem 'devise'
+gem 'devise', '~> 4.4.0'
 gem 'omniauth-github'
 gem 'cancancan'
 gem 'redcarpet'
