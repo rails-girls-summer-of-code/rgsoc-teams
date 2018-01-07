@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 RSpec.describe ConferenceAttendancesController, type: :controller do
   let(:team) { create(:team, :in_current_season) }

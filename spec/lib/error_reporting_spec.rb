@@ -10,7 +10,7 @@ RSpec.describe ErrorReporting do
     end
 
     let(:error) { Class.new(Exception).new("Nope.") }
-    let(:strng) { "Err, what about … no?" }
+    let(:string) { "Err, what about … no?" }
 
     it 'will send descendants of Exception' do
       described_class.call error
@@ -18,7 +18,7 @@ RSpec.describe ErrorReporting do
     end
 
     it 'will send a simple String message' do
-      described_class.call strng
+      described_class.call string
       expect(raven_double).to have_received(:capture_message)
     end
   end

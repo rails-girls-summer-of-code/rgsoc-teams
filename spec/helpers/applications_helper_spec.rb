@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 RSpec.describe ApplicationsHelper, type: :helper do
   describe '.link_to_application_project' do
