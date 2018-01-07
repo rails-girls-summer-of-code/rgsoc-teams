@@ -1,12 +1,13 @@
 # frozen_string_literal: true
 require 'feedjira'
 
-class Feed
-  autoload :Discovery, 'feed/discovery'
-  autoload :Image,     'feed/image'
-  autoload :Item,      'feed/item'
-  autoload :S3,        'feed/s3'
+require 'error_reporting'
+require 'feed/discovery'
+require 'feed/image'
+require 'feed/item'
+require 'feed/s3'
 
+class Feed
   class << self
     def update_all
       Source.for_accepted_teams.where(kind: 'blog').each do |source|
@@ -17,9 +18,11 @@ class Feed
 
   attr_reader :source, :logger
 
-  def initialize(source, options = {})
+  # @param source [Source]
+  # @param logger [Logger] an optional logger instance. Logs to STDOUT by default.
+  def initialize(source, logger: Logger.new(STDOUT))
     @source = source
-    @logger = options[:logger] || Logger.new(STDOUT)
+    @logger = logger
   end
 
   def update
@@ -28,6 +31,7 @@ class Feed
     update_entries
     source.save! if source.feed_url_changed? && source.feed_url != source.url
   rescue => e
+    ErrorReporting.call(e)
     puts e.message
     puts e.backtrace
   end
@@ -57,6 +61,7 @@ class Feed
       record ? record.update_attributes!(attrs) : Activity.create!(attrs)
     end
   rescue => e
+    ErrorReporting.call(e)
     logger.error "Could not update entries: #{e.message}"
     nil
   end
