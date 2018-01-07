@@ -1,4 +1,4 @@
-require "spec_helper"
+require "rails_helper"
 
 RSpec.describe ApplicationFormMailer, type: :mailer do
   let(:application) { build_stubbed(:application) }

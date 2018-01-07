@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 RSpec.describe Student, type: :model do
   let(:user) { build_stubbed(:user) }

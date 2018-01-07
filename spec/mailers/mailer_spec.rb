@@ -1,4 +1,4 @@
-require "spec_helper"
+require "rails_helper"
 
 RSpec.describe Mailer, type: :mailer do
   def message_part(mail, content_type)

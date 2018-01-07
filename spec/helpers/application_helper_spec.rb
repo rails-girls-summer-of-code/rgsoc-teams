@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 RSpec.describe ApplicationHelper, type: :helper do
   describe '#application_disambiguation_link' do

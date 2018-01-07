@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 RSpec.describe CharacterLimitedInput do
   include RSpec::Rails::HelperExampleGroup

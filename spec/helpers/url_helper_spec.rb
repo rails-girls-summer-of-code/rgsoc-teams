@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 RSpec.describe UrlHelper, type: :helper do
   describe 'normalize_url' do

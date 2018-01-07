@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 RSpec.describe 'Browsing the front page', type: :request do
   describe 'GET /' do
