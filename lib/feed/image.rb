@@ -35,6 +35,7 @@ class Feed
       response = fetch_json("http://api.page2images.com/restfullink?#{params.to_param}")
       open(response['image_url'])
     rescue => e
+      ErrorReporting.call(e)
       logger.error "Could not fetch image for #{url}: #{e.message}"
       nil
     end

@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 require 'feedjira'
 
+require 'error_reporting'
 require 'feed/discovery'
 require 'feed/image'
 require 'feed/item'
@@ -30,6 +31,7 @@ class Feed
     update_entries
     source.save! if source.feed_url_changed? && source.feed_url != source.url
   rescue => e
+    ErrorReporting.call(e)
     puts e.message
     puts e.backtrace
   end
@@ -59,6 +61,7 @@ class Feed
       record ? record.update_attributes!(attrs) : Activity.create!(attrs)
     end
   rescue => e
+    ErrorReporting.call(e)
     logger.error "Could not update entries: #{e.message}"
     nil
   end
