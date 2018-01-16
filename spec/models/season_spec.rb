@@ -132,6 +132,25 @@ RSpec.describe Season, type: :model do
     end
   end
 
+  describe '#current?' do
+    subject { described_class.new(name: year) }
+
+    context 'in a past year' do
+      let(:year) { Date.today.year - 1 }
+      it { is_expected.not_to be_current }
+    end
+
+    context 'in the same year' do
+      let(:year) { Date.today.year }
+      it { is_expected.to be_current }
+    end
+
+    context 'in a future year' do
+      let(:year) { Date.today.year + 1 }
+      it { is_expected.not_to be_current }
+    end
+  end
+
   describe '.current' do
     it 'creates a season record' do
       create :season, name: '2000'

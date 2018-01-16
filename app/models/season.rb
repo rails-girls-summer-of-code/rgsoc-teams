@@ -56,6 +56,11 @@ class Season < ApplicationRecord
     Time.now.utc.between?(acceptance_notification_at, ends_at)
   end
 
+  # @return [Boolean] whether or not the Season represents the current year
+  def current?
+    name == Date.today.year.to_s
+  end
+
   def started?
     Time.now.utc >= (starts_at || 1.week.from_now)
   end
