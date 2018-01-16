@@ -38,9 +38,12 @@ class Project < ApplicationRecord
     end
   end
 
-  def self.selected
-    project_names = Team.in_current_season.accepted.pluck(:project_name)
-    Project.in_current_season.accepted.where(name: project_names)
+  # Returns the accepted projects that ended up being assigned a team.
+  #
+  # @param season [Season] the season to query, defaults to the current one.
+  def self.selected(season: Season.current)
+    project_names = Team.in_season(season).accepted.pluck(:project_name)
+    in_season(season).accepted.where(name: project_names)
   end
 
   def taglist
