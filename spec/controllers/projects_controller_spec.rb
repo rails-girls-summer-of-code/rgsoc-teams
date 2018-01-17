@@ -39,6 +39,24 @@ RSpec.describe ProjectsController, type: :controller do
         expect(response.body).not_to include 'proposed project'
       end
     end
+
+    context 'with a season filter' do
+      let!(:season2017) { Season.find_or_create_by(name: '2017') }
+      let!(:proposed) { create(:project, :in_current_season, name: 'proposed project') }
+      let!(:selected2017) { create(:project, :accepted, season: season2017, name: "selected by a team 2017") }
+      let!(:selected) { create(:project, :accepted, :in_current_season, name: "selected by a team (current)") }
+      let!(:no_team) { create(:project, :accepted, season: season2017, name: "project without team 2017") }
+      let!(:team) { create(:team, season: season2017, project_name: selected2017.name) }
+
+      it 'shows selected projects in past season only' do
+        get :index, params: { filter: '2017' }
+        expect(response).to be_success
+        expect(response.body).to include "selected by a team 2017"
+        expect(response.body).not_to include "selected by a team (current)"
+        expect(response.body).not_to include 'project without team 2017'
+        expect(response.body).not_to include 'proposed project 2017'
+      end
+    end
   end
 
   describe 'GET new' do

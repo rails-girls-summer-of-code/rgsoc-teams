@@ -25,11 +25,12 @@ class ProjectsController < ApplicationController
   end
 
   def index
-    if Season.current.active?
-      @projects = Project.selected
-    else
-      @projects = Project.in_current_season.where(aasm_state: %w(accepted proposed))
-    end
+    season = Season.find_by(name: params['filter']) || Season.current
+    @projects = if season.current? and !season.active?
+                  Project.in_current_season.not_rejected
+                else
+                  Project.selected(season: season)
+                end
   end
 
   def destroy

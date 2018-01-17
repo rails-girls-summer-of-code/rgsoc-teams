@@ -7,6 +7,10 @@ h1.header
   = icon('users')
   span Projects
 
+nav.past-projects
+  - project_years.each do |filter|
+    = link_to filter.titleize, projects_path(filter: filter), class: "label label-default"
+
 table.table.table-striped.table-bordered.table-condensed.hidden-sm.hidden-xs
   tr
     th Name

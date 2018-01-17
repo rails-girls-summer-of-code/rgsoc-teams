@@ -19,4 +19,9 @@ module ProjectsHelper
     project.tags.map{ |t| "<span class='label label-default'>#{t}</span>" }.join(' ').html_safe
   end
 
+  # @return [Array<String>] a list of years we have projects for, most recent first.
+  def project_years
+    (Season.joins(:projects).distinct.pluck(:name) + [Date.today.year.to_s]).uniq.reverse
+  end
+
 end

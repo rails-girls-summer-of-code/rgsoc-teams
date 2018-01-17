@@ -4,5 +4,12 @@ module HasSeason
 
   included do
     belongs_to :season
+
+    # @param season [#name, String, Integer]
+    # @return [ActiveRecord::Relation]
+    def self.in_season(season)
+      season = season.try(:name) || season
+      joins(:season).where('seasons.name' => season)
+    end
   end
 end

@@ -10,6 +10,10 @@ RSpec.describe Season, type: :model do
     it { is_expected.not_to allow_value('201o').for(:name) }
   end
 
+  describe 'associations' do
+    it { is_expected.to have_many(:projects) }
+  end
+
   describe 'callbacks' do
     subject { described_class.new name: Date.today.year }
 
@@ -125,6 +129,25 @@ RSpec.describe Season, type: :model do
     it 'returns the name' do
       subject.name = 'foobarbaz'
       expect(subject.year).to eql 'foobarbaz'
+    end
+  end
+
+  describe '#current?' do
+    subject { described_class.new(name: year) }
+
+    context 'in a past year' do
+      let(:year) { Date.today.year - 1 }
+      it { is_expected.not_to be_current }
+    end
+
+    context 'in the same year' do
+      let(:year) { Date.today.year }
+      it { is_expected.to be_current }
+    end
+
+    context 'in a future year' do
+      let(:year) { Date.today.year + 1 }
+      it { is_expected.not_to be_current }
     end
   end
 

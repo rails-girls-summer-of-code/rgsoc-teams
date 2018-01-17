@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 class Season < ApplicationRecord
 
+  has_many :projects
+
   validates :name, presence: true, uniqueness: true, inclusion: { in: ('1999'..'2050') }
 
   before_validation :set_application_dates
@@ -52,6 +54,11 @@ class Season < ApplicationRecord
 
   def active?
     Time.now.utc.between?(acceptance_notification_at, ends_at)
+  end
+
+  # @return [Boolean] whether or not the Season represents the current year
+  def current?
+    name == Date.today.year.to_s
   end
 
   def started?
