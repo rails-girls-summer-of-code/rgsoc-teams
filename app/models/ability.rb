@@ -76,6 +76,9 @@ class Ability
       user.admin? ||
         (user.confirmed? && user == project.submitter)
     end
+    can :use_as_template, Project do |project|
+      user == project.submitter
+    end
 
     can :create, Project if user.confirmed?
     cannot :create, Project if !user.confirmed?

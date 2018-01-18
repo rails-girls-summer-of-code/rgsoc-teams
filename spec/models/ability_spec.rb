@@ -382,6 +382,24 @@ RSpec.describe Ability, type: :model do
 
       end
 
+      context 'when using a project as a template' do
+        let(:user) { build :user }
+
+        context 'for the original project submitter' do
+          let(:project) { build :project, submitter: user }
+
+          it 'can be used as a template' do
+            expect(subject).to be_able_to :use_as_template, project
+          end
+        end
+
+        context 'for a project submitted by someone else' do
+          let(:project) { build :project }
+          it 'cannot be used as a template' do
+            expect(subject).not_to be_able_to :use_as_template, project
+          end
+        end
+      end
     end
 
   end
