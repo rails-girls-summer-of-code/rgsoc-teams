@@ -16,13 +16,11 @@
  *= require_self
  */
 
-// Partials
-@import "partials/mixins"
-@import "partials/colors"
-@import "partials/fonts"
-@import "partials/github-ribbon"
-@import "partials/bootstrap-overwrites"
-@import "partials/navbar"
+// Setting things up
+@import "setup/mixins"
+@import "setup/colors"
+@import "setup/fonts"
+@import "setup/bootstrap-overrides"
 
 // Third-party
 @import "bootstrap"
@@ -36,6 +34,10 @@
 
 // Global
 @import "global"
+
+// Partials
+@import "partials/github-ribbon"
+@import "partials/navbar"
 
 // Controllers
 @import "controllers/activities"

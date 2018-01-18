@@ -1,4 +1,4 @@
-nav#navigation
+nav.navigation
   @extend .navbar, .navbar-inverse, .navbar-static-top
 
   a.dropdown-toggle-img
@@ -17,10 +17,12 @@ nav#navigation
   ul.dropdown-menu > li.divider:first-of-type
     display: none
 
-  .navbar-brand > img
-    height: 100%
-    width: auto
+.navbar__home
+  @extend .navbar-brand
 
-  .navbar-brand
-    padding: 0
-    margin: 0
+  padding: 0px
+
+.navbar__home__logo
+  height: 100%
+  padding: 5px
+  width: auto
