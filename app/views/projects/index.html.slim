@@ -19,7 +19,7 @@ table.table.table-striped.table-bordered.table-condensed.hidden-sm.hidden-xs
     th Comments
     th title="Application referencing this project as 1st choice" Applications (1st Choice)
     th title="Application referencing this project as 2nd choice" Applications (2nd Choice)
-    th Status
+    th colspan=2 Status
 
   - @projects.each do |project|
     tr
@@ -47,6 +47,9 @@ table.table.table-striped.table-bordered.table-condensed.hidden-sm.hidden-xs
         | /
         span.label.label-primary title="Applications sent in" = project.second_choice_application_drafts.applied.count
       td = project_status project
+      td
+        - if can? :use_as_template, project
+          = link_to "Use as template", [:use_as_template, project], class: 'btn btn-xs btn-primary'
 
 - @projects.each do |project|
   table.table.table-striped.table-bordered.table-condensed.hidden-md.hidden-lg

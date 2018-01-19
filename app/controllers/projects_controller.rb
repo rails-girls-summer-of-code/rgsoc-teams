@@ -4,7 +4,7 @@ class ProjectsController < ApplicationController
   before_action :soft_login_required, only: [:new]
   before_action :check_date!, only: [:new, :create]
 
-  load_and_authorize_resource only: [:edit, :update, :destroy]
+  load_and_authorize_resource only: [:edit, :update, :destroy, :use_as_template]
 
   def new
     submitter = current_user || User.new
@@ -70,6 +70,11 @@ class ProjectsController < ApplicationController
         format.html { render action: :new }
       end
     end
+  end
+
+  def use_as_template
+    @project = @project.dup
+    render :new
   end
 
   private
