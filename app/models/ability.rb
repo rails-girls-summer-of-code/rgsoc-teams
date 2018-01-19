@@ -77,7 +77,7 @@ class Ability
         (user.confirmed? && user == project.submitter)
     end
     can :use_as_template, Project do |project|
-      user == project.submitter
+      user == project.submitter && !project.season&.current?
     end
 
     can :create, Project if user.confirmed?
