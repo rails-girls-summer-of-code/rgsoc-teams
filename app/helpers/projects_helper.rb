@@ -21,7 +21,7 @@ module ProjectsHelper
 
   # @return [Array<String>] a list of years we have projects for, most recent first.
   def project_years
-    (Season.joins(:projects).distinct.pluck(:name) + [Date.today.year.to_s]).uniq.reverse
+    (Season.joins(:projects).distinct.pluck(:name) + [Date.today.year.to_s]).uniq.sort.reverse
   end
 
 end
