@@ -32,7 +32,10 @@ Rails.application.routes.draw do
   resources :status_updates, only: :show
   resources :status_update_comments, only: :create
   resources :projects do
-    get 'receipt', as: :receipt, on: :member
+    member do
+      get :receipt, as: :receipt
+      get :use_as_template
+    end
     post 'preview', on: :collection
   end
 

@@ -72,9 +72,13 @@ class Ability
     can :crud, :comments if user.admin?
     can :read, :users_info if user.admin? || user.supervisor?
 
+    # projects
     can :crud, Project do |project|
       user.admin? ||
         (user.confirmed? && user == project.submitter)
+    end
+    can :use_as_template, Project do |project|
+      user == project.submitter && !project.season&.current?
     end
 
     can :create, Project if user.confirmed?

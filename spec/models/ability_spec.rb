@@ -382,8 +382,25 @@ RSpec.describe Ability, type: :model do
 
       end
 
-    end
+      context 'when using a project as a template' do
+        let(:user) { build :user }
 
+        context 'for the original project submitter' do
+          let(:project) { build :project, submitter: user }
+          it { is_expected.to be_able_to :use_as_template, project }
+
+          context 'for a project from the same season' do
+            let(:project) { build :project, :in_current_season, submitter: user }
+            it { is_expected.not_to be_able_to :use_as_template, project }
+          end
+        end
+
+        context 'for a project submitted by someone else' do
+          let(:project) { build :project }
+          it { is_expected.not_to be_able_to :use_as_template, project }
+        end
+      end
+    end
   end
 
   context 'to join helpdesk team' do
