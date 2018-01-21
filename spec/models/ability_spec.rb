@@ -401,7 +401,6 @@ RSpec.describe Ability, type: :model do
         end
       end
     end
-
   end
 
   context 'to join helpdesk team' do

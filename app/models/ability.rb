@@ -72,6 +72,7 @@ class Ability
     can :crud, :comments if user.admin?
     can :read, :users_info if user.admin? || user.supervisor?
 
+    # projects
     can :crud, Project do |project|
       user.admin? ||
         (user.confirmed? && user == project.submitter)
