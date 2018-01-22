@@ -147,6 +147,86 @@ RSpec.describe Team, type: :model do
     end
   end
 
+  describe 'limit of coaches' do
+    let(:team) { create :team }
+    let(:new_user) { create :user }
+    let(:new_coach) { -> {{ name: 'coach', team_id: team.id, user_id: new_user.id }} }
+    let(:new_coach_as_student) { -> {{ name: 'student', team_id: team.id, user_id: new_user.id }} }
+    let(:second_new_coach) { -> {{ name: 'coach', team_id: team.id, user_id: create(:user).id }} }
+    let(:third_new_coach) { -> {{ name: 'coach', team_id: team.id, user_id: create(:user).id }} }
+    let(:fourth_new_coach) { -> {{ name: 'coach', team_id: team.id, user_id: create(:user).id }} }
+    let(:fifth_new_coach) { -> {{ name: 'coach', team_id: team.id, user_id: create(:user).id }} }
+    let(:remove_coach) { -> {{ name: 'coach', team_id: team.id, user_id: create(:user).id, _destroy: true }} }
+
+    context 'when team has no coaches yet' do
+      it 'allows to add 2 new coaches' do
+        roles_attributes = [new_coach.call, second_new_coach.call, third_new_coach.call, fourth_new_coach.call]
+        expect {
+          team.update roles_attributes: roles_attributes
+        }.to change { team.members.count }.by 4
+      end
+
+      it 'ignores coaches marked for destruction' do
+        roles_attributes = [new_coach.call, second_new_coach.call, third_new_coach.call, fourth_new_coach.call]
+        roles_attributes << remove_coach.call
+        expect {
+          team.update roles_attributes: roles_attributes
+        }.to change { team.members.count }.by 4
+      end
+
+      it 'does not allow to add more than 5 new coaches' do
+        roles_attributes = [new_coach.call, second_new_coach.call, third_new_coach.call, fourth_new_coach.call, fifth_new_coach.call]
+        team.attributes = { roles_attributes: roles_attributes }
+        expect { team.save }.not_to change { team.members.count }
+        expect(team.errors[:roles].first).to eql 'there cannot be more than 4 coaches on a team.'
+      end
+
+      it 'does not allow the same coach to fill up both spots' do
+        roles_attributes = [new_coach.call] * 2
+        team.attributes = { roles_attributes: roles_attributes }
+        expect { team.save }.not_to change { team.members.count }
+        expect(team.errors[:base].first).to eql "#{new_user.name} can't have more than one role in this team!"
+      end
+
+      it 'does not allow the same coach to add themselves as a student' do
+        roles_attributes = [new_coach.call, new_coach_as_student.call]
+        team.attributes = { roles_attributes: roles_attributes }
+        expect { team.save }.not_to change { team.members.count }
+        expect(team.errors[:base].first).to eql "#{new_user.name} can't have more than one role in this team!"
+      end
+    end
+    context 'when team has coaches' do
+      let!(:coach_1) { create :coach_role, team: team, user: create(:user) }
+      let!(:coach_2) { create :coach_role, team: team, user: create(:user) }
+      let!(:coach_3) { create :coach_role, team: team, user: create(:user) }
+      let!(:coach_4) { create :coach_role, team: team, user: create(:user) }
+      before { team.reload }
+
+      it 'does not allow to add new coaches' do
+        roles_attributes = [new_coach.call]
+        team.attributes = { roles_attributes: roles_attributes }
+        expect { team.save }.not_to change { team.members.count }
+        expect(team.errors[:roles].first).to eql 'there cannot be more than 4 coaches on a team.'
+      end
+
+      it 'allows to remove existing coach and add new' do
+        roles_attributes = [{ id: coach_1.id, _destroy: true }, new_coach.call]
+        expect {
+          team.update roles_attributes: roles_attributes
+        }.not_to change { team.coaches.count }
+        expect(team.coaches).not_to include coach_1
+      end
+
+      it 'allows to edit role of existing coach and add new' do
+        roles_attributes = [{ id: coach_1.id, name: 'student' }, new_coach.call]
+        expect {
+          team.update roles_attributes: roles_attributes
+        }.not_to change { team.coaches.count }
+        expect(team.coaches).not_to include coach_1
+      end
+    end
+  end
+
   describe '#coaches_confirmed?' do
     let(:role) { create "#{role_name}_role" }
     let(:role_name) { 'coach' }
