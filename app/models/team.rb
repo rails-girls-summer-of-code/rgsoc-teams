@@ -185,14 +185,12 @@ class Team < ApplicationRecord
   end
 
   def limit_number_of_students
-    students = members_with_role 'student'
-    return unless students.size > 2
+    return unless members_with_role('student').size > 2
     errors.add(:roles, 'there cannot be more than 2 students on a team.')
   end
 
   def limit_number_of_coaches
-    coaches = members_with_role 'coach'
-    return unless coaches.size > 4
+    return unless members_with_role('coach').size > 4
     errors.add(:roles, :too_many_coaches)
   end
 
