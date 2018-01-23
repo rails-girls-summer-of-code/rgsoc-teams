@@ -48,6 +48,7 @@ group :development, :test do
   gem 'database_cleaner'
   gem 'byebug', require: !ENV['RM_INFO'] # require parameter is workaround for RubyMine with Rails ~> 4.1
   gem 'ffaker'
+  gem 'letter_opener'
 end
 
 group :development do
