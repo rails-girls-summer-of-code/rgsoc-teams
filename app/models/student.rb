@@ -8,7 +8,7 @@ class Student < SimpleDelegator
 
   REQUIRED_DRAFT_FIELDS =
     [
-      :name, :application_about, :application_motivation, :application_gender_identification, :application_diversity, :application_age,
+      :name, :application_about, :application_motivation, :application_gender_identification, :application_age,
       :application_coding_level, :application_community_engagement, :application_giving_back, :application_language_learning_period,
       :application_learning_history, :application_skills, :application_code_samples,
       :application_code_samples, :application_location, :application_money, :application_goals, :application_code_background
