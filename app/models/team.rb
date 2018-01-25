@@ -11,6 +11,7 @@ class Team < ApplicationRecord
   validate :disallow_multiple_student_roles
   validate :disallow_duplicate_members
   validate :limit_number_of_students
+  validate :limit_number_of_coaches
 
   attr_accessor :checked
 
@@ -184,9 +185,17 @@ class Team < ApplicationRecord
   end
 
   def limit_number_of_students
-    students = roles.select{|r| r.name == 'student' && !r.marked_for_destruction?}
-    return unless students.size > 2
+    return unless members_with_role('student').size > 2
     errors.add(:roles, 'there cannot be more than 2 students on a team.')
+  end
+
+  def limit_number_of_coaches
+    return unless members_with_role('coach').size > 4
+    errors.add(:roles, :too_many_coaches)
+  end
+
+  def members_with_role(role)
+    roles.select{|r| r.name == role && !r.marked_for_destruction?}
   end
 
   def two_students_present?

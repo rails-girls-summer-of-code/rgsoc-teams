@@ -89,3 +89,7 @@ en:
             attributes:
               user:
                 too_many_reviewers: too many reviewers
+          team:
+            attributes:
+              roles:
+                too_many_coaches: there cannot be more than 4 coaches on a team.
