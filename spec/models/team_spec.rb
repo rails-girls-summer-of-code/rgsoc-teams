@@ -156,7 +156,7 @@ RSpec.describe Team, type: :model do
     let(:remove_coach) { { name: 'coach', team_id: team.id, user_id: create(:user).id, _destroy: true } }
 
     context 'when team has no coaches yet' do
-      it 'allows to add 2 new coaches' do
+      it 'allows to add 4 new coaches' do
         expect {
           team.update roles_attributes: coach_attributes
         }.to change { team.members.count }.by 4
