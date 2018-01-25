@@ -193,7 +193,7 @@ RSpec.describe Team, type: :model do
       end
     end
     context 'when team has coaches' do
-      let!(:existing_coaches) { 4.times.map { create :coach_role, team: team, user: create(:user) } }
+      let!(:existing_coaches) { create_list :coach_role, 4, team: team }
       before { team.reload }
 
       it 'does not allow to add new coaches' do
