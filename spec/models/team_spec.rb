@@ -150,7 +150,10 @@ RSpec.describe Team, type: :model do
   describe 'limit of coaches' do
     let(:team) { create :team }
     let(:new_user) { create :user }
-    let(:coach_attributes) { [{ name: 'coach', team_id: team.id, user_id: new_user.id }] + 3.times.map { { name: 'coach', team_id: team.id, user_id: create(:user).id } } }
+    let(:coach_attributes) do
+      [{ name: 'coach', team_id: team.id, user_id: new_user.id }] + \
+        3.times.map { { name: 'coach', team_id: team.id, user_id: create(:user).id } }
+    end
     let(:new_coach_as_student) { { name: 'student', team_id: team.id, user_id: new_user.id } }
     let(:fifth_new_coach) { { name: 'coach', team_id: team.id, user_id: create(:user).id } }
     let(:remove_coach) { { name: 'coach', team_id: team.id, user_id: create(:user).id, _destroy: true } }
