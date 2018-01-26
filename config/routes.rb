@@ -27,7 +27,6 @@ Rails.application.routes.draw do
   resources :conferences
   resources :conference_attendances, only: :update
   resources :contributors, only: :index
-  resources :community, only: :index
   resources :students, only: :index
   resources :status_updates, only: :show
   resources :status_update_comments, only: :create
@@ -118,6 +117,7 @@ Rails.application.routes.draw do
     resources :comments, only: [:create, :update]
   end
 
+  get '/community', to: 'community#index', as: :community
   # get 'activities(.:format)', to: 'activities#index', as: :activities
   get 'activities(/page/:page)(.:format)', to: 'activities#index', as: :activities
 end

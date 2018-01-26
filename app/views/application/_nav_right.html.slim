@@ -19,7 +19,7 @@ ul.nav.navbar-nav.navbar-right
         li class=active_if(projects_path) = link_to 'Projects', projects_path
       li.divider.hidden-xs
       li class=active_if(teams_path) = link_to 'Teams', teams_path
-      li class=active_if(community_index_path) = link_to 'Community', community_index_path
+      li class=active_if(community_path) = link_to 'Community', community_path
   li class=active_if(page_path('help')) = link_to 'Help', page_path('help')
 
   - if signed_in?
