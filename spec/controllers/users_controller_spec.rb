@@ -210,7 +210,7 @@ RSpec.describe UsersController, type: :controller do
 
     it 'redirects to user#show' do
       post :impersonate, params: { id: impersonated_user.id }
-      expect(response).to redirect_to community_index_path
+      expect(response).to redirect_to community_path
       expect(flash[:notice]).to include "Now impersonating #{impersonated_user.name}"
     end
   end
@@ -230,7 +230,7 @@ RSpec.describe UsersController, type: :controller do
 
     it 'redirects to community#index' do
       post :stop_impersonating
-      expect(response).to redirect_to community_index_path
+      expect(response).to redirect_to community_path
       expect(flash[:notice]).to include "Impersonation stopped"
     end
   end
