@@ -165,20 +165,14 @@ RSpec.describe UsersController, type: :controller do
 
   describe "DELETE destroy" do
     let(:user) { create(:user) }
-    before :each do
-      sign_in user
-    end
+    before { sign_in user }
 
     context "its own profile" do
-      it "destroys the requested user" do
+      it "destroys the requested user and redirects to /community" do
         expect {
           delete :destroy, params: { id: user.to_param }
         }.to change(User, :count).by(-1)
-      end
-
-      it "redirects to the users list" do
-        delete :destroy, params: { id: user.to_param }
-        expect(response).to redirect_to(users_url)
+        expect(response).to redirect_to(community_path)
       end
     end
 
