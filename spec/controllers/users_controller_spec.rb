@@ -169,9 +169,10 @@ RSpec.describe UsersController, type: :controller do
 
     context "its own profile" do
       it "destroys the requested user and redirects to /community" do
-        expect {
-          delete :destroy, params: { id: user.to_param }
-        }.to change(User, :count).by(-1)
+        expect { delete :destroy, params: { id: user.to_param } }
+          .to change { User.count }.by(-1)
+          .and change { session['warden.user.user.key'] }.to nil
+
         expect(response).to redirect_to(community_path)
       end
     end

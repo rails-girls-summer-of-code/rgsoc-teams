@@ -52,6 +52,7 @@ class UsersController < ApplicationController
 
   def destroy
     @user.destroy
+    reset_session if @user == current_user
     respond_to do |format|
       format.html { redirect_to community_url }
       format.json { head :no_content }
