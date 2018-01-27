@@ -504,4 +504,22 @@ RSpec.describe Team, type: :model do
       expect(team.application).to eql application
     end
   end
+
+  describe '#student_index' do
+    let(:team)      { create(:team) }
+    let!(:students) { create_list(:student, 2, team: team) }
+
+    it 'returns 0 for the student with the smaller id' do
+      expect(team.student_index students.first).to eq 0
+    end
+
+    it 'returns 1 for the student with the greater id' do
+      expect(team.student_index students.second).to eq 1
+    end
+
+    it 'returns 0 if the user is not part of the team' do
+      other_user = instance_double(User, id: 666)
+      expect(team.student_index other_user).to be_nil
+    end
+  end
 end

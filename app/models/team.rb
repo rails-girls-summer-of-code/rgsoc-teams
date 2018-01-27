@@ -156,6 +156,10 @@ class Team < ApplicationRecord
     roles.select { |role| role.name == 'coach' }
   end
 
+  def student_index(user)
+    students.ids.index(user.id)
+  end
+
   private
 
   def set_last_checked
@@ -201,12 +205,4 @@ class Team < ApplicationRecord
   def two_students_present?
     students.reload.select(&:persisted?).size == 2
   end
-
-  # def must_have_members
-  #   errors.add(:team, 'must have at least one member') if members_empty?
-  # end
-
-  # def members_empty?
-  #   roles.empty? or roles.all? { |role| role.marked_for_destruction? }
-  # end
 end

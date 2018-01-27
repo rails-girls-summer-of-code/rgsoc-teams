@@ -14,9 +14,8 @@ class ApplicationFormMailer < ActionMailer::Base
   # TODO: rough version including index - make this better...
   def application_submitted(application:, student:)
     @application = application
-    @student = student
-    @student_index = application.team.students.first == student ? 0 : 1
-    subject = 'your application bla bla'
+    @student     = student
+    subject      = 'your application bla bla'
     mail subject: subject, to: student.email
   end
 end

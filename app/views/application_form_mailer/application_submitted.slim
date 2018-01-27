@@ -1,7 +1,7 @@
 - application   = @application
 - ad            = application.data
 - student       = @student
-- student_index = @student_index
+- student_index = application.team.student_index(student)
 - pair_index    = student_index.zero? ? 1 : 0
 - pair          = application.team.students[pair_index]
 
@@ -10,7 +10,7 @@ h2 About yourself
 h3 Basics
 
 b = Application.data_label("student0_application_name")
-p = pair.name
+p = student.name
 
 b = Application.data_label("student0_application_age")
 p = auto_link(show_or_na(ad.public_send("student#{student_index}_application_age")))
@@ -80,7 +80,7 @@ h2 About your pair
 h3 Basics
 
 b = Application.data_label("student0_application_name")
-p = student.name
+p = pair.name
 
 b = Application.data_label("student0_application_age")
 p = auto_link(show_or_na(ad.public_send("student#{pair_index}_application_age")))
