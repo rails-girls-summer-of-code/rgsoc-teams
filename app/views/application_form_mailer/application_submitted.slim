@@ -1,0 +1,182 @@
+- application   = @application
+- ad            = application.data
+- student       = @student
+- student_index = @student_index
+- pair_index    = student_index.zero? ? 1 : 0
+- pair          = application.team.students[pair_index]
+
+h2 About yourself
+
+h3 Basics
+
+b = Application.data_label("student0_application_name")
+p = pair.name
+
+b = Application.data_label("student0_application_age")
+p = auto_link(show_or_na(ad.public_send("student#{student_index}_application_age")))
+
+b = Application.data_label("student0_application_gender_identification")
+p = auto_link(show_or_na(ad.public_send("student#{student_index}_application_gender_identification")))
+
+b = Application.data_label("student0_application_diversity")
+= simple_format(auto_link(show_or_na(ad.public_send("student#{student_index}_application_diversity"))))
+
+b = Application.data_label("student0_application_location")
+p = auto_link(show_or_na(ad.public_send("student#{student_index}_application_location")))
+
+h3 Background Information
+
+b = Application.data_label("student0_application_about")
+= simple_format(auto_link(show_or_na(ad.public_send("student#{student_index}_application_about"))))
+
+b = Application.data_label("student0_application_code_background")
+= simple_format(auto_link(show_or_na(ad.public_send("student#{student_index}_application_code_background"))))
+
+h3 Community Involvement
+
+b = Application.data_label("student0_application_community_engagement")
+= simple_format(auto_link(show_or_na(ad.public_send("student#{student_index}_application_community_engagement"))))
+
+b = Application.data_label("student0_application_giving_back")
+= simple_format(auto_link(show_or_na(ad.public_send("student#{student_index}_application_giving_back"))))
+
+h3 Your Programming skills
+
+b = Application.data_label("student0_application_skills")
+= simple_format(auto_link(show_or_na(ad.public_send("student#{student_index}_application_skills"))))
+
+b = Application.data_label("student0_application_coding_level")
+p = auto_link(show_or_na(ad.public_send("student#{student_index}_application_coding_level")) + "/5")
+
+b = Application.data_label("student0_application_language_learning_period")
+p = auto_link(show_or_na(ad.public_send("student#{student_index}_application_language_learning_period"))+ " months")
+
+b = Application.data_label("student0_application_learning_history")
+= simple_format(auto_link(show_or_na(ad.public_send("student#{student_index}_application_learning_history"))))
+
+b = Application.data_label("student0_application_code_samples")
+= simple_format(auto_link(show_or_na(ad.public_send("student#{student_index}_application_code_samples"))))
+
+h3 Your Goals and motivation
+
+b = Application.data_label("student0_application_goals")
+= simple_format(auto_link(show_or_na(ad.public_send("student#{student_index}_application_goals"))))
+
+b = Application.data_label("student0_application_motivation")
+= simple_format(auto_link(show_or_na(ad.public_send("student#{student_index}_application_motivation"))))
+
+h3 Financial matters
+
+b = Application.data_label("student0_application_money")
+p = auto_link(show_or_na(ad.public_send("student#{student_index}_application_money")) + " USD")
+
+b = Application.data_label("student0_application_minimum_money")
+p = auto_link(show_or_na(ad.public_send("student#{student_index}_application_minimum_money")))
+
+/ second student
+
+h2 About your pair
+
+h3 Basics
+
+b = Application.data_label("student0_application_name")
+p = student.name
+
+b = Application.data_label("student0_application_age")
+p = auto_link(show_or_na(ad.public_send("student#{pair_index}_application_age")))
+
+b = Application.data_label("student0_application_gender_identification")
+p = auto_link(show_or_na(ad.public_send("student#{pair_index}_application_gender_identification")))
+
+b = Application.data_label("student0_application_diversity")
+= simple_format(auto_link(show_or_na(ad.public_send("student#{pair_index}_application_diversity"))))
+
+b = Application.data_label("student0_application_location")
+p = auto_link(show_or_na(ad.public_send("student#{pair_index}_application_location")))
+
+h3 Background Information
+
+b = Application.data_label("student0_application_about")
+= simple_format(auto_link(show_or_na(ad.public_send("student#{pair_index}_application_about"))))
+
+b = Application.data_label("student0_application_code_background")
+= simple_format(auto_link(show_or_na(ad.public_send("student#{pair_index}_application_code_background"))))
+
+h3 Community Involvement
+
+b = Application.data_label("student0_application_community_engagement")
+= simple_format(auto_link(show_or_na(ad.public_send("student#{pair_index}_application_community_engagement"))))
+
+b = Application.data_label("student0_application_giving_back")
+= simple_format(auto_link(show_or_na(ad.public_send("student#{pair_index}_application_giving_back"))))
+
+h3 Your Programming skills
+
+b = Application.data_label("student0_application_skills")
+= simple_format(auto_link(show_or_na(ad.public_send("student#{pair_index}_application_skills"))))
+
+b = Application.data_label("student0_application_coding_level")
+p = auto_link(show_or_na(ad.public_send("student#{pair_index}_application_coding_level")) + "/5")
+
+b = Application.data_label("student0_application_language_learning_period")
+p = auto_link(show_or_na(ad.public_send("student#{pair_index}_application_language_learning_period"))+ " months")
+
+b = Application.data_label("student0_application_learning_history")
+= simple_format(auto_link(show_or_na(ad.public_send("student#{pair_index}_application_learning_history"))))
+
+b = Application.data_label("student0_application_code_samples")
+= simple_format(auto_link(show_or_na(ad.public_send("student#{pair_index}_application_code_samples"))))
+
+h3 Your Goals and motivation
+
+b = Application.data_label("student0_application_goals")
+= simple_format(auto_link(show_or_na(ad.public_send("student#{pair_index}_application_goals"))))
+
+b = Application.data_label("student0_application_motivation")
+= simple_format(auto_link(show_or_na(ad.public_send("student#{pair_index}_application_motivation"))))
+
+h3 Financial matters
+
+i This section is private.
+
+h3 About your project
+
+- project1 = Project.find_by(id: ad.project1_id)
+
+b = Application.data_label("project1_id")
+p = link_to_if project1, project1.try(:name), project1
+
+b = Application.data_label("why_selected_project1")
+= simple_format(auto_link(show_or_na(ad.why_selected_project1)))
+
+b = Application.data_label("plan_project1")
+= simple_format(auto_link(show_or_na(render_markdown(ad.plan_project1))))
+
+- project2 = Project.find_by(id: ad.project2_id)
+
+b = Application.data_label("project2_id")
+p = link_to_if project2, project2.try(:name), project2
+
+b = Application.data_label("why_selected_project2")
+= simple_format(auto_link(show_or_na(ad.why_selected_project2)))
+
+b = Application.data_label("plan_project2")
+= simple_format(auto_link(show_or_na(render_markdown(ad.plan_project2))))
+
+h3 About yout team
+
+b = Application.data_label("working_together")
+= simple_format(auto_link(show_or_na(ad.working_together)))
+
+- if ad.voluntary == 'true'
+  b = Application.data_label("voluntary")
+  p = show_or_na(ad.voluntary)
+
+  b = Application.data_label("voluntary_hours_per_week")
+  p = show_or_na(ad.voluntary_hours_per_week)
+
+b = Application.data_label("heard_about_it")
+p = auto_link(show_or_na(ad.heard_about_it))
+
+b = Application.data_label("misc_info")
+= simple_format(auto_link(show_or_na(ad.misc_info)))
