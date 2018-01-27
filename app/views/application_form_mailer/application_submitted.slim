@@ -9,68 +9,68 @@ h2 About yourself
 
 h3 Basics
 
-b = Application.data_label("student0_application_name")
+b = I18n.t('simple_form.labels.student.name')
 p = student.name
 
-b = Application.data_label("student0_application_age")
+b = I18n.t('simple_form.labels.student.application_age')
 p = auto_link(show_or_na(ad.public_send("student#{student_index}_application_age")))
 
-b = Application.data_label("student0_application_gender_identification")
+b = I18n.t('simple_form.labels.student.application_gender_identification')
 p = auto_link(show_or_na(ad.public_send("student#{student_index}_application_gender_identification")))
 
-b = Application.data_label("student0_application_diversity")
+b = I18n.t('simple_form.labels.student.application_diversity')
 = simple_format(auto_link(show_or_na(ad.public_send("student#{student_index}_application_diversity"))))
 
-b = Application.data_label("student0_application_location")
+b = I18n.t('simple_form.labels.student.application_location')
 p = auto_link(show_or_na(ad.public_send("student#{student_index}_application_location")))
 
 h3 Background Information
 
-b = Application.data_label("student0_application_about")
+b = I18n.t('simple_form.labels.student.application_about')
 = simple_format(auto_link(show_or_na(ad.public_send("student#{student_index}_application_about"))))
 
-b = Application.data_label("student0_application_code_background")
+b = I18n.t('simple_form.labels.student.application_code_background')
 = simple_format(auto_link(show_or_na(ad.public_send("student#{student_index}_application_code_background"))))
 
 h3 Community Involvement
 
-b = Application.data_label("student0_application_community_engagement")
+b = I18n.t('simple_form.labels.student.application_community_engagement')
 = simple_format(auto_link(show_or_na(ad.public_send("student#{student_index}_application_community_engagement"))))
 
-b = Application.data_label("student0_application_giving_back")
+b = I18n.t('simple_form.labels.student.application_giving_back')
 = simple_format(auto_link(show_or_na(ad.public_send("student#{student_index}_application_giving_back"))))
 
 h3 Your Programming skills
 
-b = Application.data_label("student0_application_skills")
+b = I18n.t('simple_form.labels.student.application_skills')
 = simple_format(auto_link(show_or_na(ad.public_send("student#{student_index}_application_skills"))))
 
 b = Application.data_label("student0_application_coding_level")
 p = auto_link(show_or_na(ad.public_send("student#{student_index}_application_coding_level")) + "/5")
 
-b = Application.data_label("student0_application_language_learning_period")
+b = I18n.t('simple_form.labels.student.application_language_learning_period')
 p = auto_link(show_or_na(ad.public_send("student#{student_index}_application_language_learning_period"))+ " months")
 
-b = Application.data_label("student0_application_learning_history")
+b = I18n.t('simple_form.labels.student.application_learning_history')
 = simple_format(auto_link(show_or_na(ad.public_send("student#{student_index}_application_learning_history"))))
 
-b = Application.data_label("student0_application_code_samples")
+b = I18n.t('simple_form.labels.student.application_code_samples')
 = simple_format(auto_link(show_or_na(ad.public_send("student#{student_index}_application_code_samples"))))
 
 h3 Your Goals and motivation
 
-b = Application.data_label("student0_application_goals")
+b = I18n.t('simple_form.labels.student.application_goals')
 = simple_format(auto_link(show_or_na(ad.public_send("student#{student_index}_application_goals"))))
 
-b = Application.data_label("student0_application_motivation")
+b = I18n.t('simple_form.labels.student.application_motivation')
 = simple_format(auto_link(show_or_na(ad.public_send("student#{student_index}_application_motivation"))))
 
 h3 Financial matters
 
-b = Application.data_label("student0_application_money")
+b = I18n.t('simple_form.labels.student.application_money')
 p = auto_link(show_or_na(ad.public_send("student#{student_index}_application_money")) + " USD")
 
-b = Application.data_label("student0_application_minimum_money")
+b = I18n.t('simple_form.labels.student.application_minimum_money')
 p = auto_link(show_or_na(ad.public_send("student#{student_index}_application_minimum_money")))
 
 / second student
@@ -79,61 +79,10 @@ h2 About your pair
 
 h3 Basics
 
-b = Application.data_label("student0_application_name")
+b = I18n.t('simple_form.labels.student.name')
 p = pair.name
 
-b = Application.data_label("student0_application_age")
-p = auto_link(show_or_na(ad.public_send("student#{pair_index}_application_age")))
-
-b = Application.data_label("student0_application_gender_identification")
-p = auto_link(show_or_na(ad.public_send("student#{pair_index}_application_gender_identification")))
-
-b = Application.data_label("student0_application_diversity")
-= simple_format(auto_link(show_or_na(ad.public_send("student#{pair_index}_application_diversity"))))
-
-b = Application.data_label("student0_application_location")
-p = auto_link(show_or_na(ad.public_send("student#{pair_index}_application_location")))
-
-h3 Background Information
-
-b = Application.data_label("student0_application_about")
-= simple_format(auto_link(show_or_na(ad.public_send("student#{pair_index}_application_about"))))
-
-b = Application.data_label("student0_application_code_background")
-= simple_format(auto_link(show_or_na(ad.public_send("student#{pair_index}_application_code_background"))))
-
-h3 Community Involvement
-
-b = Application.data_label("student0_application_community_engagement")
-= simple_format(auto_link(show_or_na(ad.public_send("student#{pair_index}_application_community_engagement"))))
-
-b = Application.data_label("student0_application_giving_back")
-= simple_format(auto_link(show_or_na(ad.public_send("student#{pair_index}_application_giving_back"))))
-
-h3 Your Programming skills
-
-b = Application.data_label("student0_application_skills")
-= simple_format(auto_link(show_or_na(ad.public_send("student#{pair_index}_application_skills"))))
-
-b = Application.data_label("student0_application_coding_level")
-p = auto_link(show_or_na(ad.public_send("student#{pair_index}_application_coding_level")) + "/5")
-
-b = Application.data_label("student0_application_language_learning_period")
-p = auto_link(show_or_na(ad.public_send("student#{pair_index}_application_language_learning_period"))+ " months")
-
-b = Application.data_label("student0_application_learning_history")
-= simple_format(auto_link(show_or_na(ad.public_send("student#{pair_index}_application_learning_history"))))
-
-b = Application.data_label("student0_application_code_samples")
-= simple_format(auto_link(show_or_na(ad.public_send("student#{pair_index}_application_code_samples"))))
-
-h3 Your Goals and motivation
-
-b = Application.data_label("student0_application_goals")
-= simple_format(auto_link(show_or_na(ad.public_send("student#{pair_index}_application_goals"))))
-
-b = Application.data_label("student0_application_motivation")
-= simple_format(auto_link(show_or_na(ad.public_send("student#{pair_index}_application_motivation"))))
+/ addd rest here
 
 h3 Financial matters
 
