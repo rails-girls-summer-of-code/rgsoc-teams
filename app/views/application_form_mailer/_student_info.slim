@@ -1,0 +1,79 @@
+- student       = local_assigns.fetch(:student)
+- data          = local_assigns.fetch(:data)
+- student_index = local_assigns.fetch(:student_index)
+- pair          = local_assigns.fetch(:pair, false)
+
+h3 Basics
+
+b = t('simple_form.labels.student.name')
+p = student.name
+
+b = t('simple_form.labels.student.application_age')
+p = show_or_na(data.public_send("student#{student_index}_application_age"))
+
+b = t('simple_form.labels.student.application_gender_identification')
+p = show_or_na(data.public_send("student#{student_index}_application_gender_identification"))
+
+b = t('simple_form.labels.student.application_diversity')
+= simple_format(auto_link(show_or_na(data.public_send("student#{student_index}_application_diversity"))))
+
+b = t('simple_form.labels.student.application_location')
+p = show_or_na(data.public_send("student#{student_index}_application_location"))
+
+h3 Background Information
+
+b = t('simple_form.labels.student.application_about')
+= simple_format(auto_link(show_or_na(data.public_send("student#{student_index}_application_about"))))
+
+b = t('simple_form.labels.student.application_code_background')
+= simple_format(auto_link(show_or_na(data.public_send("student#{student_index}_application_code_background"))))
+
+h3 Community Involvement
+
+b = t('simple_form.labels.student.application_community_engagement')
+= simple_format(auto_link(show_or_na(data.public_send("student#{student_index}_application_community_engagement"))))
+
+b = t('simple_form.labels.student.application_giving_back')
+= simple_format(auto_link(show_or_na(data.public_send("student#{student_index}_application_giving_back"))))
+
+h3 Your Programming skills
+
+b = t('simple_form.labels.student.application_skills')
+= simple_format(auto_link(show_or_na(data.public_send("student#{student_index}_application_skills"))))
+
+b = Application.data_label('student0_application_coding_level')
+p
+  |
+  = show_or_na(data.public_send("student#{student_index}_application_coding_level")) + '/5'
+  br
+  i = SkillLevel::MATRIX[data.public_send("student#{student_index}_application_coding_level").to_i].join('; ')
+
+b = t('simple_form.labels.student.application_language_learning_period')
+p = show_or_na(data.public_send("student#{student_index}_application_language_learning_period")) + ' months'
+
+b = t('simple_form.labels.student.application_learning_history')
+= simple_format(auto_link(show_or_na(data.public_send("student#{student_index}_application_learning_history"))))
+
+b = t('simple_form.labels.student.application_code_samples')
+= simple_format(auto_link(show_or_na(data.public_send("student#{student_index}_application_code_samples"))))
+
+h3 Your Goals and motivation
+
+b = t('simple_form.labels.student.application_goals')
+= simple_format(auto_link(show_or_na(data.public_send("student#{student_index}_application_goals"))))
+
+b = t('simple_form.labels.student.application_motivation')
+= simple_format(auto_link(show_or_na(data.public_send("student#{student_index}_application_motivation"))))
+
+h3 Financial matters
+
+- if pair
+  i This section is private.
+- else
+  b = t('simple_form.labels.student.application_money')
+  p = show_or_na(data.public_send("student#{student_index}_application_money")) + ' USD'
+
+  b = t('simple_form.labels.student.application_minimum_money')
+  = simple_format(auto_link(show_or_na(data.public_send("student#{student_index}_application_minimum_money"))))
+
+hr

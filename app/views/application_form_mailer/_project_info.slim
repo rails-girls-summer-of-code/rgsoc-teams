@@ -1,0 +1,25 @@
+- data     = local_assigns.fetch(:data)
+- project1 = Project.find_by(id: data.project1_id)
+- project2 = Project.find_by(id: data.project2_id)
+
+h3 About your project
+
+b = Application.data_label('project1_id')
+p = link_to_if project1, project1&.name, project1
+
+b = Application.data_label('why_selected_project1')
+= simple_format(auto_link(show_or_na(data.why_selected_project1)))
+
+b = Application.data_label('plan_project1')
+= simple_format(show_or_na(render_markdown(data.plan_project1)))
+
+b = Application.data_label('project2_id')
+p = link_to_if project2, project2&.name, project2
+
+b = Application.data_label('why_selected_project2')
+= simple_format(auto_link(show_or_na(data.why_selected_project2)))
+
+b = Application.data_label('plan_project2')
+= simple_format(show_or_na(render_markdown(data.plan_project2)))
+
+hr
