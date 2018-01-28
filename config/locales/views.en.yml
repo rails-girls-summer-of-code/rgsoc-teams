@@ -1,6 +1,6 @@
 en:
   application_form_mailer:
-    application_submitted:
+    submitted:
       subject: Application Submitted
       greeting: Hi %{name},
       message: |

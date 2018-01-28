@@ -11,7 +11,7 @@ class ApplicationFormMailer < ActionMailer::Base
     mail(subject: "[RGSoC #{Season.current.year}] New Application: #{@application.name}")
   end
 
-  def application_submitted(application:, student:)
+  def submitted(application:, student:)
     @application = application
     @student     = student
     mail to: student.email

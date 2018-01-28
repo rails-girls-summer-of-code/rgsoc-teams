@@ -19,8 +19,8 @@ RSpec.describe ApplicationFormMailer, type: :mailer do
     end
   end
 
-  describe '.application_submitted' do
-    subject(:mail) { described_class.application_submitted(**params) }
+  describe '.submitted' do
+    subject(:mail) { described_class.submitted(**params) }
 
     let(:team)        { create(:team) }
     let(:application) { create(:application, team: team) }
