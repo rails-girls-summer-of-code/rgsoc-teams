@@ -209,7 +209,7 @@ RSpec.describe ApplicationDraftsController, type: :controller do
       end
     end
 
-    describe 'PUT apply', :wip do
+    describe 'PUT apply' do
       let(:team)  { create(:team, :applying_team, :in_current_season) }
       let(:draft) { create(:application_draft, :appliable, team: team) }
       let(:application) { Application.last }

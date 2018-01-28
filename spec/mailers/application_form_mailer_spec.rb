@@ -22,13 +22,22 @@ RSpec.describe ApplicationFormMailer, type: :mailer do
   describe '.submitted' do
     subject(:mail) { described_class.submitted(**params) }
 
-    let(:team)        { create(:team) }
-    let(:application) { create(:application, team: team) }
-    let(:student)     { create(:student, team: team) }
-    let!(:params)     { { application: application, student: student } }
+    let(:team)          { create(:team) }
+    let(:application)   { create(:application, team: team) }
+    let(:student)       { create(:student, team: team) }
+    let!(:params)       { { application: application, student: student } }
+    let(:html_body)     { mail.html_part.body.raw_source }
+    let(:text_body)     { mail.text_part.body.raw_source }
+    let(:content_types) { mail.parts.map(&:content_type) }
+
+    it 'sends a multipart email' do
+      expect(content_types).to contain_exactly(
+        'text/plain; charset=UTF-8', 'text/html; charset=UTF-8'
+      )
+    end
 
     it 'sets the default from address' do
-      expect(subject.from).to contain_exactly ENV['EMAIL_FROM']
+      expect(mail.from).to contain_exactly ENV['EMAIL_FROM']
     end
 
     it 'sends an email to the student' do
@@ -40,14 +49,16 @@ RSpec.describe ApplicationFormMailer, type: :mailer do
     end
 
     it 'renders N/A for the pair if not present' do
-      expect(mail.body).to match /<h2>About your pair<\/h2><p>N\/A<\/p>/
+      expect(html_body).to match %r{<h2>About your pair</h2><p>N/A</p>}
+      expect(text_body).to match %r{About your pair\n  N/A}
     end
 
     context 'with a pair in the team' do
       before { create(:student, team: team) }
 
       it 'renders a section for the pair' do
-        expect(mail.body).to match /<h2>About your pair<\/h2><h3>Basics<\/h3>/
+        expect(html_body).to match %r{<h2>About your pair</h2><h3>Basics</h3>}
+        expect(text_body).to match %r{About your pair\n\nBasics}
       end
     end
   end

@@ -11,16 +11,16 @@
 --------------------------------------------------------------------------------
 
 About yourself
-<%= render('student_info', student: student, data: data, student_index: student_index) %>
+<%= render('student_info_text', student: student, data: data, student_index: student_index) %>
 
 About your pair
 <% if pair.present? %>
-<%= render('student_info', student: pair, data: data, student_index: pair_index, pair: true) %>
+<%= render('student_info_text', student: pair, data: data, student_index: pair_index, pair: true) %>
 <% else %>
-N/A
+  N/A
 <% end %>
 
-<%= render('project_info', application: application) %>
+<%= render('project_info_text', application: application) %>
 
 About yout team
 
