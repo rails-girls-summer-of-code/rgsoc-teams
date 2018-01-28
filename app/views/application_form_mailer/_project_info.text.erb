@@ -1,0 +1,26 @@
+<% application = local_assigns.fetch(:application) %>
+<% data        = application.data %>
+<% project1    = application.project1 %>
+<% project2    = application.project2 %>
+
+About your project
+
+<%= Application.data_label('project1_id') %>
+  <%= project1&.name %>
+
+<%= Application.data_label('why_selected_project1') %>
+  <%= show_or_na(data.why_selected_project1) %>
+
+<%= Application.data_label('plan_project1') %>
+  <%= show_or_na(data.plan_project1) %>
+
+<%= Application.data_label('project2_id') %>
+  <%= project2&.name %>
+
+<%= Application.data_label('why_selected_project2') %>
+  <%= show_or_na(data.why_selected_project2) %>
+
+<%= Application.data_label('plan_project2') %>
+  <%= show_or_na(data.plan_project2) %>
+
+--------------------------------------------------------------------------------
