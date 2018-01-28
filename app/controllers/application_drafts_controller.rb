@@ -63,7 +63,7 @@ class ApplicationDraftsController < ApplicationController
     if current_team.coaches_confirmed?
       if application_draft.ready? && application_draft.submit_application!
         flash[:notice] = 'Your application has been submitted!'
-        ApplicationFormMailer.new_application(application_draft.application).deliver_later
+        application_draft.application.notify_orga_and_submitters
       else
         flash[:alert] = 'An error has occurred. Please contact us.'
       end
@@ -145,5 +145,4 @@ class ApplicationDraftsController < ApplicationController
   def valid_user_profile_required
     render 'invalid_user_profile' and return unless current_user.valid?
   end
-
 end
