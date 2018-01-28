@@ -13,7 +13,10 @@ h2 About yourself
 = render('student_info', student: student, data: data, student_index: student_index)
 
 h2 About your pair
-= render('student_info', student: pair, data: data, student_index: pair_index, pair: true)
+- if pair.present?
+  = render('student_info', student: pair, data: data, student_index: pair_index, pair: true)
+- else
+  p N/A
 
 = render('project_info', data: data)
 
