@@ -1,4 +1,10 @@
 en:
+  application_drafts:
+    edit:
+      read_guide: |
+        Please read our %{guide} before you fill out this form. Applications must be submitted before <strong>%{date}</strong>. Need %{help}?
+      submitted: |
+        Your application was <strong>sucessfully submitted</strong>. You'll be notified about your acceptance into the program until <strong>%{date}</strong>.
   application_form_mailer:
     submitted:
       subject: Application Submitted
