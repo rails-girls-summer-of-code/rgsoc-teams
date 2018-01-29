@@ -133,4 +133,36 @@ RSpec.describe Application, type: :model do
       expect(subject.name).to eql 'Foobar - Hello World'
     end
   end
+
+  describe '#notify_orga_and_submitters' do
+    subject(:notify) { application.notify_orga_and_submitters }
+
+    let!(:application) { create(:application, team: team) }
+    let(:team)         { create(:team) }
+    let!(:students)    { create_list(:student, 2, team: team) }
+    let(:mail)         { instance_double(ActionMailer::MessageDelivery, deliver_later: nil) }
+
+    it 'enqueues 3 emails to be delivered' do
+      expect { notify }.to have_enqueued_job(ActionMailer::DeliveryJob).exactly(3)
+    end
+
+    it 'calls the mailer to send an email to orga' do
+      expect(ApplicationFormMailer).to receive(:new_application).with(application).and_return(mail)
+      notify
+    end
+
+    it 'calls the mailer to send an email to each student' do
+      expect(ApplicationFormMailer).to(
+        receive(:submitted).
+        with(application: application, student: students.first)
+        .and_return(mail)
+      )
+      expect(ApplicationFormMailer).to(
+        receive(:submitted).
+        with(application: application, student: students.second)
+        .and_return(mail)
+      )
+      notify
+    end
+  end
 end

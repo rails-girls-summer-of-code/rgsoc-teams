@@ -1,0 +1,8 @@
+en:
+  application_form_mailer:
+    submitted:
+      subject: Application Submitted
+      greeting: Hi %{name},
+      message: |
+        thanks for submitting your application!
+        While we're having a look at it, here again for you what we received for team %{team}:

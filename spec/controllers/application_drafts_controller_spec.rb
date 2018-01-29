@@ -215,7 +215,7 @@ RSpec.describe ApplicationDraftsController, type: :controller do
       let(:application) { Application.last }
 
       context 'as a student' do
-        let!(:student_role) { create(:student_role, user: user, team: team) }
+        let(:user) { team.students.first }
 
         context 'coaches confirmed' do
           it 'creates a new application' do
@@ -225,9 +225,9 @@ RSpec.describe ApplicationDraftsController, type: :controller do
             expect(application.application_draft).to eql draft
           end
 
-          it 'sends a mail' do
+          it 'sends 3 mails (1 to orga and 1 to each student)' do
             expect { put :apply, { params: { id: draft.id } } }.to \
-              change { enqueued_jobs.size }.by(1)
+              change { enqueued_jobs.size }.by(3)
           end
 
           it 'flags the draft as applied' do

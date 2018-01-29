@@ -1,0 +1,39 @@
+- application   = assigns.fetch('application')
+- data          = application.data
+- student       = assigns.fetch('student')
+- student_index = application.team.student_index(student)
+- pair_index    = student_index.zero? ? 1 : 0
+- pair          = application.team.students[pair_index]
+
+p = t('.greeting', name: student.name)
+p = t('.message', team: application.team.name)
+hr
+
+h2 About yourself
+= render('student_info', student: student, data: data, student_index: student_index)
+
+h2 About your pair
+- if pair.present?
+  = render('student_info', student: pair, data: data, student_index: pair_index, pair: true)
+- else
+  p N/A
+
+= render('project_info', application: application)
+
+h2 About yout team
+
+b = Application.data_label('working_together')
+= simple_format(auto_link(show_or_na(data.working_together)))
+
+- if data.voluntary == 'true'
+  b = Application.data_label('voluntary')
+  p = show_or_na(data.voluntary)
+
+  b = Application.data_label('voluntary_hours_per_week')
+  p = show_or_na(data.voluntary_hours_per_week)
+
+b = Application.data_label('heard_about_it')
+= simple_format(show_or_na(data.heard_about_it))
+
+b = Application.data_label('misc_info')
+= simple_format(auto_link(show_or_na(data.misc_info)))

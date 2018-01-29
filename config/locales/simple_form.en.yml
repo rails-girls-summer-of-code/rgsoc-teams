@@ -5,27 +5,25 @@ en:
     required:
       text: 'required'
       mark: '*'
-      # You can uncomment the line below if you need to overwrite the whole required html.
-      # When using html, text and mark won't be used.
-      # html: '<abbr title="required">*</abbr>'
     error_notification:
       default_message: "Please review the problems below:"
-    # Examples
-    # labels:
-    #   defaults:
-    #     password: 'Password'
-    #   user:
-    #     new:
-    #       email: 'E-mail to sign in.'
-    #     edit:
-    #       email: 'E-mail.'
-    # hints:
-    #   defaults:
-    #     username: 'User name to sign in.'
-    #     password: 'No special characters, please.'
-    # include_blanks:
-    #   defaults:
-    #     age: 'Rather not say'
-    # prompts:
-    #   defaults:
-    #     age: 'Select your age'
+    labels:
+      student:
+        name: Student name
+        application_age: Your age
+        application_gender_identification: Your gender self-identification
+        application_diversity: Tell us about any special circumstances which you want us to consider while reviewing your application
+        application_location: Where do you plan to live July-September? (Please write as "City, Country")
+        application_about: Please tell us a little bit about yourself. What is your background?
+        application_code_background: How did you get into programming?
+        application_community_engagement: Tell us about your community involvement
+        application_giving_back: What do you think you could give back to the community?
+        application_skills: Please give us a short summary of your programming skills
+        application_coding_level: According to these guidelines, what is your programming level (where 1 is the 'lowest')?
+        application_language_learning_period: For how many months have you been learning the language of your primary project?
+        application_learning_history: Please summarize what you have been doing to learn programming
+        application_code_samples: Please provide examples of your code, preferably in the language of the project you're applying for
+        application_goals: What do you want to achieve by the end of the summer?
+        application_motivation: Why are you applying to this program?
+        application_money: How much money, in USD, do you need per month to sustain yourself while working fulltime on an Open Source project?
+        application_minimum_money: If needed, you can use this field to break down your costs for us, or point out any special circumstances which require a higher budget than what you've selected above or than what is usual for your city

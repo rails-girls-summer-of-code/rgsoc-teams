@@ -1,0 +1,42 @@
+<% application   = assigns.fetch('application') %>
+<% data          = application.data %>
+<% student       = assigns.fetch('student') %>
+<% student_index = application.team.student_index(student) %>
+<% pair_index    = student_index.zero? ? 1 : 0 %>
+<% pair          = application.team.students[pair_index] %>
+
+<%= t('.greeting', name: student.name) %>
+<%= t('.message', team: application.team.name) %>
+
+--------------------------------------------------------------------------------
+
+About yourself
+<%= render('student_info_text', student: student, data: data, student_index: student_index) %>
+
+About your pair
+<% if pair.present? %>
+<%= render('student_info_text', student: pair, data: data, student_index: pair_index, pair: true) %>
+<% else %>
+  N/A
+<% end %>
+
+<%= render('project_info_text', application: application) %>
+
+About yout team
+
+<%= Application.data_label('working_together') %>
+  <%= show_or_na(data.working_together) %>
+
+<% if data.voluntary == 'true' %>
+<%= Application.data_label('voluntary') %>
+  <%= show_or_na(data.voluntary) %>
+
+  <%= Application.data_label('voluntary_hours_per_week') %>
+  <%= show_or_na(data.voluntary_hours_per_week) %>
+<% end %>
+
+<%= Application.data_label('heard_about_it') %>
+  <%= show_or_na(data.heard_about_it) %>
+
+<%= Application.data_label('misc_info') %>
+  <%= show_or_na(data.misc_info) %>

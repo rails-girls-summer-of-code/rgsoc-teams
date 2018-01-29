@@ -1,0 +1,63 @@
+doctype transitional
+html[lang="en"]
+  head
+    meta[http-equiv="Content-Type" content="text/html; charset=UTF-8"]
+    meta[name="viewport" content="width=device-width, initial-scale=1"]
+    meta[http-equiv="X-UA-Compatible" content="IE=edge"]
+    title
+    style[type="text/css"]
+
+  body[style="margin:0; padding:0; background-color:#F2F2F2;"]
+    center
+      table[width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#F2F2F2"]
+        tr
+          td[align="center" valign="top"]
+            / start header
+            table[width='640' cellpadding='0' cellspacing='0' border='0' bgcolor='#d82222']
+              tr
+                td[height='20' style='font-size:10px; line-height:10px;']
+                  |
+              tr
+                td[align='center' valign='top']
+                  table[width='600' cellpadding='0' cellspacing='0' border='0']
+                    tr
+                      td[align='left' valign='top']
+                        = image_tag('logo.png', width: 150)
+
+              tr
+                td[height='20' style='font-size:10px; line-height:10px;']
+                  |
+            / end header
+
+            / start content
+            table.[width="640" cellpadding="0" cellspacing="0" border="0" bgcolor="#FFFFFF"]
+              tr
+                td[height="10" style="font-size:10px; line-height:10px;"]
+                  |
+              tr
+                td[align="center" valign="top"]
+                  table[width="600" cellpadding="0" cellspacing="0" border="0"]
+                    tr
+                      td[align="left" valign="top"]
+                        / content blocks could go here
+                        = yield
+              tr
+                td[height="10" style="font-size:10px; line-height:10px;"]
+              / end content
+
+              / start footer
+              table[width='640' cellpadding='0' cellspacing='0' border='0' bgcolor='#d82222']
+                tr
+                  td[height='20' style='font-size:10px; line-height:10px;']
+                    |
+                tr
+                  td[align='center' valign='top' style='color:#fff']
+                    table[width='600' cellpadding='0' cellspacing='0' border='0']
+                      tr
+                        td[align='center' valign='top']
+                          | &copy; #{ Season.current.name } RGSoC
+
+                tr
+                  td[height='20' style='font-size:10px; line-height:10px;']
+                    |
+              / end footer

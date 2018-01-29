@@ -1,0 +1,82 @@
+<% student       = local_assigns.fetch(:student) %>
+<% data          = local_assigns.fetch(:data) %>
+<% student_index = local_assigns.fetch(:student_index) %>
+<% pair          = local_assigns.fetch(:pair, false) %>
+
+Basics
+
+<%= t('simple_form.labels.student.name') %>
+  <%= student.name %>
+
+<%= t('simple_form.labels.student.application_age') %>
+  <%= show_or_na(data.public_send("student#{student_index}_application_age")) %>
+
+<%= t('simple_form.labels.student.application_gender_identification') %>
+  <%= show_or_na(data.public_send("student#{student_index}_application_gender_identification")) %>
+
+<%= t('simple_form.labels.student.application_diversity') %>
+  <%= show_or_na(data.public_send("student#{student_index}_application_diversity")) %>
+
+<%= t('simple_form.labels.student.application_location') %>
+  <%= show_or_na(data.public_send("student#{student_index}_application_location")) %>
+
+
+Background Information
+
+<%= t('simple_form.labels.student.application_about') %>
+  <%= show_or_na(data.public_send("student#{student_index}_application_about")) %>
+
+<%= t('simple_form.labels.student.application_code_background') %>
+  <%= show_or_na(data.public_send("student#{student_index}_application_code_background")) %>
+
+
+Community Involvement
+
+<%= t('simple_form.labels.student.application_community_engagement') %>
+  <%= show_or_na(data.public_send("student#{student_index}_application_community_engagement")) %>
+
+<%= t('simple_form.labels.student.application_giving_back') %>
+  <%= show_or_na(data.public_send("student#{student_index}_application_giving_back")) %>
+
+
+Your Programming skills
+
+<%= t('simple_form.labels.student.application_skills') %>
+  <%= show_or_na(data.public_send("student#{student_index}_application_skills")) %>
+
+<%= Application.data_label('student0_application_coding_level') %>
+  <%= show_or_na(data.public_send("student#{student_index}_application_coding_level")) + '/5' %>
+  <%= SkillLevel::MATRIX[data.public_send("student#{student_index}_application_coding_level").to_i].join('; ') %>
+
+<%= t('simple_form.labels.student.application_language_learning_period') %>
+  <%= show_or_na(data.public_send("student#{student_index}_application_language_learning_period")) + ' months' %>
+
+<%= t('simple_form.labels.student.application_learning_history') %>
+  <%= show_or_na(data.public_send("student#{student_index}_application_learning_history")) %>
+
+<%= t('simple_form.labels.student.application_code_samples') %>
+  <%= show_or_na(data.public_send("student#{student_index}_application_code_samples")) %>
+
+
+Your Goals and motivation
+
+<%= t('simple_form.labels.student.application_goals') %>
+  <%= show_or_na(data.public_send("student#{student_index}_application_goals")) %>
+
+<%= t('simple_form.labels.student.application_motivation') %>
+  <%= show_or_na(data.public_send("student#{student_index}_application_motivation")) %>
+
+
+Financial matters
+
+<% if pair %>
+  This section is private.
+<% else %>
+  <%= t('simple_form.labels.student.application_money') %>
+  <%= show_or_na(data.public_send("student#{student_index}_application_money")) + ' USD' %>
+
+  <%= t('simple_form.labels.student.application_minimum_money') %>
+  <%= show_or_na(data.public_send("student#{student_index}_application_minimum_money")) %>
+<% end %>
+
+--------------------------------------------------------------------------------
