@@ -14,7 +14,7 @@ en:
         application_gender_identification: Your gender self-identification
         application_diversity: Tell us about any special circumstances which you want us to consider while reviewing your application
         application_location: Where do you plan to live July-September? (Please write as "City, Country")
-        application_about: Please tell us a little bit about yourself. What is your background?
+        application_about: Please tell us a little bit about yourself. What is your background? If you're a university student, please tell us what courses you'll be taking at any time during the summer, as well as how many weekly hours these take up.
         application_code_background: How did you get into programming?
         application_community_engagement: Tell us about your community involvement
         application_giving_back: What do you think you could give back to the community?
