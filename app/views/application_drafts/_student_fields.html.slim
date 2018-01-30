@@ -11,12 +11,9 @@
     = s.input :application_age, :collection => ApplicationDraft::AGE, include_blank: true, disabled: !may_edit?(s.object), wrapper_html: { class: student_field_error_class(index, application_draft, :application_age)}, hint: student_field_error_hint(index, application_draft, :application_age)
   - unless in_same_team_as_other_student?(student)
     = s.input :application_gender_identification, as: :string, input_html: { disabled: !may_edit?(s.object), "data-genders-src" => ApplicationDraft::GENDER_LIST.to_json, class: "gender-form-field"}, wrapper_html: { class: student_field_error_class(index, application_draft, :application_gender_identification) }, hint: (student_field_error_hint(index, application_draft, :application_gender_identification) ||  'No-one is excluded from applying on the basis of gender, but people who self-identify as female, or have experiences being socialized as female, are given preference during selection.')
-  = s.input :application_diversity, as: :character_limited, input_html: { disabled: !may_edit?(s.object) }, wrapper_html: { class: student_field_error_class(index, application_draft, :application_diversity) }, hint: (student_field_error_hint(index, application_draft, :application_diversity) || 'E.g., LGBTQI, people of color, people with disabilities, single parents, people taking care of family members, etc. Please do not mention your name, age and location here.')
+  = s.input :application_diversity, as: :character_limited, input_html: { disabled: !may_edit?(s.object) }, wrapper_html: { class: student_field_error_class(index, application_draft, :application_diversity) }, hint: (student_field_error_hint(index, application_draft, :application_diversity) || 'E.g., LGBTQI, people of color, people with disabilities, single parents, people taking care of family members, etc.')
   = s.input :application_location, as: :city, input_html: { disabled: !may_edit?(s.object) }, wrapper_html: { class: student_field_error_class(index, application_draft, :application_location) }, hint: student_field_error_hint(index, application_draft, :application_location)
 
-
-  hr
-  .alert.alert-warning Please don't mention any specific names (e.g., geographical features, universities, companies, etc.) that may point to your location in any of the following fields. This will avoid bias in the selection process.
 
   h2 Background Information
 
