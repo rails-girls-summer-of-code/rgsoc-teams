@@ -18,6 +18,12 @@ module ApplicationDraftsHelper
                     :application_money,
                     :application_minimum_money]
 
+  def in_same_team_as_other_student?(student)
+    current_student &&
+      current_student.try(:current_team).try(:id) == student.try(:current_team).try(:id) &&
+      current_student.id != student.try(:id)
+  end
+
   def may_edit?(student)
     application_draft.draft? &&
       current_student &&
