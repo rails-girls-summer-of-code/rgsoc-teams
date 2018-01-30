@@ -22,7 +22,7 @@ en:
         application_coding_level: According to these guidelines, what is your programming level (where 1 is the 'lowest')?
         application_language_learning_period: For how many months have you been learning the language of your primary project?
         application_learning_history: Please summarize what you have been doing to learn programming
-        application_code_samples: Please provide examples of your code, preferably in the language of the project you're applying for
+        application_code_samples: Please provide links to examples of your code, preferably in the language of the project you're applying for
         application_goals: What do you want to achieve by the end of the summer?
         application_motivation: Why are you applying to this program?
         application_money: How much money, in USD, do you need per month to sustain yourself while working fulltime on an Open Source project?
