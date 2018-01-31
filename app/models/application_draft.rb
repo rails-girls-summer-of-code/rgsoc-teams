@@ -85,7 +85,7 @@ class ApplicationDraft < ApplicationRecord
   validates :heard_about_it, presence: true, on: :apply
   validates :working_together, presence: true, on: :apply
   validates :heard_about_it, presence: true, on: :apply
-  validates :voluntary_hours_per_week, presence: true, on: :apply, if: :voluntary?
+  validates :deprecated_voluntary_hours_per_week, presence: true, on: :apply, if: :deprecated_voluntary?
   validate :only_one_application_draft_allowed, if: :team, on: :create
   validate :different_projects_required
   validate :accepted_projects_required, on: :apply

@@ -69,7 +69,7 @@ module ApplicationDraftsHelper
   end
 
   def team_tab_errors(draft)
-    tab_errors(draft, [:working_together, :voluntary, :voluntary_hours_per_week, :heard_about_it, :misc_info])
+    tab_errors(draft, [:working_together, :deprecated_voluntary, :deprecated_voluntary_hours_per_week, :heard_about_it, :misc_info])
   end
 
   private

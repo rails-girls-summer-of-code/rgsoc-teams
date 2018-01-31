@@ -26,9 +26,9 @@ FactoryBot.define do
       plan_project2         { FFaker::Lorem.paragraph }
     end
 
-    trait :voluntary do
-      voluntary true
-      voluntary_hours_per_week 20
+    trait :deprecated_voluntary do
+      deprecated_voluntary true
+      deprecated_voluntary_hours_per_week 20
     end
   end
 end

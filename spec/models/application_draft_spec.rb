@@ -58,14 +58,14 @@ RSpec.describe ApplicationDraft, type: :model do
       it_behaves_like 'proxies :apply validation', :working_together
       it_behaves_like 'proxies :apply validation', :why_selected_project1
 
-      context 'required fields for voluntary mode' do
-        it { is_expected.not_to validate_presence_of :voluntary_hours_per_week }
-        it { is_expected.not_to validate_presence_of(:voluntary_hours_per_week).on(:apply) }
+      context 'required fields for deprecated_voluntary mode' do
+        it { is_expected.not_to validate_presence_of :deprecated_voluntary_hours_per_week }
+        it { is_expected.not_to validate_presence_of(:deprecated_voluntary_hours_per_week).on(:apply) }
 
-        context 'with voluntary set to true' do
-          before { subject.voluntary = true }
-          it { is_expected.not_to validate_presence_of :voluntary_hours_per_week }
-          it { is_expected.to validate_presence_of(:voluntary_hours_per_week).on(:apply) }
+        context 'with deprecated_voluntary set to true' do
+          before { subject.deprecated_voluntary = true }
+          it { is_expected.not_to validate_presence_of :deprecated_voluntary_hours_per_week }
+          it { is_expected.to validate_presence_of(:deprecated_voluntary_hours_per_week).on(:apply) }
         end
       end
 

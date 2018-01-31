@@ -27,12 +27,12 @@ About yout team
 <%= Application.data_label('working_together') %>
   <%= show_or_na(data.working_together) %>
 
-<% if data.voluntary == 'true' %>
-<%= Application.data_label('voluntary') %>
-  <%= show_or_na(data.voluntary) %>
+<% if data.deprecated_voluntary == 'true' %>
+<%= Application.data_label('deprecated_voluntary') %>
+  <%= show_or_na(data.deprecated_voluntary) %>
 
-  <%= Application.data_label('voluntary_hours_per_week') %>
-  <%= show_or_na(data.voluntary_hours_per_week) %>
+  <%= Application.data_label('deprecated_voluntary_hours_per_week') %>
+  <%= show_or_na(data.deprecated_voluntary_hours_per_week) %>
 <% end %>
 
 <%= Application.data_label('heard_about_it') %>

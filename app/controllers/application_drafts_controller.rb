@@ -89,7 +89,7 @@ class ApplicationDraftsController < ApplicationController
       :project1_id, :project2_id,
       :plan_project1, :plan_project2,
       :why_selected_project1, :why_selected_project2,
-      :misc_info, :voluntary, :voluntary_hours_per_week, :working_together, heard_about_it: []
+      :misc_info, :deprecated_voluntary, :deprecated_voluntary_hours_per_week, :working_together, heard_about_it: []
     )
   end
 

@@ -69,11 +69,11 @@ RSpec.describe CreatesApplicationFromDraft, type: :model do
         end
       end
 
-      context 'carrying over the voluntary team information' do
-        let(:application_draft) { build(:application_draft, :appliable, :voluntary) }
+      context 'carrying over the deprecated_voluntary team information' do
+        let(:application_draft) { build(:application_draft, :appliable, :deprecated_voluntary) }
 
-        %w(voluntary voluntary_hours_per_week).each do |voluntary_attribute|
-          it_behaves_like 'matches corresponding attribute', voluntary_attribute
+        %w(deprecated_voluntary deprecated_voluntary_hours_per_week).each do |deprecated_voluntary_attribute|
+          it_behaves_like 'matches corresponding attribute', deprecated_voluntary_attribute
         end
       end
 
