@@ -33,8 +33,7 @@ class CreatesApplicationFromDraft
 
   def application_data
     {
-      deprecated_voluntary: application_draft.deprecated_voluntary?,
-      deprecated_voluntary_hours_per_week: application_draft.deprecated_voluntary_hours_per_week,
+      work_weeks: application_draft.work_weeks.pluck(:id),
       heard_about_it: application_draft.heard_about_it,
       misc_info: application_draft.misc_info,
       working_together: application_draft.working_together,

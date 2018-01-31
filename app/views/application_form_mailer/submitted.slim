@@ -25,12 +25,9 @@ h2 About yout team
 b = Application.data_label('working_together')
 = simple_format(auto_link(show_or_na(data.working_together)))
 
-- if data.deprecated_voluntary == 'true'
-  b = Application.data_label('deprecated_voluntary')
-  p = show_or_na(data.deprecated_voluntary)
-
-  b = Application.data_label('deprecated_voluntary_hours_per_week')
-  p = show_or_na(data.deprecated_voluntary_hours_per_week)
+- unless data.work_week_ids.blank?
+  b = Application.data_label('work_weeks')
+  p = show_or_na(WorkWeek.where(id: data.work_week_ids).map(&:human_readable_label))
 
 b = Application.data_label('heard_about_it')
 = simple_format(show_or_na(data.heard_about_it))

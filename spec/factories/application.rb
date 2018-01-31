@@ -5,6 +5,7 @@ FactoryBot.define do
       student0_application_coding_level: 2,
       student1_application_coding_level: 2,
       student_name: FFaker::Name.name,
+      work_week_ids: [create(:work_week).id],
       location: FFaker::Address.city,
       minimum_money: rand(100),
     }}
@@ -37,6 +38,7 @@ FactoryBot.define do
         'student1_application_code_samples': FFaker::Lorem.paragraph,
         'student1_application_learning_history': FFaker::Lorem.paragraph,
         'student1_application_skills': FFaker::Lorem.paragraph,
+        'work_week_ids': [create(:work_week).id],
         'student1_application_language_learning_period': ApplicationDraft::MONTHS_LEARNING.sample
       }}
     end

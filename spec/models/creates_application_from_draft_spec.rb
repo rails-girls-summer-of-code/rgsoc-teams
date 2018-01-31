@@ -69,14 +69,6 @@ RSpec.describe CreatesApplicationFromDraft, type: :model do
         end
       end
 
-      context 'carrying over the deprecated_voluntary team information' do
-        let(:application_draft) { build(:application_draft, :appliable, :deprecated_voluntary) }
-
-        %w(deprecated_voluntary deprecated_voluntary_hours_per_week).each do |deprecated_voluntary_attribute|
-          it_behaves_like 'matches corresponding attribute', deprecated_voluntary_attribute
-        end
-      end
-
       context 'carrying over misc information' do
         %w(heard_about_it misc_info).each do |misc_attribute|
           it_behaves_like 'matches corresponding attribute', misc_attribute

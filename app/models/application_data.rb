@@ -260,12 +260,8 @@ class ApplicationData
     @data["working_together"]
   end
 
-  def work_weeks
-    @data["work_weeks"]
-  end
-
-  def work_week_labels
-    work_weeks.map { |ww| ww.human_readable_label }.join ', '
+  def work_week_ids
+    JSON.parse @data["work_weeks"] if @data["work_weeks"]
   end
 
   def deprecated_voluntary_hours_per_week
