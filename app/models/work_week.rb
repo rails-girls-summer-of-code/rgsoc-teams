@@ -1,0 +1,2 @@
+class WorkWeek < ApplicationRecord
+end

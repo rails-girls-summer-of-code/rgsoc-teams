@@ -75,8 +75,8 @@ class ApplicationDraft < ApplicationRecord
   belongs_to :updater, class_name: 'User'
   belongs_to :project1, class_name: 'Project'
   belongs_to :project2, class_name: 'Project'
-  has_many   :application_draft_work_schedules
-  has_many   :work_schedules, through: :application_draft_work_schedules
+  has_many   :application_draft_work_weeks
+  has_many   :work_weeks, through: :application_draft_work_weeks
   has_one    :application
 
   scope :in_current_season, -> { where(season: Season.current) }
@@ -86,7 +86,7 @@ class ApplicationDraft < ApplicationRecord
   validates *PROJECT2_FIELDS, presence: true, on: :apply, if: :project2
   validates :heard_about_it, presence: true, on: :apply
   validates :working_together, presence: true, on: :apply
-  validates :work_schedules, presence: true, on: :apply
+  validates :work_weeks, presence: true, on: :apply
   validates :heard_about_it, presence: true, on: :apply
   validates :deprecated_voluntary_hours_per_week, presence: true, on: :apply, if: :deprecated_voluntary?
   validate :only_one_application_draft_allowed, if: :team, on: :create

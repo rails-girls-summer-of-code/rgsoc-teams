@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180131054559) do
+ActiveRecord::Schema.define(version: 20180131094632) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -30,13 +30,13 @@ ActiveRecord::Schema.define(version: 20180131054559) do
     t.string "img_url", limit: 255
   end
 
-  create_table "application_draft_work_schedules", force: :cascade do |t|
+  create_table "application_draft_work_weeks", force: :cascade do |t|
     t.bigint "application_draft_id"
-    t.bigint "work_schedule_id"
+    t.bigint "work_week_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["application_draft_id"], name: "index_application_draft_work_schedules_on_application_draft_id"
-    t.index ["work_schedule_id"], name: "index_application_draft_work_schedules_on_work_schedule_id"
+    t.index ["application_draft_id"], name: "index_application_draft_work_weeks_on_application_draft_id"
+    t.index ["work_week_id"], name: "index_application_draft_work_weeks_on_work_week_id"
   end
 
   create_table "application_drafts", id: :serial, force: :cascade do |t|
@@ -332,7 +332,7 @@ ActiveRecord::Schema.define(version: 20180131054559) do
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
   end
 
-  create_table "work_schedules", force: :cascade do |t|
+  create_table "work_weeks", force: :cascade do |t|
     t.string "label"
     t.string "human_readable_label"
     t.datetime "created_at", null: false

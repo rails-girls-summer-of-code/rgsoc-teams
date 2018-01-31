@@ -13,11 +13,11 @@ FactoryBot.define do
       misc_info             { FFaker::Lorem.paragraph } # NOTE not a required field
 
       ignore do
-        number_of_work_schedules 1
+        number_of_work_weeks 1
       end
 
       after(:create) do |draft, evaluator|
-        create_list(:application_draft_work_schedule, evaluator.number_of_work_schedules, application_draft: draft)
+        create_list(:application_draft_work_week, evaluator.number_of_work_weeks, application_draft: draft)
         draft.students.each do |student|
           student_update_attributes = (attributes_for :student, :applicant).except(*User.immutable_attributes)
           student.update(student_update_attributes)
