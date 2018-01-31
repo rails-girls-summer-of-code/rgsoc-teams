@@ -260,6 +260,10 @@ class ApplicationData
     @data["working_together"]
   end
 
+  def work_weeks
+    @data["work_weeks"]
+  end
+
   def deprecated_voluntary_hours_per_week
     @data["deprecated_voluntary_hours_per_week"]
   end
