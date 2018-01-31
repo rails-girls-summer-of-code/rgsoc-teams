@@ -12,7 +12,11 @@ Basics
   <%= show_or_na(data.public_send("student#{student_index}_application_age")) %>
 
 <%= t('simple_form.labels.student.application_gender_identification') %>
+<% if pair %>
+  This section is private.
+<% else %>
   <%= show_or_na(data.public_send("student#{student_index}_application_gender_identification")) %>
+<% end %>
 
 <%= t('simple_form.labels.student.application_diversity') %>
   <%= show_or_na(data.public_send("student#{student_index}_application_diversity")) %>

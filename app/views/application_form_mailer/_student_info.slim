@@ -12,7 +12,11 @@ b = t('simple_form.labels.student.application_age')
 p = show_or_na(data.public_send("student#{student_index}_application_age"))
 
 b = t('simple_form.labels.student.application_gender_identification')
-p = show_or_na(data.public_send("student#{student_index}_application_gender_identification"))
+- if pair
+  p
+    i This section is private.
+- else
+  p = show_or_na(data.public_send("student#{student_index}_application_gender_identification"))
 
 b = t('simple_form.labels.student.application_diversity')
 = simple_format(auto_link(show_or_na(data.public_send("student#{student_index}_application_diversity"))))
