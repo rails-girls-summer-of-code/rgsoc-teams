@@ -18,8 +18,8 @@ RSpec.describe Organizers::TeamsController, type: :controller do
     include_context 'with admin logged in'
 
     describe 'GET index' do
-      let!(:deprecated_voluntary_team)  { create :team, :in_current_season, kind: 'deprecated_voluntary' }
-      let!(:sponsored_team)  { create :team, :in_current_season, kind: 'sponsored' }
+      let!(:deprecated_voluntary_team) { create :team, :in_current_season, kind: 'deprecated_voluntary' }
+      let!(:sponsored_team) { create :team, :in_current_season, kind: 'sponsored' }
 
       it 'assigns only selected teams as @teams' do
         get :index
