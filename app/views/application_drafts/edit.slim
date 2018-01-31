@@ -1,0 +1,16 @@
+h1 Student Application for RGSoC #{Season.current.name}
+
+- unless application_draft.team.coaches_confirmed?
+  p.alert.alert-warning
+    strong Note:
+    |  Not all of your coaches have confirmed their membership. You won't be able to submit your application unless they've all confirmed — they can do so by clicking on the team link from their own profile.
+
+p.attention
+  - if application_draft.draft?
+    == t('.read_guide', guide: link_to('Student Application Guide', 'http://railsgirlssummerofcode.org/students/application/'),
+                        date: l(current_season.applications_close_at, format: :precise),
+                        help: link_to('help', page_path('help'), target: '_blank'))
+  - else
+    == t('.submitted', date: l(current_season.acceptance_notification_at, format: :precise))
+
+== render 'form'
