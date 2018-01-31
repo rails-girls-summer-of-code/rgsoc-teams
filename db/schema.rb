@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180131094632) do
+ActiveRecord::Schema.define(version: 20180131155131) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -61,6 +61,7 @@ ActiveRecord::Schema.define(version: 20180131094632) do
     t.text "why_selected_project1"
     t.text "why_selected_project2"
     t.text "plan_project2"
+    t.text "work_week_explanation"
     t.index ["project1_id"], name: "index_application_drafts_on_project1_id"
     t.index ["project2_id"], name: "index_application_drafts_on_project2_id"
     t.index ["season_id"], name: "index_application_drafts_on_season_id"

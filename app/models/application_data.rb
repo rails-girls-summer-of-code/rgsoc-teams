@@ -264,6 +264,10 @@ class ApplicationData
     JSON.parse @data["work_weeks"] if @data["work_weeks"]
   end
 
+  def work_week_explanation
+    @data["work_week_explanation"]
+  end
+
   def deprecated_voluntary_hours_per_week
     @data["deprecated_voluntary_hours_per_week"]
   end

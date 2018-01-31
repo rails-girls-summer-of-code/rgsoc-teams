@@ -30,6 +30,8 @@ About yout team
 <% unless data.work_week_ids.blank? %>
   <%= Application.data_label('work_weeks') %>
   <%= show_or_na(WorkWeek.where(id: data.work_week_ids).map(&:human_readable_label)) %>
+  <%= Application.data_label('work_week_explanation') %>
+  <%= show_or_na(data.work_week_explanation) %>
 <% end %>
 
 <%= Application.data_label('heard_about_it') %>
