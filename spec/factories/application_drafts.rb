@@ -12,7 +12,12 @@ FactoryBot.define do
       working_together      { FFaker::Lorem.paragraph }
       misc_info             { FFaker::Lorem.paragraph } # NOTE not a required field
 
-      after(:create) do |draft|
+      ignore do
+        number_of_work_schedules 1
+      end
+
+      after(:create) do |draft, evaluator|
+        create_list(:application_draft_work_schedule, evaluator.number_of_work_schedules, application_draft: draft)
         draft.students.each do |student|
           student_update_attributes = (attributes_for :student, :applicant).except(*User.immutable_attributes)
           student.update(student_update_attributes)

@@ -57,6 +57,7 @@ RSpec.describe ApplicationDraft, type: :model do
       it_behaves_like 'proxies :apply validation', :heard_about_it
       it_behaves_like 'proxies :apply validation', :working_together
       it_behaves_like 'proxies :apply validation', :why_selected_project1
+      it_behaves_like 'proxies :apply validation', :work_schedules
 
       context 'required fields for deprecated_voluntary mode' do
         it { is_expected.not_to validate_presence_of :deprecated_voluntary_hours_per_week }
