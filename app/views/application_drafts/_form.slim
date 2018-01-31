@@ -58,6 +58,8 @@
       h2 Working together
       = f.input :working_together, label: 'Since this is a self-guided program, how are you planning to work together?', input_html: { rows: 5, disabled: !application_draft.as_student? || application_draft.applied? }
 
+      = f.input :work_week_ids, collection: WorkWeek.all.map {|choice| [choice.human_readable_label, choice.id]}, as: :check_boxes, label: "How would you prefer to work? (Please pick at least one)", :input_html => {multiple: true }
+
       h2 Miscellaneous
 
       .alert.alert-warning If you've got a coaching company, you can mention that in the “Anything else to add?” field below. Please don't name the company.
