@@ -5,7 +5,7 @@ FactoryBot.define do
       student0_application_coding_level: 2,
       student1_application_coding_level: 2,
       student_name: FFaker::Name.name,
-      work_weeks: FFaker::Lorem.sentence,
+      work_weeks: [FFaker::Lorem.sentence],
       location: FFaker::Address.city,
       minimum_money: rand(100),
     }}
