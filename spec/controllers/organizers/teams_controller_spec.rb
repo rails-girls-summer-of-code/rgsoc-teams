@@ -18,17 +18,16 @@ RSpec.describe Organizers::TeamsController, type: :controller do
     include_context 'with admin logged in'
 
     describe 'GET index' do
-      let!(:deprecated_voluntary_team) { create :team, :in_current_season, kind: 'deprecated_voluntary' }
       let!(:sponsored_team) { create :team, :in_current_season, kind: 'sponsored' }
 
       it 'assigns only selected teams as @teams' do
         get :index
-        expect(assigns(:teams)).to match_array [deprecated_voluntary_team, sponsored_team]
+        expect(assigns(:teams)).to match_array [sponsored_team]
       end
 
       it 'assigns all teams as @teams when requested' do
         get :index, params: { filter: 'all' }
-        expect(assigns(:teams)).to match_array [deprecated_voluntary_team, sponsored_team, team]
+        expect(assigns(:teams)).to match_array [sponsored_team, team]
       end
     end
 

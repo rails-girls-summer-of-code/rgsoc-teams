@@ -30,10 +30,5 @@ FactoryBot.define do
       why_selected_project2 { FFaker::Lorem.paragraph }
       plan_project2         { FFaker::Lorem.paragraph }
     end
-
-    trait :deprecated_voluntary do
-      deprecated_voluntary true
-      deprecated_voluntary_hours_per_week 20
-    end
   end
 end

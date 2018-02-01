@@ -455,11 +455,6 @@ RSpec.describe Team, type: :model do
       expect(subject).not_to be_accepted
     end
 
-    it 'returns false for a deprecated_voluntary team' do
-      subject.kind = 'deprecated_voluntary'
-      expect(subject).to be_accepted
-    end
-
     it 'returns true for a sponsored team' do
       subject.kind = 'sponsored'
       expect(subject).to be_accepted
@@ -467,26 +462,9 @@ RSpec.describe Team, type: :model do
   end
 
   describe '#sponsored?' do
-    it 'returns false' do
-      subject.kind = 'deprecated_voluntary'
-      expect(subject).not_to be_sponsored
-    end
-
     it 'returns true' do
       subject.kind = 'sponsored'
       expect(subject).to be_sponsored
-    end
-  end
-
-  describe '#deprecated_voluntary?' do
-    it 'returns false' do
-      subject.kind = nil
-      expect(subject).not_to be_deprecated_voluntary
-    end
-
-    it 'returns true' do
-      subject.kind = 'deprecated_voluntary'
-      expect(subject).to be_deprecated_voluntary
     end
   end
 

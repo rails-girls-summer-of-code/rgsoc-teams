@@ -1,5 +1,4 @@
-# frozen_string_literal: true
-# See the wiki for details:
+# frozen_string_literal: true # See the wiki for details:
 # https://github.com/ryanb/cancan/wiki/Defining-Abilities
 
 class Ability

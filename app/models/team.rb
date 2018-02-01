@@ -2,9 +2,9 @@
 class Team < ApplicationRecord
   include ProfilesHelper, HasSeason
 
-  delegate :sponsored?, :deprecated_voluntary?, to: :kind
+  delegate :sponsored?, to: :kind
 
-  KINDS = %w(sponsored deprecated_voluntary)
+  KINDS = %w(sponsored)
 
   validates :name, presence: true, uniqueness: true
   # validate :must_have_members
@@ -44,7 +44,7 @@ class Team < ApplicationRecord
     where.not(id: Activity.where(kind: ['status_update', 'feed_entry']).where("created_at > ?", 26.hours.ago).pluck(:team_id))
   }
 
-  scope :accepted, -> { where(kind: %w(sponsored deprecated_voluntary)) }
+  scope :accepted, -> { where(kind: %w(sponsored)) }
 
   scope :by_season, ->(year_or_season) do
     case year_or_season
@@ -81,7 +81,7 @@ class Team < ApplicationRecord
     end
 
     def selected
-      where(kind: %w(sponsored deprecated_voluntary))
+      where(kind: %w(sponsored))
     end
   end
 
@@ -116,7 +116,7 @@ class Team < ApplicationRecord
   end
 
   def accepted?
-    sponsored? || deprecated_voluntary?
+    sponsored?
   end
 
   def admin_team?
