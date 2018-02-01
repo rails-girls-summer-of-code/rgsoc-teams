@@ -58,7 +58,7 @@
       h2 Working together
       = f.input :working_together, label: 'Since this is a self-guided program, how are you planning to work together?', input_html: { rows: 5, disabled: !application_draft.as_student? || application_draft.applied? }
 
-      = f.input :work_week_ids, collection: WorkWeek.all.map {|choice| [choice.human_readable_label, choice.id]}, as: :check_boxes, label: "How would you prefer to work? (Please pick at least one)", :input_html => {multiple: true }
+      = f.input :work_weeks, collection: ApplicationDraft::WORK_WEEK_CHOICES.map {|choice| [choice, choice]}, as: :check_boxes, label: "How would you prefer to work? (Please pick at least one)", :input_html => {multiple: true }, error: false
 
       = f.input :work_week_explanation, label: 'Please explain why you made the selection above', input_html: { rows: 5, disabled: !application_draft.as_student? || application_draft.applied? }
 

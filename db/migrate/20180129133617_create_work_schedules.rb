@@ -1,5 +1,5 @@
 class CreateWorkSchedules < ActiveRecord::Migration[5.1]
-  def change
+  def up
     create_table :work_schedules do |t|
       t.string :label
       t.string :human_readable_label
@@ -15,5 +15,10 @@ class CreateWorkSchedules < ActiveRecord::Migration[5.1]
     timestamp = Time.now.strftime("%Y-%m-%d %H:%M:%S")
     connection.execute("INSERT INTO work_schedules (label, human_readable_label, created_at, updated_at) VALUES ('full_time', 'Full-time (40 hours per week)', '#{timestamp}', '#{timestamp}');")
     connection.execute("INSERT INTO work_schedules (label, human_readable_label, created_at, updated_at) VALUES ('part_time', 'Part-time (20 hours per week)', '#{timestamp}', '#{timestamp}');")
+  end
+
+  def down
+    drop_table :application_draft_work_schedules
+    drop_table :work_schedules
   end
 end

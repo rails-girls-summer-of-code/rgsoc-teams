@@ -33,7 +33,7 @@ class CreatesApplicationFromDraft
 
   def application_data
     {
-      work_weeks: application_draft.work_weeks.pluck(:id),
+      work_weeks: application_draft.work_weeks,
       work_week_explanation: application_draft.work_week_explanation,
       heard_about_it: application_draft.heard_about_it,
       misc_info: application_draft.misc_info,

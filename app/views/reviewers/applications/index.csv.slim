@@ -33,7 +33,7 @@
         a.coaching_company,
         a.application_data['student0_application_money'],
         a.application_data['student1_application_money'],
-        WorkWeek.where(id: a.application_data.work_week_ids).map(&:human_readable_label),
+        a.work_weeks,
         a.work_week_explanation,
         a.flags.join(' / '),
         a.application_data['signed_off_at_project1'].present?,

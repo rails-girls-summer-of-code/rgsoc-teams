@@ -256,8 +256,8 @@ class ApplicationData
     @data["working_together"]
   end
 
-  def work_week_ids
-    JSON.parse @data["work_weeks"] if @data["work_weeks"]
+  def work_weeks
+    @data["work_weeks"]
   end
 
   def work_week_explanation

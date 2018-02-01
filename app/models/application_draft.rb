@@ -37,6 +37,12 @@ class ApplicationDraft < ApplicationRecord
     N/A
   ].freeze
 
+  # 'work_weeks' checkboxes
+  WORK_WEEK_CHOICES = %w[
+    Full-time\ (40\ hours\ per\ week)
+    Part-time\ (20\ hours\ per\ week)
+  ].freeze
+
   # 'heard about' checkboxes
   DIRECT_OUTREACH_CHOICES = %w[
     RGSoC\ Blog
@@ -75,8 +81,6 @@ class ApplicationDraft < ApplicationRecord
   belongs_to :updater, class_name: 'User'
   belongs_to :project1, class_name: 'Project'
   belongs_to :project2, class_name: 'Project'
-  has_many   :application_draft_work_weeks
-  has_many   :work_weeks, through: :application_draft_work_weeks
   has_one    :application
 
   scope :in_current_season, -> { where(season: Season.current) }
@@ -100,6 +104,7 @@ class ApplicationDraft < ApplicationRecord
 
   before_validation :set_current_season
   before_save :clean_up_heard_about_it
+  before_save :clean_up_work_weeks
 
   attr_accessor :current_user
 
@@ -203,5 +208,9 @@ class ApplicationDraft < ApplicationRecord
 
   def clean_up_heard_about_it
     self.heard_about_it = heard_about_it.reject(&:empty?)
+  end
+
+  def clean_up_work_weeks
+    self.work_weeks = work_weeks.reject(&:empty?)
   end
 end

@@ -150,7 +150,7 @@
   h3 Work Week
 
   b = Application.data_label("work_weeks")
-  p = auto_link(show_or_na(WorkWeek.where(id: ad.work_week_ids).map(&:human_readable_label)))
+  p = show_or_na(ad.work_weeks)
 
   b = Application.data_label("work_week_explanation")
   = simple_format(auto_link(show_or_na(render_markdown(ad.work_week_explanation))))
