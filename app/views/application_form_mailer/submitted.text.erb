@@ -27,13 +27,10 @@ About yout team
 <%= Application.data_label('working_together') %>
   <%= show_or_na(data.working_together) %>
 
-<% if data.voluntary == 'true' %>
-<%= Application.data_label('voluntary') %>
-  <%= show_or_na(data.voluntary) %>
-
-  <%= Application.data_label('voluntary_hours_per_week') %>
-  <%= show_or_na(data.voluntary_hours_per_week) %>
-<% end %>
+<%= Application.data_label('work_weeks') %>
+<%= show_or_na(data.work_weeks) %>
+<%= Application.data_label('work_week_explanation') %>
+<%= show_or_na(data.work_week_explanation) %>
 
 <%= Application.data_label('heard_about_it') %>
   <%= show_or_na(data.heard_about_it) %>

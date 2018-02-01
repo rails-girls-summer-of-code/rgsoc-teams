@@ -37,6 +37,12 @@ class ApplicationDraft < ApplicationRecord
     N/A
   ].freeze
 
+  # 'work_weeks' checkboxes
+  WORK_WEEK_CHOICES = %w[
+    Full-time\ (40\ hours\ per\ week)
+    Part-time\ (20\ hours\ per\ week)
+  ].freeze
+
   # 'heard about' checkboxes
   DIRECT_OUTREACH_CHOICES = %w[
     RGSoC\ Blog
@@ -84,8 +90,8 @@ class ApplicationDraft < ApplicationRecord
   validates *PROJECT2_FIELDS, presence: true, on: :apply, if: :project2
   validates :heard_about_it, presence: true, on: :apply
   validates :working_together, presence: true, on: :apply
+  validates :work_weeks, presence: true, on: :apply
   validates :heard_about_it, presence: true, on: :apply
-  validates :voluntary_hours_per_week, presence: true, on: :apply, if: :voluntary?
   validate :only_one_application_draft_allowed, if: :team, on: :create
   validate :different_projects_required
   validate :accepted_projects_required, on: :apply
@@ -98,6 +104,7 @@ class ApplicationDraft < ApplicationRecord
 
   before_validation :set_current_season
   before_save :clean_up_heard_about_it
+  before_save :clean_up_work_weeks
 
   attr_accessor :current_user
 
@@ -201,5 +208,9 @@ class ApplicationDraft < ApplicationRecord
 
   def clean_up_heard_about_it
     self.heard_about_it = heard_about_it.reject(&:empty?)
+  end
+
+  def clean_up_work_weeks
+    self.work_weeks = work_weeks.reject(&:empty?)
   end
 end

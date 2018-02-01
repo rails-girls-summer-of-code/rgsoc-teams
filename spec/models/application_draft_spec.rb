@@ -57,17 +57,7 @@ RSpec.describe ApplicationDraft, type: :model do
       it_behaves_like 'proxies :apply validation', :heard_about_it
       it_behaves_like 'proxies :apply validation', :working_together
       it_behaves_like 'proxies :apply validation', :why_selected_project1
-
-      context 'required fields for voluntary mode' do
-        it { is_expected.not_to validate_presence_of :voluntary_hours_per_week }
-        it { is_expected.not_to validate_presence_of(:voluntary_hours_per_week).on(:apply) }
-
-        context 'with voluntary set to true' do
-          before { subject.voluntary = true }
-          it { is_expected.not_to validate_presence_of :voluntary_hours_per_week }
-          it { is_expected.to validate_presence_of(:voluntary_hours_per_week).on(:apply) }
-        end
-      end
+      it_behaves_like 'proxies :apply validation', :work_weeks
 
       context 'when only 1st choice project' do
         it { is_expected.not_to validate_presence_of(:plan_project2)            }

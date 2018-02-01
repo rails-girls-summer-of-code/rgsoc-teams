@@ -8,6 +8,7 @@ FactoryBot.define do
       association :project1, :accepted, factory: :project
       plan_project1         { FFaker::Lorem.paragraph }
       heard_about_it        { [FFaker::Lorem.paragraph] }
+      work_weeks            { [FFaker::Lorem.paragraph] }
       why_selected_project1 { FFaker::Lorem.paragraph }
       working_together      { FFaker::Lorem.paragraph }
       misc_info             { FFaker::Lorem.paragraph } # NOTE not a required field
@@ -24,11 +25,6 @@ FactoryBot.define do
       association :project2, :accepted, factory: :project
       why_selected_project2 { FFaker::Lorem.paragraph }
       plan_project2         { FFaker::Lorem.paragraph }
-    end
-
-    trait :voluntary do
-      voluntary true
-      voluntary_hours_per_week 20
     end
   end
 end

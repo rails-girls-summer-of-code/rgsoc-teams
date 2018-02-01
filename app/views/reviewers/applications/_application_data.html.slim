@@ -147,13 +147,13 @@
   b = Application.data_label("working_together")
   = simple_format(auto_link(show_or_na(ad.working_together)))
 
-  h3 Volunteering
+  h3 Work Weeks
 
-  b = Application.data_label("voluntary")
-  p = auto_link(show_or_na(ad.voluntary))
+  b = Application.data_label("work_weeks")
+  p = show_or_na(ad.work_weeks)
 
-  b = Application.data_label("voluntary_hours_per_week")
-  p = auto_link(show_or_na(ad.voluntary_hours_per_week))
+  b = Application.data_label("work_week_explanation")
+  = simple_format(auto_link(show_or_na(render_markdown(ad.work_week_explanation))))
 
   h3 Miscellaneous
 

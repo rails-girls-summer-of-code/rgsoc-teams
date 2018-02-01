@@ -252,15 +252,15 @@ class ApplicationData
     @data["misc_info"]
   end
 
-  def voluntary
-    @data["voluntary"]
-  end
-
   def working_together
     @data["working_together"]
   end
 
-  def voluntary_hours_per_week
-    @data["voluntary_hours_per_week"]
+  def work_weeks
+    @data["work_weeks"]
+  end
+
+  def work_week_explanation
+    @data["work_week_explanation"]
   end
 end

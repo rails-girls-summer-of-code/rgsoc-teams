@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171209100908) do
+ActiveRecord::Schema.define(version: 20180201220221) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -38,8 +38,8 @@ ActiveRecord::Schema.define(version: 20171209100908) do
     t.string "heard_about_it", default: [], array: true
     t.integer "team_id"
     t.integer "season_id"
-    t.boolean "voluntary"
-    t.integer "voluntary_hours_per_week"
+    t.boolean "deprecated_voluntary"
+    t.integer "deprecated_voluntary_hours_per_week"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "applied_at"
@@ -52,6 +52,8 @@ ActiveRecord::Schema.define(version: 20171209100908) do
     t.text "why_selected_project1"
     t.text "why_selected_project2"
     t.text "plan_project2"
+    t.text "work_week_explanation"
+    t.string "work_weeks", default: [], array: true
     t.index ["project1_id"], name: "index_application_drafts_on_project1_id"
     t.index ["project2_id"], name: "index_application_drafts_on_project2_id"
     t.index ["season_id"], name: "index_application_drafts_on_season_id"

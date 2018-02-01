@@ -56,12 +56,11 @@
         |  Please fill this information together as a team.
 
       h2 Working together
-      = f.input :working_together, label: 'Since this is a self-guided program, how are you planning to work together?', input_html: { rows: 5, disabled: !application_draft.as_student? || application_draft.applied? }
+      = f.input :working_together, input_html: { rows: 5, disabled: !application_draft.as_student? || application_draft.applied? }
 
-      h2 Only to be filled if you can apply as a volunteer (non-sponsored) team
-      p You can read up on volunteer teams in the #{link_to 'application guide', 'http://railsgirlssummerofcode.org/students/application/#volunteer-teams', target: :blank}.
-      = f.input :voluntary, as: :boolean, hint: 'This will not exclude you from being in the running for a sponsored seat.', label: 'We could join the RGSoC as a volunteer team', input_html: { disabled: !application_draft.as_student? || application_draft.applied? }
-      = f.input :voluntary_hours_per_week, as: :integer, label: 'As a volunteer team, how many hours per week would you be able to work on the project?', hint: 'Please only enter a full number (e.g., 15).', input_html: { disabled: !application_draft.as_student? || application_draft.applied? }
+      = f.input :work_weeks, collection: ApplicationDraft::WORK_WEEK_CHOICES.map {|choice| [choice, choice]}, as: :check_boxes, :input_html => {multiple: true }, error: false
+
+      = f.input :work_week_explanation, input_html: { rows: 5, disabled: !application_draft.as_student? || application_draft.applied? }
 
       h2 Miscellaneous
 
@@ -75,7 +74,7 @@
       = f.input :heard_about_it, collection: ApplicationDraft::OTHER_CHOICES.map {|choice| [choice, choice]}, as: :check_boxes, label: "Other channels", :input_html => {multiple: true }, error: false
       = f.input :heard_about_it, label: "Other (please specify)", :input_html => {multiple: true, value: (application_draft.heard_about_it - ApplicationDraft::ALL_CHOICES) }
 
-      = f.input :misc_info, as: :text, label: 'Anything else to add?', hint: 'Address anything that you feel is relevant to your application and was not covered previously. For example: Do you have a coaching company?', input_html: { rows: 4, disabled: !application_draft.as_student? || application_draft.applied? }
+      = f.input :misc_info, as: :text, hint: 'Address anything that you feel is relevant to your application and was not covered previously. For example: Do you have a coaching company?', input_html: { rows: 4, disabled: !application_draft.as_student? || application_draft.applied? }
 
       = render 'save_draft_button', f: f if application_draft.draft?
 
