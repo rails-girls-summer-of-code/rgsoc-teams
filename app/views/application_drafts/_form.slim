@@ -56,11 +56,11 @@
         |  Please fill this information together as a team.
 
       h2 Working together
-      = f.input :working_together, label: 'Since this is a self-guided program, how are you planning to work together?', input_html: { rows: 5, disabled: !application_draft.as_student? || application_draft.applied? }
+      = f.input :working_together, input_html: { rows: 5, disabled: !application_draft.as_student? || application_draft.applied? }
 
-      = f.input :work_weeks, collection: ApplicationDraft::WORK_WEEK_CHOICES.map {|choice| [choice, choice]}, as: :check_boxes, label: "How would you prefer to work? (Please pick at least one)", :input_html => {multiple: true }, error: false
+      = f.input :work_weeks, collection: ApplicationDraft::WORK_WEEK_CHOICES.map {|choice| [choice, choice]}, as: :check_boxes, :input_html => {multiple: true }, error: false
 
-      = f.input :work_week_explanation, label: 'Please explain why you made the selection above', input_html: { rows: 5, disabled: !application_draft.as_student? || application_draft.applied? }
+      = f.input :work_week_explanation, input_html: { rows: 5, disabled: !application_draft.as_student? || application_draft.applied? }
 
       h2 Miscellaneous
 
@@ -74,7 +74,7 @@
       = f.input :heard_about_it, collection: ApplicationDraft::OTHER_CHOICES.map {|choice| [choice, choice]}, as: :check_boxes, label: "Other channels", :input_html => {multiple: true }, error: false
       = f.input :heard_about_it, label: "Other (please specify)", :input_html => {multiple: true, value: (application_draft.heard_about_it - ApplicationDraft::ALL_CHOICES) }
 
-      = f.input :misc_info, as: :text, label: 'Anything else to add?', hint: 'Address anything that you feel is relevant to your application and was not covered previously. For example: Do you have a coaching company?', input_html: { rows: 4, disabled: !application_draft.as_student? || application_draft.applied? }
+      = f.input :misc_info, as: :text, hint: 'Address anything that you feel is relevant to your application and was not covered previously. For example: Do you have a coaching company?', input_html: { rows: 4, disabled: !application_draft.as_student? || application_draft.applied? }
 
       = render 'save_draft_button', f: f if application_draft.draft?
 

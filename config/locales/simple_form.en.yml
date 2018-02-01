@@ -20,6 +20,7 @@ en:
         application_giving_back: What do you think you could give back to the community?
         application_skills: Please give us a short summary of your programming skills
         application_coding_level: According to these guidelines, what is your programming level (where 1 is the 'lowest')?
+        application_work_weeks: How would you prefer to work? (Please pick at least one)
         application_language_learning_period: For how many months have you been learning the language of your primary project?
         application_learning_history: Please summarize what you have been doing to learn programming
         application_code_samples: Please provide links to examples as well as short explanations of your code, preferably in the language of the project you're applying for
@@ -27,3 +28,9 @@ en:
         application_motivation: Why are you applying to this program?
         application_money: How much money, in USD, do you need per month to sustain yourself while working fulltime on an Open Source project?
         application_minimum_money: If needed, you can use this field to break down your costs for us, or point out any special circumstances which require a higher budget than what you've selected above or than what is usual for your city
+      application_draft:
+        work_weeks: How would you prefer to work? (Please pick at least one)
+        work_week_explanation: Please explain why you made the selection above
+        working_together: Since this is a self-guided program, how are you planning to work together?
+        misc_info: Anything else to add?
+
