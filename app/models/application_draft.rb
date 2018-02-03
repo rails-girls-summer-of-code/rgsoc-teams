@@ -169,7 +169,7 @@ class ApplicationDraft < ApplicationRecord
     event :submit_application do
       after do |applied_at_time = nil|
         self.applied_at = applied_at_time || Time.now
-        CreatesApplicationFromDraft.new(self).save
+        CreateApplicationFromDraft.new(self).call
       end
 
       transitions from: :draft, to: :applied, guard: :ready?

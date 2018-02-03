@@ -1,18 +1,22 @@
 # frozen_string_literal: true
-class CreatesApplicationFromDraft
+class CreateApplicationFromDraft
   PROJECT_FIELDS = ApplicationDraft::PROJECT_FIELDS.map(&:to_s)
   STUDENT_FIELDS = [0, 1].map { |index| User.columns.map(&:name).select{ |n| /\Aapplication_/ =~ n }.map{|n| "student#{index}_#{n}" } }.flatten
-
-  delegate :team, to: :application_draft
-
-  attr_reader :application_draft
 
   def initialize(application_draft)
     @application_draft = application_draft
   end
 
-  def save
+  def call
     application.save
+  end
+
+  private
+
+  attr_reader :application_draft
+
+  def team
+    @team ||= application_draft.team
   end
 
   def application

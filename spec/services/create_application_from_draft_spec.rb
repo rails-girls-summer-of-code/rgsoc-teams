@@ -1,18 +1,11 @@
 require 'rails_helper'
 
-RSpec.describe CreatesApplicationFromDraft, type: :model do
+RSpec.describe CreateApplicationFromDraft, type: :service do
   let(:application_draft) { build :application_draft }
 
   subject { described_class.new application_draft }
 
-  describe 'its constructor' do
-    it 'sets the application draft' do
-      subject = described_class.new application_draft
-      expect(subject.application_draft).to eql application_draft
-    end
-  end
-
-  describe '#save' do
+  describe '#call' do
     let(:application_draft) { create :application_draft, :appliable, :with_two_projects }
     let(:team)              { create :team, :applying_team }
 
@@ -20,11 +13,11 @@ RSpec.describe CreatesApplicationFromDraft, type: :model do
       let(:application_draft) { ApplicationDraft.new }
 
       it 'will not create an application' do
-        expect { subject.save }.not_to change { ApplicationDraft.count }
+        expect { subject.call }.not_to change { Application.count }
       end
 
       it 'returns nil' do
-        expect(subject.save).to be_falsey
+        expect(subject.call).to be_falsey
       end
     end
 
@@ -40,7 +33,7 @@ RSpec.describe CreatesApplicationFromDraft, type: :model do
         end
       end
 
-      before { described_class.new(application_draft).save }
+      before { described_class.new(application_draft).call }
 
       subject { Application.last }
 
