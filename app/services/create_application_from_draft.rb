@@ -1,4 +1,10 @@
 # frozen_string_literal: true
+
+# CreateApplicationFromDraft is a service to generate an Application record from
+# a given applicable ApplicationDraft. Relevant fields from the draft are
+# "snapshotted" into the application's "data" field.
+# Calling the service returns the newly created Application record if creating
+# the application was successful - or nil otherwise.
 class CreateApplicationFromDraft
   PROJECT_FIELDS = ApplicationDraft::PROJECT_FIELDS.map(&:to_s)
   STUDENT_FIELDS = [0, 1].map { |index| User.columns.map(&:name).select{ |n| /\Aapplication_/ =~ n }.map{|n| "student#{index}_#{n}" } }.flatten
@@ -8,7 +14,7 @@ class CreateApplicationFromDraft
   end
 
   def call
-    application.save
+    application.persisted? ? application : nil
   end
 
   private
@@ -20,7 +26,7 @@ class CreateApplicationFromDraft
   end
 
   def application
-    @application ||= Application.new(application_attributes)
+    @application ||= Application.create(application_attributes)
   end
 
   def application_attributes

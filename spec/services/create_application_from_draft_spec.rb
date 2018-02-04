@@ -1,86 +1,81 @@
 require 'rails_helper'
 
 RSpec.describe CreateApplicationFromDraft, type: :service do
-  let(:application_draft) { build :application_draft }
-
-  subject { described_class.new application_draft }
-
   describe '#call' do
-    let(:application_draft) { create :application_draft, :appliable, :with_two_projects }
-    let(:team)              { create :team, :applying_team }
+    subject(:application) { service.call }
 
-    context 'with a draft that is not ready yet' do
+    let(:service) { described_class.new(application_draft) }
+
+    context 'when the draft is not ready yet' do
       let(:application_draft) { ApplicationDraft.new }
 
-      it 'will not create an application' do
-        expect { subject.call }.not_to change { Application.count }
+      it 'does not create an application' do
+        expect { application }.not_to change { Application.count }
       end
 
       it 'returns nil' do
-        expect(subject.call).to be_falsey
+        expect(application).to be_nil
       end
     end
 
-    context 'with application created' do
-      shared_examples_for 'matches corresponding attribute' do |attribute|
-        it "will not leave application.#{attribute} blank" do
-          expect(subject.data.send(attribute)).to be_present
-        end
+    context 'when the draft is applicable' do
+      let(:application_draft) { create :application_draft, :appliable, :with_two_projects }
 
-        it "sets application.#{attribute} to its corresponding draft attribute" do
-          draft_attribute = application_draft.send(attribute)
-          expect(subject.data.send(attribute)).to eql draft_attribute.to_s
-        end
+      it 'creates a new application record' do
+        expect { application }.to change { Application.count }.by(1)
       end
 
-      before { described_class.new(application_draft).call }
-
-      subject { Application.last }
-
-      it 'pings the mentors' do
-        skip
+      it 'returns a valid application' do
+        expect(application).to be_a Application
+        expect(application).to be_valid
       end
 
-      it 'sets the season' do
-        expect(subject.season).to be_present
-        expect(subject.season).to eql application_draft.season
+      it 'sets the season and a reference to the draft' do
+        expect(application).to have_attributes(
+          season:            application_draft.season,
+          application_draft: application_draft
+        )
       end
 
-      it 'adds a database reference to itself' do
-        expect(subject.application_draft).to eql application_draft
-      end
+      describe 'serializing all relevant draft fields' do
+        subject(:data) { application.data }
 
-      context 'carrying over the user attributes' do
-        described_class::STUDENT_FIELDS.each do |student_attribute|
-          it_behaves_like 'matches corresponding attribute', student_attribute
-        end
-      end
-
-      context 'carrying over the project related information' do
-        described_class::PROJECT_FIELDS.each do |project_attribute|
-          it_behaves_like 'matches corresponding attribute', project_attribute
-        end
-      end
-
-      context 'carrying over misc information' do
-        %w(heard_about_it misc_info).each do |misc_attribute|
-          it_behaves_like 'matches corresponding attribute', misc_attribute
-        end
-      end
-
-      context 'taking snapshots of the team state at creation time' do
-
-        shared_examples_for 'takes a team member snapshot by role' do |members|
-          it "saves the #{members}" do
-            expected = subject.team.send(members).map { |u| [u.name, u.email] }
-            expect(subject.team_snapshot[members.to_s.freeze]).to be_present
-            expect(subject.team_snapshot[members.to_s.freeze]).to eql expected
+        def match_draft_fields_with_data(fields)
+          fields.each do |attr|
+            draft_attr = application_draft.public_send(attr)
+            data_attr  = application.data.public_send(attr)
+            expect(data_attr).to eq draft_attr.to_s
+            expect(data_attr).not_to be_blank
           end
         end
 
-        it_behaves_like 'takes a team member snapshot by role', :students
-        it_behaves_like 'takes a team member snapshot by role', :coaches
-        it_behaves_like 'takes a team member snapshot by role', :mentors
+        it 'carries over all relevant student attributes (as strings)' do
+          match_draft_fields_with_data described_class::STUDENT_FIELDS
+        end
+
+        it 'carries over all project attributes (as strings)' do
+          match_draft_fields_with_data described_class::PROJECT_FIELDS
+        end
+
+        it 'carries over the misc information attributes (as strings)' do
+          match_draft_fields_with_data %w(heard_about_it misc_info)
+        end
+      end
+
+      describe 'taking a snapshot of the team at the time of applying' do
+        let(:subject) { applciation.team_snapshot }
+
+        shared_examples_for :member_shapshot_by_role do |members|
+          it 'saves the members and does not leave any blank' do
+            expected = application.team.public_send(members).map { |u| [u.name, u.email] }
+            expect(application.team_snapshot[members.to_s.freeze]).not_to be_blank
+            expect(application.team_snapshot[members.to_s.freeze]).to eql expected
+          end
+        end
+
+        include_examples :member_shapshot_by_role, :students
+        include_examples :member_shapshot_by_role, :coaches
+        include_examples :member_shapshot_by_role, :mentors
       end
     end
   end
