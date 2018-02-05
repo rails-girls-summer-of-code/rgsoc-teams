@@ -82,6 +82,13 @@ RSpec.describe ApplicationDraftsController, type: :controller do
         expect(flash[:alert]).to be_present
       end
 
+      it 'redirects for a team from last season' do
+        create :student_role, user: user, team: create(:team, :last_season)
+        get :new
+        expect(response).to redirect_to root_path
+        expect(flash[:alert]).to be_present
+      end
+
       it 'renders the "new" template for a tean with two students' do
         other_role = create :student_role
         create :student_role, user: user, team: other_role.team
