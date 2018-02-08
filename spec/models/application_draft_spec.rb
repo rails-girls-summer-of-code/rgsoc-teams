@@ -4,13 +4,13 @@ require 'rails_helper'
 RSpec.describe ApplicationDraft, type: :model do
   it_behaves_like 'HasSeason'
 
-  context 'with associations' do
+  describe 'associations' do
     it { is_expected.to belong_to(:updater).class_name('User') }
     it { is_expected.to belong_to(:project1).class_name('Project') }
     it { is_expected.to belong_to(:project2).class_name('Project') }
   end
 
-  context 'with validations' do
+  describe 'validations' do
     it { is_expected.to validate_presence_of :team }
 
     context 'with more than one application' do
@@ -292,33 +292,59 @@ RSpec.describe ApplicationDraft, type: :model do
   end
 
   describe '#state' do
+    let(:application_draft) { create(:application_draft, :appliable) }
+
     it 'returns "draft" when applied_at is blank' do
-      expect(subject).to be_draft
+      expect(application_draft).to be_draft
     end
 
     it 'returns "applied" when applied_at is set' do
-      allow(subject).to receive(:ready?).and_return(true)
-      subject.submit_application(1.day.ago)
-      expect(subject).to be_applied
+      application_draft.submit_application(1.day.ago)
+      expect(application_draft).to be_applied
     end
   end
 
   describe '#submit_application' do
-    it 'will not create an application if not valid enough' do
-      expect { subject.submit_application }.to raise_error AASM::InvalidTransition
+    subject(:submit_application) { application_draft.submit_application }
+
+    let(:application_draft) { build(:application_draft) }
+
+    it 'will not create an application if not valid' do
+      expect { submit_application }.to raise_error AASM::InvalidTransition
     end
 
-    context 'with an appliable draft' do
-      subject { create(:application_draft, :appliable) }
+    context 'when the application_draft is valid' do
+      let(:application_draft) { create(:application_draft, :appliable) }
+      let(:application)       { Application.last }
+      let(:students)          { application_draft.students }
 
-      it 'creates a new application' do
-        expect { subject.submit_application }.to \
-          change { Application.count }.by(1)
+      it 'creates a new application record from the draft' do
+        expect { submit_application }.to change { Application.count }.by(1)
       end
 
-      it 'sets the application reference on the draft' do
-        expect { subject.submit_application }.to \
-          change { subject.application }
+      it 'sets the application reference in both directions' do
+        expect { submit_application }.to change { application_draft.application }.from(nil)
+        expect(application).to have_attributes(application_draft: application_draft)
+      end
+
+      it 'updates the state to :applied and sends notification emails to orga and submitters' do
+        expect { submit_application }.to change { application_draft.state }.from('draft').to('applied')
+
+        submitted_application = application_draft.reload.application
+
+        expect(ActionMailer::DeliveryJob).to have_been_enqueued.with(
+          'ApplicationFormMailer', 'new_application', 'deliver_now', submitted_application
+        )
+        expect(ActionMailer::DeliveryJob).to have_been_enqueued.with(
+          'ApplicationFormMailer', 'submitted', 'deliver_now',
+          application: submitted_application,
+          student:     students.first
+        )
+        expect(ActionMailer::DeliveryJob).to have_been_enqueued.with(
+          'ApplicationFormMailer', 'submitted', 'deliver_now',
+          application: submitted_application,
+          student:     students.second
+        )
       end
     end
   end

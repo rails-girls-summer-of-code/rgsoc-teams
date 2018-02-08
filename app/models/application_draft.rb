@@ -167,9 +167,13 @@ class ApplicationDraft < ApplicationRecord
     state :applied
 
     event :submit_application do
-      after do |applied_at_time = nil|
+      before do |applied_at_time = nil|
         self.applied_at = applied_at_time || Time.now
         CreateApplicationFromDraft.new(self).call
+      end
+
+      after do
+        notify_orga_and_submitters
       end
 
       transitions from: :draft, to: :applied, guard: :ready?
@@ -212,5 +216,20 @@ class ApplicationDraft < ApplicationRecord
 
   def clean_up_work_weeks
     self.work_weeks = work_weeks.reject(&:empty?)
+  end
+
+  def notify_orga_and_submitters
+    notify_orga
+    notify_submitters
+  end
+
+  def notify_orga
+    ApplicationFormMailer.new_application(application).deliver_later
+  end
+
+  def notify_submitters
+    team.students.each do |student|
+      ApplicationFormMailer.submitted(application: application, student: student).deliver_later
+    end
   end
 end
