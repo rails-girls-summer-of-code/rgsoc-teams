@@ -53,7 +53,7 @@
 
   = s.input :application_learning_history, as: :character_limited, input_html: { disabled: !may_edit?(s.object) }, wrapper_html: { class: student_field_error_class(index, application_draft, :application_learning_history) }, hint: (student_field_error_hint(index, application_draft, :application_learning_history) || 'E.g., entered a study group, learned Rails by doing exercises, etc.')
 
-  = s.input :application_code_samples, as: :character_limited, input_html: { rows: 4, disabled: !may_edit?(s.object) }, wrapper_html: { class: student_field_error_class(index, application_draft, :application_code_samples) }, hint: (student_field_error_hint(index, application_draft, :application_code_samples) || "E.g., links to completed coding challenge provided by the mentor (if present), commits or pull requests on Github or other concise examples of your code (including links to single files in repositories). Links to your Github profile or to entire repositories won't be considered. Please do not directly copy-paste code here")
+  = s.input :application_code_samples, as: :character_limited, input_html: { rows: 4, disabled: !may_edit?(s.object) }, wrapper_html: { class: student_field_error_class(index, application_draft, :application_code_samples) }, hint: (student_field_error_hint(index, application_draft, :application_code_samples) || 'E.g., links to completed coding challenges provided by the mentor (if present), commits or pull requests on Github or other concise examples of your code (including links to single files in repositories). Links to your Github profile or to entire repositories won\'t be considered. Please do not directly copy-paste code here.')
 
   hr
 
