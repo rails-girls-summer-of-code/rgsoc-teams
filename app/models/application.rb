@@ -82,21 +82,4 @@ class Application < ApplicationRecord
   def project2
     Project.find_by(id: application_data['project2_id'])
   end
-
-  def notify_orga_and_submitters
-    notify_orga
-    notify_submitters
-  end
-
-  private
-
-  def notify_orga
-    ApplicationFormMailer.new_application(self).deliver_later
-  end
-
-  def notify_submitters
-    team.students.each do |student|
-      ApplicationFormMailer.submitted(application: self, student: student).deliver_later
-    end
-  end
 end

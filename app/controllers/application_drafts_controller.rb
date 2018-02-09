@@ -63,7 +63,6 @@ class ApplicationDraftsController < ApplicationController
     if current_team.coaches_confirmed?
       if application_draft.ready? && application_draft.submit_application!
         flash[:notice] = 'Your application has been submitted!'
-        application_draft.application.notify_orga_and_submitters
       else
         flash[:alert] = 'An error has occurred. Please contact us.'
       end
