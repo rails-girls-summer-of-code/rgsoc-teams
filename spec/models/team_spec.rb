@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Team, type: :model do
-  subject { Team.new(kind: 'sponsored') }
+  subject { Team.new(kind: 'full_time') }
 
   it { is_expected.to have_many(:activities) }
   it { is_expected.to have_many(:sources) }
@@ -455,16 +455,14 @@ RSpec.describe Team, type: :model do
       expect(subject).not_to be_accepted
     end
 
-    it 'returns true for a sponsored team' do
-      subject.kind = 'sponsored'
+    it 'returns true for a full_time team' do
+      subject.kind = 'full_time'
       expect(subject).to be_accepted
     end
-  end
 
-  describe '#sponsored?' do
-    it 'returns true' do
-      subject.kind = 'sponsored'
-      expect(subject).to be_sponsored
+    it 'returns true for a part_time team' do
+      subject.kind = 'part_time'
+      expect(subject).to be_accepted
     end
   end
 

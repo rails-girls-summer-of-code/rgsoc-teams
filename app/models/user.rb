@@ -169,7 +169,7 @@ class User < ApplicationRecord
 
   def current_student?
     roles.joins(:team).
-      where("teams.season_id" => Season.current.id, "teams.kind" => %w(sponsored)).
+      where("teams.season_id" => Season.current.id, "teams.kind" => %w(full_time part_time)).
       student.any?
   end
 

@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe Exporters::Applications do
 
   let(:old_season)        { create :season, name: "2015" }
-  let(:selected_team)     { create :team,   kind: 'sponsored' }
+  let(:selected_team)     { create :team,   kind: 'full_time' }
   let(:not_selected_team) { create :team,   kind: nil }
 
   let!(:selected_application) do

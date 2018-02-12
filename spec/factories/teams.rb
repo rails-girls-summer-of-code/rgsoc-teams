@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :team do
-    kind 'sponsored'
+    kind 'part_time'
     sequence(:name) { |i| "#{i}-#{FFaker::CheesyLingo.word.capitalize}" }
 
     trait :helpdesk do

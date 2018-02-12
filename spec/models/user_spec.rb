@@ -335,7 +335,7 @@ RSpec.describe User, type: :model do
     end
 
     it 'returns true if user is among this season\'s accepted students' do
-      team    = create(:team, :in_current_season, kind: 'sponsored')
+      team    = create(:team, :in_current_season, kind: 'part_time')
       student = create(:student, team: team)
       expect(student).to be_current_student
     end

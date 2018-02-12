@@ -6,7 +6,7 @@ RSpec.describe TeamPerformance, type: :model do
   end
 
   let :team_nothing do
-    create :team, kind: 'sponsored'
+    create :team, kind: 'part_time'
   end
 
   let :team_activitiy do

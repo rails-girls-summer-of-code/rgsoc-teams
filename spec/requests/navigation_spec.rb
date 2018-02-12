@@ -53,7 +53,7 @@ RSpec.describe 'Navigation', type: :request do
     end
 
     context 'for students' do
-      let(:team) { create :team, :in_current_season, kind: 'sponsored' }
+      let(:team) { create :team, :in_current_season, kind: 'full_time' }
       let(:user) { create(:student_role, team: team).user }
 
       before do
