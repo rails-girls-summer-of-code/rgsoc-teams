@@ -5,7 +5,7 @@ RSpec.describe Source, type: :model do
   it { is_expected.to validate_presence_of(:url) }
 
   describe '.for_accepted_teams' do
-    let!(:accepted_team)   { create :team, kind: %w(full_time).sample }
+    let!(:accepted_team)   { create :team, kind: 'full_time' }
     let!(:accepted_source) { create :source, team: accepted_team }
 
     let!(:unaccepted_team)   { create :team, kind: nil }

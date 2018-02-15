@@ -61,7 +61,7 @@ RSpec.describe TeamsController, type: :controller do
 
     context 'after acceptance letters have been sent' do
       let(:last_season) { Season.create name: Date.today.year - 1 }
-      let!(:sponsored_team) { create :team, :in_current_season, kind: 'full_time' }
+      let!(:full_time_team) { create :team, :in_current_season, kind: 'full_time' }
       let!(:unaccepted_team) { create :team, :in_current_season, kind: nil}
       let!(:last_years_team) { create :team, kind: 'full_time', season: last_season }
 
@@ -72,7 +72,7 @@ RSpec.describe TeamsController, type: :controller do
       it 'only displays this season\'s accepted teams' do
         get :index
         expect(response).to be_success
-        expect(assigns(:teams)).to match_array [sponsored_team]
+        expect(assigns(:teams)).to match_array [full_time_team]
       end
 
     end
