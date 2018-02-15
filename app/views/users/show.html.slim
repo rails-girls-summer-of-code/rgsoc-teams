@@ -46,7 +46,8 @@ nav.actions
     h4 Teams
     ul.teams
       - @user.teams.each do |team|
-        li #{link_to team.display_name, team} &ndash; #{role_names(team, @user)}
+        - if !team.invisible || team.sponsored?
+          li #{link_to team.display_name, team} &ndash; #{role_names(team, @user)}
 
   - if @user.interested_in.any?
     h4 Interested in
