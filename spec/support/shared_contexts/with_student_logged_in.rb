@@ -1,5 +1,5 @@
 RSpec.shared_context 'with student logged in' do
-  let(:team) { create :team, kind: 'sponsored' }
+  let(:team) { create :team, kind: 'full_time' }
   let(:current_user) { create(:student_role, team: team).user }
 
   before do

@@ -2,9 +2,10 @@
 class Team < ApplicationRecord
   include ProfilesHelper, HasSeason
 
-  delegate :sponsored?, to: :kind
+  delegate :full_time?, to: :kind
+  delegate :part_time?, to: :kind
 
-  KINDS = %w(sponsored)
+  KINDS = %w(full_time part_time)
 
   validates :name, presence: true, uniqueness: true
   # validate :must_have_members
@@ -44,7 +45,7 @@ class Team < ApplicationRecord
     where.not(id: Activity.where(kind: ['status_update', 'feed_entry']).where("created_at > ?", 26.hours.ago).pluck(:team_id))
   }
 
-  scope :accepted, -> { where(kind: %w(sponsored)) }
+  scope :accepted, -> { where(kind: %w(full_time part_time)) }
 
   scope :by_season, ->(year_or_season) do
     case year_or_season
@@ -81,7 +82,7 @@ class Team < ApplicationRecord
     end
 
     def selected
-      where(kind: %w(sponsored))
+      where(kind: %w(full_time part_time))
     end
   end
 
@@ -116,7 +117,7 @@ class Team < ApplicationRecord
   end
 
   def accepted?
-    sponsored?
+    full_time? || part_time?
   end
 
   def admin_team?

@@ -5,7 +5,7 @@ RSpec.describe ReminderMailer, type: :mailer do
   let(:student_2_email) { 'free@hat.com' }
 
   let(:team) {
-    team = create :team, kind: 'sponsored'
+    team = create :team, kind: 'full_time'
     create :student, team: team, email: student_1_email
     create :student, team: team, email: student_2_email
     team
