@@ -317,26 +317,6 @@ RSpec.describe User, type: :model do
     end
   end
 
-  describe '#visible_teams' do
-    it 'returns invisible accepted teams' do
-      team    = create(:team, :in_current_season, kind: 'sponsored', invisible: true)
-      student = create(:student, team: team)
-      expect(student.visible_teams).not_to be_empty
-    end
-
-    it 'does not return invisible teams' do
-      team    = create(:team, :in_current_season, kind: nil, invisible: true)
-      student = create(:student, team: team)
-      expect(student.visible_teams).to be_empty
-    end
-
-    it 'returns accepted teams' do
-      team    = create(:team, :in_current_season, kind: 'sponsored')
-      student = create(:student, team: team)
-      expect(student.visible_teams).not_to be_empty
-    end
-  end
-
   describe '#current_student?' do
     it 'returns false for users w/o a role' do
       expect(subject).not_to be_current_student

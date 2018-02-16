@@ -86,10 +86,6 @@ class User < ApplicationRecord
     @github_import = import
   end
 
-  def visible_teams
-    teams.accepted.merge(teams.visible)
-  end
-
   class << self
     def ordered(order = nil, direction = 'asc')
       direction = direction == 'asc' ? 'ASC' : 'DESC'
