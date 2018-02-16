@@ -317,7 +317,6 @@ RSpec.describe User, type: :model do
     end
   end
 
-
   describe '#current_student?' do
     it 'returns false for users w/o a role' do
       expect(subject).not_to be_current_student
