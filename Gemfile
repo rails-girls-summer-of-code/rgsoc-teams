@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 ruby File.read(".ruby-version")
 
-gem 'rails', '~> 5.1.4'
+gem 'rails', '~> 5.1.5'
 gem 'pg'
 gem 'puma'
 gem 'devise', '~> 4.4.0'
