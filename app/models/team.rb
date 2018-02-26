@@ -46,6 +46,8 @@ class Team < ApplicationRecord
   }
 
   scope :accepted, -> { where(kind: %w(full_time part_time)) }
+  scope :full_time, -> { where(kind: 'full_time') }
+  scope :part_time, -> { where(kind: 'part_time') }
 
   scope :by_season, ->(year_or_season) do
     case year_or_season
