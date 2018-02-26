@@ -12,7 +12,12 @@ module Organizers
       else
         @teams = Team.order(:kind, :name)
       end
-      if params[:filter] != 'all'
+
+      if params[:filter] == 'full_time'
+        @teams = Team.in_current_season.full_time.ordered
+      elsif params[:filter] == 'part_time'
+        @teams = Team.in_current_season.part_time.ordered
+      elsif params[:filter] != 'all'
         @teams = Team.in_current_season.selected.ordered
       end
     end
