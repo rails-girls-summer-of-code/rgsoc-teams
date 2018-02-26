@@ -73,7 +73,7 @@ class Team < ApplicationRecord
     # phase of the running season we're currently in.
     def by_season_phase
       if Time.now.utc > Season.current.acceptance_notification_at
-        Team.in_current_season.selected
+        Team.in_current_season.accepted
       else
         Team.in_current_season.visible
       end
@@ -81,10 +81,6 @@ class Team < ApplicationRecord
 
     def in_current_season
       where(season: Season.current)
-    end
-
-    def selected
-      where(kind: %w(full_time part_time))
     end
   end
 
