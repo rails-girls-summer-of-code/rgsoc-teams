@@ -173,7 +173,10 @@ class ApplicationDraft < ApplicationRecord
       end
 
       after do
-        notify_orga_and_submitters
+        # TODO: There was an incident where students were sent the opposite
+        # info with their names on it. This will be off until we can figure out
+        # how this happened and how we can prevent it.
+        notify_orga
       end
 
       transitions from: :draft, to: :applied, guard: :ready?
