@@ -48,6 +48,8 @@ class Team < ApplicationRecord
   scope :full_time, -> { where(kind: %w(full_time sponsored)) }
   scope :part_time, -> { where(kind: %w(part_time voluntary)) }
   scope :accepted, -> { full_time.or(part_time) }
+  scope :visible, -> { where.not(invisible: true).or(accepted) }
+  scope :in_current_season, -> { where(season: Season.current) }
 
   scope :by_season, ->(year_or_season) do
     case year_or_season
@@ -65,10 +67,6 @@ class Team < ApplicationRecord
       order([sort[:order] || 'kind, name', sort[:direction] || 'asc'].join(' '))
     end
 
-    def visible
-      where("teams.invisible IS NOT TRUE OR teams.kind IN (?)", KINDS)
-    end
-
     # Returns a base scope reflecting the relevant teams depending on what
     # phase of the running season we're currently in.
     def by_season_phase
@@ -77,10 +75,6 @@ class Team < ApplicationRecord
       else
         Team.in_current_season.visible
       end
-    end
-
-    def in_current_season
-      where(season: Season.current)
     end
   end
 
