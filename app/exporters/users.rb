@@ -19,7 +19,7 @@ module Exporters
       students = User.joins(roles: :team)
         .references(:roles, :teams)
         .where('roles.name' => 'student')
-        .where('teams.kind' => %w(full_time part_time))
+        .merge(Team.accepted)
         .where('teams.season_id' => season)
 
       generate(students, 'User ID', 'Name', 'Email', 'Country', 'Locality', 'Address', 'T-shirt size', 'T-shirt cut') do |u|

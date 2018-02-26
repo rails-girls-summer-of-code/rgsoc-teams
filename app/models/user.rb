@@ -129,6 +129,12 @@ class User < ApplicationRecord
     def immutable_attributes
       [:github_handle]
     end
+
+    def search(search)
+      q_user_names = User.where("users.name ILIKE ?", "%#{search}%")
+      q_team_names = User.with_teams.where("teams.name ILIKE ?", "%#{search}%")
+      (q_user_names + q_team_names).uniq
+    end
   end # class << self
 
   def rating(type = :mean, options = {})
@@ -168,15 +174,10 @@ class User < ApplicationRecord
   end
 
   def current_student?
-    roles.joins(:team).
-      where("teams.season_id" => Season.current.id, "teams.kind" => %w(full_time part_time)).
-      student.any?
-  end
-
-  def self.search(search)
-    q_user_names = User.where("users.name ILIKE ?", "%#{search}%")
-    q_team_names = User.with_teams.where("teams.name ILIKE ?", "%#{search}%")
-    (q_user_names + q_team_names).uniq
+    roles.joins(:team)
+      .merge(Team.in_current_season)
+      .merge(Team.accepted)
+      .student.any?
   end
 
   def interested_in_list
@@ -218,5 +219,4 @@ class User < ApplicationRecord
     return if new_record?
     errors.add(:github_handle, "can't be changed") if changes_include?(:github_handle)
   end
-
 end
