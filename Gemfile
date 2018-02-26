@@ -24,6 +24,7 @@ gem 'jquery-ui-rails'
 gem 'bootstrap-sass'
 gem 'font-awesome-sass'
 gem 'pretender'
+gem 'bootsnap', require: false
 
 gem 'sass-rails'
 gem 'uglifier'
