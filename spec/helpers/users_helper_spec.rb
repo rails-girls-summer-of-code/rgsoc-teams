@@ -1,16 +1,16 @@
 require 'rails_helper'
-require 'cancan/matchers'
 
 RSpec.describe UsersHelper, type: :helper do
 
-  describe "#teams_for?" do
-    let!(:user) { create :user }
-    let!(:invisible_team) { create :team, invisible: true, kind: nil }
+  describe "#teams_for" do
+    let(:user) { create :user }
+    let(:invisible_team) { create :team, invisible: true, kind: nil }
+    let(:visible_team) { create :team, invisible: false, kind: nil }
     let(:role_name) { 'student' }
 
     before do
-      invisible_team.attributes = { roles_attributes: [{ name: role_name, user_id: user.id }] }
-      invisible_team.save!
+      create(:role, name: 'student', user: user, team: invisible_team)
+      create(:role, name: 'student', user: user, team: visible_team)
     end
 
     context 'user signed in is viewing own teams' do
@@ -19,7 +19,7 @@ RSpec.describe UsersHelper, type: :helper do
       end
 
       it 'returns all teams' do
-        expect(teams_for user).to eq([invisible_team])
+        expect(teams_for user).to contain_exactly(invisible_team, visible_team)
       end
     end
 
@@ -29,7 +29,7 @@ RSpec.describe UsersHelper, type: :helper do
       end
 
       it 'returns only visible teams' do
-        expect(teams_for user).to eq([])
+        expect(teams_for user).to contain_exactly(visible_team)
       end
     end
   end
