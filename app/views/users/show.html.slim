@@ -42,10 +42,10 @@ nav.actions
     h4 About me
     p = render_markdown(@user.bio).html_safe
 
-  - if @user.teams.visible.any?
+  - if teams_for(@user).any?
     h4 Teams
     ul.teams
-      - @user.teams.visible.each do |team|
+      - teams_for(@user).each do |team|
         li #{link_to team.display_name, team} &ndash; #{role_names(team, @user)}
 
   - if @user.interested_in.any?
