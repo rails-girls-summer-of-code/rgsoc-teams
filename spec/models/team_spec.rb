@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe Team, type: :model do
+  it_behaves_like 'HasSeason'
+
   describe 'associations' do
     it { is_expected.to belong_to(:project) }
 
@@ -31,208 +33,210 @@ RSpec.describe Team, type: :model do
   describe 'validations' do
     it { is_expected.to validate_presence_of(:name) }
     it { is_expected.to validate_uniqueness_of(:name) }
-  end
 
-  context 'multiple team memberships' do
-    let!(:existing_team) { role.team }
-    let(:role)   { create "#{role_name}_role" }
-    let(:member) { role.user }
-    let(:user) { create(:user) }
-    let(:team) { create :team, :in_current_season }
-    let(:roles_attributes) { [{ name: role_name, team_id: team.id, user_id: member.id }] }
+    describe 'multiple team memberships' do
+      let!(:existing_team) { role.team }
+      let(:role)   { create "#{role_name}_role" }
+      let(:member) { role.user }
+      let(:user) { create(:user) }
+      let(:team) { create :team, :in_current_season }
+      let(:roles_attributes) { [{ name: role_name, team_id: team.id, user_id: member.id }] }
 
-    context 'for students' do
-      let(:role_name) { 'student' }
+      context 'for students' do
+        let(:role_name) { 'student' }
 
-      it 'allows no more than one team as a student' do
-        team.attributes = { roles_attributes: roles_attributes }
-        expect { team.save team.season }.not_to change { team.members.count }
-        expect(team.errors[:base].first).to eql "#{member.name} already is a student on another team for #{Season.current.name}."
+        it 'allows no more than one team as a student' do
+          team.attributes = { roles_attributes: roles_attributes }
+          expect { team.save team.season }.not_to change { team.members.count }
+          expect(team.errors[:base].first).to eql "#{member.name} already is a student on another team for #{Season.current.name}."
+        end
+
+        context 'spanning multiple seasons' do
+          let(:past_season) { Season.create name: 2000 }
+          let(:old_team)    { create :team, season: past_season }
+          let(:member)      { past_role.user }
+          let!(:past_role)  { create "#{role_name}_role", team: old_team }
+
+          it 'allows adding a student who already is a student, but from another season' do
+            team.attributes = { roles_attributes: roles_attributes }
+            expect { team.save }.to change { team.members.count }.by(1)
+          end
+        end
+
+        it 'allows adding a student who is not yet part of a team' do
+          team.attributes = { roles_attributes: [{ name: role_name, user_id: user.id }] }
+          expect { team.save }.to change { team.members.count }.by(1)
+        end
+
+        it 'allows updating a team' do
+          expect {
+            team.update roles_attributes: [{ name: role_name, user_id: user.id }]
+          }.to change { team.members.count }.by(1)
+        end
       end
 
-      context 'spanning multiple seasons' do
-        let(:past_season) { Season.create name: 2000 }
-        let(:old_team)    { create :team, season: past_season }
-        let(:member)      { past_role.user }
-        let!(:past_role)  { create "#{role_name}_role", team: old_team }
+      context 'as a non-student' do
+        let(:role_name) { %w(coach mentor supervisor).sample }
 
-        it 'allows adding a student who already is a student, but from another season' do
+        it 'allows multiple memberships' do
           team.attributes = { roles_attributes: roles_attributes }
           expect { team.save }.to change { team.members.count }.by(1)
         end
       end
+    end
 
-      it 'allows adding a student who is not yet part of a team' do
-        team.attributes = { roles_attributes: [{ name: role_name, user_id: user.id }] }
-        expect { team.save }.to change { team.members.count }.by(1)
+    describe 'limit of students' do
+      let(:team) { create :team }
+      let(:new_user) { create :user }
+      let(:new_student) { -> {{ name: 'student', team_id: team.id, user_id: new_user.id }} }
+      let(:new_student_as_coach) { -> {{ name: 'coach', team_id: team.id, user_id: new_user.id }} }
+      let(:second_new_student) { -> {{ name: 'student', team_id: team.id, user_id: create(:user).id }} }
+      let(:third_new_student) { -> {{ name: 'student', team_id: team.id, user_id: create(:user).id }} }
+      let(:remove_student) { -> {{ name: 'student', team_id: team.id, user_id: create(:user).id, _destroy: true }} }
+
+      context 'when team has no students yet' do
+        it 'allows to add 2 new students' do
+          roles_attributes = [new_student.call, second_new_student.call]
+          expect {
+            team.update roles_attributes: roles_attributes
+          }.to change { team.members.count }.by 2
+        end
+
+        it 'ignores students marked for destruction' do
+          roles_attributes = [new_student.call, second_new_student.call]
+          roles_attributes << remove_student.call
+          expect {
+            team.update roles_attributes: roles_attributes
+          }.to change { team.members.count }.by 2
+        end
+
+        it 'does not allow to add more than 2 new students' do
+          roles_attributes = [new_student.call, second_new_student.call, third_new_student.call]
+          team.attributes = { roles_attributes: roles_attributes }
+          expect { team.save }.not_to change { team.members.count }
+          expect(team.errors[:roles].first).to eql 'there cannot be more than 2 students on a team.'
+        end
+
+        it 'does not allow the same student to fill up both spots' do
+          roles_attributes = [new_student.call] * 2
+          team.attributes = { roles_attributes: roles_attributes }
+          expect { team.save }.not_to change { team.members.count }
+          expect(team.errors[:base].first).to eql "#{new_user.name} can't have more than one role in this team!"
+        end
+
+        it 'does not allow the same student to add themselves as a coach' do
+          roles_attributes = [new_student.call, new_student_as_coach.call]
+          team.attributes = { roles_attributes: roles_attributes }
+          expect { team.save }.not_to change { team.members.count }
+          expect(team.errors[:base].first).to eql "#{new_user.name} can't have more than one role in this team!"
+        end
       end
 
-      it 'allows updating a team' do
-        expect {
-          team.update roles_attributes: [{ name: role_name, user_id: user.id }]
-        }.to change { team.members.count }.by(1)
+      context 'when team has students' do
+        let!(:student_1) { create :student_role, team: team, user: create(:user) }
+        let!(:student_2) { create :student_role, team: team, user: create(:user) }
+        before { team.reload }
+
+        it 'does not allow to add new students' do
+          roles_attributes = [new_student.call]
+          team.attributes = { roles_attributes: roles_attributes }
+          expect { team.save }.not_to change { team.members.count }
+          expect(team.errors[:roles].first).to eql 'there cannot be more than 2 students on a team.'
+        end
+
+        it 'allows to remove existing student and add new' do
+          roles_attributes = [{ id: student_1.id, _destroy: true }, new_student.call]
+          expect {
+            team.update roles_attributes: roles_attributes
+          }.not_to change { team.students.count }
+          expect(team.students).not_to include student_1
+        end
+
+        it 'allows to edit role of existing student and add new' do
+          roles_attributes = [{ id: student_1.id, name: 'coach' }, new_student.call]
+          expect {
+            team.update roles_attributes: roles_attributes
+          }.not_to change { team.students.count }
+          expect(team.students).not_to include student_1
+        end
       end
     end
 
-    context 'as a non-student' do
-      let(:role_name) { %w(coach mentor supervisor).sample }
-
-      it 'allows multiple memberships' do
-        team.attributes = { roles_attributes: roles_attributes }
-        expect { team.save }.to change { team.members.count }.by(1)
+    describe 'limit of coaches' do
+      let(:team) { create :team }
+      let(:new_user) { create :user }
+      let(:coach_attributes) do
+        [{ name: 'coach', team_id: team.id, user_id: new_user.id }] + \
+          3.times.map { { name: 'coach', team_id: team.id, user_id: create(:user).id } }
       end
-    end
-  end
+      let(:new_coach_as_student) { { name: 'student', team_id: team.id, user_id: new_user.id } }
+      let(:fifth_new_coach) { { name: 'coach', team_id: team.id, user_id: create(:user).id } }
+      let(:remove_coach) { { name: 'coach', team_id: team.id, user_id: create(:user).id, _destroy: true } }
 
-  describe 'limit of students' do
-    let(:team) { create :team }
-    let(:new_user) { create :user }
-    let(:new_student) { -> {{ name: 'student', team_id: team.id, user_id: new_user.id }} }
-    let(:new_student_as_coach) { -> {{ name: 'coach', team_id: team.id, user_id: new_user.id }} }
-    let(:second_new_student) { -> {{ name: 'student', team_id: team.id, user_id: create(:user).id }} }
-    let(:third_new_student) { -> {{ name: 'student', team_id: team.id, user_id: create(:user).id }} }
-    let(:remove_student) { -> {{ name: 'student', team_id: team.id, user_id: create(:user).id, _destroy: true }} }
+      context 'when team has no coaches yet' do
+        it 'allows to add 4 new coaches' do
+          expect {
+            team.update roles_attributes: coach_attributes
+          }.to change { team.members.count }.by 4
+        end
 
-    context 'when team has no students yet' do
-      it 'allows to add 2 new students' do
-        roles_attributes = [new_student.call, second_new_student.call]
-        expect {
-          team.update roles_attributes: roles_attributes
-        }.to change { team.members.count }.by 2
-      end
+        it 'ignores coaches marked for destruction' do
+          roles_attributes = coach_attributes
+          roles_attributes << remove_coach
+          expect {
+            team.update roles_attributes: roles_attributes
+          }.to change { team.members.count }.by 4
+        end
 
-      it 'ignores students marked for destruction' do
-        roles_attributes = [new_student.call, second_new_student.call]
-        roles_attributes << remove_student.call
-        expect {
-          team.update roles_attributes: roles_attributes
-        }.to change { team.members.count }.by 2
-      end
+        it 'does not allow to add more than 5 new coaches' do
+          roles_attributes = coach_attributes
+          roles_attributes << fifth_new_coach
+          team.attributes = { roles_attributes: roles_attributes }
+          expect { team.save }.not_to change { team.members.count }
+          expect(team.errors[:roles].first).to eql 'there cannot be more than 4 coaches on a team.'
+        end
 
-      it 'does not allow to add more than 2 new students' do
-        roles_attributes = [new_student.call, second_new_student.call, third_new_student.call]
-        team.attributes = { roles_attributes: roles_attributes }
-        expect { team.save }.not_to change { team.members.count }
-        expect(team.errors[:roles].first).to eql 'there cannot be more than 2 students on a team.'
-      end
+        it 'does not allow the same coach to fill up both spots' do
+          roles_attributes = 2.times.map { coach_attributes.first }
+          team.attributes = { roles_attributes: roles_attributes }
+          expect { team.save }.not_to change { team.members.count }
+          expect(team.errors[:base].first).to eql "#{new_user.name} can't have more than one role in this team!"
+        end
 
-      it 'does not allow the same student to fill up both spots' do
-        roles_attributes = [new_student.call] * 2
-        team.attributes = { roles_attributes: roles_attributes }
-        expect { team.save }.not_to change { team.members.count }
-        expect(team.errors[:base].first).to eql "#{new_user.name} can't have more than one role in this team!"
-      end
-
-      it 'does not allow the same student to add themselves as a coach' do
-        roles_attributes = [new_student.call, new_student_as_coach.call]
-        team.attributes = { roles_attributes: roles_attributes }
-        expect { team.save }.not_to change { team.members.count }
-        expect(team.errors[:base].first).to eql "#{new_user.name} can't have more than one role in this team!"
-      end
-    end
-    context 'when team has students' do
-      let!(:student_1) { create :student_role, team: team, user: create(:user) }
-      let!(:student_2) { create :student_role, team: team, user: create(:user) }
-      before { team.reload }
-
-      it 'does not allow to add new students' do
-        roles_attributes = [new_student.call]
-        team.attributes = { roles_attributes: roles_attributes }
-        expect { team.save }.not_to change { team.members.count }
-        expect(team.errors[:roles].first).to eql 'there cannot be more than 2 students on a team.'
+        it 'does not allow the same coach to add themselves as a student' do
+          roles_attributes = [coach_attributes.first, new_coach_as_student]
+          team.attributes = { roles_attributes: roles_attributes }
+          expect { team.save }.not_to change { team.members.count }
+          expect(team.errors[:base].first).to eql "#{new_user.name} can't have more than one role in this team!"
+        end
       end
 
-      it 'allows to remove existing student and add new' do
-        roles_attributes = [{ id: student_1.id, _destroy: true }, new_student.call]
-        expect {
-          team.update roles_attributes: roles_attributes
-        }.not_to change { team.students.count }
-        expect(team.students).not_to include student_1
-      end
+      context 'when team has coaches' do
+        let!(:existing_coaches) { create_list :coach_role, 4, team: team }
+        before { team.reload }
 
-      it 'allows to edit role of existing student and add new' do
-        roles_attributes = [{ id: student_1.id, name: 'coach' }, new_student.call]
-        expect {
-          team.update roles_attributes: roles_attributes
-        }.not_to change { team.students.count }
-        expect(team.students).not_to include student_1
-      end
-    end
-  end
+        it 'does not allow to add new coaches' do
+          roles_attributes = [coach_attributes.first]
+          team.attributes = { roles_attributes: roles_attributes }
+          expect { team.save }.not_to change { team.members.count }
+          expect(team.errors[:roles].first).to eql 'there cannot be more than 4 coaches on a team.'
+        end
 
-  describe 'limit of coaches' do
-    let(:team) { create :team }
-    let(:new_user) { create :user }
-    let(:coach_attributes) do
-      [{ name: 'coach', team_id: team.id, user_id: new_user.id }] + \
-        3.times.map { { name: 'coach', team_id: team.id, user_id: create(:user).id } }
-    end
-    let(:new_coach_as_student) { { name: 'student', team_id: team.id, user_id: new_user.id } }
-    let(:fifth_new_coach) { { name: 'coach', team_id: team.id, user_id: create(:user).id } }
-    let(:remove_coach) { { name: 'coach', team_id: team.id, user_id: create(:user).id, _destroy: true } }
+        it 'allows to remove existing coach and add new' do
+          roles_attributes = [{ id: existing_coaches.first.id, _destroy: true }, coach_attributes.first]
+          expect {
+            team.update roles_attributes: roles_attributes
+          }.not_to change { team.coaches.count }
+          expect(team.coaches).not_to include existing_coaches.first
+        end
 
-    context 'when team has no coaches yet' do
-      it 'allows to add 4 new coaches' do
-        expect {
-          team.update roles_attributes: coach_attributes
-        }.to change { team.members.count }.by 4
-      end
-
-      it 'ignores coaches marked for destruction' do
-        roles_attributes = coach_attributes
-        roles_attributes << remove_coach
-        expect {
-          team.update roles_attributes: roles_attributes
-        }.to change { team.members.count }.by 4
-      end
-
-      it 'does not allow to add more than 5 new coaches' do
-        roles_attributes = coach_attributes
-        roles_attributes << fifth_new_coach
-        team.attributes = { roles_attributes: roles_attributes }
-        expect { team.save }.not_to change { team.members.count }
-        expect(team.errors[:roles].first).to eql 'there cannot be more than 4 coaches on a team.'
-      end
-
-      it 'does not allow the same coach to fill up both spots' do
-        roles_attributes = 2.times.map { coach_attributes.first }
-        team.attributes = { roles_attributes: roles_attributes }
-        expect { team.save }.not_to change { team.members.count }
-        expect(team.errors[:base].first).to eql "#{new_user.name} can't have more than one role in this team!"
-      end
-
-      it 'does not allow the same coach to add themselves as a student' do
-        roles_attributes = [coach_attributes.first, new_coach_as_student]
-        team.attributes = { roles_attributes: roles_attributes }
-        expect { team.save }.not_to change { team.members.count }
-        expect(team.errors[:base].first).to eql "#{new_user.name} can't have more than one role in this team!"
-      end
-    end
-    context 'when team has coaches' do
-      let!(:existing_coaches) { create_list :coach_role, 4, team: team }
-      before { team.reload }
-
-      it 'does not allow to add new coaches' do
-        roles_attributes = [coach_attributes.first]
-        team.attributes = { roles_attributes: roles_attributes }
-        expect { team.save }.not_to change { team.members.count }
-        expect(team.errors[:roles].first).to eql 'there cannot be more than 4 coaches on a team.'
-      end
-
-      it 'allows to remove existing coach and add new' do
-        roles_attributes = [{ id: existing_coaches.first.id, _destroy: true }, coach_attributes.first]
-        expect {
-          team.update roles_attributes: roles_attributes
-        }.not_to change { team.coaches.count }
-        expect(team.coaches).not_to include existing_coaches.first
-      end
-
-      it 'allows to edit role of existing coach and add new' do
-        roles_attributes = [{ id: existing_coaches.first.id, name: 'student' }, coach_attributes.first]
-        expect {
-          team.update roles_attributes: roles_attributes
-        }.not_to change { team.coaches.count }
-        expect(team.coaches).not_to include existing_coaches.first
+        it 'allows to edit role of existing coach and add new' do
+          roles_attributes = [{ id: existing_coaches.first.id, name: 'student' }, coach_attributes.first]
+          expect {
+            team.update roles_attributes: roles_attributes
+          }.not_to change { team.coaches.count }
+          expect(team.coaches).not_to include existing_coaches.first
+        end
       end
     end
   end
@@ -275,81 +279,92 @@ RSpec.describe Team, type: :model do
     end
   end
 
+  describe 'scopes' do
+    let!(:full_time) { create(:team, kind: 'full_time') }
+    let!(:sponsored) { create(:team, kind: 'sponsored') }
+    let!(:part_time) { create(:team, kind: 'part_time') }
+    let!(:voluntary) { create(:team, kind: 'voluntary') }
 
-  it_behaves_like 'HasSeason'
-
-  context 'with scopes' do
-    let!(:team) { create :team, kind: nil }
+    let!(:nil_kind)            { create(:team, kind: nil) }
+    let!(:invisible)           { create(:team, kind: nil, invisible: true) }
+    let!(:invisible_full_time) { create(:team, invisible: true, kind: 'full_time') }
 
     describe '.full_time' do
-      before { team.update(kind: 'full_time') }
+      subject(:teams) { described_class.full_time }
 
-      it 'returns teams that are full-time' do
-        expect(described_class.full_time).to eq [team]
-      end
-
-      it 'returns teams that are part-time' do
-        expect(described_class.part_time).to eq []
+      it 'returns teams of kind full_time and sponsored (legacy term)' do
+        expect(teams).to contain_exactly(full_time, sponsored, invisible_full_time)
       end
     end
 
     describe '.part_time' do
-      before { team.update(kind: 'part_time') }
+      subject(:teams) { described_class.part_time }
 
-      it 'returns teams that are full-time' do
-        expect(described_class.full_time).to eq []
+      it 'returns teams of kind part_time and voluntary (legacy term)' do
+        expect(teams).to contain_exactly(part_time, voluntary)
       end
+    end
 
-      it 'returns teams that are part-time' do
-        expect(described_class.part_time).to eq [team]
+    describe '.accepted' do
+      subject(:teams) { described_class.accepted }
+
+      it 'returns all full- and part-time teams (and their legacy versions)' do
+        expect(teams).to contain_exactly(
+          part_time, voluntary, sponsored, full_time, invisible_full_time
+        )
       end
     end
 
     describe '.visible' do
+      subject(:teams) { described_class.visible }
 
-      it 'returns teams that are not marked invisible' do
-        expect(described_class.visible).to eq [team]
-      end
-
-      it 'will not return an invisible team' do
-        team.update(invisible: true)
-        expect(described_class.visible).to eq []
-      end
-
-      context 'with accepted teams' do
-        let(:kind) { described_class::KINDS.sample }
-        before { team.update kind: kind, invisible: true }
-
-        it 'will always return accepted teams' do
-          expect(described_class.visible).to eq [team]
-        end
+      it 'excludes non-accepted and explicitly set to invisible teams' do
+        expect(teams).to contain_exactly(
+          part_time, voluntary, sponsored, full_time, invisible_full_time, nil_kind
+        )
       end
     end
 
     describe '.by_season' do
-      let(:season2016) { create :season, name: '2016' }
-      let(:teams2016) { create_list :team, 2, season: season2016 }
+      let(:season2016)  { create(:season, name: '2016') }
+      let(:season2015)  { create(:season, name: '2015') }
+      let!(:teams2016)  { create_list(:team, 2, season: season2016) }
 
-      let!(:past_team) { create :team, season: create(:season, name: '2015') }
+      before { create(:team, season: season2015) }
 
-      it 'returns teams by season year as string and integer' do
-        expect(Team.by_season('2016')).to match_array(teams2016)
-        expect(Team.by_season(2016)).to match_array(teams2016)
+      context 'when passing the year as an integer' do
+        subject(:teams) { described_class.by_season(2016) }
+
+        it 'returns only teams from the given season' do
+          expect(teams).to match_array(teams2016)
+        end
       end
 
-      it 'returns teams by season' do
-        expect(Team.by_season(season2016)).to match_array(teams2016)
+      context 'when passing the year as a string' do
+        subject(:teams) { described_class.by_season('2016') }
+
+        it 'returns only teams from the given season' do
+          expect(teams).to match_array(teams2016)
+        end
       end
 
-      it 'returns an empty relation when argument is not recognized' do
-        expect(described_class.by_season(Object.new)).to be_empty
+      context 'when passing season name' do
+        subject(:teams) { described_class.by_season(season2016.name) }
+
+        it 'returns only teams from the given season' do
+          expect(teams).to match_array(teams2016)
+        end
+      end
+
+      context 'when passing a non-supported type' do
+        subject(:teams) { described_class.by_season(Object.new) }
+
+        it { is_expected.to be_empty }
       end
     end
 
     describe '.without_recent_log_update' do
-      let(:team_without) do
-        create :team
-      end
+      let(:team_without) { create :team }
 
       let(:team_with_old) do
         team_with_old = create :team
@@ -386,18 +401,15 @@ RSpec.describe Team, type: :model do
         expect(described_class.without_recent_log_update).not_to include(team_with_recent_feed_entry)
       end
     end
-
   end
 
   describe 'creating a new team' do
-    before do
-      Team.destroy_all
-    end
+    before { described_class.destroy_all }
 
-    subject { create :team }
+    subject(:team) { create :team }
 
     it 'sets the team number' do
-      expect(subject.reload.number).to eql 1
+      expect(team.reload.number).to eql 1
     end
   end
 

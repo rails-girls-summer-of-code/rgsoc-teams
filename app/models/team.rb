@@ -45,9 +45,9 @@ class Team < ApplicationRecord
     where.not(id: Activity.where(kind: ['status_update', 'feed_entry']).where("created_at > ?", 26.hours.ago).pluck(:team_id))
   }
 
-  scope :accepted, -> { where(kind: %w(full_time part_time)) }
-  scope :full_time, -> { where(kind: 'full_time') }
-  scope :part_time, -> { where(kind: 'part_time') }
+  scope :full_time, -> { where(kind: %w(full_time sponsored)) }
+  scope :part_time, -> { where(kind: %w(part_time voluntary)) }
+  scope :accepted, -> { full_time.or(part_time) }
 
   scope :by_season, ->(year_or_season) do
     case year_or_season
