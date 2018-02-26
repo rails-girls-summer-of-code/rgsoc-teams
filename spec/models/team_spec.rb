@@ -1,24 +1,37 @@
 require 'rails_helper'
 
 RSpec.describe Team, type: :model do
-  subject { Team.new(kind: 'full_time') }
+  describe 'associations' do
+    it { is_expected.to belong_to(:project) }
 
-  it { is_expected.to have_many(:activities) }
-  it { is_expected.to have_many(:sources) }
-  it { is_expected.to have_many(:members) }
-  it { is_expected.to have_many(:students) }
-  it { is_expected.to have_many(:coaches) }
-  it { is_expected.to have_many(:mentors) }
-  it { is_expected.to have_many(:helpdesks) }
-  it { is_expected.to have_many(:organizers) }
-  it { is_expected.to have_many(:supervisors) }
-  it { is_expected.to have_many(:status_updates) }
-  it { is_expected.to have_many(:roles).inverse_of(:team) }
-  it { is_expected.to have_many(:conference_attendances).dependent(:destroy) }
-  it { expect(subject).to have_one(:conference_preference).dependent(:destroy) }
-  it { is_expected.to belong_to(:project) }
-  it { is_expected.to validate_presence_of(:name) }
-  it { is_expected.to validate_uniqueness_of(:name) }
+    it { is_expected.to have_many(:applications).dependent(:nullify).inverse_of(:team) }
+    it { is_expected.to have_many(:application_drafts).dependent(:nullify) }
+
+    it { is_expected.to have_many(:activities).dependent(:destroy) }
+    it { is_expected.to have_many(:sources).dependent(:destroy) }
+    it { is_expected.to have_many(:comments) }
+
+    it { is_expected.to have_many(:roles).dependent(:destroy).inverse_of(:team) }
+    it { is_expected.to have_many(:members).through(:roles).source(:user) }
+    it { is_expected.to have_many(:students).through(:roles).source(:user) }
+    it { is_expected.to have_many(:coaches).through(:roles).source(:user) }
+    it { is_expected.to have_many(:mentors).through(:roles).source(:user) }
+    it { is_expected.to have_many(:helpdesks).through(:roles).source(:user) }
+    it { is_expected.to have_many(:organizers).through(:roles).source(:user) }
+    it { is_expected.to have_many(:supervisors).through(:roles).source(:user) }
+
+    it { is_expected.to have_many(:status_updates).class_name('Activity').conditions(kind: 'status_update') }
+
+    it { is_expected.to have_many(:conference_attendances).dependent(:destroy) }
+
+    it { is_expected.to have_one(:conference_preference).dependent(:destroy) }
+    it { is_expected.to have_one(:last_activity).class_name('Activity').order('id DESC') }
+  end
+
+  describe 'validations' do
+    it { is_expected.to validate_presence_of(:name) }
+    it { is_expected.to validate_uniqueness_of(:name) }
+  end
 
   context 'multiple team memberships' do
     let!(:existing_team) { role.team }

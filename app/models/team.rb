@@ -16,23 +16,23 @@ class Team < ApplicationRecord
 
   attr_accessor :checked
 
+  belongs_to :project
+
+  has_one :last_activity, -> { order('id DESC') }, class_name: 'Activity'
+  has_one :conference_preference, dependent: :destroy
+
   has_many :applications, dependent: :nullify, inverse_of: :team
   has_many :application_drafts, dependent: :nullify
   has_many :roles, dependent: :destroy, inverse_of: :team
-  has_many :members, class_name: 'User', through: :roles, source: :user
+  has_many :members, through: :roles, source: :user
   Role::ROLES.each do |role|
-    has_many role.pluralize.to_sym, -> { where(roles: { name: role }) }, class_name: 'User', through: :roles, source: :user
+    has_many role.pluralize.to_sym, -> { where(roles: { name: role }) }, through: :roles, source: :user
   end
   has_many :sources, dependent: :destroy
   has_many :activities, dependent: :destroy
-  has_one :last_activity, -> { order('id DESC') }, class_name: 'Activity'
   has_many :comments, as: :commentable
   has_many :status_updates, -> { where(kind: 'status_update') }, class_name: 'Activity'
   has_many :conference_attendances, dependent: :destroy
-
-  has_one :conference_preference, dependent: :destroy
-  has_many :conferences, through: :conference_preference
-  belongs_to :project
 
   accepts_nested_attributes_for :conference_preference, allow_destroy: true
   accepts_nested_attributes_for :roles, :sources, allow_destroy: true
