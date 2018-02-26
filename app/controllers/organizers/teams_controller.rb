@@ -17,6 +17,8 @@ module Organizers
         @teams = Team.in_current_season.full_time.ordered
       elsif params[:filter] == 'part_time'
         @teams = Team.in_current_season.part_time.ordered
+      else
+        @teams = Team.in_current_season.ordered
       end
     end
 
