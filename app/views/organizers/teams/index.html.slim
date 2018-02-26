@@ -4,7 +4,8 @@ nav.actions
   ul.list-inline
     li = link_to icon('plus', 'New Team'), new_organizers_team_path, class: 'btn btn-default btn-sm'
     li = link_to 'Show all teams', organizers_teams_path(filter: :all)
-    li = link_to 'Show only selected teams', organizers_teams_path
+    li = link_to 'Show full-time teams', organizers_teams_path(filter: :full_time)
+    li = link_to 'Show part-time teams', organizers_teams_path(filter: :part_time)
     li = link_to 'Teams organizers info &rarr;'.html_safe, teams_info_path
 
 = render 'teams/table', namespace: :organizers
