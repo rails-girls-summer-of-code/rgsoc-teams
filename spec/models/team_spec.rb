@@ -268,6 +268,30 @@ RSpec.describe Team, type: :model do
   context 'with scopes' do
     let!(:team) { create :team, kind: nil }
 
+    describe '.full_time' do
+      before { team.update(kind: 'full_time') }
+
+      it 'returns teams that are full-time' do
+        expect(described_class.full_time).to eq [team]
+      end
+
+      it 'returns teams that are part-time' do
+        expect(described_class.part_time).to eq []
+      end
+    end
+
+    describe '.part_time' do
+      before { team.update(kind: 'part_time') }
+
+      it 'returns teams that are full-time' do
+        expect(described_class.full_time).to eq []
+      end
+
+      it 'returns teams that are part-time' do
+        expect(described_class.part_time).to eq [team]
+      end
+    end
+
     describe '.visible' do
 
       it 'returns teams that are not marked invisible' do
