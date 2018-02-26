@@ -17,7 +17,7 @@ table.table.table-striped.table-bordered.table-condensed
 
   - @teams.each do |team|
     tr
-      td = link_to team.display_name, [namespace, team].compact, class: "team #{team.kind}"
+      td = link_to team.display_name, [namespace, team].compact, class: "team #{team.kind.humanize.parameterize}"
       - @display_roles.each do |role|
         td
           ul

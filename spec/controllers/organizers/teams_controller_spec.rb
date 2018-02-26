@@ -19,15 +19,21 @@ RSpec.describe Organizers::TeamsController, type: :controller do
 
     describe 'GET index' do
       let!(:full_time_team) { create :team, :in_current_season, kind: 'full_time' }
+      let!(:part_time_team) { create :team, :in_current_season, kind: 'part_time' }
 
-      it 'assigns only selected teams as @teams' do
+      it 'assigns all teams as @teams' do
         get :index
-        expect(assigns(:teams)).to match_array [full_time_team]
+        expect(assigns(:teams)).to match_array [full_time_team, part_time_team, team]
       end
 
-      it 'assigns all teams as @teams when requested' do
-        get :index, params: { filter: 'all' }
-        expect(assigns(:teams)).to match_array [full_time_team, team]
+      it 'assigns part_time teams as @teams when requested' do
+        get :index, params: { filter: 'part_time' }
+        expect(assigns(:teams)).to match_array [part_time_team]
+      end
+
+      it 'assigns full_time teams as @teams when requested' do
+        get :index, params: { filter: 'full_time' }
+        expect(assigns(:teams)).to match_array [full_time_team]
       end
     end
 
