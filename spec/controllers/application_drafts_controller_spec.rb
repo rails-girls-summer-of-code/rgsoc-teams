@@ -232,9 +232,9 @@ RSpec.describe ApplicationDraftsController, type: :controller do
             expect(application.application_draft).to eql draft
           end
 
-          it 'sends 3 mails (1 to orga and 1 to each student)' do
+          it 'sends 1 mail to orga' do
             expect { put :apply, { params: { id: draft.id } } }.to \
-              change { enqueued_jobs.size }.by(3)
+              change { enqueued_jobs.size }.by(1)
           end
 
           it 'flags the draft as applied' do
