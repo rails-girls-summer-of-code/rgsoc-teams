@@ -49,17 +49,7 @@ class Team < ApplicationRecord
   scope :accepted, -> { full_time.or(part_time) }
   scope :visible, -> { where.not(invisible: true).or(accepted) }
   scope :in_current_season, -> { where(season: Season.current) }
-
-  scope :by_season, ->(year_or_season) do
-    case year_or_season
-    when Integer, String
-      joins(:season).where('seasons.name': year_or_season)
-    when Season
-      where(season: year_or_season)
-    else
-      none
-    end
-  end
+  scope :by_season, ->(year) { joins(:season).where(seasons: { name: year }) }
 
   class << self
     def ordered(sort = {})

@@ -347,20 +347,6 @@ RSpec.describe Team, type: :model do
           expect(teams).to match_array(teams2016)
         end
       end
-
-      context 'when passing season name' do
-        subject(:teams) { described_class.by_season(season2016.name) }
-
-        it 'returns only teams from the given season' do
-          expect(teams).to match_array(teams2016)
-        end
-      end
-
-      context 'when passing a non-supported type' do
-        subject(:teams) { described_class.by_season(Object.new) }
-
-        it { is_expected.to be_empty }
-      end
     end
 
     describe '.without_recent_log_update' do
