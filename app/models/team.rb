@@ -8,7 +8,6 @@ class Team < ApplicationRecord
   KINDS = %w(full_time part_time)
 
   validates :name, presence: true, uniqueness: true
-  # validate :must_have_members
   validate :disallow_multiple_student_roles
   validate :disallow_duplicate_members
   validate :limit_number_of_students
