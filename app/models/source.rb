@@ -9,13 +9,9 @@ class Source < ApplicationRecord
   validates :url, presence: true
   validates :kind, presence: true
 
-  scope :for_accepted_teams, ->() { joins(:team).where("teams.kind" => %w(full_time part_time)) }
+  scope :for_accepted_teams, ->() { joins(:team).merge(Team.accepted) }
 
   def url=(url)
     super(normalize_url(url))
   end
-
-  # def name
-  #   @name ||= url.split('/')[-2, 2].join('/')
-  # end
 end

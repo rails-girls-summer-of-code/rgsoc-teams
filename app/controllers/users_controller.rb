@@ -87,7 +87,7 @@ class UsersController < ApplicationController
 
   def teams
     all_teams = Team.all.order(:name)
-    selected_teams = Team.in_current_season.selected.order(:name)
+    selected_teams = Team.in_current_season.accepted.order(:name)
     current_season.active? ? selected_teams : all_teams
   end
   helper_method :teams

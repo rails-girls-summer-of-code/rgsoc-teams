@@ -8,7 +8,6 @@ class Team < ApplicationRecord
   KINDS = %w(full_time part_time)
 
   validates :name, presence: true, uniqueness: true
-  # validate :must_have_members
   validate :disallow_multiple_student_roles
   validate :disallow_duplicate_members
   validate :limit_number_of_students
@@ -16,23 +15,23 @@ class Team < ApplicationRecord
 
   attr_accessor :checked
 
+  belongs_to :project
+
+  has_one :last_activity, -> { order('id DESC') }, class_name: 'Activity'
+  has_one :conference_preference, dependent: :destroy
+
   has_many :applications, dependent: :nullify, inverse_of: :team
   has_many :application_drafts, dependent: :nullify
   has_many :roles, dependent: :destroy, inverse_of: :team
-  has_many :members, class_name: 'User', through: :roles, source: :user
+  has_many :members, through: :roles, source: :user
   Role::ROLES.each do |role|
-    has_many role.pluralize.to_sym, -> { where(roles: { name: role }) }, class_name: 'User', through: :roles, source: :user
+    has_many role.pluralize.to_sym, -> { where(roles: { name: role }) }, through: :roles, source: :user
   end
   has_many :sources, dependent: :destroy
   has_many :activities, dependent: :destroy
-  has_one :last_activity, -> { order('id DESC') }, class_name: 'Activity'
   has_many :comments, as: :commentable
   has_many :status_updates, -> { where(kind: 'status_update') }, class_name: 'Activity'
   has_many :conference_attendances, dependent: :destroy
-
-  has_one :conference_preference, dependent: :destroy
-  has_many :conferences, through: :conference_preference
-  belongs_to :project
 
   accepts_nested_attributes_for :conference_preference, allow_destroy: true
   accepts_nested_attributes_for :roles, :sources, allow_destroy: true
@@ -45,46 +44,26 @@ class Team < ApplicationRecord
     where.not(id: Activity.where(kind: ['status_update', 'feed_entry']).where("created_at > ?", 26.hours.ago).pluck(:team_id))
   }
 
-  scope :accepted, -> { where(kind: %w(full_time part_time)) }
-  scope :full_time, -> { where(kind: 'full_time') }
-  scope :part_time, -> { where(kind: 'part_time') }
-
-  scope :by_season, ->(year_or_season) do
-    case year_or_season
-    when Integer, String
-      joins(:season).where('seasons.name': year_or_season)
-    when Season
-      where(season: year_or_season)
-    else
-      none
-    end
-  end
+  scope :full_time, -> { where(kind: %w(full_time sponsored)) }
+  scope :part_time, -> { where(kind: %w(part_time voluntary)) }
+  scope :accepted, -> { full_time.or(part_time) }
+  scope :visible, -> { where.not(invisible: true).or(accepted) }
+  scope :in_current_season, -> { where(season: Season.current) }
+  scope :by_season, ->(year) { joins(:season).where(seasons: { name: year }) }
 
   class << self
     def ordered(sort = {})
       order([sort[:order] || 'kind, name', sort[:direction] || 'asc'].join(' '))
     end
 
-    def visible
-      where("teams.invisible IS NOT TRUE OR teams.kind IN (?)", KINDS)
-    end
-
     # Returns a base scope reflecting the relevant teams depending on what
     # phase of the running season we're currently in.
     def by_season_phase
       if Time.now.utc > Season.current.acceptance_notification_at
-        Team.in_current_season.selected
+        Team.in_current_season.accepted
       else
         Team.in_current_season.visible
       end
-    end
-
-    def in_current_season
-      where(season: Season.current)
-    end
-
-    def selected
-      where(kind: %w(full_time part_time))
     end
   end
 
