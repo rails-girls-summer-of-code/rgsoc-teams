@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180201220221) do
+ActiveRecord::Schema.define(version: 20180304143229) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -163,6 +163,19 @@ ActiveRecord::Schema.define(version: 20180201220221) do
     t.datetime "updated_at", null: false
     t.integer "user_id"
     t.index ["user_id"], name: "index_notes_on_user_id"
+  end
+
+  create_table "project_maintenances", force: :cascade do |t|
+    t.integer "project_id"
+    t.integer "user_id"
+    t.integer "season_id"
+    t.integer "position", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["position"], name: "index_project_maintenances_on_position"
+    t.index ["project_id"], name: "index_project_maintenances_on_project_id"
+    t.index ["season_id"], name: "index_project_maintenances_on_season_id"
+    t.index ["user_id"], name: "index_project_maintenances_on_user_id"
   end
 
   create_table "projects", id: :serial, force: :cascade do |t|
