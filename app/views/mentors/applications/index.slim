@@ -1,10 +1,10 @@
-ul[class=:breadcrumb]
+ul.breadcrumb
   li = link_to 'Applications', [:mentors, :applications]
-  
-p Get insight in certain fields of teams applying to work on your project this summer. You can take notes for yourself and pick your favorite applications; the sign off tells us that you believe the team has the needed requirements and skills to work on the project, and faving will make the application more likely to be accepted and having the team work on your project this summer.
+
+p = t('.explanation')
 
 table.applications.table.table-striped.table-bordered.table-condensed.table-hover
-  caption Teams applying for your projects this season.
+  caption Teams who submitted applications for your projects.
   thead
     tr
       th Application (Team)
@@ -30,9 +30,9 @@ table.applications.table.table-striped.table-bordered.table-condensed.table-hove
             = link_to icon('check'), signoff_mentors_application_path(application), method: :put, class: 'btn btn-primary', data: { confirm: 'By signing-off this application, you deem this team fit to work on your project and that they meet the requirements. Proceed?' }
         td
           - if application.mentor_fav?
-            = link_to icon('heart'), fav_mentors_application_path(application), method: :put, class: 'btn', title: "Marked as one of your favorites", data: { confirm: 'You are about to remove your preference for this team. Proceed?' }
+            = link_to icon('heart'), fav_mentors_application_path(application), method: :put, class: 'btn qa-unfav', title: "Marked as one of your favorites", data: { confirm: 'You are about to remove your preference for this team. Proceed?' }
           - else
-            = link_to icon('heart'), fav_mentors_application_path(application), method: :put, class: 'btn btn-success', data: { confirm: 'By fav\'ing this application, you declare that this would be one of your preferred teams. You can fav more than one application. This cannot be undone. Proceed?' }
+            = link_to icon('heart'), fav_mentors_application_path(application), method: :put, class: 'btn btn-success qa-fav', data: { confirm: 'By fav\'ing this application, you declare that this would be one of your preferred teams. You can fav more than one application. This cannot be undone. Proceed?' }
 p
   i Teams may apply for two projects. Their second choice serves as a fallback if they do not get accepted for the first one
   br

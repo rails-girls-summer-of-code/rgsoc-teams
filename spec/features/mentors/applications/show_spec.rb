@@ -6,6 +6,8 @@ RSpec.describe 'Application show page', type: :feature do
   let(:team)        { create(:team, name: 'We could be Heroines') }
   let(:application) { create(:application, :in_current_season, :for_project, project1: project, team: team) }
 
+  # TODO: use timecop to make sure the site is available during season
+
   it 'displays parts of the application and a place to leave comments' do
     login_as user
 
