@@ -1,0 +1,44 @@
+ruby:
+  project = local_assigns.fetch(:project)
+
+table.table.table-striped.table-bordered.qa-project-info
+  tr
+    th Mentor
+    td
+      = link_to project.mentor_name, project.mentor rescue project.mentor_name
+      = " ("
+      = link_to project.mentor_github_handle, "https://github.com/#{project.mentor_github_handle}", class: 'github'
+      |)
+  tr
+    th Project Website
+    td = link_to project.url, project.url
+  tr
+    th Project Repository
+    td = link_to project.source_url, project.source_url
+  tr
+    th Suitable for Beginners?
+    td = project.beginner_friendly? ? 'yes' : 'no'
+  tr
+    th Tags
+    td = project_tags project
+  tr
+    th State
+    td = project_status(project)
+  tr
+    th Applications (1st Choice)
+    td
+      | #{project.first_choice_application_drafts.count}
+        (#{project.first_choice_application_drafts.applied.count} submitted |
+        #{project.first_choice_application_drafts.draft.count} in-progress)
+  tr
+    th Applications (2nd Choice)
+    td
+      | #{project.second_choice_application_drafts.count}
+        (#{project.second_choice_application_drafts.applied.count} submitted |
+        #{project.second_choice_application_drafts.draft.count} in-progress)
+  tr
+    th Code of Conduct
+    td = link_to project.code_of_conduct, project.code_of_conduct
+  tr
+    th License
+    td = project.license

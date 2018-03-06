@@ -279,7 +279,7 @@ RSpec.describe Team, type: :model do
     end
   end
 
-  describe 'scopes', :wip do
+  describe 'scopes' do
     let!(:full_time) { create(:team, kind: 'full_time') }
     let!(:sponsored) { create(:team, kind: 'sponsored') }
     let!(:part_time) { create(:team, kind: 'part_time') }
