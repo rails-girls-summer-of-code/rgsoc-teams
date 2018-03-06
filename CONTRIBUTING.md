@@ -92,7 +92,7 @@ If you've cloned the app a while ago, you want to make sure that your cloned `ma
 
 ### Write Code
 
-We aim to follow the [Ruby Style Guide](https://github.com/bbatsov/ruby-style-guide) and have  [RuboCop](https://github.com/bbatsov/rubocop) set up to make sure we stay consistent with some basic rules (see our [rubocop.yml](https://github.com/rails-girls-summer-of-code/rgsoc-teams/blob/master/.rubocop.yml) file for details).  
+We aim to follow the [Ruby Style Guide](https://github.com/bbatsov/ruby-style-guide) and have [RuboCop](https://github.com/bbatsov/rubocop) set up to make sure we stay consistent with some basic rules (see our [rubocop.yml](https://github.com/rails-girls-summer-of-code/rgsoc-teams/blob/master/.rubocop.yml) file for details).  
 But don't be afraid, those are friendly cops who are here to help you with formatting your code 👮
 
 We prefer JavaScript (`*.js`) over CoffeeScript (`*.coffee`). jQuery is perfectly fine, but if you can, use [Vanilla JS instead of jQuery](https://gist.github.com/liamcurry/2597326). Indentation for JavaScript files: four whitespaces.
