@@ -70,4 +70,9 @@ group :test do
   gem 'rspec-html-matchers'
   gem 'rspec-activemodel-mocks'
   gem 'rubocop', require: false
+
+  gem 'capybara'
+  gem 'capybara-screenshot'
+  gem 'selenium-webdriver'
+
 end

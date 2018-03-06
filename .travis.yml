@@ -9,6 +9,8 @@ notifications:
   slack:
     secure: pEbxQLQakbPpZkU2p+FdHxSOw7BlXHrOMdJlh8g7fK2oGiOMrpU0wbRUHUxNWzxTnkqWmwq37cIFXPGLel3yWkDzDO0+EuBBFPyoiQ2THxC8/pdpIO3I6jAuH7Zqra4jIdfHWw0UkN4Z+Yqnc+Y90rf9SC7mRGucbcy5aCGEIkY=
 before_install:
+  - sudo apt-get update
+  - sudo apt-get install chromium-chromedriver
   - gem update --system
   - gem --version
 before_script:
