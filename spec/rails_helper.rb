@@ -61,6 +61,7 @@ RSpec.configure do |config|
 
   config.include ActiveJob::TestHelper
   config.include RSpecHtmlMatchers
+  config.include Warden::Test::Helpers
 
   config.before(:suite) do
     WebMock.disable_net_connect!(

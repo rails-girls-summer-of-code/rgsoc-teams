@@ -8,14 +8,22 @@ h2
   small For #{link_to @application.project_name, project_path(@application.project_id)} #{icon('star') if @application.first_choice?}
 
 div.panel.panel-default
-  div.panel-heading #{ApplicationDraft.human_attribute_name :why_selected_project1}
+  div.panel-heading
+    - if @application.first_choice?
+      = ApplicationDraft.human_attribute_name :why_selected_project1
+    - else
+      = ApplicationDraft.human_attribute_name :why_selected_project2
   div.panel-body
-    p #{@application.why_selected_project}
+    p = @application.why_selected_project
 
 div.panel.panel-default
-  div.panel-heading #{ApplicationDraft.human_attribute_name :plan_project1}
+  div.panel-heading
+    - if @application.first_choice?
+      = ApplicationDraft.human_attribute_name :plan_project1
+    - else
+      = ApplicationDraft.human_attribute_name :plan_project2
   div.panel-body
-    p #{@application.project_plan}
+    p = @application.project_plan
 
 h3 First Student
 = render 'student', student: @application.student0
