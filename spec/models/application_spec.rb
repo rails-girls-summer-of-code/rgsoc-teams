@@ -75,6 +75,13 @@ RSpec.describe Application, type: :model do
       subject.send(:"#{flag}=", '0')
       expect(subject.flags).not_to include(flag)
     end
+
+    it 'ensures flags are unique' do
+      flag = flags.sample.to_s
+      subject.flags = [flag, flag]
+      subject.save!
+      expect(subject.flags).to contain_exactly(flag)
+    end
   end
 
   describe 'proxy methods' do
