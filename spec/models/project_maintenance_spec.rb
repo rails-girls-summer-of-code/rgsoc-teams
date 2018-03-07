@@ -16,17 +16,16 @@ RSpec.describe ProjectMaintenance, type: :model do
   describe 'its callbacks' do
     describe 'before_create' do
       describe 'auto-assigning the position' do
-        subject(:position) { create(:project_maintenance, **scoping).position }
-
-        context 'when no record for its uniqueness scope exists' do
-          let(:scoping) { {} }
-
+        context 'for the mainainer who submitted the project' do
+          subject(:position) { create(:project).project_maintenances.first.position }
           it { is_expected.to eql 0 }
         end
 
-        context 'when a record for its uniqueness scope already exists' do
+        context 'when a second maintainers is added' do
+          subject(:position) { project.project_maintenances.last.position }
+
           let!(:existing) { create :project_maintenance }
-          let(:scoping) { { project: existing.project, season: existing.season } }
+          let!(:project) { existing.project }
 
           it { is_expected.to eql 1 }
         end

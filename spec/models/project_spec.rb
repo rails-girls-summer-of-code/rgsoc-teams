@@ -35,6 +35,18 @@ RSpec.describe Project, type: :model do
         }.not_to change { subject.url }
       end
     end
+
+    context 'with support for more than one project maintainer' do
+      subject(:project) { build :project }
+
+      it 'adds the submitter to the list of maintainers' do
+        expect { project.save }
+          .to change { ProjectMaintenance.count }
+
+        expect(project.reload.maintainers)
+          .to match_array [project.submitter]
+      end
+    end
   end
 
   context 'as a finite state machine' do
