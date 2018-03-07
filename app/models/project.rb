@@ -5,7 +5,7 @@ class Project < ApplicationRecord
 
   belongs_to :submitter, class_name: 'User'
   has_many :project_maintenances, dependent: :nullify
-  has_many :maintainers, through: :project_maintenances, source: :user, class_name: 'User'
+  has_many :maintainers, through: :project_maintenances, source: :user
   has_many :comments, -> { order('created_at DESC') }, as: :commentable, dependent: :destroy
 
   has_many :first_choice_application_drafts,  class_name: 'ApplicationDraft', foreign_key: 'project1_id'
