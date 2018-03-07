@@ -11,8 +11,7 @@ class Application < ApplicationRecord
           :male_gender,
           :zero_community,
           :age_below_18,
-          :less_than_two_coaches,
-          :less_than_40_hours_a_week]
+          :less_than_two_coaches]
 
   belongs_to :application_draft
   belongs_to :team, inverse_of: :applications, counter_cache: true
