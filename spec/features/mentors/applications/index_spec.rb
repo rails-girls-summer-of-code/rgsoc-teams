@@ -30,8 +30,6 @@ RSpec.describe 'Application index page', type: :feature do
       login_as user
       visit mentors_applications_path
 
-      binding.pry
-
       accept_prompt do
         find('.qa-fav', match: :first).click
       end
