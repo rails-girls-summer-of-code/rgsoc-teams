@@ -22,7 +22,7 @@ class Application < ApplicationRecord
 
   validates :team, :application_data, presence: true
 
-  before_validation :ensure_flags_unique
+  before_validation :remove_duplicate_flags
 
   scope :hidden, -> { where('applications.hidden IS NOT NULL and applications.hidden = ?', true) }
   scope :visible, -> { where('applications.hidden IS NULL or applications.hidden = ?', false) }
@@ -85,7 +85,7 @@ class Application < ApplicationRecord
     Project.find_by(id: application_data['project2_id'])
   end
 
-  def ensure_flags_unique
+  def remove_duplicate_flags
     flags.uniq!
   end
 end
