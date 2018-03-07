@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 RSpec.describe Mentors::ApplicationsController, type: :controller do
   render_views
@@ -47,12 +47,24 @@ RSpec.describe Mentors::ApplicationsController, type: :controller do
 
           expect(response.body).to match "Tis a nice application indeed"
         end
+
+        context 'when the user is not the submitter but in the list of maintainers' do
+          let!(:project) { create(:project, :in_current_season, :accepted, name: 'Hello World Project') }
+          let!(:maintenance) do
+            create(:project_maintenance, project: project, user: user)
+          end
+
+          it 'renders and index view with applications for their maintained projects' do
+            get :index
+            expect(response.body).to match 'Hello World Project'
+          end
+        end
       end
 
       context 'without projects for this season' do
-        it 'renders an empty index view' do
-          project = create(:project, :accepted, submitter: user)
+        let!(:project) { create(:project, :accepted, submitter: user) }
 
+        it 'renders an empty index view' do
           get :index
           expect(assigns :applications).to eq []
           expect(response).to render_template :index
@@ -60,9 +72,9 @@ RSpec.describe Mentors::ApplicationsController, type: :controller do
       end
 
       context 'without applications for the projects' do
-        it 'renders an empty index view' do
-          project = create(:project, :in_current_season, :accepted, submitter: user)
+        let!(:project) { create(:project, :in_current_season, :accepted, submitter: user) }
 
+        it 'renders an empty index view' do
           get :index
           expect(assigns :applications).to eq []
           expect(response).to render_template :index

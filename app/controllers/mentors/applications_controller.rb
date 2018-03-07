@@ -36,10 +36,11 @@ module Mentors
     private
 
     def projects
-      Project.
-        in_current_season.
-        accepted.
-        where(submitter: current_user)
+      @projects ||= Project
+        .in_current_season
+        .accepted
+        .joins(:project_maintenances)
+        .where("project_maintenances.user_id" => current_user.id)
     end
 
     def application

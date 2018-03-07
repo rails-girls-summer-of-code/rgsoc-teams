@@ -158,7 +158,11 @@ class User < ApplicationRecord
   end
 
   def project_maintainer?
-    Project.accepted.where(submitter: self).any?
+    ProjectMaintenance
+      .where(user: self)
+      .joins(:project)
+      .merge(Project.accepted)
+      .any?
   end
 
   def reviewer?
