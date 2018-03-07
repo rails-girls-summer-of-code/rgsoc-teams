@@ -168,13 +168,11 @@ ActiveRecord::Schema.define(version: 20180304143229) do
   create_table "project_maintenances", force: :cascade do |t|
     t.integer "project_id"
     t.integer "user_id"
-    t.integer "season_id"
     t.integer "position", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["position"], name: "index_project_maintenances_on_position"
     t.index ["project_id"], name: "index_project_maintenances_on_project_id"
-    t.index ["season_id"], name: "index_project_maintenances_on_season_id"
     t.index ["user_id"], name: "index_project_maintenances_on_user_id"
   end
 
