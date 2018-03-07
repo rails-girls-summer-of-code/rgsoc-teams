@@ -33,7 +33,7 @@ RSpec.describe Mentors::ApplicationsController, type: :controller do
         let!(:application) { create(:application, :in_current_season, :for_project, project1: project) }
         let!(:project) { create(:project, :in_current_season, :accepted, submitter: user) }
 
-        it 'renders and index view with applications for projects submitted by the mentor' do
+        it 'renders an index view with applications for projects submitted by the mentor' do
           get :index
 
           expect(assigns :applications).not_to be_empty
@@ -54,7 +54,7 @@ RSpec.describe Mentors::ApplicationsController, type: :controller do
             create(:project_maintenance, project: project, user: user)
           end
 
-          it 'renders and index view with applications for their maintained projects' do
+          it 'renders an index view with applications for their maintained projects' do
             get :index
             expect(response.body).to match 'Hello World Project'
           end

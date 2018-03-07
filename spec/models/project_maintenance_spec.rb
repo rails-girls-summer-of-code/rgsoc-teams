@@ -16,12 +16,12 @@ RSpec.describe ProjectMaintenance, type: :model do
   describe 'its callbacks' do
     describe 'before_create' do
       describe 'auto-assigning the position' do
-        context 'for the mainainer who submitted the project' do
+        context 'for the maintainer who submitted the project' do
           subject(:position) { create(:project).project_maintenances.first.position }
           it { is_expected.to eql 0 }
         end
 
-        context 'when a second maintainers is added' do
+        context 'when a second maintainer is added' do
           subject(:position) { project.project_maintenances.last.position }
 
           let!(:existing) { create :project_maintenance }
