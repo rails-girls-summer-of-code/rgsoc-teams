@@ -60,19 +60,17 @@ group :development do
 end
 
 group :test do
-  gem 'rails-controller-testing'
-  gem 'shoulda-matchers'
-  gem 'webmock'
-  gem 'coveralls', require: false
-  gem 'timecop'
-  gem 'codeclimate-test-reporter', require: false
-  gem 'rspec-collection_matchers'
-  gem 'rspec-html-matchers'
-  gem 'rspec-activemodel-mocks'
-  gem 'rubocop', require: false
-
   gem 'capybara'
   gem 'capybara-screenshot'
+  gem 'codeclimate-test-reporter', require: false
+  gem 'coveralls', require: false
+  gem 'rails-controller-testing'
+  gem 'rspec-activemodel-mocks'
+  gem 'rspec-collection_matchers'
+  gem 'rspec-html-matchers'
+  gem 'rubocop', require: false
   gem 'selenium-webdriver'
-
+  gem 'shoulda-matchers'
+  gem 'timecop'
+  gem 'webmock'
 end
