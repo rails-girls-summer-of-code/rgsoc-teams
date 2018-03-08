@@ -158,7 +158,7 @@ class User < ApplicationRecord
   end
 
   def project_maintainer?
-    ProjectMaintenance
+    Maintainership
       .where(user: self)
       .joins(:project)
       .merge(Project.accepted)

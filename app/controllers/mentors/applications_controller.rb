@@ -39,8 +39,8 @@ module Mentors
       @projects ||= Project
         .in_current_season
         .accepted
-        .joins(:project_maintenances)
-        .where("project_maintenances.user_id" => current_user.id)
+        .joins(:maintainerships)
+        .where("maintainerships.user_id" => current_user.id)
     end
 
     def application

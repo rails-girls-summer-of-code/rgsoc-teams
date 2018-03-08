@@ -51,7 +51,7 @@ RSpec.describe Mentors::ApplicationsController, type: :controller do
         context 'when the user is not the submitter but in the list of maintainers' do
           let!(:project) { create(:project, :in_current_season, :accepted, name: 'Hello World Project') }
           let!(:maintenance) do
-            create(:project_maintenance, project: project, user: user)
+            create(:maintainership, project: project, user: user)
           end
 
           it 'renders an index view with applications for their maintained projects' do

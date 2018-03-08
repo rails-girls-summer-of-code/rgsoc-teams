@@ -41,7 +41,7 @@ RSpec.describe Project, type: :model do
 
       it 'adds the submitter to the list of maintainers' do
         expect { project.save }
-          .to change { ProjectMaintenance.count }
+          .to change { Maintainership.count }
 
         expect(project.reload.maintainers)
           .to match_array [project.submitter]

@@ -157,22 +157,22 @@ ActiveRecord::Schema.define(version: 20180307150111) do
     t.text "seasons", default: [], array: true
   end
 
+  create_table "maintainerships", force: :cascade do |t|
+    t.integer "project_id"
+    t.integer "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["project_id", "user_id"], name: "index_maintainerships_on_project_id_and_user_id", unique: true
+    t.index ["project_id"], name: "index_maintainerships_on_project_id"
+    t.index ["user_id"], name: "index_maintainerships_on_user_id"
+  end
+
   create_table "notes", id: :serial, force: :cascade do |t|
     t.text "body"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "user_id"
     t.index ["user_id"], name: "index_notes_on_user_id"
-  end
-
-  create_table "project_maintenances", force: :cascade do |t|
-    t.integer "project_id"
-    t.integer "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["project_id", "user_id"], name: "index_project_maintenances_on_project_id_and_user_id", unique: true
-    t.index ["project_id"], name: "index_project_maintenances_on_project_id"
-    t.index ["user_id"], name: "index_project_maintenances_on_user_id"
   end
 
   create_table "projects", id: :serial, force: :cascade do |t|

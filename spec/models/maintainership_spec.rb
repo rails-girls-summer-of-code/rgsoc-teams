@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe ProjectMaintenance, type: :model do
+RSpec.describe Maintainership, type: :model do
   describe 'its associations' do
     it { is_expected.to belong_to :project }
     it { is_expected.to belong_to :user }
