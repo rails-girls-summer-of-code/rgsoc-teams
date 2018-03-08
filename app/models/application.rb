@@ -85,6 +85,8 @@ class Application < ApplicationRecord
     Project.find_by(id: application_data['project2_id'])
   end
 
+  private
+
   def remove_duplicate_flags
     flags.uniq!
   end
