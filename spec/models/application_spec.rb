@@ -79,8 +79,7 @@ RSpec.describe Application, type: :model do
     it 'ensures flags are unique' do
       flag = flags.sample.to_s
       subject.flags = [flag, flag]
-      subject.save!
-      expect(subject.flags).to contain_exactly(flag)
+      expect { subject.validate }.to change(subject, :flags).from([flag, flag]).to([flag])
     end
   end
 
