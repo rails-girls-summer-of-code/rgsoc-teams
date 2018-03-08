@@ -158,7 +158,7 @@ You can optionally create a test-coverage report in `coverage/*` like so:
 
     COVERAGE=yes bundle exec rake spec
 
-Feature tests run in headless Chrome. You can run them in an actual visible window by tagging the examples with `driver: :chrome`, like so:
+Feature tests run in headless Chrome. For local debugging, you can run them in an actual visible window by tagging the examples with `driver: :chrome`, like so:
 
 ```ruby
 it 'is a interesting example', driver: :chrome
