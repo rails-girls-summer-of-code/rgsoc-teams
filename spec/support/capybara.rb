@@ -1,8 +1,6 @@
 require 'capybara-screenshot/rspec'
 require 'selenium/webdriver'
 
-Capybara.javascript_driver = :headless_chrome
-
 Capybara.configure do |config|
   config.default_driver = :headless_chrome
   config.javascript_driver = :headless_chrome
