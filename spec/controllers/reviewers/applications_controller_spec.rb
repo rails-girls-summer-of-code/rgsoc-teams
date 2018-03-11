@@ -89,6 +89,17 @@ RSpec.describe Reviewers::ApplicationsController, type: :controller do
       let(:user) { create :reviewer }
       before { sign_in user }
 
+      context 'given the application has mentor comments' do
+        let(:mentor) { create :mentor }
+        let!(:mentor_comment) { Mentor::Comment.create(user: user, commentable_id: application.id, text: 'something') }
+
+        before { get :show, params: { id: application } }
+
+        it 'assigns @mentor_comments' do
+          expect(assigns :mentor_comments).to contain_exactly(mentor_comment)
+        end
+      end
+
       context 'when application not yet rated by user' do
         before { get :show, params: { id: application } }
 
