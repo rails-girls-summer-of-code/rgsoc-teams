@@ -9,6 +9,7 @@ RSpec.describe Project, type: :model do
     it { is_expected.to have_many(:first_choice_application_drafts).class_name(ApplicationDraft) }
     it { is_expected.to have_many(:second_choice_application_drafts).class_name(ApplicationDraft) }
     it { is_expected.to have_many(:assigned_teams) }
+    it { is_expected.to have_many(:maintainers) }
   end
 
   context 'with validations' do
@@ -32,6 +33,18 @@ RSpec.describe Project, type: :model do
         expect {
           subject.valid?
         }.not_to change { subject.url }
+      end
+    end
+
+    context 'with support for more than one project maintainer' do
+      subject(:project) { build :project }
+
+      it 'adds the submitter to the list of maintainers' do
+        expect { project.save }
+          .to change { Maintainership.count }
+
+        expect(project.reload.maintainers)
+          .to match_array [project.submitter]
       end
     end
   end

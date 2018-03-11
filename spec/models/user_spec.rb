@@ -268,8 +268,8 @@ RSpec.describe User, type: :model do
       expect(student).not_to be_project_maintainer
     end
 
-    it 'returns true if user has submitted an accepted project' do
-      create(:project, :accepted, submitter: maintainer)
+    it 'returns true if user is maintaining an accepted project' do
+      create(:maintainership, project: create(:project, :accepted), user: maintainer)
       expect(maintainer).to be_project_maintainer
     end
 
