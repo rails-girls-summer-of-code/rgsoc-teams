@@ -6,6 +6,6 @@ h1 = "Application: #{@application.name}"
   = a.input :misc_info
   = a.association :project, collection: Project.in_current_season.order(:name), include_blank: '- none -'
   = a.input :coaching_company
-  - Application::FLAGS.each do |key|
+  - Selection::Table::FLAGS.each do |key|
     = a.input key, as: :boolean
   = a.submit 'Save'

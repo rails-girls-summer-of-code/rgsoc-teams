@@ -13,7 +13,7 @@ module Exporters
         @headers ||= ["Team ID"] +
           keys.map { |key| Application.data_label key } +
           ["Coaching Company", "Misc. Info", "City", "Country"] +
-          Application::FLAGS.map(&:to_s).map(&:titleize)
+          Selection::Table::FLAGS.map(&:to_s).map(&:titleize)
       end
 
       private
@@ -58,7 +58,7 @@ module Exporters
         [app.team_id] +
           application_data_values +
           [:coaching_company, :misc_info, :city, :country].map { |attribute| app.send attribute } +
-          Application::FLAGS.map { |flag| app.send flag }
+          Selection::Table::FLAGS.map { |flag| app.send flag }
       end
     end
   end
