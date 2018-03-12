@@ -17,9 +17,6 @@ before_script:
   - bundle exec rails db:create db:schema:load RAILS_ENV=test
   - npm install -g jshint
   - "export PATH=$PATH:/usr/lib/chromium-browser/"
-  - "export DISPLAY=:99.0"
-  - "sh -e /etc/init.d/xvfb start"
-  - export CAPYBARA_WAIT_TIME=30
 script:
   - bundle exec rubocop
   - jshint app/assets/javascripts
@@ -45,7 +42,6 @@ deploy:
       repo: rails-girls-summer-of-code/rgsoc-teams
 addons:
   postgresql: '9.5'
-  chrome: stable
 after_success:
   - bundle exec codeclimate-test-reporter
 branches:
