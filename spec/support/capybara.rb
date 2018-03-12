@@ -2,8 +2,8 @@ require 'capybara-screenshot/rspec'
 require 'selenium/webdriver'
 
 Capybara.configure do |config|
-  config.default_driver = :headless_chrome
-  config.javascript_driver = :headless_chrome
+  config.default_driver = :selenium_chrome_headless
+  config.javascript_driver = :selenium_chrome_headless
 
   config.server_port = 8888 + ENV['TEST_ENV_NUMBER'].to_i
 
@@ -16,10 +16,6 @@ Capybara.configure do |config|
   config.ignore_hidden_elements = true
 
   config.always_include_port = true
-
-  # Use high waittime in CI
-  travis_waittime = ENV['CAPYBARA_WAIT_TIME'].to_i
-  config.default_max_wait_time = travis_waittime.positive? ? travis_waittime : 10
 
   # Render error pages (helpful for e.g. testing 404s)
   config.raise_server_errors = false
