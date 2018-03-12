@@ -53,7 +53,7 @@ RSpec.describe Application, type: :model do
   end
 
   describe 'flags' do
-    flags = described_class::FLAGS
+    flags = Selection::Table::FLAGS
 
     flags.each do |flag|
       it { is_expected.to respond_to("#{flag}?") }

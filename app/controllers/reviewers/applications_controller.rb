@@ -59,7 +59,7 @@ module Reviewers
               :city,
               :country,
               :coaching_company,
-              Application::FLAGS)
+              Selection::Table::FLAGS)
     end
 
     def store_filters

@@ -25,7 +25,7 @@ module ApplicationsHelper
   end
 
   def format_application_flags(application)
-    flags = Application::FLAGS.select do |flag|
+    flags = Selection::Table::FLAGS.select do |flag|
       application.send(:"#{flag}?")
     end
     flags.map { |flag| flag.to_s.titleize }.join(', ')

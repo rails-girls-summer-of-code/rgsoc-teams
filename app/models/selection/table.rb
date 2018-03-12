@@ -4,10 +4,10 @@ module Selection
     DEFAULT_OPTS = { hide_flags: [] }
     FLAGS        = %i(remote_team
                       male_gender
+                      selected
                       zero_community
                       age_below_18
-                      less_than_two_coaches
-                      less_than_40_hours_a_week).freeze
+                      less_than_two_coaches).freeze
 
     def initialize(applications:, options: {})
       @options      = DEFAULT_OPTS.merge(options)
