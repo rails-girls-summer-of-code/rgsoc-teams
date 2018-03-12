@@ -95,8 +95,8 @@ RSpec.describe Reviewers::ApplicationsController, type: :controller do
 
         before { get :show, params: { id: application } }
 
-        it 'assigns @mentor_comments' do
-          expect(assigns :mentor_comments).to contain_exactly(mentor_comment)
+        it 'shows mentor comment' do
+          expect(response.body).to match(mentor_comment.text)
         end
       end
 
