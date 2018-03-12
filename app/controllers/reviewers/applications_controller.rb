@@ -28,7 +28,6 @@ module Reviewers
 
     def show
       @application = Application.includes(:team, :project, :comments).find(params[:id])
-      grab_mentor_comments
       @rating = @application.ratings.find_or_initialize_by(user: current_user)
       @breadcrumbs << ["Application ##{@application.id}", (self.class::PATH_PARENTS + [@application])]
     end
@@ -79,10 +78,6 @@ module Reviewers
         hide_flags: Selection::Table::FLAGS.select { |f| session[f] }
       }
       Selection::Table.new(applications: Application.rateable, options: options)
-    end
-
-    def grab_mentor_comments
-      @mentor_comments = Mentor::Comment.where(commentable_id: @application.id)
     end
   end
 end
