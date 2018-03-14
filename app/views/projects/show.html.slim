@@ -13,7 +13,7 @@ nav.back-nav
     = link_to 'Destroy', project_path(@project), method: :delete, data: { confirm: 'This action cannot be undone. Are you sure?' }, class: 'edit btn btn-default btn-small'
   p
 
-= render 'project_info', project: @project
+= render @project
 
 h2.header
   = icon('file')
