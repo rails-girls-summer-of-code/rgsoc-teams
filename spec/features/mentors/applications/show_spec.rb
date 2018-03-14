@@ -1,12 +1,15 @@
 require 'rails_helper'
 
 RSpec.describe 'Application show page', type: :feature do
-  let(:user)        { create(:user) }
-  let(:project)     { create(:project, :in_current_season, :accepted, submitter: user) }
-  let(:team)        { create(:team, name: 'We could be Heroines') }
-  let(:application) { create(:application, :in_current_season, :for_project, project1: project, team: team) }
+  let(:user)         { create(:user) }
+  let(:project)      { create(:project, :in_current_season, :accepted, submitter: user) }
+  let(:team)         { create(:team, name: 'We could be Heroines') }
+  let(:application)  { create(:application, :in_current_season, :for_project, project1: project, team: team) }
+  let(:mentor_phase) { Season.current.applications_close_at + 1.day }
 
-  # TODO: use timecop to make sure the site is available during season
+  before { Timecop.travel(mentor_phase) }
+
+  after { Timecop.return }
 
   it 'displays parts of the application and a place to leave comments' do
     login_as user

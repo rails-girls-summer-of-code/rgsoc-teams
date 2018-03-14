@@ -7,8 +7,11 @@ RSpec.describe 'Application index page', type: :feature do
   let(:team2)         { create(:team, name: 'Electric Queen') }
   let!(:application1) { create(:application, :in_current_season, :for_project, project1: project, team: team1) }
   let!(:application2) { create(:application, :in_current_season, :for_project, project2: project, team: team2) }
+  let(:mentor_phase)  { Season.current.applications_close_at + 1.day }
 
-  # TODO: use timecop to make sure the site is available during season
+  before { Timecop.travel(mentor_phase) }
+
+  after { Timecop.return }
 
   context 'when mentoring a single projcet' do
     it 'displays the applications for this project' do
