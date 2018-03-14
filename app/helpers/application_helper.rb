@@ -175,10 +175,6 @@ module ApplicationHelper
     link_to title, params.except('action', 'controller').permit!.merge(sort: column, direction: direction)
   end
 
-  def mentor_comments_for_application(application)
-    Mentor::Comment.where(commentable_id: application.id).where('created_at > ?', Date.parse('12.03.2018'))
-  end
-
   def user_for_comment(comment)
     if comment.user.nil?
       "Deleted user"

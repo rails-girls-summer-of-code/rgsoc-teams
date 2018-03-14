@@ -5,6 +5,7 @@ module Reviewers
   class ApplicationsController < Reviewers::BaseController
     before_action :store_filters, only: :index
     before_action :persist_order, only: :index
+    helper_method :mentor_comments
     respond_to :html
 
     PATH_PARENTS = [:reviewers]
@@ -66,6 +67,10 @@ module Reviewers
       Selection::Table::FLAGS.each do |key|
         session[key] = params[:filter][key] == 'true' if params.dig(:filter, key)
       end
+    end
+
+    def mentor_comments
+      Mentor::Comment.where(commentable_id: @application.id).where('created_at > ?', Date.parse('12.03.2018'))
     end
 
     def persist_order
