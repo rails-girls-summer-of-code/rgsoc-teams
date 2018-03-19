@@ -15,3 +15,11 @@ p = show_or_na(project2_sign_off.try(:name))
 
 b = Application.data_label("mentor_fav_project2")
 p = heart_or_na(ad["mentor_fav_project2"])
+
+h3 Mentor comments
+- if comments.empty?
+  p n/a
+- else
+  - comments.each do |comment|
+    h5 #{ user_for_comment(comment) }, #{ l(comment.created_at, format: :short) }
+    p = render_markdown(comment.text).html_safe

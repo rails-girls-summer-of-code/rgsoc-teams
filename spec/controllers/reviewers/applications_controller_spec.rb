@@ -89,6 +89,17 @@ RSpec.describe Reviewers::ApplicationsController, type: :controller do
       let(:user) { create :reviewer }
       before { sign_in user }
 
+      context 'given the application has mentor comments' do
+        let(:mentor) { create :mentor }
+        let!(:mentor_comment) { Mentor::Comment.create(user: user, commentable_id: application.id, text: 'This is good stuff!') }
+
+        before { get :show, params: { id: application } }
+
+        it 'shows mentor comment' do
+          expect(response.body).to match('This is good stuff!')
+        end
+      end
+
       context 'when application not yet rated by user' do
         before { get :show, params: { id: application } }
 
