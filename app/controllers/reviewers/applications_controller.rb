@@ -70,7 +70,7 @@ module Reviewers
     end
 
     def mentor_comments
-      Mentor::Comment.where(commentable_id: @application.id).where('created_at > ?', Date.parse('2018.03.12'))
+      Mentor::Comment.where(commentable_id: @application.id).where('created_at >= ?', Date.parse('2018.02.28'))
     end
 
     def persist_order
