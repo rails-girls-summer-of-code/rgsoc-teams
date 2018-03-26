@@ -1,7 +1,8 @@
 hr(id="#{dom_id comment}")
-= simple_form_for comment, url: mentors_comments_path do |f|
+= simple_form_for comment, :url => comment.new_record? ? url_for(action: 'create', controller: 'mentors/comments') :url_for(action: 'update', controller: 'mentors/comments') do |f|
   .form-inputs.clearfix
     = f.input :commentable_id, as: :hidden, value: comment.commentable_id
+    = f.input :id, as: :hidden, value: comment.id
     = f.input :text, as: :text, label: 'My Comment', input_html: { rows: 5 }, hint: 'This is a place for you to take notes for yourself about this application. Your comment is only visible to yourself as well as the selection committee and you can update and remove it as you like.'
   .form-actions
     = f.button :submit

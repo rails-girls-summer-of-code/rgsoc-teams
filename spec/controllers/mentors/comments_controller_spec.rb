@@ -74,7 +74,7 @@ RSpec.describe Mentors::CommentsController, type: :controller do
 
       context 'when comment exists' do
         let!(:comment) { Mentor::Comment.create(user: user, commentable_id: 1, text: 'something') }
-        let(:params)   {{ id: comment.id, mentor_comment: { text: 'something else' } }}
+        let(:params)   {{ id: comment.id, mentor_comment: { text: 'something else', commentable_id: comment.id } }}
 
         subject { put :update, params: params }
 
