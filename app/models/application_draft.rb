@@ -162,7 +162,7 @@ class ApplicationDraft < ApplicationRecord
     valid?(:apply)
   end
 
-  aasm column: :state, no_direct_assignment: true do
+  aasm column: :state do
     state :draft, initial: true
     state :applied
 

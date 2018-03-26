@@ -1,6 +1,5 @@
 language: ruby
 cache: bundler
-sudo: false
 dist: trusty
 bundler_args: "-j4 --without development production --quiet"
 notifications:
@@ -9,12 +8,15 @@ notifications:
   slack:
     secure: pEbxQLQakbPpZkU2p+FdHxSOw7BlXHrOMdJlh8g7fK2oGiOMrpU0wbRUHUxNWzxTnkqWmwq37cIFXPGLel3yWkDzDO0+EuBBFPyoiQ2THxC8/pdpIO3I6jAuH7Zqra4jIdfHWw0UkN4Z+Yqnc+Y90rf9SC7mRGucbcy5aCGEIkY=
 before_install:
+  - sudo apt-get update
+  - sudo apt-get install chromium-chromedriver
   - gem update --system
   - gem --version
 before_script:
   - cp config/database.yml.travis config/database.yml
   - bundle exec rails db:create db:schema:load RAILS_ENV=test
   - npm install -g jshint
+  - "export PATH=$PATH:/usr/lib/chromium-browser/"
 script:
   - bundle exec rubocop
   - jshint app/assets/javascripts

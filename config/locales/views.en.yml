@@ -12,3 +12,8 @@ en:
       message: |
         thanks for submitting your application!
         While we're having a look at it, here again for you what we received for team %{team}:
+  mentors:
+    applications:
+      index:
+        explanation: |
+          Get insight in certain fields of teams applying to work on your project this summer. You can take notes for yourself and pick your favorite applications; the sign off tells us that you believe the team has the needed requirements and skills to work on the project, and faving will make the application more likely to be accepted and having the team work on your project this summer.

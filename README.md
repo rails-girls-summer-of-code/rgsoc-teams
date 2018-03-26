@@ -42,11 +42,12 @@ Requirements:
 
 * PostgreSQL 9.5 or newer
 * Ruby 2.5.0
+* [Chromedriver](https://sites.google.com/a/chromium.org/chromedriver/)
 
 ### Setup on Ubuntu
 ```bash
 # Install required packages
-$ sudo apt-get install postgresql libpq-dev libcurl3 libcurl3-gnutls libcurl4-openssl-dev postgresql-contrib-9.5
+$ sudo apt-get install postgresql libpq-dev libcurl3 libcurl3-gnutls libcurl4-openssl-dev postgresql-contrib-9.5 chromium-chromedriver
 # Create database user rgsoc with password rgsoc
 $ sudo -u postgres createuser -P -s rgsoc
 Enter password for new role: rgsoc
@@ -56,10 +57,9 @@ Enter it again: rgsoc
 ### Setup on OS X
 ```bash
 # Install required packages
-$ brew install ruby
-$ gem install bundler
-$ brew install postgres
+$ brew install ruby postgres chromedriver
 # Make sure to follow the instructions printed on the screen for postgres
+$ gem install bundler
 
 # Create database user rgsoc with password rgsoc
 $ createuser -P -s rgsoc
@@ -157,6 +157,20 @@ as someone else. Go to http://localhost:3000/users while logged in to do that.
 You can optionally create a test-coverage report in `coverage/*` like so:
 
     COVERAGE=yes bundle exec rake spec
+
+Feature tests run in headless Chrome. For local debugging, you can run them in an actual visible window by tagging the examples with `driver: :selenium_chrome`, like so:
+
+```ruby
+it 'is a interesting example', driver: :chrome
+  visit some_path
+
+  # you can e.g. interrupt here
+  binding.pry
+  # now you can switch to Chrome and inspect things there
+
+  # etc.
+end
+```
 
 ### Code Analyzation
 

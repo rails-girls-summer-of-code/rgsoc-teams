@@ -24,9 +24,9 @@ FactoryBot.define do
         'project1_id': project1&.id&.to_s,
         'project2_id': project2&.id&.to_s,
         'plan_project1': FFaker::Lorem.paragraph,
-        'plan_project2': (project2.nil? ? FFaker::Lorem.paragraph : ''),
+        'plan_project2': (project2.nil? ? '' : FFaker::Lorem.paragraph),
         'why_selected_project1': FFaker::Lorem.paragraph,
-        'why_selected_project2': (project2.nil? ? FFaker::Lorem.paragraph : ''),
+        'why_selected_project2': (project2.nil? ? '' : FFaker::Lorem.paragraph),
 
         'student0_application_coding_level': '1',
         'student0_application_code_samples': FFaker::Lorem.paragraph,
