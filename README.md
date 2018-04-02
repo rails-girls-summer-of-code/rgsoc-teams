@@ -36,7 +36,8 @@ Features:
 Requirements:
 
 * Keep it simple, so Rails Girls students can get involved, too
-* By contributing, you agree to adhere to our [Code of Conduct](https://github.com/rails-girls-summer-of-code/rgsoc-teams/blob/master/CODE_OF_CONDUCT.md)
+* By contributing, you agree to adhere to our [Code of Conduct](CODE_OF_CONDUCT.md)
+* Make sure to check our [Contribution Guide](CONTRIBUTING.md)
 
 ## System Requirements
 
@@ -54,7 +55,7 @@ Enter password for new role: rgsoc
 Enter it again: rgsoc
 ```
 
-### Setup on OS X
+### Setup on macOS
 ```bash
 # Install required packages
 $ brew install ruby postgres chromedriver
@@ -66,6 +67,8 @@ $ createuser -P -s rgsoc
 Enter password for new role: rgsoc
 Enter it again: rgsoc
 ```
+
+💁 Ran into problems with the setup? Check our **[Troubleshooting Guide](TROUBLESHOOTING.md)**.
 
 ## Bootstrap
 
@@ -158,10 +161,10 @@ You can optionally create a test-coverage report in `coverage/*` like so:
 
     COVERAGE=yes bundle exec rake spec
 
-Feature tests run in headless Chrome. For local debugging, you can run them in an actual visible window by tagging the examples with `driver: :selenium_chrome`, like so:
+Feature tests run in headless Chrome. For local debugging, you can run them in a normal window by tagging the examples with `driver: :selenium_chrome`, like so:
 
 ```ruby
-it 'is a interesting example', driver: :chrome
+it 'is an interesting example', driver: :selenium_chrome
   visit some_path
 
   # you can e.g. interrupt here
