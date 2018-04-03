@@ -42,7 +42,7 @@ Requirements:
 ## System Requirements
 
 * PostgreSQL 9.5 or newer
-* Ruby 2.5.0
+* Ruby 2.5.1
 * [Chromedriver](https://sites.google.com/a/chromium.org/chromedriver/)
 
 ### Setup on Ubuntu
