@@ -12,6 +12,7 @@ before_install:
   - sudo apt-get install chromium-chromedriver
   - gem update --system
   - gem --version
+  - gem install bundler
 before_script:
   - cp config/database.yml.travis config/database.yml
   - bundle exec rails db:create db:schema:load RAILS_ENV=test
