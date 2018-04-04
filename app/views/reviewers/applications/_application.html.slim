@@ -14,8 +14,8 @@ tr
   td.text-right = application.application_data['student0_application_money']
   td.text-left = application.application_data['student1_application_money']
   td.text-center = application.application_data['work_weeks']
-  td.text-left = application.flags.map { |f| content_tag(:span, f, class: 'label label-default') }.join('<br>').html_safe
   td = application.application_data['work_week_explanation']
+  td.text-left = application.flags.map { |f| content_tag(:span, f, class: 'label label-default') }.join('<br>').html_safe
   td.text-center = icon('check') if application.application_data['signed_off_at_project1']
   td.text-center = icon('check') if application.application_data['signed_off_at_project2']
   td.text-center = icon('heart') if application.application_data['mentor_fav_project1']
