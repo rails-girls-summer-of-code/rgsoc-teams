@@ -228,8 +228,7 @@ class ApplicationDraft < ApplicationRecord
   end
 
   def notify_submitters
-    team.students.each do |student|
-      ApplicationFormMailer.submitted(application: application, student: student).deliver_later
-    end
+    ApplicationFormMailer.submitted(application: application, student: team.students.first).deliver_later
+    ApplicationFormMailer.submitted(application: application, student: team.students.second).deliver_later
   end
 end
