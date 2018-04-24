@@ -104,6 +104,14 @@ Once this is done, setup the database and fill it with some initial data:
 
     bundle exec rails db:setup
 
+### Running the app
+
+Start your local server:
+
+    bundle exec rails server
+
+And then visit http://localhost:3000/ in your browser
+
 ### Mailtrap (optional)
 
 To avoid accidentally sending out mails to real addresses we suggest
