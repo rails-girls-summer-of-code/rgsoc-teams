@@ -5,57 +5,59 @@
 
 **Looking for your help!**
 
-For Rails Girls Summer of Code we are planning to build a simple app that
-aggregates daily status updates, commit activity, GitHub issues and other
-things into an activity stream.
+For RSGoC we are building an app that aggregates daily status updates, commit activity and other sources into an activity stream.
 
 Main goals are:
 
-* make it easy to get an overview of activity/progress for each of the teams for supervision
-* make it easy for interested remote coaches to find opportunities to give support/help
+* make it easy to get an overview of each team's activity/progress for supervision
+* make it easy for people interested in coaching to find opportunities to give support/help
 * display to the world how much amazing stuff is happening
-
-We are planning to require teams to keep a daily log of short updates about
-their work. Our idea is to allow any sort of blog type tool for that (maybe
-recommend a few) and aggregate things through RSS in a central app. This app
-could then act as a webhook target for GitHub events.
-
-Since we still are somewhat overwhelmed with the amount of work we'd like to
-ask the community for help with this. The app would need to be available
-(initial, basic version) on 1st of July, ideally a few days earlier.
 
 Features:
 
-* Users can sign in through GitHub Oauth
-* They can create and update teams
-* Teams have members (students, coaches, mentors aka project maintainers), GitHub repositories, a log URL
-
+* Users can sign in through GitHub OAuth
+* Students can create teams and apply for the program
+* Mentors can submit their projects for the program
+* Teams can organize their members (students, coaches, mentors aka project maintainers)
 * RSS feeds are fetched from all teams' logs regularly and aggregated
-* There is a webhook endpoint for GitHub events that aggregates information about issues, pull requests and such
+* Organizers can process new projects for submission, review new teams for selection, keep track of information on conferences for students
 
-Requirements:
+We're really excited at how much this app has grown and developed, and are really
+grateful for all of the community help along the way. There's still plenty to do
+here - and we'd love to have your contributions! Hop on over to the
+[issues](https://github.com/rails-girls-summer-of-code/rgsoc-teams/issues)
+and have a look 👀.
 
-* Keep it simple, so Rails Girls students can get involved, too
+Contribution Requirements:
+
+* Keep it simple to lower the barrier for RGSoC students to contribute too
 * By contributing, you agree to adhere to our [Code of Conduct](CODE_OF_CONDUCT.md)
 * Make sure to check our [Contribution Guide](CONTRIBUTING.md)
 
-## System Requirements
+## Getting Started
+
+In order to contribute, you need to run the Teams App locally on your computer. For setting it up, you'll need to have some tools installed on your system:
 
 * PostgreSQL 9.5 or newer
 * Ruby 2.5.1
 * [Chromedriver](https://sites.google.com/a/chromium.org/chromedriver/)
 
-### Setup on Ubuntu
+The following section will guide you step by step through the setup and installation process on Linux 🐧 and macOS 🍏
+
+### Installation
+
+#### Setup on Ubuntu 🐧
 ```bash
 # Install required packages
-$ sudo apt-get install postgresql libpq-dev libcurl3 libcurl3-gnutls libcurl4-openssl-dev postgresql-contrib-9.5 chromium-chromedriver
+sudo apt-get install postgresql libpq-dev libcurl3 libcurl3-gnutls libcurl4-openssl-dev postgresql-contrib-9.5 chromium-chromedriver
+
 # Create database user rgsoc with password rgsoc
-$ sudo -u postgres createuser -P -s rgsoc
-Enter password for new role: rgsoc
-Enter it again: rgsoc
+sudo -u postgres createuser -P -s rgsoc
+# Enter password for new role: rgsoc
+# Enter it again: rgsoc
 ```
 
-### Setup on macOS
+#### Setup on macOS
 ```bash
 # Install required packages
 $ brew install ruby postgres chromedriver
@@ -68,14 +70,17 @@ Enter password for new role: rgsoc
 Enter it again: rgsoc
 ```
 
-💁 Ran into problems with the setup? Check our **[Troubleshooting Guide](TROUBLESHOOTING.md)**.
+💁 Ran into problems so far with the setup? Check our **[Troubleshooting Guide](TROUBLESHOOTING.md)**.
 
-## Bootstrap
+#### Database & project dependencies
 
-Copy `config/database.yml.example` to `config/database.yml`. Then make sure you
-modify the settings so it could connect to your postgres server.
+Once you have you system ready, we need to setup the database and the Rails app. The steps are the same for 🐧 and 🍏.
 
-Inside database.yml add username and password for development and test:
+Copy `config/database.yml.example` file to `config/database.yml`:
+
+    cp config/database.yml.example config/database.yml
+
+Then modify the new `database.yml` file to your needs. Add username and password in the development and test sections:
 
     development:
       adapter: postgresql
@@ -84,9 +89,19 @@ Inside database.yml add username and password for development and test:
       username: rgsoc
       password: rgsoc
 
-Then install all dependencies:
+    test:
+      adapter: postgresql
+      database: rgsocteams_test
+      host: localhost
+      username: rgsoc
+      password: rgsoc
+
+Then back in the root directory of the project, install all project dependencies with bundler:
 
     bundle install
+
+Once this is done, setup the database and fill it with some initial data:
+
     bundle exec rails db:setup
 
 ### Mailtrap (optional)
