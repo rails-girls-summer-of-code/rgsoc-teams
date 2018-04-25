@@ -59,7 +59,7 @@ group :development do
 end
 
 group :test do
-  gem 'capybara'
+  gem 'capybara', '~> 2.18'
   gem 'capybara-screenshot'
   gem 'codeclimate-test-reporter', require: false
   gem 'coveralls', require: false

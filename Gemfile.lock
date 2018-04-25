@@ -398,7 +398,7 @@ DEPENDENCIES
   byebug
   camo
   cancancan
-  capybara
+  capybara (~> 2.18)
   capybara-screenshot
   codeclimate-test-reporter
   country_select
