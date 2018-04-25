@@ -17,7 +17,6 @@ Features:
 
 * Users can sign in through GitHub OAuth
 * Students can create teams and apply for the program
-* Mentors can submit their projects for the program
 * Teams can organize their members (students, coaches, mentors aka project maintainers)
 * RSS feeds are fetched from all teams' logs regularly and aggregated
 * Organizers can process new projects for submission, review new teams for selection, keep track of information on conferences for students
@@ -28,7 +27,7 @@ here - and we'd love to have your contributions! Hop on over to the
 [issues](https://github.com/rails-girls-summer-of-code/rgsoc-teams/issues)
 and have a look 👀.
 
-Contribution Requirements:
+Requirements:
 
 * Keep it simple to lower the barrier for RGSoC students to contribute too
 * By contributing, you agree to adhere to our [Code of Conduct](CODE_OF_CONDUCT.md)
@@ -44,7 +43,7 @@ In order to contribute, you need to run the Teams App locally on your computer. 
 
 The following section will guide you step by step through the setup and installation process on Linux 🐧 and macOS 🍏
 
-### Installation
+### 1. Installation
 
 #### Setup on Ubuntu 🐧
 ```bash
@@ -72,7 +71,7 @@ Enter it again: rgsoc
 
 💁 Ran into problems so far with the setup? Check our **[Troubleshooting Guide](TROUBLESHOOTING.md)**.
 
-#### Database & project dependencies
+### 2. Project setup
 
 Once you have you system ready, we need to setup the database and the Rails app. The steps are the same for 🐧 and 🍏.
 
@@ -104,33 +103,68 @@ Once this is done, setup the database and fill it with some initial data:
 
     bundle exec rails db:setup
 
-### Running the app
+💁 Want more? Check the **[Optional Setup](#optional-setup)** section for setting up some additional tooling 👇
 
-Start your local server:
+### 3. Run the App
+
+Start the Rails server:
 
     bundle exec rails server
 
-And then visit http://localhost:3000/ in your browser
+The project will run at **http://localhost:3000**
 
-### Mailtrap (optional)
+💁 All set? Check the **[Quick Start](#quick-start)** section for the first steps in the project 👇
 
-To avoid accidentally sending out mails to real addresses we suggest
-[Mailtrap](https://mailtrap.io).
-You can create a free account there with an inbox to 'trap' emails sent from
-your development environment.
 
-Copy the `.env-example` to `.env` and replace `InboxUsername` and
-`InboxPassword` with your own username and password from your mailtrap
-inbox.
+## Quick Start 
 
-Now when running the command `foreman` *before* any command in this project
-directory the variables from `.env` will be loaded into the environment.
+Some tips for your first interactions with the Teams App. For this, make sure you have the server running and the app open in your browser 🖥.
 
-E.g. `foreman run rails server` or `foreman run rails console`.
+### Organizer Role
+
+To access all functionality of the app, add yourself as an organizer. For this, first start an interactive Rails console in a separate terminal (window/tab) 📟:
+
+    bundle exec rails console
+
+1. In the browser 🖥: log in with your Github account
+1. In the console 📟
+
+  ```ruby
+  user = User.last
+  user.roles.create(name: 'organizer')
+
+  # alternative: find your user, e.g. by your Github handle
+  user = User.find_by(github_handle: <your-github-handle-here>)
+
+  # You can assign yourself other roles the same way.
+  # If you've assigned yourself student AND organizer roles however,
+  # this may lead to undesired behavior of the app. Best remove the
+  # student role again.
+  ```
+1. Refresh the browser 🖥: you should see links to orga pages now
+
+Once you're an `organizer`, you can:
+- add a season and switch between the phases of a season: http://localhost:3000/organizers/seasons
+- impersonate other users to test the system from a different perspective: http://localhost:3000/user _(this only works in development mode)_
+
+💁‍ you are good to go now. Happy coding!
+
+
+#### *Mailtrap (optional)*
+
+To avoid accidentally sending out mails to real addresses we suggest [Mailtrap](https://mailtrap.io). You can create a free account there with an inbox to 'trap' emails sent from your development environment.
+
+Copy the `env-example` file:
+
+    cp .env-example .env
+
+Replace `InboxUsername` and `InboxPassword` with your own username and password from your mailtrap inbox.
+
+Now when running the command `foreman` *before* any command in this project directory the variables from `.env` will be loaded into the environment (e.g. `foreman run rails server` or `foreman run rails console`).
 
 **NOTE:** In case you did everything described above and your Mailtrap still doesn't work, it might happen because the `.env` doesn't set the `InboxUsername` and `InboxPassword` environment variables. To fix it, execute `export MAILTRAP_USER='your_user_code'` and `export MAILTRAP_PASSWORD='your_pass_code'` in your terminal and then run the server as usually: `./bin/rails server`. The user and pass codes should be copied from your Mailtrap account (they look like this: `94a5agb6c4c47d`).
 
-### Google Places API (optional)
+#### *Google Places API (optional)*
 
 To avoid accidentally exceeding the rate limit on [Google's Places API][google-places] (e.g. when heavily testing city-autocomplete fields) and thus blocking its usage for other RGSoC sites and devs:
 
@@ -147,34 +181,9 @@ To avoid accidentally exceeding the rate limit on [Google's Places API][google-p
   ```
 [google-places]: https://developers.google.com/places/javascript/
 
-## Quick Start 
 
-### Beginner Friendly Tips for New Contributors
 
-- After forking the repo, follow the steps described above under 'Bootstrap'. Mailtrap is optional.
-- (Install and) connect to Postgres server 
-- With everything properly installed, open the browser in development environment
-- The app should be available, with the database loaded with fake data.
-- To access all the functionality of the teams app, add yourself as an organizer.
-    * In the browser: log in with your github account 
-    * In Rails Console:
-      ```
-      user = User.last
-      user.roles.create(name: "organizer")
-      ```
-      Instead of using the last created User, you can also search for a
-      specific User with ```user = User.find_by(github_handle: "yourgithubhandle")```.
 
-      You can assign yourself other roles in the same way as creating the
-      organizer role. If however you assign yourself a student role AND another
-      role, that may lead to unexpected behavior in the app. In that case,
-      remove the student role. 
-    * Refresh the browser and you should see links for organizers. 
-- Once you are an `organizer`, you can add a season and switch between season's phases at
-http://localhost:3000/organizers/seasons in your browser.
-- While in development, you are also able to impersonate other users to easily test the system
-as someone else. Go to http://localhost:3000/users while logged in to do that.
-- You are good to go now. Happy coding!
 
 ## Testing
 
