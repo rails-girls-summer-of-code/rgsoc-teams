@@ -149,20 +149,27 @@ Once you're an `organizer`, you can:
 
 💁‍ you are good to go now. Happy coding!
 
+## Optional Setup
+
+**Note**: If you configure any of these optional dependencies, you need to run the project via the `Procfile` (e.g. using the [foreman](https://github.com/ddollar/foreman) tool).
+
 
 #### *Mailtrap (optional)*
 
-To avoid accidentally sending out mails to real addresses we suggest [Mailtrap](https://mailtrap.io). You can create a free account there with an inbox to 'trap' emails sent from your development environment.
+To avoid accidentally sending out mails to real addresses you can create a free account at [Mailtrap](https://mailtrap.io) with an inbox to _trap_ emails sent from your development environment.
 
-Copy the `env-example` file:
+Copy the `env-example` file and replace `InboxUsername` and `InboxPassword` with your Mailtrap inbox credentials:
 
     cp .env-example .env
 
-Replace `InboxUsername` and `InboxPassword` with your own username and password from your mailtrap inbox.
+Now, when running the `foreman` command **before** any command, this configuration will be loaded into the environent:
 
-Now when running the command `foreman` *before* any command in this project directory the variables from `.env` will be loaded into the environment (e.g. `foreman run rails server` or `foreman run rails console`).
+    foreman run rails server
 
-**NOTE:** In case you did everything described above and your Mailtrap still doesn't work, it might happen because the `.env` doesn't set the `InboxUsername` and `InboxPassword` environment variables. To fix it, execute `export MAILTRAP_USER='your_user_code'` and `export MAILTRAP_PASSWORD='your_pass_code'` in your terminal and then run the server as usually: `./bin/rails server`. The user and pass codes should be copied from your Mailtrap account (they look like this: `94a5agb6c4c47d`).
+    foreman run rails console
+
+💁 Not working? Check our **[Troubleshooting Guide](TROUBLESHOOTING.md)**.
+
 
 #### *Google Places API (optional)*
 
