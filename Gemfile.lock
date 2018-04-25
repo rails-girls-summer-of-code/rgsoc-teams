@@ -404,11 +404,11 @@ DEPENDENCIES
   country_select
   coveralls
   database_cleaner
-  devise (~> 4.4.0)
+  devise
   factory_bot_rails
   feedjira
   ffaker
-  font-awesome-sass
+  font-awesome-sass (~> 4.7)
   gh
   jquery-rails
   jquery-ui-rails
