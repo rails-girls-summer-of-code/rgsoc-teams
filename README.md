@@ -56,7 +56,7 @@ sudo -u postgres createuser -P -s rgsoc
 # Enter it again: rgsoc
 ```
 
-#### Setup on macOS
+#### Setup on macOS 🍏
 ```bash
 # Install required packages
 $ brew install ruby postgres chromedriver
@@ -115,12 +115,11 @@ The project will run at **http://localhost:3000**
 
 💁 All set? Check the **[Quick Start](#quick-start)** section for the first steps in the project 👇
 
-
-## Quick Start 
+#### Quick Start 
 
 Some tips for your first interactions with the Teams App. For this, make sure you have the server running and the app open in your browser 🖥.
 
-### Organizer Role
+    http://localhost:3000
 
 To access all functionality of the app, add yourself as an organizer. For this, first start an interactive Rails console in a separate terminal (window/tab) 📟:
 
@@ -153,8 +152,7 @@ Once you're an `organizer`, you can:
 
 **Note**: If you configure any of these optional dependencies, you need to run the project via the `Procfile` (e.g. using the [foreman](https://github.com/ddollar/foreman) tool).
 
-
-#### *Mailtrap (optional)*
+### Mailtrap
 
 To avoid accidentally sending out mails to real addresses you can create a free account at [Mailtrap](https://mailtrap.io) with an inbox to _trap_ emails sent from your development environment.
 
@@ -162,7 +160,7 @@ Copy the `env-example` file and replace `InboxUsername` and `InboxPassword` with
 
     cp .env-example .env
 
-Now, when running the `foreman` command **before** any command, this configuration will be loaded into the environent:
+Now, when running the `foreman` command **before** any command, this configuration will be loaded into the environment:
 
     foreman run rails server
 
@@ -170,29 +168,23 @@ Now, when running the `foreman` command **before** any command, this configurati
 
 💁 Not working? Check our **[Troubleshooting Guide](TROUBLESHOOTING.md)**.
 
-
-#### *Google Places API (optional)*
+### Google Places API
 
 To avoid accidentally exceeding the rate limit on [Google's Places API][google-places] (e.g. when heavily testing city-autocomplete fields) and thus blocking its usage for other RGSoC sites and devs:
 
-1. [Get your own key][google-places]
+Get your own [API key](https://developers.google.com/places/javascript/), and copy the `.env-expample` file _(if you haven't already)_ to replace `YourGoogleMapsAPIKey` with it:
 
-1. Copy the `.env-example` file to `.env` and replace `YourGoogleMapsAPIKey` with your key
+        cp .env-example .env
 
-1. Run the `foreman` command before any command
-  ```sh
-  # e.g.
-  foreman run rails server
-  # or
-  foremand run rails console
-  ```
-[google-places]: https://developers.google.com/places/javascript/
+Now, when running the `foreman` command **before** any command, this configuration will be loaded into the environment:
 
+    foreman run rails server
 
-
-
+    foreman run rails console
 
 ## Testing
+
+Please write relevant tests as you code, and test locally before opening a pull request. Thank you!
 
     bundle exec rake spec
 
@@ -200,10 +192,12 @@ You can optionally create a test-coverage report in `coverage/*` like so:
 
     COVERAGE=yes bundle exec rake spec
 
+### Feature Tests
+
 Feature tests run in headless Chrome. For local debugging, you can run them in a normal window by tagging the examples with `driver: :selenium_chrome`, like so:
 
 ```ruby
-it 'is an interesting example', driver: :selenium_chrome
+it 'is an interesting example', driver: :selenium_chrome do
   visit some_path
 
   # you can e.g. interrupt here
@@ -222,7 +216,7 @@ For Ruby code:
 
     bundle exec rubocop
 
-For Javascript code: _(you need to install [`jshint`](http://jshint.com/install/) first)_
+For JS code: _(you need to install [`jshint`](http://jshint.com/install/) first)_
 
     jshint app/assets/javascript
 
@@ -240,8 +234,7 @@ at http://teams.railsgirlssummerofcode.org.
 
 Append `-r staging` or `-r production` to any `heroku` command in order to specify the app.
 
-This app uses [camo](https://github.com/atmos/camo) to proxy insecure images in activity logs
-when `CAMO_HOST` and `CAMO_KEY` environment variables are set.
+This app uses [camo](https://github.com/atmos/camo) to proxy insecure images in activity logs when `CAMO_HOST` and `CAMO_KEY` environment variables are set.
 
 ### Cron jobs
 

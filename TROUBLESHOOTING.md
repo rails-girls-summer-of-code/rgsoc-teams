@@ -12,13 +12,15 @@ Potential problems when setting up the local development environment.
 
 ### Chromedriver
 
-**Scenario:**  
+#### Scenario
+
 when running the tests in `spec/features/` you run into an error like this:
 
     Selenium::WebDriver::Error::WebDriverError:
         Unable to find chromedriver
 
-**Where to get help:**  
+#### Get Help
+
 - make sure you have [chromedriver][chromedriver] and the [Chrome browser][chrome] installed on your system
 - check the [Selenium Troubleshooting guide][selenium]
 - 🐧 make sure the `chromedriver` executable is in your `PATH`:  
