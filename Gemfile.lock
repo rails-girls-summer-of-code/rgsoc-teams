@@ -420,7 +420,7 @@ DEPENDENCIES
   pretender
   pry
   puma
-  rails (~> 5.1.5)
+  rails (~> 5.1.6)
   rails-controller-testing
   rails_12factor
   rails_autolink
