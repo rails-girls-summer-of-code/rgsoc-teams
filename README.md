@@ -59,12 +59,18 @@ sudo -u postgres createuser -P -s rgsoc
 #### Setup on macOS 🍏
 ```bash
 # Install required packages
-$ brew install ruby postgres chromedriver
+brew install ruby postgres
 # Make sure to follow the instructions printed on the screen for postgres
-$ gem install bundler
+
+# Install chromedriver
+brew tap caskroom/cask
+brew cask install chromedriver
+
+# Install bundler
+gem install bundler
 
 # Create database user rgsoc with password rgsoc
-$ createuser -P -s rgsoc
+createuser -P -s rgsoc
 Enter password for new role: rgsoc
 Enter it again: rgsoc
 ```
