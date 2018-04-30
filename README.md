@@ -160,7 +160,7 @@ Once you're an `organizer`, you can:
 
 ### Mailtrap
 
-To avoid accidentally sending out mails to real addresses you can create a free account at [Mailtrap](https://mailtrap.io) with an inbox to _trap_ emails sent from your development environment.
+By default emails are printed to the rails server log and never actually sent from your development environment. If you want to test sending emails to a real inbox, we recommend you use [Mailtrap](https://mailtrap.io) to avoid accidentally sending out emails to real users.
 
 Copy the `env-example` file and replace `InboxUsername` and `InboxPassword` with your Mailtrap inbox credentials:
 
