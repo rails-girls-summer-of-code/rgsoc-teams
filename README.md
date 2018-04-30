@@ -150,7 +150,7 @@ To access all functionality of the app, add yourself as an organizer. For this, 
 
 Once you're an `organizer`, you can:
 - add a season and switch between the phases of a season: http://localhost:3000/organizers/seasons
-- impersonate other users to test the system from a different perspective: http://localhost:3000/user _(this only works in development mode)_
+- impersonate other users to test the system from a different perspective: http://localhost:3000/community _(this only works in development mode)_
 
 💁‍ you are good to go now. Happy coding!
 
