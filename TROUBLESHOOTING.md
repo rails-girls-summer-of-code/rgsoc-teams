@@ -44,22 +44,3 @@ when running the tests in `spec/features/` you run into an error like this:
 [chromedriver]: https://sites.google.com/a/chromium.org/chromedriver/
 [chrome]: https://sites.google.com/a/chromium.org/chromedriver/
 [selenium]: https://sites.google.com/a/chromium.org/chromedriver/
-
-### Mailtrap
-
-#### Scenario
-
-Running the project with `foreman` and Mailtrap does not work?
-
-#### Get Help
-
-Maybe `.env` does not set your `InboxUsername` and `InboxPassword` as environent variables? Try setting them manually.
-
-Stop your running foreman process, then in your terminal:
-```bash
-export MAILTRAP_USER='<your-user-code>'
-export MAILTRAP_PASSWORD='<your-pass-code'
-
-# and restart the server "normally"
-./bin/rails server
-```

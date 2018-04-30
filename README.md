@@ -156,37 +156,13 @@ Once you're an `organizer`, you can:
 
 ## Optional Setup
 
-**Note**: If you configure any of these optional dependencies, you need to run the project via the `Procfile` (e.g. using the [foreman](https://github.com/ddollar/foreman) tool).
-
-### Mailtrap
-
-By default emails are printed to the rails server log and never actually sent from your development environment. If you want to test sending emails to a real inbox, we recommend you use [Mailtrap](https://mailtrap.io) to avoid accidentally sending out emails to real users.
-
-Copy the `env-example` file and replace `InboxUsername` and `InboxPassword` with your Mailtrap inbox credentials:
-
-    cp .env-example .env
-
-Now, when running the `foreman` command **before** any command, this configuration will be loaded into the environment:
-
-    foreman run rails server
-
-    foreman run rails console
-
-💁 Not working? Check our **[Troubleshooting Guide](TROUBLESHOOTING.md)**.
-
 ### Google Places API
 
-To avoid accidentally exceeding the rate limit on [Google's Places API][google-places] (e.g. when heavily testing city-autocomplete fields) and thus blocking its usage for other RGSoC sites and devs:
+To avoid accidentally exceeding the rate limit on [Google's Places API](https://developers.google.com/places) (e.g. when heavily testing city-autocomplete fields) and thus blocking its usage for other RGSoC sites and devs:
 
-Get your own [API key](https://developers.google.com/places/javascript/), and copy the `.env-expample` file _(if you haven't already)_ to replace `YourGoogleMapsAPIKey` with it:
+Get your own [API key](https://developers.google.com/places/javascript/), and set the `GOOGLE_MAPS_API_KEY` environment variable *(or simply override the key in `config/initializers/google_maps.rb`)*:
 
-        cp .env-example .env
-
-Now, when running the `foreman` command **before** any command, this configuration will be loaded into the environment:
-
-    foreman run rails server
-
-    foreman run rails console
+    export GOOGLE_MAPS_API_KEY=<your-api-key>
 
 ## Testing
 

@@ -136,8 +136,6 @@ GEM
     ffi (1.9.18)
     font-awesome-sass (4.7.0)
       sass (>= 3.2)
-    foreman (0.84.0)
-      thor (~> 0.19.1)
     gh (0.15.1)
       addressable (~> 2.4.0)
       backports
@@ -411,7 +409,6 @@ DEPENDENCIES
   feedjira
   ffaker
   font-awesome-sass
-  foreman
   gh
   jquery-rails
   jquery-ui-rails
