@@ -152,7 +152,7 @@ Once you're an `organizer`, you can:
 - add a season and switch between the phases of a season: http://localhost:3000/organizers/seasons
 - impersonate other users to test the system from a different perspective: http://localhost:3000/community _(this only works in development mode)_
 
-💁‍ you are good to go now. Happy coding!
+💁  you are good to go now. Happy coding!
 
 ## Optional Setup
 
