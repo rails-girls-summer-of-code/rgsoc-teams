@@ -206,8 +206,7 @@ For JS code: _(you need to install [`jshint`](http://jshint.com/install/) first)
 
 ## Deployment
 
-The staging app lives at http://rgsoc-teams-staging.herokuapp.com. The production app is
-at http://teams.railsgirlssummerofcode.org.
+The staging app lives at http://rgsoc-teams-staging.herokuapp.com. The production app is at http://teams.railsgirlssummerofcode.org.
 
     [remote "staging"]
             url = git@heroku.com:rgsoc-teams-staging.git
@@ -218,11 +217,13 @@ at http://teams.railsgirlssummerofcode.org.
 
 Append `-r staging` or `-r production` to any `heroku` command in order to specify the app.
 
-This app uses [camo](https://github.com/atmos/camo) to proxy insecure images in activity logs when `CAMO_HOST` and `CAMO_KEY` environment variables are set.
-
 ### Cron jobs
 
-Set up the Heroku scheduler to run these tasks:
+The Heroku scheduler is set to run these tasks:
 
 * `rake activity:update`  every 10 min
 * `rake teams:notify_missing_log_updates` once per day as close to midnight as possible (currently 23:30 UTC)
+
+### Camo
+
+Both apps on Heroku use [camo](https://github.com/atmos/camo) to proxy insecure images in activity logs. For this to work, the `CAMO_HOST` and `CAMO_KEY` environment variables need to be set in Heroku's configuration for the app.
