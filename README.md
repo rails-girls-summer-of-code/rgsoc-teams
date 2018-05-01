@@ -50,6 +50,9 @@ The following section will guide you step by step through the setup and installa
 # Install required packages
 sudo apt-get install postgresql libpq-dev libcurl3 libcurl3-gnutls libcurl4-openssl-dev postgresql-contrib-9.5 chromium-chromedriver
 
+# Install bundler
+gem install bundler
+
 # Create database user rgsoc with password rgsoc
 sudo -u postgres createuser -P -s rgsoc
 # Enter password for new role: rgsoc
