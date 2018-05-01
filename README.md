@@ -136,19 +136,18 @@ To access all functionality of the app, add yourself as an organizer. For this, 
 
 1. In the browser 🖥: log in with your Github account
 1. In the console 📟
+    ```ruby
+    user = User.last
+    user.roles.create(name: 'organizer')
 
-  ```ruby
-  user = User.last
-  user.roles.create(name: 'organizer')
+    # alternative: find your user, e.g. by your Github handle
+    user = User.find_by(github_handle: <your-github-handle-here>)
 
-  # alternative: find your user, e.g. by your Github handle
-  user = User.find_by(github_handle: <your-github-handle-here>)
-
-  # You can assign yourself other roles the same way.
-  # If you've assigned yourself student AND organizer roles however,
-  # this may lead to undesired behavior of the app. Best remove the
-  # student role again.
-  ```
+    # You can assign yourself other roles the same way.
+    # If you've assigned yourself student AND organizer roles however,
+    # this may lead to undesired behavior of the app. Best remove the
+    # student role again.
+    ```
 1. Refresh the browser 🖥: you should see links to orga pages now
 
 Once you're an `organizer`, you can:
