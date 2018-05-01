@@ -74,8 +74,8 @@ gem install bundler
 
 # Create database user rgsoc with password rgsoc
 createuser -P -s rgsoc
-Enter password for new role: rgsoc
-Enter it again: rgsoc
+# Enter password for new role: rgsoc
+# Enter it again: rgsoc
 ```
 
 💁 Ran into problems so far with the setup? Check our **[Troubleshooting Guide](TROUBLESHOOTING.md)**.
