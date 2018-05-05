@@ -49,19 +49,6 @@ Rails.application.configure do
   # config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
   config.action_mailer.default_url_options = { host: 'localhost:3000' }
-  if ENV['MAILTRAP_USER'].present? && ENV['MAILTRAP_PASSWORD'].present?
-    config.action_mailer.delivery_method = :smtp
-    config.action_mailer.smtp_settings = {
-      user_name: ENV['MAILTRAP_USER'],
-      password: ENV['MAILTRAP_PASSWORD'],
-      address: 'mailtrap.io',
-      domain: 'mailtrap.io',
-      port: '2525',
-      authentication: :cram_md5,
-      enable_starttls_auto: true
-    }
-  else
-    config.action_mailer.raise_delivery_errors = false
-  end
+  config.action_mailer.raise_delivery_errors = false
   config.action_mailer.preview_path = "#{Rails.root}/lib/mailer_previews"
 end

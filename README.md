@@ -5,77 +5,90 @@
 
 **Looking for your help!**
 
-For Rails Girls Summer of Code we are planning to build a simple app that
-aggregates daily status updates, commit activity, GitHub issues and other
-things into an activity stream.
+For RSGoC we are building an app that aggregates daily status updates, commit activity and other sources into an activity stream.
 
 Main goals are:
 
-* make it easy to get an overview of activity/progress for each of the teams for supervision
-* make it easy for interested remote coaches to find opportunities to give support/help
+* make it easy to get an overview of each team's activity/progress for supervision
+* make it easy for people interested in coaching to find opportunities to give support/help
 * display to the world how much amazing stuff is happening
-
-We are planning to require teams to keep a daily log of short updates about
-their work. Our idea is to allow any sort of blog type tool for that (maybe
-recommend a few) and aggregate things through RSS in a central app. This app
-could then act as a webhook target for GitHub events.
-
-Since we still are somewhat overwhelmed with the amount of work we'd like to
-ask the community for help with this. The app would need to be available
-(initial, basic version) on 1st of July, ideally a few days earlier.
 
 Features:
 
-* Users can sign in through GitHub Oauth
-* They can create and update teams
-* Teams have members (students, coaches, mentors aka project maintainers), GitHub repositories, a log URL
-
+* Users can sign in through GitHub OAuth
+* Students can create teams and apply for the program
+* Teams can organize their members (students, coaches, mentors aka project maintainers)
 * RSS feeds are fetched from all teams' logs regularly and aggregated
-* There is a webhook endpoint for GitHub events that aggregates information about issues, pull requests and such
+* Organizers can process new projects for submission, review new teams for selection, keep track of information on conferences for students
+
+We're really excited at how much this app has grown and developed, and are really
+grateful for all of the community help along the way. There's still plenty to do
+here - and we'd love to have your contributions! Hop on over to the
+[issues](https://github.com/rails-girls-summer-of-code/rgsoc-teams/issues)
+and have a look 👀.
 
 Requirements:
 
-* Keep it simple, so Rails Girls students can get involved, too
+* Keep it simple to lower the barrier for RGSoC students to contribute too
 * By contributing, you agree to adhere to our [Code of Conduct](CODE_OF_CONDUCT.md)
 * Make sure to check our [Contribution Guide](CONTRIBUTING.md)
 
-## System Requirements
+## Getting Started
+
+In order to contribute, you need to run the Teams App locally on your computer. For setting it up, you'll need to have some tools installed on your system:
 
 * PostgreSQL 9.5 or newer
 * Ruby 2.5.1
 * [Chromedriver](https://sites.google.com/a/chromium.org/chromedriver/)
 
-### Setup on Ubuntu
+The following section will guide you step by step through the setup and installation process on Linux 🐧 and macOS 🍏
+
+### 1. Installation
+
+#### Setup on Ubuntu 🐧
 ```bash
 # Install required packages
-$ sudo apt-get install postgresql libpq-dev libcurl3 libcurl3-gnutls libcurl4-openssl-dev postgresql-contrib-9.5 chromium-chromedriver
+sudo apt-get install postgresql libpq-dev libcurl3 libcurl3-gnutls libcurl4-openssl-dev postgresql-contrib-9.5 chromium-chromedriver
+
+# Install bundler
+gem install bundler
+
 # Create database user rgsoc with password rgsoc
-$ sudo -u postgres createuser -P -s rgsoc
-Enter password for new role: rgsoc
-Enter it again: rgsoc
+sudo -u postgres createuser -P -s rgsoc
+# Enter password for new role: rgsoc
+# Enter it again: rgsoc
 ```
 
-### Setup on macOS
+#### Setup on macOS 🍏
 ```bash
 # Install required packages
-$ brew install ruby postgres chromedriver
+brew install ruby postgres
 # Make sure to follow the instructions printed on the screen for postgres
-$ gem install bundler
+
+# Install chromedriver
+brew tap caskroom/cask
+brew cask install chromedriver
+
+# Install bundler
+gem install bundler
 
 # Create database user rgsoc with password rgsoc
-$ createuser -P -s rgsoc
-Enter password for new role: rgsoc
-Enter it again: rgsoc
+createuser -P -s rgsoc
+# Enter password for new role: rgsoc
+# Enter it again: rgsoc
 ```
 
-💁 Ran into problems with the setup? Check our **[Troubleshooting Guide](TROUBLESHOOTING.md)**.
+💁 Ran into problems so far with the setup? Check our **[Troubleshooting Guide](TROUBLESHOOTING.md)**.
 
-## Bootstrap
+### 2. Project setup
 
-Copy `config/database.yml.example` to `config/database.yml`. Then make sure you
-modify the settings so it could connect to your postgres server.
+Once you have you system ready, we need to setup the database and the Rails app. The steps are the same for 🐧 and 🍏.
 
-Inside database.yml add username and password for development and test:
+Copy `config/database.yml.example` file to `config/database.yml`:
+
+    cp config/database.yml.example config/database.yml
+
+Then modify the new `database.yml` file to your needs. Add username and password in the development and test sections:
 
     development:
       adapter: postgresql
@@ -84,76 +97,78 @@ Inside database.yml add username and password for development and test:
       username: rgsoc
       password: rgsoc
 
-Then install all dependencies:
+    test:
+      adapter: postgresql
+      database: rgsocteams_test
+      host: localhost
+      username: rgsoc
+      password: rgsoc
+
+Then back in the root directory of the project, install all project dependencies with bundler:
 
     bundle install
+
+Once this is done, setup the database and fill it with some initial data:
+
     bundle exec rails db:setup
 
-### Mailtrap (optional)
+💁 Want more? Check the **[Optional Setup](#optional-setup)** section for setting up some additional tooling 👇
 
-To avoid accidentally sending out mails to real addresses we suggest
-[Mailtrap](https://mailtrap.io).
-You can create a free account there with an inbox to 'trap' emails sent from
-your development environment.
+### 3. Run the App
 
-Copy the `.env-example` to `.env` and replace `InboxUsername` and
-`InboxPassword` with your own username and password from your mailtrap
-inbox.
+Start the Rails server:
 
-Now when running the command `foreman` *before* any command in this project
-directory the variables from `.env` will be loaded into the environment.
+    bundle exec rails server
 
-E.g. `foreman run rails server` or `foreman run rails console`.
+The project will run at **http://localhost:3000**
 
-**NOTE:** In case you did everything described above and your Mailtrap still doesn't work, it might happen because the `.env` doesn't set the `InboxUsername` and `InboxPassword` environment variables. To fix it, execute `export MAILTRAP_USER='your_user_code'` and `export MAILTRAP_PASSWORD='your_pass_code'` in your terminal and then run the server as usually: `./bin/rails server`. The user and pass codes should be copied from your Mailtrap account (they look like this: `94a5agb6c4c47d`).
+💁 All set? Check the **[Quick Start](#quick-start)** section for the first steps in the project 👇
 
-### Google Places API (optional)
+#### Quick Start 
 
-To avoid accidentally exceeding the rate limit on [Google's Places API][google-places] (e.g. when heavily testing city-autocomplete fields) and thus blocking its usage for other RGSoC sites and devs:
+Some tips for your first interactions with the Teams App. For this, make sure you have the server running and the app open in your browser 🖥.
 
-1. [Get your own key][google-places]
+    http://localhost:3000
 
-1. Copy the `.env-example` file to `.env` and replace `YourGoogleMapsAPIKey` with your key
+To access all functionality of the app, add yourself as an organizer. For this, first start an interactive Rails console in a separate terminal (window/tab) 📟:
 
-1. Run the `foreman` command before any command
-  ```sh
-  # e.g.
-  foreman run rails server
-  # or
-  foremand run rails console
-  ```
-[google-places]: https://developers.google.com/places/javascript/
+    bundle exec rails console
 
-## Quick Start 
+1. In the browser 🖥: log in with your Github account
+1. In the console 📟
+    ```ruby
+    user = User.last
+    user.roles.create(name: 'organizer')
 
-### Beginner Friendly Tips for New Contributors
+    # alternative: find your user, e.g. by your Github handle
+    user = User.find_by(github_handle: <your-github-handle-here>)
 
-- After forking the repo, follow the steps described above under 'Bootstrap'. Mailtrap is optional.
-- (Install and) connect to Postgres server 
-- With everything properly installed, open the browser in development environment
-- The app should be available, with the database loaded with fake data.
-- To access all the functionality of the teams app, add yourself as an organizer.
-    * In the browser: log in with your github account 
-    * In Rails Console:
-      ```
-      user = User.last
-      user.roles.create(name: "organizer")
-      ```
-      Instead of using the last created User, you can also search for a
-      specific User with ```user = User.find_by(github_handle: "yourgithubhandle")```.
+    # You can assign yourself other roles the same way.
+    # If you've assigned yourself student AND organizer roles however,
+    # this may lead to undesired behavior of the app. Best remove the
+    # student role again.
+    ```
+1. Refresh the browser 🖥: you should see links to orga pages now
 
-      You can assign yourself other roles in the same way as creating the
-      organizer role. If however you assign yourself a student role AND another
-      role, that may lead to unexpected behavior in the app. In that case,
-      remove the student role. 
-    * Refresh the browser and you should see links for organizers. 
-- Once you are an `organizer`, you can add a season and switch between season's phases at
-http://localhost:3000/organizers/seasons in your browser.
-- While in development, you are also able to impersonate other users to easily test the system
-as someone else. Go to http://localhost:3000/users while logged in to do that.
-- You are good to go now. Happy coding!
+Once you're an `organizer`, you can:
+- add a season and switch between the phases of a season: http://localhost:3000/organizers/seasons
+- impersonate other users to test the system from a different perspective: http://localhost:3000/community _(this only works in development mode)_
+
+💁  you are good to go now. Happy coding!
+
+## Optional Setup
+
+### Google Places API
+
+To avoid accidentally exceeding the rate limit on [Google's Places API](https://developers.google.com/places) (e.g. when heavily testing city-autocomplete fields) and thus blocking its usage for other RGSoC sites and devs:
+
+Get your own [API key](https://developers.google.com/places/javascript/), and set the `GOOGLE_MAPS_API_KEY` environment variable *(or simply override the key in `config/initializers/google_maps.rb`)*:
+
+    export GOOGLE_MAPS_API_KEY=<your-api-key>
 
 ## Testing
+
+Please write relevant tests as you code, and test locally before opening a pull request. Thank you!
 
     bundle exec rake spec
 
@@ -161,10 +176,12 @@ You can optionally create a test-coverage report in `coverage/*` like so:
 
     COVERAGE=yes bundle exec rake spec
 
+### Feature Tests
+
 Feature tests run in headless Chrome. For local debugging, you can run them in a normal window by tagging the examples with `driver: :selenium_chrome`, like so:
 
 ```ruby
-it 'is an interesting example', driver: :selenium_chrome
+it 'is an interesting example', driver: :selenium_chrome do
   visit some_path
 
   # you can e.g. interrupt here
@@ -183,14 +200,13 @@ For Ruby code:
 
     bundle exec rubocop
 
-For Javascript code: _(you need to install [`jshint`](http://jshint.com/install/) first)_
+For JS code: _(you need to install [`jshint`](http://jshint.com/install/) first)_
 
     jshint app/assets/javascript
 
 ## Deployment
 
-The staging app lives at http://rgsoc-teams-staging.herokuapp.com. The production app is
-at http://teams.railsgirlssummerofcode.org.
+The staging app lives at http://rgsoc-teams-staging.herokuapp.com. The production app is at http://teams.railsgirlssummerofcode.org.
 
     [remote "staging"]
             url = git@heroku.com:rgsoc-teams-staging.git
@@ -201,12 +217,13 @@ at http://teams.railsgirlssummerofcode.org.
 
 Append `-r staging` or `-r production` to any `heroku` command in order to specify the app.
 
-This app uses [camo](https://github.com/atmos/camo) to proxy insecure images in activity logs
-when `CAMO_HOST` and `CAMO_KEY` environment variables are set.
-
 ### Cron jobs
 
-Set up the Heroku scheduler to run these tasks:
+The Heroku scheduler is set to run these tasks:
 
 * `rake activity:update`  every 10 min
 * `rake teams:notify_missing_log_updates` once per day as close to midnight as possible (currently 23:30 UTC)
+
+### Camo
+
+Both apps on Heroku use [camo](https://github.com/atmos/camo) to proxy insecure images in activity logs. For this to work, the `CAMO_HOST` and `CAMO_KEY` environment variables need to be set in Heroku's configuration for the app.

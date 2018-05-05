@@ -56,7 +56,6 @@ group :development do
   gem 'binding_of_caller'
   gem 'spring'
   gem 'spring-commands-rspec'
-  gem 'foreman'
 end
 
 group :test do
