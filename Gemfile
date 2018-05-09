@@ -2,10 +2,10 @@ source 'https://rubygems.org'
 
 ruby File.read(".ruby-version")
 
-gem 'rails', '~> 5.1.5'
+gem 'rails', '~> 5.1.6'
 gem 'pg'
 gem 'puma'
-gem 'devise', '~> 4.4.0'
+gem 'devise'
 gem 'omniauth-github'
 gem 'cancancan'
 gem 'redcarpet'
@@ -22,7 +22,7 @@ gem 'slim-rails'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'bootstrap-sass'
-gem 'font-awesome-sass'
+gem 'font-awesome-sass', '~> 4.7'
 gem 'pretender'
 gem 'bootsnap', require: false
 
@@ -59,7 +59,7 @@ group :development do
 end
 
 group :test do
-  gem 'capybara'
+  gem 'capybara', '~> 2.18'
   gem 'capybara-screenshot'
   gem 'codeclimate-test-reporter', require: false
   gem 'coveralls', require: false
