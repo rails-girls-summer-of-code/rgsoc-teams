@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :user, aliases: [:member] do
-    github_handle { FFaker::InternetSE.user_name_variant_short }
+    sequence(:github_handle) { FFaker::InternetSE.user_name_variant_short }
     name     { FFaker::Name.name }
     email    { FFaker::Internet.email }
     location { FFaker::Address.city }
