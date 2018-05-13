@@ -83,7 +83,6 @@ RSpec.describe Ability, type: :model do
               allow(user).to receive(:confirmed?).and_return(true)
             end
             it 'allows to see not hidden email address' do
-              # pending "Fails. Not sure if this is the behaviour we still want?"
               other_user.hide_email = false
               expect(ability).to be_able_to(:read_email, other_user)
             end
@@ -96,7 +95,6 @@ RSpec.describe Ability, type: :model do
             end
           end
         end
-
       end
 
       describe 'who is disallowed to see email address in user profile' do
@@ -131,9 +129,7 @@ RSpec.describe Ability, type: :model do
             end
           end
         end
-
       end
-
 
       context 'resend_confirmation_instruction' do
         let(:other_user) { create(:user) }
@@ -171,7 +167,6 @@ RSpec.describe Ability, type: :model do
           let!(:other_user) { create(:user)}
           let!(:conference_preference) { create(:conference_preference, team: team)}
           it { expect(ability).not_to be_able_to(:crud, other_user) }
-
         end
       end
 
@@ -318,6 +313,7 @@ RSpec.describe Ability, type: :model do
             end
           end
         end
+
         context 'when user guest (not persisted)' do
           let(:user) { build :user }
 
@@ -369,7 +365,6 @@ RSpec.describe Ability, type: :model do
           user.save
           expect(subject).not_to be_able_to :crud, Project.new(submitter: user)
         end
-
       end
 
       context 'create' do
@@ -383,7 +378,6 @@ RSpec.describe Ability, type: :model do
           user.save
           expect(subject).not_to be_able_to :create, Project.new
         end
-
       end
 
       context 'when using a project as a template' do

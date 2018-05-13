@@ -108,7 +108,6 @@ class Ability
       cannot :create, Project if !user.confirmed?
 
       # activities
-      # can :read, :feed_entry
       can :read, :mailing if signed_in?(user)
 
       # applications
