@@ -9,6 +9,7 @@ RSpec.describe Organizers::TeamsController, type: :controller do
   let(:valid_attributes) { build(:team).attributes.merge(roles_attributes: [{ name: 'coach', github_handle: 'tobias' }]) }
 
   before do
+    user.confirm
     user.roles.create(name: 'student', team: team)
   end
 
