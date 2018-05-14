@@ -1,6 +1,7 @@
 # Rails Girls Summer of Code Teams
 [![Build Status](https://travis-ci.org/rails-girls-summer-of-code/rgsoc-teams.svg?branch=master)](https://travis-ci.org/rails-girls-summer-of-code/rgsoc-teams)
 [![Maintainability](https://api.codeclimate.com/v1/badges/d90e0f308dca4ed4cb90/maintainability)](https://codeclimate.com/github/rails-girls-summer-of-code/rgsoc-teams/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/96b6902be01f7da6874b/test_coverage)](https://codeclimate.com/github/rails-girls-summer-of-code/rgsoc-teams/test_coverage)
 [![Dependency Status](https://gemnasium.com/badges/github.com/rails-girls-summer-of-code/rgsoc-teams.svg)](https://gemnasium.com/github.com/rails-girls-summer-of-code/rgsoc-teams)
 
 **Looking for your help!**
