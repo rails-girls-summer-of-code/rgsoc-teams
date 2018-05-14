@@ -7,13 +7,13 @@ class User < ApplicationRecord
   URL_PREFIX_PATTERN = /\A(http|https).*\z/i
 
   ORDERS = {
-    name:           "LOWER(users.name)",
-    team:           "teams.name",
-    github:         "users.github_handle",
-    irc:            "COALESCE(users.irc_handle, '')",
-    location:       "users.location",
-    interested_in:  "users.interested_in",
-    country:        "users.country",
+    name:          'LOWER(users.name)',
+    team:          'teams.name',
+    github:        'users.github_handle',
+    irc:           'COALESCE(users.irc_handle, '')',
+    location:      'users.location',
+    interested_in: 'users.interested_in',
+    country:       'users.country',
   }
 
   INTERESTS = {

@@ -5,40 +5,45 @@ RSpec.describe User, type: :model do
     stub_request(:get, /./).to_return(body: File.read('spec/stubs/github/user.json'))
   end
 
-  it { expect(subject).to have_many(:teams) }
-  it { expect(subject).to have_many(:application_drafts) }
-  it { expect(subject).to have_many(:roles) }
-  it { expect(subject).to have_many(:todos).dependent(:destroy) }
+  describe 'associations' do
+    it { is_expected.to have_many(:roles) }
+    it { is_expected.to have_many(:teams).through(:roles) }
+    it { is_expected.to have_many(:application_drafts).through(:teams) }
+    it { is_expected.to have_many(:applications).through(:teams) }
+    it { is_expected.to have_many(:todos).dependent(:destroy) }
+  end
 
-  it { expect(subject).to validate_presence_of(:github_handle) }
-  it { is_expected.to validate_uniqueness_of(:github_handle).case_insensitive }
+  describe 'validations' do
+    it { expect(subject).to validate_presence_of(:github_handle) }
+    it { is_expected.to validate_uniqueness_of(:github_handle).case_insensitive }
 
-  it { expect(subject).to allow_value('http://example.com').for(:homepage) }
-  it { expect(subject).to allow_value('https://example.com').for(:homepage) }
-  it { expect(subject).to_not allow_value('example.com').for(:homepage) }
+    it { expect(subject).to allow_value('http://example.com').for(:homepage) }
+    it { expect(subject).to allow_value('https://example.com').for(:homepage) }
+    it { expect(subject).to_not allow_value('example.com').for(:homepage) }
 
-  it { expect(subject).to validate_presence_of(:name) }
-  it { expect(subject).to validate_presence_of(:email) }
-  it { expect(subject).to validate_presence_of(:country) }
-  it { expect(subject).to validate_presence_of(:location) }
+    it { expect(subject).to validate_presence_of(:name) }
+    it { expect(subject).to validate_presence_of(:email) }
+    it { expect(subject).to validate_presence_of(:country) }
+    it { expect(subject).to validate_presence_of(:location) }
 
-  context 'during github user import' do
-    before do
-      subject.github_import = true
-    end
-
-    it { expect(subject).not_to validate_presence_of(:name) }
-    it { expect(subject).not_to validate_presence_of(:email) }
-    it { expect(subject).not_to validate_presence_of(:country) }
-    it { expect(subject).not_to validate_presence_of(:location) }
-
-    it 'should not send a confirmation email' do
-      expect {
-        subject.github_handle = "example"
+    context 'during github user import' do
+      before do
         subject.github_import = true
-        subject.save!
-      }.not_to change { ActionMailer::Base.deliveries.count }
-      subject.reload
+      end
+
+      it { expect(subject).not_to validate_presence_of(:name) }
+      it { expect(subject).not_to validate_presence_of(:email) }
+      it { expect(subject).not_to validate_presence_of(:country) }
+      it { expect(subject).not_to validate_presence_of(:location) }
+
+      it 'should not send a confirmation email' do
+        expect {
+          subject.github_handle = "example"
+          subject.github_import = true
+          subject.save!
+        }.not_to change { ActionMailer::Base.deliveries.count }
+        subject.reload
+      end
     end
   end
 
@@ -346,7 +351,6 @@ RSpec.describe User, type: :model do
       @eesy = create(:user, name: "Eesy Peesy")
       @team = create(:team, name: "Cheesy")
       @cheesy = create(:student, team: @team)
-
     end
 
     it 'returns user with matching name' do
