@@ -1,7 +1,7 @@
 # simplecov on demand coverage spec.
 # run with "COVERAGE=true bundle exec rake spec"
 # NOTE: This must remain at the top of this file.
-if ENV['COVERAGE']
+if ENV['COVERAGE'] || ENV['CI']
   require 'simplecov'
   require 'coveralls'
 
