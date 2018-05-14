@@ -38,7 +38,7 @@ Layout/EmptyLinesAroundAccessModifier:
   StyleGuide: "#empty-lines-around-access-modifier"
   Enabled: true
 
-Lint/EndAlignment:
+Layout/EndAlignment:
   Description: 'Align ends correctly.'
   Enabled: true
 
