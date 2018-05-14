@@ -9,19 +9,9 @@ class Activity < ApplicationRecord
 
   delegate :students, to: :team
 
-  class << self
-    def with_kind(kind)
-      where(kind: kind)
-    end
-
-    def by_team(team_id)
-      where(team_id: team_id)
-    end
-
-    def ordered
-      order('published_at DESC, id DESC')
-    end
-  end
+  scope :with_kind, ->(kind) { where(kind: kind) }
+  scope :by_team, ->(team_id) { where(team_id: team_id) }
+  scope :ordered, -> { order('published_at DESC, id DESC') }
 
   def to_param
     "#{id}-#{title.to_s.parameterize}"

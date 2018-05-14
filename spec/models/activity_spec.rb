@@ -1,14 +1,14 @@
 require 'rails_helper'
 
 RSpec.describe Activity, type: :model do
-  describe 'associations', :wip do
+  describe 'associations' do
     it { is_expected.to belong_to(:team) }
     it { is_expected.to have_many(:comments).dependent(:destroy) }
 
     it { is_expected.to delegate_method(:students).to(:team) }
   end
 
-  context 'with validations' do
+  describe 'validations' do
     context 'for kind "status_update"' do
       subject { described_class.new kind: 'status_update' }
 
