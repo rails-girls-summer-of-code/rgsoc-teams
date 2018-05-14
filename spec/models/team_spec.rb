@@ -11,7 +11,7 @@ RSpec.describe Team, type: :model do
 
     it { is_expected.to have_many(:activities).dependent(:destroy) }
     it { is_expected.to have_many(:sources).dependent(:destroy) }
-    it { is_expected.to have_many(:comments) }
+    it { is_expected.to have_many(:comments).dependent(:destroy) }
 
     it { is_expected.to have_many(:roles).dependent(:destroy).inverse_of(:team) }
     it { is_expected.to have_many(:members).through(:roles).source(:user) }
