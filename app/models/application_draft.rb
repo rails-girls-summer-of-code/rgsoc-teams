@@ -81,7 +81,7 @@ class ApplicationDraft < ApplicationRecord
   belongs_to :updater, class_name: 'User'
   belongs_to :project1, class_name: 'Project'
   belongs_to :project2, class_name: 'Project'
-  has_one    :application
+  has_one :application
 
   scope :in_current_season, -> { where(season: Season.current) }
 
