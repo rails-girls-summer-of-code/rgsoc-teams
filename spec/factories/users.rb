@@ -84,5 +84,9 @@ FactoryBot.define do
         create(:reviewer_role, user: user)
       end
     end
+
+    trait :unconfirmed do
+      confirmed_at { nil }
+    end
   end
 end
