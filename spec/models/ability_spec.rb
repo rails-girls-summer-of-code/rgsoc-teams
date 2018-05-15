@@ -13,24 +13,40 @@ RSpec.describe Ability, type: :model do
       describe 'she/he is allowed to do everything on her/his account' do
         it { expect(ability).to be_able_to(:show, user) }
         it { expect(ability).not_to be_able_to(:create, User.new) } # this only happens through GitHub
-
         it { expect(ability).to be_able_to(:resend_confirmation_instruction, user) }
       end
 
       context 'when a user is admin' do
         let(:organizer_role) { create(:organizer_role, user: user) }
+
         it "should be able to CRUD on anyone's account" do
           expect(subject).to be_able_to(:crud, organizer_role)
         end
       end
 
-      describe 'she/he is not allowed to CRUD on someone else account' do
-        let(:other_user) { create(:user) }
+      # TODO Remove the verbosity with extra tests after the spec file is cleaned up (in the next PR)
+      # I made this context extra verbose to make visible that an admin user
+      # can always crud every User (and that we weren't testing that before)
+      #
+      describe 'she/he is allowed to CRUD on someone else account' do
+        let(:other_user) { create(:user, :unconfirmed) }
 
+        # In the previous version, we didn't test an admin user, but a regular user
+        # These two together fail without the `admin?` stub below:
+        # let(:organizer_role) { create(:organizer_role, user: user) }
+        # it { expect(user.admin?).to be true } FAILS
+
+        before do
+          allow(user).to receive(:admin?).and_return(true)
+        end
+
+        it { expect(user.admin?).to be true }
+        it { expect(other_user.confirmed?).to be false }
         it { expect(ability).to be_able_to(:show, other_user) }
-        it { expect(ability).not_to be_able_to(:update, other_user) }
+        it { expect(ability).to be_able_to(:update, other_user) }
+        it { expect(ability).to be_able_to(:crud, other_user) }
+        xit { expect(ability).to be_able_to(:manage, other_user) } # FAILS, TODO: should pass
       end
-
 
       describe 'who is allowed to see email address in user profile' do
 
@@ -55,8 +71,8 @@ RSpec.describe Ability, type: :model do
             before do
               allow(user).to receive(:admin?).and_return(false)
               allow(ability).to receive(:supervises?).with(other_user, user).and_return(true)
-              allow(user).to receive(:confirmed?).and_return(true)
             end
+
             it 'allows to see hidden email address' do
               other_user.hide_email = true
               expect(ability).to be_able_to(:read_email, other_user)
@@ -157,6 +173,7 @@ RSpec.describe Ability, type: :model do
 
           context 'when user is admin' do
             let!(:organiser_role) { create(:organizer_role, user: user)}
+            it { expect(user.admin?).to be true }
             it "should be able to crud conference preference" do
               expect(subject).to be_able_to(:crud, conference_preference)
             end
