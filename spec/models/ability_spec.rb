@@ -2,8 +2,71 @@ require 'rails_helper'
 require 'cancan/matchers'
 
 RSpec.describe Ability, type: :model do
-  subject { ability }
-  let(:ability) { Ability.new(user) }
+  subject(:ability) { Ability.new(user) }
+  let(:user){ nil }
+  let(:other_user) { create(:user) }
+
+  public_pages = [Activity, Team, Project ].freeze
+  user_pages = [User]
+  restricted_pages = [Application, ApplicationDraft] # todo
+
+  # NOTE FOR REVIEW : WIP, added for illustration
+
+  # The specs follow the sequence from the Ability class
+  # I added a few specs, especially for User class for different users,
+  # as an example of the new set up
+  # The shared examples will move to spec/support.
+  #
+
+
+  describe "Guest User" do
+    it_behaves_like "can read public pages"
+    it_behaves_like "can not create new user"
+    it_behaves_like "has no access to other user's accounts"
+    it "can not modify anything" do
+      public_pages.each do |page|
+        expect(subject).not_to be_able_to([:create, :update, :destroy], page)
+      end
+    end
+    it "can not even modify their own account" do
+      true # pro memorie
+    end
+    it "can not read restricted pages" do
+      expect(subject).not_to be_able_to(:read, ApplicationDraft)
+    end
+  end
+
+  describe "Logged in user, not confirmed" do
+    let(:user)  { create(:user, :unconfirmed) }
+
+    it_behaves_like "can not create new user"
+    it_behaves_like "has no access to other user's accounts"
+    it_behaves_like "can modify own account"
+    it_behaves_like "can read public pages"
+    it_behaves_like "can do more stuff when logged in"
+  end
+
+  describe "Confirmed user" do
+    let(:user) { create(:user) } # default: confirmed
+    it_behaves_like "can not create new user"
+    it_behaves_like "has no access to other user's accounts"
+    it_behaves_like "can modify own account"
+    it_behaves_like "can read public pages"
+    it_behaves_like "can do more stuff when logged in"
+
+    # TODO
+    # it_behaves_like "team member"
+    # etc
+  end
+
+  describe "Admin" do
+    it_behaves_like "can not create new user"
+    # it_behaves_like "has access to almost everything else"
+  end
+
+
+
+  ############# OLD SPECS ################
 
   context 'ability' do
     context 'when a user is connected' do

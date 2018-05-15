@@ -7,18 +7,21 @@ class Ability
     user ||= User.new
 
     alias_action :create, :read, :update, :destroy, to: :crud
+    # guest user
+    can :read, [User, Team, Project, Activity]
 
     # unconfirmed user
     can :read, User
     can :update, User, id: user.id
     can :resend_confirmation_instruction, User, id: user.id
     can :read_email, User, hide_email: false # view helper
+    can :read, Activity
     can :read, Team
     can :read, Project
-    can :read, :feed_entry
+    can :read, :feed_entry  # check:
 
     # confirmed user
-    can :crud, User, id: user.id
+    can [:update, :destroy], User, id: user.id
     can :resend_confirmation_instruction, User, id: user.id
     can :read, :mailing  if signed_in?(user)
     can :read, Mailing do |mailing|
