@@ -7,7 +7,7 @@ RSpec.describe MailingsController, type: :controller do
 
   describe 'GET index' do
     context 'with user logged in' do
-      include_context 'with user logged in'
+      include_context 'with confirmed user logged in'
 
       it 'renders the index' do
         get :index

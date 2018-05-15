@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :user, aliases: [:member] do
-    github_handle { FFaker::InternetSE.user_name_variant_short }
+    github_handle { FFaker::InternetSE.unique.user_name_variant_short }
     name     { FFaker::Name.name }
     email    { FFaker::Internet.email }
     location { FFaker::Address.city }
@@ -83,6 +83,10 @@ FactoryBot.define do
       after(:create) do |user|
         create(:reviewer_role, user: user)
       end
+    end
+
+    trait :unconfirmed do
+      confirmed_at { nil }
     end
   end
 end
