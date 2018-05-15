@@ -15,23 +15,6 @@ class Ability
     can :read, Project
     can :read, :feed_entry
 
-
-    def signed_in?(user)
-      user.persisted?
-    end
-
-    def on_team?(user, team)
-      user.teams.include?(team)
-    end
-
-    def on_team_for_season?(user, season)
-      season && user.roles.student.joins(:team).pluck(:season_id).include?(season.id)
-    end
-
-    def supervises?(user, supervisor)
-      user.teams.in_current_season.any? { |team| team.supervisors.include?(supervisor) }
-    end
-
     if user.confirmed?
 
       can :crud, User, id: user.id
@@ -113,5 +96,21 @@ class Ability
       # applications
       can :create, :application_draft if user.student? && user.application_drafts.in_current_season.none?
     end
+  end
+
+  def signed_in?(user)
+    user.persisted?
+  end
+
+  def on_team?(user, team)
+    user.teams.include?(team)
+  end
+
+  def on_team_for_season?(user, season)
+    season && user.roles.student.joins(:team).pluck(:season_id).include?(season.id)
+  end
+
+  def supervises?(user, supervisor)
+    user.teams.in_current_season.any? { |team| team.supervisors.include?(supervisor) }
   end
 end
