@@ -124,8 +124,8 @@ RSpec.describe Ability, type: :model do
               allow(user).to receive(:admin?).and_return(false)
               allow(user).to receive(:confirmed?).and_return(false)
             end
-             # NOTE / TODO is this testing "can? read_email" properly?
-             xit 'disallows to see not hidden email address' do
+            # NOTE / TODO is this testing "can? read_email" properly?
+            xit 'disallows to see not hidden email address' do
               other_user.hide_email = false
               expect(ability).not_to be_able_to(:read_email, other_user)
             end
@@ -174,8 +174,6 @@ RSpec.describe Ability, type: :model do
 
         end
       end
-
-      # i am here
 
       describe "just orga members, team's supervisor and team's students should be able to see offered conference for a team" do
         let(:user) { build(:student)}
@@ -382,7 +380,7 @@ RSpec.describe Ability, type: :model do
         it 'cannot be created if I am not confirmed' do
           user.confirmed_at = nil
           user.save
-          expect(subject).not_to be_able_to :create, Project
+          expect(subject).not_to be_able_to :create, Project.new
         end
 
       end
