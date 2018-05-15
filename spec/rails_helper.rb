@@ -1,19 +1,9 @@
 # simplecov on demand coverage spec.
 # run with "COVERAGE=true bundle exec rake spec"
 # NOTE: This must remain at the top of this file.
-if ENV['COVERAGE']
+if ENV['COVERAGE'] || ENV['CI']
   require 'simplecov'
-  require 'coveralls'
-
-  SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter.new(
-    [SimpleCov::Formatter::HTMLFormatter, Coveralls::SimpleCov::Formatter]
-  )
-  SimpleCov.start 'rails' do
-    add_filter '/spec'
-    add_group 'Models', 'app/models'
-    add_group 'Controllers', 'app/controllers'
-    coverage_dir File.join('coverage', Time.now.strftime('%Y%m%d-%H%M%S'))
-  end
+  SimpleCov.start 'rails'
 end
 
 # This file is copied to spec/ when you run 'rails generate rspec:install'

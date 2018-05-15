@@ -61,8 +61,6 @@ end
 group :test do
   gem 'capybara', '~> 2.18'
   gem 'capybara-screenshot'
-  gem 'codeclimate-test-reporter', require: false
-  gem 'coveralls', require: false
   gem 'rails-controller-testing'
   gem 'rspec-activemodel-mocks'
   gem 'rspec-collection_matchers'
@@ -70,6 +68,7 @@ group :test do
   gem 'rubocop', require: false
   gem 'selenium-webdriver'
   gem 'shoulda-matchers'
+  gem 'simplecov', require: false
   gem 'timecop'
   gem 'webmock'
 end
