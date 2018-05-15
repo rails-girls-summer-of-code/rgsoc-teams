@@ -29,7 +29,7 @@ class Team < ApplicationRecord
   end
   has_many :sources, dependent: :destroy
   has_many :activities, dependent: :destroy
-  has_many :comments, as: :commentable
+  has_many :comments, as: :commentable, dependent: :destroy
   has_many :status_updates, -> { where(kind: 'status_update') }, class_name: 'Activity'
   has_many :conference_attendances, dependent: :destroy
 

@@ -5,9 +5,11 @@ RSpec.describe ApplicationDraft, type: :model do
   it_behaves_like 'HasSeason'
 
   describe 'associations' do
+    it { is_expected.to belong_to(:team) }
     it { is_expected.to belong_to(:updater).class_name('User') }
     it { is_expected.to belong_to(:project1).class_name('Project') }
     it { is_expected.to belong_to(:project2).class_name('Project') }
+    it { is_expected.to have_one(:application) }
   end
 
   describe 'validations' do

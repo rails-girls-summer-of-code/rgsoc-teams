@@ -18,8 +18,8 @@ RSpec.describe Mentor::Comment, type: :model do
 
     it 'has a default scope to include only comments on Mentor::Applications' do
       create(:comment)
-      create(:team_comment)
-      create(:application_comment)
+      create(:comment, :for_team)
+      create(:comment, :for_application)
       comment = described_class.create
 
       expect(described_class.all).to contain_exactly comment
