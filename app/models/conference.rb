@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-require 'csv'
 class Conference < ApplicationRecord
   REGION_LIST = [
     "Africa",
@@ -16,7 +15,7 @@ class Conference < ApplicationRecord
   has_many :second_choice_conference_preferences, class_name: 'ConferencePreference', foreign_key: 'second_conference_id', dependent: :destroy
 
   validates :name, :url, :city, :country, :region, presence: true
-  validate :chronological_dates, if: proc { |conf| conf.starts_on && conf.ends_on }
+  validate :chronological_dates
 
   scope :ordered, ->(sort = {}) { order([sort[:order] || 'starts_on, name', sort[:direction] || 'asc'].join(' ')) }
   scope :in_current_season, -> { where(season: Season.current) }
@@ -25,14 +24,10 @@ class Conference < ApplicationRecord
     @date_range ||= DateRange.new(start_date: starts_on, end_date: ends_on)
   end
 
-  def chronological_dates
-    unless starts_on <= ends_on
-      errors.add(:ends_on, 'must be a later date than start date')
-    end
-  end
+  private
 
-  def tickets_left
-    confirmed_attendances = conference_preference.select { |conference_preference| conference_preference.confirmed }
-    tickets.to_i - confirmed_attendances.size
+  def chronological_dates
+    return unless starts_on && ends_on
+    errors.add(:ends_on, 'must be a later date than start date') unless starts_on <= ends_on
   end
 end
