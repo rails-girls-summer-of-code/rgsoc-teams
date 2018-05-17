@@ -3,15 +3,17 @@ require 'rails_helper'
 RSpec.describe Conference, type: :model do
   it_behaves_like 'HasSeason'
 
-  it { is_expected.to have_many(:conference_attendances).dependent(:destroy) }
-  it { is_expected.to have_many(:first_choice_conference_preferences) }
-  it { is_expected.to have_many(:second_choice_conference_preferences) }
-  it { is_expected.to have_many(:attendees).through(:second_choice_conference_preferences) }
-  it { is_expected.to validate_presence_of(:name) }
-  it { is_expected.to validate_presence_of(:url) }
-  it { is_expected.to validate_presence_of(:city) }
-  it { is_expected.to validate_presence_of(:country) }
-  it { is_expected.to validate_presence_of(:region) }
+  describe 'associations' do
+    it { is_expected.to have_many(:conference_attendances).dependent(:destroy) }
+    it { is_expected.to have_many(:first_choice_conference_preferences).dependent(:destroy) }
+    it { is_expected.to have_many(:second_choice_conference_preferences).dependent(:destroy) }
+    it { is_expected.to have_many(:attendees).through(:second_choice_conference_preferences) }
+    it { is_expected.to validate_presence_of(:name) }
+    it { is_expected.to validate_presence_of(:url) }
+    it { is_expected.to validate_presence_of(:city) }
+    it { is_expected.to validate_presence_of(:country) }
+    it { is_expected.to validate_presence_of(:region) }
+  end
 
   describe 'validates chronological dates' do
     subject { build(:conference) }
