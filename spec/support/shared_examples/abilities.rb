@@ -29,7 +29,7 @@ shared_examples "same public features as confirmed user" do
 end
 
 
-# DETAILS , in order of appearance
+# DETAILS, in order of appearance
 
 PUBLIC_INDEX_PAGES = [Activity, User, Team, Project, Conference].freeze
 
@@ -38,7 +38,6 @@ shared_examples 'can view public pages' do
   PUBLIC_INDEX_PAGES.each do |page|
     it { expect(subject).to be_able_to(:read, page) }
   end
-  it { expect(subject).to be_able_to(:index, Activity, kind: :feed_entry) } # TODO delete
   it { expect(subject).not_to be_able_to(:index, Activity.with_kind(:mailing)) }
   it { expect(subject).to be_able_to(:read, User) }
 end
@@ -53,7 +52,7 @@ shared_examples "can create a Project" do
   it { expect(subject).to be_able_to(:create, Project) }
 end
 
-shared_examples 'can not create new user' do
+shared_examples "can not create new user" do
   it { expect(subject).not_to be_able_to(:create, User.new) }
 end
 
@@ -67,7 +66,7 @@ shared_examples "has no access to other user's accounts" do # pro memorie: outsi
 end
 
 shared_examples "can not read role restricted or owner restricted pages" do
-  it { expect(subject).not_to be_able_to(:read, Application, ApplicationDraft) } # todo,  collect  all pages
+  it { expect(subject).not_to be_able_to(:read, Application, ApplicationDraft) } # todo, collect all pages
 end
 
 # details for logged in
@@ -81,7 +80,7 @@ end
 # details for confirmed
 
 shared_examples "can comment now" do
-  xit { expect(subject).to be_able_to(:create, Comment) } # TODO returns false positive; needs work
+  xit { expect(subject).to be_able_to(:create, Comment) } # TODO returns false positives and false negatives; needs work
 end
 
 shared_examples "can see mailings list too" do

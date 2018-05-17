@@ -13,9 +13,7 @@ class ConferencesController < ApplicationController
   end
 
   def create
-    byebug
-    # page_to_redirect = current_user.admin? ? conferences_path : edit_team_path(current_student.current_team)
-    page_to_redirect =  conferences_path
+    page_to_redirect = current_user.admin? ? conferences_path : edit_team_path(current_student.current_team)
     @conference = build_conference
 
     respond_to do |format|

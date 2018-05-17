@@ -9,8 +9,7 @@ class Ability
     alias_action :create, :read, :update, :destroy, to: :crud
 
     # guest user
-    can :read, Activity # pro forma ; Activity has no authorisation restriction, except for kind: :mailing
-    can :read, [User, Team, Project, Conference]
+    can :read, [Activity, User, Team, Project, Conference]
 
     return unless signed_in?(user)
 
@@ -26,12 +25,6 @@ class Ability
     can :resend_confirmation_instruction, User, id: user.id
     can :create, Project
     can [:join, :create], Team
-    # the validation is tested in spec/models/team_spec.rb:33
-    # Should this be in ability at all?
-    # can :crud, Team do |team|
-    #   team.new_record?
-    # end
-    #  => delete
     can :index, Mailing
     can :read, Mailing do |mailing|
       mailing.recipient? user
@@ -42,10 +35,8 @@ class Ability
       on_team?(user, team)
     end
 
-    # Add / split restrictions for current season?
-
     # current_student
-    if user.current_student? # TODO is this the best check?
+    if user.current_student? # TODO is this a valid check?
       can :create, Team if user.teams.none?
       can :create, Conference
     end
@@ -53,12 +44,6 @@ class Ability
     # supervisor
     if user.supervisor?
       can :read, :users_info
-      # explanation for this simpler declaration:
-      # The unconfirmed user ^ above had this declaration:
-      #   `can :read_email, User, hide_email: false`
-      # is defined for all users: all can read an email address that is not hidden
-      # Here, the hide_email attribute doesnt matter: a supervisor can read it anyway
-      # See specs added to check this behaviour
       can :read_email, User do |other_user|
         supervises?(other_user, user)
       end
@@ -77,8 +62,7 @@ class Ability
       cannot :create, User # this only happens through GitHub
     end
 
-    ################# OLD FILE, # = moved to or rewritten above ############
-    # NOT everything moved yet #
+    ################# REMAININGS FROM OLD FILE, # = rewritten above ############
 
     # can :crud, Team do |team|
     #   user.admin? || signed_in?(user) && team.new_record? || on_team?(user, team)
@@ -99,7 +83,7 @@ class Ability
     # cannot :create, Team do |team|
     #   on_team_for_season?(user, team.season) || !user.confirmed?
     # end
-    # todo join helpdesk team
+    # todo helpdesk team join
     can :join, Team do |team|
       team.helpdesk_team? and signed_in?(user) and user.confirmed? and not on_team?(user, team)
     end
