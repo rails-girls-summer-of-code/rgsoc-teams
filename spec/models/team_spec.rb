@@ -25,7 +25,6 @@ RSpec.describe Team, type: :model do
     it { is_expected.to have_many(:status_updates).class_name('Activity').conditions(kind: 'status_update') }
 
     it { is_expected.to have_many(:conference_attendances).dependent(:destroy) }
-
     it { is_expected.to have_one(:conference_preference).dependent(:destroy) }
     it { is_expected.to have_one(:last_activity).class_name('Activity').order('id DESC') }
   end
