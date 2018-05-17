@@ -1,23 +1,30 @@
 require 'rails_helper'
 
 RSpec.describe Mailing, type: :model do
-  let(:mailing) { Mailing.new(
-    from: Mailing::FROM,
-    to: 'coaches',
-    cc: 'cc@email.com',
-    bcc: 'bcc@email.com',
-    subject: 'subject',
-    body: '# body'
-  ) }
+  describe 'associations and attributes' do
+    it { is_expected.to have_many(:submissions).dependent(:destroy) }
+    it { is_expected.to define_enum_for(:group).with_values(everyone: 0, selected_teams: 1, unselected_teams: 2) }
+    it { is_expected.to serialize(:to) }
+    it { is_expected.to delegate_method(:emails).to(:recipients) }
+  end
 
-  it { is_expected.to validate_presence_of(:to) }
-  it { is_expected.to validate_presence_of(:subject) }
-  it { is_expected.to have_many(:submissions).dependent(:destroy) }
+  describe 'validations' do
+    it { is_expected.to validate_presence_of(:to) }
+    it { is_expected.to validate_presence_of(:subject) }
+  end
 
   describe '#sent?' do
+    subject(:mailing) do
+      build(:mailing,
+            from: Mailing::FROM,
+            subject: 'Greetings from an island',
+            to: 'coaches',
+            cc: 'cc@email.com',
+            bcc: 'bcc@email.com')
+    end
 
     it 'returns false before submitting' do
-      expect(mailing.subject).to eq 'subject'
+      expect(mailing.subject).to eq 'Greetings from an island'
       expect(subject.sent?).to eq false
     end
 
@@ -31,6 +38,8 @@ RSpec.describe Mailing, type: :model do
   end
 
   describe '#submit' do
+    subject(:mailing) { build(:mailing, from: Mailing::FROM, to: 'coaches', cc: 'cc@email.com', bcc: 'bcc@email.com') }
+
     it 'delivers emails to all recipients' do
       expect(mailing.recipients.emails).to eq(["cc@email.com", "bcc@email.com"])
       expect(mailing.recipients.to).to eq "coaches"
@@ -42,16 +51,18 @@ RSpec.describe Mailing, type: :model do
   end
 
   describe '#recipient?' do
-    let(:student) { create(:student) }
+    subject(:mailing) { build(:mailing) }
+
+    let!(:student) { create(:student) }
 
     it 'returns false for a an empty recipients list' do
-      subject.to = nil
-      expect(subject.recipient? student).to be_falsey
+      mailing.to = nil
+      expect(mailing.recipient? student).to be_falsey
     end
 
     it 'returns true if user has appropriate role' do
-      subject.to = %w(students)
-      expect(subject.recipient? student).to be_truthy
+      mailing.to = %w(students)
+      expect(mailing.recipient? student).to be_truthy
     end
   end
 end
