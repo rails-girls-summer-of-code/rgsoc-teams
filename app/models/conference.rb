@@ -14,8 +14,6 @@ class Conference < ApplicationRecord
   has_many :conference_attendances, dependent: :destroy
   has_many :first_choice_conference_preferences, class_name: 'ConferencePreference', foreign_key: 'first_conference_id', dependent: :destroy
   has_many :second_choice_conference_preferences, class_name: 'ConferencePreference', foreign_key: 'second_conference_id', dependent: :destroy
-  has_many :attendees, through: :first_choice_conference_preferences, source: :team
-  has_many :attendees, through: :second_choice_conference_preferences, source: :team
 
   validates :name, :url, :city, :country, :region, presence: true
   validate :chronological_dates, if: proc { |conf| conf.starts_on && conf.ends_on }
