@@ -112,7 +112,7 @@ RSpec.describe Ability, type: :model do
 
           it "can read email address of team members in current season, even when hidden" do
             pending 'fails; fix in separate issue'
-            expect(subject).to receive(:supervises?).with(other_user, user).and_return true
+            allow(subject).to receive(:supervises?).with(other_user, user).and_return true
             expect(subject).to be_able_to(:read, other_user.email)
           end
 

@@ -16,7 +16,7 @@ class Ability
     # unconfirmed, logged in user
     can :update, User, id: user.id
     can :resend_confirmation_instruction, User, id: user.id
-    can :read_email, User, hide_email: false # view helper # delete? only used once
+    can :read_email, User, hide_email: false
 
     return unless user.confirmed?
 
@@ -42,12 +42,7 @@ class Ability
     end
 
     # supervisor
-    if user.supervisor?
-      can :read, :users_info
-      can :read_email, User do |other_user|
-        supervises?(other_user, user)
-      end
-    end
+    # Use old code
 
     # project submitter
     can [:update, :destroy], Project, submitter_id: user.id
@@ -63,6 +58,16 @@ class Ability
     end
 
     ################# REMAININGS FROM OLD FILE, # = rewritten above ############
+
+    # FIXME Leave this in until issue #1001 is fixed
+    # visibility of email address in user profile
+    can :read_email, User, id: user.id if !user.hide_email?
+    can :read_email, User if user.admin?
+    can :read_email, User do |other_user|
+      user.confirmed? && (supervises?(other_user, user) || !other_user.hide_email?)
+    end
+    can :read, :users_info if user.admin? || user.supervisor?
+
 
     # can :crud, Team do |team|
     #   user.admin? || signed_in?(user) && team.new_record? || on_team?(user, team)
