@@ -86,7 +86,7 @@ FactoryBot.define do
     end
 
     trait :unconfirmed do
-      confirmed_at { nil }
+      confirmed_at nil
     end
   end
 end
