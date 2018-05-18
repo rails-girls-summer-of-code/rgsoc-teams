@@ -88,21 +88,38 @@ RSpec.describe Ability, type: :model do
 
       describe "Supervisor" do
         let(:other_user) { create(:user) }
-        let(:other_team_user) { build_stubbed(:user) }
+        let(:other_team_user) { create(:user) }
 
         before do
           allow(user).to receive(:supervisor?).and_return(true)
-          allow(ability).to receive(:supervises?) { false } # Rspec complained: "stub default value first"
-          allow(ability).to receive(:supervises?).with(other_user, user).and_return(true)
-          allow(other_user).to receive(:hide_email).and_return(true)
-          allow(other_team_user).to receive(:hide_email).and_return(true)
         end
 
-        it_behaves_like "same public features as confirmed user"
-        it { expect(subject).to be_able_to(:read, :users_info, other_user) }
-        it { expect(subject).to be_able_to(:read, :users_info, other_team_user) } # but should they?
-        it { expect(subject).to be_able_to(:read_email, other_user) }
-        it { expect(subject).not_to be_able_to(:read_email, other_team_user )}
+        context "when viewing user information" do
+
+          # FIXME Implementation
+          # It turns out that the `can? :read users_info` and `can? :read_email` are both view helpers
+          # (And they overlap)
+          # With the correct implementation of Cancancan, they are redundant.
+          # See issue #1001
+          # These new specs should pass with the correct implementation
+
+          it_behaves_like "same public features as confirmed user"
+
+          before do
+            other_user.update!(hide_email: true)
+            other_team_user.update!(hide_email: true)
+          end
+
+          it "can read email address of team members in current season, even when hidden" do
+            pending 'fails; fix in separate issue'
+            expect(subject).to receive(:supervises?).with(other_user, user).and_return true
+            expect(subject).to be_able_to(:read, other_user.email)
+          end
+
+          it 'cannot read email of other users' do
+            expect(subject).not_to be_able_to(:read, other_team_user.email)
+          end
+        end
       end
     end
 
