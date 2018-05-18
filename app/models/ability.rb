@@ -18,7 +18,7 @@ class Ability
     can :resend_confirmation_instruction, User, id: user.id
     can :read_email, User, hide_email: false # view helper # delete? only used once
 
-    return unless user.confirmed? && signed_in?(user)
+    return unless user.confirmed?
 
     # confirmed user
     can [:update, :destroy], User, id: user.id
