@@ -17,9 +17,6 @@ RSpec.describe Ability, type: :model do
     it_behaves_like "can not comment"
     it_behaves_like "has no access to other user's accounts"
     it_behaves_like "can not read role restricted or owner restricted pages"
-    it "does not have an account" do
-      true
-    end
   end
 
   describe "Logged in user, not confirmed" do
@@ -40,11 +37,12 @@ RSpec.describe Ability, type: :model do
     it { expect(subject).to be_able_to([:join, :create], Team) }
 
     describe "Team" do
-      describe 'All members' do
-        let(:current_team) { create(:team, :in_current_season) }
-        let(:other_team)  { build_stubbed(:team, :in_current_season) }
-        let(:future_team) { build(:team, season: Season.succ )}
+      let(:current_team) { create(:team, :in_current_season) }
+      let(:other_team)  { build_stubbed(:team, :in_current_season) }
+      let(:future_team) { build(:team, season: Season.succ )}
+      let(:old_team) { build_stubbed(:team, season: create(:season, :past)) }
 
+      describe 'All members' do
         # must be true for all roles but student; can that be stubbed or something?
         before { create :coach_role, team: current_team, user: user }
 
@@ -54,26 +52,38 @@ RSpec.describe Ability, type: :model do
       end
 
       describe "Student" do
-        let(:student_team) { build(:team, :in_current_season) }
-        let(:second_team) { build(:team, :in_current_season) }
-        before do
-          allow(user).to receive(:current_student?).and_return(true)
-        end
-        # TODO Question: is this ^ stub correct to test the ability only?
+        let(:new_team) {build(:team, :in_current_season)}
 
-        it_behaves_like "same public features as confirmed user"
-        it { expect(subject).to be_able_to(:create, Conference) }
+        # TODO FIX BUG [reveiled by PR 997]
+        # the test for creating a second team is passing in team_spec because the validation kicks in on :submit
+        # The ability _should_ prevent access to the new form in the first place.
+        # There are some things wonky with the cancancan implementation.
+        # To be fixed in a separate issue
+        # These tests show the intended behaviour after the fix.
 
-        it "can create their first team" do
-          expect(subject).to be_able_to(:create, student_team)
-        end
-        it 'cannot create a second team in current_season' do
-          pending 'fails; it is tested in team_spec.rb:33, and that passes'
-          expect(subject).not_to be_able_to(:create, second_team)
+        context "with a student role from an earlier season" do
+          before {create :student_role, team: old_team, user: user}
+
+          it "can create their first team" do
+            expect(subject).to be_able_to(:create, new_team)
+          end
         end
 
-        let(:future_team) { build(:team, season: Season.succ ) }
-        it { expect(subject).to be_able_to :create, future_team }
+        context "with a student role in the current season" do
+          before { create :student_role, team: current_team, user: user }
+
+          it 'cannot create a second team in current_season' do
+            pending 'fails; it is tested in team_spec.rb:33, and that passes. See bug description above ^'
+            expect(subject).not_to be_able_to(:create, new_team)
+          end
+
+          it 'can create a team for next season' do
+            expect(subject).to be_able_to :create, future_team
+          end
+
+          it_behaves_like "same public features as confirmed user"
+          it { expect(subject).to be_able_to(:create, Conference) }
+        end
       end
 
       describe "Supervisor" do

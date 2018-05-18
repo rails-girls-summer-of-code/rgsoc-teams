@@ -36,7 +36,7 @@ class Ability
     end
 
     # current_student
-    if user.current_student? # TODO is this a valid check?
+    if user.student?
       can :create, Team if user.teams.none?
       can :create, Conference
     end
