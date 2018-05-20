@@ -36,13 +36,6 @@ RSpec.describe Ability, type: :model do
     describe "Student" do
       let(:new_team) {build(:team, :in_current_season)}
 
-      # TODO FIX BUG [reveiled by PR 997]
-      # the test for creating a second team is passing in team_spec because the validation kicks in on :submit
-      # The ability _should_ prevent access to the new form in the first place.
-      # There are some things wonky with the cancancan implementation.
-      # To be fixed in a separate issue
-      # These tests show the intended behaviour after the fix.
-
       context "with a student role from an earlier season" do
         before {create :student_role, team: old_team, user: user}
 
@@ -55,7 +48,6 @@ RSpec.describe Ability, type: :model do
         before { create :student_role, team: current_team, user: user }
 
         it 'cannot create a second team in current_season' do
-          pending 'fails; it is tested in team_spec.rb:33, and that passes. See bug description above ^'
           expect(subject).not_to be_able_to(:create, new_team)
         end
 
@@ -69,8 +61,8 @@ RSpec.describe Ability, type: :model do
     end
 
     describe "Supervisor" do
-      let(:other_user) { create(:user) }
-      let(:other_team_user) { create(:user) }
+      let(:team_member) { create(:user) }
+      let(:user_in_other_team) { create(:user) }
 
       before do
         allow(user).to receive(:supervisor?).and_return(true)
@@ -78,28 +70,23 @@ RSpec.describe Ability, type: :model do
 
       context "when viewing user information" do
 
-        # FIXME Implementation
-        # It turns out that the `can? :read users_info` and `can? :read_email` are both view helpers
-        # (And they overlap)
-        # With the correct implementation of Cancancan, they are redundant.
-        # See issue #1001
-        # These new specs should pass with the correct implementation
-
         it_behaves_like "same public features as confirmed user"
 
+        # FIXME see issue #1001
+        # The following specs should pass after fixing
         before do
-          other_user.update!(hide_email: true)
-          other_team_user.update!(hide_email: true)
+          team_member.update!(hide_email: true)
+          user_in_other_team.update!(hide_email: true)
         end
 
         it "can read email address of team members in current season, even when hidden" do
-          pending 'fails; fix in separate issue'
-          allow(subject).to receive(:supervises?).with(other_user, user).and_return true
-          expect(subject).to be_able_to(:read, other_user.email)
+          pending 'fails; To be solved with issue #1001'
+          allow(subject).to receive(:supervises?).with(team_member, user).and_return true
+          expect(subject).to be_able_to(:read, team_member.email)
         end
 
         it 'cannot read email of other users' do
-          expect(subject).not_to be_able_to(:read, other_team_user.email)
+          expect(subject).not_to be_able_to(:read, user_in_other_team.email)
         end
       end
     end

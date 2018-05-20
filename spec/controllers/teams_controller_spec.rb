@@ -12,11 +12,11 @@ RSpec.describe TeamsController, type: :controller do
 
   let(:valid_attributes) { build(:team).attributes.merge(roles_attributes: [{ name: 'coach', github_handle: 'tobias' }]) }
 
-  before do
-    user.roles.create(name: 'student', team: team)
-  end
-
   describe "GET index" do
+    before do
+      user.roles.create(name: 'student', team: team)
+    end
+
     context 'before acceptance letters are sent' do
       let(:last_season)      { Season.create name: Date.today.year - 1 }
       let!(:invisble_team)   { create :team, :in_current_season, kind: nil, invisible: true }
@@ -103,6 +103,10 @@ RSpec.describe TeamsController, type: :controller do
   end
 
   describe "GET edit" do
+    before do
+      user.roles.create(name: 'student', team: team)
+    end
+
     context "their own team" do
       let(:team) { create(:team) }
 
@@ -165,7 +169,10 @@ RSpec.describe TeamsController, type: :controller do
   end
 
   describe "PATCH update" do
-    before { sign_in user }
+    before do
+      sign_in user
+      user.roles.create(name: 'student', team: team)
+    end
 
     context "their own team" do
       let(:team) { create(:team) }
@@ -267,7 +274,10 @@ RSpec.describe TeamsController, type: :controller do
   end
 
   describe "DELETE destroy" do
-    before { sign_in user }
+    before do
+      sign_in user
+      user.roles.create(name: 'student', team: team)
+    end
 
     context "their own team" do
       let(:params) { { id: team.to_param } }

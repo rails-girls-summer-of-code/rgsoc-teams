@@ -37,12 +37,14 @@ class Ability
 
     # current_student
     if user.student?
-      can :create, Team if user.teams.none?
+      cannot :create, Team do |team|
+        on_team_for_season?(user, team.season)
+      end
       can :create, Conference
     end
 
     # supervisor
-    # Use old code
+    # Use old code, see below
 
     # project submitter
     can [:update, :destroy], Project, submitter_id: user.id
@@ -67,11 +69,7 @@ class Ability
       user.confirmed? && (supervises?(other_user, user) || !other_user.hide_email?)
     end
     can :read, :users_info if user.admin? || user.supervisor?
-
-
-    # can :crud, Team do |team|
-    #   user.admin? || signed_in?(user) && team.new_record? || on_team?(user, team)
-    # end
+    #
 
     can :update_conference_preferences, Team do |team|
       team.accepted? && team.students.include?(user)
@@ -85,9 +83,6 @@ class Ability
       team.students.include?(user)
     end
 
-    # cannot :create, Team do |team|
-    #   on_team_for_season?(user, team.season) || !user.confirmed?
-    # end
     # todo helpdesk team join
     can :join, Team do |team|
       team.helpdesk_team? and signed_in?(user) and user.confirmed? and not on_team?(user, team)
