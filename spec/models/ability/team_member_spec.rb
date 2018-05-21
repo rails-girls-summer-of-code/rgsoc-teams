@@ -11,12 +11,8 @@ RSpec.describe Ability, type: :model do
 
   let(:other_user) { build_stubbed(:user, hide_email: true) }
 
-  it_behaves_like "same as logged in user"
-  it_behaves_like "can create a Project"
-  it_behaves_like "can see mailings list too"
-  it_behaves_like "can read mailings sent to them"
-  it_behaves_like "can comment now" # not implemented; false positives; needs work
   it { expect(subject).to be_able_to([:join, :create], Team) }
+  it { expect(subject).to be_able_to(:read, Mailing, recipient: user )}
 
   describe "Team" do
     let(:current_team) { create(:team, :in_current_season) }
@@ -25,10 +21,8 @@ RSpec.describe Ability, type: :model do
     let(:old_team) { build_stubbed(:team, season: create(:season, :past)) }
 
     describe 'All members' do
-      # must be true for all roles but student; can that be stubbed or something?
       before { create :coach_role, team: current_team, user: user }
 
-      it_behaves_like "same public features as confirmed user"
       it { expect(subject).to be_able_to [:update, :destroy], current_team }
       it { expect(subject).not_to be_able_to [:update, :destroy], other_team}
     end
@@ -55,7 +49,8 @@ RSpec.describe Ability, type: :model do
           expect(subject).to be_able_to :create, future_team
         end
 
-        it_behaves_like "same public features as confirmed user"
+        it { expect(subject).to be_able_to(:create, ApplicationDraft) }
+
         it { expect(subject).to be_able_to(:create, Conference) }
       end
     end
@@ -69,8 +64,6 @@ RSpec.describe Ability, type: :model do
       end
 
       context "when viewing user information" do
-
-        it_behaves_like "same public features as confirmed user"
 
         # FIXME see issue #1001
         # The following specs should pass after fixing

@@ -4,14 +4,13 @@ require 'cancan/matchers'
 # Run this file with
 #   $ rspec spec/models/ability_spec.rb -fd
 # to see the output of specs running inside the shared examples [mdv]
+
 RSpec.describe Ability, type: :model do
 
-  let(:user){ nil }
-  subject(:ability) { Ability.new(user) }
+  describe "User logged in, account unconfirmed" do
 
-  let(:other_user) { build_stubbed(:user) }
-
-  describe "Guest User" do
+    let(:user){ create(:user, :unconfirmed) }
+    subject(:ability) { Ability.new(user) }
 
     it_behaves_like 'has access to public features'
 
@@ -22,5 +21,11 @@ RSpec.describe Ability, type: :model do
     end
 
     it { expect(subject).not_to be_able_to(:create, Comment) }
+
+    it "can modify own account" do
+      expect(subject).to be_able_to([:update], user)
+      expect(subject).to be_able_to(:destroy, user)
+      expect(subject).to be_able_to(:resend_confirmation_instruction, User, id: user.id)
+    end
   end
 end

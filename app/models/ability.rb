@@ -14,7 +14,7 @@ class Ability
     return unless signed_in?(user)
 
     # unconfirmed, logged in user
-    can :update, User, id: user.id
+    can [:update, :destroy], User, id: user.id
     can :resend_confirmation_instruction, User, id: user.id
     can :read_email, User, hide_email: false
 
@@ -29,6 +29,7 @@ class Ability
     can :read, Mailing do |mailing|
       mailing.recipient? user
     end
+    can :create, Comment
 
     # Members in a team
     can [:update, :destroy], Team do |team|
@@ -40,6 +41,7 @@ class Ability
       cannot :create, Team do |team|
         on_team_for_season?(user, team.season)
       end
+      can :create, ApplicationDraft if user.application_drafts.in_current_season.none?
       can :create, Conference
     end
 
@@ -103,9 +105,6 @@ class Ability
     can :crud, ConferencePreference do |preference|
       user.admin? || (preference.team.students.include? user)
     end
-
-    # applications
-    can :create, :application_draft if user.student? && user.application_drafts.in_current_season.none?
 
   end # initializer
 

@@ -14,7 +14,7 @@ RSpec.describe Ability, type: :model do
   describe "Admin" do
     before { allow(admin).to receive(:admin?).and_return true }
 
-    it_behaves_like "can not create new user"
+    it { expect(subject).not_to be_able_to(:create, User.new) }  # happens only via GitHub
     # it "has access to almost everything else"
     # Only test the most exclusive, the most sensitive and the 'cannots':
     it { expect(subject).to be_able_to(:crud, Team) }
