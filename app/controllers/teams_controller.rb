@@ -4,7 +4,7 @@ class TeamsController < ApplicationController
   before_action :set_users, only: [:new, :edit]
   before_action :set_display_roles, only: :index
 
-  authorize_resource except: [:index, :show]
+  load_and_authorize_resource except: [:index, :show]
 
   def index
     direction  = params[:direction] == 'asc' ? 'ASC' : 'DESC'
