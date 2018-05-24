@@ -2,7 +2,7 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy, :impersonate, :resend_confirmation_instruction]
 
-  authorize_resource except: [:index, :show, :impersonate, :stop_impersonating]
+  authorize_resource except: [:impersonate, :stop_impersonating]
 
   def show
   end
