@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :edit, :update, :destroy, :impersonate]
+  before_action :set_user, only: [:show, :edit, :update, :destroy, :impersonate, :resend_confirmation_instruction]
 
-  load_and_authorize_resource except: [:index, :show, :impersonate, :stop_impersonating]
+  authorize_resource except: [:index, :show, :impersonate, :stop_impersonating]
 
   def show
   end
