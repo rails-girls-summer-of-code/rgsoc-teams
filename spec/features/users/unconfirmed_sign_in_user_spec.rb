@@ -65,5 +65,3 @@ def resend_info
   "Please click on the link in the email we just sent to confirm your email address. Haven't received it? Click here
 to resend the email."
 end
-
-

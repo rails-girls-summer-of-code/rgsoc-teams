@@ -2,8 +2,8 @@ require 'rails_helper'
 
 RSpec.describe 'Guest User', type: :feature do
 
-  let!(:activity)      { create(:status_update, :published, team: team1) }
-  let(:other_user)    { create(:user, hide_email: false) }
+  let!(:activity) { create(:status_update, :published, team: team1) }
+  let(:other_user) { create(:user, hide_email: false) }
   let!(:project)       { create(:project, :in_current_season, :accepted, submitter: other_user) }
   let!(:team1)         { create(:team, :in_current_season, name: 'Cheesy forever', project_name: project.name, project_id: project.id) }
   let!(:out_of_season)  { Season.current.starts_at - 1.week }
