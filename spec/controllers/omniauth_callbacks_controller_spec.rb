@@ -74,8 +74,8 @@ RSpec.describe OmniauthCallbacksController, type: :controller do
       expect(response).to redirect_to(edit_user_path(User.last, welcome: true))
     end
 
-    it 'signs in the user if everything is okay' do
-      user = create :user
+    it 'signs in the user if everything is okay and redirects to edit page for confirmation' do
+    user = create :user
       @request.env["omniauth.auth"] = OmniAuth::AuthHash.new(
         uid: '123', provider: 'example',
         info: { name: 'Name', email: 'name@example.com' },
@@ -87,7 +87,7 @@ RSpec.describe OmniauthCallbacksController, type: :controller do
         }}
       )
       post :github, format: :json
-      expect(response).to redirect_to(user_path(user))
+      expect(response).to redirect_to(edit_user_path(user, welcome: true))
     end
 
   end
