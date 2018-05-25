@@ -18,10 +18,10 @@ class ApplicationController < ActionController::Base
   impersonates :user
 
   def after_sign_in_path_for(user)
-    if user.just_created?
-      request.env['omniauth.origin'] || edit_user_path(user, welcome: true)
+    if user.confirmed?
+      request.env['omniauth.origin'] ||  session['omniauth.origin'] || stored_location_for(user) || root_path
     else
-      request.env['omniauth.origin'] || session.delete(:previous_url_login_required) || session.delete(:previous_url) || user_path(current_user)
+      edit_user_path(user, welcome: true)
     end
   end
 
