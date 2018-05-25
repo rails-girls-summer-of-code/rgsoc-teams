@@ -75,7 +75,7 @@ RSpec.describe OmniauthCallbacksController, type: :controller do
     end
 
     it 'signs in the user if everything is okay and redirects to edit page for confirmation' do
-    user = create :user
+    user = create(:user, :unconfirmed)
       @request.env["omniauth.auth"] = OmniAuth::AuthHash.new(
         uid: '123', provider: 'example',
         info: { name: 'Name', email: 'name@example.com' },
