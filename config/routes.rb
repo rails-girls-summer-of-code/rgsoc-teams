@@ -101,10 +101,10 @@ Rails.application.routes.draw do
     end
   end
 
+  patch 'supervisors/notes', to: 'supervisors/notes#update'
   namespace :supervisors do
     root to: 'dashboard#index', as: :dashboard
     resources :comments, only: [:index, :create]
-    resources :notes, only: [:update]
   end
 
   namespace :mentors do
