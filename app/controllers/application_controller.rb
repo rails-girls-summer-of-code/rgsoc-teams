@@ -19,7 +19,7 @@ class ApplicationController < ActionController::Base
 
   def after_sign_in_path_for(user)
     if user.confirmed?
-      request.env['omniauth.origin'] ||  session['omniauth.origin'] || stored_location_for(user) || root_path
+      request.env['omniauth.origin'] || root_path
     else
       edit_user_path(user, welcome: true)
     end
