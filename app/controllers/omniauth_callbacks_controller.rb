@@ -5,4 +5,13 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
     flash[:notice] = I18n.t 'devise.omniauth_callbacks.success', kind: 'Github'
     sign_in_and_redirect user, event: :authentication
   end
+
+  def after_sign_in_path_for(user)
+    if user.confirmed?
+      request.env['omniauth.origin'] || root_path
+    else
+      edit_user_path(user, welcome: true)
+    end
+  end
+
 end

@@ -17,14 +17,6 @@ class ApplicationController < ActionController::Base
   # See the `pretender` gem.
   impersonates :user
 
-  def after_sign_in_path_for(user)
-    if user.confirmed?
-      request.env['omniauth.origin'] || root_path
-    else
-      edit_user_path(user, welcome: true)
-    end
-  end
-
   rescue_from CanCan::AccessDenied do |exception|
     redirect_back(fallback_location: root_path, alert: exception.message)
   end
