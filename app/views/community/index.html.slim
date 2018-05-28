@@ -16,8 +16,7 @@ table.users.table.table-striped.table-bordered.table-condensed.table-hover
       th
       th = sortable :name
       th = sortable :interested_in
-      - if current_user&.confirmed?
-        th Email
+      th = 'Email' if current_user&.confirmed?
       th = sortable :github
       th = sortable :team
       th = sortable :country
