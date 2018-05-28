@@ -35,9 +35,8 @@ RSpec.describe CommunityController, type: :controller do
         user = create(:student, hide_email: false)
         user_opted_out = create(:user, hide_email: true)
         get :index
-        # expect(response.body).to include user.email
-        # This expectation ^ fails, but should this be tested in a controller test in
-        # the first place?
+        expect(response.body).to include user.email
+        # Should this be tested in a controller test?
         expect(response.body).not_to include user_opted_out.email # false negative; also passes with hide_email: false
       end
 
