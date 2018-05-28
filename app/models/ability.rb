@@ -16,13 +16,13 @@ class Ability
     # unconfirmed, logged in user
     can [:update, :destroy], User, id: user.id
     can :resend_confirmation_instruction, User, id: user.id
-    can :read_email, User, hide_email: false
 
     return unless user.confirmed?
 
     # confirmed user
     can [:update, :destroy], User, id: user.id
     can :resend_confirmation_instruction, User, id: user.id
+    cannot :read_email, User, hide_email: true
     can :create, Project
     can [:join, :create], Team
     can :index, Mailing
