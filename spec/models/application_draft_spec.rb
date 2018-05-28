@@ -340,13 +340,12 @@ RSpec.describe ApplicationDraft, type: :model do
         expect(ActionMailer::DeliveryJob).to have_been_enqueued.with(
           'ApplicationFormMailer', 'submitted', 'deliver_now',
           application: submitted_application,
-          student:     students.first
-
+          student:     application_draft.team.students.first
         )
         expect(ActionMailer::DeliveryJob).to have_been_enqueued.with(
           'ApplicationFormMailer', 'submitted', 'deliver_now',
           application: submitted_application,
-          student:     students.second
+          student:     application_draft.team.students.second
         )
       end
     end
