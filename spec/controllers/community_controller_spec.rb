@@ -37,7 +37,7 @@ RSpec.describe CommunityController, type: :controller do
         get :index
         expect(response.body).to include user.email
         # Should this be tested in a controller test?
-        expect(response.body).not_to include user_opted_out.email # false negative; also passes with hide_email: false
+        expect(response.body).not_to include user_opted_out.email
       end
 
       it 'shows user impersonation links when in development' do
