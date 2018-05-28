@@ -53,7 +53,7 @@ RSpec.describe 'Unconfirmed User', type: :feature do
       expect(page).to have_content("About me")
     end
 
-    it 'nothing happens when clicking on resend link' do
+    it 'user gets visual feedback when clicking on resend link' do
       find_link('Click here to resend the email.').click
       # todo: expect_to happen: something visible
     end
