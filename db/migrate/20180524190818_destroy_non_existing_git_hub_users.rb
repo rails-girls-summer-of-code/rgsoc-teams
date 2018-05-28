@@ -1,11 +1,8 @@
 class DestroyNonExistingGitHubUsers < ActiveRecord::Migration[5.1]
   def up
     unless ENV['RAILS_ENV'] == 'development'
-      User.find_each do |user|
-        if user.github_id == nil
-          puts "removing user #{user.id} from database"
-          user.destroy
-        end
+      User.where(github_id: nil).destroy_all.each do |user|
+        puts "removed user #{user.id} from database"
       end
     end
   end
