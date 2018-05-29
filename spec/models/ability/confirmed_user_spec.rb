@@ -9,6 +9,7 @@ RSpec.describe Ability, type: :model do
   let(:user) { build_stubbed(:user) }
   subject(:ability) { Ability.new(user) }
   let(:other_user) { build_stubbed(:user) }
+  let(:hidden) { build_stubbed(:user, hide_email: true) }
 
   describe "Confirmed user" do
 
@@ -22,6 +23,8 @@ RSpec.describe Ability, type: :model do
     it { expect(subject).not_to be_able_to([:update, :destroy], other_user) }
 
     # the perks of confirming
+    it { expect(subject).to be_able_to(:read_email, other_user) }
+    it { expect(subject).not_to be_able_to(:read_email, hidden) }
     it { expect(subject).to be_able_to([:join, :create], Team) }
     it { expect(subject).to be_able_to(:create, Comment) } # TODO needs work for polymorphism
     it { expect(subject).to be_able_to(:create, Project) }

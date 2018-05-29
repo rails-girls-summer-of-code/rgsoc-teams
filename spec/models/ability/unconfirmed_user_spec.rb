@@ -15,7 +15,7 @@ RSpec.describe Ability, type: :model do
 
     it_behaves_like 'has access to public features'
 
-    it { expect(subject).not_to be_able_to(:read, other_user.email) }
+    it { expect(subject).not_to be_able_to(:read_email, other_user) }
 
     it "can not modify things on public pages" do
       PUBLIC_INDEX_PAGES.each do |page|
