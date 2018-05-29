@@ -27,7 +27,7 @@ div.row
                 td
                   '= Red alert
           div.col-sm-6 class=("col-lg-4 padding" if supervised_teams.count > 2)
-            = simple_form_for Note.notepad(current_user), url: supervisor_notes_path do |f|
+            = simple_form_for Note.notepad(current_user), url: supervisors_notes_path do |f|
               == render 'supervisors/notes/form', f: f
 
 div.row
@@ -43,11 +43,11 @@ div.row
             p = "You last checked on them #{ time_ago_in_words(t.comments.last.created_at) } ago."
           - else
             p You didn't check on them yet.
-          = simple_form_for Comment.new(commentable: t), url: supervisor_comments_path do |f|
+          = simple_form_for Comment.new(commentable: t), url: supervisors_comments_path do |f|
             == render 'supervisors/comments/form', f: f
             - if t.comments.any?
               p = render t.comments.recent
-              = link_to 'Archive', supervisor_comments_path(team_id: t.id)
+              = link_to 'Archive', supervisors_comments_path(team_id: t.id)
         section.dashboard
           h4 Activity
           - if t.activities.any?

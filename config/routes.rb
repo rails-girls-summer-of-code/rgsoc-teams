@@ -104,7 +104,7 @@ Rails.application.routes.draw do
   namespace :supervisors do
     root to: 'dashboard#index', as: :dashboard
     resources :comments, only: [:index, :create]
-    resources :notes, only: [:update]
+    resource :notes, only: :update
   end
 
   namespace :mentors do
