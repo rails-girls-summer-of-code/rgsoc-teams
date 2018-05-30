@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 require 'error_reporting'
 
 RSpec.describe ErrorReporting do

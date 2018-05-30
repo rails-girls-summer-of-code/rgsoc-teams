@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 require 'selection/distance'
 
 RSpec.describe Selection::Distance do

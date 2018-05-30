@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 RSpec.describe Reviewers::TodosController, type: :controller do
   render_views

@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 require 'selection/service/application_distribution'
 
 RSpec.describe Selection::Service::ApplicationDistribution do

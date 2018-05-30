@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 require 'github/user'
 
 RSpec.describe Github::User do
