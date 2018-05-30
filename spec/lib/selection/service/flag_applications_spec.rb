@@ -1,5 +1,5 @@
-require 'spec_helper'
 require 'selection/service/flag_applications'
+require 'rails_helper'
 
 RSpec.describe Selection::Service::FlagApplications do
   let(:valid_data) do

@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 RSpec.describe Selection::Table, type: :model do
   describe 'attributes' do

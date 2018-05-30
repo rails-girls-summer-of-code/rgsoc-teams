@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 RSpec.describe Reviewers::CommentsController, type: :controller do
   render_views

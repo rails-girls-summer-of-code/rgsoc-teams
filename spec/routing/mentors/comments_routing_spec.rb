@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 RSpec.describe Mentors::CommentsController, type: :routing do
   describe 'routing' do

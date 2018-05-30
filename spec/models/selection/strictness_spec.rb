@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 RSpec.describe Selection::Strictness, type: :model do
   describe '#adjusted_points_for_applications' do

@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 RSpec.describe Mentor::Student, type: :model do
   describe 'attributes' do
