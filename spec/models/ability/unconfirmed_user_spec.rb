@@ -10,9 +10,12 @@ RSpec.describe Ability, type: :model do
   describe "User logged in, account unconfirmed" do
 
     let(:user){ create(:user, :unconfirmed) }
+    let(:other_user) { create(:user) }
     subject(:ability) { Ability.new(user) }
 
     it_behaves_like 'has access to public features'
+
+    it { expect(subject).not_to be_able_to(:read_email, other_user) }
 
     it "can not modify things on public pages" do
       PUBLIC_INDEX_PAGES.each do |page|

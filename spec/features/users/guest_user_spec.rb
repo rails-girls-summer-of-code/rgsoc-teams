@@ -2,8 +2,8 @@ require 'rails_helper'
 
 RSpec.describe 'Guest User', type: :feature do
 
-  let!(:activity)      { create(:status_update, :published, team: team1) }
-  let!(:other_user)    { create(:user) }
+  let!(:activity) { create(:status_update, :published, team: team1) }
+  let(:other_user) { create(:user) }
   let!(:project)       { create(:project, :in_current_season, :accepted, submitter: other_user) }
   let!(:team1)         { create(:team, :in_current_season, name: 'Cheesy forever', project_name: project.name, project_id: project.id) }
   let!(:out_of_season)  { Season.current.starts_at - 1.week }
@@ -23,9 +23,10 @@ RSpec.describe 'Guest User', type: :feature do
         expect(page).to have_content('You must be logged in to add a comment.')
       end
 
-      it 'can view Community and User' do
+      it 'can view Community and User (no email addresses)' do
         visit community_path
         expect(page).to have_css('h1', text: 'Community')
+        expect(page).not_to have_content(other_user.email)
         find_link(other_user.name, match: :smart).click
         expect(page).to have_content("About me")
         expect(page).to have_link("All participants")

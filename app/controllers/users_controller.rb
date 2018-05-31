@@ -1,8 +1,7 @@
 # frozen_string_literal: true
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :edit, :update, :destroy, :impersonate]
 
-  load_and_authorize_resource except: [:index, :show, :impersonate, :stop_impersonating]
+  load_and_authorize_resource except: [:impersonate, :stop_impersonating]
 
   def show
   end
@@ -60,6 +59,7 @@ class UsersController < ApplicationController
   end
 
   def impersonate
+    set_user
     impersonate_user(@user)
     redirect_to community_path, notice: "Now impersonating #{@user.name}. You can find the link to stop impersonation on the user menu."
   end

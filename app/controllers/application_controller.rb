@@ -11,13 +11,6 @@ class ApplicationController < ActionController::Base
     session[:redirect_to] = redirect_to if redirect_to.present?
   end
 
-  # workaround fix for cancan on rails4 - https://github.com/ryanb/cancan/issues/835
-  before_action do
-    resource = controller_path.singularize.gsub('/', '_').to_sym
-    method = "#{resource}_params"
-    params[resource] &&= send(method) if respond_to?(method, true)
-  end
-
   before_action :set_timezone
 
   # Allow users to impersonate other uses in a non-production environment.

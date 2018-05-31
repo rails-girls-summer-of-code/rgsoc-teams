@@ -16,8 +16,8 @@ table.users.table.table-striped.table-bordered.table-condensed.table-hover
       th
       th = sortable :name
       th = sortable :interested_in
-      - if signed_in?
-        th Email
+      - if current_user&.confirmed?
+        th = 'Email'
       th = sortable :github
       th = sortable :team
       th = sortable :country
@@ -31,8 +31,8 @@ table.users.table.table-striped.table-bordered.table-condensed.table-hover
         td.image = avatar_url(user, size: 40)
         td = link_to user.name_or_handle, user
         td = user.interested_in.map { |key| User::INTERESTS[key].presence }.compact.join(', ')
-        - if signed_in?
-          td = mail_to user.email unless user.hide_email?
+        - if current_user&.confirmed?
+          td = mail_to user.email if can?(:read_email, user)
         td = link_to user.github_handle, "https://github.com/#{user.github_handle}"
         td = link_to_user_roles(user)
         td = user.country

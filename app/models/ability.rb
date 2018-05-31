@@ -16,13 +16,13 @@ class Ability
     # unconfirmed, logged in user
     can [:update, :destroy], User, id: user.id
     can :resend_confirmation_instruction, User, id: user.id
-    can :read_email, User, hide_email: false
 
     return unless user.confirmed?
 
     # confirmed user
     can [:update, :destroy], User, id: user.id
     can :resend_confirmation_instruction, User, id: user.id
+    can :read_email, User, hide_email: false
     can :create, Project
     can [:join, :create], Team
     can :index, Mailing
@@ -71,7 +71,7 @@ class Ability
       user.confirmed? && (supervises?(other_user, user) || !other_user.hide_email?)
     end
     can :read, :users_info if user.admin? || user.supervisor?
-    #
+
 
     can :update_conference_preferences, Team do |team|
       team.accepted? && team.students.include?(user)
