@@ -32,6 +32,11 @@ class ActivitiesController < ApplicationController
   end
   helper_method :teams
 
+  def last_season_teams
+    Team.select {|t| t.season_id == Season.current.id + 1 && (t.kind == 'sponsored' || t.kind == 'voluntary' || t.kind == 'full_time' || t.kind == 'part_time')}
+  end
+  helper_method :last_season_teams
+
   def normalize_params
     params[:kind] = 'all' if params[:kind].blank?
   end
