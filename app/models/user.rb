@@ -204,6 +204,12 @@ class User < ApplicationRecord
     self.tech_interest = tech_interest_list.split(',').map(&:strip).reject(&:blank?)
   end
 
+  protected
+
+  def send_devise_notification(notification, *args)
+    devise_mailer.send(notification, self, *args).deliver_later
+  end
+
   private
 
   # normalization to prevent duplication, NULL for sorting
