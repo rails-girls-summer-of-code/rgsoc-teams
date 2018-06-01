@@ -89,16 +89,21 @@ RSpec.describe UsersController, type: :controller do
         context "and unconfirmed user" do
           let(:user) { create(:user, confirmed_at: nil) }
 
+          before { clear_enqueued_jobs }
+
           it "sends an confirmation email if the user isn't confirmed yet and the email wasn't changed" do
             expect {
               put :update, params: { id: user.to_param, user: { name: 'Trung Le' } }
-            }.to change { ActionMailer::Base.deliveries.count }.by(1)
+            }.to have_enqueued_job.on_queue('mailers')
+            expect(enqueued_jobs.size).to eq 1
           end
 
           it "sends only one confirmation email if the user isn't confirmed yet and the email was changed" do
             expect {
               put :update, params: { id: user.to_param, user: { name: 'Trung Le', email: 'newmail@example.com' } }
-            }.to change { ActionMailer::Base.deliveries.count }.by(1)
+            # }.to change { ActionMailer::Base.deliveries.count }.by(1)
+            }.to have_enqueued_job.on_queue('mailers')
+            expect(enqueued_jobs.size).to eq 1
           end
         end
 
