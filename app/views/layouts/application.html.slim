@@ -34,7 +34,7 @@ html
             - if current_user && !current_user.confirmed? && !params['welcome']
               p.alert.alert-warning
                 button.close data-dismiss="alert" type="button"  &times;
-                span> Please click on the link in the email we just sent to confirm your email address. Haven't received it?
+                span> Please click on the link in the confirmation email to confirm your email address. Haven't received it?
                 = link_to 'Click here to resend the email.', resend_confirmation_instruction_user_path(current_user), method: :post
 
         = yield

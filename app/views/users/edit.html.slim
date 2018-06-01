@@ -1,8 +1,8 @@
 - if params[:welcome]
   h1 Welcome!
 
-  p Please complete your profile:
-
+  p Please <strong>check your email address</strong> and fill all required fields to complete signing up.
+    Not saving your profile may cause strange behaviour while using the app!
 - else
   nav.page
     .back-nav
@@ -34,6 +34,13 @@
 
   = f.input :name, wrapper_html: { class: 'col-md-6' }
   = f.input :email, required: true, wrapper_html: { class: 'col-md-6' }
+  - unless current_user.confirmed?
+    .help-block
+      p
+        | Check your email on&nbsp;
+        = current_user.unconfirmed_email
+        |  to confirm your new email address. Until confirmed all messages will go to your current email address.
+
   = f.input :github_handle, required: false, disabled: true, wrapper_html: { class: 'col-md-6' }
   = f.input :twitter_handle, wrapper_html: { class: 'col-md-6' }
   = f.input :irc_handle, wrapper_html: { class: 'col-md-6' }
