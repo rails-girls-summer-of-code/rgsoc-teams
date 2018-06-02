@@ -28,7 +28,7 @@ class ActivitiesController < ApplicationController
   end
 
   def teams
-    (Team.in_current_season.accepted.presence || Team.in_previous_season.accepted).order(:name)
+    Team.accepted.in_nearest_season.order(:name)
   end
   helper_method :teams
 
