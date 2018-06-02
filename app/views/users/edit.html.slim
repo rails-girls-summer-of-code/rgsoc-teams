@@ -34,12 +34,12 @@
 
   = f.input :name, wrapper_html: { class: 'col-md-6' }
   = f.input :email, required: true, wrapper_html: { class: 'col-md-6' }
-  - unless current_user.confirmed?
+  - if current_user.unconfirmed_email
     .help-block
       p
-        | Check your email on&nbsp;
+        ' Check your email on
         = current_user.unconfirmed_email
-        |  to confirm your new email address. Until confirmed all messages will go to your current email address.
+        '  to confirm your new email address. Until confirmed all messages will go to your current email address.
 
   = f.input :github_handle, required: false, disabled: true, wrapper_html: { class: 'col-md-6' }
   = f.input :twitter_handle, wrapper_html: { class: 'col-md-6' }
