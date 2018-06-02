@@ -101,7 +101,6 @@ RSpec.describe UsersController, type: :controller do
           it "sends only one confirmation email if the user isn't confirmed yet and the email was changed" do
             expect {
               put :update, params: { id: user.to_param, user: { name: 'Trung Le', email: 'newmail@example.com' } }
-            # }.to change { ActionMailer::Base.deliveries.count }.by(1)
             }.to have_enqueued_job.on_queue('mailers')
             expect(enqueued_jobs.size).to eq 1
           end
