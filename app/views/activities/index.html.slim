@@ -11,12 +11,8 @@ div.row
           label.radio
             = radio_button_tag :kind, kind == 'all' ? '' : kind, params[:kind] == kind
             = " " + kind == 'feed_entry' ? 'Blog Post' : kind.titleize
-        - if teams.any?
-          label.team_filter
-            = select_tag :team_id, options_for_select(teams.map { |t| [t.display_name, t.id] }, params[:team_id]), include_blank: 'Teams', class: 'form-control'
-        - else
-          label.team_filter
-            = select_tag :team_id, options_for_select(last_season_teams.map { |t| [t.display_name, t.id] }, params[:team_id]), include_blank: 'Teams', class: 'form-control'
+        label.team_filter
+          = select_tag :team_id, options_for_select(teams.map { |t| [t.display_name, t.id] }, params[:team_id]), include_blank: 'Teams', class: 'form-control'
 
     p.pagination-info
       = page_entries_info @activities

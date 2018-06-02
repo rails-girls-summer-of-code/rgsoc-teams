@@ -28,14 +28,9 @@ class ActivitiesController < ApplicationController
   end
 
   def teams
-    Team.in_current_season.accepted.order(:name)
+    (Team.in_current_season.accepted.presence || Team.in_previous_season.accepted).order(:name)
   end
   helper_method :teams
-
-  def last_season_teams
-    Team.select {|t| t.season_id == Season.current.id + 1 && (t.kind == 'sponsored' || t.kind == 'voluntary' || t.kind == 'full_time' || t.kind == 'part_time')}
-  end
-  helper_method :last_season_teams
 
   def normalize_params
     params[:kind] = 'all' if params[:kind].blank?
