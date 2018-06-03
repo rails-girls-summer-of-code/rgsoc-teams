@@ -349,6 +349,29 @@ RSpec.describe Team, type: :model do
       end
     end
 
+    describe '.in_nearest_season' do
+      let(:current_season) { create(:season, name: Date.today.year) }
+      let!(:current_teams) { create_list(:team, 2, season: current_season) }
+      let(:prev_season) { create(:season, name: Date.today.year - 1) }
+      let!(:prev_teams) { create_list(:team, 2, season: prev_season) }
+
+      subject(:returned_teams) { described_class.in_nearest_season }
+
+      context 'when current season has teams' do
+        it 'returns those teams' do
+          expect(returned_teams).to match_array(current_teams)
+        end
+      end
+
+      context 'when current season has no teams' do
+        before { current_teams.each(&:destroy) }
+
+        it 'returns last season\'s teams' do
+          expect(returned_teams).to match_array(prev_teams)
+        end
+      end
+    end
+
     describe '.without_recent_log_update' do
       let(:team_without) { create :team }
 

@@ -49,7 +49,9 @@ class Team < ApplicationRecord
   scope :accepted, -> { full_time.or(part_time) }
   scope :visible, -> { where.not(invisible: true).or(accepted) }
   scope :in_current_season, -> { where(season: Season.current) }
+  scope :in_previous_season, -> { by_season(Date.today.year - 1) }
   scope :by_season, ->(year) { joins(:season).where(seasons: { name: year }) }
+  scope :in_nearest_season, -> { in_current_season.presence || in_previous_season }
 
   class << self
     def ordered(sort = {})

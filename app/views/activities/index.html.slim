@@ -12,8 +12,7 @@ div.row
             = radio_button_tag :kind, kind == 'all' ? '' : kind, params[:kind] == kind
             = " " + kind == 'feed_entry' ? 'Blog Post' : kind.titleize
         label.team_filter
-          ' Team:
-          = select_tag :team_id, options_for_select(teams.map { |t| [t.display_name, t.id] }, params[:team_id]), include_blank: true, class: 'form-control'
+          = select_tag :team_id, options_for_select(teams.map { |t| [t.display_name, t.id] }, params[:team_id]), include_blank: 'Teams', class: 'form-control'
 
     p.pagination-info
       = page_entries_info @activities
