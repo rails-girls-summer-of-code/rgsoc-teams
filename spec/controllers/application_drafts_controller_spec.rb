@@ -218,7 +218,7 @@ RSpec.describe ApplicationDraftsController, type: :controller do
 
     describe 'PUT apply' do
       let(:team)  { create(:team, :applying_team, :in_current_season) }
-      let(:draft) { create(:application_draft, :appliable, team: team) }
+      let!(:draft) { create(:application_draft, :appliable, team: team) }
       let(:application) { Application.last }
 
       context 'as a student' do
@@ -235,8 +235,6 @@ RSpec.describe ApplicationDraftsController, type: :controller do
           end
 
           it 'sends 1 mail to orga' do
-            pending "It changes by 3 instead of 1"
-            expect(enqueued_jobs.size).to eq 0
             expect { put :apply, { params: { id: draft.id } } }.to \
               change { enqueued_jobs.size }.by(1)
           end
