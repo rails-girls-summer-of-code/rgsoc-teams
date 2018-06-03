@@ -2,16 +2,16 @@
 class OmniauthCallbacksController < Devise::OmniauthCallbacksController
   def github
     user = User.find_or_create_for_github_oauth(request.env['omniauth.auth'])
+    flash[:notice] = I18n.t 'devise.omniauth_callbacks.success', kind: 'GitHub'
+    sign_in_and_redirect user, event: :authentication
+  end
 
-    if user.just_created? || !user.valid? || user.github_import
-      sign_in user
-      redirect_to edit_user_path(user, welcome: true)
-    elsif user.persisted?
-      flash[:notice] = I18n.t 'devise.omniauth_callbacks.success', kind: 'Github'
-      sign_in_and_redirect user, event: :authentication
+  def after_sign_in_path_for(user)
+    if user.confirmed?
+      request.env['omniauth.origin'] || root_path
     else
-      session['devise.github_data'] = request.env['omniauth.auth']
-      redirect_to new_user_registration_url
+      edit_user_path(user, welcome: true)
     end
   end
+
 end

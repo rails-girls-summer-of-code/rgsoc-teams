@@ -100,9 +100,10 @@ p
 
 img
   = image_tag(("pages/help/notice-cannot-sign-in.png"), class: "help-image")
-
 p
-  ' This is a known bug which happens rarely. Please contact us at <a href="mailto:contact@rgsoc.org">contact@rgsoc.org</a>.
+p
+  ' This means that something went wrong with confirming your account, and access to your account is blocked. Please
+  '  contact us at #{mail_to 'contact@rgsoc.org'} and we will fix it!
 
 h2 2. I don't get the confirmation email
 

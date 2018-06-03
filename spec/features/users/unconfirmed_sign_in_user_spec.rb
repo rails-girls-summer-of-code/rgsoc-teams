@@ -49,7 +49,7 @@ RSpec.describe 'Unconfirmed User', type: :feature do
       email.set("newemail@example.com")
       find_button("Save").click
       expect(page).to have_content("updated")
-      expect(page).to have_content("Please click on the link in the email we just sent to confirm your email address. Haven't received it? Click here to resend the email.")
+      expect(page).to have_content resend_info
       expect(page).to have_content("About me")
     end
 
@@ -62,6 +62,6 @@ RSpec.describe 'Unconfirmed User', type: :feature do
 end
 
 def resend_info
-  "Please click on the link in the email we just sent to confirm your email address. Haven't received it? Click here
+  "Please click on the link in the confirmation email to confirm your email address. Haven't received it? Click here
 to resend the email."
 end

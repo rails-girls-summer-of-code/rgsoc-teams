@@ -24,8 +24,8 @@ RSpec.describe OmniauthCallbacksController, type: :controller do
       expect(response).to redirect_to(edit_user_path(User.last, welcome: true))
     end
 
-    # If you add a team member using it's github handle, the
-    # user is ceated, but will be empty. If that users then
+    # If you add a team member using its github handle, the
+    # user is created, but will be empty. If that user then
     # registers, we need to show the edit page
     it 'fills a stubbed used and redirects to the user edit page' do
       user = User.new
@@ -54,6 +54,7 @@ RSpec.describe OmniauthCallbacksController, type: :controller do
     # in again, we want to show that user the edit page to
     # let her/him complete the registration
     it 'redirects to the edit page if the profile is not valid' do
+      # check: valid or not, this user is uncomfirmed, so it will be redirected to edit page anyway
       user = build(:user, country: nil)
       user.github_import = true
       user.save
@@ -74,8 +75,8 @@ RSpec.describe OmniauthCallbacksController, type: :controller do
       expect(response).to redirect_to(edit_user_path(User.last, welcome: true))
     end
 
-    it 'signs in the user if everything is okay' do
-      user = create :user
+    it 'signs in the user if everything is okay and redirects to edit page for confirmation' do
+      user = create(:user, :unconfirmed)
       @request.env["omniauth.auth"] = OmniAuth::AuthHash.new(
         uid: '123', provider: 'example',
         info: { name: 'Name', email: 'name@example.com' },
@@ -87,8 +88,7 @@ RSpec.describe OmniauthCallbacksController, type: :controller do
         }}
       )
       post :github, format: :json
-      expect(response).to redirect_to(user_path(user))
+      expect(response).to redirect_to(edit_user_path(user, welcome: true))
     end
-
   end
 end

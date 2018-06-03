@@ -218,13 +218,15 @@ RSpec.describe ApplicationDraftsController, type: :controller do
 
     describe 'PUT apply' do
       let(:team)  { create(:team, :applying_team, :in_current_season) }
-      let(:draft) { create(:application_draft, :appliable, team: team) }
+      let!(:draft) { create(:application_draft, :appliable, team: team) }
       let(:application) { Application.last }
 
       context 'as a student' do
         let(:user) { team.students.first }
 
         context 'coaches confirmed' do
+          before { clear_enqueued_jobs }
+
           it 'creates a new application' do
             expect { put :apply, { params: { id: draft.id } } }.to change { Application.count }.by(1)
             expect(flash[:notice]).to be_present
