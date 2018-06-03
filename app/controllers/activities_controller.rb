@@ -28,7 +28,7 @@ class ActivitiesController < ApplicationController
   end
 
   def teams
-    Team.accepted.in_nearest_season.order(:name)
+    @teams ||= Team.accepted.in_nearest_season.order(:name)
   end
   helper_method :teams
 
