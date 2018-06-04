@@ -47,6 +47,12 @@ RSpec.describe Conference, type: :model do
 
         it { is_expected.to be_valid }
       end
+
+      context 'without only a starts_on date' do
+        let(:dates) { { starts_on: Time.current, ends_on: nil } }
+
+        it { is_expected.to be_valid }
+      end
     end
   end
 
