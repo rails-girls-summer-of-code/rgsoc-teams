@@ -10,8 +10,7 @@
 Rails.application.config.action_view.form_with_generates_remote_forms = false
 
 # The belongs_to associations are required by default in Rails 5
-# we cannot opt into this right now, but it would be a goal for the future
-Rails.application.config.active_record.belongs_to_required_by_default = false
+Rails.application.config.active_record.belongs_to_required_by_default = true
 
 # Unknown asset fallback will return the path passed in when the given
 # asset is not present in the asset pipeline.
