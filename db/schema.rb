@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180602225032) do
+ActiveRecord::Schema.define(version: 20180603124843) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -130,10 +130,8 @@ ActiveRecord::Schema.define(version: 20180602225032) do
     t.string "url", limit: 255
     t.date "starts_on"
     t.date "ends_on"
-    t.integer "tickets"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.boolean "lightningtalkslots"
     t.integer "season_id"
     t.string "gid"
     t.string "city"

@@ -1,21 +1,14 @@
 # frozen_string_literal: true
 class Mailing < ApplicationRecord
-
   TO = %w(teams students coaches helpdesk organizers supervisors developers mentors)
   FROM = ENV['EMAIL_FROM'] || 'contact@rgsoc.org'
+
+  has_many :submissions, dependent: :destroy
 
   validates :subject, :to, presence: true
 
   serialize :to
-
-  has_many :submissions, dependent: :destroy
-
-  enum group: {
-    everyone: 0,
-    selected_teams: 1,
-    unselected_teams: 2
-  }
-
+  enum group: { everyone: 0, selected_teams: 1, unselected_teams: 2 }
   delegate :emails, to: :recipients
 
   def sent?

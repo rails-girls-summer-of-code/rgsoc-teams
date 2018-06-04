@@ -3,30 +3,56 @@ require 'rails_helper'
 RSpec.describe Conference, type: :model do
   it_behaves_like 'HasSeason'
 
-  it { is_expected.to have_many(:conference_attendances).dependent(:destroy) }
-  it { is_expected.to have_many(:first_choice_conference_preferences) }
-  it { is_expected.to have_many(:second_choice_conference_preferences) }
-  it { is_expected.to have_many(:attendees).through(:second_choice_conference_preferences) }
-  it { is_expected.to validate_presence_of(:name) }
-  it { is_expected.to validate_presence_of(:url) }
-  it { is_expected.to validate_presence_of(:city) }
-  it { is_expected.to validate_presence_of(:country) }
-  it { is_expected.to validate_presence_of(:region) }
+  describe 'associations' do
+    it { is_expected.to have_many(:conference_attendances).dependent(:destroy) }
+    it { is_expected.to have_many(:first_choice_conference_preferences).dependent(:destroy) }
+    it { is_expected.to have_many(:second_choice_conference_preferences).dependent(:destroy) }
+  end
 
-  describe 'validates chronological dates' do
-    subject { build(:conference) }
-    let(:start_date) { subject.starts_on }
+  describe 'validations' do
+    it { is_expected.to validate_presence_of(:name) }
+    it { is_expected.to validate_presence_of(:url) }
+    it { is_expected.to validate_presence_of(:city) }
+    it { is_expected.to validate_presence_of(:country) }
+    it { is_expected.to validate_presence_of(:region) }
 
-    it 'with an incorrect order of dates it raises an error' do
-      subject.ends_on = start_date - 1.week
-      expect(subject).not_to be_valid
-      expect(subject.errors[:ends_on]).not_to be_empty
-    end
+    describe 'ends_on and starts_on times' do
+      subject(:conference) { build(:conference, **dates) }
 
-    it 'when in the right order' do
-      subject.ends_on = start_date + 1.week
-      expect(subject).to be_valid
-      expect(subject.errors[:ends_on]).to be_empty
+      let(:yesterday) { 1.day.ago }
+      let(:today)     { yesterday + 1.day }
+      let(:tomorrow)  { today + 1.day }
+      let(:dates)     { { starts_on: today, ends_on: tomorrow } }
+
+      it { is_expected.to be_valid }
+
+      context 'when ends_on is before starts_on' do
+        let(:dates) { { starts_on: today, ends_on: yesterday } }
+
+        it 'is invalid' do
+          expect(conference).not_to be_valid
+          expect(conference.errors[:ends_on]).not_to be_empty
+        end
+      end
+
+      context 'when the conference is only one day' do
+        let(:dates) { { starts_on: today, ends_on: today } }
+
+        it { is_expected.to be_valid }
+      end
+
+      # TODO: remove this once the factories don't include dates any more
+      context 'without ends_on and starts_on dates' do
+        let(:dates) { { starts_on: nil, ends_on: nil } }
+
+        it { is_expected.to be_valid }
+      end
+
+      context 'without only a starts_on date' do
+        let(:dates) { { starts_on: Time.current, ends_on: nil } }
+
+        it { is_expected.to be_valid }
+      end
     end
   end
 
@@ -50,29 +76,6 @@ RSpec.describe Conference, type: :model do
 
     it 'has a date range' do
       expect(subject.date_range).to be_a(DateRange)
-    end
-  end
-
-  describe '#tickets_left' do
-
-    context 'ticket value defined' do
-      let(:conference_preference) { build(:conference_preference, confirmed: true) }
-      subject { build_stubbed(:conference, tickets: 2) }
-
-      it 'subtracts conference preferences' do
-        allow(subject).to receive(:conference_preference).and_return([conference_preference])
-        left_tickets = subject.tickets - subject.conference_preference.size
-        expect(subject.tickets_left).to eq(left_tickets)
-      end
-    end
-
-    context 'tickets value not defined' do
-      subject { build_stubbed(:conference, tickets: nil) }
-
-      it 'returns 0' do
-        allow(subject).to receive(:conference_preference).and_return([])
-        expect(subject.tickets_left).to eq(0)
-      end
     end
   end
 end
