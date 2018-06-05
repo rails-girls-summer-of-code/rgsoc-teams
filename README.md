@@ -5,7 +5,7 @@
 
 **Looking for your help!**
 
-For RSGoC we are building an app that aggregates daily status updates, commit activity and other sources into an activity stream.
+For RGSoC we are building an app that aggregates daily status updates, commit activity and other sources into an activity stream.
 
 Main goals are:
 
