@@ -8,9 +8,7 @@ FactoryBot.create(:team, :last_season, kind: "voluntary")
 
 # Users with different roles
 FactoryBot.create_list(:student, 6)
-FactoryBot.create_list(:student, 6)
 FactoryBot.create(:student, :unconfirmed)
-FactoryBot.create(:student, :unconfirmed, unconfirmed_email: "newer_email@example.com")
 
 FactoryBot.create_list(:coach, 3)
 FactoryBot.create(:coach, :unconfirmed)
@@ -23,6 +21,7 @@ FactoryBot.create(:supervisor)
 # To explore use cases where user has no role yet
 FactoryBot.create_list(:user, 3)
 FactoryBot.create(:user, :unconfirmed)
+FactoryBot.create(:user, unconfirmed_email: "newer_email@example.com")
 
 
 # Status updates for different teams
