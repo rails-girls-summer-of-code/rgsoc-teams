@@ -3,7 +3,7 @@ FactoryBot.define do
     github_handle { FFaker::InternetSE.unique.user_name_variant_short }
     sequence(:github_id, 123)
     name     { FFaker::Name.name }
-    email    { FFaker::Internet.email }
+    email    { "#{github_handle}@example.com"}
     hide_email false
     location { FFaker::Address.city }
     country  { FFaker::Address.country }

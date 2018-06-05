@@ -165,6 +165,8 @@ GEM
     kaminari-core (1.1.1)
     launchy (2.4.3)
       addressable (~> 2.3)
+    letter_opener (1.6.0)
+      launchy (~> 2.2)
     loofah (2.2.2)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
@@ -400,6 +402,7 @@ DEPENDENCIES
   jquery-rails
   jquery-ui-rails
   kaminari
+  letter_opener
   nested_form
   newrelic_rpm
   omniauth-github
