@@ -35,8 +35,8 @@ RSpec.describe Mentor::Comment, type: :model do
   end
 
   describe 'associations' do
-    it { is_expected.to belong_to :user }
-    it { is_expected.not_to belong_to :commentable }
+    it { is_expected.to belong_to(:user).optional }
+    it { is_expected.not_to belong_to(:commentable).optional }
   end
 
   describe 'attributes' do

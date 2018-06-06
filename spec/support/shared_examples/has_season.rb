@@ -1,5 +1,5 @@
 RSpec.shared_examples 'HasSeason' do
-  it { expect(subject).to belong_to :season }
+  it { is_expected.to belong_to(:season).optional }
 
   describe '.in_season' do
     it 'returns a relation' do

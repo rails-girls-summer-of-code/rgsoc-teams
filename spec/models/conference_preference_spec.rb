@@ -2,9 +2,9 @@ require 'rails_helper'
 
 RSpec.describe ConferencePreference, type: :model do
   describe 'associations' do
-    it { is_expected.to belong_to(:team) }
-    it { is_expected.to belong_to(:first_conference) }
-    it { is_expected.to belong_to(:second_conference) }
+    it { is_expected.to belong_to(:team).optional }
+    it { is_expected.to belong_to(:first_conference).optional }
+    it { is_expected.to belong_to(:second_conference).optional }
   end
 
   describe 'validates terms of ticket and terms of travel' do
