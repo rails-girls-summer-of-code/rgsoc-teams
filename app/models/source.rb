@@ -4,7 +4,7 @@ class Source < ApplicationRecord
 
   KINDS = %w(page repository blog)
 
-  belongs_to :team
+  belongs_to :team, optional: true
 
   validates :url, presence: true
   validates :kind, presence: true

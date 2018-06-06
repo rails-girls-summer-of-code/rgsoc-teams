@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 class Rating < ApplicationRecord
-  belongs_to :application, required: true
-  belongs_to :user, required: true
+  belongs_to :application
+  belongs_to :user
 
   serialize :data
 

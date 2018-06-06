@@ -78,9 +78,9 @@ class ApplicationDraft < ApplicationRecord
                      :project2_id, :plan_project2, :why_selected_project2]
 
   belongs_to :team
-  belongs_to :updater, class_name: 'User'
-  belongs_to :project1, class_name: 'Project'
-  belongs_to :project2, class_name: 'Project'
+  belongs_to :updater, class_name: 'User', optional: true
+  belongs_to :project1, class_name: 'Project', optional: true
+  belongs_to :project2, class_name: 'Project', optional: true
   has_one :application
 
   scope :in_current_season, -> { where(season: Season.current) }

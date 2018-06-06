@@ -2,7 +2,7 @@
 class Activity < ApplicationRecord
   KINDS = %w(feed_entry mailing status_update)
 
-  belongs_to :team
+  belongs_to :team, optional: true
   has_many :comments, -> { ordered }, as: :commentable, dependent: :destroy
 
   validates :content, :title, :team, presence: { if: ->(act) { act.kind == 'status_update' } }

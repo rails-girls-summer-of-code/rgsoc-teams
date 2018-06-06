@@ -1,14 +1,10 @@
 # frozen_string_literal: true
 class Submission < ApplicationRecord
-  class << self
-    def unsent
-      where(sent_at: nil)
-    end
-  end
-
-  belongs_to :mailing
+  belongs_to :mailing, optional: true
 
   after_commit :enqueue, on: :create
+
+  scope :unsent, -> { where(sent_at: nil) }
 
   def enqueue
     Rails.logger.info "Enqueueing submission: #{id}"

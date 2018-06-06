@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 class Season < ApplicationRecord
-
   has_many :projects
 
   validates :name, presence: true, uniqueness: true, inclusion: { in: ('1999'..'2050') }

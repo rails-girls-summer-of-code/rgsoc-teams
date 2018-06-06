@@ -8,7 +8,7 @@ module Mentor
     COMMENTABLE_TYPE = 'Mentor::Application'
 
     attribute :commentable_type, :string, default: COMMENTABLE_TYPE
-    belongs_to :user
+    belongs_to :user, optional: true
 
     after_update_commit { |comment| comment.destroy if comment.text.blank? }
   end
