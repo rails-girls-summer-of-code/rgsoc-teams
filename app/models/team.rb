@@ -2,7 +2,7 @@
 class Team < ApplicationRecord
   include ProfilesHelper, HasSeason
 
-  attr_accessor :checked
+  KINDS = %w(full_time part_time)
 
   belongs_to :project, optional: true
 
@@ -29,7 +29,7 @@ class Team < ApplicationRecord
   delegate :full_time?, to: :kind
   delegate :part_time?, to: :kind
 
-  KINDS = %w(full_time part_time)
+  attr_accessor :checked
 
   validates :name, presence: true, uniqueness: true
   validate :disallow_multiple_student_roles

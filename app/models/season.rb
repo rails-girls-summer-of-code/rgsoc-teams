@@ -1,11 +1,5 @@
 # frozen_string_literal: true
 class Season < ApplicationRecord
-  has_many :projects
-
-  validates :name, presence: true, uniqueness: true, inclusion: { in: ('1999'..'2050') }
-
-  before_validation :set_application_dates
-
   # Season's moments: [month, day]
   SUMMER_OPEN    = [7, 1]
   SUMMER_CLOSE   = [9, 30]
@@ -14,6 +8,12 @@ class Season < ApplicationRecord
   APPL_LETTER    = [5, 1]
   PROJECTS_OPEN  = [12, 1]
   PROJECTS_CLOSE = [2, 1]
+
+  has_many :projects
+
+  validates :name, presence: true, uniqueness: true, inclusion: { in: ('1999'..'2050') }
+
+  before_validation :set_application_dates
 
   class << self
     def current
