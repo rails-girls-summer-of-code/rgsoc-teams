@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 class Conference < ApplicationRecord
+  include HasSeason
+
   REGION_LIST = [
     "Africa",
     "South America",
@@ -7,8 +9,6 @@ class Conference < ApplicationRecord
     "Europe",
     "Asia Pacific"
   ]
-
-  include HasSeason
 
   has_many :conference_attendances, dependent: :destroy
   has_many :first_choice_conference_preferences, class_name: 'ConferencePreference', foreign_key: 'first_conference_id', dependent: :destroy

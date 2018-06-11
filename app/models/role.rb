@@ -12,7 +12,7 @@ class Role < ApplicationRecord
   CONTRIBUTOR_ROLES = ADMIN_ROLES + GUIDE_ROLES
 
   belongs_to :user
-  belongs_to :team
+  belongs_to :team, optional: true
 
   delegate :github_handle, to: :user, allow_nil: true
 

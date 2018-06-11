@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Activity, type: :model do
   describe 'associations' do
-    it { is_expected.to belong_to(:team) }
+    it { is_expected.to belong_to(:team).optional }
     it { is_expected.to have_many(:comments).dependent(:destroy) }
 
     it { is_expected.to delegate_method(:students).to(:team) }

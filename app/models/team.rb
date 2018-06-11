@@ -2,20 +2,9 @@
 class Team < ApplicationRecord
   include ProfilesHelper, HasSeason
 
-  delegate :full_time?, to: :kind
-  delegate :part_time?, to: :kind
-
   KINDS = %w(full_time part_time)
 
-  validates :name, presence: true, uniqueness: true
-  validate :disallow_multiple_student_roles
-  validate :disallow_duplicate_members
-  validate :limit_number_of_students
-  validate :limit_number_of_coaches
-
-  attr_accessor :checked
-
-  belongs_to :project
+  belongs_to :project, optional: true
 
   has_one :last_activity, -> { order('id DESC') }, class_name: 'Activity'
   has_one :conference_preference, dependent: :destroy
@@ -36,6 +25,17 @@ class Team < ApplicationRecord
   accepts_nested_attributes_for :conference_preference, allow_destroy: true
   accepts_nested_attributes_for :roles, :sources, allow_destroy: true
   accepts_nested_attributes_for :conference_attendances, allow_destroy: true, reject_if: proc { |attributes| attributes[:conference_id].blank? }
+
+  delegate :full_time?, to: :kind
+  delegate :part_time?, to: :kind
+
+  attr_accessor :checked
+
+  validates :name, presence: true, uniqueness: true
+  validate :disallow_multiple_student_roles
+  validate :disallow_duplicate_members
+  validate :limit_number_of_students
+  validate :limit_number_of_coaches
 
   before_create :set_number
   before_save :set_last_checked, if: :checked

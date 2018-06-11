@@ -4,7 +4,7 @@ RSpec.describe Team, type: :model do
   it_behaves_like 'HasSeason'
 
   describe 'associations' do
-    it { is_expected.to belong_to(:project) }
+    it { is_expected.to belong_to(:project).optional }
 
     it { is_expected.to have_many(:applications).dependent(:nullify).inverse_of(:team) }
     it { is_expected.to have_many(:application_drafts).dependent(:nullify) }

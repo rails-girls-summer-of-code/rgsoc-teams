@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 class ConferencePreference < ApplicationRecord
-  belongs_to :team
-  belongs_to :first_conference, class_name: 'Conference'
-  belongs_to :second_conference, class_name: 'Conference'
+  belongs_to :team, optional: true
+  belongs_to :first_conference, class_name: 'Conference', optional: true
+  belongs_to :second_conference, class_name: 'Conference', optional: true
 
   validates :terms_of_ticket, inclusion: { in: [true] }, if: :conference_exists?
   validates :terms_of_travel, inclusion: { in: [true] }, if: :conference_exists?

@@ -1,10 +1,5 @@
 # frozen_string_literal: true
 class Rating < ApplicationRecord
-  belongs_to :application, required: true
-  belongs_to :user, required: true
-
-  serialize :data
-
   FIELDS = ActiveSupport::HashWithIndifferentAccess.new({
     diversity:
       RatingCriterium.new( 0.05, {
@@ -107,9 +102,14 @@ class Rating < ApplicationRecord
     end
   end
 
-  before_validation :set_data
+  belongs_to :application
+  belongs_to :user
+
+  serialize :data
 
   validates :user_id, uniqueness: { scope: :application_id }
+
+  before_validation :set_data
 
   scope :by, -> (user) { where(user_id: user.id) }
 

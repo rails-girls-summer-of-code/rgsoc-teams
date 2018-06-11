@@ -7,9 +7,6 @@ RSpec.describe Maintainership, type: :model do
   end
 
   describe 'its validations' do
-    it { is_expected.to validate_presence_of :project }
-    it { is_expected.to validate_presence_of :user }
-
     it { is_expected.to validate_uniqueness_of(:project_id).scoped_to(:user_id) }
   end
 end

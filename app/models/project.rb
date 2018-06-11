@@ -1,7 +1,7 @@
 # frozen_string_literal: true
-
 class Project < ApplicationRecord
   include HasSeason
+  include AASM
 
   belongs_to :submitter, class_name: 'User'
   has_many :maintainerships, dependent: :nullify
@@ -21,8 +21,6 @@ class Project < ApplicationRecord
 
   before_validation :sanitize_url
   after_create :add_submitter_to_maintainers_list
-
-  include AASM
 
   aasm whiny_transitions: false do
     state :proposed, initial: true

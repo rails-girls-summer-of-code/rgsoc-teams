@@ -4,7 +4,7 @@ RSpec.describe Role, type: :model do
   let(:user) { create(:user) }
   let(:team) { create(:team) }
 
-  it { is_expected.to belong_to(:team) }
+  it { is_expected.to belong_to(:team).optional }
   it { is_expected.to belong_to(:user) }
   it { is_expected.to validate_presence_of(:user) }
   it { is_expected.to validate_presence_of(:name) }
