@@ -200,6 +200,21 @@ RSpec.describe User, type: :model do
         expect { subject.save }.not_to change { subject.location }
       end
     end
+
+    context 'opting in' do
+      before do
+        Timecop.freeze(Time.now)
+      end
+
+      after do
+        Timecop.return
+      end
+
+      it 'sets the appropriate time for opted_in_newsletter' do
+        subject.opted_in_newsletter = true
+        expect { subject.save }.to change { subject.opted_in_newsletter_at }.to(Time.now)
+      end
+    end
   end
 
   describe 'after_create' do

@@ -73,6 +73,7 @@ class User < ApplicationRecord
   accepts_nested_attributes_for :roles, allow_destroy: true
 
   before_save :normalize_location
+  before_save :track_opt_in
   after_create :complete_from_github
 
   # This field is used to skip validations when creating
@@ -229,5 +230,13 @@ class User < ApplicationRecord
   def immutable_github_handle
     return if new_record?
     errors.add(:github_handle, "can't be changed") if changes_include?(:github_handle)
+  end
+
+  def track_opt_in
+    %w(opted_in_newsletter opted_in_announcements opted_in_marketing_announcements opted_in_surveys opted_in_sponsorships opted_in_applications_open).each do |opt_in|
+      if(send("#{opt_in}_changed?") && send("#{opt_in}"))
+        send("#{opt_in}_at=", Time.now)
+      end
+    end
   end
 end
