@@ -210,10 +210,19 @@ RSpec.describe User, type: :model do
         Timecop.return
       end
 
-      it 'sets the appropriate time for opted_in_newsletter' do
-        subject.opted_in_newsletter = true
-        expect { subject.save }.to change { subject.opted_in_newsletter_at }.to(Time.now)
+      shared_examples_for 'tracks opt-in time' do |attribute|
+        before do
+          subject.send("#{attribute}=", true)
+        end
+        it { expect { subject.save }.to change { subject.send("#{attribute}_at") }.to(Time.now) }
       end
+
+      it_behaves_like 'tracks opt-in time', :opted_in_newsletter
+      it_behaves_like 'tracks opt-in time', :opted_in_announcements
+      it_behaves_like 'tracks opt-in time', :opted_in_marketing_announcements
+      it_behaves_like 'tracks opt-in time', :opted_in_surveys
+      it_behaves_like 'tracks opt-in time', :opted_in_sponsorships
+      it_behaves_like 'tracks opt-in time', :opted_in_applications_open
     end
   end
 
