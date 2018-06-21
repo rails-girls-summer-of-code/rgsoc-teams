@@ -210,7 +210,6 @@ class User < ApplicationRecord
     defaults = OPT_INS.map { |item| [item, false] }.to_h
     options = defaults.merge options
     OPT_INS.each do |opt_in|
-      binding.pry if options[opt_in]
       next if options[opt_in] && send("#{opt_in}_at").present?
       update_attribute "#{opt_in}_at", options[opt_in] ? Time.now : nil
     end

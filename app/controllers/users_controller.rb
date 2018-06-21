@@ -29,7 +29,7 @@ class UsersController < ApplicationController
   def update
     respond_to do |format|
       @user.assign_attributes(user_params)
-      @user.update_opt_ins(User::OPT_INS.map { |item| [item, user_params["#{item}_at"].present? && user_params["#{item}_at"] != "0"]}.to_h)
+      @user.update_opt_ins(User::OPT_INS.map { |item| [item, opt_in_params["#{item}_at"].present? && opt_in_params["#{item}_at"] != "0"]}.to_h)
       if @user.save
         notice = nil
         # We disabled the confirmation instruction sending in the omniauth
@@ -94,6 +94,17 @@ class UsersController < ApplicationController
   end
   helper_method :teams
 
+  def opt_in_params
+    params.require(:user).permit(
+      :opted_in_newsletter_at,
+      :opted_in_announcements_at,
+      :opted_in_marketing_announcements_at,
+      :opted_in_surveys_at,
+      :opted_in_sponsorships_at,
+      :opted_in_applications_open_at
+    )
+  end
+
   def user_params
     params.require(:user).permit(
       :github_handle, :twitter_handle, :irc_handle,
@@ -101,12 +112,6 @@ class UsersController < ApplicationController
       :tech_expertise_list, :tech_interest_list,
       :tshirt_size, :tshirt_cut, :postal_address, :timezone,
       :country,
-      :opted_in_newsletter_at,
-      :opted_in_announcements_at,
-      :opted_in_marketing_announcements_at,
-      :opted_in_surveys_at,
-      :opted_in_sponsorships_at,
-      :opted_in_applications_open_at,
       :hide_email,
       :is_company, :company_name, :company_info,
       :application_about, :application_motivation, :application_gender_identification, :application_age,
