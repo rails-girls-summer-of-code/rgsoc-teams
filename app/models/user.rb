@@ -5,6 +5,7 @@ class User < ApplicationRecord
   TSHIRT_SIZES = %w(XXS XS S M L XL 2XL 3XL)
   TSHIRT_CUTS = %w(Straight Fitted)
   URL_PREFIX_PATTERN = /\A(http|https).*\z/i
+  OPT_INS = %i(opted_in_newsletter opted_in_announcements opted_in_marketing_announcements opted_in_surveys opted_in_sponsorships opted_in_applications_open)
 
   ORDERS = {
     name:          'LOWER(users.name)',
@@ -32,6 +33,16 @@ class User < ApplicationRecord
   include ProfilesHelper
 
   devise :omniauthable, :confirmable
+
+  OPT_INS.each do |opt_in|
+    attr_writer opt_in
+    define_method("#{opt_in}?") do
+      send("#{opt_in}_at").present? && instance_variable_get("@#{opt_in}")
+    end
+    define_method("#{opt_in}") do
+      send "#{opt_in}?"
+    end
+  end
 
   has_many :roles do
     def admin
@@ -233,9 +244,11 @@ class User < ApplicationRecord
   end
 
   def track_opt_in
-    %w(opted_in_newsletter opted_in_announcements opted_in_marketing_announcements opted_in_surveys opted_in_sponsorships opted_in_applications_open).each do |opt_in|
-      if(send("#{opt_in}_changed?") && send("#{opt_in}"))
+    OPT_INS.each do |opt_in|
+      if(send("#{opt_in}?") && send("#{opt_in}"))
         send("#{opt_in}_at=", Time.now)
+      elsif (!send("#{opt_in}?"))
+        send("#{opt_in}_at=", nil)
       end
     end
   end
