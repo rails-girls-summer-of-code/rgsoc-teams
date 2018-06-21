@@ -34,16 +34,6 @@ class User < ApplicationRecord
 
   devise :omniauthable, :confirmable
 
-  OPT_INS.each do |opt_in|
-    attr_writer opt_in
-    define_method("#{opt_in}?") do
-      send("#{opt_in}_at").present? && instance_variable_get("@#{opt_in}")
-    end
-    define_method("#{opt_in}") do
-      send "#{opt_in}?"
-    end
-  end
-
   has_many :roles do
     def admin
       where(name: Role::ADMIN_ROLES)
@@ -84,7 +74,6 @@ class User < ApplicationRecord
   accepts_nested_attributes_for :roles, allow_destroy: true
 
   before_save :normalize_location
-  before_save :track_opt_in
   after_create :complete_from_github
 
   # This field is used to skip validations when creating
@@ -217,6 +206,16 @@ class User < ApplicationRecord
     self.tech_interest = tech_interest_list.split(',').map(&:strip).reject(&:blank?)
   end
 
+  def update_opt_ins(options)
+    defaults = OPT_INS.map { |item| [item, false] }.to_h
+    options = defaults.merge options
+    OPT_INS.each do |opt_in|
+      binding.pry if options[opt_in]
+      next if options[opt_in] && send("#{opt_in}_at").present?
+      update_attribute "#{opt_in}_at", options[opt_in] ? Time.now : nil
+    end
+  end
+
   protected
 
   def send_devise_notification(notification, *args)
@@ -241,15 +240,5 @@ class User < ApplicationRecord
   def immutable_github_handle
     return if new_record?
     errors.add(:github_handle, "can't be changed") if changes_include?(:github_handle)
-  end
-
-  def track_opt_in
-    OPT_INS.each do |opt_in|
-      if(send("#{opt_in}?") && send("#{opt_in}"))
-        send("#{opt_in}_at=", Time.now)
-      elsif (!send("#{opt_in}?"))
-        send("#{opt_in}_at=", nil)
-      end
-    end
   end
 end

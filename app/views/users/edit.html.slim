@@ -60,37 +60,37 @@
   h3.page-header Communication
   .checkbox
     label
-      = f.check_box :opted_in_newsletter
+      = f.check_box :opted_in_newsletter_at, checked: @user.opted_in_newsletter_at.present?
       | Newsletter Opt In
     p.help-block
       | RGSoC Newsletter Opt In Invitation (this is still in progress, but we promise you that when we make a newsletter, it will be worth reading!)
   .checkbox
     label
-      = f.check_box :opted_in_announcements
+      = f.check_box :opted_in_announcements_at, checked: @user.opted_in_announcements_at.present?
       | Announcements
     p.help-block
       | Important announcements and updates (that’s 5 emails per year: Opening of our Scholarship Applications, Opening of our Open Source Project Submissions, Crowdfunding Campaign Launch, Selected Teams Announcement and RGSoC Kick-off, RGSoC Wrap Up)
   .checkbox
     label
-      = f.check_box :opted_in_marketing_announcements
+      = f.check_box :opted_in_marketing_announcements_at, checked: @user.opted_in_marketing_announcements_at.present?
       | Marketing Incentives
     p.help-block
       | Marketing and Communication initiatives (such as the #ThankfulForRGSoC stories and Alumna Interviews)
   .checkbox
     label
-      = f.check_box :opted_in_surveys
+      = f.check_box :opted_in_surveys_at, checked: @user.opted_in_surveys_at.present?
       | Surveys
     p.help-block
       | Surveys to get feedback about the program and/or for marketing related purposes (i.e., “The number of scholars who are still working in tech and open source projects after RGSoC”)
   .checkbox
     label
-      = f.check_box :opted_in_sponsorships
+      = f.check_box :opted_in_sponsorships_at, checked: @user.opted_in_sponsorships_at.present?
       | Sponsorship and Coaching Companies ONLY
     p.help-block
       | I just want to be notified about sponsorship and coaching companies opportunities related to RGSoC
   .checkbox
     label
-      = f.check_box :opted_in_applications_open
+      = f.check_box :opted_in_applications_open_at, checked: @user.opted_in_applications_open_at.present?
       | Applications are Open Announcement ONLY
     p.help-block
       | Opening of our Scholarship Applications announcement

@@ -28,7 +28,9 @@ class UsersController < ApplicationController
 
   def update
     respond_to do |format|
-      if @user.update_attributes(user_params)
+      @user.assign_attributes(user_params)
+      @user.update_opt_ins(User::OPT_INS.map { |item| [item, user_params["#{item}_at"].present? && user_params["#{item}_at"] != "0"]}.to_h)
+      if @user.save
         notice = nil
         # We disabled the confirmation instruction sending in the omniauth
         # user creation and have to do it manually here. If the user
@@ -99,12 +101,12 @@ class UsersController < ApplicationController
       :tech_expertise_list, :tech_interest_list,
       :tshirt_size, :tshirt_cut, :postal_address, :timezone,
       :country,
-      :opted_in_newsletter,
-      :opted_in_announcements,
-      :opted_in_marketing_announcements,
-      :opted_in_surveys,
-      :opted_in_sponsorships,
-      :opted_in_applications_open,
+      :opted_in_newsletter_at,
+      :opted_in_announcements_at,
+      :opted_in_marketing_announcements_at,
+      :opted_in_surveys_at,
+      :opted_in_sponsorships_at,
+      :opted_in_applications_open_at,
       :hide_email,
       :is_company, :company_name, :company_info,
       :application_about, :application_motivation, :application_gender_identification, :application_age,
