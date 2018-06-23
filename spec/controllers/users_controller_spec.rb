@@ -123,7 +123,7 @@ RSpec.describe UsersController, type: :controller do
 
         context "communication opt-in" do
           before do
-            Timecop.freeze(Time.now)
+            Timecop.freeze(Time.new(2002, 10, 31))
           end
 
           after do
@@ -133,7 +133,7 @@ RSpec.describe UsersController, type: :controller do
           shared_examples_for 'tracks opt-in time' do |attribute|
             it "sets #{attribute} to the current time" do
               put :update, params: { id: user.to_param, user: { attribute => '1' } }
-              expect(user.reload.send attribute).to eq(Time.now)
+              expect(user.reload.send attribute).to eq(Time.new(2002, 10, 31))
             end
           end
 
@@ -147,7 +147,7 @@ RSpec.describe UsersController, type: :controller do
           context 'opting out' do
             shared_examples_for 'tracks opt-out' do |attribute|
               before do
-                user.update_attribute attribute, Time.now
+                user.update_attribute attribute, Time.new(2002, 10, 31)
               end
 
               it "sets #{attribute} to nil" do
