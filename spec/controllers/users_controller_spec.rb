@@ -120,34 +120,78 @@ RSpec.describe UsersController, type: :controller do
           put :update, params: { id: user.to_param, user: valid_attributes }
           expect(response).to redirect_to(user)
         end
+
+        context "communication opt-in" do
+          before do
+            Timecop.freeze(Time.now)
+          end
+
+          after do
+            Timecop.return
+          end
+
+          shared_examples_for 'tracks opt-in time' do |attribute|
+            it "sets #{attribute} to the current time" do
+              put :update, params: { id: user.to_param, user: { attribute => '1' } }
+              expect(user.reload.send attribute).to eq(Time.now)
+            end
+          end
+
+          it_behaves_like 'tracks opt-in time', :opted_in_newsletter_at
+          it_behaves_like 'tracks opt-in time', :opted_in_announcements_at
+          it_behaves_like 'tracks opt-in time', :opted_in_marketing_announcements_at
+          it_behaves_like 'tracks opt-in time', :opted_in_surveys_at
+          it_behaves_like 'tracks opt-in time', :opted_in_sponsorships_at
+          it_behaves_like 'tracks opt-in time', :opted_in_applications_open_at
+
+          context 'opting out' do
+            shared_examples_for 'tracks opt-out' do |attribute|
+              before do
+                user.update_attribute attribute, Time.now
+              end
+
+              it "sets #{attribute} to nil" do
+                put :update, params: { id: user.to_param, user: { attribute => '0' } }
+                expect(user.reload.send attribute).to eq(nil)
+              end
+            end
+
+            it_behaves_like 'tracks opt-out', :opted_in_newsletter_at
+            it_behaves_like 'tracks opt-out', :opted_in_announcements_at
+            it_behaves_like 'tracks opt-out', :opted_in_marketing_announcements_at
+            it_behaves_like 'tracks opt-out', :opted_in_surveys_at
+            it_behaves_like 'tracks opt-out', :opted_in_sponsorships_at
+            it_behaves_like 'tracks opt-out', :opted_in_applications_open_at
+          end
+        end
+      end
+    end
+
+    describe "with invalid params" do
+      it "assigns the user as @user" do
+        allow_any_instance_of(User).to receive(:save).and_return(false)
+        put :update, params: { id: user.to_param, user: { name: 'invalid value' } }
+        expect(assigns(:user)).to eq(user)
       end
 
-      describe "with invalid params" do
-        it "assigns the user as @user" do
-          allow_any_instance_of(User).to receive(:save).and_return(false)
-          put :update, params: { id: user.to_param, user: { name: 'invalid value' } }
-          expect(assigns(:user)).to eq(user)
-        end
+      it "re-renders the 'edit' template" do
+        allow_any_instance_of(User).to receive(:save).and_return(false)
+        put :update, params: { id: user.to_param, user: { name: 'invalid value' } }
+        expect(response).to render_template("edit")
+      end
+    end
 
-        it "re-renders the 'edit' template" do
-          allow_any_instance_of(User).to receive(:save).and_return(false)
-          put :update, params: { id: user.to_param, user: { name: 'invalid value' } }
-          expect(response).to render_template("edit")
-        end
+    context "another user's profile" do
+      let!(:another_user) { create(:user) }
+
+      it "does not update the requested user" do
+        expect_any_instance_of(User).not_to receive(:update_attributes)
+        put :update, params: { id: another_user.to_param, user: { name: 'Trung Le' } }
       end
 
-      context "another user's profile" do
-        let!(:another_user) { create(:user) }
-
-        it "does not update the requested user" do
-          expect_any_instance_of(User).not_to receive(:update_attributes)
-          put :update, params: { id: another_user.to_param, user: { name: 'Trung Le' } }
-        end
-
-        it "redirects the user to the homepage" do
-          put :update, params: { id: another_user.to_param, user: valid_attributes }
-          expect(response).to redirect_to(root_url)
-        end
+      it "redirects the user to the homepage" do
+        put :update, params: { id: another_user.to_param, user: valid_attributes }
+        expect(response).to redirect_to(root_url)
       end
     end
   end

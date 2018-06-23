@@ -200,30 +200,6 @@ RSpec.describe User, type: :model do
         expect { subject.save }.not_to change { subject.location }
       end
     end
-
-    context 'opting in' do
-      before do
-        Timecop.freeze(Time.now)
-      end
-
-      after do
-        Timecop.return
-      end
-
-      shared_examples_for 'tracks opt-in time' do |attribute|
-        before do
-          subject.send("#{attribute}=", true)
-        end
-        it { expect { subject.save }.to change { subject.send("#{attribute}_at") }.to(Time.now) }
-      end
-
-      it_behaves_like 'tracks opt-in time', :opted_in_newsletter
-      it_behaves_like 'tracks opt-in time', :opted_in_announcements
-      it_behaves_like 'tracks opt-in time', :opted_in_marketing_announcements
-      it_behaves_like 'tracks opt-in time', :opted_in_surveys
-      it_behaves_like 'tracks opt-in time', :opted_in_sponsorships
-      it_behaves_like 'tracks opt-in time', :opted_in_applications_open
-    end
   end
 
   describe 'after_create' do

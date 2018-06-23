@@ -206,15 +206,6 @@ class User < ApplicationRecord
     self.tech_interest = tech_interest_list.split(',').map(&:strip).reject(&:blank?)
   end
 
-  def update_opt_ins(options)
-    defaults = OPT_INS.map { |item| [item, false] }.to_h
-    options = defaults.merge options
-    OPT_INS.each do |opt_in|
-      next if options[opt_in] && send("#{opt_in}_at").present?
-      update_attribute "#{opt_in}_at", options[opt_in] ? Time.now : nil
-    end
-  end
-
   protected
 
   def send_devise_notification(notification, *args)
