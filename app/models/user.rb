@@ -5,7 +5,6 @@ class User < ApplicationRecord
   TSHIRT_SIZES = %w(XXS XS S M L XL 2XL 3XL)
   TSHIRT_CUTS = %w(Straight Fitted)
   URL_PREFIX_PATTERN = /\A(http|https).*\z/i
-  OPT_INS = %i(opted_in_newsletter opted_in_announcements opted_in_marketing_announcements opted_in_surveys opted_in_sponsorships opted_in_applications_open)
 
   ORDERS = {
     name:          'LOWER(users.name)',
