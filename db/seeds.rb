@@ -1,3 +1,6 @@
+performing_deliveries = ActionMailer::Base.perform_deliveries
+ActionMailer::Base.perform_deliveries = false
+
 # Teams
 FactoryBot.create_list(:team, 5, :in_current_season, kind: "full_time")
 FactoryBot.create(:team, :in_current_season, kind: "part_time")
@@ -47,3 +50,5 @@ FactoryBot.create(:project, :rejected, :in_current_season)
     ends_on: random_date + rand(2.days)
   )
 end
+
+ActionMailer::Base.perform_deliveries = performing_deliveries
