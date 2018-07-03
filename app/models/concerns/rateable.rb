@@ -24,7 +24,7 @@ module Rateable
   end
 
   def ratings_short
-    ratings.includes(:user).map { |r| "#{r.user.name}: #{r.points.round(2)}" }
+    ratings.includes(:user).map { |r| "#{r.user&.name}: #{r.points&.round(2)}" }
   end
 
   def total_picks

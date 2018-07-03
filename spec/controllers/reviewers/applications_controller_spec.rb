@@ -29,6 +29,28 @@ RSpec.describe Reviewers::ApplicationsController, type: :controller do
 
         expect(assigns :table).to be_a Selection::Table
         expect(response).to render_template :index
+
+      end
+
+      context 'given one of the users deleted their account' do
+        before do
+          application = applications.first
+          create(:student, team: application.team)
+          create(:student, team: application.team)
+          application.team.students.first.destroy!
+        end
+
+        it 'assigns an application table and renders the index view' do
+          expect(Application).to receive(:rateable)
+            .with(no_args)
+            .and_return(applications)
+
+          get :index
+
+          expect(assigns :table).to be_a Selection::Table
+          expect(response).to render_template :index
+
+        end
       end
 
       context 'when applying filters and sorting' do
