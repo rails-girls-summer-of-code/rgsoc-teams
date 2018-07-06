@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Team, type: :model, wip: true do
+RSpec.describe Team, type: :model do
   it_behaves_like 'HasSeason'
 
   describe 'associations' do
