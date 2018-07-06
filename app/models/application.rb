@@ -12,7 +12,7 @@ class Application < ApplicationRecord
 
   has_many :comments, -> { order(:created_at) }, as: :commentable, dependent: :destroy
 
-  validates :team, :application_data, presence: true
+  validates :application_data, presence: true
 
   before_validation :remove_duplicate_flags
 

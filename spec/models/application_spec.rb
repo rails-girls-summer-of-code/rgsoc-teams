@@ -18,7 +18,6 @@ RSpec.describe Application, type: :model do
 
   describe 'validations' do
     it { is_expected.to validate_presence_of(:application_data) }
-    it { is_expected.to validate_presence_of(:team) }
   end
 
   describe 'scopes' do
