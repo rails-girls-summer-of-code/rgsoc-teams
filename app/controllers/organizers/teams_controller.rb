@@ -85,7 +85,7 @@ module Organizers
         :name, :twitter_handle, :github_handle, :description, :post_info, :event_id,
         :checked, :'starts_on(1i)', :'starts_on(2i)', :'starts_on(3i)',
         :'finishes_on(1i)', :'finishes_on(2i)', :'finishes_on(3i)', :invisible,
-        :project_name, :season_id, :kind,
+        :project_id, :season_id, :kind,
         conference_preference_attributes: [:id, :terms_of_ticket, :terms_of_travel, :first_conference_id, :second_conference_id, :lightning_talk, :comment, :_destroy],
         roles_attributes: [:id, :name, :github_handle, :_destroy],
         conference_attendances_attributes: [:id, :orga_comment, :conference_id, :_destroy],
