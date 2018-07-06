@@ -1,5 +1,4 @@
 FactoryBot.define do
-
   factory :activity do
     team
 

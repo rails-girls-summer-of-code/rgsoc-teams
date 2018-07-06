@@ -6,7 +6,7 @@ class Application < ApplicationRecord
   COACHING_COMPANY_WEIGHT = ENV['COACHING_COMPANY_WEIGHT'] || 2
   MENTOR_PICK_WEIGHT = ENV['MENTOR_PICK_WEIGHT'] || 2
 
-  belongs_to :application_draft, optional: true
+  belongs_to :application_draft
   belongs_to :team, inverse_of: :applications, counter_cache: true
   belongs_to :project, optional: true
 
