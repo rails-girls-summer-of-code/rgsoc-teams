@@ -90,8 +90,9 @@ class Team < ApplicationRecord
     super.to_s.inquiry
   end
 
+  # TODO: refactor me...
   def display_name
-    chunks = [name, project_name].select(&:present?)
+    chunks = [name, project&.name].select(&:present?)
     chunks[1] = "(#{chunks[1]})" if chunks[1]
     chunks << "[#{season.name}]" if season && season != Season.current
 
