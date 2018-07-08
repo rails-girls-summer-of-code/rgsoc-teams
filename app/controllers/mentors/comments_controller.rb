@@ -7,7 +7,7 @@ module Mentors
     end
 
     def update
-      comment = mentor_comments.update(params[:id], update_params)
+      comment = mentor_comments.update(params[:mentor_comment][:commentable_id], update_params)
       redirect_to path_for(comment)
     end
 
@@ -20,7 +20,7 @@ module Mentors
     end
 
     def update_params
-      params.require(:mentor_comment).permit(:text)
+      params.require(:mentor_comment).permit(:id, :text)
     end
 
     def path_for(comment)
