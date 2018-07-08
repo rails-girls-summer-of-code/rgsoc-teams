@@ -4,7 +4,7 @@ RSpec.describe 'Guest User', type: :feature do
   let!(:activity)       { create(:status_update, :published, team: team1) }
   let(:other_user)      { create(:user) }
   let!(:project)        { create(:project, :in_current_season, :accepted, submitter: other_user) }
-  let!(:team1)          { create(:team, :in_current_season, name: 'Cheesy forever', project: project, project_id: project.id) }
+  let!(:team1)          { create(:team, :in_current_season, name: 'Cheesy forever', project: project) }
   let!(:out_of_season)  { Season.current.starts_at - 1.week }
   let!(:summer_season)  { Season.current.starts_at + 1.week }
 
