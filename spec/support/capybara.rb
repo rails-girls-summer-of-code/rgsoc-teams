@@ -8,6 +8,11 @@ Capybara.register_driver :headless_chrome do |app|
   Capybara::Selenium::Driver.new(app, browser: :chrome, desired_capabilities: capabilities)
 end
 
+# Enable new driver to save screenshots
+Capybara::Screenshot.register_driver(:headless_chrome) do |driver, path|
+  driver.browser.save_screenshot(path)
+end
+
 Capybara.configure do |config|
   config.default_driver = :headless_chrome
   config.javascript_driver = :headless_chrome
