@@ -447,14 +447,6 @@ RSpec.describe Team, type: :model do
       end
     end
 
-    context 'with a project but no name' do
-      let(:team) { build(:team, name: nil, project: project) }
-
-      it 'uses only the project name if the team name is missing' do
-        expect(display_name).to eq('Team Sinatra')
-      end
-    end
-
     context 'when from a past season' do
       let(:team)   { build(:team, name: 'Cheesy', season: season, project: project) }
       let(:season) { build(:season, name: '1999') }
