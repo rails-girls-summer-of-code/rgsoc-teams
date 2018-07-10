@@ -15,7 +15,7 @@ RSpec.describe 'Editing Teams', type: :feature do
     it 'displays a readonly field for the project' do
       visit edit_team_path(team)
 
-      expect(page).to have_field('Project', with: project.id, readonly: true)
+      expect(page).to have_field('Project', with: project.id, disabled: true)
       expect(page).to have_content('Unicorn Prompt')
     end
   end
@@ -26,7 +26,7 @@ RSpec.describe 'Editing Teams', type: :feature do
     it 'displays an empty readonly field for the project' do
       visit edit_team_path(team)
 
-      expect(page).to have_field('Project', with: nil, readonly: true)
+      expect(page).to have_field('Project', with: nil, disabled: true)
     end
   end
 end
