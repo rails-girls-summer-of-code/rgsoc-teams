@@ -1,5 +1,6 @@
 FactoryBot.define do
   factory :application do
+    application_draft
     team
     application_data {{
       student0_application_coding_level: 2,

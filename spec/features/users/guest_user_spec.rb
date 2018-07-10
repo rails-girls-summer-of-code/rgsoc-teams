@@ -1,16 +1,14 @@
 require 'rails_helper'
 
 RSpec.describe 'Guest User', type: :feature do
-
-  let!(:activity) { create(:status_update, :published, team: team1) }
-  let(:other_user) { create(:user) }
-  let!(:project)       { create(:project, :in_current_season, :accepted, submitter: other_user) }
-  let!(:team1)         { create(:team, :in_current_season, name: 'Cheesy forever', project_name: project.name, project_id: project.id) }
+  let!(:activity)       { create(:status_update, :published, team: team1) }
+  let(:other_user)      { create(:user) }
+  let!(:project)        { create(:project, :in_current_season, :accepted, submitter: other_user) }
+  let!(:team1)          { create(:team, :in_current_season, name: 'Cheesy forever', project: project) }
   let!(:out_of_season)  { Season.current.starts_at - 1.week }
   let!(:summer_season)  { Season.current.starts_at + 1.week }
 
-  context "when visiting public pages" do
-
+  context 'when visiting public pages' do
     context 'All Year' do
       before { Timecop.travel(out_of_season) }
       after  { Timecop.return }

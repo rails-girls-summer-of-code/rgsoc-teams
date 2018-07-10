@@ -88,17 +88,20 @@ RSpec.describe ApplicationHelper, type: :helper do
   end
 
   describe '.link_to_user_roles' do
+    let(:team1)   { create(:team, name: '29-enim', project: project) }
+    let(:team2)   { create(:team, name: '28-enim') }
+    let(:user)    { create(:user, name: 'Trung Le') }
+    let(:project) { create(:project, name: 'Sinatra') }
+
     before do
-      @team  = create(:team, name: '29-enim', project_name: 'Sinatra')
-      @user1 = create(:user, name: 'Trung Le')
-      @role2 = create(:coach_role,  user: @user1, team: @team)
-      @role3 = create(:mentor_role, user: @user1, team: @team)
+      create(:coach_role,  user: user, team: team1)
+      create(:mentor_role, user: user, team: team2)
     end
 
     it 'should return link_to role based on student' do
-      expect(link_to_user_roles(@user1)).to eq(
-        "<a href=\"/community?role=coach\">Coach</a> at <a href=\"/teams/#{@team.id}\">Team 29-enim (Sinatra)</a>, " +
-        "<a href=\"/community?role=mentor\">Mentor</a> at <a href=\"/teams/#{@team.id}\">Team 29-enim (Sinatra)</a>"
+      expect(link_to_user_roles(user)).to eq(
+        "<a href=\"/community?role=coach\">Coach</a> at <a href=\"/teams/#{team1.id}\">Team 29-enim (Sinatra)</a>, " +
+        "<a href=\"/community?role=mentor\">Mentor</a> at <a href=\"/teams/#{team2.id}\">Team 28-enim</a>"
       )
     end
   end

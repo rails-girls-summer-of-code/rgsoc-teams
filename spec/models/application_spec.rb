@@ -12,13 +12,12 @@ RSpec.describe Application, type: :model do
   describe 'associations' do
     it { is_expected.to belong_to(:team).inverse_of(:applications).counter_cache(true) }
     it { is_expected.to belong_to(:project).optional }
-    it { is_expected.to belong_to(:application_draft).optional }
+    it { is_expected.to belong_to(:application_draft) }
     it { is_expected.to have_many(:comments).dependent(:destroy).order(:created_at) }
   end
 
   describe 'validations' do
     it { is_expected.to validate_presence_of(:application_data) }
-    it { is_expected.to validate_presence_of(:team) }
   end
 
   describe 'scopes' do

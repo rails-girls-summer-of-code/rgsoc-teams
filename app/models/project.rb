@@ -45,8 +45,7 @@ class Project < ApplicationRecord
   #
   # @param season [Season] the season to query, defaults to the current one.
   def self.selected(season: Season.current)
-    project_names = Team.in_season(season).accepted.pluck(:project_name)
-    in_season(season).accepted.where(name: project_names)
+    in_season(season).accepted.where(id: Team.in_season(season).accepted.pluck(:project_id))
   end
 
   def taglist

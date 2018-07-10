@@ -422,42 +422,38 @@ RSpec.describe Team, type: :model do
   end
 
   describe '#display_name' do
-    context 'with a project name' do
-      before { subject.project_name = 'Sinatra' }
+    subject(:display_name) { team.display_name }
 
-      it 'returns "Team Sinatra" if no name given' do
-        expect(subject.display_name).to eql 'Team Sinatra'
-      end
+    let(:team)    { build(:team, :in_current_season, name: 'Blue') }
+    let(:project) { build(:project, name: 'Sinatra') }
 
-      it 'returns "Team Blue" if name given' do
-        subject.name = 'Blue'
-        expect(subject.display_name).to eql 'Team Blue (Sinatra)'
+    it 'returns "Team" and the name' do
+      expect(display_name).to eq('Team Blue')
+    end
+
+    context 'when the name already contains "Team"' do
+      let(:team) { build(:team, name: 'Team Paperplane') }
+
+      it 'does no prepend "Team"' do
+        expect(display_name).to eq('Team Paperplane')
       end
     end
 
-    context 'with season information' do
-      subject { described_class.new season: season, name: 'Cheesy' }
+    context 'with a project assigned' do
+      before { team.project = project }
 
-      context 'for a current team' do
-        let(:season) { Season.current }
-
-        it 'will not display the year' do
-          expect(subject.display_name).to eql 'Team Cheesy'
-        end
-      end
-
-      context 'for a past team' do
-        let(:season) { create :season, name: Date.today.year - 1 }
-
-        it 'will append the year' do
-          expect(subject.display_name).to eql "Team Cheesy [#{season.name}]"
-        end
+      it 'prepends the project name' do
+        expect(display_name).to eq('Team Blue (Sinatra)')
       end
     end
 
-    it 'will not prepend "Team" if already in place' do
-      subject.name = "Team Three Headed Monkey"
-      expect(subject.display_name).to eql "Team Three Headed Monkey"
+    context 'when from a past season' do
+      let(:team)   { build(:team, name: 'Cheesy', season: season, project: project) }
+      let(:season) { build(:season, name: '1999') }
+
+      it 'appends the season name' do
+        expect(display_name).to eq('Team Cheesy (Sinatra) [1999]')
+      end
     end
   end
 

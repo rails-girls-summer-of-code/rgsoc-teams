@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe Project, type: :model do
   it_behaves_like 'HasSeason'
 
-  context 'with associations' do
+  describe 'associations' do
     it { is_expected.to belong_to(:submitter).class_name(User) }
     it { is_expected.to have_many(:comments).dependent(:destroy) }
     it { is_expected.to have_many(:first_choice_application_drafts).class_name(ApplicationDraft) }
@@ -12,13 +12,46 @@ RSpec.describe Project, type: :model do
     it { is_expected.to have_many(:maintainers) }
   end
 
-  context 'with validations' do
+  describe 'validations' do
     it { is_expected.to validate_presence_of(:name) }
     it { is_expected.to validate_presence_of(:submitter) }
     it { is_expected.to validate_presence_of(:mentor_email) }
   end
 
-  context 'with callbacks' do
+  describe 'scopes' do
+    describe '.selected' do
+      subject(:selected) { described_class.selected }
+
+      let!(:current_season) { Season.current }
+      let!(:other_season)   { create(:season) }
+
+      let!(:project1) { create(:project, season: current_season) }
+      let!(:project2) { create(:project, :accepted, season: current_season) }
+      let!(:project3) { create(:project, :accepted, season: current_season) }
+      let!(:project4) { create(:project, :accepted, season: current_season) }
+      let!(:project5) { create(:project, :accepted, season: other_season) }
+
+      before do
+        create(:team, kind: 'full_time', project: project3, season: current_season)
+        create(:team, kind: nil, project: project4, season: current_season)
+        create(:team, kind: 'full_time', project: project5, season: other_season)
+      end
+
+      it 'returns only accepted projects with accepted teams' do
+        expect(selected).to contain_exactly(project3)
+      end
+
+      context 'when passing a specific season' do
+        subject(:selected) { described_class.selected(season: other_season) }
+
+        it 'returns only accepted projects with accepted teams from that season' do
+          expect(selected).to contain_exactly(project5)
+        end
+      end
+    end
+  end
+
+  describe 'callbacks' do
     context 'sanitizing url input' do
       it 'adds a protocol scheme when there is none' do
         subject.url = "github.com/rails-girls-summer-of-code/rgspc-teams"
@@ -150,7 +183,5 @@ RSpec.describe Project, type: :model do
           [subject.submitter, subject.mentor, commenters].flatten
       end
     end
-
   end
-
 end
