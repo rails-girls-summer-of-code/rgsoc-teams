@@ -90,8 +90,3 @@ nav.page
     span Activities
     = link_to '<span>Atom Feed</span>'.html_safe, activities_path(format: :atom, team_id: @team.id), class: 'atom'
   = render 'activities/activities', object: @team.activities.ordered
-- if @team.activities.any?
-  h3
-    span Activities
-    = link_to '<span>Atom Feed</span>'.html_safe, activities_path(format: :atom, team_id: @team.id), class: 'atom'
-  = render 'activities/activities', object: @team.activities.ordered
