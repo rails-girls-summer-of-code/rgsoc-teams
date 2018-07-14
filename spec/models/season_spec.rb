@@ -233,9 +233,11 @@ RSpec.describe Season, type: :model do
   end
 
   describe '.all_years' do
-    it 'return array of years' do
+    it 'returns array of years that includes succeeding year only if succeeding year is equal to current year' do
+      next_year = (Date.today.year + 1).to_s
       create :season, name: '2015'
       create :season, name: '2016'
+      create :season, name: next_year
       expect(Season.all_years).to match_array ['2015', '2016']
     end
   end

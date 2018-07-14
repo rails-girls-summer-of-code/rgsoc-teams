@@ -39,7 +39,7 @@ class Season < ApplicationRecord
     end
 
     def all_years
-      pluck(:name)
+      where("name <= ?", Date.today.year.to_s).pluck(:name)    
     end
   end
 
