@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 class Comment < ApplicationRecord
-  belongs_to :user, optional: true
-  belongs_to :commentable, polymorphic: true, optional: true
+  belongs_to :user
+  belongs_to :commentable, polymorphic: true
 
   scope :recent, -> { order('created_at DESC').limit(3) }
   scope :ordered, -> { order('created_at DESC, id DESC') }
