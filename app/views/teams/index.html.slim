@@ -5,10 +5,10 @@ nav.actions
     = 'Sign up to create your own team!' unless current_user
   div.pull-right.dropdown
     button.btn.btn-default.dropdown-toggle data-toggle="dropdown"
-      | Past Teams
+      | Select by Year
       span.caret<
     ul.dropdown-menu role="menu"
-      - Season.all_years.each do |year|
+      - Season.all_years.sort.each do |year|
         li
          a data-behaviour="switch-teams-year" data-value=year =year
 
