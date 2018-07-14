@@ -242,8 +242,8 @@ RSpec.describe Season, type: :model do
     end
 
     it 'returns current year only if current season is active season' do
-      before_acceptance_notification = Time.local(2018, 5, 1, 0, 0)
-      after_acceptance_notification = Time.local(2018, 5, 2, 0, 0)
+      before_acceptance_notification = Time.utc(2018, 5, 1, 23, 59, 58)
+      after_acceptance_notification = Time.utc(2018, 5, 2, 0, 0, 0)
       create :season, name: '2015'
       create :season, name: '2016'
       create :season, name: '2018'
