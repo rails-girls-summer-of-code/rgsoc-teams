@@ -38,7 +38,7 @@ class Season < ApplicationRecord
         season.project_proposals_close_at
     end
 
-    def all_years
+    def active_and_previous_years
       where("acceptance_notification_at <= ?", Time.now.utc).order(:name).pluck(:name)
     end
   end

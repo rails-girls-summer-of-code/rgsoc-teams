@@ -232,13 +232,27 @@ RSpec.describe Season, type: :model do
     end
   end
 
-  describe '.all_years' do
-    it 'returns array of years that includes succeeding year only if succeeding year is equal to current year' do
+  describe '.active_and_previous_years' do
+    it 'returns array of years that includes all active and previously active years' do
       next_year = (Date.today.year + 1).to_s
       create :season, name: '2015'
       create :season, name: '2016'
       create :season, name: next_year
-      expect(Season.all_years).to match_array ['2015', '2016']
+      expect(Season.active_and_previous_years).to match_array ['2015', '2016']
+    end
+
+    it 'returns current year only if current year is active' do
+      before_acceptance_notification = Time.local(2018, 5, 1, 0, 0)
+      after_acceptance_notification = Time.local(2018, 5, 2, 0, 0)
+      create :season, name: '2015'
+      create :season, name: '2016'
+      create :season, name: '2018'
+
+      Timecop.freeze(before_acceptance_notification)
+      expect(Season.active_and_previous_years).to match_array ['2015', '2016']
+
+      Timecop.freeze(after_acceptance_notification)
+      expect(Season.active_and_previous_years).to match_array ['2015', '2016', '2018']
     end
   end
 end
