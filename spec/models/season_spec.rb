@@ -241,7 +241,7 @@ RSpec.describe Season, type: :model do
       expect(Season.active_and_previous_years).to match_array ['2015', '2016']
     end
 
-    it 'returns current year only if current year is active' do
+    it 'returns current year only if current season is active season' do
       before_acceptance_notification = Time.local(2018, 5, 1, 0, 0)
       after_acceptance_notification = Time.local(2018, 5, 2, 0, 0)
       create :season, name: '2015'
