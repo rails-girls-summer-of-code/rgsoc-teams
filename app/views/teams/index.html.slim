@@ -8,7 +8,7 @@ nav.actions
       | Select by Year
       span.caret<
     ul.dropdown-menu role="menu"
-      - Season.all_years.sort.each do |year|
+      - Season.all_years.each do |year|
         li
          a data-behaviour="switch-teams-year" data-value=year =year
 
