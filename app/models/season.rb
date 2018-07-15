@@ -39,7 +39,7 @@ class Season < ApplicationRecord
     end
 
     def active_and_previous_years
-      where("acceptance_notification_at <= ?", Time.now.utc).order(:name).pluck(:name)
+      where("acceptance_notification_at <= ?", Time.current).order(name: :desc).pluck(:name)
     end
   end
 
