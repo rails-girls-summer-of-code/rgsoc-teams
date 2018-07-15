@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe ApplicationHelper, type: :helper do
-  describe '#user_for_comment', :wip do
+  describe '#user_for_comment' do
     subject { helper.user_for_comment(comment) }
 
     let(:user)    { create(:user, name: 'Alice') }
