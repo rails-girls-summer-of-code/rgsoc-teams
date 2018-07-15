@@ -239,7 +239,7 @@ RSpec.describe Season, type: :model do
       create :season, name: '2017'
       create :season, name: '2016'
       create :season, name: next_year
-      expect(Season.active_and_previous_years).to match_array ['2017', '2016', '2015']
+      expect(Season.active_and_previous_years).to eq ['2017', '2016', '2015']
     end
 
     it 'returns current year only if current season is active season' do
