@@ -189,16 +189,6 @@ module ApplicationHelper
     end
   end
 
-  def time_for_user(user)
-    if !user.timezone.blank?
-      Time.use_zone(user.timezone) do
-        localize(Time.zone.now, format: '%I:%M %p')
-      end
-    else
-      '-'
-    end
-  end
-
   def list_all_timezones
     TIMEZONES
   end
