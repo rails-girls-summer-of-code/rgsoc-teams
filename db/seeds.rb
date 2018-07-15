@@ -1,4 +1,4 @@
-performing_deliveries = ActionMailer::Base.perform_deliveries
+# NOTE: we do not want to send any email when seeding the database
 ActionMailer::Base.perform_deliveries = false
 
 # Teams
@@ -50,5 +50,3 @@ FactoryBot.create(:project, :rejected, :in_current_season)
     ends_on: random_date + rand(2.days)
   )
 end
-
-ActionMailer::Base.perform_deliveries = performing_deliveries
