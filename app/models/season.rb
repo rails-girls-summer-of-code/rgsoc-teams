@@ -33,26 +33,26 @@ class Season < ApplicationRecord
 
     def projects_proposable?
       season = transition? ? succ : current
-      Time.current.between? \
+      Time.now.utc.between? \
         season.project_proposals_open_at,
         season.project_proposals_close_at
     end
 
     def active_and_previous_years
-      where("acceptance_notification_at <= ?", Time.current).order(name: :desc).pluck(:name)
+      where("acceptance_notification_at <= ?", Time.now.utc).order(name: :desc).pluck(:name)
     end
   end
 
   def application_period?
-    Time.current.between? applications_open_at, applications_close_at
+    Time.now.utc.between? applications_open_at, applications_close_at
   end
 
   def applications_open?
-    Time.current >= (applications_open_at || 1.week.from_now)
+    Time.now.utc >= (applications_open_at || 1.week.from_now)
   end
 
   def active?
-    Time.current.between?(acceptance_notification_at, ends_at)
+    Time.now.utc.between?(acceptance_notification_at, ends_at)
   end
 
   # @return [Boolean] whether or not the Season represents the current year
@@ -61,11 +61,11 @@ class Season < ApplicationRecord
   end
 
   def started?
-    Time.current >= (starts_at || 1.week.from_now)
+    Time.now.utc >= (starts_at || 1.week.from_now)
   end
 
   def ended?
-    Time.current >= (ends_at || Date.today.end_of_year).end_of_day.utc
+    Time.now.utc >= (ends_at || Date.today.end_of_year).end_of_day.utc
   end
 
   def year; name end
