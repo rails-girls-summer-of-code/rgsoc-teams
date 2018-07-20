@@ -180,7 +180,8 @@ RSpec.describe Mentor::Application, type: :model do
   end
 
   describe '#find_or_initialize_comment_by(mentor)' do
-    let(:mentor_application) { described_class.new(id: 1) }
+    let!(:application)       { create(:application) }
+    let(:mentor_application) { described_class.new(id: application.id) }
     let(:mentor)             { create(:mentor) }
 
     subject { mentor_application.find_or_initialize_comment_by(mentor) }

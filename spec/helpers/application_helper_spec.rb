@@ -1,6 +1,38 @@
 require 'rails_helper'
 
 RSpec.describe ApplicationHelper, type: :helper do
+  describe '#user_for_comment' do
+    subject { helper.user_for_comment(comment) }
+
+    let(:user)    { create(:user, name: 'Alice') }
+    let(:comment) { create(:comment, user: user) }
+
+    before { allow(helper).to receive(:current_user) }
+
+    it { is_expected.to eq('Alice') }
+
+    context 'when the comment is by the current_user' do
+      before { allow(helper).to receive(:current_user).and_return(user) }
+
+      it { is_expected.to eq('You') }
+    end
+
+    context 'when the comment is by an admin' do
+      let(:user)       { create(:organizer, name: 'Eva') }
+      let(:with_label) { 'Eva <small><span class="label label-primary">RGSoC</span></small>' }
+
+      it { is_expected.to eq(with_label) }
+    end
+
+    context 'when the comment is by a currently logged in admin' do
+      let(:user) { create(:organizer, name: 'Eva') }
+
+      before { allow(helper).to receive(:current_user).and_return(user) }
+
+      it { is_expected.to eq('You') }
+    end
+  end
+
   describe '#application_disambiguation_link' do
     let(:draft) { create :application_draft }
     let(:user)  { create :user }

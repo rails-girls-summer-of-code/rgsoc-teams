@@ -1,5 +1,6 @@
 FactoryBot.define do
   factory :comment do
+    association :commentable, factory: :project
     user
     text { FFaker::CheesyLingo.paragraph }
 

@@ -11,6 +11,7 @@ RSpec.describe User, type: :model do
     it { is_expected.to have_many(:application_drafts).through(:teams) }
     it { is_expected.to have_many(:applications).through(:teams) }
     it { is_expected.to have_many(:todos).dependent(:destroy) }
+    it { is_expected.to have_many(:comments).dependent(:destroy) }
   end
 
   describe 'validations' do
