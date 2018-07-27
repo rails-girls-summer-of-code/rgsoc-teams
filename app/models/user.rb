@@ -99,9 +99,9 @@ class User < ApplicationRecord
     define_method "#{attribute}=".to_sym do |value|
       accepted = ActiveRecord::Type::Boolean.new.cast(value)
       if accepted
-        self.send("#{attribute}_at=", (self.send("#{attribute}_at") || Time.now))
+        send("#{attribute}_at=", (send("#{attribute}_at") || Time.now))
       else
-        self.send("#{attribute}_at=", nil)
+        send("#{attribute}_at=", nil)
       end
     end
   end
