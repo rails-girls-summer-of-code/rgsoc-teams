@@ -28,7 +28,7 @@ class UsersController < ApplicationController
 
   def update
     respond_to do |format|
-      if @user.update_attributes(user_params.merge opt_in_params)
+      if @user.update_attributes(user_params)
         notice = nil
         # We disabled the confirmation instruction sending in the omniauth
         # user creation and have to do it manually here. If the user
@@ -91,32 +91,6 @@ class UsersController < ApplicationController
     current_season.active? ? selected_teams : all_teams
   end
   helper_method :teams
-
-  def opt_in_params
-    params.require(:user).permit(
-      :opted_in_newsletter_at,
-      :opted_in_announcements_at,
-      :opted_in_marketing_announcements_at,
-      :opted_in_surveys_at,
-      :opted_in_sponsorships_at,
-      :opted_in_applications_open_at
-    ).to_h.map do |opt_in, value|
-      next if opted_in?(opt_in_selected?(value), opt_in)
-      [opt_in, opted_in_time(value)]
-    end.to_h
-  end
-
-  def opted_in_time(value)
-    opt_in_selected?(value) ? Time.now : nil
-  end
-
-  def opt_in_selected?(value)
-    value != '0'
-  end
-
-  def opted_in?(selected, opt_in)
-    selected && @user.send(opt_in).present?
-  end
 
   def user_params
     params.require(:user).permit(

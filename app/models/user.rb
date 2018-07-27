@@ -88,6 +88,25 @@ class User < ApplicationRecord
   end
 
   class << self
+    %i(opted_in_newsletter opted_in_announcements opted_in_marketing_announcements opted_in_surveys opted_in_sponsorships opted_in_applications_open).each do |attribute|
+      define_method attribute.to_sym do
+        send("#{attribute}_at").present?
+      end
+
+      define_method "#{attribute}?".to_sym do
+        send(attribute)
+      end
+
+      define_method "#{attribute}=".to_sym do |value|
+        accepted = ActiveRecord::Type::Boolean.new.cast(value)
+        if accepted
+          self.send("#{attribute}_at=", self.send("#{attribute}_at") ||= Time.now)
+        else
+          self.send("#{attribute}_at=", nil)
+        end
+      end
+    end
+
     def ordered(order = nil, direction = 'asc')
       direction = direction == 'asc' ? 'ASC' : 'DESC'
 

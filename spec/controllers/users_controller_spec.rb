@@ -133,16 +133,16 @@ RSpec.describe UsersController, type: :controller do
           shared_examples_for 'tracks opt-in time' do |attribute|
             it "sets #{attribute} to the current time" do
               put :update, params: { id: user.to_param, user: { attribute => '1' } }
-              expect(user.reload.send attribute).to eq(Time.new(2002, 10, 31))
+              expect(user.reload.send "#{attribute}_at").to eq(Time.new(2002, 10, 31))
             end
           end
 
-          it_behaves_like 'tracks opt-in time', :opted_in_newsletter_at
-          it_behaves_like 'tracks opt-in time', :opted_in_announcements_at
-          it_behaves_like 'tracks opt-in time', :opted_in_marketing_announcements_at
-          it_behaves_like 'tracks opt-in time', :opted_in_surveys_at
-          it_behaves_like 'tracks opt-in time', :opted_in_sponsorships_at
-          it_behaves_like 'tracks opt-in time', :opted_in_applications_open_at
+          it_behaves_like 'tracks opt-in time', :opted_in_newsletter
+          it_behaves_like 'tracks opt-in time', :opted_in_announcements
+          it_behaves_like 'tracks opt-in time', :opted_in_marketing_announcements
+          it_behaves_like 'tracks opt-in time', :opted_in_surveys
+          it_behaves_like 'tracks opt-in time', :opted_in_sponsorships
+          it_behaves_like 'tracks opt-in time', :opted_in_applications_open
 
           context 'opting out' do
             shared_examples_for 'tracks opt-out' do |attribute|
@@ -152,16 +152,16 @@ RSpec.describe UsersController, type: :controller do
 
               it "sets #{attribute} to nil" do
                 put :update, params: { id: user.to_param, user: { attribute => '0' } }
-                expect(user.reload.send attribute).to eq(nil)
+                expect(user.reload.send "#{attribute}_at").to eq(nil)
               end
             end
 
-            it_behaves_like 'tracks opt-out', :opted_in_newsletter_at
-            it_behaves_like 'tracks opt-out', :opted_in_announcements_at
-            it_behaves_like 'tracks opt-out', :opted_in_marketing_announcements_at
-            it_behaves_like 'tracks opt-out', :opted_in_surveys_at
-            it_behaves_like 'tracks opt-out', :opted_in_sponsorships_at
-            it_behaves_like 'tracks opt-out', :opted_in_applications_open_at
+            it_behaves_like 'tracks opt-out', :opted_in_newsletter
+            it_behaves_like 'tracks opt-out', :opted_in_announcements
+            it_behaves_like 'tracks opt-out', :opted_in_marketing_announcements
+            it_behaves_like 'tracks opt-out', :opted_in_surveys
+            it_behaves_like 'tracks opt-out', :opted_in_sponsorships
+            it_behaves_like 'tracks opt-out', :opted_in_applications_open
           end
         end
       end
