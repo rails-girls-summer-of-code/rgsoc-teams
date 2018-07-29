@@ -222,7 +222,6 @@ Append `-r staging` or `-r production` to any `heroku` command in order to speci
 The Heroku scheduler is set to run these tasks:
 
 * `rake activity:update`  every 10 min
-* `rake teams:notify_missing_log_updates` once per day as close to midnight as possible (currently 23:30 UTC)
 
 ### Camo
 
