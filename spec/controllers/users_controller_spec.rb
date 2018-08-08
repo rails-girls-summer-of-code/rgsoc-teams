@@ -165,33 +165,33 @@ RSpec.describe UsersController, type: :controller do
           expect(response).to redirect_to(user)
         end
       end
-    end
 
-    describe "with invalid params" do
-      it "assigns the user as @user" do
-        allow_any_instance_of(User).to receive(:save).and_return(false)
-        put :update, params: { id: user.to_param, user: { name: 'invalid value' } }
-        expect(assigns(:user)).to eq(user)
+      describe "with invalid params" do
+        it "assigns the user as @user" do
+          allow_any_instance_of(User).to receive(:save).and_return(false)
+          put :update, params: { id: user.to_param, user: { name: 'invalid value' } }
+          expect(assigns(:user)).to eq(user)
+        end
+
+        it "re-renders the 'edit' template" do
+          allow_any_instance_of(User).to receive(:save).and_return(false)
+          put :update, params: { id: user.to_param, user: { name: 'invalid value' } }
+          expect(response).to render_template("edit")
+        end
       end
 
-      it "re-renders the 'edit' template" do
-        allow_any_instance_of(User).to receive(:save).and_return(false)
-        put :update, params: { id: user.to_param, user: { name: 'invalid value' } }
-        expect(response).to render_template("edit")
-      end
-    end
+      context "another user's profile" do
+        let!(:another_user) { create(:user) }
 
-    context "another user's profile" do
-      let!(:another_user) { create(:user) }
+        it "does not update the requested user" do
+          expect_any_instance_of(User).not_to receive(:update_attributes)
+          put :update, params: { id: another_user.to_param, user: { name: 'Trung Le' } }
+        end
 
-      it "does not update the requested user" do
-        expect_any_instance_of(User).not_to receive(:update_attributes)
-        put :update, params: { id: another_user.to_param, user: { name: 'Trung Le' } }
-      end
-
-      it "redirects the user to the homepage" do
-        put :update, params: { id: another_user.to_param, user: valid_attributes }
-        expect(response).to redirect_to(root_url)
+        it "redirects the user to the homepage" do
+          put :update, params: { id: another_user.to_param, user: valid_attributes }
+          expect(response).to redirect_to(root_url)
+        end
       end
     end
   end
