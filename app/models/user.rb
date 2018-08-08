@@ -2,6 +2,7 @@
 require 'github/user'
 
 class User < ApplicationRecord
+  include EmailPreferences
   TSHIRT_SIZES = %w(XXS XS S M L XL 2XL 3XL)
   TSHIRT_CUTS = %w(Straight Fitted)
   URL_PREFIX_PATTERN = /\A(http|https).*\z/i
@@ -85,25 +86,6 @@ class User < ApplicationRecord
   def github_import=(import)
     skip_confirmation_notification! if import
     @github_import = import
-  end
-
-  %i(opted_in_newsletter opted_in_announcements opted_in_marketing_announcements opted_in_surveys opted_in_sponsorships opted_in_applications_open).each do |attribute|
-    define_method attribute.to_sym do
-      send("#{attribute}_at").present?
-    end
-
-    define_method "#{attribute}?".to_sym do
-      send(attribute)
-    end
-
-    define_method "#{attribute}=".to_sym do |value|
-      accepted = ActiveRecord::Type::Boolean.new.cast(value)
-      if accepted
-        send("#{attribute}_at=", (send("#{attribute}_at") || Time.now))
-      else
-        send("#{attribute}_at=", nil)
-      end
-    end
   end
 
   class << self
