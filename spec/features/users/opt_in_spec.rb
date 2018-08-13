@@ -10,6 +10,12 @@ RSpec.describe 'Email opt in', type: :feature do
     context 'in the user edit page' do
       before { visit edit_user_path(user) }
 
+      shared_examples 'opting in' do |optin|
+        it 'allows opting in' do
+          check page.find("##{optin}")
+        end
+      end
+
       it 'is opted out of all email preferences by default' do
         expect(page.find('#user_opted_in_newsletter')).to_not be_checked
         expect(page.find('#user_opted_in_announcements')).to_not be_checked
