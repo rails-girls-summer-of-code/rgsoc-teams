@@ -15,7 +15,7 @@ RSpec.describe 'Email opt in', type: :feature do
           check page.find("##{optin}")
           click 'Save'
           visit edit_user_path(user)
-          expect(page.find('##{optin}')).to be_checked
+          expect(page.find("##{optin}")).to be_checked
         end
       end
 
