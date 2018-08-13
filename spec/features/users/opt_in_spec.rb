@@ -12,8 +12,8 @@ RSpec.describe 'Email opt in', type: :feature do
 
       shared_examples 'opting in' do |optin|
         it 'allows opting in' do
-          check "##{optin}"
-          click 'Save'
+          find(:css, "##{optin}").set(true)
+          click_on 'Save'
           visit edit_user_path(user)
           expect(page.find("##{optin}")).to be_checked
         end
