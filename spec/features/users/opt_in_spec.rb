@@ -3,6 +3,9 @@ require 'rails_helper'
 RSpec.describe 'Email opt in', type: :feature do
   let(:user)      { create(:user) }
 
+  context 'signed in' do
+    before { sign_in user }
+
     context 'in the user edit page' do
       before { visit edit_user_path(user) }
 
@@ -39,4 +42,5 @@ RSpec.describe 'Email opt in', type: :feature do
         expect(page.find('#user_opted_in_applications_open')).to_not be_checked
       end
     end
+  end
 end
