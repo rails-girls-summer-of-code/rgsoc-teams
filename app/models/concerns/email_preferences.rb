@@ -14,11 +14,11 @@ module EmailPreferences
 
   ATTRIBUTES.each do |attribute|
     define_method attribute do
-      send("#{attribute}_at?")
+      public_send("#{attribute}_at?")
     end
 
     define_method "#{attribute}?" do
-      send(attribute)
+      public_send(attribute)
     end
 
     define_method "#{attribute}=" do |value|

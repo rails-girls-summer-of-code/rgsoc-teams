@@ -87,18 +87,14 @@ RSpec.describe UsersController, type: :controller do
       describe "with valid params" do
         context "communication opt-in" do
           let(:now) { Time.new(2002, 10, 31) }
-          before do
-            Timecop.freeze(now)
-          end
+          before { Timecop.freeze(now) }
 
-          after do
-            Timecop.return
-          end
+          after { Timecop.return }
 
           shared_examples_for 'tracks opt-in time' do |attribute|
             it "sets #{attribute} to the current time" do
               put :update, params: { id: user.to_param, user: { attribute => '1' } }
-              expect(user.reload.send "#{attribute}_at").to eq(now)
+              expect(user.reload.public_send "#{attribute}_at").to eq(now)
             end
           end
 
@@ -117,7 +113,7 @@ RSpec.describe UsersController, type: :controller do
 
               it "sets #{attribute} to nil" do
                 put :update, params: { id: user.to_param, user: { attribute => '0' } }
-                expect(user.reload.send "#{attribute}_at").to eq(nil)
+                expect(user.reload.public_send "#{attribute}_at").to eq(nil)
               end
             end
 
