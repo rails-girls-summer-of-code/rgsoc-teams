@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'Email opt in', type: :feature do
-  let(:user)      { create(:user) }
+  let(:user) { create(:user) }
 
   context 'signed in' do
     before { sign_in user }
