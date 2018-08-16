@@ -48,6 +48,31 @@ RSpec.describe User, type: :model do
     end
   end
 
+  describe 'email preferences' do
+    let(:now) { Time.new(2002, 10, 31) }
+    let(:user) { build(:user, github_handle: 'github_handle') }
+    before { Timecop.freeze(now) }
+    after { Timecop.return }
+
+    shared_examples 'opting in and out' do |optin|
+      it 'sets the time opted in at' do
+        user.public_send("#{optin}=", true)
+        user.save!
+        expect(user.public_send("#{optin}_at")).to eq(now)
+        user.public_send("#{optin}=", false)
+        user.save!
+        expect(user.public_send("#{optin}_at")).not_to be_present
+      end
+    end
+
+    it_behaves_like 'opting in and out', :opted_in_newsletter
+    it_behaves_like 'opting in and out', :opted_in_announcements
+    it_behaves_like 'opting in and out', :opted_in_marketing_announcements
+    it_behaves_like 'opting in and out', :opted_in_surveys
+    it_behaves_like 'opting in and out', :opted_in_sponsorships
+    it_behaves_like 'opting in and out', :opted_in_applications_open
+  end
+
   describe 'immutable github handle validation' do
     context 'when creating a new user' do
       let(:new_user) { build(:user, github_handle: 'github_handle') }
