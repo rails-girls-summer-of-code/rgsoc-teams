@@ -330,6 +330,12 @@ ActiveRecord::Schema.define(version: 20180714153306) do
     t.string "tshirt_cut"
     t.text "tech_expertise", default: [], array: true
     t.text "tech_interest", default: [], array: true
+    t.datetime "opted_in_newsletter_at"
+    t.datetime "opted_in_announcements_at"
+    t.datetime "opted_in_marketing_announcements_at"
+    t.datetime "opted_in_surveys_at"
+    t.datetime "opted_in_sponsorships_at"
+    t.datetime "opted_in_applications_open_at"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
   end
 

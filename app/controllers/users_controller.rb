@@ -103,6 +103,7 @@ class UsersController < ApplicationController
       :is_company, :company_name, :company_info,
       :application_about, :application_motivation, :application_gender_identification, :application_age,
       :application_coding_level, :application_community_engagement, :application_language_learning_period,
+      *EmailPreferences::ATTRIBUTES,
       :application_learning_history, :application_skills, :application_code_samples,
       :application_location, :application_minimum_money, :application_money, :application_goals, :application_code_background,
       interested_in: [],

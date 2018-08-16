@@ -2,6 +2,8 @@
 require 'github/user'
 
 class User < ApplicationRecord
+  include EmailPreferences
+
   TSHIRT_SIZES = %w(XXS XS S M L XL 2XL 3XL)
   TSHIRT_CUTS = %w(Straight Fitted)
   URL_PREFIX_PATTERN = /\A(http|https).*\z/i

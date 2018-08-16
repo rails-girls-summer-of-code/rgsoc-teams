@@ -85,6 +85,46 @@ RSpec.describe UsersController, type: :controller do
 
     context "its own profile" do
       describe "with valid params" do
+        context "communication opt-in" do
+          let(:now) { Time.new(2002, 10, 31) }
+          before { Timecop.freeze(now) }
+
+          after { Timecop.return }
+
+          shared_examples_for 'tracks opt-in time' do |attribute|
+            it "sets #{attribute} to the current time" do
+              put :update, params: { id: user.to_param, user: { attribute => '1' } }
+              expect(user.reload.public_send "#{attribute}_at").to eq(now)
+            end
+          end
+
+          it_behaves_like 'tracks opt-in time', :opted_in_newsletter
+          it_behaves_like 'tracks opt-in time', :opted_in_announcements
+          it_behaves_like 'tracks opt-in time', :opted_in_marketing_announcements
+          it_behaves_like 'tracks opt-in time', :opted_in_surveys
+          it_behaves_like 'tracks opt-in time', :opted_in_sponsorships
+          it_behaves_like 'tracks opt-in time', :opted_in_applications_open
+
+          context 'opting out' do
+            shared_examples_for 'tracks opt-out' do |attribute|
+              before do
+                user.update_attribute attribute, Time.new(2002, 10, 31)
+              end
+
+              it "sets #{attribute} to nil" do
+                put :update, params: { id: user.to_param, user: { attribute => '0' } }
+                expect(user.reload.public_send "#{attribute}_at").to eq(nil)
+              end
+            end
+
+            it_behaves_like 'tracks opt-out', :opted_in_newsletter
+            it_behaves_like 'tracks opt-out', :opted_in_announcements
+            it_behaves_like 'tracks opt-out', :opted_in_marketing_announcements
+            it_behaves_like 'tracks opt-out', :opted_in_surveys
+            it_behaves_like 'tracks opt-out', :opted_in_sponsorships
+            it_behaves_like 'tracks opt-out', :opted_in_applications_open
+          end
+        end
 
         context "and unconfirmed user" do
           let(:user) { create(:user, confirmed_at: nil) }
