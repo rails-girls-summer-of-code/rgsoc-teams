@@ -2,14 +2,6 @@
 class TeamPerformance
 # Internal: calculates a Team's performance score for supervisor's dashboard
 
-  def self.teams_to_remind
-    if buffer_days?
-      Team.none
-    else
-      Team.by_season_phase.without_recent_log_update
-    end
-  end
-
   def initialize(team)
     @team = team
   end
