@@ -370,8 +370,10 @@ RSpec.describe Team, type: :model do
         end
       end
     end
+
     describe '.without_recent_log_update' do
       let(:team_without) { create :team }
+
       let(:team_with_old) do
         team_with_old = create :team
         create :status_update, created_at: 2.days.ago, team: team_with_old
