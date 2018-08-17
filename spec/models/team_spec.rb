@@ -370,184 +370,183 @@ RSpec.describe Team, type: :model do
         end
       end
     end
-  end
+    describe '.without_recent_log_update' do
+      let(:team_without) { create :team }
+      let(:team_with_old) do
+        team_with_old = create :team
+        create :status_update, created_at: 2.days.ago, team: team_with_old
+        team_with_old
+      end
 
-  describe '.without_recent_log_update' do
-    let(:team_without) { create :team }
-    let(:team_with_old) do
-      team_with_old = create :team
-      create :status_update, created_at: 2.days.ago, team: team_with_old
-      team_with_old
-    end
+      let(:team_with_recent_status_update) do
+        team_with_recent_status_update = create :team
+        create :status_update, created_at: 1.hour.ago, team: team_with_recent_status_update
+        team_with_recent_status_update
+      end
 
-    let(:team_with_recent_status_update) do
-      team_with_recent_status_update = create :team
-      create :status_update, created_at: 1.hour.ago, team: team_with_recent_status_update
-      team_with_recent_status_update
-    end
+      let(:team_with_recent_feed_entry) do
+        team_with_recent_feed_entry = create :team
+        create :activity, :feed_entry, created_at: 1.hour.ago, team: team_with_recent_feed_entry
+        team_with_recent_feed_entry
+      end
 
-    let(:team_with_recent_feed_entry) do
-      team_with_recent_feed_entry = create :team
-      create :activity, :feed_entry, created_at: 1.hour.ago, team: team_with_recent_feed_entry
-      team_with_recent_feed_entry
-    end
+      it 'includes the team without any status updates' do
+        team_without
+        expect(described_class.without_recent_log_update).to include(team_without)
+      end
 
-    it 'includes the team without any status updates' do
-      team_without
-      expect(described_class.without_recent_log_update).to include(team_without)
-    end
+      it 'includes the team with only old updates' do
+        team_with_old
+        expect(described_class.without_recent_log_update).to include(team_with_old)
+      end
 
-    it 'includes the team with only old updates' do
-      team_with_old
-      expect(described_class.without_recent_log_update).to include(team_with_old)
-    end
-
-    it 'does not include the teams with recent updates' do
-      team_with_recent_status_update
-      team_with_recent_feed_entry
-      expect(described_class.without_recent_log_update).not_to include(team_with_recent_status_update)
-      expect(described_class.without_recent_log_update).not_to include(team_with_recent_feed_entry)
-    end
-  end
-
-  describe 'creating a new team' do
-    before { described_class.destroy_all }
-
-    subject(:team) { create :team }
-
-    it 'sets the team number' do
-      expect(team.reload.number).to eql 1
-    end
-  end
-
-  describe '#display_name' do
-    subject(:display_name) { team.display_name }
-
-    let(:team)    { build(:team, :in_current_season, name: 'Blue') }
-    let(:project) { build(:project, name: 'Sinatra') }
-
-    it 'returns "Team" and the name' do
-      expect(display_name).to eq('Team Blue')
-    end
-
-    context 'when the name already contains "Team"' do
-      let(:team) { build(:team, name: 'Team Paperplane') }
-
-      it 'does no prepend "Team"' do
-        expect(display_name).to eq('Team Paperplane')
+      it 'does not include the teams with recent updates' do
+        team_with_recent_status_update
+        team_with_recent_feed_entry
+        expect(described_class.without_recent_log_update).not_to include(team_with_recent_status_update)
+        expect(described_class.without_recent_log_update).not_to include(team_with_recent_feed_entry)
       end
     end
 
-    context 'with a project assigned' do
-      before { team.project = project }
+    describe 'creating a new team' do
+      before { described_class.destroy_all }
 
-      it 'prepends the project name' do
-        expect(display_name).to eq('Team Blue (Sinatra)')
+      subject(:team) { create :team }
+
+      it 'sets the team number' do
+        expect(team.reload.number).to eql 1
       end
     end
 
-    context 'when from a past season' do
-      let(:team)   { build(:team, name: 'Cheesy', season: season, project: project) }
-      let(:season) { build(:season, name: '1999') }
+    describe '#display_name' do
+      subject(:display_name) { team.display_name }
 
-      it 'appends the season name' do
-        expect(display_name).to eq('Team Cheesy (Sinatra) [1999]')
+      let(:team)    { build(:team, :in_current_season, name: 'Blue') }
+      let(:project) { build(:project, name: 'Sinatra') }
+
+      it 'returns "Team" and the name' do
+        expect(display_name).to eq('Team Blue')
+      end
+
+      context 'when the name already contains "Team"' do
+        let(:team) { build(:team, name: 'Team Paperplane') }
+
+        it 'does no prepend "Team"' do
+          expect(display_name).to eq('Team Paperplane')
+        end
+      end
+
+      context 'with a project assigned' do
+        before { team.project = project }
+
+        it 'prepends the project name' do
+          expect(display_name).to eq('Team Blue (Sinatra)')
+        end
+      end
+
+      context 'when from a past season' do
+        let(:team)   { build(:team, name: 'Cheesy', season: season, project: project) }
+        let(:season) { build(:season, name: '1999') }
+
+        it 'appends the season name' do
+          expect(display_name).to eq('Team Cheesy (Sinatra) [1999]')
+        end
       end
     end
-  end
 
-  describe '#github_handle=' do
-    it 'keeps an empty handle' do
-      expect(Team.new(github_handle: nil).github_handle).to be_nil
+    describe '#github_handle=' do
+      it 'keeps an empty handle' do
+        expect(Team.new(github_handle: nil).github_handle).to be_nil
+      end
+
+      it 'strips leading/tailing spaces' do
+        expect(Team.new(github_handle: ' foo ').github_handle).to be == 'foo'
+      end
+
+      it 'extracts the handle from a github url' do
+        expect(Team.new(github_handle: 'https://github.com/foo').github_handle).to be == 'foo'
+      end
     end
 
-    it 'strips leading/tailing spaces' do
-      expect(Team.new(github_handle: ' foo ').github_handle).to be == 'foo'
+    describe '#twitter_handle=' do
+      it 'keeps an empty handle' do
+        expect(Team.new(twitter_handle: nil).twitter_handle).to be_nil
+      end
+
+      it 'with an @' do
+        expect(Team.new(twitter_handle: '@foo').twitter_handle).to be == '@foo'
+      end
+
+      it 'strips leading/tailing spaces' do
+        expect(Team.new(twitter_handle: ' foo ').twitter_handle).to be == '@foo'
+      end
+
+      it 'extracts the handle from a github url' do
+        expect(Team.new(twitter_handle: 'https://twitter.com/foo').twitter_handle).to be == '@foo'
+      end
     end
 
-    it 'extracts the handle from a github url' do
-      expect(Team.new(github_handle: 'https://github.com/foo').github_handle).to be == 'foo'
-    end
-  end
+    describe 'checking' do
+      let(:user) { create(:user) }
 
-  describe '#twitter_handle=' do
-    it 'keeps an empty handle' do
-      expect(Team.new(twitter_handle: nil).twitter_handle).to be_nil
-    end
+      subject { create :team }
 
-    it 'with an @' do
-      expect(Team.new(twitter_handle: '@foo').twitter_handle).to be == '@foo'
-    end
-
-    it 'strips leading/tailing spaces' do
-      expect(Team.new(twitter_handle: ' foo ').twitter_handle).to be == '@foo'
+      it 'changes last_checked_*' do
+        expect {
+          subject.checked = user
+          subject.save!
+        }.to change(subject, :last_checked_by) && change(subject, :last_checked_at)
+      end
     end
 
-    it 'extracts the handle from a github url' do
-      expect(Team.new(twitter_handle: 'https://twitter.com/foo').twitter_handle).to be == '@foo'
-    end
-  end
+    describe '#accepted?' do
+      it 'returns false' do
+        subject.kind = nil
+        expect(subject).not_to be_accepted
+      end
 
-  describe 'checking' do
-    let(:user) { create(:user) }
+      it 'returns true for a full_time team' do
+        subject.kind = 'full_time'
+        expect(subject).to be_accepted
+      end
 
-    subject { create :team }
-
-    it 'changes last_checked_*' do
-      expect {
-        subject.checked = user
-        subject.save!
-      }.to change(subject, :last_checked_by) && change(subject, :last_checked_at)
-    end
-  end
-
-  describe '#accepted?' do
-    it 'returns false' do
-      subject.kind = nil
-      expect(subject).not_to be_accepted
+      it 'returns true for a part_time team' do
+        subject.kind = 'part_time'
+        expect(subject).to be_accepted
+      end
     end
 
-    it 'returns true for a full_time team' do
-      subject.kind = 'full_time'
-      expect(subject).to be_accepted
+    describe 'accept nested attributes for all three models' do
+      it { is_expected.to accept_nested_attributes_for :roles }
+      it { is_expected.to accept_nested_attributes_for :sources }
     end
 
-    it 'returns true for a part_time team' do
-      subject.kind = 'part_time'
-      expect(subject).to be_accepted
-    end
-  end
-
-  describe 'accept nested attributes for all three models' do
-    it { is_expected.to accept_nested_attributes_for :roles }
-    it { is_expected.to accept_nested_attributes_for :sources }
-  end
-
-  describe '#application' do
-    it 'returns the current season\'s application' do
-      season1 = create :season, name: '2013'
-      team = create :team
-      create(:application, season: season1, team: team)
-      application = create(:application, season: Season.current, team: team)
-      expect(team.application).to eql application
-    end
-  end
-
-  describe '#student_index' do
-    let(:team)      { create(:team) }
-    let!(:students) { create_list(:student, 2, team: team) }
-
-    it 'returns 0 for the student with the smaller id' do
-      expect(team.student_index students.first).to eq 0
+    describe '#application' do
+      it 'returns the current season\'s application' do
+        season1 = create :season, name: '2013'
+        team = create :team
+        create(:application, season: season1, team: team)
+        application = create(:application, season: Season.current, team: team)
+        expect(team.application).to eql application
+      end
     end
 
-    it 'returns 1 for the student with the greater id' do
-      expect(team.student_index students.second).to eq 1
-    end
+    describe '#student_index' do
+      let(:team)      { create(:team) }
+      let!(:students) { create_list(:student, 2, team: team) }
 
-    it 'returns 0 if the user is not part of the team' do
-      other_user = instance_double(User, id: 666)
-      expect(team.student_index other_user).to be_nil
+      it 'returns 0 for the student with the smaller id' do
+        expect(team.student_index students.first).to eq 0
+      end
+
+      it 'returns 1 for the student with the greater id' do
+        expect(team.student_index students.second).to eq 1
+      end
+
+      it 'returns 0 if the user is not part of the team' do
+        other_user = instance_double(User, id: 666)
+        expect(team.student_index other_user).to be_nil
+      end
     end
   end
 end
