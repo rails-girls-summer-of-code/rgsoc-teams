@@ -82,13 +82,6 @@ RSpec.describe TeamPerformance, type: :model do
         end
       end
     end
-
-    describe ".teams_to_remind" do
-      it 'should not remind anyone' do
-        create_all_teams.each { |t| t.update(season: Season.current)}
-        expect(TeamPerformance.teams_to_remind).to match_array([])
-      end
-    end
   end
 
   context "during the season" do
@@ -144,14 +137,6 @@ RSpec.describe TeamPerformance, type: :model do
         end
       end
     end
-
-    describe ".teams_to_remind" do
-      # create all the teams
-      it 'should remind some' do
-        create_all_teams.each { |t| t.update(season: Season.current)}
-        expect(TeamPerformance.teams_to_remind).to match_array([team_nothing, team_commented, team_both_outdated])
-      end
-    end
   end
 
 
@@ -200,13 +185,6 @@ RSpec.describe TeamPerformance, type: :model do
         it "signals green" do
           expect(subject.evaluation).to eq(:green)
         end
-      end
-    end
-
-    describe ".teams_to_remind" do
-      it 'should not remind anyone' do
-        create_all_teams.each { |t| t.update(season: Season.current)}
-        expect(TeamPerformance.teams_to_remind).to match_array([])
       end
     end
   end
