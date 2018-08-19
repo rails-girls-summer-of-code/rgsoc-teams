@@ -24,9 +24,9 @@ div.panel.panel-default
   div.panel-body
     p = application.project_plan
 
-h3 First Student
+h3= application.student0.name
 = render 'student', student: application.student0
-h3 Second Student
+h3= application.student1.name
 = render 'student', student: application.student1
 
 = render 'comment', comment: comment
