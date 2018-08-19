@@ -8,6 +8,14 @@ class ApplicationData
     @data["student0_application_gender_identification"]
   end
 
+  def student0_application_name
+    @data["student0_application_name"]
+  end
+
+  def student1_application_name
+    @data["student1_application_name"]
+  end
+
   def student1_application_gender_identification
     @data["student1_application_gender_identification"]
   end

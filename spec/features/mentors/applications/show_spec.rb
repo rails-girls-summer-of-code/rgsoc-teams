@@ -17,6 +17,8 @@ RSpec.describe 'Application show page', type: :feature do
     visit mentors_application_path(application)
 
     expect(page).to have_content 'Team We could be Heroines'
+    expect(page).to have_content '(First Student)'
+    expect(page).to have_content '(Second Student)'
 
     expect(page).to have_content 'Why did you select this project? (1st project)'
     expect(page).to have_content 'Which features are you planning to work on? (1st project)'
