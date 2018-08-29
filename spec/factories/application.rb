@@ -19,6 +19,8 @@ FactoryBot.define do
       transient do
         project1 nil
         project2 nil
+        student0_name FFaker::Name.name
+        student1_name FFaker::Name.name
       end
 
       application_data {{
@@ -29,14 +31,14 @@ FactoryBot.define do
         'why_selected_project1': FFaker::Lorem.paragraph,
         'why_selected_project2': (project2.nil? ? '' : FFaker::Lorem.paragraph),
 
-        'student0_name': FFaker::Name.name,
+        'student0_application_name': student0_name,
         'student0_application_coding_level': '1',
         'student0_application_code_samples': FFaker::Lorem.paragraph,
         'student0_application_learning_history': FFaker::Lorem.paragraph,
         'student0_application_skills': FFaker::Lorem.paragraph,
         'student0_application_language_learning_period': ApplicationDraft::MONTHS_LEARNING.sample,
 
-        'student1_name': FFaker::Name.name,
+        'student1_application_name': student1_name,
         'student1_application_coding_level': '5',
         'student1_application_code_samples': FFaker::Lorem.paragraph,
         'student1_application_learning_history': FFaker::Lorem.paragraph,
