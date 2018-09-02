@@ -128,6 +128,7 @@ RSpec.describe Mentor::Application, type: :model do
         expect(subject.student0).to have_attributes(
           coding_level:     application.data.student0_application_coding_level.to_i,
           code_samples:     application.data.student0_application_code_samples,
+          name:             application.data.student0_application_name,
           learning_history: application.data.student0_application_learning_history,
           language_learning_period: application.data.student0_application_language_learning_period,
           skills:           application.data.student0_application_skills
@@ -138,6 +139,7 @@ RSpec.describe Mentor::Application, type: :model do
         expect(subject.student1).to have_attributes(
           coding_level:     application.data.student1_application_coding_level.to_i,
           code_samples:     application.data.student1_application_code_samples,
+          name:             application.data.student1_application_name,
           learning_history: application.data.student1_application_learning_history,
           language_learning_period: application.data.student1_application_language_learning_period,
           skills:           application.data.student1_application_skills

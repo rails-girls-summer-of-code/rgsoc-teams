@@ -4,7 +4,7 @@ RSpec.describe 'Application show page', type: :feature do
   let(:user)         { create(:user) }
   let(:project)      { create(:project, :in_current_season, :accepted, submitter: user) }
   let(:team)         { create(:team, name: 'We could be Heroines') }
-  let(:application)  { create(:application, :in_current_season, :for_project, project1: project, team: team) }
+  let(:application)  { create(:application, :in_current_season, :for_project, project1: project, student0_name: 'Patty', student1_name: 'Marcie', team: team) }
   let(:mentor_phase) { Season.current.applications_close_at + 1.day }
 
   before { Timecop.travel(mentor_phase) }
@@ -17,6 +17,8 @@ RSpec.describe 'Application show page', type: :feature do
     visit mentors_application_path(application)
 
     expect(page).to have_content 'Team We could be Heroines'
+    expect(page).to have_content 'Patty'
+    expect(page).to have_content 'Marcie'
 
     expect(page).to have_content 'Why did you select this project? (1st project)'
     expect(page).to have_content 'Which features are you planning to work on? (1st project)'
