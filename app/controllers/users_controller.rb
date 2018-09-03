@@ -29,6 +29,7 @@ class UsersController < ApplicationController
   def update
     respond_to do |format|
       if @user.update_attributes(user_params)
+        @user.postal_addresses.create(address_params)
         notice = nil
         # We disabled the confirmation instruction sending in the omniauth
         # user creation and have to do it manually here. If the user
@@ -106,8 +107,13 @@ class UsersController < ApplicationController
       *EmailPreferences::ATTRIBUTES,
       :application_learning_history, :application_skills, :application_code_samples,
       :application_location, :application_minimum_money, :application_money, :application_goals, :application_code_background,
+      :postal_addresses,
       interested_in: [],
       roles_attributes: [:id, :name, :team_id, :_destroy]
     )
+  end
+
+  def address_params
+    params[:user].require(:postal_addresses).permit(:street, :state, :zip)
   end
 end

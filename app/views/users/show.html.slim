@@ -68,6 +68,8 @@ nav.actions
     - fields = ['tshirt_size', 'tshirt_cut', 'postal_address']
     .well.private-info
       h3 Private info
+      h4 Postal Address
+      = @user.postal_addresses.first.formatted_address
       - fields.each do |field|
         - if @user.send(field).present?
           p
