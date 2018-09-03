@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180714153306) do
+ActiveRecord::Schema.define(version: 20180903161249) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -171,6 +171,14 @@ ActiveRecord::Schema.define(version: 20180714153306) do
     t.datetime "updated_at", null: false
     t.integer "user_id"
     t.index ["user_id"], name: "index_notes_on_user_id"
+  end
+
+  create_table "postal_addresses", force: :cascade do |t|
+    t.string "street"
+    t.string "state"
+    t.string "zip"
+    t.bigint "user_id"
+    t.index ["user_id"], name: "index_postal_addresses_on_user_id"
   end
 
   create_table "projects", id: :serial, force: :cascade do |t|
@@ -339,5 +347,6 @@ ActiveRecord::Schema.define(version: 20180714153306) do
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
   end
 
+  add_foreign_key "postal_addresses", "users"
   add_foreign_key "teams", "projects"
 end
