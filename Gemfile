@@ -72,5 +72,6 @@ group :test do
   gem 'shoulda-matchers', git: 'https://github.com/thoughtbot/shoulda-matchers.git'
   gem 'simplecov', require: false
   gem 'timecop'
+  gem 'pry-rails'
   gem 'webmock'
 end

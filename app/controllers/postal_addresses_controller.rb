@@ -1,0 +1,3 @@
+class PostalAddressesController < ApplicationController
+
+end
