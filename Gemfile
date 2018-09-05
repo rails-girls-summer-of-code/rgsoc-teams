@@ -68,8 +68,10 @@ group :test do
   gem 'rspec-html-matchers'
   gem 'rubocop', require: false
   gem 'selenium-webdriver'
+  gem 'chromedriver-helper'
   gem 'shoulda-matchers', git: 'https://github.com/thoughtbot/shoulda-matchers.git'
   gem 'simplecov', require: false
   gem 'timecop'
+  gem 'pry-rails'
   gem 'webmock'
 end

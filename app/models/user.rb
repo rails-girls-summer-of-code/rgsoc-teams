@@ -65,6 +65,7 @@ class User < ApplicationRecord
   has_many :applications, through: :teams
   has_many :todos, dependent: :destroy
   has_many :comments, dependent: :destroy
+  has_many :postal_addresses
 
   validates :github_handle, presence: true, uniqueness: { case_sensitive: false }
   validates :homepage, format: { with: URL_PREFIX_PATTERN }, allow_blank: true
