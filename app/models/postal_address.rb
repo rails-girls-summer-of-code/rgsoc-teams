@@ -4,6 +4,6 @@ class PostalAddress < ApplicationRecord
   validates_presence_of :street, :state, :zip
 
   def formatted_address
-    street + state + zip
+    street + " " + state + ", " + zip
   end
 end

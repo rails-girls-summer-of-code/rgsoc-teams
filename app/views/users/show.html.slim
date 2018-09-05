@@ -70,6 +70,7 @@ nav.actions
       h3 Private info
       h4 Postal Address
       = @user.postal_addresses.first.formatted_address
+      
       - fields.each do |field|
         - if @user.send(field).present?
           p
