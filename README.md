@@ -192,7 +192,7 @@ it 'is an interesting example', driver: :selenium_chrome do
 end
 ```
 
-### Code Analyzation
+### Code Analysis 
 
 You can run automatic code analyzers to check if your code complies to the project's guidelines and general best practice.
 
