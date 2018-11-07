@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180714153306) do
+ActiveRecord::Schema.define(version: 20181107172409) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -173,6 +173,19 @@ ActiveRecord::Schema.define(version: 20180714153306) do
     t.index ["user_id"], name: "index_notes_on_user_id"
   end
 
+  create_table "postal_addresses", force: :cascade do |t|
+    t.string "address_line_1"
+    t.string "address_line_2"
+    t.string "city"
+    t.string "state_or_province"
+    t.string "postal_code"
+    t.string "country"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_postal_addresses_on_user_id"
+  end
+
   create_table "projects", id: :serial, force: :cascade do |t|
     t.string "name", limit: 255
     t.datetime "created_at"
@@ -296,7 +309,6 @@ ActiveRecord::Schema.define(version: 20180714153306) do
     t.string "twitter_handle", limit: 255
     t.string "irc_handle", limit: 255
     t.string "tshirt_size", limit: 255
-    t.text "postal_address"
     t.string "timezone", limit: 255
     t.string "interested_in", limit: 255, default: [], array: true
     t.boolean "hide_email"
@@ -339,5 +351,6 @@ ActiveRecord::Schema.define(version: 20180714153306) do
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
   end
 
+  add_foreign_key "postal_addresses", "users"
   add_foreign_key "teams", "projects"
 end
