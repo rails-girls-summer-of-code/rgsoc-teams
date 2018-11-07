@@ -74,7 +74,11 @@ class User < ApplicationRecord
   validates :name, :email, :country, :location, presence: true, unless: :github_import
 
   accepts_nested_attributes_for :roles, allow_destroy: true
-  accepts_nested_attributes_for :postal_address, allow_destroy: true
+  accepts_nested_attributes_for :postal_address, allow_destroy: true, reject_if: :postal_address_rejectable?
+
+  def postal_address_rejectable?(attr)
+    attr['address_line_1'].blank? || attr['city'].blank? || attr['postal_code'].blank? || attr['country'].blank?
+  end
 
   before_save :normalize_location
   after_create :complete_from_github

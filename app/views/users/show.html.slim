@@ -67,24 +67,10 @@ nav.actions
   - if can_see_private_info?
     .well.private-info
       h3 Private info
-      h4 Postal Address
-      p
-      - if @user.postal_address.address_line_1
-        = @user.postal_address.address_line_1
-        br
-      - if @user.postal_address.address_line_2
-        = @user.postal_address.address_line_2
-        br
-      - if @user.postal_address.city
-        = @user.postal_address.city
-        br
-      - if @user.postal_address.state_or_province
-        = @user.postal_address.state_or_province
-        br
-      - if @user.postal_address.postal_code
-        = @user.postal_address.postal_code
-        br
-        = User.human_attribute_name(@user.postal_address.country)
+      - if @user.postal_address
+        h4 Postal Address
+        p
+        = @user.postal_address.formatted
       - fields = ['tshirt_size', 'tshirt_cut']
       - fields.each do |field|
         - if @user.send(field).present?
