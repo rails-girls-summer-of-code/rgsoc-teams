@@ -114,7 +114,7 @@
     = pa.input :city, required: false
     = pa.input :state_or_province, required: false
     = pa.input :postal_code, required: false
-    = pa.input :country, required: false
+    = pa.input :country, as: :country, label: "Country", prompt: "Select your country", required: false
 
 
   - if admin?
