@@ -107,7 +107,8 @@ class UsersController < ApplicationController
       :application_learning_history, :application_skills, :application_code_samples,
       :application_location, :application_minimum_money, :application_money, :application_goals, :application_code_background,
       interested_in: [],
-      roles_attributes: [:id, :name, :team_id, :_destroy]
+      roles_attributes: [:id, :name, :team_id, :_destroy],
+      postal_address_attributes: [:address_line_1, :address_line_2, :city, :state_or_province, :country]
     )
   end
 end
