@@ -108,7 +108,7 @@
   = f.input :tshirt_size, as: :select, collection: User::TSHIRT_SIZES.map { |k| [k, k] }, label: 'T-Shirt size', blank: false, required: false, hint: 'For sponsor T-Shirts, in case they send some.'
   = f.input :tshirt_cut, as: :select, collection: User::TSHIRT_CUTS.map { |s| [s, s] }, label: 'T-Shirt cut', include_blank: true
   h4 Shipping Address
-  = f.simple_fields_for :postal_addresses do |pa|
+  = f.simple_fields_for :postal_address_attributes do |pa|
     = pa.input :address_line_1, required: false
     = pa.input :address_line_2, required: false
     = pa.input :city, required: false
