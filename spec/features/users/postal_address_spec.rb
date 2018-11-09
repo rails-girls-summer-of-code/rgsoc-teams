@@ -26,7 +26,7 @@ RSpec.describe 'Add Postal Address', type: :feature do
         expect(page).to have_content address.city
         expect(page).to have_content address.state_or_province
         expect(page).to have_content address.postal_code
-        # expect(page).to have_content address.country
+        expect(page).to have_content user.postal_address.country
       end
 
       it 'does not allow a postal address to be added if required fields are missing' do

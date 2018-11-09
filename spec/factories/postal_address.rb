@@ -6,6 +6,6 @@ FactoryBot.define do
     city { FFaker::AddressUS.city}
     state_or_province { FFaker::AddressUS.state}
     postal_code { FFaker::AddressUS.zip_code}
-    country "Barbados"
+    country { FFaker::Address.country }
   end
 end
