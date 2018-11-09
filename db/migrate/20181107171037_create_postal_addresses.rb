@@ -7,7 +7,7 @@ class CreatePostalAddresses < ActiveRecord::Migration[5.1]
       t.string :state_or_province
       t.string :postal_code
       t.string :country
-      
+
       t.references :user, foreign_key: true
       t.timestamps
     end
