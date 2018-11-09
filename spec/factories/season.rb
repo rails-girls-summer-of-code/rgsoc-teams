@@ -4,6 +4,6 @@ FactoryBot.define do
   end
 
   trait :past do
-    name '2010'
+    name '1999'
   end
 end

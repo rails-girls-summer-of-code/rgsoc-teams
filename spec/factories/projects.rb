@@ -30,9 +30,5 @@ FactoryBot.define do
     trait :in_current_season do
       season { Season.current }
     end
-
-    trait :in_last_season do
-      season { Season.find_or_create_by name: (Date.today.year - 1) }
-    end
   end
 end
