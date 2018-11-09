@@ -23,18 +23,18 @@ RSpec.describe Project, type: :model do
       subject(:selected) { described_class.selected }
 
       let!(:current_season) { Season.current }
-      let!(:other_season)   { create(:season) }
+      let!(:past_season)    { create(:season, :past) }
 
       let!(:project1) { create(:project, season: current_season) }
       let!(:project2) { create(:project, :accepted, season: current_season) }
       let!(:project3) { create(:project, :accepted, season: current_season) }
       let!(:project4) { create(:project, :accepted, season: current_season) }
-      let!(:project5) { create(:project, :accepted, season: other_season) }
+      let!(:project5) { create(:project, :accepted, season: past_season) }
 
       before do
         create(:team, kind: 'full_time', project: project3, season: current_season)
         create(:team, kind: nil, project: project4, season: current_season)
-        create(:team, kind: 'full_time', project: project5, season: other_season)
+        create(:team, kind: 'full_time', project: project5, season: past_season)
       end
 
       it 'returns only accepted projects with accepted teams' do
@@ -42,7 +42,7 @@ RSpec.describe Project, type: :model do
       end
 
       context 'when passing a specific season' do
-        subject(:selected) { described_class.selected(season: other_season) }
+        subject(:selected) { described_class.selected(season: past_season) }
 
         it 'returns only accepted projects with accepted teams from that season' do
           expect(selected).to contain_exactly(project5)
