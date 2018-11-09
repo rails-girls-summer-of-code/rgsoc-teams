@@ -48,6 +48,23 @@ RSpec.describe 'Add Postal Address', type: :feature do
         expect(page).to have_selector("input[value='#{user.postal_address.state_or_province}']")
         expect(page).to have_selector("input[value='#{user.postal_address.postal_code}']")
       end
+
+      it 'lets you delete an existing postal address' do
+        user.update(postal_address: address)
+        visit edit_user_path(user)
+
+        accept_alert do
+          click_on 'Remove Address'
+        end
+
+        expect(current_path).to eq user_path(user)
+
+        expect(page).to_not have_content address.address_line_1
+        expect(page).to_not have_content address.address_line_2
+        expect(page).to_not have_content address.city
+        expect(page).to_not have_content address.state_or_province
+        expect(page).to_not have_content address.postal_code
+      end
     end
   end
 end

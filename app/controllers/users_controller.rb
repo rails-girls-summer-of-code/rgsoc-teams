@@ -108,7 +108,7 @@ class UsersController < ApplicationController
       :application_location, :application_minimum_money, :application_money, :application_goals, :application_code_background,
       interested_in: [],
       roles_attributes: [:id, :name, :team_id, :_destroy],
-      postal_address_attributes: [:id, :address_line_1, :address_line_2, :city, :state_or_province, :postal_code, :country]
+      postal_address_attributes: [:id, :address_line_1, :address_line_2, :city, :state_or_province, :postal_code, :country, :_destroy]
     )
   end
 end
