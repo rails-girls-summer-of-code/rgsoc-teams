@@ -28,6 +28,26 @@ RSpec.describe 'Add Postal Address', type: :feature do
         expect(page).to have_content address.postal_code
         # expect(page).to have_content address.country
       end
+
+      it 'does not allow a postal address to be added if required fields are missing' do
+        fill_in 'user[postal_address_attributes][address_line_1]',    with: address.address_line_1
+        fill_in 'user[postal_address_attributes][postal_code]',       with: address.postal_code
+        click_on 'Save'
+
+        expect(current_path).to eq edit_user_path(user)
+
+        expect(page).to have_content "If adding a shipping address, please include all required fields."
+      end
+
+      it 'autofills saved postal address info on edit form if it exists' do
+        user.update(postal_address: create(:postal_address))
+        visit edit_user_path(user)
+
+        expect(page).to have_selector("input[value='#{user.postal_address.address_line_1}']")
+        expect(page).to have_selector("input[value='#{user.postal_address.city}']")
+        expect(page).to have_selector("input[value='#{user.postal_address.state_or_province}']")
+        expect(page).to have_selector("input[value='#{user.postal_address.postal_code}']")
+      end
     end
   end
 end
