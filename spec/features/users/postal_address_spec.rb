@@ -54,9 +54,8 @@ RSpec.describe 'Add Postal Address', type: :feature do
       it 'allows to delete an existing postal address' do
         visit edit_user_path(user)
 
-        accept_alert do
-          click_on 'Remove Address'
-        end
+        check 'user[postal_address_attributes][_destroy]'
+        click_on 'Save'
 
         expect(current_path).to eq user_path(user)
         expect(page).to_not have_content postal_address.line1

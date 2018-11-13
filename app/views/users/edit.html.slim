@@ -108,9 +108,11 @@
   = f.input :tshirt_size, as: :select, collection: User::TSHIRT_SIZES.map { |k| [k, k] }, label: 'T-Shirt size', blank: false, required: false, hint: 'For sponsor T-Shirts, in case they send some.'
   = f.input :tshirt_cut, as: :select, collection: User::TSHIRT_CUTS.map { |s| [s, s] }, label: 'T-Shirt cut', include_blank: true
   h4 Shipping Address
-  - if @user.postal_address
-     = link_to "Remove Address", user_path(@user, user: { postal_address_attributes: { id: @user.postal_address.id, "_destroy" => true }}), method: :put, data: { confirm: 'Are you sure?' }
   = f.simple_fields_for :postal_address_attributes, @user.postal_address do |pa|
+    - if @user.postal_address
+      = pa.input :id, as: :hidden, input_html: { value: @user.postal_address.id }
+      = pa.check_box '_destroy'
+      |  Remove Address
     = pa.input :line1, required: false
     = pa.input :line2, required: false
     = pa.input :city, required: false
