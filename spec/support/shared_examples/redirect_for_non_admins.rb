@@ -26,7 +26,7 @@ RSpec.shared_examples 'redirects for non-admins' do |method: 'get', action: 'ind
 
       it 'allows the controller action' do
         send(method, action, *args)
-        expect(response).to be_success
+        expect(response).to be_successful
       end
     end
   end

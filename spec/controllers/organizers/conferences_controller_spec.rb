@@ -11,7 +11,7 @@ RSpec.describe Organizers::ConferencesController, type: :controller do
     describe 'GET index' do
       it 'renders the index template' do
         get :index
-        expect(response).to be_success
+        expect(response).to be_successful
         expect(response).to render_template 'index'
       end
     end
@@ -28,7 +28,7 @@ RSpec.describe Organizers::ConferencesController, type: :controller do
 
       it 'refuses other formats' do
         post :import, format: :json, params: { file: file}
-        expect(response).not_to be_success
+        expect(response).not_to be_successful
       end
 
       it 'catches error when file is omitted' do

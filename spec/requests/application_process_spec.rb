@@ -18,14 +18,12 @@ RSpec.describe 'The Application Process', type: :request do
 
             it 'complains about the user data being incomplete' do
               get '/apply'
-              expect(response).to be_success
+              expect(response).to be_successful
               expect(response.body).to include 'Your user profile is incomplete'
             end
           end
         end
-
       end
-
     end
   end
 end

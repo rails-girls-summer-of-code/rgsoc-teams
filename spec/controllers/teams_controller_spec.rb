@@ -71,7 +71,7 @@ RSpec.describe TeamsController, type: :controller do
 
       it 'only displays this season\'s accepted teams' do
         get :index
-        expect(response).to be_success
+        expect(response).to be_successful
         expect(assigns(:teams)).to match_array [full_time_team]
       end
 
@@ -89,7 +89,7 @@ RSpec.describe TeamsController, type: :controller do
 
     it 'lists the team conference preferences' do
       get :show, params: { id: team.id }
-      expect(response).to be_success
+      expect(response).to be_successful
       expect(response.body).to match preference.first_conference.name
       expect(response.body).to match preference.second_conference.name
     end
@@ -113,7 +113,7 @@ RSpec.describe TeamsController, type: :controller do
       it "assigns the requested team as @team" do
         get :edit, params: { id: team.to_param }
         expect(assigns(:team)).to eq(team)
-        expect(response).to be_success
+        expect(response).to be_successful
       end
     end
 

@@ -9,8 +9,7 @@ RSpec.describe StatusUpdatesController, type: :controller do
     it "returns http success" do
       get :show, params: { id: status_update.to_param }
       expect(assigns(:status_update)).to eql status_update
-      expect(response).to have_http_status(:success)
+      expect(response).to be_successful
     end
   end
-
 end

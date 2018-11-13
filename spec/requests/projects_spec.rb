@@ -42,7 +42,7 @@ RSpec.describe ProjectsController, type: :request do
 
           it 'returns to the previous page' do
             get use_as_template_project_path(project)
-            expect(response).to be_success
+            expect(response).to be_successful
             expect(response.body).to match project.name
           end
         end

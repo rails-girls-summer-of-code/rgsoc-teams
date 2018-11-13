@@ -6,7 +6,7 @@ RSpec.describe 'Browsing the front page', type: :request do
 
     it 'renders the activity log' do
       get '/'
-      expect(response).to be_success
+      expect(response).to be_successful
     end
 
     context 'as a user with a funny timezone' do
@@ -16,9 +16,8 @@ RSpec.describe 'Browsing the front page', type: :request do
 
       it 'will not fail on timezone settings' do
         get '/'
-        expect(response).to be_success
+        expect(response).to be_successful
       end
     end
   end
-
 end
