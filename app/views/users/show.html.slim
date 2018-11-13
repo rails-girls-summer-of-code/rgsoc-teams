@@ -70,7 +70,7 @@ nav.actions
       - if @user.postal_address
         h4 Postal Address
         p
-        = @user.postal_address.formatted
+        = render @user.postal_address
       - fields = ['tshirt_size', 'tshirt_cut']
       - fields.each do |field|
         - if @user.send(field).present?
