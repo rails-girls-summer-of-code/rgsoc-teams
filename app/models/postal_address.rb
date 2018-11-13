@@ -1,15 +1,10 @@
 # frozen_string_literal: true
 class PostalAddress < ApplicationRecord
   belongs_to :user
-  validates_presence_of :address_line_1, :city, :postal_code, :country
+
+  validates_presence_of :line1, :city, :zip, :country
 
   def formatted
-    "#{capitalize(address_line_1)} #{capitalize(address_line_2)} #{capitalize(city)}, #{state_or_province} #{postal_code} #{country}"
-  end
-
-  private
-
-  def capitalize(string)
-    string.split.map(&:capitalize).join(' ')
+    "#{line1.titlecase} #{line2.titlecase} #{city.titlecase}, #{state} #{zip} #{country}"
   end
 end

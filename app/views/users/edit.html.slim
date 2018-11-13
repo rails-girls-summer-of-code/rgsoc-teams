@@ -111,11 +111,11 @@
   - if @user.postal_address
      = link_to "Remove Address", user_path(@user, user: { postal_address_attributes: { id: @user.postal_address.id, "_destroy" => true }}), method: :put, data: { confirm: 'Are you sure?' }
   = f.simple_fields_for :postal_address_attributes, @user.postal_address do |pa|
-    = pa.input :address_line_1, required: false
-    = pa.input :address_line_2, required: false
+    = pa.input :line1, required: false
+    = pa.input :line2, required: false
     = pa.input :city, required: false
-    = pa.input :state_or_province, required: false
-    = pa.input :postal_code, required: false
+    = pa.input :state, required: false
+    = pa.input :zip, required: false
     = pa.input :country, prompt: "Select your country", required: false, include_blank: true
 
 
