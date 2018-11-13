@@ -75,7 +75,7 @@ class User < ApplicationRecord
   accepts_nested_attributes_for :roles, allow_destroy: true
 
   before_save :normalize_location
-  after_create :complete_from_github
+  before_create :complete_from_github
 
   # This field is used to skip validations when creating
   # a preliminary user, e.g. when adding a non existant person
@@ -121,8 +121,7 @@ class User < ApplicationRecord
     end
 
     def with_all_associations_joined
-      includes(:roles).group("roles.id").
-      includes(roles: :team).group("teams.id")
+      includes(roles: :team).group("roles.id").group("teams.id")
     end
 
     def with_interest(interest)
@@ -224,7 +223,7 @@ class User < ApplicationRecord
     attrs = Github::User.new(github_handle).attrs rescue {}
     attrs[:name] = github_handle if attrs[:name].blank?
     attrs = attrs.select { |key, value| send(key).blank? && value.present? }
-    update_attributes attrs
+    assign_attributes attrs
     @just_created = true
   end
 

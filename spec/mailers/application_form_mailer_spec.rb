@@ -50,7 +50,7 @@ RSpec.describe ApplicationFormMailer, type: :mailer do
 
     it 'renders N/A for the pair if not present' do
       expect(html_body).to match %r{<h2>About your pair</h2><p>N/A</p>}
-      expect(text_body).to match %r{About your pair\n  N/A}
+      expect(text_body).to match %r{About your pair\r\n  N/A}
     end
 
     context 'with a pair in the team' do
@@ -58,7 +58,7 @@ RSpec.describe ApplicationFormMailer, type: :mailer do
 
       it 'renders a section for the pair' do
         expect(html_body).to match %r{<h2>About your pair</h2><h3>Basics</h3>}
-        expect(text_body).to match %r{About your pair\n\nBasics}
+        expect(text_body).to match %r{About your pair\r\n\r\nBasics}
       end
     end
   end
