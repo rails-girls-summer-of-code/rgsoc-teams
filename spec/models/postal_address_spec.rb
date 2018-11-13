@@ -8,7 +8,7 @@ RSpec.describe PostalAddress, type: :model do
   describe 'validations' do
     it { is_expected.to validate_presence_of(:line1)}
     it { is_expected.to validate_presence_of(:city)}
-    it { is_expected.to validate_presence_of(:postal_code)}
+    it { is_expected.to validate_presence_of(:zip)}
     it { is_expected.to validate_presence_of(:country)}
   end
 end
