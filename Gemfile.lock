@@ -199,7 +199,7 @@ GEM
     nested_form (0.3.2)
     net-http-persistent (2.9.4)
     net-http-pipeline (1.0.1)
-    newrelic_rpm (5.1.0.344)
+    newrelic_rpm (5.5.0.348)
     nio4r (2.3.1)
     nokogiri (1.8.5)
       mini_portile2 (~> 2.3.0)
