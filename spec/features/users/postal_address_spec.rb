@@ -30,8 +30,8 @@ RSpec.describe 'Add Postal Address', type: :feature do
       end
 
       it 'does not allow a postal address to be added if required fields are missing' do
-        fill_in 'Line1',    with: address.line1
-        fill_in 'Zip',       with: address.zip
+        fill_in 'Line1', with: address.line1
+        fill_in 'Zip', with: address.zip
         click_on 'Save'
 
         expect(page).to have_content "Postal address city can't be blank"
