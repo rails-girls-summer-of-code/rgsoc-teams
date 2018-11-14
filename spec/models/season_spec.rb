@@ -205,7 +205,7 @@ RSpec.describe Season, type: :model do
 
     context 'on New Year\'s' do
       before { Timecop.travel Date.parse('2016-01-01') }
-      xit { is_expected.not_to be_transition }
+      it { is_expected.not_to be_transition }
     end
   end
 
