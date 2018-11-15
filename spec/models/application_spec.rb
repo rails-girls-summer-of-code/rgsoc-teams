@@ -24,7 +24,7 @@ RSpec.describe Application, type: :model do
     describe '.hidden' do
       it 'returns only hidden applications' do
         expect(described_class.hidden.where_clause.send(:predicates)).to eq(
-          ["applications.hidden IS NOT NULL and applications.hidden = TRUE"]
+          ["applications.hidden IS NOT NULL and applications.hidden = 't'"]
         )
       end
     end
@@ -32,7 +32,7 @@ RSpec.describe Application, type: :model do
     describe '.visible' do
       it 'returns only visible applications' do
         expect(described_class.visible.where_clause.send(:predicates)).to eq(
-          ["applications.hidden IS NULL or applications.hidden = FALSE"]
+          ["applications.hidden IS NULL or applications.hidden = 'f'"]
         )
       end
     end
