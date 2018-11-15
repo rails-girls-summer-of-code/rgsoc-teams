@@ -84,13 +84,14 @@ GEM
     byebug (10.0.2)
     camo (0.1.0)
     cancancan (2.2.0)
-    capybara (2.18.0)
+    capybara (3.11.0)
       addressable
       mini_mime (>= 0.1.3)
-      nokogiri (>= 1.3.3)
-      rack (>= 1.0.0)
-      rack-test (>= 0.5.4)
-      xpath (>= 2.0, < 4.0)
+      nokogiri (~> 1.8)
+      rack (>= 1.6.0)
+      rack-test (>= 0.6.3)
+      regexp_parser (~> 1.2)
+      xpath (~> 3.2)
     capybara-screenshot (1.0.21)
       capybara (>= 1.0, < 4)
       launchy
@@ -274,6 +275,7 @@ GEM
     rb-inotify (0.9.10)
       ffi (>= 0.5.0, < 2)
     redcarpet (3.4.0)
+    regexp_parser (1.3.0)
     responders (2.4.0)
       actionpack (>= 4.2.0, < 5.3)
       railties (>= 4.2.0, < 5.3)
@@ -385,7 +387,7 @@ GEM
     websocket-driver (0.7.0)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.3)
-    xpath (3.0.0)
+    xpath (3.2.0)
       nokogiri (~> 1.8)
 
 PLATFORMS
@@ -402,7 +404,7 @@ DEPENDENCIES
   byebug
   camo
   cancancan
-  capybara (~> 2.18)
+  capybara (~> 3.11)
   capybara-screenshot
   country_select
   database_cleaner
