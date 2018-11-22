@@ -226,3 +226,8 @@ The Heroku scheduler is set to run these tasks:
 ### Camo
 
 Both apps on Heroku use [camo](https://github.com/atmos/camo) to proxy insecure images in activity logs. For this to work, the `CAMO_HOST` and `CAMO_KEY` environment variables need to be set in Heroku's configuration for the app.
+
+### OAuth Callback for Review Apps
+
+In order to allow Github logins for our dynamically created PR review apps, the OAuth workflow is
+intercepted by [a simple web app that](https://github.com/rails-girls-summer-of-code/rgsoc-teams-oauth-callback-proxy). Please refer to its README for deployment and setup instructions.
