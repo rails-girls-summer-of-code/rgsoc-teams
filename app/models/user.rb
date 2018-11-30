@@ -65,6 +65,7 @@ class User < ApplicationRecord
   has_many :applications, through: :teams
   has_many :todos, dependent: :destroy
   has_many :comments, dependent: :destroy
+  has_one :postal_address, dependent: :destroy
 
   validates :github_handle, presence: true, uniqueness: { case_sensitive: false }
   validates :homepage, format: { with: URL_PREFIX_PATTERN }, allow_blank: true
@@ -73,6 +74,7 @@ class User < ApplicationRecord
   validates :name, :email, :country, :location, presence: true, unless: :github_import
 
   accepts_nested_attributes_for :roles, allow_destroy: true
+  accepts_nested_attributes_for :postal_address, allow_destroy: true, reject_if: :all_blank
 
   before_save :normalize_location
   after_create :complete_from_github

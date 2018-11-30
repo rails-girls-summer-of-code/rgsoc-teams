@@ -107,7 +107,19 @@
   p.help-block This information will only be visible to yourself and the organizers.
   = f.input :tshirt_size, as: :select, collection: User::TSHIRT_SIZES.map { |k| [k, k] }, label: 'T-Shirt size', blank: false, required: false, hint: 'For sponsor T-Shirts, in case they send some.'
   = f.input :tshirt_cut, as: :select, collection: User::TSHIRT_CUTS.map { |s| [s, s] }, label: 'T-Shirt cut', include_blank: true
-  = f.input :postal_address, hint: "Please give your postal address, including your full name, so we can send things we've received from our sponsors for you :)"
+  h4 Shipping Address
+  = f.simple_fields_for :postal_address_attributes, @user.postal_address do |pa|
+    - if @user.postal_address
+      = pa.input :id, as: :hidden, input_html: { value: @user.postal_address.id }
+      = pa.check_box '_destroy'
+      |  Remove Address
+    = pa.input :line1, required: false
+    = pa.input :line2, required: false
+    = pa.input :city, required: false
+    = pa.input :state, required: false
+    = pa.input :zip, required: false
+    = pa.input :country, prompt: "Select your country", required: false, include_blank: true
+
 
   - if admin?
     h3.page-header Roles

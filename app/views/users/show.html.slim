@@ -65,9 +65,13 @@ nav.actions
     p = @user.company_info
 
   - if can_see_private_info?
-    - fields = ['tshirt_size', 'tshirt_cut', 'postal_address']
     .well.private-info
       h3 Private info
+      - if @user.postal_address
+        h4 Postal Address
+        p
+        = render @user.postal_address
+      - fields = ['tshirt_size', 'tshirt_cut']
       - fields.each do |field|
         - if @user.send(field).present?
           p

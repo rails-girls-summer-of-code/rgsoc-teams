@@ -97,7 +97,7 @@ class UsersController < ApplicationController
       :github_handle, :twitter_handle, :irc_handle,
       :name, :email, :homepage, :location, :bio,
       :tech_expertise_list, :tech_interest_list,
-      :tshirt_size, :tshirt_cut, :postal_address, :timezone,
+      :tshirt_size, :tshirt_cut, :timezone,
       :country,
       :hide_email,
       :is_company, :company_name, :company_info,
@@ -107,7 +107,8 @@ class UsersController < ApplicationController
       :application_learning_history, :application_skills, :application_code_samples,
       :application_location, :application_minimum_money, :application_money, :application_goals, :application_code_background,
       interested_in: [],
-      roles_attributes: [:id, :name, :team_id, :_destroy]
+      roles_attributes: [:id, :name, :team_id, :_destroy],
+      postal_address_attributes: [:id, :line1, :line2, :city, :state, :zip, :country, :_destroy]
     )
   end
 end
