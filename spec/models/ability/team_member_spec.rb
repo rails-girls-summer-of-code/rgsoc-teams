@@ -61,16 +61,12 @@ RSpec.describe Ability, type: :model do
       end
 
       context "when viewing user information" do
-
-        # FIXME see issue #1001
-        # The following specs should pass after fixing
         before do
           team_member.update!(hide_email: true)
           user_in_other_team.update!(hide_email: true)
         end
 
         it "can read email address of team members in current season, even when hidden" do
-          pending 'fails; To be solved with issue #1001'
           allow(subject).to receive(:supervises?).with(team_member, user).and_return true
           expect(subject).to be_able_to(:read, team_member.email)
         end
