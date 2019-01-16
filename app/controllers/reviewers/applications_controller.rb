@@ -56,11 +56,11 @@ module Reviewers
     def application_params
       params.require(:application).
         permit(:misc_info,
-              :project_id,
-              :city,
-              :country,
-              :coaching_company,
-              Selection::Table::FLAGS)
+               :project_id,
+               :city,
+               :country,
+               :coaching_company,
+               Selection::Table::FLAGS)
     end
 
     def store_filters

@@ -56,7 +56,7 @@ RSpec.describe Organizers::ConferencesController, type: :controller do
         it 'should not create a new conference' do
           expect {
             post :create,
-            params: { conference: { name: "name" } }
+                 params: { conference: { name: "name" } }
           }.not_to change { Conference.count }
         end
       end
@@ -64,7 +64,7 @@ RSpec.describe Organizers::ConferencesController, type: :controller do
       it 'should create a new conference' do
         expect {
           post :create,
-          params: { conference: conference_attrs }
+               params: { conference: conference_attrs }
         }.to change { Conference.count }.by(1)
       end
     end

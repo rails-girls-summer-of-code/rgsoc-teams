@@ -91,10 +91,10 @@ RSpec.describe NavHelper, type: :helper do
     context 'after application_period but before acceptance_notifications' do
       let(:season) do
         instance_double(Season,
-          application_period?:        false,
-          applications_close_at:      1.day.ago.utc,
-          acceptance_notification_at: 2.days.from_now.utc
-        )
+                        application_period?:        false,
+                        applications_close_at:      1.day.ago.utc,
+                        acceptance_notification_at: 2.days.from_now.utc
+                       )
       end
 
       it { is_expected.to eq true }
@@ -103,10 +103,10 @@ RSpec.describe NavHelper, type: :helper do
     context 'after summer started' do
       let(:season) do
         instance_double(Season,
-          application_period?:        false,
-          applications_close_at:      2.days.ago.utc,
-          acceptance_notification_at: 1.days.ago.utc
-        )
+                        application_period?:        false,
+                        applications_close_at:      2.days.ago.utc,
+                        acceptance_notification_at: 1.days.ago.utc
+                       )
       end
 
       it { is_expected.to eq false }

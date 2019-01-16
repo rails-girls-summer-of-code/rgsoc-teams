@@ -52,8 +52,8 @@ RSpec.describe ConferencesController, type: :controller do
       it 'cannot create a new conference' do
         expect {
           post :create,
-          params: { conference: conference_attrs },
-          xhr: true
+               params: { conference: conference_attrs },
+               xhr: true
         }.not_to change { Conference.count }
       end
 
@@ -75,8 +75,8 @@ RSpec.describe ConferencesController, type: :controller do
         it 'should not create a new conference' do
           expect {
             post :create,
-            params: { conference: { name: "name" } },
-            xhr: true
+                 params: { conference: { name: "name" } },
+                 xhr: true
           }.not_to change { Conference.count }
         end
       end
@@ -84,8 +84,8 @@ RSpec.describe ConferencesController, type: :controller do
       it 'should create a new conference' do
         expect {
           post :create,
-          params: { conference: conference_attrs },
-          xhr: true
+               params: { conference: conference_attrs },
+               xhr: true
         }.to change { Conference.count }.by(1)
       end
     end

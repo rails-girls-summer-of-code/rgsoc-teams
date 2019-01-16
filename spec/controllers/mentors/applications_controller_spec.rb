@@ -120,7 +120,7 @@ RSpec.describe Mentors::ApplicationsController, type: :controller do
       context 'when 2nd choice application for project' do
         it 'renders the show view' do
           application = create(:application, :in_current_season, :for_project,
-            project1: build(:project), project2: project)
+                               project1: build(:project), project2: project)
 
           get :show, params: { id: application.id }
 

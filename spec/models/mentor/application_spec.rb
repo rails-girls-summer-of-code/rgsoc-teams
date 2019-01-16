@@ -245,11 +245,11 @@ RSpec.describe Mentor::Application, type: :model do
   describe '#revoke_mentor_fav!' do
     let(:application) do
       create(:application,
-        application_data: {
-          'mentor_fav_project1': 'true',
-          'mentor_fav_project2': 'true'
-        }
-      )
+             application_data: {
+               'mentor_fav_project1': 'true',
+               'mentor_fav_project2': 'true'
+             }
+            )
     end
 
     subject { m_application.revoke_mentor_fav! }

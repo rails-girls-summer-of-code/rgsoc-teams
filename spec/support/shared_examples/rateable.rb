@@ -34,14 +34,14 @@ RSpec.shared_examples 'Rateable' do
     context 'when even ratings' do
       before do
         create_list(:rating, 2,
-          application: application,
-          data:     { 'diversity' => 1 }
-        )
+                    application: application,
+                    data:     { 'diversity' => 1 }
+                  )
 
         create_list(:rating, 2,
-          application: application,
-          data:     { 'diversity' => 5 }
-        )
+                    application: application,
+                    data:     { 'diversity' => 5 }
+                  )
       end
 
       it 'retuns the average of points' do
@@ -52,14 +52,14 @@ RSpec.shared_examples 'Rateable' do
     context 'when odd ratings' do
       before do
         create_list(:rating, 2,
-          application: application,
-          data:     { 'diversity' => 1 }
-        )
+                    application: application,
+                    data:     { 'diversity' => 1 }
+                  )
 
         create_list(:rating, 1,
-          application: application,
-          data:     { 'diversity' => 4 }
-        )
+                    application: application,
+                    data:     { 'diversity' => 4 }
+                  )
       end
 
       it 'retuns the average of points' do
