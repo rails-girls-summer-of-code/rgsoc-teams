@@ -192,8 +192,8 @@ RSpec.describe User, type: :model do
 
     context 'sanitizing the location' do
       before do
-        allow_any_instance_of(Github::User).
-          to receive(:attrs).and_return({ location: '' })
+        allow_any_instance_of(Github::User)
+          .to receive(:attrs).and_return({ location: '' })
       end
 
       it 'leaves an undefined location untouched' do
@@ -240,8 +240,8 @@ RSpec.describe User, type: :model do
     end
 
     it 'sets the name to the github_handle if blank' do
-      allow_any_instance_of(Github::User).
-        to receive(:attrs).and_return({ name: '' })
+      allow_any_instance_of(Github::User)
+        .to receive(:attrs).and_return({ name: '' })
       expect(user.name).to eql user.github_handle
     end
   end

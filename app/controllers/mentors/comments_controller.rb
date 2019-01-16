@@ -14,9 +14,9 @@ module Mentors
     private
 
     def create_params
-      params.require(:mentor_comment).
-        permit(:text, :commentable_id).
-        merge(user_id: current_user.id)
+      params.require(:mentor_comment)
+            .permit(:text, :commentable_id)
+            .merge(user_id: current_user.id)
     end
 
     def update_params

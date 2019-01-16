@@ -132,13 +132,13 @@ RSpec.describe Project, type: :model do
 
   describe '#taglist=' do
     it 'sets the tags by splitting at comma' do
-      expect { subject.taglist = "foo, bar" }.
-        to change { subject.tags }.to %w[foo bar]
+      expect { subject.taglist = "foo, bar" }
+        .to change { subject.tags }.to %w[foo bar]
     end
 
     it 'removes empty values' do
-      expect { subject.taglist = "foo, , bar" }.
-        to change { subject.tags }.to %w[foo bar]
+      expect { subject.taglist = "foo, , bar" }
+        .to change { subject.tags }.to %w[foo bar]
     end
   end
 

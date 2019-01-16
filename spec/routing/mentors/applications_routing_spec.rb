@@ -17,8 +17,8 @@ RSpec.describe Mentors::ApplicationsController, type: :routing do
     end
 
     it 'routes get mentors_application_path to #show' do
-      expect(get mentors_application_path(id: 'id')).
-        to route_to('mentors/applications#show', id: 'id')
+      expect(get mentors_application_path(id: 'id'))
+        .to route_to('mentors/applications#show', id: 'id')
     end
   end
 end

@@ -79,8 +79,8 @@ RSpec.describe Mentors::CommentsController, type: :controller do
         subject { put :update, params: params }
 
         it 'updates the comment' do
-          expect { subject; comment.reload}.to change { comment.text }.
-            from('something').to('something else')
+          expect { subject; comment.reload}.to change { comment.text }
+            .from('something').to('something else')
         end
 
         it 'redirect_to the mentor application show view' do

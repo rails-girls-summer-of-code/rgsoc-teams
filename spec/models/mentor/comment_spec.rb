@@ -29,8 +29,8 @@ RSpec.describe Mentor::Comment, type: :model do
   describe 'callbacks' do
     it 'removes empty comments on update' do
       comment = described_class.create(text: 'something')
-      expect { described_class.update(comment.id, text: '') }.
-        to change { described_class.count }.by(-1)
+      expect { described_class.update(comment.id, text: '') }
+        .to change { described_class.count }.by(-1)
     end
   end
 

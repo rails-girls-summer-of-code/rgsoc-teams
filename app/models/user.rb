@@ -121,8 +121,8 @@ class User < ApplicationRecord
     end
 
     def with_all_associations_joined
-      includes(:roles).group("roles.id").
-      includes(roles: :team).group("teams.id")
+      includes(:roles).group("roles.id")
+      .includes(roles: :team).group("teams.id")
     end
 
     def with_interest(interest)

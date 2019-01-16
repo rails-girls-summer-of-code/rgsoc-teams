@@ -41,8 +41,8 @@ RSpec.describe ApplicationDraft, type: :model do
     context 'with projects' do
       it 'fails if both selected projects are the same' do
         subject.project1 = subject.project2 = build_stubbed(:project, :accepted)
-        expect { subject.valid? }.to change { subject.errors[:projects] }.
-          to ['must not be selected twice']
+        expect { subject.valid? }.to change { subject.errors[:projects] }
+          .to ['must not be selected twice']
       end
     end
 
