@@ -10,8 +10,8 @@ class TeamsInfoController < ApplicationController
   end
   helper_method :teams
 
-    # def normalize_params
-    #   params[:role] = 'all' if params[:role].blank?
-    #   params[:kind] = 'all' if params[:kind].blank?
-    # end
+  # def normalize_params
+  #   params[:role] = 'all' if params[:role].blank?
+  #   params[:kind] = 'all' if params[:kind].blank?
+  # end
 end

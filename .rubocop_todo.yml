@@ -6,19 +6,6 @@
 # Note that changes in the inspected code, or installation of new
 # versions of RuboCop, may require this file to be generated again.
 
-# Offense count: 1
-# Cop supports --auto-correct.
-Layout/ClosingParenthesisIndentation:
-  Exclude:
-    - 'app/controllers/application_drafts_controller.rb'
-
-# Offense count: 2
-# Cop supports --auto-correct.
-Layout/CommentIndentation:
-  Exclude:
-    - 'app/controllers/teams_info_controller.rb'
-    - 'app/models/team_performance.rb'
-
 # Offense count: 21
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle.

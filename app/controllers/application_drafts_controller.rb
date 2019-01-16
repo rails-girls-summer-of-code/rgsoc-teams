@@ -103,7 +103,7 @@ class ApplicationDraftsController < ApplicationController
           :application_code_samples, :application_location,
           :application_location_lat, :application_location_lng,
           :application_minimum_money, :application_money
-      )
+        )
     else
       {}
     end
