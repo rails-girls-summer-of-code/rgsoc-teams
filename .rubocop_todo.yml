@@ -183,32 +183,6 @@ Naming/VariableNumber:
   Exclude:
     - 'spec/services/conference_importer_spec.rb'
 
-# Offense count: 3
-# Cop supports --auto-correct.
-Performance/Casecmp:
-  Exclude:
-    - 'app/models/team.rb'
-
-# Offense count: 2
-# Cop supports --auto-correct.
-Performance/RegexpMatch:
-  Exclude:
-    - 'app/models/team.rb'
-    - 'lib/feed/discovery.rb'
-
-# Offense count: 1
-# Cop supports --auto-correct.
-Performance/StringReplacement:
-  Exclude:
-    - 'app/helpers/application_helper.rb'
-
-# Offense count: 2
-# Cop supports --auto-correct.
-# Configuration parameters: AutoCorrect.
-Performance/TimesMap:
-  Exclude:
-    - 'spec/models/team_spec.rb'
-
 # Offense count: 22
 RSpec/AnyInstance:
   Exclude:

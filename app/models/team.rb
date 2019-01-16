@@ -98,7 +98,7 @@ class Team < ApplicationRecord
     chunks << "[#{season.name}]" if season && season != Season.current
 
     d_name = chunks.join ' '
-    d_name =~ /team /i ? d_name : "Team #{d_name}"
+    /team /i.match?(d_name) ? d_name : "Team #{d_name}"
   end
 
   def accepted?
@@ -110,15 +110,15 @@ class Team < ApplicationRecord
   end
 
   def helpdesk_team?
-    name.to_s.downcase == 'helpdesk'
+    name.to_s.casecmp('helpdesk').zero?
   end
 
   def organizers_team?
-    name.to_s.downcase == 'organizers'
+    name.to_s.casecmp('organizers').zero?
   end
 
   def supervisors_team?
-    name.to_s.downcase == 'supervisors'
+    name.to_s.casecmp('supervisors').zero?
   end
 
   def students_location

@@ -166,7 +166,7 @@ RSpec.describe Team, type: :model do
       let(:new_user) { create :user }
       let(:coach_attributes) do
         [{ name: 'coach', team_id: team.id, user_id: new_user.id }] + \
-          3.times.map { { name: 'coach', team_id: team.id, user_id: create(:user).id } }
+          Array.new(3) { { name: 'coach', team_id: team.id, user_id: create(:user).id } }
       end
       let(:new_coach_as_student) { { name: 'student', team_id: team.id, user_id: new_user.id } }
       let(:fifth_new_coach) { { name: 'coach', team_id: team.id, user_id: create(:user).id } }
@@ -196,7 +196,7 @@ RSpec.describe Team, type: :model do
         end
 
         it 'does not allow the same coach to fill up both spots' do
-          roles_attributes = 2.times.map { coach_attributes.first }
+          roles_attributes = Array.new(2) { coach_attributes.first }
           team.attributes = { roles_attributes: roles_attributes }
           expect { team.save }.not_to change { team.members.count }
           expect(team.errors[:base].first).to eql "#{new_user.name} can't have more than one role in this team!"

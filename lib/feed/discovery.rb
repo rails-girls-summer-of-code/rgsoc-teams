@@ -26,7 +26,7 @@ class Feed
     end
 
     def expand(url)
-      url =~ /^http/ ? url : base_url + url
+      /^http/.match?(url) ? url : base_url + url
     end
 
     def base_url

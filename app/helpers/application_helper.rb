@@ -60,7 +60,7 @@ module ApplicationHelper
 
   # Conferences
   def format_conference_twitter(twitter)
-    twitter.to_s.starts_with?('@') ? link_to(twitter, "http://twitter.com/#{twitter.gsub('@', '')}") : twitter
+    twitter.to_s.starts_with?('@') ? link_to(twitter, "http://twitter.com/#{twitter.delete('@')}") : twitter
   end
 
   # @param conferences [Array<Conference>] a list of Conference records
