@@ -132,8 +132,8 @@ RSpec.describe Organizers::TeamsController, type: :controller do
 
         it 'orga members can assign conference offer for a team' do
           expect {
-              patch :update, params: { id: team.id, team: team_params }
-            }.to change { team.conference_attendances.count }.by 1
+            patch :update, params: { id: team.id, team: team_params }
+          }.to change { team.conference_attendances.count }.by 1
         end
       end
     end

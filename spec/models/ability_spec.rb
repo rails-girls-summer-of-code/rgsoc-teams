@@ -46,8 +46,8 @@ RSpec.describe Ability, type: :model do
 
       context 'when the user is a supervisor of another team' do
         before do
-         allow(user).to receive(:supervisor?).and_return(true)
-       end
+          allow(user).to receive(:supervisor?).and_return(true)
+        end
         it { expect(ability).not_to be_able_to(:see_offered_conferences, Team.new) }
       end
 
