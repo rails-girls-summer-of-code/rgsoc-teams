@@ -235,7 +235,7 @@ RSpec.describe User, type: :model do
     end
 
     it 'completes attributes from Github' do
-      attrs = user.attributes.slice(*%w(github_id email location name))
+      attrs = user.attributes.slice('github_id', 'email', 'location', 'name')
       expect(attrs.values).to be == [1, 'octocat@github.com', 'San Francisco', 'monalisa octocat']
     end
 

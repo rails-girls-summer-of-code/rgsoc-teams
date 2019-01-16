@@ -88,13 +88,6 @@ Lint/UnderscorePrefixedVariableName:
 
 # Offense count: 2
 # Cop supports --auto-correct.
-Lint/UnneededSplatExpansion:
-  Exclude:
-    - 'spec/lib/feed_spec.rb'
-    - 'spec/models/user_spec.rb'
-
-# Offense count: 2
-# Cop supports --auto-correct.
 # Configuration parameters: IgnoreEmptyBlocks, AllowUnusedKeywordArguments.
 Lint/UnusedBlockArgument:
   Exclude:
