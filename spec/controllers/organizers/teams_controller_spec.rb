@@ -124,10 +124,10 @@ RSpec.describe Organizers::TeamsController, type: :controller do
         let(:team) { offer.team }
         let!(:team_params) do
           build(:team).attributes.merge(conference_attendances_attributes: {
-            '0' => {
-              conference_id: offer.conference.id, orga_comment: "commment"
-            }
-          })
+                                          '0' => {
+                                            conference_id: offer.conference.id, orga_comment: "commment"
+                                          }
+                                        })
         end
 
         it 'orga members can assign conference offer for a team' do

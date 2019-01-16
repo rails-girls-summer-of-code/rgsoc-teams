@@ -31,7 +31,7 @@ RSpec.describe Season, type: :model do
         subject.acceptance_notification_at = date
         expect { subject.valid? }.to \
           change { subject.acceptance_notification_at }.to \
-          DateTime.parse('2015-02-22 23:59:59.999999999 GMT')
+            DateTime.parse('2015-02-22 23:59:59.999999999 GMT')
       end
 
       it 'sets the project_proposals_open_at to the beginning of the day' do
@@ -39,7 +39,7 @@ RSpec.describe Season, type: :model do
         subject.project_proposals_open_at = date
         expect { subject.valid? }.to \
           change { subject.project_proposals_open_at }.to \
-          DateTime.parse('2015-02-22 0:00 UTC')
+            DateTime.parse('2015-02-22 0:00 UTC')
       end
 
       it 'sets the project_proposals_close_at to the end of the day' do
@@ -47,7 +47,7 @@ RSpec.describe Season, type: :model do
         subject.project_proposals_close_at = date
         expect { subject.valid? }.to \
           change { subject.project_proposals_close_at }.to \
-          DateTime.parse('2015-02-22 23:59:59.999999999 GMT')
+            DateTime.parse('2015-02-22 23:59:59.999999999 GMT')
       end
     end
   end

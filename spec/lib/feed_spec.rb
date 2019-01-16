@@ -48,12 +48,12 @@ RSpec.describe Feed do
 
     attrs = Activity.first.attributes.symbolize_keys
     expect(attrs.slice(*%i(team_id kind guid author source_url))).to eq({
-      team_id: 1,
-      kind: 'feed_entry',
-      guid: 'tag:sloblog.io,2005:tuVpApz3THQ',
-      author: '@donswelt',
-      source_url: 'http://sloblog.io/tuVpApz3THQ',
-    })
+                                                                          team_id: 1,
+                                                                          kind: 'feed_entry',
+                                                                          guid: 'tag:sloblog.io,2005:tuVpApz3THQ',
+                                                                          author: '@donswelt',
+                                                                          source_url: 'http://sloblog.io/tuVpApz3THQ',
+                                                                        })
     expect(attrs[:content]).to match(/Es ist mitten/)
     expect(attrs[:published_at].to_s).to eq('2013-02-02 23:55:58 UTC')
   end

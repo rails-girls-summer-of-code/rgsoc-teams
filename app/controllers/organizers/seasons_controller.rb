@@ -6,13 +6,13 @@ module Organizers
 
     def new
       @season = Season.new({
-        name: Date.today.year,
-        starts_at: Time.utc(Date.today.year, 7, 1),
-        ends_at: Time.utc(Date.today.year, 9, 30),
-        applications_open_at: Time.utc(Date.today.year, 3, 1),
-        applications_close_at: Time.utc(Date.today.year, 3, 31),
-        acceptance_notification_at: Time.utc(Date.today.year, 5, 1)
-      })
+                             name: Date.today.year,
+                             starts_at: Time.utc(Date.today.year, 7, 1),
+                             ends_at: Time.utc(Date.today.year, 9, 30),
+                             applications_open_at: Time.utc(Date.today.year, 3, 1),
+                             applications_close_at: Time.utc(Date.today.year, 3, 31),
+                             acceptance_notification_at: Time.utc(Date.today.year, 5, 1)
+                           })
     end
 
     def create

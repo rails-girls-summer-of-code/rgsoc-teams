@@ -6,42 +6,6 @@
 # Note that changes in the inspected code, or installation of new
 # versions of RuboCop, may require this file to be generated again.
 
-# Offense count: 3
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, IndentationWidth.
-# SupportedStyles: consistent, consistent_relative_to_receiver, special_for_inner_method_call, special_for_inner_method_call_in_parentheses
-Layout/FirstParameterIndentation:
-  Exclude:
-    - 'spec/models/season_spec.rb'
-
-# Offense count: 3
-# Cop supports --auto-correct.
-# Configuration parameters: IndentationWidth.
-# SupportedStyles: special_inside_parentheses, consistent, align_brackets
-Layout/IndentArray:
-  EnforcedStyle: consistent
-
-# Offense count: 2
-# Cop supports --auto-correct.
-# Configuration parameters: IndentationWidth.
-Layout/IndentAssignment:
-  Exclude:
-    - 'app/models/mentor/application.rb'
-
-# Offense count: 27
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, IndentationWidth.
-# SupportedStyles: special_inside_parentheses, consistent, align_braces
-Layout/IndentHash:
-  Exclude:
-    - 'app/controllers/organizers/seasons_controller.rb'
-    - 'app/models/rating.rb'
-    - 'config/initializers/session_store.rb'
-    - 'spec/controllers/organizers/teams_controller_spec.rb'
-    - 'spec/controllers/teams_controller_spec.rb'
-    - 'spec/lib/feed_spec.rb'
-    - 'spec/lib/github/user_spec.rb'
-
 # Offense count: 2
 # Cop supports --auto-correct.
 Layout/MultilineBlockLayout:

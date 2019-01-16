@@ -8,13 +8,13 @@ RSpec.describe Github::User do
 
   it 'fetches the user from GitHub and normalizes attributes' do
     expect(Github::User.new('octocat').attrs).to eq({
-      github_id:  1,
-      name:       'monalisa octocat',
-      email:      'octocat@github.com',
-      location:   'San Francisco',
-      bio:        'There once was...',
-      avatar_url: 'https://github.com/images/error/octocat_happy.gif',
-      homepage:   'https://github.com/blog'
-    })
+                                                      github_id:  1,
+                                                      name:       'monalisa octocat',
+                                                      email:      'octocat@github.com',
+                                                      location:   'San Francisco',
+                                                      bio:        'There once was...',
+                                                      avatar_url: 'https://github.com/images/error/octocat_happy.gif',
+                                                      homepage:   'https://github.com/blog'
+                                                    })
   end
 end

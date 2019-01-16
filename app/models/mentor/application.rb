@@ -157,7 +157,7 @@ module Mentor
       # @return [String] a prepared SQL statement
       def sql_statement_all
         @sql_statement_all ||=
-        <<-SQL
+          <<-SQL
           SELECT
           applications.id AS id,
           teams.name AS team_name,
@@ -185,7 +185,7 @@ module Mentor
       # @return [String] a prepared SQL statement
       def sql_statement_find
         @sql_statement_find ||=
-        <<-SQL
+          <<-SQL
           SELECT
           applications.id AS id,
           teams.name AS team_name,

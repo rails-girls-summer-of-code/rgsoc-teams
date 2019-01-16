@@ -223,11 +223,11 @@ RSpec.describe TeamsController, type: :controller do
           let(:conference_2) { create(:conference, :in_current_season)}
           let(:team_params) do
             build(:team).attributes.merge(conference_preference_attributes: {
-              first_conference_id: conference_1.id,
-              second_conference_id: conference_2.id,
-              terms_of_ticket: '1',
-              terms_of_travel: '1'
-            })
+                                            first_conference_id: conference_1.id,
+                                            second_conference_id: conference_2.id,
+                                            terms_of_ticket: '1',
+                                            terms_of_travel: '1'
+                                          })
           end
 
           it 'student can set one conference preference with two conference options for her team' do
