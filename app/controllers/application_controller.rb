@@ -59,8 +59,8 @@ class ApplicationController < ActionController::Base
   def store_location(key: :previous_url)
     return unless request.get?
     if !request.path.starts_with?('/auth') && \
-        request.path != "/sign_out" && \
-        !request.xhr? # don't store ajax calls
+       request.path != "/sign_out" && \
+       !request.xhr? # don't store ajax calls
       session[key] = request.fullpath
     end
   end

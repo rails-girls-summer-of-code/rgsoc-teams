@@ -6,64 +6,6 @@
 # Note that changes in the inspected code, or installation of new
 # versions of RuboCop, may require this file to be generated again.
 
-# Offense count: 2
-# Cop supports --auto-correct.
-Layout/MultilineBlockLayout:
-  Exclude:
-    - 'spec/factories/application.rb'
-
-# Offense count: 13
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: symmetrical, new_line, same_line
-Layout/MultilineHashBraceLayout:
-  Exclude:
-    - 'app/models/rating.rb'
-
-# Offense count: 11
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: symmetrical, new_line, same_line
-Layout/MultilineMethodCallBraceLayout:
-  Exclude:
-    - 'app/models/mentor/application.rb'
-    - 'db/seeds.rb'
-    - 'spec/controllers/mentors/comments_controller_spec.rb'
-    - 'spec/helpers/nav_helper_spec.rb'
-    - 'spec/models/mentor/application_spec.rb'
-    - 'spec/models/mentor/comment_spec.rb'
-    - 'spec/support/shared_examples/rateable.rb'
-
-# Offense count: 30
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, IndentationWidth.
-# SupportedStyles: aligned, indented, indented_relative_to_receiver
-Layout/MultilineMethodCallIndentation:
-  Exclude:
-    - 'app/controllers/community_controller.rb'
-    - 'app/controllers/contributors_controller.rb'
-    - 'app/controllers/mentors/applications_controller.rb'
-    - 'app/controllers/students_controller.rb'
-    - 'app/controllers/teams_controller.rb'
-    - 'app/exporters/users.rb'
-    - 'app/models/selection/table.rb'
-    - 'app/models/student.rb'
-    - 'app/models/team.rb'
-    - 'app/models/user.rb'
-    - 'lib/tasks/single_run.rake'
-    - 'spec/controllers/users_controller_spec.rb'
-
-# Offense count: 8
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, IndentationWidth.
-# SupportedStyles: aligned, indented
-Layout/MultilineOperationIndentation:
-  Exclude:
-    - 'app/controllers/application_controller.rb'
-    - 'app/controllers/teams_controller.rb'
-    - 'app/exporters/applications.rb'
-    - 'spec/controllers/supervisors/comments_controller_spec.rb'
-
 # Offense count: 34
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, EnforcedStyleForEmptyBraces.

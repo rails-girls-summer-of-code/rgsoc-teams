@@ -33,8 +33,8 @@ RSpec.describe Supervisors::CommentsController, type: :controller do
         let(:mailer_jobs) do
           enqueued_jobs.select do |job|
             job[:job] == ActionMailer::DeliveryJob &&
-                job[:args][0] == 'CommentMailer' &&
-                job[:args][1] == 'email'
+              job[:args][0] == 'CommentMailer' &&
+              job[:args][1] == 'email'
           end
         end
 

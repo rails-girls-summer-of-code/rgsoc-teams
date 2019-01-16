@@ -7,8 +7,8 @@ class ContributorsController < ApplicationController
 
   def index
     @contributors = User.with_role(Role::CONTRIBUTOR_ROLES).includes(roles: :team)
-      .where("teams.season_id IS NULL OR teams.season_id = ? and teams.kind IS NOT NULL", Season.current)
-      .references(:teams).distinct
+                        .where("teams.season_id IS NULL OR teams.season_id = ? and teams.kind IS NOT NULL", Season.current)
+                        .references(:teams).distinct
     respond_with @contributors.as_json(json_params)
   end
 

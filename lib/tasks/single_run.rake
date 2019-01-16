@@ -38,8 +38,8 @@ namespace :single_run do
   desc '2017-03-20: Remap mentor sign-offs to the right project'
   task remap_mentor_sign_offs_to_the_right_project: :environment do
     applications = Application
-      .where(season: Season.current)
-      .where.not(team: nil, signed_off_at: nil)
+                   .where(season: Season.current)
+                   .where.not(team: nil, signed_off_at: nil)
 
     applications.find_each do |application|
       project1_id = application.data.project1_id.to_i

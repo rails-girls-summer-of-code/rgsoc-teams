@@ -13,7 +13,8 @@ RSpec.describe Mentor::Comment, type: :model do
         id: comment_from_db.id,
         text:             comment_from_db.text,
         commentable_id:   comment_from_db.commentable_id,
-        commentable_type: comment_from_db.commentable_type)
+        commentable_type: comment_from_db.commentable_type
+      )
     end
 
     it 'has a default scope to include only comments on Mentor::Applications' do

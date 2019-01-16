@@ -160,7 +160,7 @@ class Team < ApplicationRecord
 
   def disallow_multiple_student_roles
     students = User.with_role('student').joins(roles: :team).where(id: roles.map(&:user_id))
-      .where.not('roles.team_id' => id).where('teams.season_id' => season_id)
+                   .where.not('roles.team_id' => id).where('teams.season_id' => season_id)
     return if students.empty?
     msg = MSGS[:"duplicate_student_roles_#{students.size == 1 ? 'singular' : 'plural'}"]
     errors.add :base, msg % students.map(&:name).join(', ')

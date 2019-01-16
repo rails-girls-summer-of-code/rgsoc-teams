@@ -40,7 +40,8 @@ RSpec.describe Mentors::CommentsController, type: :controller do
           user:              user,
           text:              'something',
           commentable_id:    1,
-          commentable_type: 'Mentor::Application')
+          commentable_type: 'Mentor::Application'
+        )
       end
 
       it 'redirect_to the mentor application show view' do

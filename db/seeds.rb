@@ -46,6 +46,5 @@ FactoryBot.create(:project, :rejected, :in_current_season)
                     location: FFaker::Venue.name,
                     region: ["Africa", "South America", "North America", "Europe", "Asia Pacific"].sample,
                     starts_on: random_date,
-                    ends_on: random_date + rand(2.days)
-                  )
+                    ends_on: random_date + rand(2.days))
 end

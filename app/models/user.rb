@@ -123,7 +123,7 @@ class User < ApplicationRecord
 
     def with_all_associations_joined
       includes(:roles).group("roles.id")
-      .includes(roles: :team).group("teams.id")
+                      .includes(roles: :team).group("teams.id")
     end
 
     def with_interest(interest)
@@ -183,9 +183,9 @@ class User < ApplicationRecord
 
   def current_student?
     roles.joins(:team)
-      .merge(Team.in_current_season)
-      .merge(Team.accepted)
-      .student.any?
+         .merge(Team.in_current_season)
+         .merge(Team.accepted)
+         .student.any?
   end
 
   def interested_in_list

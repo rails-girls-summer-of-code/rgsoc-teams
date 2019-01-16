@@ -11,9 +11,9 @@ module Exporters
 
       def headers
         @headers ||= ["Team ID"] +
-          keys.map { |key| Application.data_label key } +
-          ["Coaching Company", "Misc. Info", "City", "Country"] +
-          Selection::Table::FLAGS.map(&:to_s).map(&:titleize)
+                     keys.map { |key| Application.data_label key } +
+                     ["Coaching Company", "Misc. Info", "City", "Country"] +
+                     Selection::Table::FLAGS.map(&:to_s).map(&:titleize)
       end
 
       private

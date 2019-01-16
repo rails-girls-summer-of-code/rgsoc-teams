@@ -17,10 +17,10 @@ module Exporters
 
     def export_for_season(season)
       students = User.joins(roles: :team)
-        .references(:roles, :teams)
-        .where('roles.name' => 'student')
-        .merge(Team.accepted)
-        .where('teams.season_id' => season)
+                     .references(:roles, :teams)
+                     .where('roles.name' => 'student')
+                     .merge(Team.accepted)
+                     .where('teams.season_id' => season)
 
       generate(students, 'User ID', 'Name', 'Email', 'Country', 'Locality', 'Address', 'T-shirt size', 'T-shirt cut') do |u|
         [u.id, u.name, u.email, u.country, u.location, u.postal_address, u.tshirt_size, u.tshirt_cut]

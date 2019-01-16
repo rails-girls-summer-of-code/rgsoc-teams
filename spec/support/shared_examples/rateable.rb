@@ -35,13 +35,11 @@ RSpec.shared_examples 'Rateable' do
       before do
         create_list(:rating, 2,
                     application: application,
-                    data:     { 'diversity' => 1 }
-                  )
+                    data:     { 'diversity' => 1 })
 
         create_list(:rating, 2,
                     application: application,
-                    data:     { 'diversity' => 5 }
-                  )
+                    data:     { 'diversity' => 5 })
       end
 
       it 'retuns the average of points' do
@@ -53,13 +51,11 @@ RSpec.shared_examples 'Rateable' do
       before do
         create_list(:rating, 2,
                     application: application,
-                    data:     { 'diversity' => 1 }
-                  )
+                    data:     { 'diversity' => 1 })
 
         create_list(:rating, 1,
                     application: application,
-                    data:     { 'diversity' => 4 }
-                  )
+                    data:     { 'diversity' => 4 })
       end
 
       it 'retuns the average of points' do

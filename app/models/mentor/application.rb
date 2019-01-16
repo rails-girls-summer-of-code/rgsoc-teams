@@ -31,7 +31,8 @@ module Mentor
       Mentor::Comment.find_or_initialize_by(
         commentable_id:   id,
         commentable_type: self.class.name,
-        user:             mentor)
+        user:             mentor
+      )
     end
 
     def mentor_fav?
