@@ -81,7 +81,7 @@ module Organizers
     end
 
     def team_params
-      params[:team].fetch(:sources_attributes, {}).delete_if { |key, source| source[:url].empty? }
+      params[:team].fetch(:sources_attributes, {}).delete_if { |_key, source| source[:url].empty? }
       params.require(:team).permit(
         :name, :twitter_handle, :github_handle, :description, :post_info, :event_id,
         :checked, :'starts_on(1i)', :'starts_on(2i)', :'starts_on(3i)',
