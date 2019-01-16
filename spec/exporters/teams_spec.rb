@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe Exporters::Teams do
-
   describe '#current' do
     let!(:old_team) { create :team, name: "OLDTEAM" }
     let!(:new_team) { create :team, :in_current_season, name: "NEWTEAM" }
@@ -42,7 +41,5 @@ RSpec.describe Exporters::Teams do
       export_method = "accepted_1970"
       expect { described_class.send export_method }.to raise_error NoMethodError
     end
-
   end
-
 end

@@ -26,7 +26,6 @@ FactoryBot.create_list(:user, 3)
 FactoryBot.create(:user, :unconfirmed)
 FactoryBot.create(:user, unconfirmed_email: "newer_email@example.com")
 
-
 # Status updates for different teams
 5.times do
   FactoryBot.create(:status_update, published_at: Time.now, team: Team.all.sample)

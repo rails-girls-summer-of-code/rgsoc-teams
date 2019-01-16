@@ -17,7 +17,6 @@ RSpec.describe Organizers::ConferencesController, type: :controller do
     end
 
     describe 'POST import' do
-
       let(:file) { fixture_file_upload("spec/fixtures/files/test.csv", 'text/csv') }
 
       it 'posts a .csv file' do

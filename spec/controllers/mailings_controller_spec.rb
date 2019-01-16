@@ -25,7 +25,6 @@ RSpec.describe MailingsController, type: :controller do
   end
 
   describe 'GET show' do
-
     context 'with student user logged in' do
       include_context 'with student logged in'
 

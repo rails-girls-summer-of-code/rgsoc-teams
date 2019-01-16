@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Organizers
   class UsersInfoController < Organizers::BaseController
     before_action :normalize_params, only: :index

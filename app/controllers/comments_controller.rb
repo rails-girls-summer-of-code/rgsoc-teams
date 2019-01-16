@@ -1,6 +1,6 @@
 # frozen_string_literal: true
-class CommentsController < ApplicationController
 
+class CommentsController < ApplicationController
   # This controller manages the comments on applications and projects.
   # Supervisor's comments on their teams are managed by the supervisors/comments-controller
   # We only allow comments with text (others do not make sense here)

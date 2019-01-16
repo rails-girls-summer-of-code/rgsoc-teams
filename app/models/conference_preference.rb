@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class ConferencePreference < ApplicationRecord
   belongs_to :team, optional: true
   belongs_to :first_conference, class_name: 'Conference', optional: true

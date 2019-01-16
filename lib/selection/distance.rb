@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'selection/refinements'
 
 module Selection
@@ -23,7 +24,6 @@ module Selection
     private
 
     attr_reader :from_lat, :from_lng, :to_lat, :to_lng
-
 
     def haversine_distance
       a = Math.sin(delta_lat / 2)**2 +

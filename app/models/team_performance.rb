@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class TeamPerformance
   # Internal: calculates a Team's performance score for supervisor's dashboard
 
@@ -62,5 +63,4 @@ class TeamPerformance
       end
     end
   end
-
 end

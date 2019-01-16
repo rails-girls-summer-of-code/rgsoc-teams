@@ -91,5 +91,4 @@ RSpec.describe Student, type: :model do
       expect(subject.current_draft).to eq 'first'
     end
   end
-
 end

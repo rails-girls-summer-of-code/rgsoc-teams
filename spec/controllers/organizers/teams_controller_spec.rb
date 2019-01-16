@@ -151,7 +151,6 @@ RSpec.describe Organizers::TeamsController, type: :controller do
           expect(response).to redirect_to organizers_teams_url
         end
       end
-
     end
   end
 end

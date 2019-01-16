@@ -1,7 +1,7 @@
 # frozen_string_literal: true
+
 module Supervisors
   class CommentsController < Supervisors::BaseController
-
     def index
       find_comments
     end
@@ -20,7 +20,6 @@ module Supervisors
       end
       redirect_to supervisors_dashboard_path
     end
-
 
     private
 

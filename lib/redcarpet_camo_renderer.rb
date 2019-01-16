@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Redcarpet
   module Render
     class Camo < Redcarpet::Render::HTML

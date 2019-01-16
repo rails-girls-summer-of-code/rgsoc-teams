@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Mentor
   class Student
     include ActiveModel::Model
@@ -16,6 +17,5 @@ module Mentor
     attr_accessor :coding_level, :code_samples,
                   :learning_history, :language_learning_period,
                   :skills, :name
-
   end
 end

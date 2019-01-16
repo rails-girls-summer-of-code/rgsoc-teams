@@ -31,7 +31,6 @@ RSpec.describe TeamsController, type: :controller do
         get :index
         expect(assigns(:teams)).to match_array [unaccepted_team]
       end
-
     end
 
     context 'with sorting' do
@@ -74,7 +73,6 @@ RSpec.describe TeamsController, type: :controller do
         expect(response).to be_success
         expect(assigns(:teams)).to match_array [full_time_team]
       end
-
     end
   end
 

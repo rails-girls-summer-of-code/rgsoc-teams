@@ -29,7 +29,6 @@ RSpec.describe Reviewers::ApplicationsController, type: :controller do
 
         expect(assigns :table).to be_a Selection::Table
         expect(response).to render_template :index
-
       end
 
       context 'given one of the users deleted their account' do
@@ -49,7 +48,6 @@ RSpec.describe Reviewers::ApplicationsController, type: :controller do
 
           expect(assigns :table).to be_a Selection::Table
           expect(response).to render_template :index
-
         end
       end
 

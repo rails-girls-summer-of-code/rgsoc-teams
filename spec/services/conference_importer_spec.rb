@@ -2,7 +2,6 @@ require 'rails_helper'
 require 'csv'
 
 RSpec.describe ConferenceImporter, type: :service do
-
   describe "#call" do
     # 6 sample conferences in test.csv, 4 valid
     # valid: 2017001, 2017002, *2018*005 and 2017006 .

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
-module TeamsHelper
 
+module TeamsHelper
   def conference_exists_for?(team)
     conference_preference = team.conference_preference
     return false unless conference_preference.present? && conference_preference.persisted?

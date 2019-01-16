@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module NavHelper
   SOC_CONTROLLERS = %w(conferences projects applications application_drafts teams community).freeze
 

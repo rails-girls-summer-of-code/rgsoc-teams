@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Reviewers
   class TodosController < Reviewers::BaseController
     respond_to :html

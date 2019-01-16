@@ -1,7 +1,7 @@
 # frozen_string_literal: true
+
 module Exporters
   class Teams < Base
-
     (2015..Date.today.year).each do |year|
       define_method "accepted_#{year}" do
         season = Season.find_by(name: year)
@@ -26,6 +26,5 @@ module Exporters
         [t.id, t.name, t.students_location, student1.name, student1.email, student2.name, student2.email, coaches_emails, coaches_names]
       end
     end
-
   end
 end

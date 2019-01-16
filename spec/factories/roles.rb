@@ -35,6 +35,5 @@ FactoryBot.define do
     factory :reviewer_role do
       name 'reviewer'
     end
-
   end
 end

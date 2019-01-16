@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe TeamsHelper, type: :helper do
-
   describe "#conference_exists?" do
     let(:conference_preference) { create :conference_preference }
     let(:team_without) { create :team }

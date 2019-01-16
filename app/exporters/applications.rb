@@ -1,7 +1,7 @@
 # frozen_string_literal: true
+
 module Exporters
   class Applications < Base
-
     # Assumption: all applications of a given year share the structure of the
     # Application#application_data hash:
     class KeysAndHeaders < Struct.new(:season)

@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Reviewers
   class RatingsController < Reviewers::BaseController
     # In order to get the rating data persisted, FIRST create the rating record,

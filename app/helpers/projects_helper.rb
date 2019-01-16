@@ -1,6 +1,6 @@
 # frozen_string_literal: true
-module ProjectsHelper
 
+module ProjectsHelper
   def project_status(project)
     label_class = case project.aasm_state
                   when 'proposed'
@@ -23,5 +23,4 @@ module ProjectsHelper
   def project_years
     (Season.joins(:projects).distinct.pluck(:name) + [Date.today.year.to_s]).uniq.sort.reverse
   end
-
 end

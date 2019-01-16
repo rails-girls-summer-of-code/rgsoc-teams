@@ -76,7 +76,5 @@ RSpec.describe Selection::Strictness, type: :model do
         expect(untainted_arithmetic_mean_for_application2).to be < subject[application2.id]
       end
     end
-
   end
-
 end

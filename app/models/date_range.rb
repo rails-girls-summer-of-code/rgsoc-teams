@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class DateRange
   # Step 1: only in use with Conference date range.
   # Validation is supposed to be in input (e.g. Conference.rb), but

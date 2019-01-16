@@ -1,6 +1,6 @@
 # frozen_string_literal: true
-class ApplicationDraftsController < ApplicationController
 
+class ApplicationDraftsController < ApplicationController
   before_action :checktime, only: [:new, :create, :update]
   before_action :sign_in_required
   before_action :valid_user_profile_required, only: [:new, :create, :update]

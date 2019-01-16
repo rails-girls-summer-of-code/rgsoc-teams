@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Reviewers
   class BaseController < ApplicationController
     DASHBOARD_PATH = %i(reviewers dashboard).freeze

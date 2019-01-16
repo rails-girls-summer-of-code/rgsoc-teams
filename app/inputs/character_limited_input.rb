@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class CharacterLimitedInput < SimpleForm::Inputs::TextInput
   def input_html_options
     super.merge(data: { behaviour: 'character-limited', maxlength: Student::CHARACTER_LIMIT })

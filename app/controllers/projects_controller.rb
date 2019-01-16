@@ -1,6 +1,6 @@
 # frozen_string_literal: true
-class ProjectsController < ApplicationController
 
+class ProjectsController < ApplicationController
   before_action :soft_login_required, only: [:new]
   before_action :check_date!, only: [:new, :create]
 

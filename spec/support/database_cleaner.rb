@@ -1,5 +1,4 @@
 RSpec.configure do |config|
-
   config.before(:suite) do
     DatabaseCleaner.strategy = :truncation, { pre_count: true, reset_ids: false }
     DatabaseCleaner.clean_with(:truncation)

@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Organizers
   class TeamsController < Organizers::BaseController
     before_action :find_resource, only: [:show, :edit, :update, :destroy]

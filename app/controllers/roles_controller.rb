@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class RolesController < ApplicationController
   before_action :set_team, except: [:confirm]
   before_action :set_role, except: [:confirm, :index, :show]
@@ -49,7 +50,6 @@ class RolesController < ApplicationController
     redirect_to @team
   end
 
-
   private
 
   def set_team
@@ -68,5 +68,4 @@ class RolesController < ApplicationController
     params[:role] ||= { name: params[:name] }
     params.require(:role).permit(:user_id, :team_id, :name, :github_handle, :confirm)
   end
-
 end

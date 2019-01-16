@@ -20,5 +20,4 @@ RSpec.describe 'Browsing the front page', type: :request do
       end
     end
   end
-
 end

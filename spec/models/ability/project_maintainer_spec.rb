@@ -2,9 +2,7 @@ require 'rails_helper'
 require 'cancan/matchers'
 
 RSpec.describe Ability, type: :model do
-
   describe "Project Submitter" do
-
     let(:user) { build_stubbed(:user) }
     subject(:ability) { Ability.new(user) }
 

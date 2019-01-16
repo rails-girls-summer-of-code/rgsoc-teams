@@ -1,8 +1,8 @@
 # frozen_string_literal: true
+
 require 'cgi'
 require 'uri'
 module ApplicationHelper
-
   TIMEZONES = ActiveSupport::TimeZone.all.map{|t| t.tzinfo.name}.uniq.sort
 
   def application_disambiguation_link

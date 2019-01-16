@@ -2,7 +2,6 @@ require 'rails_helper'
 require 'cancan/matchers'
 
 RSpec.describe Ability, type: :model do
-
   let(:user) { create(:user) }
   subject(:ability) { Ability.new(user) }
 
@@ -61,7 +60,6 @@ RSpec.describe Ability, type: :model do
       end
 
       context "when viewing user information" do
-
         # FIXME see issue #1001
         # The following specs should pass after fixing
         before do
