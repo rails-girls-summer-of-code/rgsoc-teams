@@ -100,7 +100,7 @@ module Organizers
 
     def set_breadcrumbs
       super
-      @breadcrumbs << [ 'Teams', :teams]
+      @breadcrumbs << ['Teams', :teams]
     end
   end
 end

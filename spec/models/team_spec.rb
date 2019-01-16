@@ -87,11 +87,11 @@ RSpec.describe Team, type: :model do
     describe 'limit of students' do
       let(:team) { create :team }
       let(:new_user) { create :user }
-      let(:new_student) { -> {{ name: 'student', team_id: team.id, user_id: new_user.id }} }
-      let(:new_student_as_coach) { -> {{ name: 'coach', team_id: team.id, user_id: new_user.id }} }
-      let(:second_new_student) { -> {{ name: 'student', team_id: team.id, user_id: create(:user).id }} }
-      let(:third_new_student) { -> {{ name: 'student', team_id: team.id, user_id: create(:user).id }} }
-      let(:remove_student) { -> {{ name: 'student', team_id: team.id, user_id: create(:user).id, _destroy: true }} }
+      let(:new_student) { -> { { name: 'student', team_id: team.id, user_id: new_user.id } } }
+      let(:new_student_as_coach) { -> { { name: 'coach', team_id: team.id, user_id: new_user.id } } }
+      let(:second_new_student) { -> { { name: 'student', team_id: team.id, user_id: create(:user).id } } }
+      let(:third_new_student) { -> { { name: 'student', team_id: team.id, user_id: create(:user).id } } }
+      let(:remove_student) { -> { { name: 'student', team_id: team.id, user_id: create(:user).id, _destroy: true } } }
 
       context 'when team has no students yet' do
         it 'allows to add 2 new students' do

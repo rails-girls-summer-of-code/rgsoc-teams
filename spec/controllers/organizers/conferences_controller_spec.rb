@@ -26,7 +26,7 @@ RSpec.describe Organizers::ConferencesController, type: :controller do
       end
 
       it 'refuses other formats' do
-        post :import, format: :json, params: { file: file}
+        post :import, format: :json, params: { file: file }
         expect(response).not_to be_success
       end
 
@@ -42,7 +42,7 @@ RSpec.describe Organizers::ConferencesController, type: :controller do
 
       it 'destroys the resource' do
         expect {
-          delete :destroy, params: {id: conference}
+          delete :destroy, params: { id: conference }
         }.to change { Conference.count }.by(-1)
         expect(response).to redirect_to organizers_conferences_path
       end

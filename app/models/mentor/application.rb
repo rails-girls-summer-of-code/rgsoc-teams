@@ -87,7 +87,7 @@ module Mentor
     # @param attrs [Hash] arguments in wrong format
     # @return [Hash] arguments in correct format
     def studentize(attrs)
-      attrs.tap { |a| a.keys.each{ |k| a[k.sub(/student(0|1)_application_/, '')] = a.delete(k) } }
+      attrs.tap { |a| a.keys.each { |k| a[k.sub(/student(0|1)_application_/, '')] = a.delete(k) } }
     end
 
     def persisted_application

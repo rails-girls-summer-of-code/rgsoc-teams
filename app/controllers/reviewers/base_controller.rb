@@ -9,7 +9,7 @@ module Reviewers
     before_action :set_breadcrumbs
 
     def set_breadcrumbs
-      @breadcrumbs = [ ['Rating', DASHBOARD_PATH] ]
+      @breadcrumbs = [['Rating', DASHBOARD_PATH]]
     end
   end
 end

@@ -202,7 +202,7 @@ RSpec.describe Reviewers::ApplicationsController, type: :controller do
       before { sign_in user }
 
       context 'with valid params' do
-        let(:params) { {id: application, application: {less_than_two_coaches: 1}} }
+        let(:params) { { id: application, application: { less_than_two_coaches: 1 } } }
 
         it 'assigns @application' do
           put :update, params: params
@@ -210,10 +210,10 @@ RSpec.describe Reviewers::ApplicationsController, type: :controller do
         end
 
         it 'changes application record' do
-          expect{
+          expect {
             put :update, params: params
             application.reload
-          }.to change{application.less_than_two_coaches}.to true
+          }.to change { application.less_than_two_coaches }.to true
         end
 
         it 'redirects to application' do

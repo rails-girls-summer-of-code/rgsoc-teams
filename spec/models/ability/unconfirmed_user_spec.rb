@@ -7,7 +7,7 @@ require 'cancan/matchers'
 
 RSpec.describe Ability, type: :model do
   describe "User logged in, account unconfirmed" do
-    let(:user){ create(:user, :unconfirmed) }
+    let(:user) { create(:user, :unconfirmed) }
     let(:other_user) { create(:user) }
     subject(:ability) { Ability.new(user) }
 

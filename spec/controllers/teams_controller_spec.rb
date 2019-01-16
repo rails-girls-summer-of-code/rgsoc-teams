@@ -20,7 +20,7 @@ RSpec.describe TeamsController, type: :controller do
     context 'before acceptance letters are sent' do
       let(:last_season)      { Season.create name: Date.today.year - 1 }
       let!(:invisble_team)   { create :team, :in_current_season, kind: nil, invisible: true }
-      let!(:unaccepted_team) { create :team, :in_current_season, kind: nil}
+      let!(:unaccepted_team) { create :team, :in_current_season, kind: nil }
       let!(:last_years_team) { create :team, kind: 'part_time', season: last_season }
 
       before do
@@ -42,7 +42,7 @@ RSpec.describe TeamsController, type: :controller do
 
     context 'past teams' do
       it 'return index by season year' do
-        get :index, params: { year: '2016'}
+        get :index, params: { year: '2016' }
         expect(response).to render_template 'index'
       end
 
@@ -61,7 +61,7 @@ RSpec.describe TeamsController, type: :controller do
     context 'after acceptance letters have been sent' do
       let(:last_season) { Season.create name: Date.today.year - 1 }
       let!(:full_time_team) { create :team, :in_current_season, kind: 'full_time' }
-      let!(:unaccepted_team) { create :team, :in_current_season, kind: nil}
+      let!(:unaccepted_team) { create :team, :in_current_season, kind: nil }
       let!(:last_years_team) { create :team, kind: 'full_time', season: last_season }
 
       before do
@@ -219,8 +219,8 @@ RSpec.describe TeamsController, type: :controller do
         end
 
         context 'selecting the conference options' do
-          let(:conference_1) { create(:conference, :in_current_season)}
-          let(:conference_2) { create(:conference, :in_current_season)}
+          let(:conference_1) { create(:conference, :in_current_season) }
+          let(:conference_2) { create(:conference, :in_current_season) }
           let(:team_params) do
             build(:team).attributes.merge(conference_preference_attributes: {
                                             first_conference_id: conference_1.id,

@@ -25,7 +25,7 @@ RSpec.describe DateRange, type: :model do
         let(:end_date)   { Date.parse('2015-12-01') }
 
         it 'displays the year only once' do
-          expect(subject).to eq ('30 Nov - 1 Dec 2015' )
+          expect(subject).to eq ('30 Nov - 1 Dec 2015')
         end
       end
 

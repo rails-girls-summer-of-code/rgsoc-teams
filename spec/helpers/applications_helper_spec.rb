@@ -13,7 +13,7 @@ RSpec.describe ApplicationsHelper, type: :helper do
 
     context 'when project set' do
       let(:project) { build :project }
-      before { allow(application).to receive(:project){project} }
+      before { allow(application).to receive(:project) { project } }
 
       it 'returns link to project' do
         expect(project_link).to eq link_to(project.name, project)

@@ -126,7 +126,7 @@ RSpec.describe Role, type: :model do
       subject { build :organizer_role }
 
       it 'does not change the user\'s github_handle' do
-        expect { subject.github_handle = ''}.not_to change { subject.user.github_handle }
+        expect { subject.github_handle = '' }.not_to change { subject.user.github_handle }
       end
     end
 
@@ -134,7 +134,7 @@ RSpec.describe Role, type: :model do
       subject { build :organizer_role }
 
       it 'changes the user' do
-        expect { subject.github_handle = 'sir_samuel_vimes'}.to change { subject.user }
+        expect { subject.github_handle = 'sir_samuel_vimes' }.to change { subject.user }
       end
     end
 
@@ -154,7 +154,7 @@ RSpec.describe Role, type: :model do
 
     context 'for a previously unknown github_handle' do
       it 'initializes a new user with the requested github_handle' do
-        expect { subject.github_handle = 'sir_samuel_vimes'}.to change { subject.user }.from(nil)
+        expect { subject.github_handle = 'sir_samuel_vimes' }.to change { subject.user }.from(nil)
         expect(subject.user).to be_new_record
         expect(subject.user.github_import).to eql true
       end

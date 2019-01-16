@@ -81,7 +81,7 @@ module Organizers
 
     def set_breadcrumbs
       super
-      @breadcrumbs << [ 'Seasons', :seasons]
+      @breadcrumbs << ['Seasons', :seasons]
     end
   end
 end

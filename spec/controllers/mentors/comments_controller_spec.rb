@@ -23,8 +23,8 @@ RSpec.describe Mentors::CommentsController, type: :controller do
 
     context 'as a project_maintainer' do
       let!(:project) { create(:project, :in_current_season, :accepted, submitter: user) }
-      let(:params)   {{ mentor_comment: { commentable_id: 1, text: 'something' } }}
-      let(:comment)  { proc { Mentor::Comment.last }}
+      let(:params)   { { mentor_comment: { commentable_id: 1, text: 'something' } } }
+      let(:comment)  { proc { Mentor::Comment.last } }
 
       before { sign_in user }
 
@@ -75,12 +75,12 @@ RSpec.describe Mentors::CommentsController, type: :controller do
 
       context 'when comment exists' do
         let!(:comment) { Mentor::Comment.create(user: user, commentable_id: 1, text: 'something') }
-        let(:params)   {{ id: comment.id, mentor_comment: { text: 'something else' } }}
+        let(:params)   { { id: comment.id, mentor_comment: { text: 'something else' } } }
 
         subject { put :update, params: params }
 
         it 'updates the comment' do
-          expect { subject; comment.reload}.to change { comment.text }
+          expect { subject; comment.reload }.to change { comment.text }
             .from('something').to('something else')
         end
 

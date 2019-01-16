@@ -15,7 +15,7 @@ RSpec.describe OmniauthCallbacksController, type: :controller do
           location:   'Location',
           bio:        'example user',
           login:      'example_user'
-        }}
+        } }
       )
       expect {
         post :github, format: :json
@@ -40,7 +40,7 @@ RSpec.describe OmniauthCallbacksController, type: :controller do
           location:   'Location',
           bio:        'example user',
           login:      'example_user'
-        }}
+        } }
       )
       expect {
         post :github, format: :json
@@ -66,7 +66,7 @@ RSpec.describe OmniauthCallbacksController, type: :controller do
           location:   'Location',
           bio:        'example user',
           login:      'example_user'
-        }}
+        } }
       )
       expect {
         post :github, format: :json
@@ -84,7 +84,7 @@ RSpec.describe OmniauthCallbacksController, type: :controller do
           location:   'Location',
           bio:        'example user',
           login:      user.github_handle
-        }}
+        } }
       )
       post :github, format: :json
       expect(response).to redirect_to(edit_user_path(user, welcome: true))

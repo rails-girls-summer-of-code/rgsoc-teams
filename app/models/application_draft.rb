@@ -134,14 +134,14 @@ class ApplicationDraft < ApplicationRecord
 
   def students
     if as_student?
-      [ current_student, current_pair ].compact
+      [current_student, current_pair].compact
     else
       (team || Team.new).students.order(:id)
     end.map { |user| Student.new(user) }
   end
 
   def current_student
-    @current_student ||= team.students.detect{ |student| student == current_user }
+    @current_student ||= team.students.detect { |student| student == current_user }
   end
 
   def current_pair
@@ -209,7 +209,7 @@ class ApplicationDraft < ApplicationRecord
   end
 
   def students_confirmed?
-    unless team.present? && team.students.all?{|student| student.confirmed? }
+    unless team.present? && team.students.all? { |student| student.confirmed? }
       errors.add(:base, 'Please make sure every student confirmed the email address.')
     end
   end

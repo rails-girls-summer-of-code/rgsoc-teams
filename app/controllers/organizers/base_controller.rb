@@ -12,7 +12,7 @@ module Organizers
     end
 
     def set_breadcrumbs
-      @breadcrumbs = [ ['Orga', :dashboard] ]
+      @breadcrumbs = [['Orga', :dashboard]]
     end
   end
 end

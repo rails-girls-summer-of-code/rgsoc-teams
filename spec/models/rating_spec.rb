@@ -10,7 +10,7 @@ RSpec.describe Rating, type: :model do
 
   describe 'validations' do
     it { is_expected.to validate_presence_of(:application).with_message(:required) }
-    it { is_expected.to validate_presence_of(:user).with_message(:required)}
+    it { is_expected.to validate_presence_of(:user).with_message(:required) }
     it { is_expected.to validate_uniqueness_of(:user_id).scoped_to(:application_id) }
   end
 
