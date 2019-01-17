@@ -32,6 +32,9 @@ class Application < ApplicationRecord
       .where.not(team: nil)
   end
 
+  delegate :location, :minimum_money, to: :data
+  delegate :name, to: :team, prefix: true
+
   def data
     ApplicationData.new(application_data)
   end
@@ -40,24 +43,12 @@ class Application < ApplicationRecord
     [team.try(:name), project.try(:name)].reject(&:blank?).join(' - ')
   end
 
-  def team_name
-    team.name
-  end
-
   def student_name
     team.students.first.try(:name)
   end
 
   def country
     @country ||= super.present? ? super : (team || Team.new).students.map(&:country).reject(&:blank?).join(', ')
-  end
-
-  def location
-    data.location
-  end
-
-  def minimum_money
-    data.minimum_money
   end
 
   Selection::Table::FLAGS.each do |flag|

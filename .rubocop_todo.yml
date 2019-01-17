@@ -445,14 +445,6 @@ Rails/Date:
   Enabled: false
 
 # Offense count: 4
-# Cop supports --auto-correct.
-# Configuration parameters: EnforceForPrefixed.
-Rails/Delegate:
-  Exclude:
-    - 'app/models/application.rb'
-    - 'app/models/season.rb'
-
-# Offense count: 4
 Rails/FilePath:
   Exclude:
     - 'app/controllers/organizers/exports_controller.rb'

@@ -28,9 +28,7 @@ class Season < ApplicationRecord
     # Project proposals open early. This predicate tells us if
     # we are in the transition phase after the current season's
     # coding period but before the new year (i.d. 'Season') begun.
-    def transition?
-      current.transition?
-    end
+    delegate :transition?, to: :current
 
     def projects_proposable?
       season = transition? ? succ : current
