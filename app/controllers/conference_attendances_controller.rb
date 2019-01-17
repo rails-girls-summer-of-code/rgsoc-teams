@@ -4,7 +4,7 @@ class ConferenceAttendancesController < ApplicationController
   def update
     @conference_attendance = ConferenceAttendance.find(params[:id])
 
-    if @conference_attendance.update_attributes(attendance_params)
+    if @conference_attendance.update(attendance_params)
       redirect_to @conference_attendance.team, notice: 'Your attendance was successfully recorded.'
     else
       render json: @conference_attendance.errors, status: :unprocessable_entity

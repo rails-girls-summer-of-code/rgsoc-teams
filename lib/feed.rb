@@ -27,7 +27,7 @@ class Feed
   end
 
   def update
-    source.update_attributes!(title: discover_title) unless source.title.present?
+    source.update!(title: discover_title) unless source.title.present?
     source.feed_url = discover_feed_url unless source.feed_url.present?
     update_entries
     source.save! if source.feed_url_changed? && source.feed_url != source.url
@@ -59,7 +59,7 @@ class Feed
       # logger.info "processing item #{item.guid}: #{item.title}"
       record = Activity.where(guid: item.guid).first
       attrs = item.attrs.merge(img_url: record.try(:img_url) || Image.new(item.url, logger: logger).store)
-      record ? record.update_attributes!(attrs) : Activity.create!(attrs)
+      record ? record.update!(attrs) : Activity.create!(attrs)
     end
   rescue => e
     ErrorReporting.call(e)

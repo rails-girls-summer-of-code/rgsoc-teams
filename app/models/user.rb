@@ -225,7 +225,7 @@ class User < ApplicationRecord
     attrs = Github::User.new(github_handle).attrs rescue {}
     attrs[:name] = github_handle if attrs[:name].blank?
     attrs = attrs.select { |key, value| send(key).blank? && value.present? }
-    update_attributes attrs
+    update attrs
     @just_created = true
   end
 

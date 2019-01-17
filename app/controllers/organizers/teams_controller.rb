@@ -56,7 +56,7 @@ module Organizers
     def update
       @conferences = conference_list
       respond_to do |format|
-        if @team.update_attributes(team_params)
+        if @team.update(team_params)
           format.html { redirect_to [:organizers, @team], notice: 'Team was successfully updated.' }
           format.json { head :no_content }
         else

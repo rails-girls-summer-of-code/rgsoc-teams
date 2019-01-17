@@ -28,7 +28,7 @@ class UsersController < ApplicationController
 
   def update
     respond_to do |format|
-      if @user.update_attributes(user_params)
+      if @user.update(user_params)
         notice = nil
         # We disabled the confirmation instruction sending in the omniauth
         # user creation and have to do it manually here. If the user

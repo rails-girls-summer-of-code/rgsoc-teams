@@ -438,19 +438,6 @@ RSpec/VerifiedDoubles:
     - 'spec/models/user_spec.rb'
     - 'spec/support/shared_examples/has_season.rb'
 
-# Offense count: 9
-# Cop supports --auto-correct.
-Rails/ActiveRecordAliases:
-  Exclude:
-    - 'app/controllers/conference_attendances_controller.rb'
-    - 'app/controllers/organizers/teams_controller.rb'
-    - 'app/controllers/projects_controller.rb'
-    - 'app/controllers/teams_controller.rb'
-    - 'app/controllers/users_controller.rb'
-    - 'app/models/mailing.rb'
-    - 'app/models/user.rb'
-    - 'lib/feed.rb'
-
 # Offense count: 1
 # Cop supports --auto-correct.
 Rails/ApplicationRecord:
