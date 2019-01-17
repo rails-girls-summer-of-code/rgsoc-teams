@@ -27,8 +27,8 @@ class Feed
   end
 
   def update
-    source.update!(title: discover_title) unless source.title.present?
-    source.feed_url = discover_feed_url unless source.feed_url.present?
+    source.update!(title: discover_title) if source.title.blank?
+    source.feed_url = discover_feed_url if source.feed_url.blank?
     update_entries
     source.save! if source.feed_url_changed? && source.feed_url != source.url
   rescue => e

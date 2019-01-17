@@ -21,7 +21,7 @@ class TeamsController < ApplicationController
   end
 
   def show
-    @team.conference_attendances.build unless @team.conference_attendances.present?
+    @team.conference_attendances.build if @team.conference_attendances.blank?
   end
 
   def new
@@ -33,7 +33,7 @@ class TeamsController < ApplicationController
   def edit
     @team.sources.build(kind: 'blog') unless @team.sources.any?
     @conferences = conference_list
-    @team.build_conference_preference unless @team.conference_preference.present?
+    @team.build_conference_preference if @team.conference_preference.blank?
   end
 
   def create

@@ -438,17 +438,6 @@ RSpec/VerifiedDoubles:
     - 'spec/models/user_spec.rb'
     - 'spec/support/shared_examples/has_season.rb'
 
-# Offense count: 8
-# Cop supports --auto-correct.
-# Configuration parameters: NilOrEmpty, NotPresent, UnlessPresent.
-Rails/Blank:
-  Exclude:
-    - 'app/controllers/organizers/teams_controller.rb'
-    - 'app/controllers/teams_controller.rb'
-    - 'app/controllers/users_controller.rb'
-    - 'app/models/role.rb'
-    - 'lib/feed.rb'
-
 # Offense count: 42
 # Configuration parameters: EnforcedStyle.
 # SupportedStyles: strict, flexible

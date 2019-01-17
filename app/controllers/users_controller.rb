@@ -35,7 +35,7 @@ class UsersController < ApplicationController
         # decides to change the email address in the form, devise is sending
         # an email confirm message automatically. Otherwise we will sent it
         # manually here
-        if !@user.confirmed? && !@user.previous_changes["unconfirmed_email"].present?
+        if !@user.confirmed? && @user.previous_changes["unconfirmed_email"].blank?
           @user.send_confirmation_instructions
         else
           notice = 'Your profile was successfully updated.'

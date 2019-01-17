@@ -34,8 +34,8 @@ module Organizers
     def edit
       @team.sources.build(kind: 'blog') unless @team.sources.any?
       @conferences = conference_list
-      @team.conference_attendances.build unless @team.conference_attendances.present?
-      @team.build_conference_preference unless @team.conference_preference.present?
+      @team.conference_attendances.build if @team.conference_attendances.blank?
+      @team.build_conference_preference if @team.conference_preference.blank?
     end
 
     def create
