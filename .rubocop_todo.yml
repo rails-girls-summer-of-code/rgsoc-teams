@@ -438,12 +438,6 @@ RSpec/VerifiedDoubles:
     - 'spec/models/user_spec.rb'
     - 'spec/support/shared_examples/has_season.rb'
 
-# Offense count: 1
-# Cop supports --auto-correct.
-Rails/ApplicationRecord:
-  Exclude:
-    - 'db/migrate/20171112174323_remove_polymorphism_from_ratings.rb'
-
 # Offense count: 8
 # Cop supports --auto-correct.
 # Configuration parameters: NilOrEmpty, NotPresent, UnlessPresent.

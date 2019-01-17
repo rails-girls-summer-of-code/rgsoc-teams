@@ -1,5 +1,5 @@
 class RemovePolymorphismFromRatings < ActiveRecord::Migration[5.1]
-  class Rating < ActiveRecord::Base
+  class Rating < ApplicationRecord
     self.table_name = :ratings
   end
 
