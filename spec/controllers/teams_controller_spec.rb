@@ -177,7 +177,7 @@ RSpec.describe TeamsController, type: :controller do
 
       describe "with valid params" do
         it "updates the requested team" do
-          expect_any_instance_of(Team).to receive(:update_attributes).with(ActionController::Parameters.new({ 'name' => 'Blue' }).permit(:name))
+          expect_any_instance_of(Team).to receive(:update).with(ActionController::Parameters.new({ 'name' => 'Blue' }).permit(:name))
           patch :update, params: { id: team.to_param, team: { 'name' => 'Blue' } }
         end
 
@@ -259,7 +259,7 @@ RSpec.describe TeamsController, type: :controller do
         let(:another_team) { create(:team) }
 
         it "does not update the requested team" do
-          expect_any_instance_of(Team).not_to receive(:update_attributes)
+          expect_any_instance_of(Team).not_to receive(:update)
           patch :update, params: { id: another_team.to_param, team: { 'name' => 'Blue' } }
         end
 

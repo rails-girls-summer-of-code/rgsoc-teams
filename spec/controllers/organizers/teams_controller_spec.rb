@@ -86,7 +86,7 @@ RSpec.describe Organizers::TeamsController, type: :controller do
     describe "PUT update" do
       describe "with valid params" do
         it "updates the requested team" do
-          expect_any_instance_of(Team).to receive(:update_attributes).with(ActionController::Parameters.new({ 'name' => 'Blue' }).permit(:name))
+          expect_any_instance_of(Team).to receive(:update).with(ActionController::Parameters.new({ 'name' => 'Blue' }).permit(:name))
           put :update, params: { id: team.to_param, team: { 'name' => 'Blue' } }
         end
 

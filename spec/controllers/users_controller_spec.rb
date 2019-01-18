@@ -147,7 +147,7 @@ RSpec.describe UsersController, type: :controller do
         end
 
         it "updates the requested user" do
-          expect_any_instance_of(User).to receive(:update_attributes).with(ActionController::Parameters.new({ name: 'Trung Le' }).permit(:name))
+          expect_any_instance_of(User).to receive(:update).with(ActionController::Parameters.new({ name: 'Trung Le' }).permit(:name))
           put :update, params: { id: user.to_param, user: { name: 'Trung Le' } }
         end
 
@@ -180,7 +180,7 @@ RSpec.describe UsersController, type: :controller do
         let!(:another_user) { create(:user) }
 
         it "does not update the requested user" do
-          expect_any_instance_of(User).not_to receive(:update_attributes)
+          expect_any_instance_of(User).not_to receive(:update)
           put :update, params: { id: another_user.to_param, user: { name: 'Trung Le' } }
         end
 
