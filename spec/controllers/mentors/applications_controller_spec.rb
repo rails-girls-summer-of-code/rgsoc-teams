@@ -37,7 +37,7 @@ RSpec.describe Mentors::ApplicationsController, type: :controller do
           get :index
 
           expect(assigns :applications).not_to be_empty
-          expect(assigns :applications).to all( be_a(Mentor::Application) )
+          expect(assigns :applications).to all(be_a(Mentor::Application))
           expect(response).to render_template :index
         end
 

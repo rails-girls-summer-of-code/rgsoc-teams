@@ -8,12 +8,12 @@ RSpec.describe Ability, type: :model do
   let(:other_user) { build_stubbed(:user, hide_email: true) }
 
   it { expect(subject).to be_able_to([:join, :create], Team) }
-  it { expect(subject).to be_able_to(:read, Mailing, recipient: user ) }
+  it { expect(subject).to be_able_to(:read, Mailing, recipient: user) }
 
   describe "Team" do
     let(:current_team) { create(:team, :in_current_season) }
     let(:other_team)  { build_stubbed(:team, :in_current_season) }
-    let(:future_team) { build(:team, season: Season.succ ) }
+    let(:future_team) { build(:team, season: Season.succ) }
     let(:old_team) { build_stubbed(:team, season: create(:season, :past)) }
 
     describe 'All members' do

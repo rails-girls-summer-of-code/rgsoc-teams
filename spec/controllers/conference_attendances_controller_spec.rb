@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe ConferenceAttendancesController, type: :controller do
   let(:team) { create(:team, :in_current_season) }
   let(:student) { create(:student, team: team) }
-  let(:attendance) { create(:conference_attendance, team: team ) }
+  let(:attendance) { create(:conference_attendance, team: team) }
 
   before do
     sign_in student

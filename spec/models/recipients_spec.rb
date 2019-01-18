@@ -94,7 +94,7 @@ RSpec.describe Recipients, type: :model do
       context 'when to is just organizers' do
         let(:to) { %w(organizers) }
         let!(:helpdesks) { create_list(:helpdesk, 2) }
-        let!(:organizers) { create_list(:organizer, 2 ) }
+        let!(:organizers) { create_list(:organizer, 2) }
 
         it 'returns all organizers' do
           expect(subject.users).to match_array(organizers)
@@ -110,7 +110,7 @@ RSpec.describe Recipients, type: :model do
       let!(:students) { create_list(:student, 2, team: team) }
       let!(:coaches) { create_list(:coach, 2, team: team) }
       let!(:other_students) { create_list(:student, 2) }
-      let!(:organizers) { create_list(:organizer, 2 ) }
+      let!(:organizers) { create_list(:organizer, 2) }
 
       it 'only returns students that belong to the 2015 season' do
         expect(subject.users).to match_array(students)
