@@ -139,7 +139,6 @@ RSpec.describe TeamPerformance, type: :model do
     end
   end
 
-
   context "after the season" do
     before :each do
       past_season = build :season, starts_at: 2.months.ago, ends_at: 10.days.ago

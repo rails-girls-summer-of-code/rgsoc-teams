@@ -50,7 +50,6 @@ module Students
       redirect_to action: :index
     end
 
-
     protected
 
     def find_resource
@@ -60,7 +59,6 @@ module Students
     def status_update_params
       params.require(:activity).permit(:title, :content)
     end
-
 
     private
 

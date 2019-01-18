@@ -88,7 +88,6 @@ RSpec.describe Ability, type: :model do
       end
     end
 
-
     context 'to join helpdesk team' do
       let(:user) { create(:helpdesk) }
       let(:team) { create(:team) }

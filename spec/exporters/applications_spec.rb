@@ -24,7 +24,6 @@ RSpec.describe Exporters::Applications do
 
   let!(:new_application) { create :application, :in_current_season }
 
-
   describe '#current' do
     subject { described_class.current }
 

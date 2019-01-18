@@ -22,7 +22,6 @@ module Supervisors
       redirect_to supervisors_dashboard_path
     end
 
-
     private
 
     def comment_params

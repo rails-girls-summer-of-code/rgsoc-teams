@@ -18,7 +18,6 @@ RSpec.describe Organizers::ProjectsController, type: :controller do
       end
     end
 
-
     describe 'PUT start_review' do
       it 'start review before accept or reject a project' do
         expect { put :start_review, params: { id: project.to_param }}.

@@ -72,7 +72,6 @@ class Ability
     end
     can :read, :users_info if user.admin? || user.supervisor?
 
-
     can :update_conference_preferences, Team do |team|
       team.accepted? && team.students.include?(user)
     end

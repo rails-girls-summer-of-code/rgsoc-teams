@@ -25,7 +25,6 @@ module Selection
 
     attr_reader :from_lat, :from_lng, :to_lat, :to_lng
 
-
     def haversine_distance
       a = Math.sin(delta_lat / 2)**2 +
           Math.cos(from_lat) * Math.cos(to_lat) * Math.sin(delta_lng / 2)**2

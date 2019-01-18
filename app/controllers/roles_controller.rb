@@ -50,7 +50,6 @@ class RolesController < ApplicationController
     redirect_to @team
   end
 
-
   private
 
   def set_team
