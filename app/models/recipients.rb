@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class Recipients
   delegate :seasons, :group, :to, :cc, :bcc, to: :mailing
 

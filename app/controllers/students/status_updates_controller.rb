@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Students
   class StatusUpdatesController < Students::BaseController
     before_action :find_resource, only: [:show, :edit, :update, :destroy]

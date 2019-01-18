@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'redcarpet_camo_renderer'
 
 module MarkdownHelper

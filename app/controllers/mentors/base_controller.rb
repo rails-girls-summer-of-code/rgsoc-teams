@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Mentors
   class BaseController < ApplicationController
     before_action :authenticate_user!

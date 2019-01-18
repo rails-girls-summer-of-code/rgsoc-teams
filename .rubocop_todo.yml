@@ -75,11 +75,6 @@ Layout/DotPosition:
     - 'spec/models/user_spec.rb'
     - 'spec/routing/mentors/applications_routing_spec.rb'
 
-# Offense count: 124
-# Cop supports --auto-correct.
-Layout/EmptyLineAfterMagicComment:
-  Enabled: false
-
 # Offense count: 4
 # Cop supports --auto-correct.
 # Configuration parameters: AllowAdjacentOneLineDefs, NumberOfEmptyLines.

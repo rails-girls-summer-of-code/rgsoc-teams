@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class Student < SimpleDelegator
   include ActiveModel::Validations
   include ActiveModel::Conversion

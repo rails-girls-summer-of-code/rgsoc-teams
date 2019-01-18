@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class ProjectsController < ApplicationController
 
   before_action :soft_login_required, only: [:new]

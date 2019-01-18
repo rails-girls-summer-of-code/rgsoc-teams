@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class MailingsController < ApplicationController
 
   load_and_authorize_resource

@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'sentry-raven'
 
 # Facade to log custom errors to our exception tracking service

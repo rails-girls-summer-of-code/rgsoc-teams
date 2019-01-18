@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class SkillLevel
   MATRIX = {
     1   => ['I understand and can explain the difference between data types (strings, booleans, integers)',

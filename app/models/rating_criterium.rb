@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class RatingCriterium
   MIN_POINTS = 0
   MAX_POINTS = 10

@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class CommentMailer < ActionMailer::Base
   include ActionView::Helpers::TextHelper
 

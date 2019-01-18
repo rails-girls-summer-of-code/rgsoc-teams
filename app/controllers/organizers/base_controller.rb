@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Organizers
   class BaseController < ApplicationController
     before_action :must_be_admin

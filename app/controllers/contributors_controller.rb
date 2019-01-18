@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class ContributorsController < ApplicationController
   after_action :cors_set_headers, only: :index
 

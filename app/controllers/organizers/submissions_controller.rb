@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Organizers
   class SubmissionsController < Organizers::BaseController
     before_action :find_mailing

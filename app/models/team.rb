@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class Team < ApplicationRecord
   include ProfilesHelper, HasSeason
 

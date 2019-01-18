@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Authentication
   module ActiveRecordHelpers
     def self.included(base)

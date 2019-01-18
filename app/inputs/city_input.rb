@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class CityInput < SimpleForm::Inputs::StringInput
   def input(wrapper_options)
     super << lat_field << lng_field

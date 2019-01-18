@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class RoleMailer < ActionMailer::Base
   include ActionView::Helpers::TextHelper
 
