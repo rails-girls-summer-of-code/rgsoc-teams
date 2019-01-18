@@ -59,7 +59,7 @@ RSpec.describe ConferencesController, type: :controller do
 
       it 'should return a 401 response status' do
         post :create, params: { conference: conference_attrs }, xhr: true
-        expect(response).to have_http_status(401)
+        expect(response).to have_http_status(:unauthorized)
       end
     end
 
