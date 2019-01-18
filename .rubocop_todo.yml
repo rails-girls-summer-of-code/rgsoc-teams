@@ -169,12 +169,6 @@ Layout/MultilineOperationIndentation:
     - 'app/exporters/applications.rb'
     - 'spec/controllers/supervisors/comments_controller_spec.rb'
 
-# Offense count: 2
-# Cop supports --auto-correct.
-Layout/SpaceInsidePercentLiteralDelimiters:
-  Exclude:
-    - 'spec/mailers/comment_mailer_spec.rb'
-
 # Offense count: 57
 Lint/AmbiguousBlockAssociation:
   Enabled: false

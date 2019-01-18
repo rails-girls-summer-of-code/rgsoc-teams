@@ -8,7 +8,7 @@ RSpec.describe CommentMailer, type: :mailer do
     subject { described_class.email comment }
 
     it 'sends to the main summer of code email address' do
-      expect(subject.to).to match_array %w[ contact@rgsoc.org ]
+      expect(subject.to).to match_array %w[contact@rgsoc.org]
     end
   end
 end
