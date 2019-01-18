@@ -169,27 +169,6 @@ Layout/MultilineOperationIndentation:
     - 'app/exporters/applications.rb'
     - 'spec/controllers/supervisors/comments_controller_spec.rb'
 
-# Offense count: 22
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, EnforcedStyleForEmptyBrackets.
-# SupportedStyles: space, no_space, compact
-# SupportedStylesForEmptyBrackets: space, no_space
-Layout/SpaceInsideArrayLiteralBrackets:
-  Exclude:
-    - 'app/controllers/organizers/base_controller.rb'
-    - 'app/controllers/organizers/conferences_controller.rb'
-    - 'app/controllers/organizers/exports_controller.rb'
-    - 'app/controllers/organizers/mailings_controller.rb'
-    - 'app/controllers/organizers/projects_controller.rb'
-    - 'app/controllers/organizers/seasons_controller.rb'
-    - 'app/controllers/organizers/teams_controller.rb'
-    - 'app/controllers/reviewers/applications_controller.rb'
-    - 'app/controllers/reviewers/base_controller.rb'
-    - 'app/controllers/reviewers/todos_controller.rb'
-    - 'app/models/application_draft.rb'
-    - 'config/environments/production.rb'
-    - 'config/initializers/devise.rb'
-
 # Offense count: 100
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, EnforcedStyleForEmptyBraces, SpaceBeforeBlockParameters.

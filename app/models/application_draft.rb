@@ -134,7 +134,7 @@ class ApplicationDraft < ApplicationRecord
 
   def students
     if as_student?
-      [ current_student, current_pair ].compact
+      [current_student, current_pair].compact
     else
       (team || Team.new).students.order(:id)
     end.map { |user| Student.new(user) }

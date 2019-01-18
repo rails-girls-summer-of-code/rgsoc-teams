@@ -6,7 +6,7 @@ module Reviewers
 
     def set_breadcrumbs
       super
-      @breadcrumbs << [ 'Todo', [:reviewers, :todos] ]
+      @breadcrumbs << ['Todo', [:reviewers, :todos]]
     end
 
     def index

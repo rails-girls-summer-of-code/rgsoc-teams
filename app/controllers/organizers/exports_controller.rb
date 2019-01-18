@@ -34,7 +34,7 @@ module Organizers
 
     def set_breadcrumbs
       super
-      @breadcrumbs << [ 'Exports', :exports]
+      @breadcrumbs << ['Exports', :exports]
     end
   end
 end

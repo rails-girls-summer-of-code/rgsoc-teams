@@ -13,7 +13,7 @@ module Reviewers
 
     def set_breadcrumbs
       super
-      @breadcrumbs << [ 'Applications', [:reviewers, :applications] ]
+      @breadcrumbs << ['Applications', [:reviewers, :applications]]
     end
 
     def index

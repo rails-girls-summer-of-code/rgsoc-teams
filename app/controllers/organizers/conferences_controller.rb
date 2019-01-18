@@ -65,7 +65,7 @@ module Organizers
 
     def set_breadcrumbs
       super
-      @breadcrumbs << [ 'Conferences', :conferences]
+      @breadcrumbs << ['Conferences', :conferences]
     end
 
     def ensure_file_was_posted
