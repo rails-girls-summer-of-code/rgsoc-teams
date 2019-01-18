@@ -72,6 +72,7 @@ class Project < ApplicationRecord
       @email = project.mentor_email.to_s.downcase
       @github_handle = project.mentor_github_handle.to_s.downcase
     end
+
     def eql?(user)
       user.github_handle.to_s.downcase == github_handle
     end

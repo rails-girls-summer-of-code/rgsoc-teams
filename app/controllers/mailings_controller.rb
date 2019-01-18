@@ -11,6 +11,8 @@ class MailingsController < ApplicationController
   # These actions are here to enable the cancancan 'not authorised' notice
   # instead of a Rails exception.
   def show; end
+
   def new; end
+
   def edit; end
 end

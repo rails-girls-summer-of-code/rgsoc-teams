@@ -75,15 +75,6 @@ Layout/DotPosition:
     - 'spec/models/user_spec.rb'
     - 'spec/routing/mentors/applications_routing_spec.rb'
 
-# Offense count: 4
-# Cop supports --auto-correct.
-# Configuration parameters: AllowAdjacentOneLineDefs, NumberOfEmptyLines.
-Layout/EmptyLineBetweenDefs:
-  Exclude:
-    - 'app/controllers/mailings_controller.rb'
-    - 'app/models/project.rb'
-    - 'db/migrate/20170727145559_change_data_type_for_gid.rb'
-
 # Offense count: 15
 # Cop supports --auto-correct.
 Layout/EmptyLines:
