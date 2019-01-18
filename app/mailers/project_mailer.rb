@@ -16,5 +16,4 @@ class ProjectMailer < ActionMailer::Base
     rcpts = (project.subscribers - [comment.user]).map(&:email)
     mail subject: subject, to: rcpts
   end
-
 end

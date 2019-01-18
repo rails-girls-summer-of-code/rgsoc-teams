@@ -1,5 +1,4 @@
 class DestroyNonExistingGitHubUsers < ActiveRecord::Migration[5.1]
-
   def up
     return if ENV['RAILS_ENV'] == 'test'
     if ENV['RAILS_ENV'] == 'development'

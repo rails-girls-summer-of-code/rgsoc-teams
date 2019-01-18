@@ -4,7 +4,6 @@ require 'csv'
 
 module Exporters
   class Base
-
     # Forward everything to a newly created instance if possible
     def self.method_missing(meth, *args, &block)
       if public_instance_methods.include? meth
@@ -22,6 +21,5 @@ module Exporters
         enum.each { |entry| csv << (yield entry) }
       end
     end
-
   end
 end

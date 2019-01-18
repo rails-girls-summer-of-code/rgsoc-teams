@@ -104,7 +104,6 @@ class Ability
     can :crud, ConferencePreference do |preference|
       user.admin? || (preference.team.students.include? user)
     end
-
   end # initializer
 
   def signed_in?(user)
@@ -122,5 +121,4 @@ class Ability
   def supervises?(user, supervisor)
     user.teams.in_current_season.any? { |team| team.supervisors.include?(supervisor) }
   end
-
 end

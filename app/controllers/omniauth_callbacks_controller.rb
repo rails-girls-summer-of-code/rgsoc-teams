@@ -14,5 +14,4 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
       edit_user_path(user, welcome: true)
     end
   end
-
 end

@@ -94,7 +94,6 @@ module Mentor
     end
 
     class << self
-
       # Retrieves Mentor specific representations of Applications matching the given criteria.
       #
       # @param projects [Project::ActiveRecord_Relation] list of possible Projects the Applications apply for

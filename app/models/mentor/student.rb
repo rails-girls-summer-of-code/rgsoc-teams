@@ -17,6 +17,5 @@ module Mentor
     attr_accessor :coding_level, :code_samples,
                   :learning_history, :language_learning_period,
                   :skills, :name
-
   end
 end

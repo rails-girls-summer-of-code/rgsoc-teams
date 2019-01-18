@@ -63,5 +63,4 @@ class TeamPerformance
       end
     end
   end
-
 end

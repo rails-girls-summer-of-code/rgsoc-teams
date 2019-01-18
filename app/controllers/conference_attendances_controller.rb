@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class ConferenceAttendancesController < ApplicationController
-
   def update
     @conference_attendance = ConferenceAttendance.find(params[:id])
 

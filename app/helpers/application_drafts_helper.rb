@@ -81,5 +81,4 @@ module ApplicationDraftsHelper
       "(#{count} errors)"
     end
   end
-
 end

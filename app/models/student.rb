@@ -54,5 +54,4 @@ class Student < SimpleDelegator
   def current_draft
     @current_draft ||= current_drafts.first
   end
-
 end

@@ -68,5 +68,4 @@ class RolesController < ApplicationController
     params[:role] ||= { name: params[:name] }
     params.require(:role).permit(:user_id, :team_id, :name, :github_handle, :confirm)
   end
-
 end

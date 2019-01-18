@@ -2,7 +2,6 @@
 
 module Supervisors
   class BaseController < ApplicationController
-
     before_action :must_be_supervisor
     helper_method :supervised_teams
 
