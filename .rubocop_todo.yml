@@ -499,12 +499,6 @@ Rails/OutputSafety:
     - 'app/helpers/projects_helper.rb'
     - 'app/inputs/character_limited_input.rb'
 
-# Offense count: 1
-# Cop supports --auto-correct.
-Rails/Presence:
-  Exclude:
-    - 'app/models/application.rb'
-
 # Offense count: 7
 # Configuration parameters: Blacklist.
 # Blacklist: decrement!, decrement_counter, increment!, increment_counter, toggle!, touch, update_all, update_attribute, update_column, update_columns, update_counters
