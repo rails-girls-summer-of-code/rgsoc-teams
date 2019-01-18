@@ -10,7 +10,7 @@ RSpec.describe ProjectsController, type: :request do
 
     shared_examples_for 'returns to the previous page' do
       it 'returns to the previous page' do
-        get use_as_template_project_path(project), headers: { 'HTTP_REFERER' => '/previouspage' }
+        get use_as_template_project_path(project), params: {}, headers: { 'HTTP_REFERER' => '/previouspage' }
         expect(response).to redirect_to '/previouspage' # load_and_authorize_resource finds the referrer
         expect(flash[:alert]).to match %r{not authorized}
       end
