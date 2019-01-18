@@ -3,7 +3,7 @@ require 'cancan/matchers'
 
 RSpec.describe Ability, type: :model do
   subject(:ability) { Ability.new(user) }
-  let(:user){ nil }
+  let(:user) { nil }
   let(:other_user) { create(:user) }
 
   ############# OLD SPECS #####################

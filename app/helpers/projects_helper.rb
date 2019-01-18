@@ -16,7 +16,7 @@ module ProjectsHelper
   end
 
   def project_tags(project)
-    project.tags.map{ |t| "<span class='label label-default'>#{t}</span>" }.join(' ').html_safe
+    project.tags.map { |t| "<span class='label label-default'>#{t}</span>" }.join(' ').html_safe
   end
 
   # @return [Array<String>] a list of years we have projects for, most recent first.

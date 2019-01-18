@@ -32,9 +32,9 @@ RSpec.describe Reviewers::RatingsController, type: :controller do
       before { sign_in user }
 
       it 'creates new rating record for application' do
-        expect{
+        expect {
           post :create, params: params
-        }.to change{ Rating.count }.by 1
+        }.to change { Rating.count }.by 1
       end
 
       it 'sets rating attribute' do
@@ -63,7 +63,7 @@ RSpec.describe Reviewers::RatingsController, type: :controller do
         let(:params) { { id: rating, rating: { diversity: 5 } } }
 
         it 'raises RecordNotFound exception' do
-          expect{
+          expect {
             put :update, params: params
           }.to raise_error ActiveRecord::RecordNotFound
         end
@@ -73,17 +73,17 @@ RSpec.describe Reviewers::RatingsController, type: :controller do
         let(:params) { {id: rating, rating: { diversity: 5 }} }
 
         it 'updates rating data hash' do
-          expect{
+          expect {
             put :update, params: params
             rating.reload
-          }.to change{rating.data}
+          }.to change {rating.data}
         end
 
         it 'updates rating attribute' do
-          expect{
+          expect {
             put :update, params: params
             rating.reload
-          }.to change{rating.diversity}.from(nil).to('5')
+          }.to change {rating.diversity}.from(nil).to('5')
         end
 
         it 'redirect_to reviewers/applications' do

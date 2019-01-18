@@ -112,7 +112,7 @@ class Rating < ApplicationRecord
 
   before_validation :set_data
 
-  scope :by, -> (user) { where(user_id: user.id) }
+  scope :by, ->(user) { where(user_id: user.id) }
 
   # public: The weighted sum of the points that the reviewer gave.
   def points
