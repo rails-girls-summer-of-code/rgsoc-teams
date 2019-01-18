@@ -501,12 +501,6 @@ Rails/OutputSafety:
 
 # Offense count: 1
 # Cop supports --auto-correct.
-Rails/PluralizationGrammar:
-  Exclude:
-    - 'spec/helpers/nav_helper_spec.rb'
-
-# Offense count: 1
-# Cop supports --auto-correct.
 Rails/Presence:
   Exclude:
     - 'app/models/application.rb'
