@@ -69,7 +69,5 @@ RSpec.describe Organizers::ProjectsController, type: :controller do
         expect(response).to redirect_to [:organizers, :projects]
       end
     end
-
   end
-
 end

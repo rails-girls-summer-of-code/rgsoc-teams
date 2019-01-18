@@ -8,7 +8,6 @@ RSpec.describe Supervisors::CommentsController, type: :controller do
 
   describe 'POST create' do
     describe 'with valid params' do
-
       before do
         user.roles.create(name: 'supervisor', team: team)
         sign_in user

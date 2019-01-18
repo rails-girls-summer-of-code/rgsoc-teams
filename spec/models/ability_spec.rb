@@ -2,7 +2,6 @@ require 'rails_helper'
 require 'cancan/matchers'
 
 RSpec.describe Ability, type: :model do
-
   subject(:ability) { Ability.new(user) }
   let(:user){ nil }
   let(:other_user) { create(:user) }
@@ -13,7 +12,6 @@ RSpec.describe Ability, type: :model do
   context 'ability' do
     describe "team's students or admin should be able to mark preferences to a conference" do
       context 'when user is a student from a team and try to update conference preferences' do
-
         let!(:conference_preference) { create(:conference_preference, :student_preference) }
         let!(:user) { conference_preference.team.students.first }
 

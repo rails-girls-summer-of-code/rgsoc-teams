@@ -75,13 +75,6 @@ Layout/DotPosition:
     - 'spec/models/user_spec.rb'
     - 'spec/routing/mentors/applications_routing_spec.rb'
 
-# Offense count: 67
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: empty_lines, no_empty_lines
-Layout/EmptyLinesAroundBlockBody:
-  Enabled: false
-
 # Offense count: 33
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle.

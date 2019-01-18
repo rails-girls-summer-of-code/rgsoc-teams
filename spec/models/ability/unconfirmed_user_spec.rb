@@ -6,9 +6,7 @@ require 'cancan/matchers'
 # to see the output of specs running inside the shared examples [mdv]
 
 RSpec.describe Ability, type: :model do
-
   describe "User logged in, account unconfirmed" do
-
     let(:user){ create(:user, :unconfirmed) }
     let(:other_user) { create(:user) }
     subject(:ability) { Ability.new(user) }

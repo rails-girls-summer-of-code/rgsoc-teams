@@ -23,9 +23,7 @@ RSpec.describe 'The Application Process', type: :request do
             end
           end
         end
-
       end
-
     end
   end
 end

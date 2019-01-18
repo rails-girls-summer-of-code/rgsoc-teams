@@ -6,7 +6,6 @@ RSpec.describe OmniauthCallbacksController, type: :controller do
   end
 
   describe 'POST github' do
-
     it 'creates a new user and redirects to the user edit page' do
       @request.env["omniauth.auth"] = OmniAuth::AuthHash.new(
         uid: '123', provider: 'example',

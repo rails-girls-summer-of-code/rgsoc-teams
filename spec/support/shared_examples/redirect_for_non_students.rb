@@ -59,5 +59,4 @@ RSpec.shared_examples 'redirects for non-users' do
       end
     end
   end
-
 end

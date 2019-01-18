@@ -21,7 +21,5 @@ FactoryBot.define do
       title { FFaker::CheesyLingo.sentence }
       content { FFaker::CheesyLingo.paragraph }
     end
-
   end
-
 end

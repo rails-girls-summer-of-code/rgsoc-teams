@@ -62,7 +62,5 @@ RSpec.describe Exporters::Users do
       export_method = "students_1970"
       expect { described_class.send export_method }.to raise_error NoMethodError
     end
-
   end
-
 end

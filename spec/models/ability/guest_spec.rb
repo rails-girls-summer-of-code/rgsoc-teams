@@ -5,14 +5,12 @@ require 'cancan/matchers'
 #   $ rspec spec/models/ability_spec.rb -fd
 # to see the output of specs running inside the shared examples [mdv]
 RSpec.describe Ability, type: :model do
-
   let(:user){ nil }
   subject(:ability) { Ability.new(user) }
 
   let(:other_user) { build_stubbed(:user) }
 
   describe "Guest User" do
-
     it_behaves_like 'has access to public features'
 
     it { expect(subject).not_to be_able_to(:read_email, other_user) }

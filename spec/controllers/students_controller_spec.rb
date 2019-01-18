@@ -11,5 +11,4 @@ RSpec.describe StudentsController, type: :controller do
       expect(assigns(:students)).to eq [student]
     end
   end
-
 end
