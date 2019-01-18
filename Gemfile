@@ -22,7 +22,7 @@ gem 'slim-rails'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'bootstrap-sass'
-gem 'font-awesome-sass', '~> 4.7'
+gem 'font-awesome-sass', '~> 5.6'
 gem 'pretender'
 gem 'bootsnap', require: false
 
