@@ -91,11 +91,7 @@ class Rating < ApplicationRecord
     end
 
     define_method name do
-      if data.present?
-        data[name]
-      else
-        nil
-      end
+      data[name] if data.present?
     end
 
     define_method "#{name}=" do |value|
