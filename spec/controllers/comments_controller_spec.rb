@@ -15,7 +15,7 @@ RSpec.describe CommentsController, type: :controller do
       let(:project) { create :project }
       let(:params) { { commentable_id: project.id, commentable_type: 'Project' } }
       let(:comment) { Comment.last }
-      let(:anchor) { "comment_#{comment.id}"}
+      let(:anchor) { "comment_#{comment.id}" }
 
       context 'with valid params' do
         it 'creates a new Comment' do

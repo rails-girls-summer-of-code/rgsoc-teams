@@ -209,7 +209,7 @@ class ApplicationDraft < ApplicationRecord
   end
 
   def students_confirmed?
-    unless team.present? && team.students.all? {|student| student.confirmed? }
+    unless team.present? && team.students.all? { |student| student.confirmed? }
       errors.add(:base, 'Please make sure every student confirmed the email address.')
     end
   end

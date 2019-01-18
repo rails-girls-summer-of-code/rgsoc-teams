@@ -27,6 +27,6 @@ RSpec.describe Ability, type: :model do
     it { expect(subject).to be_able_to(:create, Comment) } # TODO needs work for polymorphism
     it { expect(subject).to be_able_to(:create, Project) }
     it { expect(subject).to be_able_to(:index, Mailing) }
-    it { expect(subject).to be_able_to(:read, Mailing, recipient: user )}
+    it { expect(subject).to be_able_to(:read, Mailing, recipient: user ) }
   end
 end

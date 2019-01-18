@@ -62,7 +62,7 @@ module ApplicationDraftsHelper
   end
 
   def student1_tab_errors(draft)
-    tab_errors(draft, STUDENT_FIELDS.map { |f| "student1_#{f}".to_sym})
+    tab_errors(draft, STUDENT_FIELDS.map { |f| "student1_#{f}".to_sym })
   end
 
   def projects_tab_errors(draft)

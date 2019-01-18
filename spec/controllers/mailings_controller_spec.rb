@@ -37,7 +37,7 @@ RSpec.describe MailingsController, type: :controller do
 
     context 'as guest user' do
       it 'denies access' do
-        get :show, params: { id: mailing.to_param}
+        get :show, params: { id: mailing.to_param }
         expect(response).to redirect_to root_path
         expect(flash[:alert]).to match /not authorized/
       end

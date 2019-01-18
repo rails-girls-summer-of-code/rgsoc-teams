@@ -70,20 +70,20 @@ RSpec.describe Reviewers::RatingsController, type: :controller do
       end
       context 'when user author of rating' do
         let!(:rating) { create :rating, user: user, application: application }
-        let(:params) { {id: rating, rating: { diversity: 5 }} }
+        let(:params) { { id: rating, rating: { diversity: 5 } } }
 
         it 'updates rating data hash' do
           expect {
             put :update, params: params
             rating.reload
-          }.to change {rating.data}
+          }.to change { rating.data }
         end
 
         it 'updates rating attribute' do
           expect {
             put :update, params: params
             rating.reload
-          }.to change {rating.diversity}.from(nil).to('5')
+          }.to change { rating.diversity }.from(nil).to('5')
         end
 
         it 'redirect_to reviewers/applications' do

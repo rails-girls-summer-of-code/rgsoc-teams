@@ -21,7 +21,7 @@ class CommentsController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_to commentable_path(@comment.commentable, anchor || nil) }
-      format.js { }
+      format.js {}
     end
   end
 

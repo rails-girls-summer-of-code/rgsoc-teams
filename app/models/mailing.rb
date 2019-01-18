@@ -36,6 +36,6 @@ class Mailing < ApplicationRecord
 
   def seasons=(value)
     options = Season.pluck(:name)
-    self[:seasons] = value.select {|s| options.include?(s) }
+    self[:seasons] = value.select { |s| options.include?(s) }
   end
 end

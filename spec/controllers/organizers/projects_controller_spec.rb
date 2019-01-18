@@ -20,7 +20,7 @@ RSpec.describe Organizers::ProjectsController, type: :controller do
 
     describe 'PUT start_review' do
       it 'start review before accept or reject a project' do
-        expect { put :start_review, params: { id: project.to_param }}.
+        expect { put :start_review, params: { id: project.to_param } }.
           to change { project.reload.aasm_state }.to "pending"
         expect(response).to redirect_to [:organizers, :projects]
         expect(flash[:notice]).to be_present
@@ -54,7 +54,7 @@ RSpec.describe Organizers::ProjectsController, type: :controller do
 
     describe 'PUT lock' do
       it 'toggles the comments_locked boolean' do
-        expect { put :lock, params: { id: project.to_param }}.
+        expect { put :lock, params: { id: project.to_param } }.
           to change { project.reload.comments_locked? }.to true
         expect(response).to redirect_to [:organizers, :projects]
       end

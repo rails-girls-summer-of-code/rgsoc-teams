@@ -20,7 +20,7 @@ RSpec.describe Ability, type: :model do
         end
 
         context 'when user is admin' do
-          let!(:organiser_role) { create(:organizer_role, user: user)}
+          let!(:organiser_role) { create(:organizer_role, user: user) }
           it "should be able to crud conference preference" do
             expect(subject).to be_able_to(:crud, conference_preference)
           end
@@ -28,15 +28,15 @@ RSpec.describe Ability, type: :model do
       end
 
       context 'when different users' do
-        let!(:other_user) { create(:user)}
-        let!(:conference_preference) { create(:conference_preference, team: team)}
+        let!(:other_user) { create(:user) }
+        let!(:conference_preference) { create(:conference_preference, team: team) }
         # not testing what it means to test
         xit { expect(ability).not_to be_able_to(:crud, other_user) }
       end
     end
 
     describe "just orga members, team's supervisor and team's students should be able to see offered conference for a team" do
-      let(:user) { create(:student, confirmed_at: Date.yesterday)}
+      let(:user) { create(:student, confirmed_at: Date.yesterday) }
 
       context 'when the user is an student of another team' do
         it { expect(ability).not_to be_able_to(:see_offered_conferences, Team.new) }

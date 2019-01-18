@@ -2,7 +2,7 @@ PUBLIC_INDEX_PAGES = [Activity, User, Team, Project, Conference].freeze
 
 # guest, unconfirmed and confirmed users without roles
 shared_examples 'has access to public features' do
-  let(:other_user) { create(:user)}
+  let(:other_user) { create(:user) }
 
   it 'has access to public pages' do
     PUBLIC_INDEX_PAGES.each do |page|

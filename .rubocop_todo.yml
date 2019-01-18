@@ -169,30 +169,6 @@ Layout/MultilineOperationIndentation:
     - 'app/exporters/applications.rb'
     - 'spec/controllers/supervisors/comments_controller_spec.rb'
 
-# Offense count: 100
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, EnforcedStyleForEmptyBraces, SpaceBeforeBlockParameters.
-# SupportedStyles: space, no_space
-# SupportedStylesForEmptyBraces: space, no_space
-Layout/SpaceInsideBlockBraces:
-  Enabled: false
-
-# Offense count: 18
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, EnforcedStyleForEmptyBraces.
-# SupportedStyles: space, no_space, compact
-# SupportedStylesForEmptyBraces: space, no_space
-Layout/SpaceInsideHashLiteralBraces:
-  Exclude:
-    - 'app/models/rating.rb'
-    - 'spec/controllers/conference_attendances_controller_spec.rb'
-    - 'spec/controllers/mailings_controller_spec.rb'
-    - 'spec/controllers/omniauth_callbacks_controller_spec.rb'
-    - 'spec/controllers/organizers/conferences_controller_spec.rb'
-    - 'spec/controllers/reviewers/applications_controller_spec.rb'
-    - 'spec/controllers/reviewers/ratings_controller_spec.rb'
-    - 'spec/controllers/teams_controller_spec.rb'
-
 # Offense count: 39
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle.

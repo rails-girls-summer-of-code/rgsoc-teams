@@ -76,13 +76,13 @@ class Rating < ApplicationRecord
       RatingCriterium.new( 0.05, {
                            10 => "super strong support: more than 3 coaches / CC",
                             5 => "good support: more than 2 coaches / 2 strong coaches",
-                            0 => "minimum support: 2 coaches or even less"} ),
+                            0 => "minimum support: 2 coaches or even less" } ),
 
     personal_impression:
       RatingCriterium.new( 0.10, {
                            10 => "I love this team!",
                             5 => "this team is a good fit",
-                            0 => "no impression (neutral)"} ),
+                            0 => "no impression (neutral)" } ),
   })
 
   FIELDS.each do |name, rating_criterium|
