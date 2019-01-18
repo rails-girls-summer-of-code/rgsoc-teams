@@ -9,9 +9,11 @@ module Mentor
                   :project_id, :project_name,
                   :project_plan, :why_selected_project,
                   :signed_off_by,
-                  :student0, :student1,
                   :choice
-    attr_reader :signed_off_at, :mentor_fav
+    attr_reader :signed_off_at,
+                :mentor_fav,
+                :student0,
+                :student1
 
     def first_choice?
       choice == 1

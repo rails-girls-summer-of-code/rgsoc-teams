@@ -196,13 +196,6 @@ Lint/AssignmentInCondition:
     - 'lib/feed/image.rb'
     - 'lib/tasks/single_run.rake'
 
-# Offense count: 11
-Lint/DuplicateMethods:
-  Exclude:
-    - 'app/helpers/applications_helper.rb'
-    - 'app/models/application_data.rb'
-    - 'app/models/mentor/application.rb'
-
 # Offense count: 1
 Lint/HandleExceptions:
   Exclude:
