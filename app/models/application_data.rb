@@ -33,10 +33,6 @@ class ApplicationData
     @data["student0_application_motivation"]
   end
 
-  def student1_application_motivation
-    @data["student1_application_motivation"]
-  end
-
   def student0_application_location_lng
     @data["student0_application_location_lng"]
   end
@@ -93,10 +89,6 @@ class ApplicationData
     @data["student1_application_community_engagement"]
   end
 
-  def student0_application_motivation
-    @data["student0_application_motivation"]
-  end
-
   def student1_application_motivation
     @data["student1_application_motivation"]
   end
@@ -107,14 +99,6 @@ class ApplicationData
 
   def student1_application_coding_level
     @data["student1_application_coding_level"]
-  end
-
-  def student0_application_giving_back
-    @data["student0_application_giving_back"]
-  end
-
-  def student1_application_giving_back
-    @data["student1_application_giving_back"]
   end
 
   def student0_application_giving_back
@@ -141,28 +125,12 @@ class ApplicationData
     @data["student1_application_code_background"]
   end
 
-  def student0_application_about
-    @data["student0_application_about"]
-  end
-
-  def student1_application_about
-    @data["student1_application_about"]
-  end
-
   def student0_application_learning_history
     @data["student0_application_learning_history"]
   end
 
   def student1_application_learning_history
     @data["student1_application_learning_history"]
-  end
-
-  def student0_application_language_learning_period
-    @data["student0_application_language_learning_period"]
-  end
-
-  def student1_application_language_learning_period
-    @data["student1_application_language_learning_period"]
   end
 
   def student0_application_about

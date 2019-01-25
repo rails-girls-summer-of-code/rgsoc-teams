@@ -4,10 +4,15 @@ RSpec.describe 'The Application Process', type: :request do
   describe 'GET /apply' do
     context 'with student logged in' do
       let!(:user) { create :student }
+
       before { sign_in user }
 
       context 'during the application phase' do
-        before { DevUtils::SeasonPhaseSwitcher.fake_application_phase }
+        let(:time) { Season.current.applications_open_at + 1.day }
+
+        before { Timecop.travel(time) }
+
+        after { Timecop.return }
 
         context 'as part of a team' do
           let!(:team) { user.teams.last }

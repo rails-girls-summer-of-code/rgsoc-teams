@@ -196,13 +196,6 @@ Lint/AssignmentInCondition:
     - 'lib/feed/image.rb'
     - 'lib/tasks/single_run.rake'
 
-# Offense count: 11
-Lint/DuplicateMethods:
-  Exclude:
-    - 'app/helpers/applications_helper.rb'
-    - 'app/models/application_data.rb'
-    - 'app/models/mentor/application.rb'
-
 # Offense count: 1
 Lint/HandleExceptions:
   Exclude:
@@ -212,12 +205,6 @@ Lint/HandleExceptions:
 Lint/ImplicitStringConcatenation:
   Exclude:
     - 'app/models/user.rb'
-
-# Offense count: 6
-Lint/IneffectiveAccessModifier:
-  Exclude:
-    - 'app/models/dev_utils/season_phase_switcher.rb'
-    - 'app/models/team_performance.rb'
 
 # Offense count: 7
 Lint/ParenthesesAsGroupedExpression:
@@ -281,13 +268,6 @@ Lint/UnusedMethodArgument:
 Lint/UriEscapeUnescape:
   Exclude:
     - 'lib/feed/image.rb'
-
-# Offense count: 2
-# Configuration parameters: ContextCreatingMethods, MethodCreatingMethods.
-Lint/UselessAccessModifier:
-  Exclude:
-    - 'app/models/dev_utils/season_phase_switcher.rb'
-    - 'app/services/create_application_from_draft.rb'
 
 # Offense count: 7
 Lint/UselessAssignment:
@@ -933,14 +913,6 @@ Style/DoubleNegation:
   Exclude:
     - 'app/models/mentor/application.rb'
     - 'app/models/user.rb'
-
-# Offense count: 1
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: empty, nil, both
-Style/EmptyElse:
-  Exclude:
-    - 'app/models/rating.rb'
 
 # Offense count: 1
 # Cop supports --auto-correct.

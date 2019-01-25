@@ -39,8 +39,6 @@ class CreateApplicationFromDraft
     }
   end
 
-  private
-
   def application_data
     {
       work_weeks: application_draft.work_weeks,

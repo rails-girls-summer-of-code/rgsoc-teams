@@ -3,13 +3,13 @@ require 'rails_helper'
 RSpec.describe 'Editing Teams', type: :feature do
   let(:user)            { create(:organizer) }
   let(:season)          { Season.current }
-  let(:other_season)    { create(:season) }
+  let(:past_season)     { create(:season, :past) }
   let(:team)            { create(:team, name: 'Team Yay', season: season) }
   let(:selection_phase) { season.applications_close_at + 1.day }
   let!(:exercism)       { create(:project, :accepted, name: 'Exercism', season: season) }
 
   before do
-    create(:project, :accepted, name: 'Some Old Project', season: other_season)
+    create(:project, :accepted, name: 'Some Old Project', season: past_season)
     create(:project, name: 'Non-Accepted', season: season)
     create(:project, :accepted, name: 'Open Source Dropbox', season: season)
 
