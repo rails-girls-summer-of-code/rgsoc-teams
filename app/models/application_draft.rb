@@ -50,19 +50,19 @@ class ApplicationDraft < ApplicationRecord
     RGSoC\ Facebook
     RGSoC\ Newsletter
     RGSoC\ Organisers
-    ].freeze
+  ].freeze
 
   PARTNER_CHOICES = %w[
     Past\ RGSoC participants
     Another\ diversity\ initiative\ outreach
     Study\ group\ or\ Workshop
     Conference
-    ].freeze
+  ].freeze
 
   OTHER_CHOICES = %w[
     Friends
     Mass\ media
-    ].freeze
+  ].freeze
 
   ALL_CHOICES = DIRECT_OUTREACH_CHOICES + PARTNER_CHOICES + OTHER_CHOICES
 

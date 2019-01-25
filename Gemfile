@@ -67,6 +67,7 @@ group :test do
   gem 'rspec-collection_matchers'
   gem 'rspec-html-matchers'
   gem 'rubocop', require: false
+  gem 'rubocop-rspec', require: false
   gem 'selenium-webdriver'
   gem 'shoulda-matchers', git: 'https://github.com/thoughtbot/shoulda-matchers.git'
   gem 'simplecov', require: false
