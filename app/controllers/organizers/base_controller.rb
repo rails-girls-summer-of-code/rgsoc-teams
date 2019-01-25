@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Organizers
   class BaseController < ApplicationController
     before_action :must_be_admin
@@ -11,7 +12,7 @@ module Organizers
     end
 
     def set_breadcrumbs
-      @breadcrumbs = [ ['Orga', :dashboard] ]
+      @breadcrumbs = [['Orga', :dashboard]]
     end
   end
 end

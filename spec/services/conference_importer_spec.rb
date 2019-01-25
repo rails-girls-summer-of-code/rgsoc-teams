@@ -2,7 +2,6 @@ require 'rails_helper'
 require 'csv'
 
 RSpec.describe ConferenceImporter, type: :service do
-
   describe "#call" do
     # 6 sample conferences in test.csv, 4 valid
     # valid: 2017001, 2017002, *2018*005 and 2017006 .
@@ -16,30 +15,30 @@ RSpec.describe ConferenceImporter, type: :service do
       let(:content_type) { 'text/csv' }
 
       it 'imports the valid conferences' do
-        expect{subject}.to change { Conference.count }.from(0).to(4)
+        expect { subject }.to change { Conference.count }.from(0).to(4)
       end
 
       it 'updates an existing conference' do
         create(:conference, gid: 2017001, city: "Bangalore", country: "Belgium")
 
-        expect{subject}.to change{Conference.find_by(gid: 2017001).city}.from("Bangalore").to("Gent")
-        expect{subject}.not_to change{Conference.find_by(gid: 2017001).country}
+        expect { subject }.to change { Conference.find_by(gid: 2017001).city }.from("Bangalore").to("Gent")
+        expect { subject }.not_to change { Conference.find_by(gid: 2017001).country }
       end
 
       it 'neglects a conference without a name' do
         # gid 2017003
-        expect {subject}.not_to change{Conference.find_by(gid: 2017003)}
+        expect { subject }.not_to change { Conference.find_by(gid: 2017003) }
       end
 
       it 'does not add a conference with invalid dates' do
         # gid 2017004 has an start_date later than end_date
-        expect {subject}.not_to change{Conference.find_by(gid: 2017004)}
+        expect { subject }.not_to change { Conference.find_by(gid: 2017004) }
       end
 
       it "will not destroy conferences" do
         # gid 2017010 is not in the .csv file
         create(:conference, gid: 2017010)
-        expect {subject}.not_to change{Conference.find_by(gid: 2017010)}
+        expect { subject }.not_to change { Conference.find_by(gid: 2017010) }
       end
 
       it 'assign the season_id' do
@@ -48,7 +47,7 @@ RSpec.describe ConferenceImporter, type: :service do
         s_2017 = create(:season, name: "2017")
         s_2018 = create(:season, name: "2018")
 
-        expect{subject}.to change{Conference.find_by(gid: 2017001).season_id}.to(s_2017.id)
+        expect { subject }.to change { Conference.find_by(gid: 2017001).season_id }.to(s_2017.id)
         expect(Conference.find_by(gid: 2018005).season_id).to eq s_2018.id
       end
     end

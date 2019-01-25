@@ -1,7 +1,7 @@
 # frozen_string_literal: true
+
 module Exporters
   class Projects < Base
-
     def current
       projects = Project.where(season: Season.current).includes(:submitter)
 
@@ -9,6 +9,5 @@ module Exporters
         [p.id, p.name, p.submitter&.github_handle, p.mentor_name, p.mentor_github_handle, p.mentor_email, p.url, p.aasm_state, p.tags.sort.join(', ')]
       end
     end
-
   end
 end

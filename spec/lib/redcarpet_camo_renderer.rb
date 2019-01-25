@@ -27,7 +27,6 @@ RSpec.describe Redcarpet::Render::Camo do
           expect(subject).to match %r[src="http://something.funny/foo.gif"]
         end
       end
-
     end
 
     context 'with camo environment variables set' do

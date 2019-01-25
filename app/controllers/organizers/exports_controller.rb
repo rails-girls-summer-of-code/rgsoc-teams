@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # eager load export classes in development
 Dir[Rails.root.join('app/exporters/*.rb')].each { |f| require f }
 
@@ -27,13 +28,13 @@ module Organizers
     def available_exports
       @exports ||= (Exporters.constants - [:Base]).map do |exp|
         klass = Exporters.const_get(exp)
-        (klass.public_instance_methods - Object.public_instance_methods).map{|m| "Exporters::#{exp}##{m}" }
+        (klass.public_instance_methods - Object.public_instance_methods).map { |m| "Exporters::#{exp}##{m}" }
       end.flatten
     end
 
     def set_breadcrumbs
       super
-      @breadcrumbs << [ 'Exports', :exports]
+      @breadcrumbs << ['Exports', :exports]
     end
   end
 end

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
+
 module Supervisors
   class NotesController < Supervisors::BaseController
-
     def update
       find_notepad
       @notepad.update!(notepad_params)

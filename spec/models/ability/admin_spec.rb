@@ -5,7 +5,6 @@ require 'cancan/matchers'
 #   $ rspec spec/models/ability_spec.rb -fd
 # to see the output of specs running inside the shared examples [mdv]
 RSpec.describe Ability, type: :model do
-
   let(:admin) { create(:user) }
   subject(:ability) { Ability.new(admin) }
 

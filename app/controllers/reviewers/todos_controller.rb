@@ -1,11 +1,12 @@
 # frozen_string_literal: true
+
 module Reviewers
   class TodosController < Reviewers::BaseController
     respond_to :html
 
     def set_breadcrumbs
       super
-      @breadcrumbs << [ 'Todo', [:reviewers, :todos] ]
+      @breadcrumbs << ['Todo', [:reviewers, :todos]]
     end
 
     def index

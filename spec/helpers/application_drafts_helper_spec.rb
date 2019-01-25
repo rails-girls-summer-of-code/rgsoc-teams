@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe ApplicationDraftsHelper, type: :helper do
-
   describe '#may_edit?' do
     let(:student_role) { create :student_role }
     let(:student) { student_role.user }
@@ -72,6 +71,5 @@ RSpec.describe ApplicationDraftsHelper, type: :helper do
         end
       end
     end
-
   end
 end

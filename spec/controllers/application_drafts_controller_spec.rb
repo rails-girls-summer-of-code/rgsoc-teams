@@ -149,7 +149,6 @@ RSpec.describe ApplicationDraftsController, type: :controller do
       it_behaves_like 'application period is over' do
         subject { post :create }
       end
-
     end
 
     describe 'PATCH update' do
@@ -275,6 +274,5 @@ RSpec.describe ApplicationDraftsController, type: :controller do
       it_behaves_like 'fails to apply for role', :coach,  redirection_to: '/'
       it_behaves_like 'fails to apply for role', :mentor, redirection_to: '/'
     end
-
   end
 end

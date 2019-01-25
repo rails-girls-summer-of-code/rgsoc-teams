@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Students
   class StatusUpdatesController < Students::BaseController
     before_action :find_resource, only: [:show, :edit, :update, :destroy]
@@ -49,7 +50,6 @@ module Students
       redirect_to action: :index
     end
 
-
     protected
 
     def find_resource
@@ -59,7 +59,6 @@ module Students
     def status_update_params
       params.require(:activity).permit(:title, :content)
     end
-
 
     private
 

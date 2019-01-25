@@ -28,6 +28,5 @@ RSpec.describe CharacterLimitedInput do
         with_tag('span', with: { class: 'character_limited_counter' })
       end
     end
-
   end
 end

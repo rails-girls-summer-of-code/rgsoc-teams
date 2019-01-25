@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Organizers
   class SeasonsController < Organizers::BaseController
     before_action :find_resource, only: [:show, :edit, :update, :destroy]
@@ -80,7 +81,7 @@ module Organizers
 
     def set_breadcrumbs
       super
-      @breadcrumbs << [ 'Seasons', :seasons]
+      @breadcrumbs << ['Seasons', :seasons]
     end
   end
 end

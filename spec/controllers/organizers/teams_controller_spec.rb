@@ -117,7 +117,7 @@ RSpec.describe Organizers::TeamsController, type: :controller do
     end
 
     describe "PATCH update" do
-      before { sign_in user}
+      before { sign_in user }
 
       context "assign conference attendance" do
         let(:offer) { create(:conference_attendance) }
@@ -151,7 +151,6 @@ RSpec.describe Organizers::TeamsController, type: :controller do
           expect(response).to redirect_to organizers_teams_url
         end
       end
-
     end
   end
 end

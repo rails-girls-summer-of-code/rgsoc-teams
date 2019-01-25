@@ -1,7 +1,5 @@
 namespace :projects do
-
   namespace :licenses do
-
     desc 'Grabs a list of OSI approved Open Source licenses from opensource.org'
     task :update do
       require 'open-uri'

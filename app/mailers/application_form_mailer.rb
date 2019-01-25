@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class ApplicationFormMailer < ActionMailer::Base
   default from: ENV['EMAIL_FROM'] || 'contact@rgsoc.org'
   default to: 'contact@rgsoc.org'

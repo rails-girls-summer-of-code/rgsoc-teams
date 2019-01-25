@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe Exporters::Applications do
-
   let(:old_season)        { create :season, name: "2015" }
   let(:selected_team)     { create :team,   kind: 'full_time' }
   let(:not_selected_team) { create :team,   kind: nil }
@@ -23,7 +22,6 @@ RSpec.describe Exporters::Applications do
   end
 
   let!(:new_application) { create :application, :in_current_season }
-
 
   describe '#current' do
     subject { described_class.current }

@@ -3,7 +3,6 @@
 require 'rails_helper'
 
 RSpec.describe ProjectsController, type: :request do
-
   describe 'GET /projects/:id/use_as_template' do
     let(:submitter) { create :user }
     let(:season)    { nil }

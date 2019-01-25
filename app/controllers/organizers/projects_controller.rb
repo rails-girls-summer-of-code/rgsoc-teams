@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Organizers
   class ProjectsController < Organizers::BaseController
     before_action :find_resource, except: [:index]
@@ -52,7 +53,7 @@ module Organizers
 
     def set_breadcrumbs
       super
-      @breadcrumbs << [ 'Projects', :projects]
+      @breadcrumbs << ['Projects', :projects]
     end
   end
 end

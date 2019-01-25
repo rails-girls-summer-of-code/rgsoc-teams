@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe ApplicationDraft, type: :model do
@@ -233,7 +234,6 @@ RSpec.describe ApplicationDraft, type: :model do
     end
 
     Student::REQUIRED_DRAFT_FIELDS.each do |attribute|
-
       context 'with one student' do
         before { allow(subject).to receive(:students).and_return([student0]) }
 

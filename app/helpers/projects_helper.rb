@@ -1,6 +1,6 @@
 # frozen_string_literal: true
-module ProjectsHelper
 
+module ProjectsHelper
   def project_status(project)
     label_class = case project.aasm_state
                   when 'proposed'
@@ -16,12 +16,11 @@ module ProjectsHelper
   end
 
   def project_tags(project)
-    project.tags.map{ |t| "<span class='label label-default'>#{t}</span>" }.join(' ').html_safe
+    project.tags.map { |t| "<span class='label label-default'>#{t}</span>" }.join(' ').html_safe
   end
 
   # @return [Array<String>] a list of years we have projects for, most recent first.
   def project_years
     (Season.joins(:projects).distinct.pluck(:name) + [Date.today.year.to_s]).uniq.sort.reverse
   end
-
 end

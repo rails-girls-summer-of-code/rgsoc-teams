@@ -1,7 +1,7 @@
 # frozen_string_literal: true
+
 module Exporters
   class Applications < Base
-
     # Assumption: all applications of a given year share the structure of the
     # Application#application_data hash:
     class KeysAndHeaders < Struct.new(:season)
@@ -54,7 +54,7 @@ module Exporters
       csv_headers      = keys_and_headers.headers
 
       generate(applications, *csv_headers) do |app|
-        application_data_values = application_keys.map{ |k| app.application_data[k] }
+        application_data_values = application_keys.map { |k| app.application_data[k] }
         [app.team_id] +
           application_data_values +
           [:coaching_company, :misc_info, :city, :country].map { |attribute| app.send attribute } +

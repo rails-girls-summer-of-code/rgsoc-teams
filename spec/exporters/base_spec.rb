@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe Exporters::Base do
-
   def exporter
     @exporter ||= Class.new(Exporters::Base) do
       def my_export

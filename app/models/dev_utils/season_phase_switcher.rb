@@ -1,7 +1,7 @@
 # frozen_string_literal: true
+
 module DevUtils
   class SeasonPhaseSwitcher
-
     PHASES = %i(
       fake_proposals_phase
       fake_application_phase

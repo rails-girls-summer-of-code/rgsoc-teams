@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe 'Unconfirmed User', type: :feature do
-
   let(:user) { create(:user, :unconfirmed) }
 
   let!(:activity)         { create(:status_update, :published, team: team1) }

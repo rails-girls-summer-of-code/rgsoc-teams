@@ -1,9 +1,9 @@
 # frozen_string_literal: true
+
 require 'cgi'
 require 'uri'
 module ApplicationHelper
-
-  TIMEZONES = ActiveSupport::TimeZone.all.map{|t| t.tzinfo.name}.uniq.sort
+  TIMEZONES = ActiveSupport::TimeZone.all.map { |t| t.tzinfo.name }.uniq.sort
 
   def application_disambiguation_link
     if current_user && current_user.application_drafts.in_current_season.any?
@@ -130,7 +130,7 @@ module ApplicationHelper
 
   def status_for(team, member, role_name)
     if role_name == :coach
-      role = team.roles.find { |role| role.user == member}
+      role = team.roles.find { |role| role.user == member }
       if role && role.confirmed?
         content_tag :span, 'Confirmed', class: 'label label-default'
       elsif current_user == member
@@ -163,7 +163,7 @@ module ApplicationHelper
   end
 
   def role_names(team, user)
-    team.roles.reload.select{|role| role.user == user}.map do |role|
+    team.roles.reload.select { |role| role.user == user }.map do |role|
       role.name.titleize
     end.join(', ').html_safe
   end

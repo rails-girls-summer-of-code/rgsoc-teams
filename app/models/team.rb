@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class Team < ApplicationRecord
   include ProfilesHelper, HasSeason
 
@@ -184,7 +185,7 @@ class Team < ApplicationRecord
   end
 
   def members_with_role(role)
-    roles.select{|r| r.name == role && !r.marked_for_destruction?}
+    roles.select { |r| r.name == role && !r.marked_for_destruction? }
   end
 
   def two_students_present?

@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'csv'
 
 module Reviewers
@@ -12,7 +13,7 @@ module Reviewers
 
     def set_breadcrumbs
       super
-      @breadcrumbs << [ 'Applications', [:reviewers, :applications] ]
+      @breadcrumbs << ['Applications', [:reviewers, :applications]]
     end
 
     def index

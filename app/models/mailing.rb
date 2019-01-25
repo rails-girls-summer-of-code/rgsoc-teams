@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class Mailing < ApplicationRecord
   TO = %w(teams students coaches helpdesk organizers supervisors developers mentors)
   FROM = ENV['EMAIL_FROM'] || 'contact@rgsoc.org'
@@ -35,6 +36,6 @@ class Mailing < ApplicationRecord
 
   def seasons=(value)
     options = Season.pluck(:name)
-    self[:seasons] = value.select {|s| options.include?(s) }
+    self[:seasons] = value.select { |s| options.include?(s) }
   end
 end

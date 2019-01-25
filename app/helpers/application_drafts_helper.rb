@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module ApplicationDraftsHelper
   STUDENT_FIELDS = [:name,
                     :application_age,
@@ -61,7 +62,7 @@ module ApplicationDraftsHelper
   end
 
   def student1_tab_errors(draft)
-    tab_errors(draft, STUDENT_FIELDS.map { |f| "student1_#{f}".to_sym})
+    tab_errors(draft, STUDENT_FIELDS.map { |f| "student1_#{f}".to_sym })
   end
 
   def projects_tab_errors(draft)
@@ -80,5 +81,4 @@ module ApplicationDraftsHelper
       "(#{count} errors)"
     end
   end
-
 end

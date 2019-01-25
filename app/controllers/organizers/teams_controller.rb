@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Organizers
   class TeamsController < Organizers::BaseController
     before_action :find_resource, only: [:show, :edit, :update, :destroy]
@@ -99,7 +100,7 @@ module Organizers
 
     def set_breadcrumbs
       super
-      @breadcrumbs << [ 'Teams', :teams]
+      @breadcrumbs << ['Teams', :teams]
     end
   end
 end

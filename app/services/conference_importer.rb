@@ -1,7 +1,7 @@
 # frozen_string_literal: true
+
 require 'csv'
 class ConferenceImporter
-
   ## This importer is depending on agreed-upon input format.
   ## Input file:
   # - Dates should be formatted with dd mm yyyy
@@ -52,7 +52,7 @@ class ConferenceImporter
   end
 
   def process_csv
-    CSV.foreach(filename, headers: true, col_sep: ',' ) do |row|
+    CSV.foreach(filename, headers: true, col_sep: ',') do |row|
       begin
         conference = Conference.find_or_initialize_by(gid: row['UID'])
         conference_attributes = {

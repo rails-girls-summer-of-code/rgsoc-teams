@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Reviewers
   class BaseController < ApplicationController
     DASHBOARD_PATH = %i(reviewers dashboard).freeze
@@ -8,7 +9,7 @@ module Reviewers
     before_action :set_breadcrumbs
 
     def set_breadcrumbs
-      @breadcrumbs = [ ['Rating', DASHBOARD_PATH] ]
+      @breadcrumbs = [['Rating', DASHBOARD_PATH]]
     end
   end
 end

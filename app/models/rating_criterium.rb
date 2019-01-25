@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class RatingCriterium
   MIN_POINTS = 0
   MAX_POINTS = 10
@@ -6,7 +7,7 @@ class RatingCriterium
   attr_reader :weight
 
   def initialize(weight, point_names = {})
-    if !weight.is_a? Numeric || ( weight < 0 || weight > 1 )
+    if !weight.is_a? Numeric || (weight < 0 || weight > 1)
       raise ArgumentError.new("weight must be a number betweent 0 and 1.")
     end
 

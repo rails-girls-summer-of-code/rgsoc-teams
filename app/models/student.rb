@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class Student < SimpleDelegator
   include ActiveModel::Validations
   include ActiveModel::Conversion
@@ -53,5 +54,4 @@ class Student < SimpleDelegator
   def current_draft
     @current_draft ||= current_drafts.first
   end
-
 end

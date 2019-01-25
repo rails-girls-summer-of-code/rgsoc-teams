@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module OrderedConferences
   def index
     @conferences = Conference.ordered(sort_params).in_current_season

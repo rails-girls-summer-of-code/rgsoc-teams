@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class Season < ApplicationRecord
   # Season's moments: [month, day]
   SUMMER_OPEN    = [7, 1]

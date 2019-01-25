@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Organizers
   class MailingsController < Organizers::BaseController
     before_action :normalize_params, only: [:create, :update]
@@ -50,7 +51,7 @@ module Organizers
 
     def set_breadcrumbs
       super
-      @breadcrumbs << [ 'Mailings', :mailings]
+      @breadcrumbs << ['Mailings', :mailings]
     end
   end
 end

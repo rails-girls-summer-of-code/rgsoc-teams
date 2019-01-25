@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe UsersHelper, type: :helper do
-
   describe "#teams_for" do
     let(:user) { create :user }
     let(:invisible_team) { create :team, invisible: true, kind: nil }

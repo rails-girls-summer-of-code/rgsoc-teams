@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Mentor
   class Application
     include ActiveModel::Model
@@ -85,7 +86,7 @@ module Mentor
     # @param attrs [Hash] arguments in wrong format
     # @return [Hash] arguments in correct format
     def studentize(attrs)
-      attrs.tap { |a| a.keys.each{ |k| a[k.sub(/student(0|1)_application_/, '')] = a.delete(k) } }
+      attrs.tap { |a| a.keys.each { |k| a[k.sub(/student(0|1)_application_/, '')] = a.delete(k) } }
     end
 
     def persisted_application
@@ -93,7 +94,6 @@ module Mentor
     end
 
     class << self
-
       # Retrieves Mentor specific representations of Applications matching the given criteria.
       #
       # @param projects [Project::ActiveRecord_Relation] list of possible Projects the Applications apply for

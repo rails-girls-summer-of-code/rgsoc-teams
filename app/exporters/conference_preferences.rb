@@ -1,7 +1,7 @@
 # frozen_string_literal: true
+
 module Exporters
   class ConferencePreferences < Base
-
     def current
       preferences = ConferencePreference.current_teams
       team_max_offer = Team.joins(:conference_attendances).group("teams.id").order("count(teams.id) DESC").first

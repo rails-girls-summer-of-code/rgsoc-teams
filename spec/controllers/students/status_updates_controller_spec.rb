@@ -116,7 +116,5 @@ RSpec.describe Students::StatusUpdatesController, type: :controller do
         expect(response).to redirect_to [:students, :status_updates]
       end
     end
-
   end
-
 end

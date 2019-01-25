@@ -193,7 +193,6 @@ RSpec.describe UsersController, type: :controller do
   end
 
   describe 'PATCH update' do
-
     let(:valid_attributes) { { application_about: "lorem ipsum" } }
 
     let(:user) { create(:user) }
