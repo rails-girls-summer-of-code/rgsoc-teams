@@ -12,3 +12,7 @@ AllCops:
 
 Rails:
   Enabled: true
+
+inherit_mode:
+  merge:
+    - Exclude
