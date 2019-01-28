@@ -1,4 +1,3 @@
-
 class RenameAttendanceToConferencePreference < ActiveRecord::Migration[5.1]
   def self.up
     rename_table :attendances, :conference_preferences
