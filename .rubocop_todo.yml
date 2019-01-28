@@ -230,13 +230,6 @@ Lint/ShadowingOuterLocalVariable:
     - 'app/helpers/application_helper.rb'
     - 'lib/feed.rb'
 
-# Offense count: 3
-Lint/SplatKeywordArguments:
-  Exclude:
-    - 'spec/mailers/application_form_mailer_spec.rb'
-    - 'spec/models/conference_preference_spec.rb'
-    - 'spec/models/conference_spec.rb'
-
 # Offense count: 1
 Lint/UnderscorePrefixedVariableName:
   Exclude:
