@@ -3,6 +3,10 @@ require: rubocop-rspec
 inherit_from:
   - .rubocop_todo.yml
 
+inherit_mode:
+  merge:
+    - Exclude
+
 AllCops:
   Exclude:
     - 'tmp/**/*'
@@ -10,9 +14,3 @@ AllCops:
 
 Rails:
   Enabled: true
-
-inherit_mode:
-  merge:
-    - Exclude
-    - Include
-
