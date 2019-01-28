@@ -13,21 +13,17 @@ class ConferenceImporter
   # - Import errors are logged in a Rails Logger
   # - UID is mapped to 'gid' ('google-id' LOL), and has the format: 2017001
 
-  class << self
-    def call(filename, content_type:)
-      raise ArgumentError, "Oops! I can upload .csv only :-(" unless content_type == "text/csv"
-      new(filename)
-    end
-
-    private :new
+  def self.call(filename, content_type:)
+    raise ArgumentError, "Oops! I can upload .csv only :-(" unless content_type == "text/csv"
+    new(filename)
   end
+
+  private
 
   def initialize(filename)
     @filename = filename
     with_log { process_csv }
   end
-
-  private
 
   attr_reader :filename
 
