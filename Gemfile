@@ -58,7 +58,7 @@ group :development do
 end
 
 group :test do
-  gem 'capybara', '~> 2.18'
+  gem 'capybara', '~> 3.14'
   gem 'capybara-screenshot'
   gem 'rails-controller-testing'
   gem 'rspec-activemodel-mocks'
