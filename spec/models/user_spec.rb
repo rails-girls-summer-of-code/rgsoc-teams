@@ -248,10 +248,14 @@ RSpec.describe User, type: :model do
       let(:github_user) { instance_double(Github::User) }
       let(:empty_attrs) { { name: '' } }
 
+      before do
+        allow(Github::User).to receive(:new).with(github_handle).and_return(github_user)
+        allow(github_user).to receive(:attrs).and_return(empty_attrs)
+      end
+
       it 'sets the name to the github handle' do
-        expect(Github::User).to receive(:new).with(github_handle).and_return(github_user)
-        expect(github_user).to receive(:attrs).and_return(empty_attrs)
         expect(user.reload).to have_attributes(name: github_handle, github_handle: github_handle)
+        expect(github_user).to have_received(:attrs)
       end
     end
   end
