@@ -23,3 +23,6 @@ coverage/
 # Ignore all logfiles and tempfiles.
 /log/*.log
 /tmp
+
+# Ignore asdf file
+.tool-versions
