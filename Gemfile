@@ -4,7 +4,7 @@ ruby File.read(".ruby-version")
 
 gem 'pg'
 gem 'puma'
-gem 'rails', '~> 5.1.6'
+gem 'rails', '~> 5.2.3'
 
 gem 'aasm'
 gem 'aws-sdk', '~> 2.10'
