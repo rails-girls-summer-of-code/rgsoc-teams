@@ -227,22 +227,32 @@ RSpec.describe User, type: :model do
     end
   end
 
-  describe 'after_create' do
-    let(:user) { User.create(github_handle: 'octocat', confirmed_at: Date.yesterday, github_import: true) }
+  describe 'before_create' do
+    subject(:user) { described_class.create(attrs) }
 
-    it 'is just created' do
-      expect(user.just_created?).to eql true
+    let(:attrs)         { { github_handle: github_handle, confirmed_at: Date.yesterday, github_import: true } }
+    let(:github_handle) { 'octocat' }
+
+    it { is_expected.to be_just_created }
+
+    it 'completes attributes from Github and writes them to the DB' do
+      expect(user.reload).to have_attributes(
+        github_id: 1,
+        email:     'octocat@github.com',
+        name:      'monalisa octocat',
+        location:  'San Francisco'
+      )
     end
 
-    it 'completes attributes from Github' do
-      attrs = user.attributes.slice(*%w(github_id email location name))
-      expect(attrs.values).to be == [1, 'octocat@github.com', 'San Francisco', 'monalisa octocat']
-    end
+    context 'when the name cannot be retrieved from Github' do
+      let(:github_user) { instance_double(Github::User) }
+      let(:empty_attrs) { { name: '' } }
 
-    it 'sets the name to the github_handle if blank' do
-      allow_any_instance_of(Github::User).
-        to receive(:attrs).and_return({ name: '' })
-      expect(user.name).to eql user.github_handle
+      it 'sets the name to the github handle' do
+        expect(Github::User).to receive(:new).with(github_handle).and_return(github_user)
+        expect(github_user).to receive(:attrs).and_return(empty_attrs)
+        expect(user.reload).to have_attributes(name: github_handle, github_handle: github_handle)
+      end
     end
   end
 

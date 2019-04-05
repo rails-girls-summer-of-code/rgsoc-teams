@@ -75,8 +75,8 @@ class User < ApplicationRecord
 
   accepts_nested_attributes_for :roles, allow_destroy: true
 
+  before_create :complete_from_github
   before_save :normalize_location
-  after_create :complete_from_github
 
   # This field is used to skip validations when creating
   # a preliminary user, e.g. when adding a non existant person
@@ -225,7 +225,7 @@ class User < ApplicationRecord
     attrs = Github::User.new(github_handle).attrs rescue {}
     attrs[:name] = github_handle if attrs[:name].blank?
     attrs = attrs.select { |key, value| send(key).blank? && value.present? }
-    update_attributes attrs
+    assign_attributes(attrs)
     @just_created = true
   end
 
