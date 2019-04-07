@@ -2,6 +2,10 @@ source 'https://rubygems.org'
 
 ruby File.read(".ruby-version")
 
+gem 'pg'
+gem 'puma'
+gem 'rails', '~> 5.2.3'
+
 gem 'aasm'
 gem 'aws-sdk', '~> 2.10'
 gem 'bootsnap', require: false
@@ -15,10 +19,7 @@ gem 'gh'
 gem 'kaminari'
 gem 'nested_form'
 gem 'omniauth-github'
-gem 'pg'
 gem 'pretender'
-gem 'puma'
-gem 'rails', '~> 5.1.6'
 gem 'rails_autolink'
 gem 'redcarpet'
 gem 'simple_form'
