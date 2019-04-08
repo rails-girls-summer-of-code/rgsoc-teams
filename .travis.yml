@@ -28,7 +28,7 @@ script:
 deploy:
   - provider: heroku
     api_key:
-      secure: ZtYE7hK2EyNWYhkxWSGSrmCNvYZrT7dmxRvi4rg82uHFOtzbEiThjkmwKKD3EK75syGFos3fJszW8GRwJqY9Id6L1Ieg+GpHDMBYJqsLbSRqJ6Mj1vzxbDqV2XsDFkr2e3MTrgNPRX+qmcKnsP9PTwxtey8pAUZFQFTz0i0gxcc=
+      secure: QGw8fTa9Gbf99f50M+E/7NMglqwoiE7WGObekUFH4ABsUzapGVHrU6WN4T4BKfRtjkZDpLgeEDtGeU2ZbLhOHMU53Z6iYTz24bvhA1VKKY8IEmiYWWTHPOFJAFaZL7GRToJxMNGofRfHagXPESZpFHGKFxdMNtgaxmTH/noy9K4=
     app: rgsoc-teams-staging
     run:
       - rails db:migrate
