@@ -37,7 +37,7 @@ deploy:
       repo: rails-girls-summer-of-code/rgsoc-teams
   - provider: heroku
     api_key:
-      secure: ZtYE7hK2EyNWYhkxWSGSrmCNvYZrT7dmxRvi4rg82uHFOtzbEiThjkmwKKD3EK75syGFos3fJszW8GRwJqY9Id6L1Ieg+GpHDMBYJqsLbSRqJ6Mj1vzxbDqV2XsDFkr2e3MTrgNPRX+qmcKnsP9PTwxtey8pAUZFQFTz0i0gxcc=
+      secure: MUUTDu1EwDQiQwpL3gYnKO/ET4csokhsCFTSILpjxLzTLMm3XmCK90OZ2yoFULi+rk7nhWzCNE+Dr9ChXjUM8/BOczqkgms28n5XsTm/SAV6q2BDUR0YGm8myDyN1ts5vcqgCvyVLCkjMw/nnwRCzTMD7QUXQtyASJOr9WJvu1I=
     app: rgsoc-teams-production
     run:
       - rails db:migrate
