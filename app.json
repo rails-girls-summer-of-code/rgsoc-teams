@@ -1,6 +1,7 @@
 {
   "name": "rgsoc-teams",
   "scripts": {
+    "postdeploy": "bundle exec rake db:schema:load db:seed"
   },
   "env": {
     "AWS_ACCESS_KEY_ID": {
