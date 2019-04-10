@@ -13,7 +13,7 @@ RSpec.describe Organizers::SeasonsController, type: :controller do
     describe 'GET new' do
       it 'renders the new template' do
         get :new
-        expect(response).to be_success
+        expect(response).to have_http_status(:success)
         expect(response).to render_template 'new'
       end
     end
@@ -21,7 +21,7 @@ RSpec.describe Organizers::SeasonsController, type: :controller do
     describe 'GET index' do
       it 'renders the index template' do
         get :index
-        expect(response).to be_success
+        expect(response).to have_http_status(:success)
         expect(response).to render_template 'index'
       end
     end
@@ -29,7 +29,7 @@ RSpec.describe Organizers::SeasonsController, type: :controller do
     describe 'GET edit' do
       it 'renders the edit template' do
         get :edit, params: { id: season.to_param }
-        expect(response).to be_success
+        expect(response).to have_http_status(:success)
         expect(response).to render_template 'edit'
       end
     end
@@ -37,7 +37,7 @@ RSpec.describe Organizers::SeasonsController, type: :controller do
     describe 'GET show' do
       it 'renders the show template' do
         get :show, params: { id: season.to_param }
-        expect(response).to be_success
+        expect(response).to have_http_status(:success)
         expect(response).to render_template 'show'
       end
     end

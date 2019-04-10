@@ -55,7 +55,7 @@ RSpec.shared_examples 'redirects for non-users' do
 
       it 'allows access' do
         get :index
-        expect(response).to be_success
+        expect(response).to have_http_status(:success)
       end
     end
   end

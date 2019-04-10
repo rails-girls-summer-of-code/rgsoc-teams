@@ -28,7 +28,7 @@ RSpec.describe UsersController, type: :controller do
         # attendences used to stick around when their conference was deleted
         it 'will not list conferences preferences w/o conference' do
           get :show, params: { id: user.to_param }
-          expect(response).to be_success
+          expect(response).to have_http_status(:success)
           expect(response.body).not_to match conference.name
         end
       end
