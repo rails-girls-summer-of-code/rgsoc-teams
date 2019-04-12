@@ -4,7 +4,6 @@ module Exporters
   class ConferencePreferences < Base
     def current
       preferences = ConferencePreference.current_teams
-      team_max_offer = Team.joins(:conference_attendances).group("teams.id").order("count(teams.id) DESC").first
       max_offer = team_max_offer&.conference_attendances&.size || 0
 
       header = 'Team name', 'Team location', 'Project name', 'Conference primary choice', 'Conference secondary choice', 'We would like to give a LT', 'Comments', 'Terms accepted'
@@ -21,6 +20,15 @@ module Exporters
         end
         team_preferences
       end
+    end
+
+    private
+
+    def team_max_offer
+      Team.joins(:conference_attendances)
+          .group('teams.id')
+          .order(Arel.sql('count(teams.id) DESC'))
+          .first
     end
   end
 end
