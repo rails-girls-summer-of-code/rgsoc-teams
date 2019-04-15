@@ -16,12 +16,12 @@ RSpec.describe ActivitiesController, type: :controller do
     context 'as feed' do
       it 'renders json' do
         get :index, format: :json
-        expect(response).to be_success
+        expect(response).to have_http_status(:success)
       end
 
       it 'renders atom' do
         get :index, format: :atom
-        expect(response).to be_success
+        expect(response).to have_http_status(:success)
       end
 
       it 'will not display mailings' do

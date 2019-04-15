@@ -11,7 +11,7 @@ RSpec.describe Organizers::ExportsController, type: :controller do
     describe 'GET index' do
       it 'renders a form' do
         get :index
-        expect(response).to be_success
+        expect(response).to have_http_status(:success)
       end
     end
 
@@ -19,7 +19,7 @@ RSpec.describe Organizers::ExportsController, type: :controller do
       it 'sends CSV data as attachment' do
         filename_matcher = /attachment; filename="exporters-teams_current\.csv/
         post :create, params: { export: "Exporters::Teams#current" }
-        expect(response).to be_success
+        expect(response).to have_http_status(:success)
         expect(response.headers["Content-Disposition"]).to match filename_matcher
         expect(response.headers["Content-Type"]).to eq "text/csv"
       end

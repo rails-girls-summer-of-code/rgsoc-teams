@@ -100,7 +100,7 @@ class User < ApplicationRecord
         order = ORDERS.fetch(:name)
       end
 
-      scope = order("#{order} #{direction}").references(:teams)
+      scope = order(Arel.sql("#{order} #{direction}")).references(:teams)
       scope = scope.joins(:teams).references(:teams) if order == :team
       scope
     end

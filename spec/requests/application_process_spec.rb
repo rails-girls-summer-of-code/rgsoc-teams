@@ -23,7 +23,7 @@ RSpec.describe 'The Application Process', type: :request do
 
             it 'complains about the user data being incomplete' do
               get '/apply'
-              expect(response).to be_success
+              expect(response).to have_http_status(:success)
               expect(response.body).to include 'Your user profile is incomplete'
             end
           end
