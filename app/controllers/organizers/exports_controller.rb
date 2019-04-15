@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # eager load export classes in development
-Dir[Rails.root.join('app/exporters/*.rb')].each { |f| require f }
+Dir[Rails.root.join('app/services/exporters/*.rb')].each { |f| require f }
 
 module Organizers
   class ExportsController < Organizers::BaseController

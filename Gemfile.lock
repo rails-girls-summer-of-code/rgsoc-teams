@@ -359,10 +359,6 @@ GEM
       slim (~> 3.0)
     sort_alphabetical (1.1.0)
       unicode_utils (>= 1.2.2)
-    spring (2.0.2)
-      activesupport (>= 4.2)
-    spring-commands-rspec (1.0.4)
-      spring (>= 0.9.1)
     sprockets (3.7.2)
       concurrent-ruby (~> 1.0)
       rack (> 1, < 3)
@@ -448,8 +444,6 @@ DEPENDENCIES
   simple_form
   simplecov
   slim-rails
-  spring
-  spring-commands-rspec
   sprockets-rails
   sucker_punch
   timecop

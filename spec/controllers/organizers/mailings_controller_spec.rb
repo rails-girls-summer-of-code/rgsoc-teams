@@ -13,7 +13,7 @@ RSpec.describe Organizers::MailingsController, type: :controller do
     describe 'GET index' do
       it 'renders the index template' do
         get :index
-        expect(response).to be_success
+        expect(response).to have_http_status(:success)
         expect(response).to render_template 'index'
       end
     end
@@ -21,7 +21,7 @@ RSpec.describe Organizers::MailingsController, type: :controller do
     describe 'GET show' do
       it 'shows a mailing' do
         get :show, params: { id: mailing.to_param }
-        expect(response).to be_success
+        expect(response).to have_http_status(:success)
         expect(response).to render_template 'show'
       end
     end
@@ -29,7 +29,7 @@ RSpec.describe Organizers::MailingsController, type: :controller do
     describe 'GET edit' do
       it 'renders the edit template' do
         get :edit, params: { id: mailing.to_param }
-        expect(response).to be_success
+        expect(response).to have_http_status(:success)
         expect(response).to render_template 'edit'
       end
     end

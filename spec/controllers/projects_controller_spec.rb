@@ -15,7 +15,7 @@ RSpec.describe ProjectsController, type: :controller do
 
       it 'hides rejected projects' do
         get :index
-        expect(response).to be_success
+        expect(response).to have_http_status(:success)
         expect(response.body).to include 'proposed project'
         expect(response.body).to include 'accepted project'
         expect(response.body).not_to include 'rejected project'
@@ -32,7 +32,7 @@ RSpec.describe ProjectsController, type: :controller do
 
       it 'shows selected projects only' do
         get :index
-        expect(response).to be_success
+        expect(response).to have_http_status(:success)
         expect(response.body).to include "selected by a team"
         expect(response.body).not_to include 'project without team'
         expect(response.body).not_to include 'proposed project'
@@ -49,7 +49,7 @@ RSpec.describe ProjectsController, type: :controller do
 
       it 'shows selected projects in past season only' do
         get :index, params: { filter: '2017' }
-        expect(response).to be_success
+        expect(response).to have_http_status(:success)
         expect(response.body).to include "selected by a team 2017"
         expect(response.body).not_to include "selected by a team (current)"
         expect(response.body).not_to include 'project without team 2017'
@@ -67,7 +67,7 @@ RSpec.describe ProjectsController, type: :controller do
       it 'requires a login' do
         expect { get :new }.to \
           change { session[:previous_url_login_required] }
-        expect(response).to be_success
+        expect(response).to have_http_status(:success)
         expect(response.body).to match user_github_omniauth_authorize_path
       end
     end
@@ -82,7 +82,7 @@ RSpec.describe ProjectsController, type: :controller do
 
         it 'returns success' do
           get :new
-          expect(response).to be_success
+          expect(response).to have_http_status(:success)
         end
 
         it "assigns a new project as @project" do
@@ -96,7 +96,7 @@ RSpec.describe ProjectsController, type: :controller do
   describe 'GET show' do
     it 'returns the project page' do
       get :show, params: { id: project.to_param }
-      expect(response).to be_success
+      expect(response).to have_http_status(:success)
     end
   end
 
