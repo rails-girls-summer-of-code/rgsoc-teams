@@ -32,12 +32,6 @@ Layout/AlignParameters:
     - 'spec/models/mentor/application_spec.rb'
     - 'spec/support/shared_examples/rateable.rb'
 
-# Offense count: 1
-# Cop supports --auto-correct.
-Layout/ClosingParenthesisIndentation:
-  Exclude:
-    - 'app/controllers/application_drafts_controller.rb'
-
 # Offense count: 2
 # Cop supports --auto-correct.
 Layout/CommentIndentation:
