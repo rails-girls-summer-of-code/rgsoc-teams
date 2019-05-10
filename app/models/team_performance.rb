@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class TeamPerformance
-# Internal: calculates a Team's performance score for supervisor's dashboard
+  # Internal: calculates a Team's performance score for supervisor's dashboard
 
   def initialize(team)
     @team = team

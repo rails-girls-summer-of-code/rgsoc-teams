@@ -32,13 +32,6 @@ Layout/AlignParameters:
     - 'spec/models/mentor/application_spec.rb'
     - 'spec/support/shared_examples/rateable.rb'
 
-# Offense count: 2
-# Cop supports --auto-correct.
-Layout/CommentIndentation:
-  Exclude:
-    - 'app/controllers/teams_info_controller.rb'
-    - 'app/models/team_performance.rb'
-
 # Offense count: 20
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle.
