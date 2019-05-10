@@ -42,12 +42,14 @@ group :production do
 end
 
 group :development, :test do
-  gem 'byebug', require: !ENV['RM_INFO'] # require parameter is workaround for RubyMine with Rails ~> 4.1
   gem 'database_cleaner'
   gem 'factory_bot_rails'
   gem 'ffaker'
-  gem 'pry'
   gem 'rspec-rails'
+
+  gem 'pry-byebug'
+  gem 'pry-doc'
+  gem 'pry-rails'
 end
 
 group :development do
