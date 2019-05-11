@@ -17,7 +17,7 @@ module Rateable
     return 0 if rating_points.empty?
     m_pos = rating_points.size / 2
 
-    if rating_points.size % 2 == 1
+    if rating_points.size.odd?
       rating_points[m_pos].round(2)
     else
       mean(rating_points[m_pos - 1..m_pos]).round(2)

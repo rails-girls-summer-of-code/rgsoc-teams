@@ -902,12 +902,6 @@ Style/EmptyMethod:
     - 'app/controllers/users_controller.rb'
     - 'db/migrate/20180307150111_add_submitters_as_maintainers.rb'
 
-# Offense count: 1
-# Cop supports --auto-correct.
-Style/EvenOdd:
-  Exclude:
-    - 'app/models/concerns/rateable.rb'
-
 # Offense count: 2
 # Cop supports --auto-correct.
 Style/ExpandPathArguments:
