@@ -1058,13 +1058,6 @@ Style/NumericPredicate:
     - 'app/models/rating_criterium.rb'
     - 'app/models/team_performance.rb'
 
-# Offense count: 2
-# Cop supports --auto-correct.
-Style/ParallelAssignment:
-  Exclude:
-    - 'app/mailers/project_mailer.rb'
-    - 'spec/models/project_spec.rb'
-
 # Offense count: 66
 # Cop supports --auto-correct.
 # Configuration parameters: PreferredDelimiters.
