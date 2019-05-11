@@ -980,12 +980,6 @@ Style/LambdaCall:
     - 'spec/controllers/teams_controller_spec.rb'
 
 # Offense count: 1
-# Cop supports --auto-correct.
-Style/LineEndConcatenation:
-  Exclude:
-    - 'spec/helpers/application_helper_spec.rb'
-
-# Offense count: 1
 Style/MissingRespondToMissing:
   Exclude:
     - 'app/services/exporters/base.rb'
