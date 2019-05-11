@@ -40,7 +40,7 @@ RSpec.describe RolesController, type: :controller do
       let!(:role) { create(:role, name: 'student', team: team, user: user) }
 
       let(:randomize_case) do
-        ->(string) do
+        lambda do |string|
           string.each_char.inject('') { |str, c| str << c.send([:downcase, :upcase][rand(2)]) }
         end
       end

@@ -42,10 +42,6 @@ class Team < ApplicationRecord
   before_create :set_number
   before_save :set_last_checked, if: :checked
 
-  scope :without_recent_log_update, -> {
-    where.not(id: Activity.where(kind: ['status_update', 'feed_entry']).where("created_at > ?", 26.hours.ago).pluck(:team_id))
-  }
-
   scope :full_time, -> { where(kind: %w(full_time sponsored)) }
   scope :part_time, -> { where(kind: %w(part_time voluntary)) }
   scope :accepted, -> { full_time.or(part_time) }

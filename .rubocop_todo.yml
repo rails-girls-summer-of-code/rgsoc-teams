@@ -957,18 +957,6 @@ Style/IfUnlessModifier:
     - 'app/models/rating_criterium.rb'
     - 'lib/redcarpet_camo_renderer.rb'
 
-# Offense count: 5
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: line_count_dependent, lambda, literal
-Style/Lambda:
-  Exclude:
-    - 'app/models/project.rb'
-    - 'app/models/team.rb'
-    - 'spec/controllers/roles_controller_spec.rb'
-    - 'spec/controllers/teams_controller_spec.rb'
-    - 'spec/models/selection/strictness_spec.rb'
-
 # Offense count: 1
 Style/MissingRespondToMissing:
   Exclude:

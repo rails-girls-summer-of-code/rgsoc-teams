@@ -195,7 +195,7 @@ RSpec.describe TeamsController, type: :controller do
           let(:github_handle) { valid_attributes[:roles_attributes].first[:github_handle] }
 
           let(:randomize_case) do
-            ->(string) do
+            lambda do |string|
               string.each_char.inject('') { |str, c| str << c.send([:downcase, :upcase][rand(2)]) }
             end
           end
