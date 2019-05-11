@@ -1065,13 +1065,6 @@ Style/ParallelAssignment:
     - 'app/mailers/project_mailer.rb'
     - 'spec/models/project_spec.rb'
 
-# Offense count: 1
-# Cop supports --auto-correct.
-# Configuration parameters: AllowSafeAssignment, AllowInMultilineConditions.
-Style/ParenthesesAroundCondition:
-  Exclude:
-    - 'app/controllers/comments_controller.rb'
-
 # Offense count: 66
 # Cop supports --auto-correct.
 # Configuration parameters: PreferredDelimiters.
