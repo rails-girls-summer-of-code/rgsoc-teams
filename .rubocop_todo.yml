@@ -1169,14 +1169,6 @@ Style/Semicolon:
   Exclude:
     - 'spec/controllers/mentors/comments_controller_spec.rb'
 
-# Offense count: 1
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: only_raise, only_fail, semantic
-Style/SignalException:
-  Exclude:
-    - 'app/models/mentor/application.rb'
-
 # Offense count: 3
 # Cop supports --auto-correct.
 # Configuration parameters: AllowIfMethodIsEmpty.
