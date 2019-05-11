@@ -38,7 +38,7 @@ class ApplicationDraftsController < ApplicationController
     application_draft.assign_attributes(application_draft_params)
     if application_draft.save
       update_student!
-      notice = "Your application draft was saved. You can access it under »#{view_context.link_to "My application", apply_path}«".html_safe
+      notice = "Your application draft was saved. You can access it under »#{view_context.link_to 'My application', apply_path}«".html_safe
       redirect_to [:edit, application_draft], notice: notice
     else
       render :new

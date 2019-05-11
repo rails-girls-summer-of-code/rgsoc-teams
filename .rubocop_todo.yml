@@ -1199,14 +1199,6 @@ Style/StderrPuts:
 Style/StringLiterals:
   Enabled: false
 
-# Offense count: 1
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: single_quotes, double_quotes
-Style/StringLiteralsInInterpolation:
-  Exclude:
-    - 'app/controllers/application_drafts_controller.rb'
-
 # Offense count: 2
 Style/StructInheritance:
   Exclude:
