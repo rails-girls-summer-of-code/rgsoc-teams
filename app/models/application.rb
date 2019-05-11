@@ -50,7 +50,7 @@ class Application < ApplicationRecord
   end
 
   def country
-    @country ||= super.present? ? super : (team || Team.new).students.map(&:country).reject(&:blank?).join(', ')
+    @country ||= super.presence || (team || Team.new).students.map(&:country).reject(&:blank?).join(', ')
   end
 
   def location

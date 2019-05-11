@@ -105,7 +105,7 @@ RSpec.describe NavHelper, type: :helper do
         instance_double(Season,
           application_period?:        false,
           applications_close_at:      2.days.ago.utc,
-          acceptance_notification_at: 1.days.ago.utc
+          acceptance_notification_at: 1.day.ago.utc
         )
       end
 

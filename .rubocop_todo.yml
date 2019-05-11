@@ -679,14 +679,6 @@ Rails/HasManyOrHasOneDependent:
     - 'app/models/season.rb'
     - 'app/models/user.rb'
 
-# Offense count: 1
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: numeric, symbolic
-Rails/HttpStatus:
-  Exclude:
-    - 'spec/controllers/conferences_controller_spec.rb'
-
 # Offense count: 9
 # Configuration parameters: Include.
 # Include: app/models/**/*.rb
@@ -724,18 +716,6 @@ Rails/OutputSafety:
     - 'app/helpers/applications_helper.rb'
     - 'app/helpers/projects_helper.rb'
     - 'app/inputs/character_limited_input.rb'
-
-# Offense count: 1
-# Cop supports --auto-correct.
-Rails/PluralizationGrammar:
-  Exclude:
-    - 'spec/helpers/nav_helper_spec.rb'
-
-# Offense count: 1
-# Cop supports --auto-correct.
-Rails/Presence:
-  Exclude:
-    - 'app/models/application.rb'
 
 # Offense count: 7
 # Configuration parameters: Blacklist.
