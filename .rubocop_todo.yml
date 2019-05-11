@@ -1035,12 +1035,6 @@ Style/Next:
   Exclude:
     - 'lib/tasks/single_run.rake'
 
-# Offense count: 1
-# Cop supports --auto-correct.
-Style/Not:
-  Exclude:
-    - 'app/models/ability.rb'
-
 # Offense count: 14
 # Cop supports --auto-correct.
 # Configuration parameters: Strict.
