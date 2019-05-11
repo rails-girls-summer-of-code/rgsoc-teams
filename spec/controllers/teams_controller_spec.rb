@@ -209,7 +209,7 @@ RSpec.describe TeamsController, type: :controller do
           end
 
           it 'finds an existing user by case-insensitive github_handle' do
-            existing_user = create :user, github_handle: randomize_case.(github_handle)
+            existing_user = create :user, github_handle: randomize_case.call(github_handle)
             expect {
               patch :update, params: { id: team.to_param, team: valid_attributes }
             }.not_to change { User.count }

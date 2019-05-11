@@ -11,7 +11,7 @@ namespace :single_run do
     in_wrong_season = ->(prj) { prj && prj.season.name != '2017' }
 
     ApplicationDraft.in_current_season.includes(project1: :season, project2: :season).each do |draft|
-      if in_wrong_season.(draft.project1)
+      if in_wrong_season.call(draft.project1)
         project = Project.in_current_season.find_by(name: draft.project1.name)
         draft.project1 = project
         draft.save(validate: false)
@@ -22,7 +22,7 @@ namespace :single_run do
         end
       end
 
-      next unless in_wrong_season.(draft.project2)
+      next unless in_wrong_season.call(draft.project2)
       project = Project.in_current_season.find_by(name: draft.project2.name)
       draft.project2 = project
       draft.save(validate: false)

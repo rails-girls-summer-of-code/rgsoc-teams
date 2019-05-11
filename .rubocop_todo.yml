@@ -969,16 +969,6 @@ Style/Lambda:
     - 'spec/controllers/teams_controller_spec.rb'
     - 'spec/models/selection/strictness_spec.rb'
 
-# Offense count: 4
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: call, braces
-Style/LambdaCall:
-  Exclude:
-    - 'lib/tasks/single_run.rake'
-    - 'spec/controllers/roles_controller_spec.rb'
-    - 'spec/controllers/teams_controller_spec.rb'
-
 # Offense count: 1
 Style/MissingRespondToMissing:
   Exclude:

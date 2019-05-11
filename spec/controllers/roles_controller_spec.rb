@@ -58,7 +58,7 @@ RSpec.describe RolesController, type: :controller do
 
       it 'creates a new Role for existing user with case-insensitive github_handle' do
         existing   = create(:user)
-        role_attrs = valid_attributes.merge(github_handle: randomize_case.(existing.github_handle))
+        role_attrs = valid_attributes.merge(github_handle: randomize_case.call(existing.github_handle))
 
         expect {
           expect { post :create, params: params.merge(role: role_attrs) }.to change(Role, :count).by(1)
