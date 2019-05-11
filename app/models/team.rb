@@ -68,7 +68,7 @@ class Team < ApplicationRecord
   end
 
   def application
-    @application ||= applications.where(season_id: Season.current.id).first
+    @application ||= applications.find_by(season_id: Season.current.id)
   end
 
   # TeamPerformance for Supervisor's Dashboard

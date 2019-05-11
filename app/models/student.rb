@@ -39,8 +39,7 @@ class Student < SimpleDelegator
     @current_team ||= Team.joins(:roles)
       .references(:roles)
       .in_current_season
-      .where('roles.user_id' => user.id, 'roles.name' => 'student')
-      .first
+      .find_by('roles.user_id' => user.id, 'roles.name' => 'student')
   end
 
   def current_drafts
