@@ -1084,15 +1084,6 @@ Style/PerlBackrefs:
   Exclude:
     - 'lib/feed/discovery.rb'
 
-# Offense count: 3
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: compact, exploded
-Style/RaiseArgs:
-  Exclude:
-    - 'app/models/dev_utils/season_phase_switcher.rb'
-    - 'app/models/rating_criterium.rb'
-
 # Offense count: 4
 # Cop supports --auto-correct.
 Style/RedundantBegin:

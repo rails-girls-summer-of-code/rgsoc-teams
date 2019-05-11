@@ -8,11 +8,11 @@ class RatingCriterium
 
   def initialize(weight, point_names = {})
     if !weight.is_a? Numeric || (weight < 0 || weight > 1)
-      raise ArgumentError.new("weight must be a number betweent 0 and 1.")
+      raise ArgumentError, "weight must be a number betweent 0 and 1."
     end
 
     if !point_names.is_a? Hash
-      raise ArgumentError.new("points must be a hash.")
+      raise ArgumentError, "points must be a hash."
     end
 
     @weight = weight
