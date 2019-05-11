@@ -1154,16 +1154,6 @@ Style/RescueStandardError:
 
 # Offense count: 3
 # Cop supports --auto-correct.
-# Configuration parameters: ConvertCodeThatCanStartToReturnNil, Whitelist.
-# Whitelist: present?, blank?, presence, try, try!
-Style/SafeNavigation:
-  Exclude:
-    - 'app/controllers/application_controller.rb'
-    - 'app/helpers/application_helper.rb'
-    - 'app/models/student_application/student_attribute_proxy.rb'
-
-# Offense count: 3
-# Cop supports --auto-correct.
 # Configuration parameters: AllowIfMethodIsEmpty.
 Style/SingleLineMethods:
   Exclude:

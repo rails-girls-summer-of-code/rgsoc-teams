@@ -131,7 +131,7 @@ module ApplicationHelper
   def status_for(team, member, role_name)
     if role_name == :coach
       role = team.roles.find { |role| role.user == member }
-      if role && role.confirmed?
+      if role&.confirmed?
         content_tag :span, 'Confirmed', class: 'label label-default'
       elsif current_user == member
         link_to 'Confirm', confirm_role_path((role.confirmation_token || 'confirmation-token-missing')), method: :put, class: 'btn btn-sm btn-success'
