@@ -1092,12 +1092,6 @@ Style/PreferredHashMethods:
   Exclude:
     - 'app/controllers/teams_controller.rb'
 
-# Offense count: 2
-# Cop supports --auto-correct.
-Style/Proc:
-  Exclude:
-    - 'app/helpers/application_drafts_helper.rb'
-
 # Offense count: 3
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle.
