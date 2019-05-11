@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
 class Team < ApplicationRecord
-  include ProfilesHelper, HasSeason
+  include HasSeason
+  include ProfilesHelper
 
   KINDS = %w(full_time part_time)
 

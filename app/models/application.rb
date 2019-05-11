@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
 class Application < ApplicationRecord
-  include HasSeason, Rateable
+  include Rateable
+  include HasSeason
 
   PROJECT_VISIBILITY_WEIGHT = ENV['PROJECT_VISIBILITY_WEIGHT'] || 2
   COACHING_COMPANY_WEIGHT = ENV['COACHING_COMPANY_WEIGHT'] || 2

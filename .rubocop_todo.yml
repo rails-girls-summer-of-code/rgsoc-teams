@@ -991,15 +991,6 @@ Style/MissingRespondToMissing:
     - 'app/services/exporters/base.rb'
 
 # Offense count: 2
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: separated, grouped
-Style/MixinGrouping:
-  Exclude:
-    - 'app/models/application.rb'
-    - 'app/models/team.rb'
-
-# Offense count: 2
 Style/MixinUsage:
   Exclude:
     - 'bin/setup'
