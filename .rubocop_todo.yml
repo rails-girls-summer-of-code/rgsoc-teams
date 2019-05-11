@@ -1010,16 +1010,6 @@ Style/MixinUsage:
 Style/MutableConstant:
   Enabled: false
 
-# Offense count: 5
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: both, prefix, postfix
-Style/NegatedIf:
-  Exclude:
-    - 'app/models/ability.rb'
-    - 'app/models/rating_criterium.rb'
-    - 'app/models/team_performance.rb'
-
 # Offense count: 86
 # Cop supports --auto-correct.
 # Configuration parameters: Whitelist.
