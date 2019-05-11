@@ -48,7 +48,7 @@ module ApplicationHelper
     content = activity.content
     content = render_markdown(content) if activity.kind == 'mailing'
     content = strip_tags(content || '')
-    content = CGI::unescapeHTML(content)
+    content = CGI.unescapeHTML(content)
     content = sanitize(content, tags: [])
     content = truncate(content, options.merge(omission: '', separator: ' ')) { read_more.html_safe }
     content
