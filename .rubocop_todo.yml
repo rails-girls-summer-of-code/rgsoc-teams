@@ -1134,12 +1134,6 @@ Style/RegexpLiteral:
     - 'spec/mailers/application_form_mailer_spec.rb'
     - 'spec/requests/projects_spec.rb'
 
-# Offense count: 1
-# Cop supports --auto-correct.
-Style/RescueModifier:
-  Exclude:
-    - 'app/models/user.rb'
-
 # Offense count: 6
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle.

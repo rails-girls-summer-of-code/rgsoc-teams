@@ -222,7 +222,11 @@ class User < ApplicationRecord
   end
 
   def complete_from_github
-    attrs = Github::User.new(github_handle).attrs rescue {}
+    attrs = begin
+              Github::User.new(github_handle).attrs
+            rescue StandardError
+              {}
+            end
     attrs[:name] = github_handle if attrs[:name].blank?
     attrs = attrs.select { |key, value| send(key).blank? && value.present? }
     assign_attributes(attrs)
