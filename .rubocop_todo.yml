@@ -1017,14 +1017,6 @@ Style/MutableConstant:
 Style/NestedParenthesizedCalls:
   Enabled: false
 
-# Offense count: 2
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, MinBodyLength.
-# SupportedStyles: skip_modifier_ifs, always
-Style/Next:
-  Exclude:
-    - 'lib/tasks/single_run.rake'
-
 # Offense count: 14
 # Cop supports --auto-correct.
 # Configuration parameters: Strict.

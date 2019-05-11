@@ -22,15 +22,14 @@ namespace :single_run do
         end
       end
 
-      if in_wrong_season.(draft.project2)
-        project = Project.in_current_season.find_by(name: draft.project2.name)
-        draft.project2 = project
-        draft.save(validate: false)
+      next unless in_wrong_season.(draft.project2)
+      project = Project.in_current_season.find_by(name: draft.project2.name)
+      draft.project2 = project
+      draft.save(validate: false)
 
-        if app = draft.application
-          app.application_data["project2_id"] = project.id.to_s
-          app.save(validate: false)
-        end
+      if app = draft.application
+        app.application_data["project2_id"] = project.id.to_s
+        app.save(validate: false)
       end
     end
   end
@@ -58,11 +57,10 @@ namespace :single_run do
     Application.rateable.each do |application|
       fav1 = application.application_data['mentor_fav_project1']
       fav2 = application.application_data['mentor_fav_project2']
-      if [fav1, fav2].include?('false')
-        application.application_data.delete('mentor_fav_project1') if fav1 == 'false'
-        application.application_data.delete('mentor_fav_project2') if fav2 == 'false'
-        application.save
-      end
+      next unless [fav1, fav2].include?('false')
+      application.application_data.delete('mentor_fav_project1') if fav1 == 'false'
+      application.application_data.delete('mentor_fav_project2') if fav2 == 'false'
+      application.save
     end
   end
 end
