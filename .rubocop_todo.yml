@@ -1257,12 +1257,6 @@ Style/TrailingCommaInHashLiteral:
     - 'spec/lib/feed_spec.rb'
     - 'spec/lib/selection/service/flag_applications_spec.rb'
 
-# Offense count: 1
-# Cop supports --auto-correct.
-Style/UnlessElse:
-  Exclude:
-    - 'app/controllers/teams_controller.rb'
-
 # Offense count: 11
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, MinSize, WordRegex.
