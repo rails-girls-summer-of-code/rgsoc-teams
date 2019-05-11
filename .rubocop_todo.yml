@@ -1263,12 +1263,6 @@ Style/UnlessElse:
   Exclude:
     - 'app/controllers/teams_controller.rb'
 
-# Offense count: 1
-# Cop supports --auto-correct.
-Style/UnneededInterpolation:
-  Exclude:
-    - 'spec/controllers/organizers/projects_controller_spec.rb'
-
 # Offense count: 11
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, MinSize, WordRegex.
