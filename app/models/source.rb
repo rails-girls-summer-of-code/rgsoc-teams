@@ -10,7 +10,7 @@ class Source < ApplicationRecord
   validates :url, presence: true
   validates :kind, presence: true
 
-  scope :for_accepted_teams, ->() { joins(:team).merge(Team.accepted) }
+  scope :for_accepted_teams, -> { joins(:team).merge(Team.accepted) }
 
   def url=(url)
     super(normalize_url(url))

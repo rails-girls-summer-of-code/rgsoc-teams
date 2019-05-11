@@ -880,12 +880,6 @@ Style/DoubleNegation:
     - 'app/models/mentor/application.rb'
     - 'app/models/user.rb'
 
-# Offense count: 1
-# Cop supports --auto-correct.
-Style/EmptyLambdaParameter:
-  Exclude:
-    - 'app/models/source.rb'
-
 # Offense count: 13
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle.
