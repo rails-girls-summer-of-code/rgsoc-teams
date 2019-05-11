@@ -1162,13 +1162,6 @@ Style/SafeNavigation:
     - 'app/helpers/application_helper.rb'
     - 'app/models/student_application/student_attribute_proxy.rb'
 
-# Offense count: 1
-# Cop supports --auto-correct.
-# Configuration parameters: AllowAsExpressionSeparator.
-Style/Semicolon:
-  Exclude:
-    - 'spec/controllers/mentors/comments_controller_spec.rb'
-
 # Offense count: 3
 # Cop supports --auto-correct.
 # Configuration parameters: AllowIfMethodIsEmpty.
