@@ -8,7 +8,7 @@ RSpec.describe Organizers::SeasonsController, type: :controller do
   context 'with admin logged in' do
     include_context 'with admin logged in'
 
-    let(:season) { Season.create name: 2015 }
+    let(:season) { create(:season, name: '2015') }
 
     describe 'GET new' do
       it 'renders the new template' do
@@ -49,7 +49,7 @@ RSpec.describe Organizers::SeasonsController, type: :controller do
       end
 
       context 'with invalid data' do
-        let!(:season) { create :season }
+        let!(:season) { create(:season) }
 
         it 'fails updates and renders the edit template' do
           patch :update, params: { id: season.to_param, season: { name: '' } }

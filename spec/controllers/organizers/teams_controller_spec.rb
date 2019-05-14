@@ -116,24 +116,32 @@ RSpec.describe Organizers::TeamsController, type: :controller do
       end
     end
 
-    describe "PATCH update" do
+    describe 'PATCH update' do
+      subject(:request) { patch(:update, params: params) }
+
       before { sign_in user }
 
-      context "assign conference attendance" do
-        let(:offer) { create(:conference_attendance) }
-        let(:team) { offer.team }
-        let!(:team_params) do
-          build(:team).attributes.merge(conference_attendances_attributes: {
-            '0' => {
-              conference_id: offer.conference.id, orga_comment: "commment"
+      context 'when assigning conference attendances' do
+        let(:conference)            { create(:conference) }
+        let(:team)                  { create(:team) }
+        let(:params)                { { id: team.id, team: team_params } }
+        let(:conference_attendance) { ConferenceAttendance.last }
+        let(:orga_comment)          { 'Some ideas about how and why' }
+        let(:team_params) do
+          {
+            conference_attendances_attributes: {
+              '0' => { conference_id: conference.id, orga_comment: orga_comment }
             }
-          })
+          }
         end
 
-        it 'orga members can assign conference offer for a team' do
-          expect {
-              patch :update, params: { id: team.id, team: team_params }
-            }.to change { team.conference_attendances.count }.by 1
+        it 'adds creates a new conference attendance for the team' do
+          expect { request }.to change(ConferenceAttendance, :count).by(1)
+          expect(conference_attendance).to have_attributes(
+            team:         team,
+            conference:   conference,
+            orga_comment: orga_comment
+          )
         end
       end
     end

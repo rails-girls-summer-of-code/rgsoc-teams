@@ -42,7 +42,7 @@ RSpec.describe Organizers::ProjectsController, type: :controller do
         it "#{action}s and redirect to show" do
           expect {
             put action, params: { id: project.to_param }
-          }.to change { project.reload.aasm_state }.to "#{state}"
+          }.to change { project.reload.aasm_state }.to state.to_s
           expect(response).to redirect_to [:organizers, :projects]
           expect(flash[:notice]).to be_present
         end

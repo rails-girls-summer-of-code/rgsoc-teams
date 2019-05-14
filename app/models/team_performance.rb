@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class TeamPerformance
-# Internal: calculates a Team's performance score for supervisor's dashboard
+  # Internal: calculates a Team's performance score for supervisor's dashboard
 
   def initialize(team)
     @team = team
@@ -33,7 +33,7 @@ class TeamPerformance
 
   def comments_score
     latest_comment = @team.comments.ordered.first
-    if !buffer_days?
+    unless buffer_days?
       if @team.comments.empty?
         @score += 3
       elsif latest_comment.created_at <= Time.now - 5.days
@@ -49,7 +49,7 @@ class TeamPerformance
   end
 
   def activity_score
-    if !buffer_days?
+    unless buffer_days?
       if @team.activities.empty?
         @score += 3
       elsif @team.last_activity.created_at <= Time.now - 5.days

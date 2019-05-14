@@ -119,7 +119,7 @@ module Mentor
       def find(id:, projects:, season: Season.current)
         data = data_for(id: id, choice: 1, projects: projects, season: season) ||
                data_for(id: id, choice: 2, projects: projects, season: season) ||
-               fail(ActiveRecord::RecordNotFound)
+               raise(ActiveRecord::RecordNotFound)
         data.instance_eval(&mentorize)
       end
 

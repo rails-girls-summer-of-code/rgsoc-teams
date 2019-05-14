@@ -81,7 +81,7 @@ GEM
       autoprefixer-rails (>= 5.2.1)
       sassc (>= 2.0.0)
     builder (3.2.3)
-    byebug (10.0.2)
+    byebug (11.0.1)
     camo (0.1.0)
     cancancan (2.3.0)
     capybara (2.18.0)
@@ -227,9 +227,17 @@ GEM
     powerpack (0.1.2)
     pretender (0.3.4)
       actionpack (>= 4.2)
-    pry (0.11.3)
+    pry (0.12.2)
       coderay (~> 1.1.0)
       method_source (~> 0.9.0)
+    pry-byebug (3.7.0)
+      byebug (~> 11.0)
+      pry (~> 0.10)
+    pry-doc (1.0.0)
+      pry (~> 0.11)
+      yard (~> 0.9.11)
+    pry-rails (0.3.9)
+      pry (>= 0.10.4)
     puma (3.11.4)
     rack (2.0.7)
     rack-test (1.1.0)
@@ -390,6 +398,7 @@ GEM
     websocket-extensions (0.1.3)
     xpath (3.0.0)
       nokogiri (~> 1.8)
+    yard (0.9.19)
 
 PLATFORMS
   ruby
@@ -402,7 +411,6 @@ DEPENDENCIES
   bootsnap
   bootstrap-kaminari-views
   bootstrap-sass
-  byebug
   camo
   cancancan
   capybara (~> 2.18)
@@ -424,7 +432,9 @@ DEPENDENCIES
   omniauth-github
   pg
   pretender
-  pry
+  pry-byebug
+  pry-doc
+  pry-rails
   puma
   rails (~> 5.2.3)
   rails-controller-testing

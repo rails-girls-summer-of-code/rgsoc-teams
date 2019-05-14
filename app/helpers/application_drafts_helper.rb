@@ -26,8 +26,8 @@ module ApplicationDraftsHelper
   end
 
   def private_application_data(student, &block)
-    block ||= Proc.new {}
-    header  = Proc.new do
+    block ||= proc {}
+    header  = proc do
       content_tag :h4, "This section is hidden from the rest of your team"
     end
 
