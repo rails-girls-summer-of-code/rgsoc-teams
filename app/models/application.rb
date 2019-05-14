@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
 class Application < ApplicationRecord
-  include HasSeason, Rateable
+  include Rateable
+  include HasSeason
 
   PROJECT_VISIBILITY_WEIGHT = ENV['PROJECT_VISIBILITY_WEIGHT'] || 2
   COACHING_COMPANY_WEIGHT = ENV['COACHING_COMPANY_WEIGHT'] || 2
@@ -49,7 +50,7 @@ class Application < ApplicationRecord
   end
 
   def country
-    @country ||= super.present? ? super : (team || Team.new).students.map(&:country).reject(&:blank?).join(', ')
+    @country ||= super.presence || (team || Team.new).students.map(&:country).reject(&:blank?).join(', ')
   end
 
   def location

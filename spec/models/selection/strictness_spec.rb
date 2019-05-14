@@ -47,7 +47,7 @@ RSpec.describe Selection::Strictness, type: :model do
       # We still want to stub Rating#points, but we need different
       # valus. Return `a` for the first rating, `b` else.
       let(:points) do
-        ->(rating) {
+        lambda { |rating|
           case rating
           when rating1 then 2.0 # reviewer1 for application1
           when rating2 then 6.0 # reviewer1 for application2

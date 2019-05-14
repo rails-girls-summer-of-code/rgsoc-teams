@@ -48,7 +48,7 @@ module ApplicationHelper
     content = activity.content
     content = render_markdown(content) if activity.kind == 'mailing'
     content = strip_tags(content || '')
-    content = CGI::unescapeHTML(content)
+    content = CGI.unescapeHTML(content)
     content = sanitize(content, tags: [])
     content = truncate(content, options.merge(omission: '', separator: ' ')) { read_more.html_safe }
     content
@@ -131,7 +131,7 @@ module ApplicationHelper
   def status_for(team, member, role_name)
     if role_name == :coach
       role = team.roles.find { |role| role.user == member }
-      if role && role.confirmed?
+      if role&.confirmed?
         content_tag :span, 'Confirmed', class: 'label label-default'
       elsif current_user == member
         link_to 'Confirm', confirm_role_path((role.confirmation_token || 'confirmation-token-missing')), method: :put, class: 'btn btn-sm btn-success'
@@ -171,7 +171,7 @@ module ApplicationHelper
   # stolen from: http://railscasts.com/episodes/228-sortable-table-columns?view=asciicast
   def sortable(column, title = nil)
     title ||= column.to_s.titleize
-    direction = (column.to_s == params[:sort] && params[:direction] == 'asc') ? 'desc' : 'asc'
+    direction = column.to_s == params[:sort] && params[:direction] == 'asc' ? 'desc' : 'asc'
     link_to title, params.except('action', 'controller').permit!.merge(sort: column, direction: direction)
   end
 

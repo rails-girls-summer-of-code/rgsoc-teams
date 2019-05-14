@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
 class Team < ApplicationRecord
-  include ProfilesHelper, HasSeason
+  include HasSeason
+  include ProfilesHelper
 
   KINDS = %w(full_time part_time)
 
@@ -41,10 +42,6 @@ class Team < ApplicationRecord
   before_create :set_number
   before_save :set_last_checked, if: :checked
 
-  scope :without_recent_log_update, -> {
-    where.not(id: Activity.where(kind: ['status_update', 'feed_entry']).where("created_at > ?", 26.hours.ago).pluck(:team_id))
-  }
-
   scope :full_time, -> { where(kind: %w(full_time sponsored)) }
   scope :part_time, -> { where(kind: %w(part_time voluntary)) }
   scope :accepted, -> { full_time.or(part_time) }
@@ -71,7 +68,7 @@ class Team < ApplicationRecord
   end
 
   def application
-    @application ||= applications.where(season_id: Season.current.id).first
+    @application ||= applications.find_by(season_id: Season.current.id)
   end
 
   # TeamPerformance for Supervisor's Dashboard

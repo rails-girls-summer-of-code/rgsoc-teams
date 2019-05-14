@@ -16,9 +16,7 @@ class Project < ApplicationRecord
   validates :name, :submitter, :mentor_email, presence: true
 
   scope :not_rejected, -> { where.not(aasm_state: 'rejected') }
-  scope :in_current_season, -> do
-    where(season: Season.transition? ? Season.succ : Season.current)
-  end
+  scope :in_current_season, -> { where(season: Season.transition? ? Season.succ : Season.current) }
 
   before_validation :sanitize_url
   after_create :add_submitter_to_maintainers_list

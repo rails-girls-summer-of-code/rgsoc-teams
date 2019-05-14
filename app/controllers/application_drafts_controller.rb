@@ -1,6 +1,15 @@
 # frozen_string_literal: true
 
 class ApplicationDraftsController < ApplicationController
+  STUDENT_ATTRS = %i[name application_about application_motivation application_gender_identification
+                     application_diversity application_age application_coding_level
+                     application_community_engagement application_giving_back application_language_learning_period
+                     application_learning_history application_skills application_code_background application_goals
+                     application_code_samples application_location application_location_lat application_location_lng
+                     application_minimum_money application_money]
+
+  private_constant :STUDENT_ATTRS
+
   before_action :checktime, only: [:new, :create, :update]
   before_action :sign_in_required
   before_action :valid_user_profile_required, only: [:new, :create, :update]
@@ -29,7 +38,7 @@ class ApplicationDraftsController < ApplicationController
     application_draft.assign_attributes(application_draft_params)
     if application_draft.save
       update_student!
-      notice = "Your application draft was saved. You can access it under »#{view_context.link_to "My application", apply_path}«".html_safe
+      notice = "Your application draft was saved. You can access it under »#{view_context.link_to 'My application', apply_path}«".html_safe
       redirect_to [:edit, application_draft], notice: notice
     else
       render :new
@@ -94,16 +103,7 @@ class ApplicationDraftsController < ApplicationController
 
   def student_params
     if application_draft.as_student? and params[:student]
-      params[:student].fetch(current_user.id.to_s, {}).
-        permit(
-          :name, :application_about, :application_motivation, :application_gender_identification, :application_diversity, :application_age,
-          :application_coding_level, :application_community_engagement, :application_giving_back,
-          :application_language_learning_period,
-          :application_learning_history, :application_skills, :application_code_background, :application_goals,
-          :application_code_samples, :application_location,
-          :application_location_lat, :application_location_lng,
-          :application_minimum_money, :application_money
-      )
+      params[:student].fetch(current_user.id.to_s, {}).permit(*STUDENT_ATTRS)
     else
       {}
     end

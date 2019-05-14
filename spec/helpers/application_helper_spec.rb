@@ -132,7 +132,7 @@ RSpec.describe ApplicationHelper, type: :helper do
 
     it 'should return link_to role based on student' do
       expect(link_to_user_roles(user)).to eq(
-        "<a href=\"/community?role=coach\">Coach</a> at <a href=\"/teams/#{team1.id}\">Team 29-enim (Sinatra)</a>, " +
+        "<a href=\"/community?role=coach\">Coach</a> at <a href=\"/teams/#{team1.id}\">Team 29-enim (Sinatra)</a>, " \
         "<a href=\"/community?role=mentor\">Mentor</a> at <a href=\"/teams/#{team2.id}\">Team 28-enim</a>"
       )
     end

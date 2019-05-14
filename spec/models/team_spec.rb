@@ -370,45 +370,6 @@ RSpec.describe Team, type: :model do
         end
       end
     end
-
-    describe '.without_recent_log_update' do
-      let(:team_without) { create :team }
-
-      let(:team_with_old) do
-        team_with_old = create :team
-        create :status_update, created_at: 2.days.ago, team: team_with_old
-        team_with_old
-      end
-
-      let(:team_with_recent_status_update) do
-        team_with_recent_status_update = create :team
-        create :status_update, created_at: 1.hour.ago, team: team_with_recent_status_update
-        team_with_recent_status_update
-      end
-
-      let(:team_with_recent_feed_entry) do
-        team_with_recent_feed_entry = create :team
-        create :activity, :feed_entry, created_at: 1.hour.ago, team: team_with_recent_feed_entry
-        team_with_recent_feed_entry
-      end
-
-      it 'includes the team without any status updates' do
-        team_without
-        expect(described_class.without_recent_log_update).to include(team_without)
-      end
-
-      it 'includes the team with only old updates' do
-        team_with_old
-        expect(described_class.without_recent_log_update).to include(team_with_old)
-      end
-
-      it 'does not include the teams with recent updates' do
-        team_with_recent_status_update
-        team_with_recent_feed_entry
-        expect(described_class.without_recent_log_update).not_to include(team_with_recent_status_update)
-        expect(described_class.without_recent_log_update).not_to include(team_with_recent_feed_entry)
-      end
-    end
   end
 
   describe 'creating a new team' do

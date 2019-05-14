@@ -48,7 +48,7 @@ class ApplicationController < ActionController::Base
   end
 
   def require_role(role_name)
-    redirect_to '/', alert: "#{role_name.capitalize} required" unless current_user && current_user.roles.includes?(role_name)
+    redirect_to '/', alert: "#{role_name.capitalize} required" unless current_user&.roles&.includes?(role_name)
   end
 
   def login_required

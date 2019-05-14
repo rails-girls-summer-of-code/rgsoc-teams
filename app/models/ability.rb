@@ -65,7 +65,7 @@ class Ability
 
     # FIXME Leave this in until issue #1001 is fixed
     # visibility of email address in user profile
-    can :read_email, User, id: user.id if !user.hide_email?
+    can :read_email, User, id: user.id unless user.hide_email?
     can :read_email, User if user.admin?
     can :read_email, User do |other_user|
       user.confirmed? && (supervises?(other_user, user) || !other_user.hide_email?)
@@ -86,7 +86,7 @@ class Ability
 
     # todo helpdesk team join
     can :join, Team do |team|
-      team.helpdesk_team? and signed_in?(user) and user.confirmed? and not on_team?(user, team)
+      team.helpdesk_team? and signed_in?(user) and user.confirmed? and !on_team?(user, team)
     end
 
     can :crud, Role do |role|

@@ -32,28 +32,6 @@ Layout/AlignParameters:
     - 'spec/models/mentor/application_spec.rb'
     - 'spec/support/shared_examples/rateable.rb'
 
-# Offense count: 2
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyleAlignWith.
-# SupportedStylesAlignWith: either, start_of_block, start_of_line
-Layout/BlockAlignment:
-  Exclude:
-    - 'spec/controllers/organizers/teams_controller_spec.rb'
-    - 'spec/models/ability_spec.rb'
-
-# Offense count: 1
-# Cop supports --auto-correct.
-Layout/ClosingParenthesisIndentation:
-  Exclude:
-    - 'app/controllers/application_drafts_controller.rb'
-
-# Offense count: 2
-# Cop supports --auto-correct.
-Layout/CommentIndentation:
-  Exclude:
-    - 'app/controllers/teams_info_controller.rb'
-    - 'app/models/team_performance.rb'
-
 # Offense count: 20
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle.
@@ -682,15 +660,6 @@ Rails/FilePath:
     - 'config/environments/development.rb'
     - 'spec/rails_helper.rb'
 
-# Offense count: 2
-# Cop supports --auto-correct.
-# Configuration parameters: Include.
-# Include: app/models/**/*.rb
-Rails/FindBy:
-  Exclude:
-    - 'app/models/student.rb'
-    - 'app/models/team.rb'
-
 # Offense count: 6
 # Configuration parameters: Include.
 # Include: app/models/**/*.rb
@@ -700,14 +669,6 @@ Rails/HasManyOrHasOneDependent:
     - 'app/models/project.rb'
     - 'app/models/season.rb'
     - 'app/models/user.rb'
-
-# Offense count: 1
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: numeric, symbolic
-Rails/HttpStatus:
-  Exclude:
-    - 'spec/controllers/conferences_controller_spec.rb'
 
 # Offense count: 9
 # Configuration parameters: Include.
@@ -746,18 +707,6 @@ Rails/OutputSafety:
     - 'app/helpers/applications_helper.rb'
     - 'app/helpers/projects_helper.rb'
     - 'app/inputs/character_limited_input.rb'
-
-# Offense count: 1
-# Cop supports --auto-correct.
-Rails/PluralizationGrammar:
-  Exclude:
-    - 'spec/helpers/nav_helper_spec.rb'
-
-# Offense count: 1
-# Cop supports --auto-correct.
-Rails/Presence:
-  Exclude:
-    - 'app/models/application.rb'
 
 # Offense count: 7
 # Configuration parameters: Blacklist.
@@ -848,12 +797,6 @@ Style/BracesAroundHashParameters:
     - 'spec/models/todo_spec.rb'
     - 'spec/models/user_spec.rb'
 
-# Offense count: 1
-# Cop supports --auto-correct.
-Style/ColonMethodCall:
-  Exclude:
-    - 'app/helpers/application_helper.rb'
-
 # Offense count: 9
 # Cop supports --auto-correct.
 # Configuration parameters: Keywords.
@@ -902,12 +845,6 @@ Style/DoubleNegation:
     - 'app/models/mentor/application.rb'
     - 'app/models/user.rb'
 
-# Offense count: 1
-# Cop supports --auto-correct.
-Style/EmptyLambdaParameter:
-  Exclude:
-    - 'app/models/source.rb'
-
 # Offense count: 13
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle.
@@ -923,12 +860,6 @@ Style/EmptyMethod:
     - 'app/controllers/students/status_updates_controller.rb'
     - 'app/controllers/users_controller.rb'
     - 'db/migrate/20180307150111_add_submitters_as_maintainers.rb'
-
-# Offense count: 1
-# Cop supports --auto-correct.
-Style/EvenOdd:
-  Exclude:
-    - 'app/models/concerns/rateable.rb'
 
 # Offense count: 2
 # Cop supports --auto-correct.
@@ -979,47 +910,10 @@ Style/IfUnlessModifier:
     - 'app/models/rating_criterium.rb'
     - 'lib/redcarpet_camo_renderer.rb'
 
-# Offense count: 5
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: line_count_dependent, lambda, literal
-Style/Lambda:
-  Exclude:
-    - 'app/models/project.rb'
-    - 'app/models/team.rb'
-    - 'spec/controllers/roles_controller_spec.rb'
-    - 'spec/controllers/teams_controller_spec.rb'
-    - 'spec/models/selection/strictness_spec.rb'
-
-# Offense count: 4
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: call, braces
-Style/LambdaCall:
-  Exclude:
-    - 'lib/tasks/single_run.rake'
-    - 'spec/controllers/roles_controller_spec.rb'
-    - 'spec/controllers/teams_controller_spec.rb'
-
-# Offense count: 1
-# Cop supports --auto-correct.
-Style/LineEndConcatenation:
-  Exclude:
-    - 'spec/helpers/application_helper_spec.rb'
-
 # Offense count: 1
 Style/MissingRespondToMissing:
   Exclude:
     - 'app/services/exporters/base.rb'
-
-# Offense count: 2
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: separated, grouped
-Style/MixinGrouping:
-  Exclude:
-    - 'app/models/application.rb'
-    - 'app/models/team.rb'
 
 # Offense count: 2
 Style/MixinUsage:
@@ -1032,36 +926,12 @@ Style/MixinUsage:
 Style/MutableConstant:
   Enabled: false
 
-# Offense count: 5
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: both, prefix, postfix
-Style/NegatedIf:
-  Exclude:
-    - 'app/models/ability.rb'
-    - 'app/models/rating_criterium.rb'
-    - 'app/models/team_performance.rb'
-
 # Offense count: 86
 # Cop supports --auto-correct.
 # Configuration parameters: Whitelist.
 # Whitelist: be, be_a, be_an, be_between, be_falsey, be_kind_of, be_instance_of, be_truthy, be_within, eq, eql, end_with, include, match, raise_error, respond_to, start_with
 Style/NestedParenthesizedCalls:
   Enabled: false
-
-# Offense count: 2
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, MinBodyLength.
-# SupportedStyles: skip_modifier_ifs, always
-Style/Next:
-  Exclude:
-    - 'lib/tasks/single_run.rake'
-
-# Offense count: 1
-# Cop supports --auto-correct.
-Style/Not:
-  Exclude:
-    - 'app/models/ability.rb'
 
 # Offense count: 14
 # Cop supports --auto-correct.
@@ -1080,20 +950,6 @@ Style/NumericPredicate:
     - 'app/models/rating_criterium.rb'
     - 'app/models/team_performance.rb'
 
-# Offense count: 2
-# Cop supports --auto-correct.
-Style/ParallelAssignment:
-  Exclude:
-    - 'app/mailers/project_mailer.rb'
-    - 'spec/models/project_spec.rb'
-
-# Offense count: 1
-# Cop supports --auto-correct.
-# Configuration parameters: AllowSafeAssignment, AllowInMultilineConditions.
-Style/ParenthesesAroundCondition:
-  Exclude:
-    - 'app/controllers/comments_controller.rb'
-
 # Offense count: 66
 # Cop supports --auto-correct.
 # Configuration parameters: PreferredDelimiters.
@@ -1105,29 +961,6 @@ Style/PercentLiteralDelimiters:
 Style/PerlBackrefs:
   Exclude:
     - 'lib/feed/discovery.rb'
-
-# Offense count: 1
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: short, verbose
-Style/PreferredHashMethods:
-  Exclude:
-    - 'app/controllers/teams_controller.rb'
-
-# Offense count: 2
-# Cop supports --auto-correct.
-Style/Proc:
-  Exclude:
-    - 'app/helpers/application_drafts_helper.rb'
-
-# Offense count: 3
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: compact, exploded
-Style/RaiseArgs:
-  Exclude:
-    - 'app/models/dev_utils/season_phase_switcher.rb'
-    - 'app/models/rating_criterium.rb'
 
 # Offense count: 4
 # Cop supports --auto-correct.
@@ -1156,12 +989,6 @@ Style/RegexpLiteral:
     - 'spec/mailers/application_form_mailer_spec.rb'
     - 'spec/requests/projects_spec.rb'
 
-# Offense count: 1
-# Cop supports --auto-correct.
-Style/RescueModifier:
-  Exclude:
-    - 'app/models/user.rb'
-
 # Offense count: 6
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle.
@@ -1173,31 +1000,6 @@ Style/RescueStandardError:
     - 'lib/feed.rb'
     - 'lib/feed/image.rb'
     - 'lib/feed/s3.rb'
-
-# Offense count: 3
-# Cop supports --auto-correct.
-# Configuration parameters: ConvertCodeThatCanStartToReturnNil, Whitelist.
-# Whitelist: present?, blank?, presence, try, try!
-Style/SafeNavigation:
-  Exclude:
-    - 'app/controllers/application_controller.rb'
-    - 'app/helpers/application_helper.rb'
-    - 'app/models/student_application/student_attribute_proxy.rb'
-
-# Offense count: 1
-# Cop supports --auto-correct.
-# Configuration parameters: AllowAsExpressionSeparator.
-Style/Semicolon:
-  Exclude:
-    - 'spec/controllers/mentors/comments_controller_spec.rb'
-
-# Offense count: 1
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: only_raise, only_fail, semantic
-Style/SignalException:
-  Exclude:
-    - 'app/models/mentor/application.rb'
 
 # Offense count: 3
 # Cop supports --auto-correct.
@@ -1220,14 +1022,6 @@ Style/StderrPuts:
 # SupportedStyles: single_quotes, double_quotes
 Style/StringLiterals:
   Enabled: false
-
-# Offense count: 1
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: single_quotes, double_quotes
-Style/StringLiteralsInInterpolation:
-  Exclude:
-    - 'app/controllers/application_drafts_controller.rb'
 
 # Offense count: 2
 Style/StructInheritance:
@@ -1254,15 +1048,6 @@ Style/SymbolProc:
     - 'lib/selection/distance.rb'
     - 'spec/factories/projects.rb'
 
-# Offense count: 2
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, AllowSafeAssignment.
-# SupportedStyles: require_parentheses, require_no_parentheses, require_parentheses_when_complex
-Style/TernaryParentheses:
-  Exclude:
-    - 'app/helpers/application_helper.rb'
-    - 'app/helpers/url_helper.rb'
-
 # Offense count: 11
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyleForMultiline.
@@ -1278,18 +1063,6 @@ Style/TrailingCommaInHashLiteral:
     - 'spec/factories/application.rb'
     - 'spec/lib/feed_spec.rb'
     - 'spec/lib/selection/service/flag_applications_spec.rb'
-
-# Offense count: 1
-# Cop supports --auto-correct.
-Style/UnlessElse:
-  Exclude:
-    - 'app/controllers/teams_controller.rb'
-
-# Offense count: 1
-# Cop supports --auto-correct.
-Style/UnneededInterpolation:
-  Exclude:
-    - 'spec/controllers/organizers/projects_controller_spec.rb'
 
 # Offense count: 11
 # Cop supports --auto-correct.

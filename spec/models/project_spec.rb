@@ -144,7 +144,8 @@ RSpec.describe Project, type: :model do
 
   describe '#to_param' do
     it 'appends the name' do
-      subject.id, subject.name = 4711, 'Hello World'
+      subject.id = 4711
+      subject.name = 'Hello World'
       expect(subject.to_param).to eql '4711-hello-world'
     end
   end

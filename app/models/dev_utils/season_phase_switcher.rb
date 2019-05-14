@@ -11,7 +11,7 @@ module DevUtils
 
     class << self
       def destined(phase)
-        raise ArgumentError.new("#{phase} is not a valid phase") unless phase.in? PHASES
+        raise ArgumentError, "#{phase} is not a valid phase" unless phase.in? PHASES
         send(phase)
       end
 

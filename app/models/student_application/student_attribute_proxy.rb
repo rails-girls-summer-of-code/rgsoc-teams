@@ -10,7 +10,7 @@ module StudentApplication
     end
 
     def attribute(*args)
-      students[index].send(field, *args) if students[index]
+      students[index]&.send(field, *args)
     end
 
     def matches?
