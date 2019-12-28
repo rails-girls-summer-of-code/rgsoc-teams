@@ -26,7 +26,7 @@ class ProjectsController < ApplicationController
 
   def index
     season = Season.find_by(name: params['filter'])
-    @projects = if season && season.started? || !Season.current.transition?
+    @projects = if season&.started? || !Season.current.transition?
                   Project.selected(season: season || Season.current)
                 else
                   Project.in_current_season.not_rejected
