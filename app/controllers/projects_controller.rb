@@ -25,11 +25,11 @@ class ProjectsController < ApplicationController
   end
 
   def index
-    season = Season.find_by(name: params['filter']) || Season.current
-    @projects = if season.current? and !season.active?
-                  Project.in_current_season.not_rejected
+    season = Season.find_by(name: params['filter'])
+    @projects = if season && season.started? || !Season.current.transition?
+                  Project.selected(season: season || Season.current)
                 else
-                  Project.selected(season: season)
+                  Project.in_current_season.not_rejected
                 end
   end
 
