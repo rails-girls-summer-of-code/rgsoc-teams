@@ -135,6 +135,7 @@ class User < ApplicationRecord
     end
 
     def search(search)
+      return all if search.nil?
       q_user_names = User.where("users.name ILIKE ?", "%#{search}%")
       q_team_names = User.with_teams.where("teams.name ILIKE ?", "%#{search}%")
       (q_user_names + q_team_names).uniq
