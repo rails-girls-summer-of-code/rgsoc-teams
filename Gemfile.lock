@@ -202,7 +202,7 @@ GEM
     net-http-pipeline (1.0.1)
     newrelic_rpm (5.1.0.344)
     nio4r (2.3.1)
-    nokogiri (1.10.2)
+    nokogiri (1.10.7)
       mini_portile2 (~> 2.4.0)
     oauth2 (1.4.0)
       faraday (>= 0.8, < 0.13)
