@@ -26,6 +26,18 @@ RSpec.describe CommunityController, type: :controller do
       end
     end
 
+    context 'with filtering' do
+      it 'filters by role' do
+        get :index, params: { role: 'student' }
+        expect(response).to render_template 'index'
+      end
+
+      it 'filters by interest' do
+        get :index, params: { interest: 'pair' }
+        expect(response).to render_template 'index'
+      end
+    end
+
     context 'with user logged in' do
       before(:each) do
         sign_in create(:student)
