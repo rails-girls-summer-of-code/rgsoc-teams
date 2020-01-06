@@ -72,6 +72,12 @@ brew cask install chromedriver
 # Install bundler
 gem install bundler
 
+# Update postgres then start postgres to avoid any conflicts while creating the pg user 
+brew postgresql-upgrade-database
+
+# Start postgres 
+pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log start
+
 # Create database user rgsoc with password rgsoc
 createuser -P -s rgsoc
 # Enter password for new role: rgsoc
