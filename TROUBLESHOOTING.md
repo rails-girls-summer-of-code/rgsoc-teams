@@ -54,3 +54,10 @@ You may run into this problem depending on what version of macOS you have. This 
 Then start the server locally again using: 
 
     rails s -p 3000 
+    
+    
+#### OmniAuth logout 
+
+On occasion if you logout locally, you'll get an error thrown at you when you try and log back in via OmniAuth. This is only occurring locally, and the error completely stops when you bind the port. This can be accomplished by pressing Control+C (to shut down your local instance) and then restarting the instance via: 
+
+    rails s -b 0.0.0.0 -p 3000
