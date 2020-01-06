@@ -44,3 +44,13 @@ when running the tests in `spec/features/` you run into an error like this:
 [chromedriver]: https://sites.google.com/a/chromium.org/chromedriver/
 [chrome]: https://sites.google.com/a/chromium.org/chromedriver/
 [selenium]: https://sites.google.com/a/chromium.org/chromedriver/
+
+#### NSPlaceholderDictionary initialize error 
+
+You may run into this problem depending on what version of macOS you have. This error usually throws after you have just set postgres up and are trying to run the RGSoC app locally. If this does occur, this can be solved by running the following in your console: 
+
+    export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES 
+    
+Then start the server locally again using: 
+
+    rails s -p 3000 
