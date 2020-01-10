@@ -92,4 +92,4 @@ en:
           team:
             attributes:
               roles:
-                too_many_coaches: there cannot be more than 4 coaches on a team.
+                too_many_coaches: there cannot be more than 5 coaches on a team.

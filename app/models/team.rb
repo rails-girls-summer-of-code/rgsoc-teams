@@ -177,7 +177,7 @@ class Team < ApplicationRecord
   end
 
   def limit_number_of_coaches
-    return unless members_with_role('coach').size > 4
+    return unless members_with_role('coach').size > 5
     errors.add(:roles, :too_many_coaches)
   end
 
