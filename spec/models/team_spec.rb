@@ -166,17 +166,17 @@ RSpec.describe Team, type: :model do
       let(:new_user) { create :user }
       let(:coach_attributes) do
         [{ name: 'coach', team_id: team.id, user_id: new_user.id }] + \
-          3.times.map { { name: 'coach', team_id: team.id, user_id: create(:user).id } }
+          4.times.map { { name: 'coach', team_id: team.id, user_id: create(:user).id } }
       end
       let(:new_coach_as_student) { { name: 'student', team_id: team.id, user_id: new_user.id } }
       let(:fifth_new_coach) { { name: 'coach', team_id: team.id, user_id: create(:user).id } }
       let(:remove_coach) { { name: 'coach', team_id: team.id, user_id: create(:user).id, _destroy: true } }
 
       context 'when team has no coaches yet' do
-        it 'allows to add 4 new coaches' do
+        it 'allows to add up to 5 new coaches' do
           expect {
             team.update roles_attributes: coach_attributes
-          }.to change { team.members.count }.by 4
+          }.to change { team.members.count }.by 5
         end
 
         it 'ignores coaches marked for destruction' do
@@ -184,7 +184,7 @@ RSpec.describe Team, type: :model do
           roles_attributes << remove_coach
           expect {
             team.update roles_attributes: roles_attributes
-          }.to change { team.members.count }.by 4
+          }.to change { team.members.count }.by 5
         end
 
         it 'does not allow to add more than 5 new coaches' do
@@ -192,7 +192,7 @@ RSpec.describe Team, type: :model do
           roles_attributes << fifth_new_coach
           team.attributes = { roles_attributes: roles_attributes }
           expect { team.save }.not_to change { team.members.count }
-          expect(team.errors[:roles].first).to eql 'there cannot be more than 4 coaches on a team.'
+          expect(team.errors[:roles].first).to eql 'there cannot be more than 5 coaches on a team.'
         end
 
         it 'does not allow the same coach to fill up both spots' do
@@ -211,14 +211,14 @@ RSpec.describe Team, type: :model do
       end
 
       context 'when team has coaches' do
-        let!(:existing_coaches) { create_list :coach_role, 4, team: team }
+        let!(:existing_coaches) { create_list :coach_role, 5, team: team }
         before { team.reload }
 
         it 'does not allow to add new coaches' do
           roles_attributes = [coach_attributes.first]
           team.attributes = { roles_attributes: roles_attributes }
           expect { team.save }.not_to change { team.members.count }
-          expect(team.errors[:roles].first).to eql 'there cannot be more than 4 coaches on a team.'
+          expect(team.errors[:roles].first).to eql 'there cannot be more than 5 coaches on a team.'
         end
 
         it 'allows to remove existing coach and add new' do
