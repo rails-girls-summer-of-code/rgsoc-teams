@@ -127,7 +127,6 @@ class Team < ApplicationRecord
     User.find(user_id) if user_id
   end
 
-  <%# Fixes issue where coaches leave team, then rejoin then throws a 403 error (fix by Montana Mendy) %>
   def coaches_confirmed?
     coach_roles.all? { |role| role.confirmed? }
   end
