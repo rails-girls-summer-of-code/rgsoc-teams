@@ -58,45 +58,49 @@
   = f.input :company_info, label: 'Company info', hint: 'Where is the office, how much space can you provide, etc.'
   = f.input :bio, label: 'About you', hint: 'You can use basic <a href="http://en.wikipedia.org/wiki/Markdown" target="_blank">Markdown</a> here.'.html_safe
   h3.page-header Communication
-  .checkbox
-    label
-      = f.check_box :opted_in_newsletter
-      | Newsletter Opt In
-    p.help-block
-      | RGSoC Newsletter Opt In Invitation (this is still in progress, but we promise you that when we make a newsletter, it will be worth reading!)
-  .checkbox
-    label
-      = f.check_box :opted_in_announcements
-      | Announcements
-    p.help-block
-      | Important announcements and updates (that’s 5 emails per year: Opening of our Scholarship Applications, Opening of our Open Source Project Submissions, Crowdfunding Campaign Launch, Selected Teams Announcement and RGSoC Kick-off, RGSoC Wrap Up)
-  .checkbox
-    label
-      = f.check_box :opted_in_marketing_announcements
-      | Marketing Incentives
-    p.help-block
-      | Marketing and Communication initiatives (such as the #ThankfulForRGSoC stories and Alumna Interviews)
-  .checkbox
-    label
-      = f.check_box :opted_in_surveys
-      | Surveys
-    p.help-block
-      | Surveys to get feedback about the program and/or for marketing related purposes (i.e., “The number of scholars who are still working in tech and open source projects after RGSoC”)
-  .checkbox
-    label
-      = f.check_box :opted_in_sponsorships
-      | Sponsorship and Coaching Companies ONLY
-    p.help-block
-      | I just want to be notified about sponsorship and coaching companies opportunities related to RGSoC
-  .checkbox
-    label
-      = f.check_box :opted_in_applications_open
-      | Applications are Open Announcement ONLY
-    p.help-block
-      | Opening of our Scholarship Applications announcement
-  h3.page-header I am interested in:
+  
+  If you would like to receive important RGSoC announcements and updates straight to your inbox, <a href="http://eepurl.com/gJ7D4r" target="_blank">sign up to our newsletter.</a>
+  You'll get all the latest program info, including: opening of the OS project submission stage, announcement of when student applications commence, crowdfunding campaign launch, and details of team selection, program kick-off and season wrap-up stages.
 
-  = f.collection_check_boxes :interested_in, User::INTERESTS.to_a, :first, :last, item_wrapper_tag: 'div', item_wrapper_class: 'interested_in'
+/  .checkbox
+    //label
+      //= f.check_box :opted_in_newsletter
+      //| Newsletter Opt In
+    //p.help-block
+      //| RGSoC Newsletter Opt In Invitation (this is still in progress, but we promise you that when we make a newsletter, it will be worth reading!)
+  //.checkbox
+    //label
+      //= f.check_box :opted_in_announcements
+      //| Announcements
+    //p.help-block
+      //| Important announcements and updates (that’s 5 emails per year: Opening of our Scholarship Applications, Opening of our Open Source Project Submissions, Crowdfunding Campaign Launch, Selected Teams Announcement and RGSoC Kick-off, RGSoC Wrap Up)
+  //.checkbox
+    //label
+      //= f.check_box :opted_in_marketing_announcements
+      //| Marketing Incentives
+    //p.help-block
+      //| Marketing and Communication initiatives (such as the #ThankfulForRGSoC stories and Alumna Interviews)
+  //.checkbox
+    //label
+      //= f.check_box :opted_in_surveys
+      //| Surveys
+    //p.help-block
+      //| Surveys to get feedback about the program and/or for marketing related purposes (i.e., “The number of scholars who are still working in tech and open source projects after RGSoC”)
+  //.checkbox
+    //label
+      //= f.check_box :opted_in_sponsorships
+      //| Sponsorship and Coaching Companies ONLY
+    //p.help-block
+      //| I just want to be notified about sponsorship and coaching companies opportunities related to RGSoC
+  //.checkbox
+    //label
+      //= f.check_box :opted_in_applications_open
+      //| Applications are Open Announcement ONLY
+    //p.help-block
+      //| Opening of our Scholarship Applications announcement
+  //h3.page-header I am interested in:
+
+  //= f.collection_check_boxes :interested_in, User::INTERESTS.to_a, :first, :last, item_wrapper_tag: 'div', item_wrapper_class: 'interested_in'
 
   h3.page-header Technologies
 
