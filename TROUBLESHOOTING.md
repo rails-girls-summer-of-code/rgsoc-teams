@@ -49,7 +49,7 @@ when running the tests in `spec/features/` you run into an error like this:
 
 #### NSPlaceholderDictionary initialize error 
 
-You may run into this problem depending on what version of macOS you have. This error usually throws after you have just set postgres up and are trying to run the RGSoC app locally. If this does occur, this can be solved by running the following in your console: 
+You may run into this problem depending on what version of macOS you have (Catalina). This error usually throws after you have just set postgres up and are trying to run the RGSoC app locally. If this does occur, this can be solved by running the following in your console: 
 
     export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES 
     
@@ -57,6 +57,7 @@ Then start the server locally again using:
 
     rails s -p 3000 
     
+Make sure there's not another instance of RGSoC running, if so you can bind to another port, or quit the current instance, in either case you may need to run the initial command again. 
     
 #### OmniAuth logout 
 
