@@ -69,9 +69,9 @@
               = s.link_to_remove 'Remove', class: 'btn btn-default'
       .form-group.form-btn-group
         = f.link_to_add 'Add another source', :sources, class: 'btn btn-primary col-sm-offset-3'
-  - if can?(:update_conference_preferences, @team)
+//  - if can?(:update_conference_preferences, @team)
     = render 'conference_preference_fields', f: f
-  .actions
+//  .actions
     ul.list-inline
       li  = f.submit 'Save', class: 'btn btn-success'
       li = link_to 'Cancel', @team, class: 'btn btn-default'
