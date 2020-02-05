@@ -64,3 +64,5 @@ Make sure there's not another instance of RGSoC running, if so you can bind to a
 On occasion if you logout locally, you'll get an error thrown at you when you try and log back in via OmniAuth. This is only occurring locally, and the error completely stops when you bind the port. This can be accomplished by pressing Control+C (to shut down your local instance) and then restarting the instance via: 
 
     rails s -b 0.0.0.0 -p 3000
+
+This will fix the OmniAuth error locally.
