@@ -1,9 +1,9 @@
 # frozen_string_literal: true
-# rubocop:disable Metrics/AbcSize, Metrics/MethodLength
 
 class Ability
   include CanCan::Ability
 
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def initialize(user)
     user ||= User.new
 
@@ -108,6 +108,7 @@ class Ability
       user.admin? || (preference.team.students.include? user)
     end
   end # initializer
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
   def signed_in?(user)
     user.persisted?
