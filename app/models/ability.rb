@@ -24,7 +24,9 @@ class Ability
     can :resend_confirmation_instruction, User, id: user.id
     can :read_email, User, hide_email: false
     can :create, Project
-    can [:join, :create], Team
+    can [:join, :create], Team do |team|
+      !on_team?(user, team)
+    end
     can :index, Mailing
     can :read, Mailing do |mailing|
       mailing.recipient? user
