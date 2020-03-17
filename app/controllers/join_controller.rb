@@ -16,6 +16,6 @@ class JoinController < ApplicationController
   end
 
   def allow_helpdesk
-    redirect_to root_url unless @team.helpdesk?
+    redirect_to root_url unless @team.helpdesk_team?
   end
 end
