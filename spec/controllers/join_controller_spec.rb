@@ -40,7 +40,7 @@ RSpec.describe JoinController, type: :controller do
     describe "with invalid params" do
       it "redirects to to the previous page" do
         post :create, params: { team_id: team.to_param }
-        expect(response).to redirect_to(root_url)
+        expect(response).to redirect_to(teams_url)
       end
     end
 
