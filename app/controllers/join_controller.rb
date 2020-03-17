@@ -16,8 +16,6 @@ class JoinController < ApplicationController
   end
 
   def allow_helpdesk
-    unless @team.helpdesk_team?
-      redirect_back fallback_location: teams_url, alert: 'You cannot do that right now.'
-    end
+    redirect_back fallback_location: teams_url, alert: 'You cannot do that right now.' unless @team.helpdesk_team?
   end
 end

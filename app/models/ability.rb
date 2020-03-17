@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+# rubocop:disable Metrics/AbcSize, Metrics/MethodLength
 
 class Ability
   include CanCan::Ability

@@ -43,6 +43,5 @@ RSpec.describe JoinController, type: :controller do
         expect(response).to redirect_to(teams_url)
       end
     end
-
   end
 end
