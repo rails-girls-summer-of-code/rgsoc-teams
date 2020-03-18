@@ -1,4 +1,4 @@
-# frozen_string_literal:  true
+# frozen_string_literal: true
 
 class JoinController < ApplicationController
   before_action :set_team
@@ -6,7 +6,7 @@ class JoinController < ApplicationController
 
   def create
     @team.roles.create!(user: current_user, name: 'helpdesk')
-    redirect_to edit_user_url(current_user), flash: { notice: 'You have joined the Helpdesk team. Please make sure your profile is complete. Especially add your IRC handle :)' }
+    redirect_to edit_user_url(current_user), flash: { notice: 'You have just joined the Helpdesk team. Please make sure your profile is complete. Especially add your IRC handle :)' }
   end
 
   private
