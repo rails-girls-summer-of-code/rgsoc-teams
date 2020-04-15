@@ -45,4 +45,3 @@ RSpec.describe JoinController, type: :controller do
     end
   end
 end
-
