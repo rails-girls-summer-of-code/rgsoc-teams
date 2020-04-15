@@ -14,8 +14,8 @@ class JoinController < ApplicationController
   def set_team
     @team = Team.find(params[:team_id])
   end
-
+  
   def allow_helpdesk
-    redirect_back fallback_location: teams_url, alert: 'Only Helpdesk supporters can use this function at this time.' unless @team.helpdesk_team?
+    redirect_back fallback_location: teams_url, alert: 'Sorry, only Helpdesk supporters can use this function.' unless @team.helpdesk_team?
   end
 end
