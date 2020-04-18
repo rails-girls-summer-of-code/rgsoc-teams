@@ -32,6 +32,33 @@ RSpec.describe 'Application show page', type: :feature do
     expect(page).to have_button 'Create Comment'
   end
 
+  it 'lets the mentor create a comment' do
+    login_as user
+
+    visit mentors_application_path(application)
+
+    fill_in 'My Comment', with: 'Test Comment'
+    click_button 'Create Comment'
+
+    expect(page).to have_content 'Test Comment'
+  end
+
+  it 'lets the mentor update a comment' do
+    login_as user
+
+    visit mentors_application_path(application)
+
+    fill_in 'My Comment', with: 'Test Comment'
+    click_button 'Create Comment'
+
+    expect(page).to have_content 'Test Comment'
+
+    fill_in 'My Comment', with: 'Updated Comment'
+    click_button 'Update Comment'
+
+    expect(page).to have_content 'Updated Comment'
+  end
+
   context 'when the project is 2nd choice' do
     let(:application) { create(:application, :in_current_season, :for_project, project2: project, team: team) }
 
