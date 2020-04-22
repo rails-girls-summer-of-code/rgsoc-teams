@@ -74,3 +74,5 @@ RSpec.describe 'Application show page', type: :feature do
     end
   end
 end
+
+# Montana don't forget the string literals      
