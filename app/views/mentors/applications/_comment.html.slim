@@ -1,5 +1,12 @@
+ruby:
+  comment_path = if comment.persisted? then
+                    mentors_comment_path(comment)
+                  else
+                    mentors_comments_path
+                  end
+
 hr(id="#{dom_id comment}")
-= simple_form_for comment, url: mentors_comments_path do |f|
+= simple_form_for comment, url: comment_path do |f|
   .form-inputs.clearfix
     = f.input :commentable_id, as: :hidden, value: comment.commentable_id
     = f.input :text, as: :text, label: 'My Comment', input_html: { rows: 5 }, hint: 'This is a place for you to take notes for yourself about this application. Your comment is only visible to yourself as well as the selection committee and you can update and remove it as you like.'
