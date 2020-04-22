@@ -65,4 +65,4 @@ On occasion if you logout locally, you'll get an error thrown at you when you tr
 
     rails s -b 0.0.0.0 -p 3000
 
-This will fix the OmniAuth error locally.
+This will fix the OmniAuth error locally, and run the teams app successfully. 
