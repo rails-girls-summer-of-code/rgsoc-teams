@@ -329,13 +329,23 @@ RSpec.describe ApplicationDraft, type: :model do
         expect(application).to have_attributes(application_draft: application_draft)
       end
 
-      it 'updates the state to :applied and sends notification email to orga' do
+      it 'updates the state to :applied and sends notification emails to orga and submitters' do
         expect { submit_application }.to change { application_draft.state }.from('draft').to('applied')
 
         submitted_application = application_draft.reload.application
 
         expect(ActionMailer::DeliveryJob).to have_been_enqueued.with(
           'ApplicationFormMailer', 'new_application', 'deliver_now', submitted_application
+        )
+        expect(ActionMailer::DeliveryJob).to have_been_enqueued.with(
+          'ApplicationFormMailer', 'submitted', 'deliver_now',
+          application: submitted_application,
+          student:     application_draft.team.students.first
+        )
+        expect(ActionMailer::DeliveryJob).to have_been_enqueued.with(
+          'ApplicationFormMailer', 'submitted', 'deliver_now',
+          application: submitted_application,
+          student:     application_draft.team.students.second
         )
       end
     end

@@ -174,10 +174,7 @@ class ApplicationDraft < ApplicationRecord
       end
 
       after do
-        # TODO: There was an incident where students were sent the opposite
-        # info with their names on it. This will be off until we can figure out
-        # how this happened and how we can prevent it.
-        notify_orga
+        notify_orga_and_submitters
       end
 
       transitions from: :draft, to: :applied, guard: :ready?
@@ -232,8 +229,7 @@ class ApplicationDraft < ApplicationRecord
   end
 
   def notify_submitters
-    team.students.each do |student|
-      ApplicationFormMailer.submitted(application: application, student: student).deliver_later
-    end
+    ApplicationFormMailer.submitted(application: application, student: team.students.first).deliver_later
+    ApplicationFormMailer.submitted(application: application, student: team.students.second).deliver_later
   end
 end
